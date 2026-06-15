@@ -1,0 +1,155 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$$","$$"], 
+                   ["\\[","\\]"], 
+                   ["\\begin{equation}","\\end{equation}"], 
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="../favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=0.8"/><title>18.5&nbsp;Equality, Ordering, and Hashing</title><link rel="stylesheet" type="text/css" href="scribble.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/><link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/><link rel="stylesheet" type="text/css" href="editor.css" title="default"/><link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/><script type="text/javascript" src="scribble-common.js"></script><script type="text/javascript" src="manual-racket.js"></script></head><body id="scribble-racket-lang-org"><div class="tocset"><div class="tocview"><div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-<wbr></wbr>Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0"><tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr><tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr><tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr><tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr><tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr><tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewselflink" data-pltdoc="x">Data Structures with Analysis</a></td></tr><tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr><tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr><tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr></table></div></div><div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9658;</a></td><td>VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr></table><div class="tocviewsublist" style="display: none;" id="tocview_1"><table cellspacing="0" cellpadding="0"><tr><td align="right">16&nbsp;</td><td><a href="part_dags.html" class="tocviewlink" data-pltdoc="x">Directed Acyclic Graphs</a></td></tr><tr><td align="right">17&nbsp;</td><td><a href="part_graphs.html" class="tocviewlink" data-pltdoc="x">Graphs</a></td></tr><tr><td align="right">18&nbsp;</td><td><a href="part_sets.html" class="tocviewselflink" data-pltdoc="x">Several Variations on Sets</a></td></tr></table></div></div><div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9660;</a></td><td>18&nbsp;</td><td><a href="part_sets.html" class="tocviewlink" data-pltdoc="x">Several Variations on Sets</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_2"><table cellspacing="0" cellpadding="0"><tr><td align="right">18.1&nbsp;</td><td><a href="sets-from-lists.html" class="tocviewlink" data-pltdoc="x">Representing Sets as Lists</a></td></tr><tr><td align="right">18.2&nbsp;</td><td><a href="sets-from-trees.html" class="tocviewlink" data-pltdoc="x">Making Sets Grow on Trees</a></td></tr><tr><td align="right">18.3&nbsp;</td><td><a href="union-find.html" class="tocviewlink" data-pltdoc="x">Union-<wbr></wbr>Find</a></td></tr><tr><td align="right">18.4&nbsp;</td><td><a href="hash-set-kv.html" class="tocviewlink" data-pltdoc="x">Hashes, Sets, and Key-<wbr></wbr>Values</a></td></tr><tr><td align="right">18.5&nbsp;</td><td><a href="orderability.html" class="tocviewselflink" data-pltdoc="x">Equality, Ordering, and Hashing</a></td></tr><tr><td align="right">18.6&nbsp;</td><td><a href="sets-case-study.html" class="tocviewlink" data-pltdoc="x">Sets as a Case Study</a></td></tr></table></div></div><div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_3&quot;);">&#9658;</a></td><td>18.5&nbsp;</td><td><a href="orderability.html" class="tocviewselflink" data-pltdoc="x">Equality, Ordering, and Hashing</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_3"><table cellspacing="0" cellpadding="0"><tr><td align="right">18.5.1&nbsp;</td><td><a href="orderability.html#%28part._hashing-values%29" class="tocviewlink" data-pltdoc="x">Converting Values to Ordered Values</a></td></tr><tr><td align="right">18.5.2&nbsp;</td><td><a href="orderability.html#%28part._hash-in-practice%29" class="tocviewlink" data-pltdoc="x">Hashing in Practice</a></td></tr><tr><td align="right">18.5.3&nbsp;</td><td><a href="orderability.html#%28part._eq-ord%29" class="tocviewlink" data-pltdoc="x">Equality and Ordering</a></td></tr></table></div></div></div><div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"><tr><td><span class="tocsublinknumber">18.5.1<span class="stt">&nbsp;</span></span><a href="orderability.html#%28part._hashing-values%29" class="tocsubseclink" data-pltdoc="x">Converting Values to Ordered Values</a></td></tr><tr><td><span class="tocsublinknumber">18.5.2<span class="stt">&nbsp;</span></span><a href="orderability.html#%28part._hash-in-practice%29" class="tocsubseclink" data-pltdoc="x">Hashing in Practice</a></td></tr><tr><td><span class="tocsublinknumber">18.5.3<span class="stt">&nbsp;</span></span><a href="orderability.html#%28part._eq-ord%29" class="tocsubseclink" data-pltdoc="x">Equality and Ordering</a></td></tr></table></div></div><div class="maincolumn"><div class="main"><div class="navsettop"><span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span><span class="navright">&nbsp;&nbsp;<a href="hash-set-kv.html" title="backward to &quot;18.4 Hashes, Sets, and Key-Values&quot;" data-pltdoc="x" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_sets.html" title="up to &quot;18 Several Variations on Sets&quot;" data-pltdoc="x">up</a>&nbsp;&nbsp;<a href="sets-case-study.html" title="forward to &quot;18.6 Sets as a Case Study&quot;" data-pltdoc="x" rel="next">next &rarr;</a></span>&nbsp;</div><section class="SsectionLevel3" id="section 18.5"><h3 class="heading">18.5<span class="stt">&nbsp;</span><a name="(part._orderability)"></a>Equality, Ordering, and Hashing<span class="button-group"><a href="orderability.html#(part._orderability)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h3><table cellspacing="0" cellpadding="0"><tr><td><p><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="orderability.html#%28part._hashing-values%29" class="toclink" data-pltdoc="x">18.5.1<span class="hspace">&nbsp;</span>Converting Values to Ordered Values</a></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="orderability.html#%28part._hash-in-practice%29" class="toclink" data-pltdoc="x">18.5.2<span class="hspace">&nbsp;</span>Hashing in Practice</a></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="orderability.html#%28part._eq-ord%29" class="toclink" data-pltdoc="x">18.5.3<span class="hspace">&nbsp;</span>Equality and Ordering</a></p></td></tr></table><section class="SsectionLevel4" id="section 18.5.1"><h4 class="heading">18.5.1<span class="stt">&nbsp;</span><a name="(part._hashing-values)"></a><a name="(part._g~c3~b6del-encoding)"></a>Converting Values to Ordered Values<span class="button-group"><a href="orderability.html#(part._hashing-values)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h4><p>In <a href="sets-from-trees.html" data-pltdoc="x">Making Sets Grow on Trees</a>, we noted that a single comparison needs
+to eliminate an entire set of values. With numbers, we were able to
+accomplish that easily: every bigger or smaller number was excluded by
+a comparison. But what if the data in the set are not actually
+numbers? Then we have to convert an arbitrary datum into a datatype that
+permits such comparison. This is known as <span style="font-style: italic">hashing</span>.</p><p>A <span style="font-style: italic">hash function</span> consumes an arbitrary value and produces a comparable
+representation of it (its <span style="font-style: italic">hash</span>)&#8212;<wbr></wbr>most commonly (but not
+strictly necessarily), a number. A hash function must naturally be
+<span style="font-style: italic">deterministic</span>: a fixed value should always yield the same hash
+(otherwise, we might conclude that an element in the set is not
+actually in it, etc.). Particular uses may need additional properties,
+as we discuss in <a href="orderability.html#%28part._eq-ord%29" data-pltdoc="x">Equality and Ordering</a>.</p><p>Let us now consider how one can compute hashes.  If the input datatype
+is a number, it can serve as its own hash. Comparison simply uses
+numeric comparison (e.g., <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">&lt;</code></span>). Then, transitivity of <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">&lt;</code></span>
+ensures that if an element \(A\) is less than another element \(B\),
+then \(A\) is also less than all the other elements bigger than
+\(B\).</p><p>Suppose instead the input is a string. We can of course use the
+principle above for strings: e.g., replacing number inequality with
+string inequality. Strings have a <span style="font-style: italic">lexicographic</span> (or
+&ldquo;alphabetic&rdquo;) ordering that permit them to be treated similar to
+numbers.</p><p>But what if we are handed more complex datatypes?</p><p><div class="SIntrapara">Before we answer that, consider that in practice numbers are more
+efficient to compare than strings (since comparing two numbers is very
+nearly constant time). Thus, although we could use strings directly,
+it may be convenient to find a numeric representation of
+strings. We convert each character of the string
+into a number, e.g., using its
+<a href="https://en.wikipedia.org/wiki/Code_point">code point</a>.
+Based on that, here are two different hash functions:
+</div><div class="SIntrapara"><ol><li><p><div class="SIntrapara">Consider a list of primes as long as the string. Raise each
+prime by the corresponding number, and multiply the result. For
+instance, if the string is represented by the character codes
+<span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">[6, 4, 5]</code></span> (the first character has code <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">6</code></span>, the second
+one <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">4</code></span>, and the third <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">5</code></span>), we get the hash
+</div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span data-label="Pyret" class="sourceLangLabel"></span><div class="sourceCode"><pre data-lang="pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">num-expt(2, 6) * num-expt(3, 4) * num-expt(5, 5)</code></pre></div></div></p></div><div class="SIntrapara">or <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">16200000</code></span>.</div></p></li><li><p><div class="SIntrapara">Simply add together all the character codes. For the above
+example, this would correspond to the has
+</div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span data-label="Pyret" class="sourceLangLabel"></span><div class="sourceCode"><pre data-lang="pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">6 + 4 + 5</code></pre></div></div></p></div><div class="SIntrapara">or <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">15</code></span>.</div></p></li></ol></div><div class="SIntrapara">The first representation is <span style="font-style: italic">invertible</span>, using the
+<a href="http://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic">Fundamental Theorem of Arithmetic</a>:
+given the resulting number, we can reconstruct the input unambiguously
+(i.e., <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">16200000</code></span> can only map to the input above, and none other).
+This is also known as the <span style="font-style: italic">G&#246;del encoding</span>. This is
+computationally expensive.
+The second encoding is, of course, not invertible (e.g., simply
+permute the characters and, by commutativity, the sum will be the
+same), but computationally much cheaper. It is also easy to implement:
+</div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span data-label="Pyret" class="sourceLangLabel"></span><div class="sourceCode"><pre data-lang="pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">fun hash-of(s :: String):
+  fold({(a :: Number, b :: Number): a + b},
+    0,
+    string-to-code-points(s))
+end
+
+check:
+  hash-of("Hello") is 500
+  hash-of("World!") is 553
+  hash-of("&#127988;&#8205;&#9760;&#65039;") is 195692
+end</code></pre></div></div></p></div></p><p>Now let us consider more general datatypes. The principle of hashing
+will be similar. If we have a datatype with several variants, we can
+order the variants lexicographically, and use a numeric tag to
+represent the variants, and recursively encode the datum and the
+variant tag. For each field of a record, we need an ordering of the
+fields&#8212;<wbr></wbr>the lexicographic ordering of the field names suffices&#8212;<wbr></wbr>and
+must hash their contents recursively; having done so, we get in effect
+a string of numbers, which we have shown how to handle.</p><p><div class="SIntrapara">The critical thing to remember is that we don&#8217;t actually need a
+<span class="emph">meaningful</span> operation.<span class="refelem"><span class="refcolumn"><span class="refcontent">Observe that G&#246;del encodings
+are not &ldquo;meaningful&rdquo;, either.</span></span></span>  We don&#8217;t actually care if a hash
+function concludes that the hash of <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">4</code></span> is less than the hash of
+<span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">3</code></span>! All we need is a function that is
+</div><div class="SIntrapara"><ul><li><p><span class="emph">non-trivial</span>: not everything should be equal; and</p></li><li><p><span class="emph">deterministic</span>: every time we ask for a hash, we should get
+the same answer.</p></li></ul></div></p><blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Why do we care about these two properties? Think about what would could go
+wrong if each one was violated.</p></blockquote></blockquote></section><section class="SsectionLevel4" id="section 18.5.2"><h4 class="heading">18.5.2<span class="stt">&nbsp;</span><a name="(part._hash-in-practice)"></a>Hashing in Practice<span class="button-group"><a href="orderability.html#(part._hash-in-practice)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h4><p>In practice, programmers do not want hash functions to do what we have
+described above. While G&#246;del encoding is extremely expensive, even
+computing <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">hash-of</code></span> takes time linear in the size of a string,
+which can get quite expensive if strings are large or we compute
+hashes often or both.</p><p>Instead, many programming languages do something very pragmatic. They
+need a value that can be compared for equality and ordering
+[<a href="orderability.html#%28part._eq-ord%29" data-pltdoc="x">Equality and Ordering</a>]. Integers, we&#8217;ve already seen, already fit this
+bill very nicely. But how to obtain an integer out of <span class="emph">arbitrary</span>
+values, even datatype instances, quickly?</p><p>Simple: <span class="emph">They just use the memory address of the datum.</span> Every
+value has a memory address, and the language can obtain it in constant
+time by looking up the directory. Granted, these values may be
+allocated anywhere with respect to each other, but that&#8217;s okay&#8212;<wbr></wbr>we
+only want consistency, not &ldquo;meaningfulness&rdquo;.</p><p>In practice, however, things are not quite so simple.  For instance,
+suppose we want two structurally equivalent values to have the same
+hash. If they are allocated in different addresses, they will hash
+differently. Therefore, many languages that use such a strategy also
+allow programmers to write their own hashing functions, often to work
+in conjunction with this built-in notion of hashing. These end up
+looking not too different from the hashing strategies we described
+above. Therefore, some of that complexity is inescapable, especially
+if a programmer wants structural rather than reference
+equality&#8212;<wbr></wbr>which they very often do.</p><p>In the rest of this material, we will therefore continue with the
+simple hash function above, for multiple reasons. First, it is
+sufficient to illustrate how hashing works. Second, in practice, when
+built-in hashing does not suffice, we do write (more complex versions
+of) functions like the above. And finally, because it&rsquo;s all laid bare,
+it&rsquo;s easy for us to experiment with.</p></section><section class="SsectionLevel4" id="section 18.5.3"><h4 class="heading">18.5.3<span class="stt">&nbsp;</span><a name="(part._eq-ord)"></a>Equality and Ordering<span class="button-group"><a href="orderability.html#(part._eq-ord)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h4><p>What we&#8217;ve seen [<a href="sets-from-trees.html#%28part._sets-from-balanced-trees%29" data-pltdoc="x">A Fine Balance: Tree Surgery</a>] for the construction of
+balanced binary search trees is that we need some way of putting elements in
+order. In the examples we used numbers because they&#8217;re a very friendly
+datatype: they have several properties that we take for granted. However, not
+all data have these properties.</p><p>The critical property that numbers have is that they are <span style="font-style: italic">orderable</span>. This
+follows because they are <span style="font-style: italic">comparable</span>, and the comparison is
+<span class="emph">ternary</span>: it produces three answers, &ldquo;less than&rdquo;, &ldquo;equal to&rdquo;, and
+&ldquo;greater than&rdquo;.</p><p>However, not all data have this property. What are data that might not have
+these properties? Actually, there are multiple possible properties here: Is
+something orderable? Is something even comparable?</p><p><table cellspacing="0" cellpadding="0"><tr><td><p> </p></td><td><p><span class="hspace">&nbsp;&nbsp;</span></p></td><td><p><span style="font-weight: bold">Comparable</span></p></td><td><p><span class="hspace">&nbsp;&nbsp;</span></p></td><td><p><span style="font-weight: bold">Orderable</span></p></td></tr><tr><td><p>Numbers</p></td><td><p><span class="hspace">&nbsp;&nbsp;</span></p></td><td><p>Yes (but not Roughnums!)</p></td><td><p><span class="hspace">&nbsp;&nbsp;</span></p></td><td><p>Yes</p></td></tr><tr><td><p>Booleans</p></td><td><p><span class="hspace">&nbsp;&nbsp;</span></p></td><td><p>Yes</p></td><td><p><span class="hspace">&nbsp;&nbsp;</span></p></td><td><p>Yes</p></td></tr><tr><td><p>Data instances</p></td><td><p><span class="hspace">&nbsp;&nbsp;</span></p></td><td><p>Yes</p></td><td><p><span class="hspace">&nbsp;&nbsp;</span></p></td><td><p>Not by default</p></td></tr><tr><td><p>Roughnums</p></td><td><p><span class="hspace">&nbsp;&nbsp;</span></p></td><td><p>No</p></td><td><p><span class="hspace">&nbsp;&nbsp;</span></p></td><td><p>Yes</p></td></tr><tr><td><p>Functions</p></td><td><p><span class="hspace">&nbsp;&nbsp;</span></p></td><td><p>Not really</p></td><td><p><span class="hspace">&nbsp;&nbsp;</span></p></td><td><p>No</p></td></tr></table></p><p>So&#8230;life is complicated.</p><p>That means you could potentially misuse a <span class="Smaller">BBST</span> on the wrong kind of
+data. Ideally, we would want to know if we&#8217;re doing this. In Pyret&#8217;s type
+system we chose not to build this in, but in some languages, the type system
+actually lets you capture these properties.</p><p><div class="SIntrapara">In Haskell, for instance, there&#8217;s a mechanism called the type-class; in Java,
+there are interfaces. They aren&#8217;t really the same, but they&#8217;re useful to
+conflate for our purposes. Only things that meet a particular interface or type
+class provide certain operations. For instance, in Haskell, if you want to use
+<span class="stt">==</span> or <span class="stt">/=</span> (not equal), you have to be in the <span class="stt">Eq</span>
+type-class. Thus the comparable datatypes above would be part of
+<span class="stt">Eq</span>. Similarly, there&#8217;s a type-class <span class="stt">Ord</span>, which ensures the
+availability of (and requires the implementation of) operations like <span class="stt">&lt;</span>,
+<span class="stt">&gt;</span>, <span class="stt">&lt;=</span>, and <span class="stt">&gt;=</span>. In Haskell, everything that is <span class="stt">Ord</span>
+must also be <span class="stt">Eq</span>, i.e., <span class="stt">Eq</span> is weaker than <span class="stt">Ord</span> (things can
+be <span class="stt">Eq</span> without being <span class="stt">Ord</span>). Pyret&#8217;s Roughnums contradict that&#8230;but
+Haskell is okay with it. But if you try to compare two functions in Haskell,
+</div><div class="SIntrapara"><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">(\x -&gt; x + 1) &lt; (\x -&gt; x)</span></p></td></tr></table></div><div class="SIntrapara">you get an error like
+</div><div class="SIntrapara"><table cellspacing="0" cellpadding="0" class="SVerbatim"><tr><td><p><span class="stt">* No instance for (Ord (Integer -&gt; Integer))</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="stt">arising from a use of `&lt;'</span></p></td></tr></table></div></p></section></section><div class="navsetbottom"><span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span><span class="navright">&nbsp;&nbsp;<a href="hash-set-kv.html" title="backward to &quot;18.4 Hashes, Sets, and Key-Values&quot;" data-pltdoc="x" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_sets.html" title="up to &quot;18 Several Variations on Sets&quot;" data-pltdoc="x">up</a>&nbsp;&nbsp;<a href="sets-case-study.html" title="forward to &quot;18.6 Sets as a Case Study&quot;" data-pltdoc="x" rel="next">next &rarr;</a></span>&nbsp;</div></div></div><div id="contextindicator">&nbsp;</div></body></html>

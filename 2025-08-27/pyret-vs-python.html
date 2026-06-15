@@ -1,0 +1,116 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$$","$$"], 
+                   ["\\[","\\]"], 
+                   ["\\begin{equation}","\\end{equation}"], 
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="../favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=0.8"/><title>29&nbsp;Pyret vs. Python</title><link rel="stylesheet" type="text/css" href="scribble.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/><link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/><link rel="stylesheet" type="text/css" href="editor.css" title="default"/><link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/><script type="text/javascript" src="scribble-common.js"></script><script type="text/javascript" src="manual-racket.js"></script></head><body id="scribble-racket-lang-org"><div class="tocset"><div class="tocview"><div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-<wbr></wbr>Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0"><tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr><tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr><tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr><tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr><tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr><tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr><tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr><tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr><tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewselflink" data-pltdoc="x">Appendices</a></td></tr></table></div></div><div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9660;</a></td><td>IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr></table><div class="tocviewsublistbottom" style="display: block;" id="tocview_1"><table cellspacing="0" cellpadding="0"><tr><td align="right">28&nbsp;</td><td><a href="p4rs.html" class="tocviewlink" data-pltdoc="x">Pyret for Racketeers and Schemers</a></td></tr><tr><td align="right">29&nbsp;</td><td><a href="pyret-vs-python.html" class="tocviewselflink" data-pltdoc="x">Pyret vs. Python</a></td></tr><tr><td align="right">30&nbsp;</td><td><a href="htdp-vs-dcic.html" class="tocviewlink" data-pltdoc="x">Comparing This Book to Ht<span class="mywbr"> &nbsp;</span>DP</a></td></tr><tr><td align="right">31&nbsp;</td><td><a href="Release_Notes.html" class="tocviewlink" data-pltdoc="x">Release Notes</a></td></tr><tr><td align="right">32&nbsp;</td><td><a href="glossary.html" class="tocviewlink" data-pltdoc="x">Glossary</a></td></tr></table></div></div></div></div><div class="maincolumn"><div class="main"><div class="navsettop"><span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span><span class="navright">&nbsp;&nbsp;<a href="p4rs.html" title="backward to &quot;28 Pyret for Racketeers and Schemers&quot;" data-pltdoc="x" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_appendices.html" title="up to &quot;IX Appendices&quot;" data-pltdoc="x">up</a>&nbsp;&nbsp;<a href="htdp-vs-dcic.html" title="forward to &quot;30 Comparing This Book to HtDP&quot;" data-pltdoc="x" rel="next">next &rarr;</a></span>&nbsp;</div><section class="SsectionLevel2" id="section 29"><h2 class="heading">29<span class="stt">&nbsp;</span><a name="(part._pyret-vs-python)"></a>Pyret vs. Python<span class="button-group"><a href="pyret-vs-python.html#(part._pyret-vs-python)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h2><p>For the curious, we offer a few examples here to justify our frustration with
+Python for early programming.</p><p><table cellspacing="0" cellpadding="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p>Python exposes machine arithmetic by default. Thus, by default,
+<span title="Python" class="sourceCode"><code data-lang="text/x-python" class="sourceCode">0.1 + 0.2</code></span> is not the same as <span title="Python" class="sourceCode"><code data-lang="text/x-python" class="sourceCode">0.3</code></span>. (We hope you&rsquo;re
+not surprised to hear this.) Why this is the case is a
+fascinating subject of study, but we consistently find it a distraction for first-time programmers writing programs with arithmetic.
+And if we handwave the details of floating point aside, are we
+taking our claims of program reliability seriously?</p></td><td><p>Pyret implements exact arithmetic, including rationals, by default. In
+Pyret, <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">0.1 + 0.2</code></span> really is equal to <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">0.3</code></span>. Where a computation must
+return an inexact number, Pyret does it <span class="emph">explicitly</span>: a key requirement in
+a curriculum built on reliability.</p></td></tr></table></p><p><table cellspacing="0" cellpadding="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p>Understanding the difference between creating a variable and updating its value is a key
+learning outcome, along with understanding variables&rsquo; scopes. Python explicitly
+conflates declaration with update, and <a href="https://cs.brown.edu/~sk/Publications/Papers/Published/pmmwplck-python-full-monty/">has a tangled history with scope</a>.</p></td><td><p>Pyret is statically scoped, and goes to great lengths&#8212;<wbr></wbr>e.g., in the
+design of a query language for tables&#8212;<wbr></wbr>to maintain it. There is no ambiguity in
+Pyret&rsquo;s syntax for working with variables.</p></td></tr></table></p><p><table cellspacing="0" cellpadding="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p>Python has a weakly-defined, optional mechanism of annotations that was
+added late in the language&rsquo;s design,
+<a href="https://twitter.com/joepolitz/status/1357751800795832321?s=20">which
+conflates values and types</a>.</p></td><td><p>Drawing on lessons learned from
+<a href="https://cs.brown.edu/~sk/Publications/Papers/Published/ffkwf-mrspidey/">our</a>
+<a href="https://cs.brown.edu/~sk/Publications/Papers/Published/gsk-flow-typing-theory/">several</a>
+<a href="https://cs.brown.edu/~sk/Publications/Papers/Published/pqk-progressive-types/">prior</a>
+<a href="https://cs.brown.edu/~sk/Publications/Papers/Published/pgk-sem-type-fc-member-name/">research</a>
+<a href="https://cs.brown.edu/~sk/Publications/Papers/Published/lpgk-tejas-type-sys-js/">projects</a>
+on adding types to languages after-the-fact,
+Pyret was designed with <span class="emph">typability</span> from the start, with several
+subtle design choices to enable this. Pyret also has support (currently
+dynamic) for refinement-type annotations.</p></td></tr></table></p><p><table cellspacing="0" cellpadding="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p>Python&rsquo;s annotation mechanism has no notion of refinements.</p></td><td><p>To prepare students for modern programming languages with rich type systems, Pyret&rsquo;s
+annotation syntax supports refinements. However, these are checked dynamically, so that
+students do not need to satisfy the vagaries of any particular proof assistant.</p></td></tr></table></p><p><table cellspacing="0" cellpadding="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p>Python has weak built-in support for testing. While it has extensive
+professional libraries to test software, these impose a non-trivial burden on
+learners, as a result of which most introductory curricula do not use them.</p></td><td><p>First, a curriculum that proclaims reliability must put testing at its
+heart. Second, our pedagogy places heavy emphasis on the use of examples, and
+in particular the building-up of abstractions from concrete instances. For both
+these reasons, Pyret has extensive support in the language itself&#8212;<wbr></wbr>not
+through optional, external libraries&#8212;<wbr></wbr>for writing examples and tests, and
+provides direct language support for many of the interesting and tricky issues
+that arise when doing so.</p></td></tr></table></p><p><table cellspacing="0" cellpadding="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p>Modern testing goes well beyond unit-tests. Furthermore,
+property-based testing is a very useful
+<a href="https://cs.brown.edu/~sk/Publications/Papers/Published/wnk-use-rel-prob-pbt/">gateway</a>
+to thinking about formal properties. In Python, this is only available through libraries.</p></td><td><p>Pyret has convenient language features&#8212;<wbr></wbr>such as the use of
+<span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">satisfies</code></span> rather than <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">is</code></span> in tests&#8212;<wbr></wbr>to expose students
+to these ideas in lightweight ways.</p></td></tr></table></p><p><table cellspacing="0" cellpadding="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p>State is ubiquitous in libraries.</p></td><td><p>State is an important but also complicated part of
+programming. Pyret nudges students to program without state while
+still permitting the full range of stateful programming. This comes
+with safeguards both linguistic (e.g., variables are immutable unless
+declared otherwise) and in output (e.g., mutable fields are displayed
+to alert the student that the value may change or may even have
+already changed).</p></td></tr></table></p><p><table cellspacing="0" cellpadding="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p>Equality comparison is simplistic and in line with most other
+professional languages.</p></td><td><p>Equality is in fact subtle, and useful as a pedagogic
+device. Therefore, Pyret has a carefully-designed family of equality
+operators that are not only of practical value but also have pedagogic
+use.</p></td></tr></table></p><p><table cellspacing="0" cellpadding="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p>Images are not values in the language. You can write a program to produce
+an image, but you can&rsquo;t just view it in your programming environment.</p></td><td><p>Images are values. Pyret can print an image just like it can a string or
+a number (and why not?). Images are <span class="emph">fun</span> values, but they aren&rsquo;t
+frivolous: they are especially useful for demystifying and explaining important
+but abstract issues like function composition.</p></td></tr></table></p><p><table cellspacing="0" cellpadding="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p>The language doesn&rsquo;t have a built-in notion of reactive programs.</p></td><td><p>Reactivity is a core concept in the language, and the subject of both
+<a href="https://cs.brown.edu/~sk/Publications/Papers/Published/plpk-reactor-design/">design</a>
+and
+<a href="https://cs.brown.edu/~sk/Publications/Papers/Published/bnpkg-stopify/">implementation</a>
+research.</p></td></tr></table></p><p><table cellspacing="0" cellpadding="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p>Python&rsquo;s error messages are not added with novices as a primary audience.</p></td><td><p>Novices make many errors. They can be especially intimidated by
+error reports, and can feel discouraged about causing errors. Thus,
+Pyret&rsquo;s error messages are the result of nearly a
+<a href="https://cs.brown.edu/~sk/Publications/Papers/Published/mfk-measur-effect-error-msg-novice-sigcse/">decade</a>
+<a href="https://cs.brown.edu/~sk/Publications/Papers/Published/mfk-mind-lang-novice-inter-error-msg/">of</a>
+<a href="https://cs.brown.edu/~sk/Publications/Papers/Published/wk-error-msg-classifier/">research</a>.
+In fact, some educators have created pedagogic techniques that explicitly rely
+on the nature and presentation of information in Pyret&rsquo;s errors.</p></td></tr></table></p><p><table cellspacing="0" cellpadding="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p>Python has begun to suffer from complexity creep that we believe serves professionals at the expense of novices.
+For example, the result of <span class="stt">map</span> in Python is actually a special
+generator value. This can lead to outcomes requiring extra explanation, like <span class="stt">map(str, [1, 2, 3])</span> producing <span class="stt">&lt;map object at 0x1045f4940&gt;</span>.
+Type hints (discussed above) are another example.</p></td><td><p>Since Pyret&rsquo;s target audience is novice programmers programming in the
+style of this book, our primary goal when adding any feature is to preserve the
+early experience and avoid surprises.</p></td></tr></table></p><p><table cellspacing="0" cellpadding="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p>Data definitions are central to computer science, but Python over-relies
+on built-in data structures (especially dictionaries) and makes user-defined
+ones unwieldy to create.</p></td><td><p>Pyret borrows from the rich tradition of languages like Standard ML,
+OCaml, and Haskell to provide algebraic datatypes, whose absence often forces
+programmers to engage in unwieldy (and inefficient) encoding tricks.</p></td></tr></table></p><p><table cellspacing="0" cellpadding="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p>Python has several more rough corners that can lead to unexpected and
+undesirable outcomes. For instance, <span title="Python" class="sourceCode"><code data-lang="text/x-python" class="sourceCode">=</code></span> sometimes introduces new
+variables and sometimes rebinds them. A function where a student forgot to
+return a value doesn&rsquo;t result in an error but silently returns
+<span title="Python" class="sourceCode"><code data-lang="text/x-python" class="sourceCode">None</code></span>. Python has a complicated
+<a href="https://papl.cs.brown.edu/2020/growing-lang.html#%28part._design-space-cond%29">table</a>
+that describes which values are true and which are false. And so on.</p></td><td><p>Pyret is designed from the ground-up to avoid all these problems.</p></td></tr></table></p></section><div class="navsetbottom"><span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span><span class="navright">&nbsp;&nbsp;<a href="p4rs.html" title="backward to &quot;28 Pyret for Racketeers and Schemers&quot;" data-pltdoc="x" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_appendices.html" title="up to &quot;IX Appendices&quot;" data-pltdoc="x">up</a>&nbsp;&nbsp;<a href="htdp-vs-dcic.html" title="forward to &quot;30 Comparing This Book to HtDP&quot;" data-pltdoc="x" rel="next">next &rarr;</a></span>&nbsp;</div></div></div><div id="contextindicator">&nbsp;</div></body></html>

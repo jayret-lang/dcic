@@ -1,0 +1,211 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$$","$$"], 
+                   ["\\[","\\]"], 
+                   ["\\begin{equation}","\\end{equation}"], 
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="../favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=0.8"/><title>21&nbsp;Detecting Cycles</title><link rel="stylesheet" type="text/css" href="scribble.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/><link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/><link rel="stylesheet" type="text/css" href="editor.css" title="default"/><link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/><script type="text/javascript" src="scribble-common.js"></script><script type="text/javascript" src="manual-racket.js"></script></head><body id="scribble-racket-lang-org"><div class="tocset"><div class="tocview"><div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-<wbr></wbr>Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0"><tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr><tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr><tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr><tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr><tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr><tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr><tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewselflink" data-pltdoc="x">Advanced Topics</a></td></tr><tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr><tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr></table></div></div><div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9660;</a></td><td>VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_1"><table cellspacing="0" cellpadding="0"><tr><td align="right">19&nbsp;</td><td><a href="state-in-pyret.html" class="tocviewlink" data-pltdoc="x">State and Equality</a></td></tr><tr><td align="right">20&nbsp;</td><td><a href="rec-from-mut.html" class="tocviewlink" data-pltdoc="x">Recursion and Cycles from Mutation</a></td></tr><tr><td align="right">21&nbsp;</td><td><a href="cycle-detection.html" class="tocviewselflink" data-pltdoc="x">Detecting Cycles</a></td></tr><tr><td align="right">22&nbsp;</td><td><a href="avoid-recomp.html" class="tocviewlink" data-pltdoc="x">Avoiding Recomputation by Remembering Answers</a></td></tr><tr><td align="right">23&nbsp;</td><td><a href="partial-domains.html" class="tocviewlink" data-pltdoc="x">Partial Domains</a></td></tr><tr><td align="right">24&nbsp;</td><td><a href="staging.html" class="tocviewlink" data-pltdoc="x">Staging</a></td></tr><tr><td align="right">25&nbsp;</td><td><a href="factoring-numbers.html" class="tocviewlink" data-pltdoc="x">Factoring Numbers</a></td></tr><tr><td align="right">26&nbsp;</td><td><a href="deconstructing-loops.html" class="tocviewlink" data-pltdoc="x">Deconstructing Loops</a></td></tr></table></div></div><div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9658;</a></td><td>21&nbsp;</td><td><a href="cycle-detection.html" class="tocviewselflink" data-pltdoc="x">Detecting Cycles</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_2"><table cellspacing="0" cellpadding="0"><tr><td align="right">21.1&nbsp;</td><td><a href="cycle-detection.html#%28part._.A_.Running_.Example%29" class="tocviewlink" data-pltdoc="x">A Running Example</a></td></tr><tr><td align="right">21.2&nbsp;</td><td><a href="cycle-detection.html#%28part._.Types%29" class="tocviewlink" data-pltdoc="x">Types</a></td></tr><tr><td align="right">21.3&nbsp;</td><td><a href="cycle-detection.html#%28part._.A_.First_.Checker%29" class="tocviewlink" data-pltdoc="x">A First Checker</a></td></tr><tr><td align="right">21.4&nbsp;</td><td><a href="cycle-detection.html#%28part._cyc-det-comp%29" class="tocviewlink" data-pltdoc="x">Complexity</a></td></tr><tr><td align="right">21.5&nbsp;</td><td><a href="cycle-detection.html#%28part._.A_.Fabulous_.Improvement%29" class="tocviewlink" data-pltdoc="x">A Fabulous Improvement</a></td></tr><tr><td align="right">21.6&nbsp;</td><td><a href="cycle-detection.html#%28part._.Testing%29" class="tocviewlink" data-pltdoc="x">Testing</a></td></tr></table></div></div></div><div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"><tr><td><span class="tocsublinknumber">21.1<span class="stt">&nbsp;</span></span><a href="cycle-detection.html#%28part._.A_.Running_.Example%29" class="tocsubseclink" data-pltdoc="x">A Running Example</a></td></tr><tr><td><span class="tocsublinknumber">21.2<span class="stt">&nbsp;</span></span><a href="cycle-detection.html#%28part._.Types%29" class="tocsubseclink" data-pltdoc="x">Types</a></td></tr><tr><td><span class="tocsublinknumber">21.3<span class="stt">&nbsp;</span></span><a href="cycle-detection.html#%28part._.A_.First_.Checker%29" class="tocsubseclink" data-pltdoc="x">A First Checker</a></td></tr><tr><td><span class="tocsublinknumber">21.4<span class="stt">&nbsp;</span></span><a href="cycle-detection.html#%28part._cyc-det-comp%29" class="tocsubseclink" data-pltdoc="x">Complexity</a></td></tr><tr><td><span class="tocsublinknumber">21.5<span class="stt">&nbsp;</span></span><a href="cycle-detection.html#%28part._.A_.Fabulous_.Improvement%29" class="tocsubseclink" data-pltdoc="x">A Fabulous Improvement</a></td></tr><tr><td><span class="tocsublinknumber">21.6<span class="stt">&nbsp;</span></span><a href="cycle-detection.html#%28part._.Testing%29" class="tocsubseclink" data-pltdoc="x">Testing</a></td></tr></table></div></div><div class="maincolumn"><div class="main"><div class="navsettop"><span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span><span class="navright">&nbsp;&nbsp;<a href="rec-from-mut.html" title="backward to &quot;20 Recursion and Cycles from Mutation&quot;" data-pltdoc="x" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_advanced.html" title="up to &quot;VII Advanced Topics&quot;" data-pltdoc="x">up</a>&nbsp;&nbsp;<a href="avoid-recomp.html" title="forward to &quot;22 Avoiding Recomputation by Remembering Answers&quot;" data-pltdoc="x" rel="next">next &rarr;</a></span>&nbsp;</div><section class="SsectionLevel2" id="section 21"><h2 class="heading">21<span class="stt">&nbsp;</span><a name="(part._cycle-detection)"></a>Detecting Cycles<span class="button-group"><a href="cycle-detection.html#(part._cycle-detection)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h2><table cellspacing="0" cellpadding="0"><tr><td><p><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="cycle-detection.html#%28part._.A_.Running_.Example%29" class="toclink" data-pltdoc="x">21.1<span class="hspace">&nbsp;</span>A Running Example</a></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="cycle-detection.html#%28part._.Types%29" class="toclink" data-pltdoc="x">21.2<span class="hspace">&nbsp;</span>Types</a></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="cycle-detection.html#%28part._.A_.First_.Checker%29" class="toclink" data-pltdoc="x">21.3<span class="hspace">&nbsp;</span>A First Checker</a></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="cycle-detection.html#%28part._cyc-det-comp%29" class="toclink" data-pltdoc="x">21.4<span class="hspace">&nbsp;</span>Complexity</a></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="cycle-detection.html#%28part._.A_.Fabulous_.Improvement%29" class="toclink" data-pltdoc="x">21.5<span class="hspace">&nbsp;</span>A Fabulous Improvement</a></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="cycle-detection.html#%28part._.Testing%29" class="toclink" data-pltdoc="x">21.6<span class="hspace">&nbsp;</span>Testing</a></p></td></tr></table><section class="SsectionLevel3" id="section 21.1"><h3 class="heading">21.1<span class="stt">&nbsp;</span><a name="(part._.A_.Running_.Example)"></a>A Running Example<span class="button-group"><a href="cycle-detection.html#(part._.A_.Running_.Example)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h3><p><div class="SIntrapara">As you may have noticed, Pyret will check for and print cycles. For instance,
+</div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span data-label="Pyret" class="sourceLangLabel"></span><div class="sourceCode"><pre data-lang="pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">import lists as L
+
+data Pair: p(hd, ref tl) end
+
+p0 = p(0, 0)
+p1 = p(1, 1)
+
+p2 = p(2, 3)
+p3 = p(3, 4)
+p2!{tl: p3}
+p3!{tl: p2}
+
+p4 = p(4, p3)
+p5 = p(5, p4)
+
+p6 = p(6, "dummy")
+p6!{tl: p6}</code></pre></div></div></p></div></p><blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Sketch out the above pairs to make sure you see all the cycles.</p></blockquote></blockquote><p>So we have two that participate in no cyclic behavior (<span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">p0</code></span> and
+<span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">p1</code></span>), two (<span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">p2</code></span> and <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">p3</code></span> that are mutually-cyclic, one
+(<span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">p6</code></span>) that is a self-cycle, and two (<span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">p4</code></span> and <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">p5</code></span>)
+that <span class="emph">lead to</span> a cycle.</p></section><section class="SsectionLevel3" id="section 21.2"><h3 class="heading">21.2<span class="stt">&nbsp;</span><a name="(part._.Types)"></a>Types<span class="button-group"><a href="cycle-detection.html#(part._.Types)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h3><p><div class="SIntrapara">As an aside, imagine we try to type-check this program. We have to
+provide a type for <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">tl</code></span>, but it&#8217;s not clear what this can be:
+sometimes it&#8217;s a <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">Number</code></span>, and other times it&#8217;s a
+<span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">Pair</code></span>. However, we might observe that if our <span class="emph">goal</span> is to
+create cyclic data, then we want <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">tl</code></span> to refer to a <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">Pair</code></span>
+or to nothing at all. That suggests that a useful type is:
+</div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span data-label="Pyret" class="sourceLangLabel"></span><div class="sourceCode"><pre data-lang="pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">data Pair: p(hd :: Number, ref tl :: Option&lt;Pair&gt;) end</code></pre></div></div></p></div><div class="SIntrapara">so that we can write
+</div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span data-label="Pyret" class="sourceLangLabel"></span><div class="sourceCode"><pre data-lang="pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">p0 = p(0, none)
+p1 = p(1, none)
+
+p2 = p(2, none)
+p3 = p(3, none)
+p2!{tl: some(p3)}
+p3!{tl: some(p2)}
+p4 = p(4, some(p3))
+p5 = p(5, some(p4))
+
+p6 = p(6, none)
+p6!{tl: some(p6)}</code></pre></div></div></p></div><div class="SIntrapara">This works, but we have to deal with the <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">Option</code></span>
+everywhere. Since our goal is to focus on cycles, and this would
+become unwieldy, we ignore the typed version from now on.</div></p></section><section class="SsectionLevel3" id="section 21.3"><h3 class="heading">21.3<span class="stt">&nbsp;</span><a name="(part._.A_.First_.Checker)"></a>A First Checker<span class="button-group"><a href="cycle-detection.html#(part._.A_.First_.Checker)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h3><p>Okay, back to the untyped version.</p><p><div class="SIntrapara">So let&#8217;s try to figure out whether, given a Pair, it leads to a cycle. What should the type be?
+</div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span data-label="Pyret" class="sourceLangLabel"></span><div class="sourceCode"><pre data-lang="pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">cc :: Pair -&gt; Boolean</code></pre></div></div></p></div><div class="SIntrapara">where <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">cc</code></span> stands for &ldquo;check cycle&rdquo;.</div></p><p>Critically, it&#8217;s important that this be a total function: i.e., it always terminates.</p><p><div class="SIntrapara">So let&#8217;s write the most obvious solution:
+</div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span data-label="Pyret" class="sourceLangLabel"></span><div class="sourceCode"><pre data-lang="pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">fun cc(e):
+  fun loop(cur, hist):
+    if is-p(cur):
+      if L.member-identical(hist, cur):
+        true
+      else:
+        loop(cur!tl, link(cur, hist))
+      end
+    else:
+      false
+    end
+  end
+  loop(e, empty)
+end</code></pre></div></div></p></div><div class="SIntrapara">First of all, does this even terminate? It could take a while to visit
+all the nodes, but a cycle demands that somewhere, we revisit a node
+we saw before. Since we track that, we can&rsquo;t not terminate. Therefore,
+termination is guaranteed, and the function is total. Indeed, all
+these tests pass:
+</div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span data-label="Pyret" class="sourceLangLabel"></span><div class="sourceCode"><pre data-lang="pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">check:
+  cc(p0) is false
+  cc(p1) is false
+  cc(p2) is true
+  cc(p3) is true
+  cc(p4) is true
+  cc(p5) is true
+  cc(p6) is true
+end</code></pre></div></div></p></div></p><p><div class="SIntrapara">As another aside, observe that we could have written these tests instead like
+</div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span data-label="Pyret" class="sourceLangLabel"></span><div class="sourceCode"><pre data-lang="pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">check:
+  p0 violates cc
+  p2 satisfies cc
+end</code></pre></div></div></p></div><div class="SIntrapara">which would be more concise, but that would also be misleading: it
+would suggest that <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">cc</code></span> is a desirable property, so <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">p2</code></span> is
+a &ldquo;good&rdquo; instance and <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">p0</code></span> is a &ldquo;bad&rdquo; one. However, <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">cc</code></span>
+is not a judgment of quality&#8212;<wbr></wbr>its two responses have equal
+weight&#8212;<wbr></wbr>so this would be confusing to a later reader.</div></p></section><section class="SsectionLevel3" id="section 21.4"><h3 class="heading">21.4<span class="stt">&nbsp;</span><a name="(part._cyc-det-comp)"></a>Complexity<span class="button-group"><a href="cycle-detection.html#(part._cyc-det-comp)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h3><p>Now that we have determined that it terminates, we can ask for its
+time and space complexity. First we have to decide what we are even
+computing the complexity over. If the sequence is finite, then the
+size is clearly the size of the sequence. But if it&#8217;s infinite, we
+don&#8217;t want to traverse the &ldquo;whole thing&rdquo;: rather, we mean its finite
+part (excluding any repetition). So the meaningful measure in either
+case is the number of <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">p</code></span> nodes, i.e., the finite size. It may
+just be that some of these lead back to themselves, so that a na&#239;ve
+traversal will go on forever.</p><p>Okay, so we visit each node once. We keep track of all the nodes just
+in case we double back over, either until we run out of nodes or we
+repeat one. Therefore, the space complexity is linear in the length of
+the sum of the prefix (from the starting node) and the cycle. The time
+complexity is that but also, at each point, we have to check
+membership, so it&#8217;s quadratic in the length of that prefix +
+cycle. So: linear space, quadratic time, in the size of the prefix +
+cycle.</p><p>Now, some degree of linear behavior is unavoidable: we clearly have to
+keep going until we run out or hit a cycle, so for detecting the cycle
+having something be linear in the size of the prefix (get it out of
+the way) + length of the cycle (find the cycle) seems essential. But
+can we improve on this complexity? It seems unlikely: by definition,
+how can we check for a cycle if we don&rsquo;t remember everything we&rsquo;ve
+seen?</p><p>Our first hunch might be, &ldquo;Maybe there&#8217;s another space-time
+tradeoff!&rdquo; But it&#8217;s not so clear here. Our space is linear and time
+quadratic, so we may think we can flip those around. But the time
+can&#8217;t be less than the space! If, for instance, we had linear time and
+quadratic space, that wouldn&#8217;t make sense, because we&#8217;d need at least
+quadratic time just to fill the space. So that&#8217;s not going to work so
+well.</p><p>Instead, the best way to improve seems to have a better lookup data
+structure. We&#8217;d still take linear space&#8212;<wbr></wbr>as we said, linear was
+unavoidable (and we can&rsquo;t just be linear in the size of the cycle,
+because the whole point is we don&rsquo;t even know we have a cycle, much
+less which parts are prefix and which parts cycle)&#8212;<wbr></wbr>and the time
+complexity would hopefully reduce from quadratic to
+linear-times-something-sublinear.</p></section><section class="SsectionLevel3" id="section 21.5"><h3 class="heading">21.5<span class="stt">&nbsp;</span><a name="(part._.A_.Fabulous_.Improvement)"></a>A Fabulous Improvement<span class="button-group"><a href="cycle-detection.html#(part._.A_.Fabulous_.Improvement)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h3><p>It turns out we can do a lot better! It&#8217;s called the tortoise-and-hare
+algorithm.</p><p>We start off with two references into the sequence, one called the
+tortoise and the other the hare.</p><p>At each step, the tortoise tries to advance by one node. If it cannot,
+we&rsquo;ve run out of sequence, and we&#8217;re done. The hare, being a hare and
+not a tortoise, tries to advance by two nodes. Again, if it cannot,
+we&#8217;ve run out of sequence, and we&rsquo;re done. Otherwise both advance, and
+check if they&rsquo;re at the same place. If they are, because they started
+out being at distinct nodes, we&#8217;ve found a cycle! If they are not,
+then we iterate.</p><p>Why does this even work? In the finite case it&rsquo;s clear, because the
+hare will run out of next nodes. We only have to think about the
+infinite case. There, in general, we have this kind of situation:</p><p><img src="cycle-rho.png" alt=""/></p><p>There is some prefix of nodes, followed by a cycle. Now, we don&rsquo;t know
+how long the prefix is, so we don&rsquo;t know how far ahead of the tortoise
+the hare is. Nevertheless, there is some first point at which the
+tortoise enters the cycle. (There must be, because the tortoise always
+makes progress, and the prefix can only be finite.) From this point
+on, we know that on each step, the relative speed of the two animals
+is 1. That means the hare &ldquo;gains&rdquo; 1 on the tortoise every step. We
+can see that eventually, the hare must catch up with the
+tortoise&#8212;<wbr></wbr>or, alternatively, that the tortoise catches up with the
+hare!</p><p>Now let&#8217;s analyze this. The tortoise will get caught by the time it
+has completed one loop of the cycle. Because the tortoise moves one
+step at a time, the total time is the length of the prefix + length of
+the loop. In terms of space, however, we no longer need any history at
+all; we only need the current positions of the tortoise and
+hare. Therefore, our time complexity is linear, but the space
+complexity is now significantly smaller: down to <span class="emph">constant</span>!</p><p><div class="SIntrapara">Here is the code:
+</div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span data-label="Pyret" class="sourceLangLabel"></span><div class="sourceCode"><pre data-lang="pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">fun th(e):
+  fun loop(tt, hr):
+    if tt &lt;=&gt; hr:
+      true
+    else:
+      if is-p(tt) and is-p(hr):
+        new-tt = tt!tl
+        int-hr = hr!tl
+        if is-p(int-hr):
+          new-hr = int-hr!tl
+          loop(new-tt, new-hr)
+        else:
+          false
+        end
+      else:
+        false
+      end
+    end
+  end
+  loop(e, e!tl)
+end</code></pre></div></div></p></div></p></section><section class="SsectionLevel3" id="section 21.6"><h3 class="heading">21.6<span class="stt">&nbsp;</span><a name="(part._.Testing)"></a>Testing<span class="button-group"><a href="cycle-detection.html#(part._.Testing)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h3><p><div class="SIntrapara">While it might be tempting to write tests like
+</div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span data-label="Pyret" class="sourceLangLabel"></span><div class="sourceCode"><pre data-lang="pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">check:
+  cc(p0) is false
+  cc(p2) is true
+end</code></pre></div></div></p></div><div class="SIntrapara">(i.e., the same as before, but with <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">cc</code></span> replaced by <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">ph</code></span>), we should instead write them as follows:
+</div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span data-label="Pyret" class="sourceLangLabel"></span><div class="sourceCode"><pre data-lang="pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">check:
+  cc(p0) is th(p0)
+  cc(p1) is th(p1)
+  cc(p2) is th(p2)
+  cc(p3) is th(p3)
+  cc(p4) is th(p4)
+  cc(p5) is th(p5)
+  cc(p6) is th(p6)
+end</code></pre></div></div></p></div></p><p>This confers two advantages. First, if we change the example, we don&rsquo;t
+have to update two tests, only one. But the much more important reason
+is that we intend for <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">pr</code></span> to be <span class="emph">an optimized version of</span>
+<span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">cc</code></span>. That is, we expect the two to produce the same result. We
+can think of <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">cc</code></span> as our clear, reference implementation. That
+is, this is another instance of <span style="font-style: italic">model-based testing</span>.</p><p>As an aside, this algorithm is not exactly what Pyret does, because we
+need to check for arbitrary graph-ness, not just cycles. It&rsquo;s also
+complicated due to user-defined functions, etc.</p></section></section><div class="navsetbottom"><span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span><span class="navright">&nbsp;&nbsp;<a href="rec-from-mut.html" title="backward to &quot;20 Recursion and Cycles from Mutation&quot;" data-pltdoc="x" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_advanced.html" title="up to &quot;VII Advanced Topics&quot;" data-pltdoc="x">up</a>&nbsp;&nbsp;<a href="avoid-recomp.html" title="forward to &quot;22 Avoiding Recomputation by Remembering Answers&quot;" data-pltdoc="x" rel="next">next &rarr;</a></span>&nbsp;</div></div></div><div id="contextindicator">&nbsp;</div></body></html>

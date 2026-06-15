@@ -1,0 +1,115 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$$","$$"], 
+                   ["\\[","\\]"], 
+                   ["\\begin{equation}","\\end{equation}"], 
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="../favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=0.8"/><title>31&nbsp;Release Notes</title><link rel="stylesheet" type="text/css" href="scribble.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/><link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/><link rel="stylesheet" type="text/css" href="editor.css" title="default"/><link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/><script type="text/javascript" src="scribble-common.js"></script><script type="text/javascript" src="manual-racket.js"></script></head><body id="scribble-racket-lang-org"><div class="tocset"><div class="tocview"><div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-<wbr></wbr>Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0"><tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr><tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr><tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr><tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr><tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr><tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr><tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr><tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr><tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewselflink" data-pltdoc="x">Appendices</a></td></tr></table></div></div><div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9660;</a></td><td>IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_1"><table cellspacing="0" cellpadding="0"><tr><td align="right">28&nbsp;</td><td><a href="p4rs.html" class="tocviewlink" data-pltdoc="x">Pyret for Racketeers and Schemers</a></td></tr><tr><td align="right">29&nbsp;</td><td><a href="pyret-vs-python.html" class="tocviewlink" data-pltdoc="x">Pyret vs. Python</a></td></tr><tr><td align="right">30&nbsp;</td><td><a href="htdp-vs-dcic.html" class="tocviewlink" data-pltdoc="x">Comparing This Book to Ht<span class="mywbr"> &nbsp;</span>DP</a></td></tr><tr><td align="right">31&nbsp;</td><td><a href="Release_Notes.html" class="tocviewselflink" data-pltdoc="x">Release Notes</a></td></tr><tr><td align="right">32&nbsp;</td><td><a href="glossary.html" class="tocviewlink" data-pltdoc="x">Glossary</a></td></tr></table></div></div><div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9658;</a></td><td>31&nbsp;</td><td><a href="Release_Notes.html" class="tocviewselflink" data-pltdoc="x">Release Notes</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_2"><table cellspacing="0" cellpadding="0"><tr><td align="right">31.1&nbsp;</td><td><a href="Release_Notes.html#%28part._.Version_2025-08-27%29" class="tocviewlink" data-pltdoc="x">Version 2025-<wbr></wbr>08-<wbr></wbr>27</a></td></tr><tr><td align="right">31.2&nbsp;</td><td><a href="Release_Notes.html#%28part._.Version_2025-02-09%29" class="tocviewlink" data-pltdoc="x">Version 2025-<wbr></wbr>02-<wbr></wbr>09</a></td></tr><tr><td align="right">31.3&nbsp;</td><td><a href="Release_Notes.html#%28part._.Version_2024-09-03%29" class="tocviewlink" data-pltdoc="x">Version 2024-<wbr></wbr>09-<wbr></wbr>03</a></td></tr><tr><td align="right">31.4&nbsp;</td><td><a href="Release_Notes.html#%28part._.Version_2023-02-21%29" class="tocviewlink" data-pltdoc="x">Version 2023-<wbr></wbr>02-<wbr></wbr>21</a></td></tr><tr><td align="right">31.5&nbsp;</td><td><a href="Release_Notes.html#%28part._.Version_2022-08-28%29" class="tocviewlink" data-pltdoc="x">Version 2022-<wbr></wbr>08-<wbr></wbr>28</a></td></tr><tr><td align="right">31.6&nbsp;</td><td><a href="Release_Notes.html#%28part._.Version_2022-01-25%29" class="tocviewlink" data-pltdoc="x">Version 2022-<wbr></wbr>01-<wbr></wbr>25</a></td></tr><tr><td align="right">31.7&nbsp;</td><td><a href="Release_Notes.html#%28part._.Version_2021-08-21%29" class="tocviewlink" data-pltdoc="x">Version 2021-<wbr></wbr>08-<wbr></wbr>21</a></td></tr></table></div></div></div><div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"><tr><td><span class="tocsublinknumber">31.1<span class="stt">&nbsp;</span></span><a href="Release_Notes.html#%28part._.Version_2025-08-27%29" class="tocsubseclink" data-pltdoc="x">Version 2025-<wbr></wbr>08-<wbr></wbr>27</a></td></tr><tr><td><span class="tocsublinknumber">31.2<span class="stt">&nbsp;</span></span><a href="Release_Notes.html#%28part._.Version_2025-02-09%29" class="tocsubseclink" data-pltdoc="x">Version 2025-<wbr></wbr>02-<wbr></wbr>09</a></td></tr><tr><td><span class="tocsublinknumber">31.3<span class="stt">&nbsp;</span></span><a href="Release_Notes.html#%28part._.Version_2024-09-03%29" class="tocsubseclink" data-pltdoc="x">Version 2024-<wbr></wbr>09-<wbr></wbr>03</a></td></tr><tr><td><span class="tocsublinknumber">31.4<span class="stt">&nbsp;</span></span><a href="Release_Notes.html#%28part._.Version_2023-02-21%29" class="tocsubseclink" data-pltdoc="x">Version 2023-<wbr></wbr>02-<wbr></wbr>21</a></td></tr><tr><td><span class="tocsublinknumber">31.5<span class="stt">&nbsp;</span></span><a href="Release_Notes.html#%28part._.Version_2022-08-28%29" class="tocsubseclink" data-pltdoc="x">Version 2022-<wbr></wbr>08-<wbr></wbr>28</a></td></tr><tr><td><span class="tocsublinknumber">31.6<span class="stt">&nbsp;</span></span><a href="Release_Notes.html#%28part._.Version_2022-01-25%29" class="tocsubseclink" data-pltdoc="x">Version 2022-<wbr></wbr>01-<wbr></wbr>25</a></td></tr><tr><td><span class="tocsublinknumber">31.7<span class="stt">&nbsp;</span></span><a href="Release_Notes.html#%28part._.Version_2021-08-21%29" class="tocsubseclink" data-pltdoc="x">Version 2021-<wbr></wbr>08-<wbr></wbr>21</a></td></tr></table></div></div><div class="maincolumn"><div class="main"><div class="navsettop"><span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span><span class="navright">&nbsp;&nbsp;<a href="htdp-vs-dcic.html" title="backward to &quot;30 Comparing This Book to HtDP&quot;" data-pltdoc="x" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_appendices.html" title="up to &quot;IX Appendices&quot;" data-pltdoc="x">up</a>&nbsp;&nbsp;<a href="glossary.html" title="forward to &quot;32 Glossary&quot;" data-pltdoc="x" rel="next">next &rarr;</a></span>&nbsp;</div><section class="SsectionLevel2" id="section 31"><h2 class="heading">31<span class="stt">&nbsp;</span><a name="(part._.Release_.Notes)"></a>Release Notes<span class="button-group"><a href="Release_Notes.html#(part._.Release_.Notes)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h2><p>This is a summary of updates made with each release of the book
+(excluding typos and other minor fixes).</p><section class="SsectionLevel3" id="section 31.1"><h3 class="heading">31.1<span class="stt">&nbsp;</span><a name="(part._.Version_2025-08-27)"></a>Version 2025-08-27<span class="button-group"><a href="Release_Notes.html#(part._.Version_2025-08-27)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h3><p>This version has several small but potentially significant changes:</p><ul><li><p>The table of events that is used as a running example throughout
+<a href="processing-tables.html" data-pltdoc="x">Processing Tables</a> now has an additional column with a zip
+code. Zip codes raise the idea of data that appear numeric but should
+be treated categorically.</p><p>The version of the table without the zip codes remains intact at the
+URL and Google Sheet ID used in earlier editions of the book (so any prior code will
+continue to work). The code snippets in the 2025-08-27 edition have
+been updated to include the zip code column. They also use references
+to new versions of the Google Sheet and <span class="Smaller">CSV</span> files that include the
+column.</p></li><li><p>The preface includes information on using Pyret within VSCode (as
+an alternative to <span class="Smaller">CPO</span>). The only difference between these two tools
+lies in how tables are imported from external sources. <span class="Smaller">CPO</span> imports
+tables from Google Sheets, whereas VSCode imports tables from <span class="Smaller">CSV</span>
+files (either via URLs or file paths).</p><p>The book uses <span class="Smaller">CPO</span> as the default presentation. When code examples can
+run only in VSCode (specifically, if they import <span class="Smaller">CSV</span> files), a border
+and VSCode logo will surround the code.</p></li><li><p>A section on <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">for each</code></span> iterators in Pyret has been added
+to the end of <a href="intro-python.html" data-pltdoc="x">From Pyret to Python</a>. This placement supports courses
+that wish to make the transition to Python after learning how to
+process lists in Pyret, without disrupting the flow for those who
+switch to Python after covering trees (the originally-envisioned
+flow).</p><p>Courses that make the switch to Python after trees will likely want to
+skip the Pyret <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">for each</code></span> material.</p></li><li><p>There is a new chapter on <a href="python-fileio.html" data-pltdoc="x">File Input and Output in Python</a> at the end of
+the <a href="part_pyret-to-python.html" data-pltdoc="x">From Pyret to Python</a> section of the book.</p><p>As a result of this addition, all subsequent chapter numbers have
+increased by one beginning with those in the <a href="part_state.html" data-pltdoc="x">Programming with State (in Both Pyret and Python)</a>
+section.</p></li><li><p>The two major sections in <a href="part_state.html" data-pltdoc="x">Programming with State (in Both Pyret and Python)</a> have been
+renamed to <a href="mutating-structures.html" data-pltdoc="x">Mutating Structures</a> and <a href="mutating-variables.html" data-pltdoc="x">Mutating Variables</a> to make
+their intents clearer. To keep the rest of the section and subsection
+titles consistent with the "mutation" terminology, we also renamed
+several of them to use the term "mutation" rather than the more
+colloquial "updating" that had been used previously.</p><p>Renaming the sections also changes the URLs that reach these
+subsections. Existing links to those sections will continue to work, as
+URLs into the book include the release tag. However, any readers who plan
+to update links to refer to the 2025-08-27 release should recheck URLs
+into the <a href="part_state.html" data-pltdoc="x">Programming with State (in Both Pyret and Python)</a> section.</p></li></ul></section><section class="SsectionLevel3" id="section 31.2"><h3 class="heading">31.2<span class="stt">&nbsp;</span><a name="(part._.Version_2025-02-09)"></a>Version 2025-02-09<span class="button-group"><a href="Release_Notes.html#(part._.Version_2025-02-09)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h3><p>This version introduces a new context, <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">dcic2024</code></span>, that contains
+all of the table-processing functions that used to be in a shared
+drive file. Instructions on how to select the context are in the
+chapter that introduces tables.</p><p><div class="SIntrapara">Error corrections:
+</div><div class="SIntrapara"><ul><li><p>In <a href="Naming_Values.html#%28part._program-directory%29" data-pltdoc="x">The Program Directory</a>, corrected the description of what Pyret reports when a program
+tries to redefine/give a new value to an existing identifier. The
+previous text had referred to shadowing, rather than a conflicting value.</p></li><li><p>In <a href="processing-tables.html#%28part._missing-data%29" data-pltdoc="x">Dealing with Missing Entries</a>, corrected an erroneous description
+of <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">num-sanitizer</code></span> that previously claimed that it defaulted
+missing values to 0. Added a discussion of why having a default like
+this would be a bad idea.</p></li></ul></div></p><p>In addition, the challenge problem on computing the intersection of
+two lists that is posed at the end of <a href="tables-to-lists.html#%28part._lists-recap%29" data-pltdoc="x">Recap: Summary of List Operations</a> has been
+refined, then revisited after introducing <span title="Pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">lam</code></span> in the next section.</p></section><section class="SsectionLevel3" id="section 31.3"><h3 class="heading">31.3<span class="stt">&nbsp;</span><a name="(part._.Version_2024-09-03)"></a>Version 2024-09-03<span class="button-group"><a href="Release_Notes.html#(part._.Version_2024-09-03)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h3><p>This version fixes several small issues. There is minor reorganization
+that improves the structure of sections. It also includes links to
+several interesting related content from the Web that advanced
+students will find enriching.</p></section><section class="SsectionLevel3" id="section 31.4"><h3 class="heading">31.4<span class="stt">&nbsp;</span><a name="(part._.Version_2023-02-21)"></a>Version 2023-02-21<span class="button-group"><a href="Release_Notes.html#(part._.Version_2023-02-21)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h3><p><div class="SIntrapara">This version has a sweeping set of changes:
+</div><div class="SIntrapara"><ul><li><p>The book has been broken down into a collection of booklets, to
+give it a clearer structure and organization. See <a href="booklet_intro.html#%28part._book-org%29" data-pltdoc="x">Organization of the Material</a>
+for details.</p></li><li><p>Several huge chapters in the earlier version have been broken
+down into smaller chapters and split across booklets.</p></li><li><p>The <a href="booklet_intro-to-programming.html" data-pltdoc="x">Introduction to Programming</a> material has been
+substantially revised and expanded.</p></li><li><p>The ordering of materials has changed. The material on
+<a href="booklet_algo-analysis.html" data-pltdoc="x">Algorithm Analysis</a>
+has been moved to <span class="emph">after</span> the Python material.</p></li><li><p>The <a href="booklet_pyret-to-python.html" data-pltdoc="x">From Pyret to Python</a> transition has been
+improved substantially.</p></li><li><p>There is now a chapter on using Pandas that builds off the
+corresponding Pyret example on tables.</p></li><li><p>Python dictionaries have moved into
+<a href="booklet_pyret-to-python.html" data-pltdoc="x">From Pyret to Python</a>.
+Even though we don&rsquo;t cover Pyret&rsquo;s dictionaries,
+having the dictionaries material come before state is a more natural
+flow with regards to students learning Python.
+We then develop the implementation of dictionaries using state in
+<a href="hash-set-kv.html" data-pltdoc="x">Hashes, Sets, and Key-Values</a>.</p></li><li><p>There is now a whole new <span class="emph">unified</span> approach to
+<a href="booklet_programming-with-state.html" data-pltdoc="x">Programming With State</a> that shows the Pyret and
+Python versions side-by-side. Seeing this material in two different
+languages helps focus on similarities and differences and can improve
+transfer between languages.</p></li><li><p>Material that depends on algorithm analysis has now been
+separated from material that does not. Furthermore, in keeping with
+the book&rsquo;s theme, the focus is (again) on data structures. The result,
+in <a href="booklet_data-with-analysis.html" data-pltdoc="x">Data Structures with Analysis</a>, refactors a lot of prior
+material to present it much more cleanly.</p></li><li><p>Some material has further been refactored into
+<a href="booklet_advanced.html" data-pltdoc="x">Advanced Topics</a>.
+In addition, there are several more new advanced goodies!</p></li></ul></div></p></section><section class="SsectionLevel3" id="section 31.5"><h3 class="heading">31.5<span class="stt">&nbsp;</span><a name="(part._.Version_2022-08-28)"></a>Version 2022-08-28<span class="button-group"><a href="Release_Notes.html#(part._.Version_2022-08-28)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h3><p>Besides numerous small improvements, we added some new bonus material.</p></section><section class="SsectionLevel3" id="section 31.6"><h3 class="heading">31.6<span class="stt">&nbsp;</span><a name="(part._.Version_2022-01-25)"></a>Version 2022-01-25<span class="button-group"><a href="Release_Notes.html#(part._.Version_2022-01-25)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h3><ul><li><p>Consistently renamed the definitions and interactions <span class="emph">window</span> to the
+definitions and interactions <span class="emph">pane</span>.</p></li><li><p>Moved the material on working with variables out of the intro to
+Python section and into the Programming with State section. Mutation
+of structured data moved before variable mutation within the
+Programming with State section.</p></li><li><p>Added a comparison to <span class="emph">How to Design Programs</span>.</p></li><li><p>The include line for the DCIC libraries at this version is</p><p><div class="sourceCodeWrapper"><span data-label="Pyret" class="sourceLangLabel"></span><div class="sourceCode"><pre data-lang="pyret" class="sourceCode"><code data-lang="pyret" class="sourceCode">include shared-gdrive(
+  "dcic-2021",
+  "1wyQZj_L0qqV9Ekgr9au6RX2iqt2Ga8Ep")</code></pre></div></div></p></li></ul></section><section class="SsectionLevel3" id="section 31.7"><h3 class="heading">31.7<span class="stt">&nbsp;</span><a name="(part._.Version_2021-08-21)"></a>Version 2021-08-21<span class="button-group"><a href="Release_Notes.html#(part._.Version_2021-08-21)" class="heading-anchor" title="Link to here">🔗</a><span style="visibility: hidden"> </span></span></h3><p>The original release! Based on the prior book
+<span class="emph">Programming and Programming Languages</span>.</p></section></section><div class="navsetbottom"><span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span><span class="navright">&nbsp;&nbsp;<a href="htdp-vs-dcic.html" title="backward to &quot;30 Comparing This Book to HtDP&quot;" data-pltdoc="x" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_appendices.html" title="up to &quot;IX Appendices&quot;" data-pltdoc="x">up</a>&nbsp;&nbsp;<a href="glossary.html" title="forward to &quot;32 Glossary&quot;" data-pltdoc="x" rel="next">next &rarr;</a></span>&nbsp;</div></div></div><div id="contextindicator">&nbsp;</div></body></html>

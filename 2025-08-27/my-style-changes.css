@@ -1,0 +1,340 @@
+@media print {
+  .tocset {
+    display: none;
+  }
+  .maincolumn {
+    width: 43em;
+  }
+}
+
+
+/* Colors from palette "2" by Atomic Cocktail
+   http://www.colourlovers.com/palette/3019365/2 */
+
+body { background-color: #FFFCF2; }
+
+.tocview {
+  background-color: #B5DAD2;
+}
+.tocset { background-color: #B5DAD2; }
+
+.tocsub { background-color: #B5DAD2; }
+
+.warning { background-color: #FAD44F; }
+
+/* .tocset td a.tocviewlink { font-weight: bold; } */
+.tocset td a.tocviewselflink {
+  color: #111;
+  font-weight: bold;
+}
+
+.tocsubseclink {
+  font-size: 85%;
+}
+
+.toclink {
+  font-size: 85%;
+}
+
+.tocviewtitle {
+  font-size: 130%;
+}
+
+.tocviewsublisttop {
+  padding-top: 1em;
+}
+
+.tocset {
+  width: 14em;
+  padding-right: 1em;
+  padding-left: 0.5em;
+}
+
+.maincolumn {
+  margin-left: 18em;
+}
+
+.tocviewsublist,
+.tocviewsublistonly,
+.tocviewsublisttop,
+.tocviewsublistbottom {
+  border-left: 1px solid #999;
+}
+
+.tocview td {
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+}
+
+.tocviewsublist table,
+.tocviewsublistonly table,
+.tocviewsublisttop table,
+.tocviewsublistbottom table {
+  font-size: 85%;
+}
+
+.plainlink { color: #F0FCF6; }
+
+.navsettop { background-color: #B5DAD2; }
+.navsetbottom { background-color: #B5DAD2; }
+
+a:link, a:hover, a:active { color: #666; }
+a:visited { color: #111; }
+a { text-decoration: none; border-bottom: 1px dotted; }
+a:hover { text-decoration: none; border-bottom: 1px solid; }
+
+.tocview, .tocsub {
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.main, .refcontent, .sroman, i {
+  font-family: Garamond;
+  font-size: 12pt;
+}
+
+.main p,
+.main .SIntrapara {
+  line-height: 1.4em;
+}
+
+/* These are for new styles defined in lib.rkt */
+
+.Incercise     {
+  padding: 0px 0px 0.5em 10px;
+  border-left-style: solid;
+  border-width: 5px;
+  border-color: red;
+  background-color: #ffebcd;
+}
+
+.Exercise {
+  padding: 0px 0px 0.5em 10px;
+  border-left-style: solid;
+  border-width: 5px;
+  border-color: orange;
+  background-color: #ffebcd;
+}
+
+.Strategy     {
+  padding: 0px 0px 0.5em 10px;
+  border: 3px solid #2a8891;
+  background-color: #bbb5b7;
+}
+
+.RespCS     {
+  padding: 0px 0px 0.5em 10px;
+  border: 3px solid #896a70;
+  background-color: #fce2cd;
+}
+
+
+@media all and (max-width:1340px) {
+  /* on small screens, move margin notes into main flow of text */
+  span.refcolumn {
+    float: unset;
+    width: unset;
+  }
+}
+
+.IncerciseHeader {
+   font-weight: bold;
+   font-style: italic;
+   background-color: #ff7667;
+   padding: 5px 0px 5px 10px;
+   margin-left: -10px;
+}
+
+.ExerciseHeader {
+   font-weight: bold;
+   background-color: #ffb167;
+   padding: 5px 0px 5px 10px;
+   margin-left: -10px;
+}
+
+.StrategyHeader {
+   font-weight: bold;
+   background-color: #2a8891;
+   color: #E8E6E7;
+   padding: 0.3em 0px 5px 10px;
+   margin-left: -10px;
+}
+
+.RespCSHeader {
+   font-weight: bold;
+   background-color: #896a70;
+   color: #FEF1E6;
+   padding: 0.3em 0px 5px 10px;
+   margin-left: -10px;
+}
+
+.IncerciseBody, .ExerciseBody .StrategyBody .RespCSBody{
+  margin-left: 0px;
+  margin-right: 10px;
+}
+
+
+table.TwoColumn {
+  width: 100%;
+}
+table.TwoColumn td {
+   width: 50%;
+}
+table.TwoColumn td p {
+   margin: 0.5em;
+}
+pre.sourceCode, span.sourceCode, code.sourceCode,
+.RktIn, .RktRdr, .RktPn, .RktMeta,
+.RktMod, .RktKw, .RktVar, .RktSym,
+.RktRes, .RktOut, .RktCmt, .RktVal,
+.RktBlk {
+   font-family: Consolas, Inconsolata, monospace;
+}
+table.TwoColumn td > blockquote.SCodeFlow,
+table.TwoColumn td > div.sourceCodeWrapper > div.sourceCode > pre.sourceCode {
+   margin: 0;
+}
+
+table.TwoColumnAsRows {
+  width: 100%;
+}
+table.TwoColumnAsRows td > blockquote.SCodeFlow,
+table.TwoColumnRows td > div.sourceCodeWrapper > div.sourceCode > pre.sourceCode {
+   margin: 0;
+}
+
+.PyretRepl {
+  display: inline-block;
+  width: 100%;
+  margin-left: 0;
+}
+
+.PyretRepl > .SIntrapara {
+  margin: 0;
+}
+
+.PyretRepl pre.sourceCode,
+.PyretRepl code.sourceCode {
+  background: rgb(242, 242, 242);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.PyretReplPrompt::before {
+  content: '\203a\203a\203a';
+  display: inline;
+  line-height: 1.1em;
+  float: left;
+}
+
+.PyretReplError {
+  background-color: rgb(255, 242, 242);
+  border: 0.3em hsl(204, 100%, 74%) solid;
+  border-radius: 3px;
+  padding: 0.5em;
+  margin: 0;
+}
+
+.PyretReplInteraction {
+  width: 100%;
+}
+
+.PyretReplInteraction .PyretRepl,
+.PyretReplInteraction tr:nth-child(2) > td > div.sourceCodeWrapper > div.sourceCode > pre.sourceCode {
+  margin: 0;
+  margin-top: 0.5em;
+}
+
+.source {
+  cursor: pointer;
+}
+
+.sink {
+  cursor: pointer;
+}
+
+.heapref:before {
+  content: "@";
+}
+
+.heapref > .replace * { color: unset; }
+
+
+.ExprPart {
+  float: left;
+  width: 35%;
+}
+
+.ExprPart > pre.HeapCode {
+  margin: 0;
+  font-size: smaller;
+}
+
+.ExprPart > pre.HeapCode > div.sourceCodeWrapper{
+  font-size: larger;
+}
+
+.EnvPart {
+  float: left;
+  width: 35%;
+}
+
+.EnvPart > pre.HeapCode {
+  margin: 0;
+}
+
+pre.HeapCode > div.sourceCodeWrapper > div.sourceCode > pre.sourceCode {
+  margin-left: 0;
+}
+
+.HeapPart {
+  float: right;
+  width: 55%;
+  font-size: smaller;
+}
+.HeapPart li .SIntrapara {
+  display: inline-block;
+  margin-bottom: 0;
+}
+.HeapPart li .SIntrapara pre.sourceCode {
+  margin-left: 0;
+  font-size: larger;
+}
+
+.EnvPart {
+  float: left;
+  width: 50%;
+  font-size: smaller;
+}
+.HeapExpr.EmptyHeap .EnvPart { width: unset; }
+.EnvPart + .HeapPart { width: 50%; }
+
+.EnvPart li .SIntrapara {
+  display: inline-block;
+  margin-bottom: 0;
+}
+.EnvPart li .SIntrapara pre.sourceCode {
+  margin-left: 0;
+  font-size: larger;
+}
+
+.HeapExpr {
+  width: 100%;
+  display: block;
+  margin-bottom: 1em;
+}
+
+.HeapExpr ul {
+  list-style-type: none;
+  padding: 0;
+}
+.HeapExpr li {
+  padding: 0;
+}
+.HeapExpr li p {
+  margin: 0; 
+}
+
+.clear {
+  clear: both;
+}
+
