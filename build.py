@@ -93,25 +93,47 @@ def build_tocset_html(current_file, book, flat, nav_index):
 
     lines = ['<div class="tocset"><div class="tocview">']
 
+    # Identify current booklet
+    current_booklet = None
+    for e in flat:
+        if e['file'] == current_file and 'booklet_id' in e:
+            current_booklet = next(
+                (b for b in book['booklets'] if b['id'] == e['booklet_id']), None
+            )
+            break
+
+    # Does the current booklet have chapters with their own files?
+    has_nav_chapters = current_booklet and any(
+        ch['file'] != current_booklet['file']
+        for ch in current_booklet.get('chapters', [])
+    )
+
+    # Book list: expand only when on a booklet page whose booklet has no nav chapters
+    # (e.g. booklet_intro.html — showing the book list is the best we can offer).
+    expand_book_list = (
+        current_booklet is not None and
+        current_file == current_booklet['file'] and
+        not has_nav_chapters
+    )
+
     # --- Top-level: whole book ---
     lines.append(
         '<div class="tocviewlist tocviewlisttopspace">'
         '<div class="tocviewtitle">'
         '<table cellspacing="0" cellpadding="0"><tr>'
         '<td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" '
-        'class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td>'
+        'class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">'
+        + ('&#9660;' if expand_book_list else '&#9658;') +
+        '</a></td>'
         '<td></td>'
         '<td><a href="index.html" class="tocviewlink" data-pltdoc="x">'
         'A Data-&#8203;Centric Introduction to Computing</a></td>'
         '</tr></table></div>'
-        '<div class="tocviewsublisttop" style="display: none;" id="tocview_0">'
+        '<div class="tocviewsublisttop" style="display: ' +
+        ('block' if expand_book_list else 'none') + ';" id="tocview_0">'
         '<table cellspacing="0" cellpadding="0">'
     )
     for booklet in book['booklets']:
-        is_current_booklet = any(
-            e['file'] == current_file and e.get('booklet_id') == booklet['id']
-            for e in flat
-        )
         link_class = 'tocviewselflink' if booklet['file'] == current_file \
                      else 'tocviewlink'
         lines.append(
@@ -121,46 +143,9 @@ def build_tocset_html(current_file, book, flat, nav_index):
         )
     lines.append('</table></div></div>')
 
-    # --- Current booklet section list ---
-    current_booklet = None
-    for e in flat:
-        if e['file'] == current_file and 'booklet_id' in e:
-            current_booklet = next(
-                (b for b in book['booklets'] if b['id'] == e['booklet_id']), None
-            )
-            break
-
     toc_id = 1
     if current_booklet:
-        link_class = 'tocviewselflink' if current_booklet['file'] == current_file \
-                     else 'tocviewlink'
-        lines.append(
-            '<div class="tocviewlist">'
-            '<table cellspacing="0" cellpadding="0"><tr>'
-            f'<td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" '
-            f'class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_{toc_id}&quot;);">&#9658;</a></td>'
-            f'<td>{esc(current_booklet["number"])}&nbsp;</td>'
-            f'<td><a href="{esc(current_booklet["file"])}" class="{link_class}" data-pltdoc="x">'
-            f'{esc(current_booklet["title"])}</a></td>'
-            '</tr></table>'
-            f'<div class="tocviewsublist" style="display: none;" id="tocview_{toc_id}">'
-            '<table cellspacing="0" cellpadding="0">'
-        )
-        toc_id += 1
-        for ch in current_booklet.get('chapters', []):
-            # Same-file chapters are never "self" — they're all on the current page
-            same_file = ch['file'] == current_booklet['file']
-            ch_class = 'tocviewlink' if same_file else \
-                       ('tocviewselflink' if ch['file'] == current_file else 'tocviewlink')
-            lines.append(
-                f'<tr><td align="right">{esc(ch["number"])}&nbsp;</td>'
-                f'<td><a href="{esc(ch["file"])}" class="{ch_class}" data-pltdoc="x">'
-                f'{esc(ch["title"])}</a></td></tr>'
-            )
-        lines.append('</table></div></div>')
-
-        # --- Current chapter section list ---
-        # Skip "inline" chapters (same file as booklet) — they have no sub-panel.
+        # Find current chapter (skip same-file/inline chapters)
         current_chapter = None
         for ch in current_booklet.get('chapters', []):
             if ch['file'] == current_booklet['file']:
@@ -171,25 +156,69 @@ def build_tocset_html(current_file, book, flat, nav_index):
                 current_chapter = ch
                 break
 
-        if current_chapter:
+        chapter_sections = current_chapter.get('sections', []) if current_chapter else []
+        has_sections = bool(chapter_sections)
+        is_on_booklet = current_file == current_booklet['file']
+        is_leaf_chapter = (current_chapter is not None and
+                           not has_sections and
+                           current_chapter['file'] == current_file)
+        current_sec = next((s for s in chapter_sections if s['file'] == current_file), None)
+        is_section_page = current_sec is not None
+
+        # Booklet chapter list: expanded when on a booklet page (with nav chapters) or a leaf chapter.
+        # Class is tocviewsublistbottom when it's the last panel (booklet page), tocviewsublist otherwise.
+        expand_bl = (is_on_booklet and has_nav_chapters) or is_leaf_chapter
+        bl_is_bottom = is_on_booklet  # nothing more below on any booklet page
+        bl_class = 'tocviewsublistbottom' if bl_is_bottom else 'tocviewsublist'
+        bl_arrow = '&#9660;' if expand_bl else '&#9658;'
+
+        link_class = 'tocviewselflink' if current_booklet['file'] == current_file \
+                     else 'tocviewlink'
+        lines.append(
+            '<div class="tocviewlist">'
+            '<table cellspacing="0" cellpadding="0"><tr>'
+            f'<td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" '
+            f'class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_{toc_id}&quot;);">{bl_arrow}</a></td>'
+            f'<td>{esc(current_booklet["number"])}&nbsp;</td>'
+            f'<td><a href="{esc(current_booklet["file"])}" class="{link_class}" data-pltdoc="x">'
+            f'{esc(current_booklet["title"])}</a></td>'
+            '</tr></table>'
+            f'<div class="{bl_class}" style="display: {"block" if expand_bl else "none"};" id="tocview_{toc_id}">'
+            '<table cellspacing="0" cellpadding="0">'
+        )
+        toc_id += 1
+        for ch in current_booklet.get('chapters', []):
+            same_file = ch['file'] == current_booklet['file']
+            ch_class = 'tocviewlink' if same_file else \
+                       ('tocviewselflink' if ch['file'] == current_file else 'tocviewlink')
+            lines.append(
+                f'<tr><td align="right">{esc(ch["number"])}&nbsp;</td>'
+                f'<td><a href="{esc(ch["file"])}" class="{ch_class}" data-pltdoc="x">'
+                f'{esc(ch["title"])}</a></td></tr>'
+            )
+        lines.append('</table></div></div>')
+
+        # --- Current chapter section list (only when chapter has sections) ---
+        if current_chapter and has_sections:
+            # tocviewsublistbottom when there's no on-this-page panel below (chapter/part pages);
+            # tocviewsublist when on a section page (on-this-page panel follows).
+            sec_list_class = 'tocviewsublist' if is_section_page else 'tocviewsublistbottom'
             ch_class = 'tocviewselflink' if current_chapter['file'] == current_file \
                        else 'tocviewlink'
-            toggle_arrow = '&#9660;' if current_chapter['file'] != current_file else '&#9658;'
             lines.append(
                 '<div class="tocviewlist">'
                 '<table cellspacing="0" cellpadding="0"><tr>'
                 f'<td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" '
-                f'class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_{toc_id}&quot;);">'
-                f'{toggle_arrow}</a></td>'
+                f'class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_{toc_id}&quot;);">&#9660;</a></td>'
                 f'<td>{esc(current_chapter["number"])}&nbsp;</td>'
                 f'<td><a href="{esc(current_chapter["file"])}" class="{ch_class}" data-pltdoc="x">'
                 f'{esc(current_chapter["title"])}</a></td>'
                 '</tr></table>'
-                f'<div class="tocviewsublist" style="display: block;" id="tocview_{toc_id}">'
+                f'<div class="{sec_list_class}" style="display: block;" id="tocview_{toc_id}">'
                 '<table cellspacing="0" cellpadding="0">'
             )
             toc_id += 1
-            for sec in current_chapter.get('sections', []):
+            for sec in chapter_sections:
                 sec_class = 'tocviewselflink' if sec['file'] == current_file else 'tocviewlink'
                 lines.append(
                     f'<tr><td align="right">{esc(sec["number"])}&nbsp;</td>'
@@ -198,22 +227,21 @@ def build_tocset_html(current_file, book, flat, nav_index):
                 )
             lines.append('</table></div></div>')
 
-            # --- On-this-page sub-TOC (section headings within the current file) ---
-            all_sections = current_chapter.get('sections', [])
-            current_sec = next((s for s in all_sections if s['file'] == current_file), None)
-            if current_sec or current_chapter['file'] == current_file:
-                lines.append(
-                    f'<div class="tocviewlist">'
-                    '<table cellspacing="0" cellpadding="0"><tr>'
-                    f'<td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" '
-                    f'class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_{toc_id}&quot;);">&#9658;</a></td>'
-                    f'<td>{esc((current_sec or current_chapter)["number"])}&nbsp;</td>'
-                    f'<td><a href="{esc(current_file)}" class="tocviewselflink" data-pltdoc="x">'
-                    f'{esc((current_sec or current_chapter)["title"])}</a></td>'
-                    '</tr></table>'
-                    f'<div class="tocviewsublistbottom" style="display: none;" id="tocview_{toc_id}">'
-                    '</div></div>'
-                )
+        # --- On-this-page panel: section pages and leaf chapter pages only ---
+        if current_chapter and (is_section_page or is_leaf_chapter):
+            node = current_sec or current_chapter
+            lines.append(
+                f'<div class="tocviewlist">'
+                '<table cellspacing="0" cellpadding="0"><tr>'
+                f'<td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" '
+                f'class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_{toc_id}&quot;);">&#9658;</a></td>'
+                f'<td>{esc(node["number"])}&nbsp;</td>'
+                f'<td><a href="{esc(current_file)}" class="tocviewselflink" data-pltdoc="x">'
+                f'{esc(node["title"])}</a></td>'
+                '</tr></table>'
+                f'<div class="tocviewsublistbottom" style="display: none;" id="tocview_{toc_id}">'
+                '</div></div>'
+            )
 
     lines.append('</div>')  # close tocview
 
