@@ -1,0 +1,68 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$$","$$"],
+                   ["\\[","\\]"],
+                   ["\\begin{equation}","\\end{equation}"],
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="../favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.8"/>
+<title>$if(section_number)$$section_number$ $endif$$title$</title>
+<link rel="stylesheet" type="text/css" href="scribble.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="editor.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/>
+<script type="text/javascript" src="scribble-common.js"></script>
+<script type="text/javascript" src="manual-racket.js"></script>
+</head>
+<body id="scribble-racket-lang-org">
+$for(include-before)$
+$include-before$
+$endfor$
+<div class="maincolumn">
+<div class="main">
+<div class="navsettop">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">$if(prev)$&nbsp;&nbsp;<a href="$prev$" rel="prev">&larr; prev</a>$endif$&nbsp;&nbsp;$if(up)$<a href="$up$">up</a>$endif$&nbsp;&nbsp;$if(next)$<a href="$next$" rel="next">next &rarr;</a>$endif$</span>&nbsp;
+</div>
+$body$
+<div class="navsetbottom">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">$if(prev)$&nbsp;&nbsp;<a href="$prev$" rel="prev">&larr; prev</a>$endif$&nbsp;&nbsp;$if(up)$<a href="$up$">up</a>$endif$&nbsp;&nbsp;$if(next)$<a href="$next$" rel="next">next &rarr;</a>$endif$</span>&nbsp;
+</div>
+</div><!-- .main -->
+</div><!-- .maincolumn -->
+</body>
+</html>

@@ -1,0 +1,220 @@
+# book.yaml – DCIC chapter ordering and structure
+# Used by build.py to compute prev/up/next links and generate the tocset sidebar.
+
+title: "A Data-Centric Introduction to Computing"
+index: index.html
+
+booklets:
+  - id: intro
+    number: "I"
+    title: "Introduction"
+    file: booklet_intro.html
+    chapters: []   # booklet_intro has no sub-chapters in the HTML set
+
+  - id: intro-to-programming
+    number: "II"
+    title: "Introduction to Programming"
+    file: booklet_intro-to-programming.html
+    chapters:
+      - number: "3"
+        title: "Basic Data"
+        file: part_foundations.html
+        sections:
+          - { number: "3.1", title: "Getting Started",                      file: getting-started.html }
+          - { number: "3.2", title: "Naming Values",                        file: Naming_Values.html }
+          - { number: "3.3", title: "From Repeated Expressions to Functions",file: From_Repeated_Expressions_to_Functions.html }
+          - { number: "3.4", title: "Conditionals and Booleans",            file: Conditionals_and_Booleans.html }
+      - number: "4"
+        title: "Tabular Data"
+        file: part_tabular-data.html
+        sections:
+          - { number: "4.1", title: "Introduction to Tabular Data", file: intro-tabular-data.html }
+          - { number: "4.2", title: "Processing Tables",            file: processing-tables.html }
+      - number: "5"
+        title: "Lists"
+        file: part_lists.html
+        sections:
+          - { number: "5.1", title: "From Tables to Lists", file: tables-to-lists.html }
+          - { number: "5.2", title: "Processing Lists",     file: processing-lists.html }
+          - { number: "5.3", title: "Recursive Data",       file: recursive-data.html }
+      - number: "6"
+        title: "Structured Data"
+        file: part_structured-data.html
+        sections:
+          - { number: "6.1", title: "Introduction to Structured Data",  file: intro-struct-data.html }
+          - { number: "6.2", title: "Collections of Structured Data",   file: Collections_of_Structured_Data.html }
+      - number: "7"
+        title: "Trees"
+        file: part_trees.html
+        sections:
+          - { number: "7.1", title: "Trees", file: trees.html }
+      - number: "8"
+        title: "Foundations: Bonus Materials"
+        file: part_bonus-foundations.html
+        sections:
+          - { number: "8.1", title: "Functions as Data",                    file: func-as-data.html }
+          - { number: "8.2", title: "Queues from Lists",                    file: queues-from-lists.html }
+          - { number: "8.3", title: "Examples, Testing, and Program Checking", file: testing.html }
+
+  - id: pyret-to-python
+    number: "III"
+    title: "From Pyret to Python"
+    file: booklet_pyret-to-python.html
+    chapters:
+      - number: "9"
+        title: "From Pyret to Python"
+        file: part_pyret-to-python.html
+        sections:
+          - { number: "9.1", title: "From Pyret to Python", file: intro-python.html }
+          - { number: "9.2", title: "Dictionaries",         file: dictionaries.html }
+          - { number: "9.3", title: "Arrays",               file: arrays.html }
+      - number: "10"
+        title: "Tables in Python via Pandas"
+        file: part_python-tables.html
+        sections:
+          - { number: "10.1", title: "Introduction to Pandas", file: python-tables-Pandas.html }
+          - { number: "10.2", title: "Reshaping Tables",       file: pandas-reshape-tables.html }
+      - number: "11"
+        title: "File Input and Output in Python"
+        file: part_python-fileio.html
+        sections:
+          - { number: "11.1", title: "File Input and Output in Python", file: python-fileio.html }
+
+  - id: programming-with-state
+    number: "IV"
+    title: "Programming With State"
+    file: booklet_programming-with-state.html
+    chapters:
+      - number: "12"
+        title: "Programming with State (in Both Pyret and Python)"
+        file: part_state.html
+        sections:
+          - { number: "12.1", title: "Mutating Structures",     file: mutating-structures.html }
+          - { number: "12.2", title: "Understanding Equality",  file: unified-equality.html }
+          - { number: "12.3", title: "Arrays and Lists in Memory", file: unified-lists-memory.html }
+          - { number: "12.4", title: "Cyclic Data",             file: unified-cyclic-data.html }
+      - number: "13"
+        title: "More Programming with State: Python"
+        file: part_python-state.html
+        sections:
+          - { number: "13.1", title: "Mutating Variables", file: mutating-variables.html }
+          - { number: "13.2", title: "Mutable Lists",      file: mutable-lists.html }
+
+  - id: algo-analysis
+    number: "V"
+    title: "Algorithm Analysis"
+    file: booklet_algo-analysis.html
+    chapters:
+      - number: "14"
+        title: "Predicting Growth"
+        file: predicting-growth.html
+        sections: []
+      - number: "15"
+        title: "Halloween Analysis"
+        file: amortized-analysis.html
+        sections: []
+
+  - id: data-with-analysis
+    number: "VI"
+    title: "Data Structures with Analysis"
+    file: booklet_data-with-analysis.html
+    chapters:
+      - number: "16"
+        title: "Directed Acyclic Graphs"
+        file: part_dags.html
+        sections:
+          - { number: "16.1", title: "Sharing and Equality", file: Sharing_and_Equality.html }
+          - { number: "16.2", title: "The Size of a DAG",    file: size-of-dag.html }
+      - number: "17"
+        title: "Graphs"
+        file: part_graphs.html
+        sections:
+          - { number: "17.1", title: "Introducing Graphs",           file: intro-graphs.html }
+          - { number: "17.2", title: "Basic Graph Traversals",       file: basic-graph-trav.html }
+          - { number: "17.3", title: "Graphs With Weighted Edges",   file: weighted-graphs.html }
+          - { number: "17.4", title: "Shortest (or Lightest) Paths", file: lightest-paths.html }
+          - { number: "17.5", title: "Moravian Spanning Trees",      file: mst.html }
+      - number: "18"
+        title: "Several Variations on Sets"
+        file: part_sets.html
+        sections:
+          - { number: "18.1", title: "Representing Sets as Lists",       file: sets-from-lists.html }
+          - { number: "18.2", title: "Making Sets Grow on Trees",        file: sets-from-trees.html }
+          - { number: "18.3", title: "Union-Find",                       file: union-find.html }
+          - { number: "18.4", title: "Hashes, Sets, and Key-Values",     file: hash-set-kv.html }
+          - { number: "18.5", title: "Equality, Ordering, and Hashing",  file: orderability.html }
+          - { number: "18.6", title: "Sets as a Case Study",             file: sets-case-study.html }
+
+  - id: advanced
+    number: "VII"
+    title: "Advanced Topics"
+    file: booklet_advanced.html
+    chapters:
+      - number: "19"
+        title: "State and Equality"
+        file: state-in-pyret.html
+        sections: []
+      - number: "20"
+        title: "Recursion and Cycles from Mutation"
+        file: rec-from-mut.html
+        sections: []
+      - number: "21"
+        title: "Detecting Cycles"
+        file: cycle-detection.html
+        sections: []
+      - number: "22"
+        title: "Avoiding Recomputation by Remembering Answers"
+        file: avoid-recomp.html
+        sections: []
+      - number: "23"
+        title: "Partial Domains"
+        file: partial-domains.html
+        sections: []
+      - number: "24"
+        title: "Staging"
+        file: staging.html
+        sections: []
+      - number: "25"
+        title: "Factoring Numbers"
+        file: factoring-numbers.html
+        sections: []
+      - number: "26"
+        title: "Deconstructing Loops"
+        file: deconstructing-loops.html
+        sections: []
+
+  - id: interaction
+    number: "VIII"
+    title: "Interactive Programs"
+    file: booklet_interaction.html
+    chapters:
+      - number: "27"
+        title: "Interactive Games as Reactive Systems"
+        file: games-reactive.html
+        sections: []
+
+  - id: appendices
+    number: "IX"
+    title: "Appendices"
+    file: booklet_appendices.html
+    chapters:
+      - number: "28"
+        title: "Pyret for Racketeers and Schemers"
+        file: p4rs.html
+        sections: []
+      - number: "29"
+        title: "Pyret vs. Python"
+        file: pyret-vs-python.html
+        sections: []
+      - number: "30"
+        title: "Comparing This Book to HtDP"
+        file: htdp-vs-dcic.html
+        sections: []
+      - number: "31"
+        title: "Release Notes"
+        file: Release_Notes.html
+        sections: []
+      - number: "32"
+        title: "Glossary"
+        file: glossary.html
+        sections: []
