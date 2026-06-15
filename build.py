@@ -19,8 +19,8 @@ import yaml
 
 ROOT      = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR   = os.path.join(ROOT, 'src')
-OUT_DIR   = os.path.join(ROOT, 'build')
-ORIG_DIR  = os.path.join(ROOT, '2025-08-27')
+OUT_DIR   = os.path.join(ROOT, 'docs')
+ORIG_DIR  = os.path.join(ROOT, 'static')
 TMPL_DIR  = os.path.join(ROOT, 'templates')
 FILT_DIR  = os.path.join(ROOT, 'filters')
 BOOK_YAML = os.path.join(ROOT, 'book.yaml')
@@ -254,22 +254,18 @@ def run_pandoc(cmd):
 # Asset copying
 # ---------------------------------------------------------------------------
 
-ASSET_EXTENSIONS = {
-    '.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.svg',
-    '.ico', '.woff', '.woff2', '.ttf', '.eot',
-}
-
 def copy_assets(src_dir, out_dir):
+    """Copy all files from src_dir to out_dir (skipping subdirectories)."""
     os.makedirs(out_dir, exist_ok=True)
     count = 0
     for name in os.listdir(src_dir):
-        ext = os.path.splitext(name)[1].lower()
-        if ext in ASSET_EXTENSIONS:
-            src = os.path.join(src_dir, name)
-            dst = os.path.join(out_dir, name)
-            if not os.path.exists(dst) or os.path.getmtime(src) > os.path.getmtime(dst):
-                shutil.copy2(src, dst)
-                count += 1
+        src = os.path.join(src_dir, name)
+        if not os.path.isfile(src):
+            continue
+        dst = os.path.join(out_dir, name)
+        if not os.path.exists(dst) or os.path.getmtime(src) > os.path.getmtime(dst):
+            shutil.copy2(src, dst)
+            count += 1
     if count:
         print(f'  Copied {count} static assets')
 
@@ -349,9 +345,18 @@ def main():
     flat      = flat_file_list(book)
     nav_index = make_nav_index(flat)
 
-    # Copy static assets from original HTML directory
+    # Copy static assets
     print('Copying assets...')
     copy_assets(ORIG_DIR, out_dir)
+    # Copy root splash page assets (css/ subdir, splash image, favicon)
+    splash_files = ['index.html', 'DCIC_splash.png', 'favicon.png']
+    for name in splash_files:
+        src = os.path.join(ROOT, name)
+        if os.path.exists(src):
+            shutil.copy2(src, os.path.join(out_dir, name))
+    css_src = os.path.join(ROOT, 'css')
+    if os.path.isdir(css_src):
+        shutil.copytree(css_src, os.path.join(out_dir, 'css'), dirs_exist_ok=True)
 
     if args.file:
         f = args.file

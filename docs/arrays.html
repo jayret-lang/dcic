@@ -1,0 +1,204 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$","$"],
+                   ["\\[","\\]"],
+                   ["\\begin{equation}","\\end{equation}"],
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.8"/>
+<title>9.3 Arrays</title>
+<link rel="stylesheet" type="text/css" href="scribble.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="editor.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/>
+<script type="text/javascript" src="scribble-common.js"></script>
+<script type="text/javascript" src="manual-racket.js"></script>
+</head>
+<body id="scribble-racket-lang-org">
+<div class="tocset"><div class="tocview">
+<div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
+<tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
+<tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
+<tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
+<tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr>
+<tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr>
+<tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9658;</a></td><td>III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr></table><div class="tocviewsublist" style="display: none;" id="tocview_1"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">9&nbsp;</td><td><a href="part_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">10&nbsp;</td><td><a href="part_python-tables.html" class="tocviewlink" data-pltdoc="x">Tables in Python via Pandas</a></td></tr>
+<tr><td align="right">11&nbsp;</td><td><a href="part_python-fileio.html" class="tocviewlink" data-pltdoc="x">File Input and Output in Python</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9660;</a></td><td>9&nbsp;</td><td><a href="part_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_2"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">9.1&nbsp;</td><td><a href="intro-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">9.2&nbsp;</td><td><a href="dictionaries.html" class="tocviewlink" data-pltdoc="x">Dictionaries</a></td></tr>
+<tr><td align="right">9.3&nbsp;</td><td><a href="arrays.html" class="tocviewselflink" data-pltdoc="x">Arrays</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_3&quot;);">&#9658;</a></td><td>9.3&nbsp;</td><td><a href="arrays.html" class="tocviewselflink" data-pltdoc="x">Arrays</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_3"></div></div>
+</div>
+<div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"></table></div>
+</div>
+<div class="maincolumn">
+<div class="main">
+<div class="navsettop">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="dictionaries.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_pyret-to-python.html">up</a>&nbsp;&nbsp;<a href="part_python-tables.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+<h3 id="arrays">Arrays</h3>
+<p>We ended the last chapter with a question about how fast one can
+access a specific element of a list. Specifically, if you have a list
+called finishers of Runners (our example from last time) and you
+write:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">finishers[9]</code></pre></div></div>
+<p>How long does it take to locate the Runner in 10th place (remember,
+indices start at 0)?</p>
+<p>It depends on how the list is laid out in memory.</p>
+<h4 id="Two-Memory-Layouts-for-Ordered-Items">Two Memory Layouts for
+Ordered Items</h4>
+<p>When we say “list”, we usually mean simply: a collection of items
+with order. How might a collection of ordered items be arranged in
+memory? Here are two examples, using a list of course names:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">courses = ["CS111", "ENGN90", "VISA100"]</code></pre></div></div>
+<p>In the first version, the elements are laid out in consecutive memory
+locations (this is rougly how we’ve shown lists up to now):</p>
+<table cellpadding="0" cellspacing="0" class="SVerbatim"><tr><td><p><span class="stt">Prog Directory</span><span class="hspace">           </span><span class="stt">Memory</span></p></td></tr><tr><td><p><span class="stt">--------------------------------------------------------------------</span></p></td></tr><tr><td><p><span class="stt">courses --&gt; loc 1001</span><span class="hspace">      </span><span class="stt">loc 1001 --&gt; [loc 1002, loc1003, loc 1004]</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">                          </span><span class="stt">loc 1002 --&gt; "CS111"</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">                          </span><span class="stt">loc 1003 --&gt; "ENGN90"</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">                          </span><span class="stt">loc 1004 --&gt; "VISA100"</span></p></td></tr></table>
+<p>In the second version, each element is captured as a datatype
+containing the element and the next list location. When we were in
+Pyret, this datatype was called
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">link</code></span>.</p>
+<table cellpadding="0" cellspacing="0" class="SVerbatim"><tr><td><p><span class="stt">Prog Directory</span><span class="hspace">           </span><span class="stt">Memory</span></p></td></tr><tr><td><p><span class="stt">--------------------------------------------------------------------</span></p></td></tr><tr><td><p><span class="stt">courses --&gt; loc 1001</span><span class="hspace">      </span><span class="stt">loc 1001 --&gt; link("CS111", loc 1002)</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">                          </span><span class="stt">loc 1002 --&gt; link("ENGN90", loc 1003)</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">                          </span><span class="stt">loc 1003 --&gt; link("VISA100", loc 1004)</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">                          </span><span class="stt">loc 1004 --&gt; empty</span></p></td></tr></table>
+<p>What are the tradeoffs between the two versions? In the first, we can
+access items by index in constant time, as we could for hashtables, but
+changing the contents (adding or deleting) requires moving things around
+in memory. In the second, the size of the collection can grow or shrink
+arbitrarily, but it takes time proportional to the index to look up a
+specific value. Each organization has its place in some programs.</p>
+<p>In data structures terms, the first organization is called an array.
+The second is called a linked list. Pyret implements linked lists, with
+arrays being a separate data type (with a different notation from
+lists). Python implements lists as arrays. When you approach a new
+programming language, you need to look up whether its lists are linked
+lists or arrays if you care about the run-time performance of the
+underlying operations.</p>
+<p>Going back to our Runners discussion from the last chapter, we can
+simply use Python lists (arrays) rather than a hashtable, and be able to
+access the names of Runners who finished in particular positions. But
+let’s instead ask a different question.</p>
+<p>How would we report the top finishers in each age category? In
+particular, we want to write a function such as the following:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">def top_5_range(runners: list, lo: int, high: int) -&gt; list:
+    """get list of top 5 finishers with ages in
+       the range given by lo to high, inclusive
+    """</code></pre></div></div>
+<p>Think about how you would write this code.</p>
+<p>Here’s our solution:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">def top_5_range(runners: list, lo: int, high: int) -&gt; list:
+    """get list of top 5 finishers with ages in
+       the range given by lo to high, inclusive
+    """
+
+    # count of runners seen who are in age range
+    in_range: int = 0
+    # the list of finishers
+    result: list = []
+
+    for r in runners:
+        if lo &lt;= r.age and r.age &lt;= high:
+            in_range += 1
+            result.append(r)
+        if in_range == 5:
+            return result
+    print("Fewer than five in category")
+    return result</code></pre></div></div>
+<p>Here, rather than return only when we get to the end of the list, we
+want to return once we have five runners in the list. So we set up an
+additional variable
+(<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">in_range</code></span>)
+to help us track progress of the computation. Once we have gotten to 5
+runners, we return the list. If we never get to 5 runners, we print a
+warning to the user then return the results that we do have.</p>
+<p>Couldn’t we have just looked at the length of the list, rather than
+maintain the
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">in_range</code></span>
+variable? Yes, we could have, though this version sets up a contrast to
+our next example.</p>
+<h4 id="Iterating-Partly-through-an-Ordered-Datum">Iterating Partly
+through an Ordered Datum</h4>
+<p>What if instead we just wanted to print out the top 5 finishers,
+rather than gather a list? While in general it is usually better to
+separate computing and displaying data, in practice we do sometimes
+merge them, or do other operations (like write some data to file) which
+won’t return anything. How do we modify the code to print the names
+rather than build up a list of the runners?</p>
+<p>The challenge here is how to stop the computation. When we are
+building up a list, we stop a computation using return. But if our code
+isn’t returning, or otherwise needs to stop a loop before it reaches the
+end of the data, what do we do?</p>
+<p>We use a command called
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">break</code></span>,
+which says to terminate the loop and continue the rest of the
+computation. Here, the break is in place of the inner return
+statement:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">def print_top_5_range(runners: list, lo: int, high: int):
+    """print top 5 finishers with ages in
+       the range given by lo to high, inclusive
+    """
+
+    # count of runners seen who are in age range
+    in_range: int = 0
+
+    for r in runners:
+        if lo &lt;= r.age and r.age &lt;= high:
+            in_range += 1
+            print(r.name)
+        if in_range == 5:
+            break
+    print("End of results")</code></pre></div></div>
+<p>If Python reaches the
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">break</code></span>
+statement, it terminates the for loop and goes to the next statement,
+which is the print at the end of the function.</p>
+<div class="navsetbottom">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="dictionaries.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_pyret-to-python.html">up</a>&nbsp;&nbsp;<a href="part_python-tables.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+</div><!-- .main -->
+</div><!-- .maincolumn -->
+</body>
+</html>

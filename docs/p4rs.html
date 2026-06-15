@@ -1,0 +1,415 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$","$"],
+                   ["\\[","\\]"],
+                   ["\\begin{equation}","\\end{equation}"],
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.8"/>
+<title>28 Pyret for Racketeers and Schemers</title>
+<link rel="stylesheet" type="text/css" href="scribble.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="editor.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/>
+<script type="text/javascript" src="scribble-common.js"></script>
+<script type="text/javascript" src="manual-racket.js"></script>
+</head>
+<body id="scribble-racket-lang-org">
+<div class="tocset"><div class="tocview">
+<div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
+<tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
+<tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
+<tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
+<tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr>
+<tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr>
+<tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9658;</a></td><td>IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr></table><div class="tocviewsublist" style="display: none;" id="tocview_1"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">28&nbsp;</td><td><a href="p4rs.html" class="tocviewselflink" data-pltdoc="x">Pyret for Racketeers and Schemers</a></td></tr>
+<tr><td align="right">29&nbsp;</td><td><a href="pyret-vs-python.html" class="tocviewlink" data-pltdoc="x">Pyret vs. Python</a></td></tr>
+<tr><td align="right">30&nbsp;</td><td><a href="htdp-vs-dcic.html" class="tocviewlink" data-pltdoc="x">Comparing This Book to HtDP</a></td></tr>
+<tr><td align="right">31&nbsp;</td><td><a href="Release_Notes.html" class="tocviewlink" data-pltdoc="x">Release Notes</a></td></tr>
+<tr><td align="right">32&nbsp;</td><td><a href="glossary.html" class="tocviewlink" data-pltdoc="x">Glossary</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9658;</a></td><td>28&nbsp;</td><td><a href="p4rs.html" class="tocviewselflink" data-pltdoc="x">Pyret for Racketeers and Schemers</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_2"><table cellspacing="0" cellpadding="0">
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_3&quot;);">&#9658;</a></td><td>28&nbsp;</td><td><a href="p4rs.html" class="tocviewselflink" data-pltdoc="x">Pyret for Racketeers and Schemers</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_3"></div></div>
+</div>
+<div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"></table></div>
+</div>
+<div class="maincolumn">
+<div class="main">
+<div class="navsettop">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="booklet_appendices.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_appendices.html">up</a>&nbsp;&nbsp;<a href="pyret-vs-python.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+<h2 id="p4rs">Pyret for Racketeers and Schemers</h2>
+<p>If you’ve programmed before in a language like Scheme or the student
+levels of Racket (or the WeScheme programming environment), or for that
+matter even in certain parts of OCaml, Haskell, Scala, Erlang, Clojure,
+or other languages, you will find many parts of Pyret very familiar.
+This chapter is specifically written to help you make the transition
+from (student) Racket/Scheme/WeScheme (abbreviated “RSW”) to Pyret by
+showing you how to convert the syntax. Most of what we say applies to
+all these languages, though in some cases we will refer specifically to
+Racket (and WeScheme) features not found in Scheme.</p>
+<p>In every example below, the two programs will produce the same
+results.</p>
+<h3 id="Numbers-Strings-and-Booleans">Numbers, Strings, and
+Booleans</h3>
+<p>Numbers are very similar between the two. Like Scheme, Pyret
+implements arbitrary-precision numbers and rationals. Some of the more
+exotic numeric systems of Scheme (such as complex numbers) aren’t in
+Pyret; Pyret also treats imprecise numbers slightly differently.</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktVal">1</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">1</code></span></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktVal">1/2</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">1/2</code></span></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktVal">#i3.14</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">~3.14</code></span></p></td></tr></table>
+<p>Strings are also very similar, though Pyret allows you to use
+single-quotes as well.</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktVal">"Hello,</span><span class="hspace"> </span><span class="RktVal">world!"</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">"Hello, world!"</code></span></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktVal">"\"Hello\",</span><span class="hspace"> </span><span class="RktVal">he</span><span class="hspace"> </span><span class="RktVal">said"</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">"\"Hello\", he said"</code></span></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktVal">"\"Hello\",</span><span class="hspace"> </span><span class="RktVal">he</span><span class="hspace"> </span><span class="RktVal">said"</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">'"Hello", he said'</code></span></p></td></tr></table>
+<p>Booleans have the same names:</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktSym">true</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">true</code></span></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktSym">false</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">false</code></span></p></td></tr></table>
+<h3 id="Infix-Expressions">Infix Expressions</h3>
+<p>Pyret uses an infix syntax, reminiscent of many other textual
+programming languages:</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">+</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">1</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">2</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">1 + 2</code></span></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">*</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym"><span class="nobreak">-</span></span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">4</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">2</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">5</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">(4 - 2) * 5</code></span></p></td></tr></table>
+<p>Note that Pyret does not have rules about orders of precedence
+between operators, so when you mix operators, you have to parenthesize
+the expression to make your intent clear. When you chain the same
+operator you don’t need to parenthesize; chaining associates to the left
+in both languages:</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">/</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">1</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">2</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">3</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">4</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">1 / 2 / 3 / 4</code></span></p></td></tr></table>
+<p>These both evaluate to 1/24.</p>
+<h3 id="Function-Definition-and-Application">Function Definition and
+Application</h3>
+<p>Function definition and application in Pyret have an infix syntax,
+more reminiscent of many other textual programming languages.
+Application uses a syntax familiar from conventional algebra books:</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">dist</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">3</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">4</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">dist(3, 4)</code></span></p></td></tr></table>
+<p>Application correspondingly uses a similar syntax in function
+headers, and infix in the body:</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym">define</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">dist</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">y</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">  </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">sqrt</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">+</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">*</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">x</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">           </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">*</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">y</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">y</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr></table></blockquote></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun dist(x, y):
+  num-sqrt((x * x) +
+           (y * y))
+end</code></pre></div></div></p></td></tr></table>
+<h3 id="Tests">Tests</h3>
+<p>There are essentially three different ways of writing the equivalent
+of Racket’s check-expect tests. They can be translated into check
+blocks:</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">check-expect</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">1</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">1</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  1 is 1
+end</code></pre></div></div></p></td></tr></table>
+<p>Note that multiple tests can be put into a single block:</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym">check-expect</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">1</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">1</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">check-expect</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">2</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">2</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr></table></blockquote></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  1 is 1
+  2 is 2
+end</code></pre></div></div></p></td></tr></table>
+<p>The second way is this: as an alias for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check</code></span>
+we can also write
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">examples</code></span>.
+The two are functionally identical, but they capture the human
+difference between examples (which explore the problem, and are written
+before attempting a solution) and tests (which try to find bugs in the
+solution, and are written to probe its design).</p>
+<p>The third way is to write a
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+block to accompany a function definition. For instance:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun double(n):
+  n + n
+where:
+  double(0) is 0
+  double(10) is 20
+  double(-1) is -2
+end</code></pre></div></div>
+<p>These can even be written for internal functions (i.e., functions
+contained inside other functions), which isn’t true for
+check-expect.</p>
+<p>In Pyret, unlike in Racket, a testing block can contain a
+documentation string. This is used by Pyret when reporting test
+successes and failures. For instance, try to run and see what you
+get:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check "squaring always produces non-negatives":
+  (0 * 0) is 0
+  (-2 * -2) is 4
+  (3 * 3) is 9
+end</code></pre></div></div>
+<p>This is useful for documenting the purpose of a testing block.</p>
+<p>Just as in Racket, there are many testing operators in Pyret (in
+addition to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>).
+See <a href="https://www.pyret.org/docs/latest/testing.html">the
+documentation</a>.</p>
+<h3 id="Variable-Names">Variable Names</h3>
+<p>Both languages have a fairly permissive system for naming variables.
+While you can use CamelCase and under_scores in both, it is conventional
+to instead use what is known as <a
+href="http://c2.com/cgi/wiki?KebabCase">kebab-case</a>.<span class="refelem"><span class="refcolumn"><span class="refcontent">This name is inaccurate. The word “kebab” just means “meat”. The skewer
+is the “shish”. Therefore, it ought to at least be called “shish kebab
+case”.</span></span></span> Thus:</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktSym">this-is-a-name</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">this-is-a-name</code></span></p></td></tr></table>
+<p>Even though Pyret has infix subtraction, the language can
+unambiguously tell apart
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">this-name</code></span>
+(a variable) from
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">this - name</code></span>
+(a subtraction expression) because the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">-</code></span>
+in the latter must be surrounded by spaces.</p>
+<p>Despite this spacing convention, Pyret does not permit some of the
+more exotic names permitted by Scheme. For instance, one can write</p>
+<blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym">define</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">e^i*pi</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">-1</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr></table></blockquote>
+<p>in Scheme but that is not a valid variable name in Pyret.</p>
+<h3 id="Data-Definitions">Data Definitions</h3>
+<p>Pyret diverges from Racket (and even more so from Scheme) in its
+handling of data definitions. First, we will see how to define a
+structure:</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">define-struct</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">pt</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">y</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Point:
+  | pt(x, y)
+end</code></pre></div></div></p></td></tr></table>
+<p>This might seem like a fair bit of overkill, but we’ll see in a
+moment why it’s useful. Meanwhile, it’s worth observing that when you
+have only a single kind of datum in a data definition, it feels unwieldy
+to take up so many lines. Writing it on one line is valid, but now it
+feels ugly to have the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">|</code></span>
+in the middle:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Point: | pt(x, y) end</code></pre></div></div>
+<p>Therefore, Pyret permits you to drop the initial
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">|</code></span>,
+resulting in the more readable</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Point: pt(x, y) end</code></pre></div></div>
+<p>Now suppose we have two kinds of points. In the student languages of
+Racket, we would describe this with a comment:</p>
+<blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktCmt">;;</span><span class="hspace"> </span><span class="RktCmt">A</span><span class="hspace"> </span><span class="RktCmt">Point</span><span class="hspace"> </span><span class="RktCmt">is</span><span class="hspace"> </span><span class="RktCmt">either</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktCmt">;;</span><span class="hspace"> </span><span class="RktCmt">-</span><span class="hspace"> </span><span class="RktCmt">(pt</span><span class="hspace"> </span><span class="RktCmt">number</span><span class="hspace"> </span><span class="RktCmt">number),</span><span class="hspace"> </span><span class="RktCmt">or</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktCmt">;;</span><span class="hspace"> </span><span class="RktCmt">-</span><span class="hspace"> </span><span class="RktCmt">(pt3d</span><span class="hspace"> </span><span class="RktCmt">number</span><span class="hspace"> </span><span class="RktCmt">number</span><span class="hspace"> </span><span class="RktCmt">number)</span><span class="RktMeta"></span></td></tr></table></blockquote>
+<p>In Pyret, we can express this directly:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Point:
+  | pt(x, y)
+  | pt3d(x, y, z)
+end</code></pre></div></div>
+<p>In short, Racket optimizes for the single-variant case, whereas Pyret
+optimizes for the multi-variant case. As a result, it is difficult to
+clearly express the multi-variant case in Racket, while it is unwieldy
+to express the single-variant case in Pyret.</p>
+<p>For structures, both Racket and Pyret expose constructors, selectors,
+and predicates. Constructors are just functions:</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">pt</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">1</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">2</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">pt(1, 2)</code></span></p></td></tr></table>
+<p>Predicates are also functions with a particular naming scheme:</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">pt?</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">x</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="RktSym">is-pt</span><span class="RktPn">(</span><span class="RktSym">x</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td></tr></table>
+<p>and they behave the same way (returning true if the argument was
+constructed by that constructor, and false otherwise). In contrast,
+selection is different in the two languages (and we will see more about
+selection below, with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>):</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">pt-x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">v</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">v.x</code></span></p></td></tr></table>
+<p>Note that in the Racket case, pt-x checks that the parameter was
+constructed by pt before extracting the value of the x field. Thus, pt-x
+and pt3d-x are two different functions and neither one can be used in
+place of the other. In contast, in Pyret,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.x</code></span>
+extracts an
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x</code></span>
+field of any value that has such a field, without attention to how it
+was constructed. Thus, we can use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.x</code></span>
+on a value whether it was constructed by
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pt</code></span>
+or
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pt3d</code></span>
+(or indeed anything else with that field). In contrast,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+does pay attention to this distinction.</p>
+<h3 id="Conditionals">Conditionals</h3>
+<p>There are several kinds of conditionals in Pyret, one more than in
+the Racket student languages.</p>
+<p>General conditionals can be written using
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>,
+corresponding to Racket’s
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+but with more syntax.</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym">if</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">full-moon</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">    </span><span class="RktMeta"></span><span class="RktVal">"howl"</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">    </span><span class="RktMeta"></span><span class="RktVal">"meow"</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr></table></blockquote></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">if full-moon:
+  "howl"
+else:
+  "meow"
+end</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym">if</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">full-moon</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">    </span><span class="RktMeta"></span><span class="RktVal">"howl"</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">    </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">if</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">new-moon</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">        </span><span class="RktMeta"></span><span class="RktVal">"bark"</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">        </span><span class="RktMeta"></span><span class="RktVal">"meow"</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr></table></blockquote></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">if full-moon:
+  "howl"
+else if new-moon:
+  "bark"
+else:
+  "meow"
+end</code></pre></div></div></p></td></tr></table>
+<p>Note that
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+includes
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else if</code></span>,
+which makes it possible to list a collection of questions at the same
+level of indentation, which if in Racket does not have. The
+corresponding code in Racket would be written</p>
+<blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym">cond</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">  </span><span class="RktMeta"></span><span class="RktPn">[</span><span class="RktSym">full-moon</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">"howl"</span><span class="RktPn">]</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">  </span><span class="RktMeta"></span><span class="RktPn">[</span><span class="RktSym">new-moon</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">"bark"</span><span class="RktPn">]</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">  </span><span class="RktMeta"></span><span class="RktPn">[</span><span class="RktSym">else</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">"meow"</span><span class="RktPn">]</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr></table></blockquote>
+<p>to restore the indentation. There is a similar construct in Pyret
+called
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ask</code></span>,
+designed to parallel
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cond</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">ask:
+  | full-moon then: "howl"
+  | new-moon then:  "bark"
+  | otherwise:      "meow"
+end</code></pre></div></div>
+<p>In Racket, we also use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cond</code></span>
+to dispatch on a datatype:</p>
+<blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym">cond</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">  </span><span class="RktMeta"></span><span class="RktPn">[</span><span class="RktPn">(</span><span class="RktSym">pt?</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">v</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace">   </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">+</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">pt-x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">v</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">pt-y</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">v</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktPn">]</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">  </span><span class="RktMeta"></span><span class="RktPn">[</span><span class="RktPn">(</span><span class="RktSym">pt3d?</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">v</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">+</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">pt-x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">v</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">pt-z</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">v</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktPn">]</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr></table></blockquote>
+<p>We could write this in close parallel in Pyret:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">ask:
+  | is-pt(v)   then: v.x + v.y
+  | is-pt3d(v) then: v.x + v.z
+end</code></pre></div></div>
+<p>or even as:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">if is-pt(v):
+  v.x + v.y
+else if is-pt3d(v):
+  v.x + v.z
+end</code></pre></div></div>
+<p>(As in Racket student languages, the Pyret versions will signal an
+error if no branch of the conditional matched.)</p>
+<p>However, Pyret provides a special syntax just for data
+definitions:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">cases (Point) v:
+  | pt(x, y)      =&gt; x + y
+  | pt3d(x, y, z) =&gt; x + z
+end</code></pre></div></div>
+<p>This checks that
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">v</code></span>
+is a
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Point</code></span>,
+provides a clean syntactic way of identifying the different branches,
+and makes it possible to give a concise local name to each field
+position instead of having to use selectors like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.x</code></span>.
+In general, in Pyret we prefer to use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+to process data definitions. However, there are times when, for
+instance, there many variants of data but a function processes only very
+few of them. In such situations, it makes more sense to explicitly use
+predicates and selectors.</p>
+<h3 id="Lists">Lists</h3>
+<p>In Racket, depending on the language level, lists are created using
+either cons or list, with empty for the empty list. The corresponding
+notions in Pyret are called
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">list</code></span>,
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>,
+respectively.
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+is a two-argument function, just as in Racket:</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">cons</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">1</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">empty</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">link(1, empty)</code></span></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">list</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">1</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">2</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">3</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">[list: 1, 2, 3]</code></span></p></td></tr></table>
+<p>Note that the syntax
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[1, 2, 3]</code></span>,
+which represents lists in many languages, is not legal in Pyret: lists
+are not privileged with their own syntax. Rather, we must use an
+explicit constructor: just as
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[list: 1, 2, 3]</code></span>
+constructs a list,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[set: 1, 2, 3]</code></span>
+constructs a set instead of a
+list.<span class="refelem"><span class="refcolumn"><span class="refcontent">In fact, we can <a
+href="https://www.pyret.org/docs/latest/Expressions.html##s-construct-expr">create
+our own constructors</a> and use them with this syntax.</span></span></span></p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Try typing
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[1, 2, 3]</code></span>
+and see the error message.</p></blockquote></blockquote>
+<p>This shows us how to construct lists. To take them apart, we use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>.
+There are two variants,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+(which we used to construct the lists):</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym">cond</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">  </span><span class="RktMeta"></span><span class="RktPn">[</span><span class="RktPn">(</span><span class="RktSym">empty?</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">l</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">0</span><span class="RktPn">]</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">  </span><span class="RktMeta"></span><span class="RktPn">[</span><span class="RktPn">(</span><span class="RktSym">cons?</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">l</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">   </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">+</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">first</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">l</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">      </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">g</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">rest</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">l</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktPn">]</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr></table></blockquote></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">cases (List) l:
+  | empty      =&gt; 0
+  | link(f, r) =&gt; f + g(r)
+end</code></pre></div></div></p></td></tr></table>
+<p>It is conventional to call the fields
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">r</code></span>
+(for “first” and “rest”). Of course, this convention does not work if
+there are other things by the same name; in particular, when writing a
+nested destructuring of a list, we conventionally write
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fr</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rr</code></span>
+(for “first of the rest” and “rest of the rest”).</p>
+<h3 id="First-Class-Functions">First-Class Functions</h3>
+<p>The equivalent of Racket’s lambda is Pyret’s
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>:</p>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">lambda</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">y</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">+</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">y</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">lam(x, y): x + y end</code></span></p></td></tr></table>
+<h3 id="Annotations">Annotations</h3>
+<p>In student Racket languages, annotations are usually written as
+comments:</p>
+<blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktCmt">;</span><span class="hspace"> </span><span class="RktCmt">square:</span><span class="hspace"> </span><span class="RktCmt">Number</span><span class="hspace"> </span><span class="RktCmt">-&gt;</span><span class="hspace"> </span><span class="RktCmt">Number</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktCmt">;</span><span class="hspace"> </span><span class="RktCmt">sort-nums:</span><span class="hspace"> </span><span class="RktCmt">List&lt;Number&gt;</span><span class="hspace"> </span><span class="RktCmt">-&gt;</span><span class="hspace"> </span><span class="RktCmt">List&lt;Number&gt;</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktCmt">;</span><span class="hspace"> </span><span class="RktCmt">sort:</span><span class="hspace"> </span><span class="RktCmt">List&lt;T&gt;</span><span class="hspace"> </span><span class="RktCmt">*</span><span class="hspace"> </span><span class="RktCmt">(T</span><span class="hspace"> </span><span class="RktCmt">*</span><span class="hspace"> </span><span class="RktCmt">T</span><span class="hspace"> </span><span class="RktCmt">-&gt;</span><span class="hspace"> </span><span class="RktCmt">Boolean)</span><span class="hspace"> </span><span class="RktCmt">-&gt;</span><span class="hspace"> </span><span class="RktCmt">List&lt;T&gt;</span><span class="RktMeta"></span></td></tr></table></blockquote>
+<p>In Pyret, we write the annotations directly on the parameters and
+return values. Pyret will check them to a limited extent dynamically,
+and can check them statically with its type checker. The corresponding
+annotations to those above would be written as</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun square(n :: Number) -&gt; Number: ...
+
+fun sort-nums(l :: List&lt;Number&gt;) -&gt; List&lt;Number&gt;: ...
+
+fun sort&lt;T&gt;(l :: List&lt;T&gt;, cmp :: (T, T -&gt; Boolean)) -&gt; List&lt;T&gt;: ...</code></pre></div></div>
+<h3 id="What-Else">What Else?</h3>
+<p>If there are other parts of Scheme or Racket syntax that you would
+like to see translated, please <a
+href="http://cs.brown.edu/~sk/Contact/">let us know</a>.</p>
+<div class="navsetbottom">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="booklet_appendices.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_appendices.html">up</a>&nbsp;&nbsp;<a href="pyret-vs-python.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+</div><!-- .main -->
+</div><!-- .maincolumn -->
+</body>
+</html>

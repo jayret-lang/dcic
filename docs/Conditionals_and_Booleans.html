@@ -1,0 +1,987 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$","$"],
+                   ["\\[","\\]"],
+                   ["\\begin{equation}","\\end{equation}"],
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.8"/>
+<title>3.4 Conditionals and Booleans</title>
+<link rel="stylesheet" type="text/css" href="scribble.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="editor.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/>
+<script type="text/javascript" src="scribble-common.js"></script>
+<script type="text/javascript" src="manual-racket.js"></script>
+</head>
+<body id="scribble-racket-lang-org">
+<div class="tocset"><div class="tocview">
+<div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
+<tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
+<tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
+<tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
+<tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr>
+<tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr>
+<tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9658;</a></td><td>II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr></table><div class="tocviewsublist" style="display: none;" id="tocview_1"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">3&nbsp;</td><td><a href="part_foundations.html" class="tocviewlink" data-pltdoc="x">Basic Data</a></td></tr>
+<tr><td align="right">4&nbsp;</td><td><a href="part_tabular-data.html" class="tocviewlink" data-pltdoc="x">Tabular Data</a></td></tr>
+<tr><td align="right">5&nbsp;</td><td><a href="part_lists.html" class="tocviewlink" data-pltdoc="x">Lists</a></td></tr>
+<tr><td align="right">6&nbsp;</td><td><a href="part_structured-data.html" class="tocviewlink" data-pltdoc="x">Structured Data</a></td></tr>
+<tr><td align="right">7&nbsp;</td><td><a href="part_trees.html" class="tocviewlink" data-pltdoc="x">Trees</a></td></tr>
+<tr><td align="right">8&nbsp;</td><td><a href="part_bonus-foundations.html" class="tocviewlink" data-pltdoc="x">Foundations: Bonus Materials</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9660;</a></td><td>3&nbsp;</td><td><a href="part_foundations.html" class="tocviewlink" data-pltdoc="x">Basic Data</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_2"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">3.1&nbsp;</td><td><a href="getting-started.html" class="tocviewlink" data-pltdoc="x">Getting Started</a></td></tr>
+<tr><td align="right">3.2&nbsp;</td><td><a href="Naming_Values.html" class="tocviewlink" data-pltdoc="x">Naming Values</a></td></tr>
+<tr><td align="right">3.3&nbsp;</td><td><a href="From_Repeated_Expressions_to_Functions.html" class="tocviewlink" data-pltdoc="x">From Repeated Expressions to Functions</a></td></tr>
+<tr><td align="right">3.4&nbsp;</td><td><a href="Conditionals_and_Booleans.html" class="tocviewselflink" data-pltdoc="x">Conditionals and Booleans</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_3&quot;);">&#9658;</a></td><td>3.4&nbsp;</td><td><a href="Conditionals_and_Booleans.html" class="tocviewselflink" data-pltdoc="x">Conditionals and Booleans</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_3"></div></div>
+</div>
+<div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"></table></div>
+</div>
+<div class="maincolumn">
+<div class="main">
+<div class="navsettop">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="From_Repeated_Expressions_to_Functions.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_foundations.html">up</a>&nbsp;&nbsp;<a href="part_tabular-data.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+<h3 id="Conditionals-and-Booleans">Conditionals and Booleans</h3>
+<h4 id="add-shipping-setup">Motivating Example: Shipping Costs</h4>
+<p>In <a
+href="From_Repeated_Expressions_to_Functions.html##pen-cost-pyret">Functions
+Practice: Cost of pens</a>, we wrote a program
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>)
+to compute the cost of ordering pens. Continuing the example, we now
+want to account for shipping costs. We’ll determine shipping charges
+based on the cost of the order.</p>
+<p>Specifically, we will write a function
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+to compute the total cost of an order including shipping. Assume an
+order valued at $10 or less ships for $4, while an order valued above
+$10 ships for $8. As usual, we will start by writing examples of the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+computation.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Use the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+notation from
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+blocks to write several examples of add-shipping. How are you choosing
+which inputs to use in your examples? Are you picking random inputs?
+Being strategic in some way? If so, what’s your strategy?</p></blockquote></blockquote>
+<p>Here is a proposed collection of examples for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>.</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">add-shipping(10) is 10 + 4
+add-shipping(3.95) is 3.95 + 4
+add-shipping(20) is 20 + 8
+add-shipping(10.01) is 10.01 + 8</code></pre></div></div>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What do you notice about our examples? What strategies do you observe
+across our choices?</p></blockquote></blockquote>
+<p>Our proposed examples feature several strategic decisions:</p>
+<ul>
+<li>Including
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>,
+which is at the boundary of charges based on the text</li>
+<li>Including
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10.01</code></span>,
+which is just over the boundary</li>
+<li>Including both natural and real (decimal) numbers</li>
+<li>Including examples that should result in each shipping charge
+mentioned in the problem
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>)</li>
+</ul>
+<p>So far, we have used a simple rule for creating a function body from
+examples: locate the parts that are changing, replace them with names,
+then make the names the parameters to the function.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What is changing across our
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+examples? Do you notice anything different about these changes compared
+to the examples for our previous functions?</p></blockquote></blockquote>
+<p>Two things are new in this set of examples:</p>
+<ul>
+<li>The values of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
+differ across the examples, but they each occur in multiple
+examples.</li>
+<li>The values of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
+appear only in the computed answers—not as an input. Which one we use
+seems to depend on the input value.</li>
+</ul>
+<p>These two observations suggest that something new is going on with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>.
+In particular, we have clusters of examples that share a fixed value
+(the shipping charge), but different clusters (a) use different values
+and (b) have a pattern to their inputs (whether the input value is less
+than or equal to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>).
+This calls for being able to ask questions about inputs within our
+programs.</p>
+<h4 id="cond-boolean-intro">Conditionals: Computations with
+Decisions</h4>
+<p>To ask a question about our inputs, we use a new kind of expression
+called an if expression. Here’s the full definition of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun add-shipping(order-amt :: Number) -&gt; Number:
+  doc: "add shipping costs to order total"
+  if order-amt &lt;= 10:
+    order-amt + 4
+  else:
+    order-amt + 8
+  end
+where:
+  add-shipping(10) is 10 + 4
+  add-shipping(3.95) is 3.95 + 4
+  add-shipping(20) is 20 + 8
+  add-shipping(10.01) is 10.01 + 8
+end</code></pre></div></div>
+<p>In an
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+expression, we ask a question that can produce an answer that is true or
+false (here
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 10</code></span>,
+which we’ll explain below in <a
+href="Conditionals_and_Booleans.html##booleans">Booleans</a>), provide
+one expression for when the answer to the question is true
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt + 4</code></span>),
+and another for when the result is false
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt + 8</code></span>).
+The
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else</code></span>
+in the program marks the answer in the false case; we call this the else
+clause. We also need
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">end</code></span>
+to tell Pyret we’re done with the question and answers.</p>
+<h4 id="booleans">Booleans</h4>
+<p>Every expression in Pyret evaluates in a value. So far, we have seen
+three types of values:
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>,
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Image</code></span>.
+What type of value does a question like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 10</code></span>
+produce? We can use the interactions prompt to experiment and find
+out.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Enter each of the following expressions at the interactions prompt.
+What type of value did you get? Do the values fit the types we have seen
+so far?</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">3.95 &lt;= 10
+20 &lt;= 10</code></pre></div></div></blockquote></blockquote>
+<p>The values
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>
+belong to a new type in Pyret, called
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>.<span class="refelem"><span class="refcolumn"><span class="refcontent">Named for <a href="https://en.wikipedia.org/wiki/George_Boole">George
+Boole</a>.</span></span></span> While there are an infinitely many
+values of type
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>,
+there are only two of type
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>:
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>What would happen if we entered
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 10</code></span>
+at the interactions prompt to explore booleans? Why does that
+happen?</p></blockquote></blockquote>
+<h5 id="bool-comparisons">Other Boolean Operations</h5>
+<p>There are many other built-in operations that return
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>
+values. Comparing values for equality is a common one:
+<span class="refelem"><span class="refcolumn"><span class="refcontent">There is much more we can and should say about equality, which we will
+do later [<a href="Sharing_and_Equality.html##identical-eq">Re-Examining
+Equality</a>].</span></span></span></p>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">1 == 1</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">true</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">1 == 2</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">false</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">"cat" == "dog"</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">false</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">"cat" == "CAT"</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">false</code></pre></div></div></p></td></tr></table>
+<p>In general,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
+checks whether two values are equal. Note this is different from the
+single
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=</code></span>
+used to associate names with values in the directory.</p>
+<p>The last example is the most interesting: it illustrates that strings
+are case-sensitive, meaning individual letters must match in their case
+for strings to be considered
+equal.<span class="refelem"><span class="refcolumn"><span class="refcontent">This will become relevant when we get to tables later.</span></span></span></p>
+<p>Sometimes, we also want to compare strings to determine their
+alphabetical order. Here are several examples:</p>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">"a" &lt; "b"</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">true</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">"a" &gt;= "c"</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">false</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">"that" &lt; "this"</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">true</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">"alpha" &lt; "beta"</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">true</code></pre></div></div></p></td></tr></table>
+<p>which is the alphabetical order we’re used to; but others need some
+explaining:</p>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">"a" &gt;= "C"</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">true</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">"a" &gt;= "A"</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">true</code></pre></div></div></p></td></tr></table>
+<p>These use a convention laid down a long time ago in a system called
+<a
+href="https://en.wikipedia.org/wiki/ASCII">ASCII</a>.<span class="refelem"><span class="refcolumn"><span class="refcontent">Things get far more complicated with non-ASCII letters: e.g., Pyret
+thinks
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Ł"</code></span>
+is
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&gt;</code></span>
+than
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Z"</code></span>,
+but in Polish, this should be
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.
+Worse, the ordering <a
+href="https://en.wikipedia.org/wiki/Alphabetical_order">depends on
+location</a> (e.g., Denmark/Norway vs. Finland/Sweden).</span></span></span></p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Can you compare
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>?
+Try comparing them for equality
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>),
+then for inequality (such as
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;</code></span>).</p></blockquote></blockquote>
+<p>In general, you can compare any two values for equality (well,
+almost, we’ll come back to this later); for instance:</p>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">"a" == 1</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">false</code></pre></div></div></p></td></tr></table>
+<p>If you want to compare values of a specific kind, you can use more
+specific operators:</p>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">num-equal(1, 1)</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">true</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">num-equal(1, 2)</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">false</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">string-equal("a", "a")</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">true</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">string-equal("a", "b")</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">false</code></pre></div></div></p></td></tr></table>
+<p>Why use these operators instead of the more generic
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>?</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Try</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">num-equal("a", 1)
+string-equal("a", 1)</code></pre></div></div></blockquote></blockquote>
+<p>Therefore, it’s wise to use the type-specific operators where you’re
+expecting the two arguments to be of the same type. Then, Pyret will
+signal an error if you go wrong, instead of blindly returning an answer
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>)
+which lets your program continue to compute a nonsensical value.</p>
+<p>There are even more Boolean-producing operators, such as:</p>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">wm = "will.i.am"</code></pre></div></div></p></blockquote></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">string-contains(wm, "will")</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">true</code></pre></div></div></p></td></tr></table>
+<p><span class="refelem"><span class="refcolumn"><span class="refcontent">Note the capital
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">W</code></span>.</span></span></span></p>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">string-contains(wm, "Will")</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">false</code></pre></div></div></p></td></tr></table>
+<p>In fact, just about every kind of data will have some Boolean-valued
+operators to enable comparisons.</p>
+<h5 id="Combining-Booleans">Combining Booleans</h5>
+<p>Often, we want to base decisions on more than one Boolean value. For
+instance, you are allowed to vote if you’re a citizen of a country and
+you are above a certain age. You’re allowed to board a bus if you have a
+ticket or the bus is having a free-ride day. We can even combine
+conditions: you’re allowed to drive if you are above a certain age and
+have good eyesight and—either pass a test or have a temporary license.
+Also, you’re allowed to drive if you are not inebriated.</p>
+<p>Corresponding to these forms of combinations, Pyret offers three main
+operations:
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">and</code></span>,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">or</code></span>,
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">not</code></span>.
+Here are some examples of their use:</p>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">(1 &lt; 2) and (2 &lt; 3)</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">true</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">(1 &lt; 2) and (3 &lt; 2)</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">false</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">(1 &lt; 2) or (2 &lt; 3)</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">true</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">(3 &lt; 2) or (1 &lt; 2)</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">true</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">not(1 &lt; 2)</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">false</code></pre></div></div></p></td></tr></table>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Explain why numbers and strings are not good ways to express the
+answer to a true/false question.</p></blockquote></blockquote>
+<h4 id="else-if">Asking Multiple Questions</h4>
+<p>Shipping costs are rising, so we want to modify the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+program to include a third shipping level: orders between $10 and $30
+ship for $8, but orders over $30 ship for $12. This calls for two
+modifications to our program:</p>
+<ul>
+<li>We have to be able to ask another question to distinguish situations
+in which the shipping charge is
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
+from those in which the shipping charge is
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">12</code></span>.</li>
+<li>The question for when the shipping charge is
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
+will need to check whether the input is between two values.</li>
+</ul>
+<p>We’ll handle these in order.</p>
+<p>The current body of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+asks one question:
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 10</code></span>.
+We need to add another one for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 30</code></span>,
+using a charge of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">12</code></span>
+if that question fails. Where do we put that additional question?</p>
+<p>An expanded version of the if-expression, using
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else if</code></span>,
+allows you to ask multiple questions:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun add-shipping(order-amt :: Number) -&gt; Number:
+  doc: "add shipping costs to order total"
+  if order-amt &lt;= 10:
+    order-amt + 4
+  else if order-amt &lt;= 30:
+    order-amt + 8
+  else:
+    order-amt + 12
+  end
+where:
+  ...
+end</code></pre></div></div>
+<p>At this point, you should also add
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+examples that use the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">12</code></span>
+charge.</p>
+<p>How does Pyret determine which answer to return? It evaluates each
+question expression in order, starting from the one that follows
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>.
+It continues through the questions, returning the value of the answer of
+the first question that returns true. Here’s a summary of the
+if-expression syntax and how it evaluates.</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">if QUESTION1:
+  &lt;result in case first question true&gt;
+else if QUESTION2:
+  &lt;result in case QUESTION1 false and QUESTION2 true&gt;
+else:
+  &lt;result in case both QUESTIONs false&gt;
+end</code></pre></div></div>
+<p>A program can have multiple
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else if</code></span>
+cases, thus accommodating an arbitrary number of questions within a
+program.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>The problem description for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+said that orders between
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">30</code></span>
+should incur an
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
+charge. How does the above code capture “between”?</p></blockquote></blockquote>
+<p>This is currently entirely implicit. It depends on us understanding
+the way an
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+evaluates. The first question is
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 10</code></span>,
+so if we continue to the second question, it means
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &gt; 10</code></span>.
+In this context, the second question asks whether
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 30</code></span>.
+That’s how we’re capturing “between”-ness.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>How might you modify the above code to build the “between 10 and 30”
+requirement explicitly into the question for the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
+case?</p></blockquote></blockquote>
+<p>Remember the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">and</code></span>
+operator on booleans? We can use that to capture “between”
+relationships, as follows:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">(order-amt &gt; 10) and (order-amt &lt;= 30)</code></pre></div></div>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Why are there parentheses around the two comparisons? If you replace
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt</code></span>
+with a concrete value (such as
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">20</code></span>)
+and leave off the parenthesis, what happens when you evaluate this
+expression in the interactions pane?</p></blockquote></blockquote>
+<p>Here is what
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+look like with the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">and</code></span>
+included:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun add-shipping(order-amt :: Number) -&gt; Number:
+  doc: "add shipping costs to order total"
+  if order-amt &lt;= 10:
+    order-amt + 4
+  else if (order-amt &gt; 10) and (order-amt &lt;= 30):
+    order-amt + 8
+  else:
+    order-amt + 12
+  end
+where:
+  add-shipping(10) is 10 + 4
+  add-shipping(3.95) is 3.95 + 4
+  add-shipping(20) is 20 + 8
+  add-shipping(10.01) is 10.01 + 8
+  add-shipping(30) is 30 + 8
+  add-shipping(32) is 32 + 12
+end</code></pre></div></div>
+<p>Both versions of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+support the same examples. Are both correct? Yes. And while the first
+part of the second question
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &gt; 10</code></span>)
+is redundant, it can be helpful to include such conditions for three
+reasons:</p>
+<ol type="1">
+<li>They signal to future readers (including ourselves!) the condition
+covering a case.</li>
+<li>They ensure that if we make a mistake in writing an earlier
+question, we won’t silently get surprising output.</li>
+<li>They guard against future modifications, where someone might modify
+an earlier question without realizing the impact it’s having on a later
+one.</li>
+</ol>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>An online-advertising firm needs to determine whether to show an ad
+for a skateboarding park to website users. Write a function
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">show-ad</code></span>
+that takes the age and haircolor of an individual user and returns
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+if the user is between the ages of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">9</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">18</code></span>
+and has either pink or purple hair.</p>
+<p>Try writing this two ways: once with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+expressions and once using just boolean operations.</p></blockquote></blockquote>
+<blockquote class="RespCS"><p class="RespCSHeader">Responsible Computing</p><blockquote class="RespCSBody"><p>Assumptions about users get encoded in even the simplest functions.
+The advertising exercise shows an example in which a decision gets made
+on the basis of two pieces of information about a person: age and
+haircolor. While some people might stereotypically associate
+skateborders with being young and having colored hair, many skateborders
+do not fit these criteria and many people who fit these criteria don’t
+skateboard.</p>
+<p>While real programs to match ads to users are more sophisticated than
+this simple function, even the most sophisticated advertising programs
+boil down to tracking features or information about individuals and
+comparing it to information about the content of ads. A real ad system
+would differ in tracking dozens (or more) of features and using more
+advanced programming ideas than simple conditionals to determine the
+suitability of an ad (we’ll discuss some of these later in the book).
+This example also extends to situations far more serious than ads: who
+gets hired, granted a bank loan, or <a
+href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing">sent
+to or released from jail</a> are other examples of real systems that
+depend on comparing data about individuals with criteria maintained by a
+program.</p>
+<p>From a social responsibility perspective, the questions here are what
+data about individuals should be used to represent them for processing
+by programs and what stereotypes might those data encode. In some cases,
+individuals can be represented by data without harm (a university
+housing office, for examples, stores student ID numbers and which room a
+student is living in). But in other cases, data about individuals get
+interpreted in order to predict something about them. Decisions based on
+those predictions can be inaccurate and hence harmful.</p></blockquote></blockquote>
+<h4 id="conditional-nm">Evaluating by Reducing Expressions</h4>
+<p>In <a
+href="From_Repeated_Expressions_to_Functions.html##function-call-nm">How
+Functions Evaluate</a>, we talked about how Pyret reduces expressions
+and function calls to values. Let’s revisit this process, this time
+expanding to consider if-expressions. Suppose we want to compute the
+wages of a worker. The worker is paid $10 for every hour up to the first
+40 hours, and is paid $15 for every extra hour. Let’s say
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hours</code></span>
+contains the number of hours they work, and suppose it’s
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">45</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">hours = 45</code></pre></div></div>
+<p>Suppose the formula for computing the wage is</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">if hours &lt;= 40:
+  hours * 10
+else if hours &gt; 40:
+  (40 * 10) + ((hours - 40) * 15)
+end</code></pre></div></div>
+<p>Let’s now see how this results in an answer, using a step-by-step
+process that should match what you’ve seen in algebra classes (the steps
+are described in the margin notes to the right):
+<span class="refelem"><span class="refcolumn"><span class="refcontent">The first step is to substitute the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hours</code></span>
+with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">45</code></span>.</span></span></span></p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">if 45 &lt;= 40:
+  45 * 10
+else if 45 &gt; 40:
+  (40 * 10) + ((45 - 40) * 15)
+end</code></pre></div></div>
+<p><span class="refelem"><span class="refcolumn"><span class="refcontent">Next, the conditional part of the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+expression is evaluated, which in this case is
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.</span></span></span></p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">=&gt;  if false:
+      45 * 10
+    else if 45 &gt; 40:
+      (40 * 10) + ((45 - 40) * 15)
+    end</code></pre></div></div>
+<p><span class="refelem"><span class="refcolumn"><span class="refcontent">Since the condition is
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>,
+the next branch is tried.</span></span></span></p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">=&gt;  if 45 &gt; 40:
+      (40 * 10) + ((45 - 40) * 15)
+    end</code></pre></div></div>
+<p><span class="refelem"><span class="refcolumn"><span class="refcontent">Pyret evaluates the question in the conditional, which in this case
+produces
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>.</span></span></span></p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">=&gt;  if true:
+      (40 * 10) + ((45 - 40) * 15)
+    end</code></pre></div></div>
+<p><span class="refelem"><span class="refcolumn"><span class="refcontent">Since the condition is
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>,
+the expression reduces to the body of that branch. After that, it’s just
+arithmetic.</span></span></span></p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">=&gt;  (40 * 10) + ((45 - 40) * 15)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">=&gt;  400 + (5 * 15)
+=&gt;  475</code></pre></div></div>
+<p>This style of reduction is the best way to think about the evaluation
+of Pyret expressions. The whole expression takes steps that simplify it,
+proceeding by simple rules. You can use this style yourself if you want
+to try and work through the evaluation of a Pyret program by hand (or in
+your head).</p>
+<h4 id="Composing-Functions">Composing Functions</h4>
+<p>We started this chapter wanting to account for shipping costs on an
+order of pens. So far, we have written two functions:</p>
+<ul>
+<li><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+for computing the cost of the pens</li>
+<li><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+for adding shipping costs to a total amount</li>
+</ul>
+<p>What if we now wanted to compute the price of an order of pens
+including shipping? We would have to use both of these functions
+together, sending the output of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+to the input of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Write an expression that computes the total cost, with shipping, of
+an order of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>
+pens that say
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"bravo"</code></span>.</p></blockquote></blockquote>
+<p>There are two ways to structure this computation. We could pass the
+result of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+directly to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">add-shipping(pen-cost(10, "bravo"))</code></pre></div></div>
+<p>Alternatively, you might have named the result of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+as an intermediate step:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">pens = pen-cost(10, "bravo")
+add-shipping(pens)</code></pre></div></div>
+<p>Both methods would produce the same answer.</p>
+<h5 id="How-Function-Compositions-Evaluate">How Function Compositions
+Evaluate</h5>
+<p>Let’s review how these programs evaluate in the context of
+substitution and the directory. We’ll start with the second version, in
+which we explicitly name the result of calling
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>.</p>
+<p>Evaluating the second version: At a high level, Pyret goes through
+the following steps:</p>
+<ul>
+<li>Substitute
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>
+for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-pens</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"bravo"</code></span>
+for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message</code></span>
+in the body of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>,
+then evaluate the substituted body</li>
+<li>Store
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pens</code></span>
+in the directory, with a value of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3.5</code></span></li>
+<li>As a first step in evaluating
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping(pens)</code></span>,
+look up the value of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pens</code></span>
+in the directory</li>
+<li>Substitute
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3.5</code></span>
+for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt</code></span>
+in the body of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+then evaluate the resulting expression, which results in
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">7.5</code></span></li>
+</ul>
+<p>Evaluating the first version: As a reminder, the first version
+consisted of a single expression:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">add-shipping(pen-cost(10, "bravo"))</code></pre></div></div>
+<ul>
+<li>Since arguments are evaluated before functions get called, start by
+evaluating
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost(10, "bravo")</code></span>
+(again using substitution), which reduces to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3.5</code></span></li>
+<li>Substitute
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3.5</code></span>
+for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt</code></span>
+in the body of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+then evaluate the resulting expression, which results in
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">7.5</code></span></li>
+</ul>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Contrast these two summaries. Where do they differ? What aspects of
+the code led to those differences?</p></blockquote></blockquote>
+<p>The difference lies in the use of the directory: the version that
+explicitly named
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pens</code></span>
+uses the directory. The other version doesn’t use the directory at all.
+Yet both approaches lead to the same result, since the same value (the
+result of calling
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>)
+gets substituted into the body of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>.</p>
+<p>This analysis might suggest that the version that uses the directory
+is somehow wasteful: it seems to take more steps just to end up at the
+same result. Yet one might argue that the version that uses the
+directory is easier to read (different readers will have different
+opinions on this, and that’s fine). So which should we use?</p>
+<p>Use whichever makes more sense to you on a given problem. There will
+be times when we prefer each of these styles. Furthermore, it will turn
+out (once we’ve learned more about nuances of how programs evaluate)
+that the two versions aren’t as different as they appear right now.</p>
+<h5 id="func-comp-directory">Function Composition and the Directory</h5>
+<p>Let’s try one more variation on this problem. Perhaps seeing us name
+the intermediate result of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+made you wish that we had used intermediate names to make the body of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+more readable. For example, we could have written it as:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun pen-cost(num-pens :: Number, message :: String)
+  -&gt; Number:
+  doc: ```total cost for pens, each 25 cents
+       plus 2 cents per message character```
+  message-cost = (string-length(message) * 0.02)
+  num-pens * (0.25 + message-cost)
+where:
+  ...
+end</code></pre></div></div>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Write out the high level steps for how Pyret will evaluate the
+following program using this new version of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">pens = pen-cost(10, "bravo")
+add-shipping(pens)</code></pre></div></div></blockquote></blockquote>
+<p>Hopefully, you made two entries into the directory, one for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message-cost</code></span>
+inside the body of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+and one for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pens</code></span>
+as we did earlier.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Consider the following program. What result do you think Pyret should
+produce?</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">pens = pen-cost(10, "bravo")
+cheap-message = (message-cost &gt; 0.5)
+add-shipping(pens)</code></pre></div></div>
+<p>Using the directory you envisioned for the previous activity, what
+answer do you think you will get?</p></blockquote></blockquote>
+<p>Something odd is happening here. The new program tries to use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message-cost</code></span>
+to define
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cheap-message</code></span>.
+But the name
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message-cost</code></span>
+doesn’t appear anywhere in the program, unless we peek inside the
+function bodies. But letting code peek inside function bodies doesn’t
+make sense: you might not be able to see inside the functions (if they
+are defined in libraries, for example), so this program should report an
+error that
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message-cost</code></span>
+is undefined.</p>
+<p>Okay, so that’s what should happen. But our discussion of the
+directory suggests that both
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pens</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message-cost</code></span>
+will be in the directory, meaning Pyret would be able to use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message-cost</code></span>.
+What’s going on?</p>
+<p>This example prompts us to explain one more nuance about the
+directory. Precisely to avoid problems like the one illustrated here
+(which should produce an error), directory entries made within a
+function are local (private) to the function body. When you call a
+function, Pyret sets up a local directory that other functions can’t
+see. A function body can add or refer to names in either its local,
+private directory (as with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message-cost</code></span>)
+or the overall (global) directory (as with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pens</code></span>).
+But in no case can one function call peek inside the local directory for
+another function call. Once a function call completes, its local
+directory disappears (because nothing else would be able to use it
+anyway).</p>
+<h4 id="Nested-Conditionals">Nested Conditionals</h4>
+<p>We showed that the results in
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>-expressions
+are themselves expressions (such as
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt + 4</code></span>
+in the following function):</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun add-shipping(order-amt :: Number) -&gt; Number:
+  doc: "add shipping costs to order total"
+  if order-amt &lt;= 10:
+    order-amt + 4
+  else:
+    order-amt + 8
+  end
+end</code></pre></div></div>
+<p>The result expressions can be more complicated. In fact, they could
+be entire if-expressions!. To see an example of this, let’s develop
+another function. This time, we want a function that will compute the
+cost of movie tickets. Let’s start with a simple version in which
+tickets are
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">$10</code></span>
+apiece.</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun buy-tickets1(count :: Number) -&gt; Number:
+  doc: "Compute the price of tickets at $10 each"
+  count * 10
+where:
+  buy-tickets1(0) is 0
+  buy-tickets1(2) is 2 * 10
+  buy-tickets1(6) is 6 * 10
+end</code></pre></div></div>
+<p>Now, let’s augment the function with an extra parameter to indicate
+whether the purchaser is a senior citizen who is entitled to a discount.
+In such cases, we will reduce the overall price by
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">15%</code></span>.</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun buy-tickets2(count :: Number, is-senior :: Boolean)
+  -&gt; Number:
+  doc: ```Compute the price of tickets at $10 each with
+       senior discount of 15%```
+  if is-senior == true:
+    count * 10 * 0.85
+  else:
+    count * 10
+  end
+where:
+  buy-tickets2(0, false) is 0
+  buy-tickets2(0, true) is 0
+  buy-tickets2(2, false) is 2 * 10
+  buy-tickets2(2, true) is 2 * 10 * 0.85
+  buy-tickets2(6, false) is 6 * 10
+  buy-tickets2(6, true) is 6 * 10 * 0.85
+end</code></pre></div></div>
+<p>There are a couple of things to notice here:</p>
+<ul>
+<li>The function now has an additional parameter of type
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>
+to indicate whether the purchaser is a senior citizen.</li>
+<li>We have added an
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+expression to check whether to apply the discount.</li>
+<li>We have more examples, because we have to vary both the number of
+tickets and whether a discount applies.</li>
+</ul>
+<p>Now, let’s extend the program once more, this time also offering the
+discount if the purchaser is not a senior but has bought more than 5
+tickets. Where should we modify the code to do this? One option is to
+first check whether the senior discount applies. If not, we check
+whether the number of tickets qualifies for a discount:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun buy-tickets3(count :: Number, is-senior :: Boolean)
+  -&gt; Number:
+  doc: ```Compute the price of tickets at $10 each with
+       discount of 15% for more than 5 tickets
+       or being a senior```
+  if is-senior == true:
+    count * 10 * 0.85
+  else:
+    if count &gt; 5:
+      count * 10 * 0.85
+    else:
+      count * 10
+    end
+  end
+where:
+  buy-tickets3(0, false) is 0
+  buy-tickets3(0, true) is 0
+  buy-tickets3(2, false) is 2 * 10
+  buy-tickets3(2, true) is 2 * 10 * 0.85
+  buy-tickets3(6, false) is 6 * 10 * 0.85
+  buy-tickets3(6, true) is 6 * 10 * 0.85
+end</code></pre></div></div>
+<p>Notice here that we have put a second
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+expression within the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else</code></span>
+case. This is valid code. (We could have also made an
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else if</code></span>
+here, but we didn’t so that we could show that nested conditionals are
+also valid).</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Show the steps through which this function would evaluate in a
+situation where no discount applies, such as
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">buy-tickets3(2, false)</code></span>.</p></blockquote></blockquote>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Look at the current code: do you see a repeated computation that we
+might end up having to modify later?</p></blockquote></blockquote>
+<p>Part of good code style is making sure that our programs would be
+easy to maintain later. If the theater changes its discount policy, for
+example, the current code would require us to change the discount
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0.85</code></span>)
+in two places. It would be much better to have that computation written
+only one time. We can achieve that by asking which conditions lead to
+the discount applying, and writing them as the check within just one
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+expression.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Under what conditions should the discount apply?</p></blockquote></blockquote>
+<p>Here, we see that the discount applies if either the purchaser is a
+senior or more than 5 tickets have been bought. We can therefore
+simplify the code by using
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">or</code></span>
+as follows (we’ve left out the examples because they haven’t changed
+from the previous version):</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun buy-tickets4(count :: Number, is-senior :: Boolean)
+  -&gt; Number:
+  doc: ```Compute the price of tickets at $10 each with
+       discount of 15% for more than 5 tickets
+       or being a senior```
+  if (is-senior == true) or (count &gt; 5):
+    count * 10 * 0.85
+  else:
+    count * 10
+  end
+end</code></pre></div></div>
+<p>This code is much tighter, and all of the cases where the discount
+applies are described together in one place. There are still two small
+changes we want to make to really clean this up though.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Take a look at the expression
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-senior == true</code></span>.
+What will this evaluate to when the value of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-senior</code></span>
+is
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>?
+What will it evaluate to when the value of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-senior</code></span>
+is
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>?</p></blockquote></blockquote>
+<p>Notice that the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">== true</code></span>
+part is redundant. Since
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-senior</code></span>
+is already a boolean, we can check its value without using the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
+operator. Here’s the revised code:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun buy-tickets5(count :: Number, is-senior :: Boolean)
+  -&gt; Number:
+  doc: ```Compute the price of tickets at $10 each with
+       discount of 15% for more than 5 tickets
+       or being a senior```
+  if is-senior or (count &gt; 5):
+    count * 10 * 0.85
+  else:
+    count * 10
+  end
+end</code></pre></div></div>
+<p>Notice the revised question in the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+expression. As a general rule, your code should never include
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">== true</code></span>.
+You can always take that out and just use the expression you were
+comparing to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What do you write to eliminate
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">== false</code></span>?
+For example, what might you write instead of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-senior == false</code></span>?</p></blockquote></blockquote>
+<p>Finally, notice that we still have one repeated computation: the base
+cost of the tickets
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">count * 10</code></span>):
+if the ticket price changes, it would be better to have only one place
+to update that price. We can clean that up by first computing the base
+price, then applying the discount when appropriate:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun buy-tickets6(count :: Number, is-senior :: Boolean)
+  -&gt; Number:
+  doc: ```Compute the price of tickets at $10 each with
+       discount of 15% for more than 5 tickets
+       or being a senior```
+  base = count * 10
+  if is-senior or (count &gt; 5):
+    base * 0.85
+  else:
+    base
+  end
+end</code></pre></div></div>
+<h4 id="Recap-Booleans-and-Conditionals">Recap: Booleans and
+Conditionals</h4>
+<p>With this chapter, our computations can produce different results in
+different situations. We ask questions using if-expressions, in which
+each question or check uses an operator that produces a boolean.</p>
+<ul>
+<li>There are two Boolean values:
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.</li>
+<li>A simple kind of check (that produces a boolean) compares values for
+equality
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>)
+or
+inequality(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;&gt;</code></span>).
+Other operations that you know from math, like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&gt;=</code></span>,
+also produce booleans.</li>
+<li>We can build larger expressions that produce booleans from smaller
+ones using the operators
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">and</code></span>,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">or</code></span>,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">not</code></span>.</li>
+<li>We can use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+expressions to ask true/false questions within a computation, producing
+different results in each case.</li>
+<li>We can nest conditionals inside one another if needed.</li>
+<li>You never need to use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
+to compare a value to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+or
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>:
+you can just write the value or expression on its own (perhaps with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">not</code></span>
+to get the same computation).</li>
+</ul>
+<div class="navsetbottom">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="From_Repeated_Expressions_to_Functions.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_foundations.html">up</a>&nbsp;&nbsp;<a href="part_tabular-data.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+</div><!-- .main -->
+</div><!-- .maincolumn -->
+</body>
+</html>

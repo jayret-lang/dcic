@@ -1,0 +1,410 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$","$"],
+                   ["\\[","\\]"],
+                   ["\\begin{equation}","\\end{equation}"],
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.8"/>
+<title>8.2 Queues from Lists</title>
+<link rel="stylesheet" type="text/css" href="scribble.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="editor.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/>
+<script type="text/javascript" src="scribble-common.js"></script>
+<script type="text/javascript" src="manual-racket.js"></script>
+</head>
+<body id="scribble-racket-lang-org">
+<div class="tocset"><div class="tocview">
+<div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
+<tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
+<tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
+<tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
+<tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr>
+<tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr>
+<tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9658;</a></td><td>II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr></table><div class="tocviewsublist" style="display: none;" id="tocview_1"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">3&nbsp;</td><td><a href="part_foundations.html" class="tocviewlink" data-pltdoc="x">Basic Data</a></td></tr>
+<tr><td align="right">4&nbsp;</td><td><a href="part_tabular-data.html" class="tocviewlink" data-pltdoc="x">Tabular Data</a></td></tr>
+<tr><td align="right">5&nbsp;</td><td><a href="part_lists.html" class="tocviewlink" data-pltdoc="x">Lists</a></td></tr>
+<tr><td align="right">6&nbsp;</td><td><a href="part_structured-data.html" class="tocviewlink" data-pltdoc="x">Structured Data</a></td></tr>
+<tr><td align="right">7&nbsp;</td><td><a href="part_trees.html" class="tocviewlink" data-pltdoc="x">Trees</a></td></tr>
+<tr><td align="right">8&nbsp;</td><td><a href="part_bonus-foundations.html" class="tocviewlink" data-pltdoc="x">Foundations: Bonus Materials</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9660;</a></td><td>8&nbsp;</td><td><a href="part_bonus-foundations.html" class="tocviewlink" data-pltdoc="x">Foundations: Bonus Materials</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_2"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">8.1&nbsp;</td><td><a href="func-as-data.html" class="tocviewlink" data-pltdoc="x">Functions as Data</a></td></tr>
+<tr><td align="right">8.2&nbsp;</td><td><a href="queues-from-lists.html" class="tocviewselflink" data-pltdoc="x">Queues from Lists</a></td></tr>
+<tr><td align="right">8.3&nbsp;</td><td><a href="testing.html" class="tocviewlink" data-pltdoc="x">Examples, Testing, and Program Checking</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_3&quot;);">&#9658;</a></td><td>8.2&nbsp;</td><td><a href="queues-from-lists.html" class="tocviewselflink" data-pltdoc="x">Queues from Lists</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_3"></div></div>
+</div>
+<div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"></table></div>
+</div>
+<div class="maincolumn">
+<div class="main">
+<div class="navsettop">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="func-as-data.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_bonus-foundations.html">up</a>&nbsp;&nbsp;<a href="testing.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+<h3 id="queues-from-lists">Queues from Lists</h3>
+<p>Suppose you have a list. When you take its first element, you get the
+element that was most recently
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>ed
+to create it. The next element is the second most recent one that was
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>ed,
+and so on. That is, the last one in is the first one out. This is called
+a LIFO, short for “last-in-first-out”, data structure. A list is LIFO;
+we sometimes also refer to this as a stack.</p>
+<p>But there are many settings where you want the first-in to be the
+first-out. When you stand at a supermarket line, try to purchase concert
+tickets, submit a job request, or any number of other tasks, you want to
+be rewarded, not punished, for being there first. That is, you want a
+FIFO instead. This is called a queue.</p>
+<p>The game we’re playing here is that we want one datatype but our
+language has given us another (in this case, lists), and we have to
+figure out how to encode one in the other. We’ll see elsewhere how to
+encode sets with lists [<a href="sets-from-lists.html">Representing Sets
+as Lists</a>]. Here let’s see how we can encode queues with lists.</p>
+<p>With sets, we allowed the set type to be an alias for lists; that is,
+the two were the same. Another option we have when encoding is to create
+a completely new type that does nothing more than wrap a value of the
+encoding type. We’ll use that principle here to illustrate how that
+might work.</p>
+<h4 id="Using-a-Wrapper-Datatype">Using a Wrapper Datatype</h4>
+<p>Concretely, here’s how we’ll represent queues. For all the code that
+follows, it’s helpful to use the Pyret type-checker to make sure we’re
+composing code correctly:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Queue&lt;T&gt;:
+  | queue(l :: List&lt;T&gt;)
+end</code></pre></div></div>
+<p>With this encoding, we can start define a few helper functions: e.g.,
+a way to construct an empty queue and to check for emptiness:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun mk-mtq&lt;T&gt;() -&gt; Queue&lt;T&gt;:
+  queue(empty)
+end
+
+fun is-mtq&lt;T&gt;(q :: Queue&lt;T&gt;) -&gt; Boolean:
+  is-empty(q.l)
+end</code></pre></div></div>
+<p>Adding an element to a queue is usually called “enqueueing”. It has
+this type:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">enqueue :: &lt;T&gt; Queue&lt;T&gt;, T -&gt; Queue&lt;T&gt;</code></pre></div></div>
+<p>Here’s the corresponding implementation:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun enqueue(q, e):
+  queue(link(e, q.l))
+end</code></pre></div></div>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Did we have a choice?</p></blockquote></blockquote>
+<p>Yes, we did! We could have made the new element the first element or
+the last
+element.<span class="refelem"><span class="refcolumn"><span class="refcontent">Be careful here: we mean the first or last element of the list that
+represents the queue, not of the queue itself. There, FIFO gives us no
+choice.</span></span></span> We just happened to choose one
+representation. The other would be equally valid; we would just need to
+implement all the other operations consistently. Let’s stick to this one
+for now.</p>
+<p>Now we come to a problem. What does it mean to “dequeue”? We need to
+get back the one element, but we also need to get back the rest. Let’s
+first write this as two functions, very analogous to first and rest on
+lists:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">qpeek :: &lt;T&gt; Queue&lt;T&gt; -&gt; T
+qrest :: &lt;T&gt; Queue&lt;T&gt; -&gt; Queue&lt;T&gt;</code></pre></div></div>
+<p>Let’s write out a few examples to make sure we know how these should
+work:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">q_ = mk-mtq()
+q3 = enqueue(q_, 3)
+m43 = enqueue(q3, 4)
+m543 = enqueue(m43, 5)
+
+check:
+  qpeek(q3) is 3
+  qpeek(m43) is 3
+  qpeek(m543) is 3
+end
+
+check:
+  qrest(q3) is mk-mtq()
+  qrest(m43) is enqueue(mk-mtq(), 4)
+  qrest(m543) is enqueue(enqueue(mk-mtq(), 4), 5)
+end</code></pre></div></div>
+<p>Now let’s implement these:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun qpeek(q):
+  if is-mtq(q):
+    raise("can't peek an empty queue")
+  else:
+    q.l.get(q.l.length() - 1)
+  end
+end
+
+fun qrest(q):
+  fun safe-rest(l :: List&lt;T&gt;) -&gt; List&lt;T&gt;:
+    cases (List) l:
+      | empty =&gt; raise("can't dequeue an empty queue")
+      | link(f, r) =&gt; r
+    end
+  end
+  queue(safe-rest(q.l.reverse()).reverse())
+end</code></pre></div></div>
+<h4 id="qfl-comb-ans">Combining Answers</h4>
+<p>However, it would be nice if we could obtain both the oldest element
+and the rest of the queue at once, if we want them both. That means the
+single function would need to return two values; since a function can
+return only one value at a time, it would need to use a data structure
+to hold both of them. Furthermore, note that both
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">qpeek</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">qrest</code></span>
+above have the possibility of not having any more elements! We might as
+well reflect that too in the type. Thus we end up with a type that looks
+like</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Dequeued&lt;T&gt;:
+  | none-left
+  | elt-and-q(e :: T, q :: Queue&lt;T&gt;)
+end</code></pre></div></div>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write out the function to use this return type.</p></blockquote></blockquote>
+<p>Observe that this also follows our principle of making exceptional
+behavior manifest in the return type: <a
+href="partial-domains.html##pd-option">The Option Type</a>, and
+especially in <a
+href="partial-domains.html##pd-summary">Summary</a>.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write out the function using this return type.</p></blockquote></blockquote>
+<h4 id="Using-a-Picker">Using a Picker</h4>
+<p>Does
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Dequeued</code></span>
+look familiar? Of course it should! It’s basically the same as the
+pickers used for sets in Pyret: <a
+href="Collections_of_Structured_Data.html##coll-sd-pick">Picking
+Elements from Sets</a>. If we make queues provide the same operations,
+we can reuse the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Pick</code></span>
+library already built into the language, and reuse any code that is
+written expecting the picker interface.</p>
+<p>To do so, first we need to import the picker library:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">include pick</code></pre></div></div>
+<p>Then we can write:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">dequeue :: &lt;T&gt; Queue&lt;T&gt; -&gt; Pick&lt;T, Queue&lt;T&gt;&gt;</code></pre></div></div>
+<p>Here are some examples showing how it would work:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  dequeue(q_) is pick-none
+  dequeue(q3) is pick-some(3, mk-mtq())
+  dequeue(m43) is pick-some(3, enqueue(mk-mtq(), 4))
+  dequeue(m543) is pick-some(3, enqueue(enqueue(mk-mtq(), 4), 5))
+end</code></pre></div></div>
+<p>And here’s the corresponding code:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun dequeue&lt;T&gt;(q):
+  rev = q.l.reverse()
+  cases (List) rev:
+    | empty =&gt; pick-none
+    | link(f, r) =&gt;
+      pick-some(f, queue(r.reverse()))
+  end
+end</code></pre></div></div>
+<p>In terms of big-O complexity, this is a dreadfully inefficient
+implementation, causing two reversals on every
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">qrest</code></span>
+or
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">dequeue</code></span>.
+To see how to do better, and to conduct a more sophisticated analysis,
+see <a href="amortized-analysis.html##queue-data-structure">An Example:
+Queues from Lists</a>.</p>
+<p>One thing to note is that by providing only a picker interface, we’re
+slightly changing the meaning of queues. The picker interface in Pyret
+is designed for sets, which don’t have a notion of order. But queues
+are, of course, very much an ordered datatype; order is why they exist.
+So by providing only a picker interface, we don’t offer the very
+guarantee that queues are designed for. Therefore, we should provide a
+picker in addition to an ordered interface, rather than in place of
+one.</p>
+<p>At this point we’re done with the essential content, but here are two
+more parts that you may find interesting.</p>
+<h4 id="qfl-tuples">Using Tuples</h4>
+<p>Earlier, we created the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Dequeued</code></span>
+datatype to represent the return value from the dequeue. Indeed, it is
+often useful to create datatypes of this sort to document functions and
+make sure the types can be meaningfully interpreted even when their
+values flow around the code some distance from where they were
+created.</p>
+<p>Sometimes, however, we want to create a compound datum in a special
+circumstance: it represents the return value of a function, and that
+return value will not live for very long, i.e., it will be taken apart
+as soon as it has returned and only the constituent parts will be used
+thereafter. In such situations, it can feel like a burden to create a
+new datatype for such a fleeting purpose. For such cases, Pyret has a
+built-in generic datatype called the tuple.</p>
+<p>Here are some examples of tuples, which illustrate their syntax; note
+that each position (separated by
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">;</code></span>)
+takes an expression, not only a constant value:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">{1; 2}
+{3; 4; 5}
+{1 + 2; 3}
+{6}
+{}</code></pre></div></div>
+<p>We can also pull values out of tuples as follows:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">{a; b} = {1; 2}</code></pre></div></div>
+<p>Evaluate
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b</code></span>
+and see what they are bound to.</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">{c; d; e} = {1 + 2; 6 - 2; 5}</code></pre></div></div>
+<p>Similarly, see what
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">c</code></span>,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d</code></span>,
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">e</code></span>
+are bound to.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>What happens if we use too few or too many variables? Try out the
+following in Pyret and see what happens:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">{p; q} = {1}
+{p} = {1; 2}
+{p} = 1</code></pre></div></div></blockquote></blockquote>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What happens if instead we write this?</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">p = {1; 2}</code></pre></div></div></blockquote></blockquote>
+<p>This binds
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">p</code></span>
+to the entire tuple.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>How might we pull apart the constituents of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">p</code></span>?</p></blockquote></blockquote>
+<p>Now that we have tuples, we can write dequeue as:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun dequeue-tuple&lt;T&gt;(q :: Queue&lt;T&gt;) -&gt; {T; Queue&lt;T&gt;}:
+  rev = q.l.reverse()
+  cases (List) rev:
+    | empty =&gt; raise("can't dequeue an empty queue")
+    | link(f, r) =&gt;
+      {f; queue(r.reverse())}
+  end
+end
+
+check:
+  dequeue-tuple(q3) is {3; mk-mtq()}
+  dequeue-tuple(m43) is {3; enqueue(mk-mtq(), 4)}
+  dequeue-tuple(m543) is {3; enqueue(enqueue(mk-mtq(), 4), 5)}
+end</code></pre></div></div>
+<p>And here’s how we can use it more generally:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun q2l&lt;T&gt;(q :: Queue&lt;T&gt;) -&gt; List&lt;T&gt;:
+  if is-mtq(q):
+    empty
+  else:
+    {e; rq} = dequeue-tuple(q)
+    link(e, q2l(rq))
+  end
+end
+
+check:
+  q2l(mk-mtq()) is empty
+  q2l(q3) is [list: 3]
+  q2l(m43) is [list: 3, 4]
+  q2l(m543) is [list: 3, 4, 5]
+end</code></pre></div></div>
+<p>You should feel free to use tuples in your programs provided you
+follow the rules above for when tuples are applicable. In general,
+tuples can cause a reduction in readability, and increase the likelihood
+of errors (because tuples from one source aren’t distinguishable from
+those from another source). Use them with caution!</p>
+<h4 id="A-Picker-Method">A Picker Method</h4>
+<p>Second, and this is truly optional: you may have noticed earlier that
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Set</code></span>s
+had a built-in
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pick</code></span>
+method. We have a function, but not method, that picks. Now we’ll see
+how we can write this as a method:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Queue&lt;T&gt;:
+  | queue(l :: List&lt;T&gt;) with:
+    method pick(self):
+      rev = self.l.reverse()
+      cases (List) rev:
+        | empty =&gt; pick-none
+        | link(f, r) =&gt;
+          pick-some(f, queue(r.reverse()))
+      end
+    end
+end</code></pre></div></div>
+<p>This is a drop-in replacement for our previous definition of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Queue</code></span>,
+because we’ve added a method but left the general datatype structure
+intact, so all our existing code will still work. In addition, we can
+rewrite
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">q2l</code></span>
+in terms of the picker interface:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun q2lm&lt;T&gt;(c :: Queue&lt;T&gt;) -&gt; List&lt;T&gt;:
+  cases (Pick) c.pick():
+    | pick-none =&gt; empty
+    | pick-some(e, r) =&gt; link(e, q2lm(r))
+  end
+end
+
+check:
+  q2lm(m543)
+end</code></pre></div></div>
+<p>We can also write generic programs over data that support the Pick
+interface. For instance, here’s a function that will convert anything
+satisfying that interface into a list:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun pick2l&lt;T&gt;(c) -&gt; List&lt;T&gt;:
+  cases (Pick) c.pick():
+    | pick-none =&gt; empty
+    | pick-some(e, r) =&gt; link(e, pick2l(r))
+  end
+end</code></pre></div></div>
+<p>For instance, it works on both sets and our new
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Queue</code></span>s:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">import sets as S    # put this at the top of the file
+
+check:
+  pick2l([S.set: 3, 4, 5]).sort() is [list: 3, 4, 5]
+  pick2l(m543) is [list: 3, 4, 5]
+end</code></pre></div></div>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Do you see why we invoked
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sort</code></span>
+in the test above?</p></blockquote></blockquote>
+<p>The only weakness here is that for this last part (making the
+function generic), we have to transition out of the type-checker,
+because
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pick2l</code></span>
+cannot be typed by the current Pyret type checker. It requires a feature
+that the type checker does not (yet) have.</p>
+<div class="navsetbottom">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="func-as-data.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_bonus-foundations.html">up</a>&nbsp;&nbsp;<a href="testing.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+</div><!-- .main -->
+</div><!-- .maincolumn -->
+</body>
+</html>

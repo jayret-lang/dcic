@@ -1,0 +1,495 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$","$"],
+                   ["\\[","\\]"],
+                   ["\\begin{equation}","\\end{equation}"],
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.8"/>
+<title>7.1 Trees</title>
+<link rel="stylesheet" type="text/css" href="scribble.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="editor.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/>
+<script type="text/javascript" src="scribble-common.js"></script>
+<script type="text/javascript" src="manual-racket.js"></script>
+</head>
+<body id="scribble-racket-lang-org">
+<div class="tocset"><div class="tocview">
+<div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
+<tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
+<tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
+<tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
+<tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr>
+<tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr>
+<tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9658;</a></td><td>II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr></table><div class="tocviewsublist" style="display: none;" id="tocview_1"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">3&nbsp;</td><td><a href="part_foundations.html" class="tocviewlink" data-pltdoc="x">Basic Data</a></td></tr>
+<tr><td align="right">4&nbsp;</td><td><a href="part_tabular-data.html" class="tocviewlink" data-pltdoc="x">Tabular Data</a></td></tr>
+<tr><td align="right">5&nbsp;</td><td><a href="part_lists.html" class="tocviewlink" data-pltdoc="x">Lists</a></td></tr>
+<tr><td align="right">6&nbsp;</td><td><a href="part_structured-data.html" class="tocviewlink" data-pltdoc="x">Structured Data</a></td></tr>
+<tr><td align="right">7&nbsp;</td><td><a href="part_trees.html" class="tocviewlink" data-pltdoc="x">Trees</a></td></tr>
+<tr><td align="right">8&nbsp;</td><td><a href="part_bonus-foundations.html" class="tocviewlink" data-pltdoc="x">Foundations: Bonus Materials</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9660;</a></td><td>7&nbsp;</td><td><a href="part_trees.html" class="tocviewlink" data-pltdoc="x">Trees</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_2"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">7.1&nbsp;</td><td><a href="trees.html" class="tocviewselflink" data-pltdoc="x">Trees</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_3&quot;);">&#9658;</a></td><td>7.1&nbsp;</td><td><a href="trees.html" class="tocviewselflink" data-pltdoc="x">Trees</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_3"></div></div>
+</div>
+<div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"></table></div>
+</div>
+<div class="maincolumn">
+<div class="main">
+<div class="navsettop">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="part_trees.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_trees.html">up</a>&nbsp;&nbsp;<a href="part_bonus-foundations.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+<h3 id="trees">Trees</h3>
+<h4 id="ancestor-trees">Data Design Problem – Ancestry Data</h4>
+<p>Imagine that we wanted to manage ancestry information for purposes of
+a medical research study. Specifically, we want to record people’s
+birthyear, eye colors, and genetic parents. Here’s a sample table of
+such data, with one row for each person:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">ancestors = table: name, birthyear, eyecolor, female-parent, male-parent
+  row: "Anna", 1997, "blue", "Susan", "Charlie"
+  row: "Susan", 1971, "blue", "Ellen", "Bill"
+  row: "Charlie", 1972, "green", "", ""
+  row: "Ellen", 1945, "brown", "Laura", "John"
+  row: "John", 1922, "brown", "", "Robert"
+  row: "Laura", 1922, "brown", "", ""
+  row: "Robert", 1895, "blue", "", ""
+end</code></pre></div></div>
+<p>For our research, we want to be able to answer questions such as the
+following:</p>
+<ul>
+<li>Who are the genetic grandparents of a specific person?</li>
+<li>How frequent is each eye color?</li>
+<li>Is one specific person an ancestor of another specific person?</li>
+<li>How many generations do we have information for?</li>
+<li>Does one’s eye color correlate with the ages of their genetic
+parents when they were born?</li>
+</ul>
+<p>Let’s start with the first question:</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>How would you compute a list of the known grandparents for a given
+person? For purposes of this chapter, you may assume that each person
+has a unique name (while this isn’t realistic in practice, it will
+simplify our computations for the time being; we will revisit it later
+in the chapter).</p>
+<p>(Hint: Make a task plan. Does it suggest any particular helper
+functions?)</p></blockquote></blockquote>
+<p>Our task plan has two key steps: find the names of the genetic
+parents of the named person, then find the names of the parents of each
+of those people. Both steps share the need to compute the known parents
+from a name, so we should create a helper function for that (we’ll call
+it
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parents-of</code></span>).
+Since this sounds like a routine table program, we can use it for a bit
+of review:</p>
+<h5 id="compute-parents-table">Computing Genetic Parents from an
+Ancestry Table</h5>
+<p>How do we compute a list of someone’s genetic parents? Let’s sketch a
+task plan for that:</p>
+<ul>
+<li>filter the table to find the person</li>
+<li>extract the name of the female parent</li>
+<li>extract the name of the male parent</li>
+<li>make a list of those names</li>
+</ul>
+<p>These are tasks we have seen before, so we can translate this plan
+directly into code:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun parents-of(anc-table :: Table, who :: String) -&gt; List&lt;String&gt;:
+  doc: "Return list of names of known parents of given name"
+  matches = filter-with(anc-table, lam(r): r["name"] == who end)
+  if matches.length() &gt; 0:
+    person-row = matches.row-n(0)
+    [list:
+      person-row["female-parent"],
+      person-row["male-parent"]]
+  else:
+    empty
+  end
+where:
+  parents-of(ancestors, "Anna")
+    is [list: "Susan", "Charlie"]
+  parents-of(ancestors, "Kathi") is empty
+end</code></pre></div></div>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Are you satisfied with this program? With the examples included in
+the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+block? Write down any critiques you have.</p></blockquote></blockquote>
+<p>There are arguably some issues here. How many of these did you
+catch?</p>
+<ul>
+<li>The examples are weak: none of them consider people for whom we are
+missing information on at least one parent.</li>
+<li>The list of names returned in the case of an unknown parent includes
+the empty string, which isn’t actually a name. This could cause problems
+if we use this list of names in a subsequent computation (such as to
+compute the names of someone’s grandparents).</li>
+<li>If empty strings are not part of the output list, then we’d get the
+same result from asking for the parents of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Robert"</code></span>
+(who is in the table) as for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Kathi"</code></span>
+(who is not). These are fundamentally different cases, which arguably
+demand different outputs so we can tell them apart.</li>
+</ul>
+<p>To fix these problems, we need to remove the empty strings from the
+produced list of parents and return something other than the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+list when a name is not in the table. Since the output of this function
+is a list of strings, it’s hard to see what to return that couldn’t be
+confused for a valid list of names. Our solution for now is to have
+Pyret throw an error (like the ones you get when Pyret is not able to
+finish running your program). Here’s a solution that handles both
+problems:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun parents-of(anc-table :: Table, who :: String) -&gt; List&lt;String&gt;:
+  doc: "Return list of names of known parents of given name"
+  matches = filter-with(anc-table, lam(r): r["name"] == who end)
+  if matches.length() &gt; 0:
+    person-row = matches.row-n(0)
+    names =
+     [list: person-row["female-parent"],
+       person-row["male-parent"]]
+    L.filter(lam(n): not(n == "") end, names)
+  else:
+    raise("No such person " + who)
+  end
+where:
+  parents-of(ancestors, "Anna") is [list: "Susan", "Charlie"]
+  parents-of(ancestors, "John") is [list: "Robert"]
+  parents-of(ancestors, "Robert") is empty
+  parents-of(ancestors, "Kathi") raises "No such person"
+end</code></pre></div></div>
+<p>The
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>
+construct tells Pyret to halt the program and produce an error message.
+The error message does not have to match the expected output type of the
+program. If you run this function with a name that is not in the table,
+you’ll see an error appear in the interactions pane, with no result
+returned.</p>
+<p>Within the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+block, we see how to check whether an expression will yield an error:
+instead of using
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+to check the equality of values, we use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raises</code></span>
+to check whether the provided string is a sub-string of the actual error
+produced by the program.</p>
+<h5 id="Computing-Grandparents-from-an-Ancestry-Table">Computing
+Grandparents from an Ancestry Table</h5>
+<p>Once we have the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parents-of</code></span>
+function, we should be able to compute the grandparents by computing
+parents of parents, as follows:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun grandparents-of(anc-table :: Table, who :: String) -&gt; List&lt;String&gt;:
+  doc: "compute list of known grandparents in the table"
+  # glue together lists of mother's parents and father's parents
+  plist = parents-of(anc-table, who) # gives a list of two names
+  parents-of(anc-table, plist.first) +
+    parents-of(anc-table, plist.rest.first)
+where:
+  grandparents-of(ancestors, "Anna") is [list: "Ellen", "Bill"]
+  grandparents-of(ancestors, "Laura") is [list:]
+  grandparents-of(ancestors, "John") is [list: ]
+  grandparents-of(ancestors, "Kathi") is [list:]
+end</code></pre></div></div>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Look back at our sample ancestry tree: for which people would this
+correctly compute the list of grandparents?</p></blockquote></blockquote>
+<p>This grandparents-of code works fine for someone who has both parents
+in the table. For someone without two parents, however, the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">plist</code></span>
+will have fewer than two names, so the expression
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">plist.rest.first</code></span>
+(if not
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">plist.first</code></span>)
+will yield an error.</p>
+<p>Here’s a version that checks the number of parents before computing
+the set of grandparents:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun grandparents-of(anc-table :: Table, who :: String) -&gt; List&lt;String&gt;:
+  doc: "compute list of known grandparents in the table"
+  # glue together lists of mother's parents and father's parents
+  plist = parents-of(anc-table, who) # gives a list of two names
+  if plist.length() == 2:
+    parents-of(anc-table, plist.first) + parents-of(anc-table, plist.rest.first)
+  else if plist.length() == 1:
+    parents-of(anc-table, plist.first)
+  else: empty
+  end
+where:
+  grandparents-of(ancestors, "Anna") is [list: "Ellen", "Bill"]
+  grandparents-of(ancestors, "Laura") is [list:]
+  grandparents-of(ancestors, "John") is [list: ]
+  grandparents-of(ancestors, "Kathi") raises "No such person"
+end</code></pre></div></div>
+<p>What if we now wanted to gather up all of someone’s ancestors? Since
+we don’t know how many generations there are, we’d need to use
+recursion. This approach would also be expensive, since we’d end up
+filtering over the table over and over, which checks every row of the
+table in each use of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>.</p>
+<p>Look back at the ancestry tree picture. We don’t do any complicated
+filtering there – we just follow the line in the picture immediately
+from a person to their mother or father. Can we get that idea in code
+instead? Yes, through datatypes.</p>
+<h5 id="ancestor-tree">Creating a Datatype for Ancestor Trees</h5>
+<p>For this approach, we want to create a datatype for Ancestor Trees
+that has a variant (constructor) for setting up a person. Look back at
+our picture – what information makes up a person? Their name, their
+mother, and their father (along with birthyear and eyecolor, which
+aren’t shown in the picture). This suggests the following datatype,
+which basically turns a row into a person value:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data AncTree:
+  | person(
+      name :: String,
+      birthyear :: Number,
+      eye :: String,
+      mother :: ________,
+      father :: ________
+      )
+end</code></pre></div></div>
+<p>For example, anna’s row might look like:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">anna-row = person("Anna", 1997, "blue", ???, ???)</code></pre></div></div>
+<p>What type do we put in the blanks? A quick brainstorm yields several
+ideas:</p>
+<ul>
+<li><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">person</code></span></li>
+<li><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">List&lt;person&gt;</code></span></li>
+<li>some new datatype</li>
+<li><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span></li>
+<li><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span></li>
+</ul>
+<p>Which should it be?</p>
+<p>If we use a
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>,
+we’re back to the table row, and we don’t end up with a way to easily
+get from one person to another. We should therefore make this an
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span>.</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data AncTree:
+  | person(
+      name :: String,
+      birthyear :: Number,
+      eye :: String,
+      mother :: AncTree,
+      father :: AncTree
+      )
+end</code></pre></div></div>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Write the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span>
+starting from
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Anna</code></span>
+using this definition.</p></blockquote></blockquote>
+<p>Did you get stuck? What do we do when we run out of known people? To
+handle that, we must add an option in the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span>
+definition to capture people for whom we don’t know anything.</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data AncTree:
+  | noInfo
+  | person(
+      name :: String,
+      birthyear :: Number,
+      eye :: String,
+      mother :: AncTree,
+      father :: AncTree
+      )
+end</code></pre></div></div>
+<p>Here’s Anna’s tree written in this datatype:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">anna-tree =
+  person("Anna", 1997, "blue",
+    person("Susan", 1971, "blue",
+      person("Ellen", 1945, "brown",
+        person("Laura", 1920, "blue", noInfo, noInfo),
+        person("John", 1920, "green",
+          noInfo,
+          person("Robert", 1893, "brown", noInfo, noInfo))),
+      person("Bill", 1946, "blue", noInfo, noInfo)),
+    person("Charlie", 1972, "green", noInfo, noInfo))</code></pre></div></div>
+<p>We could also have named each person data individually.</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">robert-tree = person("Robert", 1893, "brown", noInfo, noInfo)
+laura-tree = person("Laura", 1920, "blue", noInfo, noInfo)
+john-tree = person("John", 1920, "green", noInfo, robert-tree)
+ellen-tree = person("Ellen", 1945, "brown", laura-tree, john-tree)
+bill-tree = person("Bill", 1946, "blue", noInfo, noInfo)
+susan-tree = person("Susan", 1971, "blue", ellen-tree, bill-tree)
+charlie-tree = person("Charlie", 1972, "green", noInfo, noInfo)
+anna-tree2 = person("Anna", 1997, "blue", susan-tree, charlie-tree)</code></pre></div></div>
+<p>The latter gives you pieces of the tree to use as other examples, but
+loses the structure that is visible in the indentation of the first
+version. You could get to pieces of the first version by digging into
+the data, such as writing
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">anna-tree.mother.mother</code></span>
+to get to the tree starting from “Ellen”.</p>
+<p>Here’s the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parents-of</code></span>
+function written against
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun parents-of-tree(tr :: AncTree) -&gt; List&lt;String&gt;:
+  cases (AncTree) tr:
+    | noInfo =&gt; empty
+    | person(n, y, e, m, f) =&gt; [list: m.name, f.name]
+      # person bit more complicated if parent is missing
+  end
+end</code></pre></div></div>
+<h4 id="Programs-to-Process-Ancestor-Trees">Programs to Process Ancestor
+Trees</h4>
+<p>How would we write a function to determine whether anyone in the tree
+had a particular name? To be clear, we are trying to fill in the
+following code:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun in-tree(at :: AncTree, name :: String) -&gt; Boolean:
+  doc: "determine whether name is in the tree"
+  ...</code></pre></div></div>
+<p>How do we get started? Add some examples, remembering to check both
+cases of the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span>
+definition:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun in-tree(at :: AncTree, name :: String) -&gt; Boolean:
+  doc: "determine whether name is in the tree"
+  ...
+where:
+  in-tree(anna-tree, "Anna") is true
+  in-tree(anna-tree, "Ellen") is true
+  in-tree(ellen-tree, "Anna") is false
+  in-tree(noInfo, "Ellen") is false
+end</code></pre></div></div>
+<p>What next? When we were working on lists, we talked about the
+template, a skeleton of code that we knew we could write based on the
+structure of the data. The template names the pieces of each kind of
+data, and makes recursive calls on pieces that have the same type.
+Here’s the template over the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span>
+filled in:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun in-tree(at :: AncTree, name :: String) -&gt; Boolean:
+  doc: "determine whether name is in the tree"
+  cases (AncTree) at:     # comes from AncTree being data with cases
+    | noInfo =&gt; ...
+    | person(n, y, e, m, f) =&gt; ... in-tree(m, name) ... in-tree(f, name)
+  end
+where:
+  in-tree(anna-tree, "Anna") is true
+  in-tree(anna-tree, "Ellen") is true
+  in-tree(ellen-tree, "Anna") is false
+  in-tree(noInfo, "Ellen") is false
+end</code></pre></div></div>
+<p>To finish the code, we need to think about how to fill in the
+ellipses.</p>
+<ul>
+<li><p>When the tree is
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">noInfo</code></span>,
+it has no more people, so the answer should be false (as worked out in
+the examples).</p></li>
+<li><p>When the tree is a person, there are three possibilities: we
+could be at a person with the name we’re looking for, or the name could
+be in the mother’s tree, or the name could be in the father’s tree.</p>
+<p>We know how to check whether the person’s name matches the one we are
+looking for. The recursive calls already ask about the name being in the
+mother’s tree or father’s tree. We just need to combine those pieces
+into one Boolean answer. Since there are three possibilities, we should
+combine them with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">or</code></span></p></li>
+</ul>
+<p>Here’s the final code:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun in-tree(at :: AncTree, name :: String) -&gt; Boolean:
+  doc: "determine whether name is in the tree"
+  cases (AncTree) at:     # comes from AncTree being data with cases
+    | noInfo =&gt; false
+    | person(n, y, e, m, f) =&gt; (name == n) or in-tree(m, name) or in-tree(f, name)
+      # n is the same as at.name
+      # m is the same as at.mother
+  end
+where:
+  in-tree(anna-tree, "Anna") is true
+  in-tree(anna-tree, "Ellen") is true
+  in-tree(ellen-tree, "Anna") is false
+  in-tree(noInfo, "Ellen") is false
+end</code></pre></div></div>
+<h4 id="Summarizing-How-to-Approach-Tree-Problems">Summarizing How to
+Approach Tree Problems</h4>
+<p>We design tree programs using the same design recipe that we covered
+on lists:</p>
+<blockquote class="Strategy"><p class="StrategyHeader">Strategy</p><blockquote class="StrategyBody"><ul>
+<li><p>Write the datatype for your tree, including a base/leaf
+case</p></li>
+<li><p>Write examples of your trees for use in testing</p></li>
+<li><p>Write the function name, parameters, and types (the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fun</code></span>
+line)</p></li>
+<li><p>Write
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+checks for your code</p></li>
+<li><p>Write the template, including the cases and recursive calls.
+Here’s the template again for an ancestor tree, for an arbitrary
+function called treeF:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun treeF(name :: String, t :: AncTree) -&gt; Boolean:
+  cases (AncTree) anct:
+    | unknown =&gt; ...
+    | person(n, y, e, m, f) =&gt;
+     ... treeF(name, m) ... treeF(name, f)
+  end
+end</code></pre></div></div></li>
+<li><p>Fill in the template with details specific to the
+problem</p></li>
+<li><p>Test your code using your examples</p></li>
+</ul></blockquote></blockquote>
+<h4 id="Study-Questions">Study Questions</h4>
+<ul>
+<li>Think of writing in-tree on a table (using filter-by) vs writing it
+on a tree. How many times might each approach compare the name being
+sought against a name in the table/tree?</li>
+<li>Why do we need to use a recursive function to process the tree?</li>
+<li>In what order will we check the names in the tree version?</li>
+</ul>
+<p>For practice, try problems such as</p>
+<ul>
+<li>How many blue-eyed people are in the tree?</li>
+<li>How many people are in the tree?</li>
+<li>How many generations are in the tree?</li>
+<li>How many people have a given name in a tree?</li>
+<li>How many people have names starting with “A”?</li>
+<li>… and so on</li>
+</ul>
+<div class="navsetbottom">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="part_trees.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_trees.html">up</a>&nbsp;&nbsp;<a href="part_bonus-foundations.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+</div><!-- .main -->
+</div><!-- .maincolumn -->
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$","$"],
+                   ["\\[","\\]"],
+                   ["\\begin{equation}","\\end{equation}"],
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.8"/>
+<title>8.3 Examples, Testing, and Program Checking</title>
+<link rel="stylesheet" type="text/css" href="scribble.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="editor.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/>
+<script type="text/javascript" src="scribble-common.js"></script>
+<script type="text/javascript" src="manual-racket.js"></script>
+</head>
+<body id="scribble-racket-lang-org">
+<div class="tocset"><div class="tocview">
+<div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
+<tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
+<tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
+<tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
+<tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr>
+<tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr>
+<tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9658;</a></td><td>II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr></table><div class="tocviewsublist" style="display: none;" id="tocview_1"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">3&nbsp;</td><td><a href="part_foundations.html" class="tocviewlink" data-pltdoc="x">Basic Data</a></td></tr>
+<tr><td align="right">4&nbsp;</td><td><a href="part_tabular-data.html" class="tocviewlink" data-pltdoc="x">Tabular Data</a></td></tr>
+<tr><td align="right">5&nbsp;</td><td><a href="part_lists.html" class="tocviewlink" data-pltdoc="x">Lists</a></td></tr>
+<tr><td align="right">6&nbsp;</td><td><a href="part_structured-data.html" class="tocviewlink" data-pltdoc="x">Structured Data</a></td></tr>
+<tr><td align="right">7&nbsp;</td><td><a href="part_trees.html" class="tocviewlink" data-pltdoc="x">Trees</a></td></tr>
+<tr><td align="right">8&nbsp;</td><td><a href="part_bonus-foundations.html" class="tocviewlink" data-pltdoc="x">Foundations: Bonus Materials</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9660;</a></td><td>8&nbsp;</td><td><a href="part_bonus-foundations.html" class="tocviewlink" data-pltdoc="x">Foundations: Bonus Materials</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_2"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">8.1&nbsp;</td><td><a href="func-as-data.html" class="tocviewlink" data-pltdoc="x">Functions as Data</a></td></tr>
+<tr><td align="right">8.2&nbsp;</td><td><a href="queues-from-lists.html" class="tocviewlink" data-pltdoc="x">Queues from Lists</a></td></tr>
+<tr><td align="right">8.3&nbsp;</td><td><a href="testing.html" class="tocviewselflink" data-pltdoc="x">Examples, Testing, and Program Checking</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_3&quot;);">&#9658;</a></td><td>8.3&nbsp;</td><td><a href="testing.html" class="tocviewselflink" data-pltdoc="x">Examples, Testing, and Program Checking</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_3"></div></div>
+</div>
+<div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"></table></div>
+</div>
+<div class="maincolumn">
+<div class="main">
+<div class="navsettop">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="queues-from-lists.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_bonus-foundations.html">up</a>&nbsp;&nbsp;<a href="booklet_pyret-to-python.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+<h3 id="testing">Examples, Testing, and Program Checking</h3>
+<p>Back in <a
+href="From_Repeated_Expressions_to_Functions.html##writing-examples">Documenting
+Functions with Examples</a>, we began to develop your habit of writing
+concrete examples of functions. In <a
+href="processing-tables.html##task-plans">Task Plans</a>, we showed you
+how to develop examples of intermediate values to help you plan the code
+for you to write. As these examples show, there are many ways to write
+down examples. We could write them on a board, on paper, or even as
+comments in a computer document. These are all reasonable and indeed,
+often, the best way to begin working on a problem. However, if we can
+write our examples in a precise form that a computer can understand, we
+achieve two things:</p>
+<ul>
+<li>When we’re done writing our purported solution, we can have the
+computer check whether we got it right.</li>
+<li>In the process of writing down our expectation, we often find it
+hard to express with the precision that a computer expects. Sometimes
+this is because we’re still formulating the details and haven’t yet
+pinned them down, but at other times it’s because we don’t yet
+understand the problem. In such situations, the force of precision
+actually does us good, because it helps us understand the weakness of
+our understanding.</li>
+</ul>
+<h4 id="from-examples-to-tests">From Examples to Tests</h4>
+<p>Until now, we have written examples in
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where:</code></span>
+blocks for two purposes: to help us figure out what a function needs to
+do, and to provide guidance to someone reading our code as to what
+behavior they can expect when using our function. For the smaller
+programs that we have written until now,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>-based
+examples have been sufficient. As our programs get more complicated,
+however, a small set of related illustrative examples won’t suffice. We
+need to think about being much more thorough in the sets of inputs that
+we consider.</p>
+<p>Consider for example a function
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">count-uses</code></span>
+that counts how many times a specific string appears in a list (this
+could be used to tally votes, to compute the frequency of using a
+discount code, and so on). What input scenarios might we need to check
+before using our function to run an actual election or a business?</p>
+<ul>
+<li>The result for a string that is in the list once</li>
+<li>The result for a string that is in the list multiple times</li>
+<li>The result for a string that is at the end of a longer list (to make
+sure we are checking all of the elements)</li>
+<li>The result for a string that isn’t in the list</li>
+<li>The result for a string that is in the list but with different
+capitalization</li>
+<li>The result for a string that is a typo-away from a word in the
+list</li>
+</ul>
+<p>Notice that here we are considering many more situations, including
+fairly nuanced ones that affect how robust our code would be under
+realistic situations. Once we start considering situations like these,
+we are shifting from examples to illustrate our code to tests to
+thoroughly test our code.</p>
+<p>In Pyret, we use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+blocks inside function definitions for examples. We use a
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check</code></span>
+block outside the function definition for tests. For example:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun count-uses(of-string :: String, in-list :: List&lt;String&gt;) -&gt; Number:
+  ...
+where:
+  count-uses("pepper", [list:]) is 0
+  count-uses("pepper", [list: "onion"]) is 0
+  count-uses("pepper", [list: "pepper", "onion"]) is 1
+  count-uses("pepper", [list: "pepper", "pepper", "onion"]) is 2
+end
+
+check:
+  count-uses("ppper", [list: "pepper"]) is 0
+  count-uses("ONION", [list: "pepper", "onion"]) is 1
+  count-uses("tomato",
+    [list: "pepper", "onion", "onion", "pepper", "tomato",
+      "tomato", "onion", "tomato"])
+    is 3
+  ...
+end</code></pre></div></div>
+<p>As a guiding rule, we put illustrative cases that would help someone
+else reading our code into the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+block, while we put the nitty-gritty checks that our code handles the
+wider range of usage scenarios (including error cases) into the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check</code></span>.
+Sometimes, the line between these two isn’t clear: for example, one
+could easily argue that the second test (the function handles different
+capitalization) belongs in
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+instead. The third test about using a really long list would remain in
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check</code></span>,
+however, as longer inputs are generally not instructive to a reader of
+your code.</p>
+<p>Putting tests in a block that lives outside the function has another
+advantage at the level of professional programming: it allows your tests
+to live in a separate file from your code. This has two key benefits.
+First, it makes it easier for someone to read the essential parts of
+your code (if they are building on your work). Second, it makes it
+easier to control when tests are run. When your
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check</code></span>
+blocks are in the same file as your code, all the tests will be checked
+when you run your code. When they are in a different file, an
+organization can choose when to run the tests. During development, tests
+are run frequently to make sure no errors have been introduced. Once
+code is tested and ready to be deployed or used, tests are not run along
+with the program (unless there has been a modification or someone has
+discovered an error with the code). This is standard practice in
+software projects.</p>
+<p>It is also worth noting that the collection of tests grows throughout
+the development process, moreso than do the collection of examples. As
+you are developing code, every time you find a bug in your code, add a
+test for it in your</p>
+<p><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check</code></span></p>
+<p>block so you don’t accidentally introduce that same error again
+later. Whereas we develop examples up front as we figure out what we
+want our program to do, we augment our tests as we discover what our
+program actually does (and perhaps should not do). In practice,
+developers write an initial set of checks on the scenarios they thought
+of before and while writing the code, then expand those tests as they
+try out more scenarios and gain users who report scenarios where the
+code does not work.</p>
+<p>Nearly all programming languages come with some constructs or
+packages in which you can write tests in separate files. Pyret is unique
+in supporting the distinction between examples and tests (both for
+learning and for readability of code by others). Many programming tools
+that support professionals expect you to put all tests in separate
+folders and files (offering no support for examples). In this book, we
+emphasize the difference between these two uses of input-output pairs in
+programming because we find them extremely useful both professionally
+and pedagogically.</p>
+<h4 id="s-refined">More Refined Comparisons</h4>
+<p>Sometimes, a direct comparison via
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+isn’t enough for testing. We have already seen this in the case of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raises</code></span>
+tests (<a href="trees.html##compute-parents-table">Computing Genetic
+Parents from an Ancestry Table</a>). As another example, when doing some
+computations, especially involving math with approximations, the exact
+match of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+isn’t feasible. For example, consider these tests for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">distance-to-origin</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  distance-to-origin(point(1, 1)) is ???
+end</code></pre></div></div>
+<p>What can we check here? Typing this into the REPL, we can find that
+the answer prints as
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1.4142135623730951</code></span>.
+That’s an approximation of the real answer, which Pyret cannot represent
+exactly. But it’s hard to know that this precise answer, to this decimal
+place, and no more, is the one we should expect up front, and thinking
+through the answers is supposed to be the first thing we do!</p>
+<p>Since we know we’re getting an approximation, we can really only
+check that the answer is roughly correct, not exactly correct. If we can
+check that the answer to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">distance-to-origin(point(1, 1))</code></span>
+is around, say,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1.41</code></span>,
+and can do the same for some similar cases, that’s probably good enough
+for many applications, and for our purposes here. If we were calculating
+orbital dynamics, we might demand higher precision, but note that we’d
+still need to pick a cutoff! Testing for inexact results is a necessary
+task.</p>
+<p>Let’s first define what we mean by “around” with one of the most
+precise ways we can, a function:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun around(actual :: Number, expected :: Number) -&gt; Boolean:
+  doc: "Return whether actual is within 0.01 of expected"
+  num-abs(actual - expected) &lt; 0.01
+where:
+  around(5, 5.01) is true
+  around(5.01, 5) is true
+  around(5.02, 5) is false
+  around(num-sqrt(2), 1.41) is true
+end</code></pre></div></div>
+<p>The
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+form now helps us out. There is special syntax for supplying a
+user-defined function to use to compare the two values, instead of just
+checking if they are equal:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  5 is%(around) 5.01
+  num-sqrt(2) is%(around) 1.41
+  distance-to-origin(point(1, 1)) is%(around) 1.41
+end</code></pre></div></div>
+<p>Adding
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">%(something)</code></span>
+after
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+changes the behavior of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>.
+Normally, it would compare the left and right values for equality. If
+something is provided with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">%</code></span>,
+however, it instead passes the left and right values to the provided
+function (in this example
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">around</code></span>).
+If the provided function produces
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>,
+the test passes, if it produces
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>,
+the test fails. This gives us the control we need to test functions with
+predictable approximate results.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Extend the definition of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">distance-to-origin</code></span>
+to include
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">polar</code></span>
+points.</p></blockquote></blockquote>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p><span class="refelem"><span class="refcolumn"><span class="refcontent">This might save you a Google search: <a
+href="http://en.wikipedia.org/wiki/Polar_coordinate_system#Converting_between_polar_and_Cartesian_coordinates">polar
+conversions</a>.</span></span></span> Use the design recipe to write
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x-component</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">y-component</code></span>,
+which return the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">y</code></span>
+Cartesian parts of the point (which you would need, for example, if you
+were plotting them on a graph). Read about
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-sin</code></span>
+and other functions you’ll need at <a
+href="http://www.pyret.org/docs/latest/numbers.html">the Pyret number
+documentation</a>.</p></blockquote></blockquote>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write a data definition called
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Pay</code></span>
+for pay types that includes both hourly employees, whose pay type
+includes an hourly rate, and salaried employees, whose pay type includes
+a total salary for the year. Use the design recipe to write a function
+called
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">expected-weekly-wages</code></span>
+that takes a
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Pay</code></span>,
+and returns the expected weekly salary: the expected weekly salary for
+an hourly employee assumes they work 40 hours, and the expected weekly
+salary for a salaried employee is 1/52 of their salary.</p></blockquote></blockquote>
+<h4 id="When-Tests-Fail">When Tests Fail</h4>
+<p>Suppose we’ve written the function
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sqrt</code></span>,
+which computes the square root of a given number. We’ve written some
+tests for this function. We run the program, and find that a test fails.
+There are two obvious reasons why this can happen.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What are the two obvious reasons?</p></blockquote></blockquote>
+<p>The two reasons are, of course, the two “sides” of the test: the
+problem could be with the values we’ve written or with the function
+we’ve written. For instance, if we’ve written</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">sqrt(4) is 1.75</code></pre></div></div>
+<p>then the fault clearly lies with the values (because <span
+class="math inline">\(1.75^2\)</span> is clearly not <span
+class="math inline">\(4\)</span>). On the other hand, if it fails the
+test</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">sqrt(4) is 2</code></pre></div></div>
+<p>then the odds are that we’ve made an error in the definition of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sqrt</code></span>
+instead, and that’s what we need to fix.</p>
+<p>Note that there is no way for the computer to tell what went wrong.
+When it reports a test failure, all it’s saying is that there is an
+inconsistency between the program and the tests. The computer is not
+passing judgment on which one is “correct”, because it can’t do that.
+That is a matter for human
+judgment.<span class="refelem"><span class="refcolumn"><span class="refcontent">For this reason, we’ve been doing research on <a
+href="http://cs.brown.edu/~sk/Publications/Papers/Published/pkf-ifpr-tests-tf-prog/">peer
+review of tests</a>, so students can help one another review their tests
+before they begin writing programs.</span></span></span></p>
+<p>Actually…not so fast. There’s one more possibility we didn’t
+consider: the third, not-so-obvious reason why a test might fail. Return
+to this test:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">sqrt(4) is 2</code></pre></div></div>
+<p>Clearly the inputs and outputs are correct, but it could be that the
+definition of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sqrt</code></span>
+is also correct, and yet the test fails.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Do you see why?</p></blockquote></blockquote>
+<p>Depending on how we’ve programmed
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sqrt</code></span>,
+it might return the root
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">-2</code></span>
+instead of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">2</code></span>.
+Now
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">-2</code></span>
+is a perfectly good answer, too. That is, neither the function nor the
+particular set of test values we specified is inherently wrong; it’s
+just that the function happens to be a relation, i.e., it maps one input
+to multiple outputs (that is, <span class="math inline">\(\sqrt{4} = \pm
+2\)</span>). The question now is how to write the test properly.</p>
+<h4 id="test-oracle">Oracles for Testing</h4>
+<p>In other words, sometimes what we want to express is not a concrete
+input-output pair, but rather check that the output has the right
+relationship to the input. Concretely, what might this be in the case of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sqrt</code></span>?
+We hinted at this earlier when we said that
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1.75</code></span>
+clearly can’t be right, because squaring it does not yield
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>.
+That gives us the general insight: that a number is a valid root (note
+the use of “a” instead of “the”) if squaring it yields the original
+number. That is, we might write a function like this:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun is-sqrt(n):
+  n-root = sqrt(n)
+  n == (n-root * n-root)
+end</code></pre></div></div>
+<p>and then our test looks like</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  is-sqrt(4) is true
+end</code></pre></div></div>
+<p>Unfortunately, this has an awkward failure case. If
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sqrt</code></span>
+does not produce a number that is in fact a root, we aren’t told what
+the actual value is; instead,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-sqrt</code></span>
+returns false, and the test failure just says that
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>
+(what
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-sqrt</code></span>
+returns) is not
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+(what the test expects)—which is both absolutely true and utterly
+useless.</p>
+<p>Fortunately, Pyret has a better way of expressing the same check.
+Instead of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>,
+we can write
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">satisfies</code></span>,
+and then the value on the left must satisfy the predicate on the right.
+Concretely, this looks like:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun check-sqrt(n):
+  lam(n-root):
+    n == (n-root * n-root)
+  end
+end</code></pre></div></div>
+<p>which lets us write:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  sqrt(4) satisfies check-sqrt(4)
+end</code></pre></div></div>
+<p>Now, if there’s a failure, we learn of the actual value produced by
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sqrt(4)</code></span>
+that failed to satisfy the predicate.</p>
+<div class="navsetbottom">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="queues-from-lists.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_bonus-foundations.html">up</a>&nbsp;&nbsp;<a href="booklet_pyret-to-python.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+</div><!-- .main -->
+</div><!-- .maincolumn -->
+</body>
+</html>

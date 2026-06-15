@@ -1,0 +1,1034 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$","$"],
+                   ["\\[","\\]"],
+                   ["\\begin{equation}","\\end{equation}"],
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.8"/>
+<title>4.2 Processing Tables</title>
+<link rel="stylesheet" type="text/css" href="scribble.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="editor.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/>
+<script type="text/javascript" src="scribble-common.js"></script>
+<script type="text/javascript" src="manual-racket.js"></script>
+</head>
+<body id="scribble-racket-lang-org">
+<div class="tocset"><div class="tocview">
+<div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
+<tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
+<tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
+<tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
+<tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr>
+<tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr>
+<tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9658;</a></td><td>II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr></table><div class="tocviewsublist" style="display: none;" id="tocview_1"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">3&nbsp;</td><td><a href="part_foundations.html" class="tocviewlink" data-pltdoc="x">Basic Data</a></td></tr>
+<tr><td align="right">4&nbsp;</td><td><a href="part_tabular-data.html" class="tocviewlink" data-pltdoc="x">Tabular Data</a></td></tr>
+<tr><td align="right">5&nbsp;</td><td><a href="part_lists.html" class="tocviewlink" data-pltdoc="x">Lists</a></td></tr>
+<tr><td align="right">6&nbsp;</td><td><a href="part_structured-data.html" class="tocviewlink" data-pltdoc="x">Structured Data</a></td></tr>
+<tr><td align="right">7&nbsp;</td><td><a href="part_trees.html" class="tocviewlink" data-pltdoc="x">Trees</a></td></tr>
+<tr><td align="right">8&nbsp;</td><td><a href="part_bonus-foundations.html" class="tocviewlink" data-pltdoc="x">Foundations: Bonus Materials</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9660;</a></td><td>4&nbsp;</td><td><a href="part_tabular-data.html" class="tocviewlink" data-pltdoc="x">Tabular Data</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_2"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">4.1&nbsp;</td><td><a href="intro-tabular-data.html" class="tocviewlink" data-pltdoc="x">Introduction to Tabular Data</a></td></tr>
+<tr><td align="right">4.2&nbsp;</td><td><a href="processing-tables.html" class="tocviewselflink" data-pltdoc="x">Processing Tables</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_3&quot;);">&#9658;</a></td><td>4.2&nbsp;</td><td><a href="processing-tables.html" class="tocviewselflink" data-pltdoc="x">Processing Tables</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_3"></div></div>
+</div>
+<div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"></table></div>
+</div>
+<div class="maincolumn">
+<div class="main">
+<div class="navsettop">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="intro-tabular-data.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_tabular-data.html">up</a>&nbsp;&nbsp;<a href="part_lists.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+<h3 id="processing-tables">Processing Tables</h3>
+<p>In data analysis, we often work with large datasets, some of which
+were collected by someone else. Datasets don’t necessarily come in a
+form that we can work with. We might need the raw data pulled apart or
+condensed to coarser granularity. Some data might be missing or entered
+incorrectly. On top of that, we have to plan for long-term maintenance
+of our datasets or analysis programs. Finally, we typically want to use
+visualizations to either communicate our data or to check for issues
+with our data.</p>
+<p>As a concrete example, assume that you are doing data analysis and
+support for a company that manages ticket sales for events. People
+purchase tickets through an online form. The form software creates a
+spreadsheet with all the entered data, which is what you have to work
+with. Here’s a screenshot of a <a
+href="https://docs.google.com/spreadsheets/d/1Ks4ll5_8wyYK1zyXMm_21KORhagSMZ59dcr7i3qY6T4">sample
+spreadsheet</a>:</p>
+<p><img src="event-data-raw.png" width="604" height="178" /></p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Take a look at the table. What do you notice that might affect using
+the data in an analysis? Or for the operations for managing an
+event?</p></blockquote></blockquote>
+<p>Some issues jump out quickly: the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three</code></span>
+in the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Num Tickets"</code></span>
+column, differences in capitalization in the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Discount Code"</code></span>
+column, and the use of each of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>
+and blank spaces in the the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Discount Code"</code></span>
+column (you may have spotted additional issues). Before we do any
+analysis with this dataset, we need to clean it up so that our analysis
+will be reliable. In addition, sometimes our dataset is clean, but it
+needs to be adjusted or prepared to fit the questions we want to ask.
+This chapter looks at both steps, and the programming techniques that
+are helpful for them.</p>
+<h4 id="cleaning-tables">Cleaning Data Tables</h4>
+<h5 id="loading-tables">Loading Data Tables</h5>
+<p>The first step to working with an outside data source is to load it
+into your programming and analysis environment. Which source you use
+depends on the programming environment that you are using for Pyret:</p>
+<ul>
+<li>If you are using CPO, you can load tables from Google Sheets (if you
+want to load a CSV, you first need to import it into Google Sheets)</li>
+<li>If you are using VSCode, you can load tables directly from CSV
+files</li>
+</ul>
+<p>Both use the same Pyret operation
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-table</code></span>),
+but in slightly different ways.</p>
+<p>Google Sheets and CSV files treat the types of data in cells
+differently, so there are also differences in how we manage the types of
+Pyret columns after loading. Columns like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Num Tickets"</code></span>
+that appear to contain both numbers and strings highlight the
+differences. We discuss these nuances in separate sections for each kind
+of source file.</p>
+<h5 id="loading-tables-from-google-sheets">Loading Tables from Google
+Sheets in CPO</h5>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">include gdrive-sheets
+
+ssid = "1Ks4ll5_8wyYK1zyXMm_21KORhagSMZ59dcr7i3qY6T4"
+event-data =
+  load-table: name, email, tickcount, discount, delivery, zip
+    source: load-spreadsheet(ssid).sheet-by-name("Orig Data", true)
+  end</code></pre></div></div>
+<ul>
+<li><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ssid</code></span>
+is the identifier of the Google Sheet we want to load (the identifier is
+the long sequence of letters and numbers in the Google Sheet URL).</li>
+<li>The sequence of names following
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-table</code></span>
+is used for the column headers in the Pyret version of the table. These
+do NOT have to match the names used in the original Sheet.</li>
+<li><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">source</code></span>
+tells Pyret which sheet to load. The
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-spreadsheet</code></span>
+operation takes the Google Sheet identifier (here,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ssid</code></span>),
+as well as the name of the individual worksheet (or tab) as named within
+the Google Sheet (here,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Orig Data"</code></span>).
+The final boolean indicates whether there is a header row in the table
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+means there is a header row).</li>
+</ul>
+<p>When reading a table from Google Sheets, Pyret treats each column as
+having a type, based on the value in the first row of data. Pyret thus
+reports an error that
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three</code></span>
+(in the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Num Tickets"</code></span>
+column) is not a number. We’ll discuss how to handle this in <a
+href="processing-tables.html##cols-multiple-types-data">Dealing with
+Columns with Multiple Types of Data</a>.</p>
+<h5 id="loading-tables-from-csv">Loading Tables from CSV files in
+VSCode</h5>
+<p>We configure the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-table</code></span>
+operation differently depending on whether the CSV file is on your
+computer or available through a URL.</p>
+<ul>
+<li><p>Load from a CSV file via URL:</p>
+<blockquote class="VSCode"><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">include csv
+
+# the url for the file
+url = "https://raw.githubusercontent.com/data-centric-computing/dcic-public/main/materials/datasets/events-orig-f25.csv"
+
+event-data =
+ load-table: name, email, tickcount, discount, delivery, zip
+    source: csv-table-url(url, default-options)
+  end</code></pre></div></div></blockquote>
+<ul>
+<li><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">url</code></span>
+is the identifier of the web address (URL) where the CSV data we want to
+load exists.</li>
+<li><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">source</code></span>
+tells Pyret where to load the data from. The
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">csv-table-url</code></span>
+operation takes the web address (here,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">url</code></span>),
+as well as options (which indicate, for example, whether we expect there
+to be a header row).</li>
+<li>The sequence of names following
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-table</code></span>
+is used for the column headers in the Pyret version of the table. These
+do NOT have to match the names used in the first row of the CSV file
+(which is usually a header row).</li>
+</ul></li>
+<li><p>Load from a CSV file on your computer:</p>
+<blockquote class="VSCode"><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">include csv
+
+# the filesystem path to your CSV file on your computer
+path = "datasets/events-orig-f25.csv"
+
+event-data =
+ load-table: name, email, tickcount, discount, delivery, zip
+    source: csv-table-file(path, default-options)
+  end</code></pre></div></div></blockquote></li>
+</ul>
+<p>When reading a table from CSV, Pyret treats every cell as containing
+a string, even if the cell data appears to be numeric. Thus, Pyret does
+not report an error around the combination of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three</code></span>
+and numbers in the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Num Tickets"</code></span>
+column. The inconsistency would resurface, however, if we try to use the
+column data assuming that they are all strings of numerals. If we notice
+this problem before loading our data, we should fix it before we
+proceed.</p>
+<h5 id="cols-multiple-types-data">Dealing with Columns with Multiple
+Types of Data</h5>
+<p>Well-formed data should not mix types of data within a single column.
+In some situations, we might be able to write small programs to correct
+these inconsistencies. For example, a program could help us remove data
+that are inconsistent with the expected column type. However, such an
+approach should only be used after careful study of the data to make
+sure we aren’t throwing out useful information that was simply entered
+incorrectly.</p>
+<p>Due to the need for care in dealing with such issues, we instead
+recommend fixing this sort of error in the source file before loading
+the data into Pyret (or any other programming or analysis tool).</p>
+<p>How to manage revisions like this is itself an interesting
+data-management problem. You might have received the data from another
+tool, or imported it from another sheet that contained the error.
+Someone else might provide updates to the data that you need to track as
+well. If you got the data from someone else, it often makes sense for
+you to make a copy of the source data and clean up the copy so you still
+have access to the original if needed.</p>
+<p>The source data files for this lesson also contain clean versions to
+use in the rest of this chapter.</p>
+<ul>
+<li>If you are using the Google Sheet, look for the separate
+worksheet/tab named
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Data"</code></span>
+in which the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three</code></span>
+has been replaced with a number. If we use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Data"</code></span>
+instead of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Orig Data"</code></span>
+in the above
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-spreadsheet</code></span>
+command, the event table loads into Pyret.</li>
+<li>If you are using the CSV files in VSCode, modify the file path to
+end with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"events-f25.csv"</code></span>
+instead of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"events-orig-f25.csv"</code></span>.</li>
+</ul>
+<h5 id="missing-data">Dealing with Missing Entries</h5>
+<p>When we create tables manually in Pyret, we have to provide a value
+for each cell – there’s no way to “skip” a cell. When we create tables
+in a spreadsheet program (such as Excel, Google Sheets, or something
+similar), it is possible to leave cells completely empty. What happens
+when we load a table with empty cells into Pyret?</p>
+<p>The original data file has blanks in the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">discount</code></span>
+column. After we load it into Pyret, we see something interesting in
+that column (though what it is will differ depending on whether you’re
+reading from Google Sheets or CSV files).</p>
+<ul>
+<li><p>If you are using Google Sheets and CPO, load the table as
+follows:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">event-data =
+  load-table: name, email, tickcount, discount, delivery
+    source: load-spreadsheet(ssid).sheet-by-name("Data", true)
+  end</code></pre></div></div>
+<p><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">event-data</code></span>
+will be the following table:</p>
+<p><img src="unsanitized-discount-table.png" width="654"
+height="332" /></p>
+<p>Note that those cells that had discount codes in them now have an
+odd-looking notation like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some("student")</code></span>,
+while some of the cells that were empty contain
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>,
+but
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
+isn’t a string. What’s going on?</p>
+<p>Pyret supports a special type of data called option. As the name
+suggests, option is for data that may or may not be present.
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
+is the value that stands for “the data are missing”. If a datum are
+present, it appears wrapped in
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>.</p>
+<p>Look also at the last two rows (for Zander and Shweta) – they also
+appear empty when seen in Google Sheets, but Pyret has loaded them as
+strings of spaces (e.g.,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some("       ")</code></span>).
+What does that mean? It means that those cells weren’t actually empty in
+the Google Sheet, but instead contained several spaces.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Look at the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">discount</code></span>
+value for Ernie’s row: it reads
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some("none")</code></span>.
+What does this mean? How is this different from
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
+(as in Sam’s row)?</p></blockquote></blockquote></li>
+<li><p>If you are using CSV files and VSCode, load the table as
+follows:</p>
+<blockquote class="VSCode"><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">url = "https://raw.githubusercontent.com/data-centric-computing/dcic-public/main/materials/datasets/events-f25.csv"
+
+event-data =
+  load-table: name, email, tickcount, discount, delivery, zip
+    source: csv-table-url(url, default-options)
+  end</code></pre></div></div></blockquote>
+<p><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">event-data</code></span>
+will be the following table:</p>
+<p><img src="unsanitized-discount-table-csv.png" width="657"
+height="328" /></p>
+<p>Note that cells that had no data have either empty strings
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">""</code></span>)
+or strings with spaces
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"    "</code></span>).
+What caused the difference? In the cells where the string has spaces,
+the cell in the original CSV appeared to be empty, but it actually
+contained some spaces. When reading in the CSV, Pyret retains the actual
+content in the cell. The empty string is only used if the CSV cell
+actually had no data at all.</p></li>
+</ul>
+<p>Whether you are using Google Sheets or CSV files, the right way to
+address missing data (and conversion in general) is to indicate how to
+handle each column. This guarantees that the data will be as you expect
+after you read them in. We do this with an additional aspect of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-table</code></span>
+called sanitizers. Here’s how we modify the code:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">include data-source # to get the sanitizers
+
+event-data =
+  load-table: name, email, tickcount, discount, delivery, zip
+    source: load-spreadsheet(ssid).sheet-by-name("Data", true)
+    sanitize name using string-sanitizer
+    sanitize email using string-sanitizer
+    sanitize tickcount using num-sanitizer
+    sanitize discount using string-sanitizer
+    sanitize delivery using string-sanitizer
+    sanitize zip using string-sanitizer
+  end</code></pre></div></div>
+<p>Each of the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sanitize</code></span>
+lines tells Pyret what to do in the case of missing data in the
+respective column.
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-sanitizer</code></span>
+says to load missing data as an empty string
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">""</code></span>).
+Sanitizers also handle simple data conversions. If the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-sanitizer</code></span>
+were applied to a column with a number (like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>),
+the sanitizer would convert that number to a string (like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"3"</code></span>).
+Similarly, applying
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-sanitizer</code></span>
+to a column would convert number-strings (like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"3"</code></span>)
+to an actual number
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>).</p>
+<p>Using sanitizers, the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">event-data</code></span>
+table reads in as follows:</p>
+<p><img src="sanitized-discount-table.png" width="693"
+height="344" /></p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Did you notice that we sanitized the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">zip</code></span>
+column with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-sanitizer</code></span>
+instead of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-sanitizer</code></span>?
+Aren’t zip codes numbers? Try the above code with each of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-sanitizer</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-sanitizer</code></span>
+for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">code</code></span>
+and see if you can spot the difference.</p></blockquote></blockquote>
+<p>Zip codes are a terrific example of data that are written with
+digits, but aren’t meant to be used numerically. What does that mean? If
+data are meant to be used numerically, then standard arithmetic
+operations should make sense on them. What sense would it make to
+multiply a zip code by 3, for example? None. Similarly, we don’t write
+numbers with leading zeros, but zip codes can meaningfully start with 0.
+Treating zip codes as strings treats them as identifiers more than
+numbers. We’ll return to this point later in this chapter (<a
+href="processing-tables.html##visualizing-tables">Visualizations and
+Plots</a>).</p>
+<p>A note on default values: Unlike
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-sanitizer</code></span>,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-sanitizer</code></span>
+does NOT convert blank cells to a default value (such as 0). There is no
+single default value that would make sense for all the ways in which
+numbers are used: while
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>
+would be a plausible default for missing numbers of tickets, it would
+not be a meaningful default for a missing age. It could create outright
+errors if used as the default for a missing exam grade (which was later
+used to compute a course grade). As a result,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-sanitizer</code></span>
+reports an error if the data (or lack thereof) in a cell cannot be
+reliably interpreted as a number. Pyret allows you to write your own
+custom sanitizers (e.g., one that would default missing numbers to 0).
+If you want to do this, see the Pyret documentation for details.</p>
+<p>The lack of meaningful default values is one reason why Pyret doesn’t
+leverage type annotations on columns to automatically sanitize imported
+data. Automation takes control away from the programmer; sanitizers
+provide the programmer with control over default values, as well as the
+option to use (or not) sanitizers at all.</p>
+<p>Rule of thumb: when you load a table, use a sanitizer to guard
+against errors in case the original sheet is missing data in some
+cells.</p>
+<h5 id="Normalizing-Data">Normalizing Data</h5>
+<p>Next, let’s look at the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Discount Code"</code></span>
+column. Our goal is to be able to accurately answer the question “How
+many orders were placing under each discount code”. We would like to
+have the answer summarized in a table, where one column names the
+discount code and another gives a count of the rows that used that
+code.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Examples first! What table do we want from this computation on the
+fragment of table that we gave you?</p></blockquote></blockquote>
+<p>You can’t answer this question without making some decisions about
+how to standardize the names and how to handle missing values. The term
+normalization refers to making sure that a collection of data (such as a
+column) shares structure and formatting. Our solution will aim to
+produce the following table, but you could have made different choices
+from what we have here:</p>
+<p><img src="target-discount-summary.png" width="222"
+height="156" /></p>
+<p>How do we get to this table? How do we figure this out if we aren’t
+sure?</p>
+<p>Start by looking in the documentation for any library functions that
+might help with this task. In the <a
+href="https://hackmd.io/@cs111/table">documentation for Pyret’s
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">dcic2024</code></span>
+context</a>, we find:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># count(tab :: Table, colname :: String) -&gt; Table
+# Produces a table that summarizes how many rows have
+#   each value in the named column.</code></pre></div></div>
+<p>This sounds useful, as long as every column has a value in the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Discount code"</code></span>
+column, and that the only values in the column are those in our desired
+output table. What do we need to do to achieve this?</p>
+<ul>
+<li>Get
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>
+to appear in every cell that currently lacks a value</li>
+<li>Convert all the codes that aren’t
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>
+to upper case</li>
+</ul>
+<p>Fortunately, these tasks align with functions we’ve already seen how
+to use: each one is an example of a column transformation, where the
+second one involves the upper-case conversion functions from the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>
+library.</p>
+<p>We can capture these together in a function that takes in and
+produces a string:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun cell-to-discount-code(str :: String) -&gt; String:
+  doc: ```uppercase all strings other than none,
+       convert blank cells to contain none```
+  if (str == "") or (str == "none"):
+    "none"
+  else:
+    string-to-upper(str)
+  end
+where:
+  cell-to-discount-code("") is "none"
+  cell-to-discount-code("none") is "none"
+  cell-to-discount-code("birthday") is "BIRTHDAY"
+  cell-to-discount-code("Birthday") is "BIRTHDAY"
+end</code></pre></div></div>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Assess the examples included with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cell-to-discount-code</code></span>.
+Is this a good set of examples, or are any key ones missing?</p></blockquote></blockquote>
+<p>The current examples consider different capitalizations for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"birthday"</code></span>,
+but not for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>.
+Unless you are confident that the data-gathering process can’t produce
+different capitalizations of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>,
+we should include that as well:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">cell-to-discount-code("NoNe") is "none"</code></pre></div></div>
+<p>Oops! If we add this example to our
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+block and run the code, Pyret reports that this example fails.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Why did the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"NoNe"</code></span>
+case fail?</p></blockquote></blockquote>
+<p>Since we check for the string
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>
+in the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+expression, we need to normalize the input to match what our
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+expression expects. Here’s the modified code, on which all the examples
+pass.</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun cell-to-discount-code(str :: String) -&gt; String:
+  doc: ```uppercase all strings other than none,
+       convert blank cells to contain none```
+  if (str == "") or (string-to-lower(str) == "none"):
+    "none"
+  else:
+    string-to-upper(str)
+  end
+where:
+  cell-to-discount-code("") is "none"
+  cell-to-discount-code("none") is "none"
+  cell-to-discount-code("NoNe") is "none"
+  cell-to-discount-code("birthday") is "BIRTHDAY"
+  cell-to-discount-code("Birthday") is "BIRTHDAY"
+end</code></pre></div></div>
+<p>Using this function with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">transform-column</code></span>
+yields a table with a standardized formatting for discount codes
+(reminder that you need to be working in the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">dcic2024</code></span>
+context for this to work):</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">discount-fixed =
+  transform-column(event-data, "discount", cell-to-discount-code)</code></pre></div></div>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Try it yourself: normalize the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"delivery"</code></span>
+column so that all
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"yes"</code></span>
+values are converted to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"email"</code></span>.</p></blockquote></blockquote>
+<p>Now that we’ve cleaned up the codes, we can proceed to using the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"count"</code></span>
+function to extract our summary table:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">count(discount-fixed, "discount")</code></pre></div></div>
+<p>This produces the following table:</p>
+<p><img src="count-pre-discount-trim.png" width="163"
+height="188" /></p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What’s with that first row, with the discount code
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"    "</code></span>?
+Where might that have come from?</p></blockquote></blockquote>
+<p>Maybe you didn’t notice this before (or wouldn’t have noticed it
+within a larger table), but there must have been a cell of the source
+data with a string of blanks, rather than missing content. How do we
+approach normalization to avoid missing cases like this?</p>
+<h5 id="Normalization-Systematically">Normalization, Systematically</h5>
+<p>As the previous example showed, we need a way to think through
+potential normalizations systematically. Our initial discussion of
+writing examples gives an idea of how to do this. One of the guidelines
+there says to think about the domain of the inputs, and ways that inputs
+might vary. If we apply that in the context of loaded datasets, we
+should think about how the original data were collected.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Based on what you know about websites, where might the event code
+contents come from? How might they have been entered? What do these tell
+you about different plausible mistakes in the data?</p></blockquote></blockquote>
+<p>In this case, for data that came from a web-based form (as we
+revealed at the beginning), the data was likely entered in one of two
+ways:</p>
+<ul>
+<li>via a drop-down menu</li>
+<li>in a text-entry box</li>
+</ul>
+<p>A drop-down menu automatically normalizes the data, so that’s not a
+plausible source (this is why you should use drop-downs on forms when
+you want users to select from a fixed collection of options). So let’s
+assume this is from a text-entry box.</p>
+<p>A text-entry box means that any sort of typical human typing error
+could show up in your data: swapped letters, missing letters, leading
+spaces, capitalization, etc. You could also get data where someone just
+typed the wrong thing (or something random, just to see what your form
+would do).</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Which of swapped letters, missing errors, and random text do you
+think a program can correct for automatically?</p></blockquote></blockquote>
+<p>Swapped and missing letters are the sorts of things a spell-checker
+might be able to fix (especially if the program knew all of the valid
+discount codes). Random junk, by definition, is random. There, you’d
+have to talk to the events company to decide how they wanted those
+handled (convert them to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>,
+reach out to the customer, etc. – these are questions of policy, not of
+programming).</p>
+<p>But really, the moral of this is to just use drop-downs or other
+means to prevent incorrect data at the source whenever possible.</p>
+<p>As you get more experience with programming, you will also learn to
+anticipate certain kinds of errors. Issues such as cells that appear
+empty will become second nature once you’ve processed enough tables that
+have them, for example. Needing to anticipate data errors is one reason
+why good data scientists have to understand the domain that they are
+working in.</p>
+<p>The takeaway from this is how we talked through what to expect. We
+thought about where the data came from, and what errors would be
+plausible in that situation. Having a clear error model in mind will
+help you develop more robust programs. In fact, such adversarial
+thinking is a core skill of working in security, but now we’re getting
+ahead of ourselves.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>In spreadsheets, cells that appear empty sometimes have actual
+content, in the form of strings made up of spaces: both
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">""</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"   "</code></span>
+appear the same when we look at a spreadsheet, but they are actually
+different values computationally.</p>
+<p>How would you modify
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cell-to-discount-code</code></span>
+so that strings containing only spaces were also converted to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>?
+(Hint: look for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-replace</code></span>
+in the strings library.)</p></blockquote></blockquote>
+<h5 id="Using-Programs-to-Detect-Data-Errors">Using Programs to Detect
+Data Errors</h5>
+<p>Sometimes, we also look for errors by writing functions to check
+whether a table contains unexpected values. Let’s consider the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"email"</code></span>
+column: that’s a place where we should be able to write a program to
+flag any rows with invalid email addresses. What makes for a valid email
+address? Let’s consider two rules:</p>
+<ul>
+<li>Valid email addresses should contain an
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">@</code></span>
+sign</li>
+<li>Valid email addresses should end in one of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">".com"</code></span>,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">".edu"</code></span>
+or
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">".org"</code></span></li>
+</ul>
+<p><span class="refelem"><span class="refcolumn"><span class="refcontent">This is admittedly an outdated, limited, and US-centric definition of
+email addresses, but expanding the formats does not fundamentally change
+the point of this section.</span></span></span></p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write a function
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-email</code></span>
+that takes a string and returns a boolean indicating whether the string
+satisfies the above two rules for being valid email addresses. For a bit
+more of a challenge, also include a rule that there must be some
+character between the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">@</code></span>
+and the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.</code></span>-based
+ending.</p></blockquote></blockquote>
+<p>Assuming we had such a function, a routine
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter-with</code></span>
+could then produce a table identifying all rows that need to have their
+email addresses corrected. The point here is that programs are often
+helpful for finding data that need correcting, even if a program can’t
+be written to perform the fixing.</p>
+<h4 id="task-plans">Task Plans</h4>
+<p>Before we move on, it’s worth stepping back to reflect on our process
+for producing the discount-summary table. We started from a concrete
+example, checked the documentation for a built-in function that might
+help, then manipulated our data to work with that function. These are
+part of a more general process that applies to data and problems beyond
+tables. We’ll refer to this process as task planning. Specifically, a
+task plan is a sequence of steps (tasks) that decompose a computational
+problem into smaller steps (sub-tasks). A useful task plan contains
+sub-tasks that you know how to implement, either by using a built-in
+function or writing your own. There is no single notation or format for
+task plans. For some problems, a bulleted-list of steps will suffice.
+For others, a diagram showing how data transform through a problem is
+more helpful. This is a personal choice tailored to a specific problem.
+The goal is simply to decompose a problem into something of a
+programming to-do list, to help you manage the process.</p>
+<blockquote class="Strategy"><p class="StrategyHeader">Strategy</p><blockquote class="StrategyBody"><ol type="1">
+<li>Develop a concrete example showing the desired output on a given
+input (you pick the input: a good one is large enough to show different
+features of your inputs, but small enough to work with manually during
+planning. For table problems, roughly 4-6 rows usually works well in
+practice).</li>
+<li>Mentally identify functions that you already know (or that you find
+in the documentation) that might be useful for transforming the input
+data to the output data.</li>
+<li>Develop a sequence of steps—whether as pictures, textual
+descriptions of computations, or a combination of the two—that could be
+used to solve the problem. If you are using pictures, draw out the
+intermediate data values from your concrete example and make notes on
+what operations might be useful to get from one intermediate value to
+the next. The functions you identified in the previous step should show
+up here.</li>
+<li>Repeat the previous step, breaking down the subtasks until you
+believe you could write expressions or functions to perform each step or
+data transformation.</li>
+</ol></blockquote></blockquote>
+<p>Here’s a diagram-based task plan for the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">discount-summary</code></span>
+program that we just developed. We’ve drawn this on paper to highlight
+that task plans are not written within a programming environment.</p>
+<p><img src="discount-taskplan.png" width="420" height="567" /></p>
+<p>Once you have a plan, you turn it into a program by writing
+expressions and functions for the intermediate steps, passing the output
+of one step as the input of the next. Sometimes, we look at a problem
+and immediately know how to write the code for it (if it is a kind of
+problem that you’ve solved many times before). When you don’t
+immediately see the solution, use this process and break down the
+problem by working with concrete examples of data.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>You’ve been asked to develop a program that identifies the student
+with the largest improvement from the midterm to the final exam in a
+course. Your input table will have columns for each exam as well as for
+student names. Write a task plan for this problem.</p></blockquote></blockquote>
+<p>Some task plans involve more than just a sequence of table values.
+Sometimes, we do multiple transformations to the same table to extract
+different pieces of data, then compute over those data. In that case, we
+draw our plan with branches that show the different computations that
+come together in the final result. Continuing with the gradebook, for
+example, you might be asked to write a program to compute the difference
+between the largest and lowest scores on the midterm. That task plan
+might look like:</p>
+<p><img src="gradebook-delta-taskplan.png" width="411"
+height="339" /></p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>You’ve been given a table of weather data that has columns for the
+date, amount of precipitation, and highest temperature for the day.
+You’ve been asked to compute whether there were more snowy days in
+January than in February, where a day is snowy if the highest
+temperature is below freezing and the precipitation was more than
+zero.</p></blockquote></blockquote>
+<p>The takeaway of this strategy is easy to state:</p>
+<p>If you aren’t sure how to approach a problem, don’t start by trying
+to write code. Plan until you understand the problem.</p>
+<p>Newer programmers often ignore this advice, assuming that the fastest
+way to produce working code for a programming problem is to start
+writing code (especially if you see classmates who are able to jump
+directly to writing code). Experienced programmers know that trying to
+write all the code before you’ve understood the problem will take much
+longer than stepping back and understanding the problem first. As you
+develop your programming skills, the specific format of your task plans
+will evolve (and indeed, we will see some cases of this later in the
+book as well). But the core idea is the same: use concrete examples to
+help identify the intermediate computations that will need, then convert
+those intermediate computations to code after or as you figure them
+out.</p>
+<h4 id="preparing-tables">Preparing Data Tables</h4>
+<p>Sometimes, the data we have is clean (in that we’ve normalized the
+data and dealt with errors), but it still isn’t in a format that we can
+use for the analysis that we want to run. For example, what if we want
+to look at the distribution of small, medium, and large ticket orders?
+In our current table, we have the number of tickets in an order, but not
+an explicit label on the scale of that order. If we wanted to produce
+some sort of chart showing our order scales, we will need to make those
+labels explicit.</p>
+<h5 id="creating-bins">Creating bins</h5>
+<p>The act of reducing one set of values (such as the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">tickcounts</code></span>
+values) into a smaller set of categories (such as small/medium/large for
+orders, or morning/afternoon/etc. for timestamps) is known as binning.
+The bins are the categories. To put rows into bins, we create a function
+to compute the bin for a raw data value, then create a column for the
+new bin labels.</p>
+<p>Here’s an example of creating bins for the scale of the ticket
+orders:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun order-scale-label(r :: Row) -&gt; String:
+  doc: "categorize the number of tickets as small, medium, large"
+  numtickets = r["tickcount"]
+
+  if numtickets &gt;= 10: "large"
+  else if numtickets &gt;= 5: "medium"
+  else: "small"
+  end
+end
+
+order-bin-data =
+  build-column(cleaned-event-data, "order-scale", order-scale-label)</code></pre></div></div>
+<h5 id="splitting-columns">Splitting Columns</h5>
+<p>The events table currently uses a single string to represent the name
+of a person. This single string is not useful if we want to sort data by
+last names, however. Splitting one column into several columns can be a
+useful step in preparing a dataset for analysis or use. Programming
+languages usually provide a variety of operations for splitting apart
+strings: Pyret has operations called
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-split</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-split-all</code></span>
+that split one string into several around a given character (like a
+space). You could, for example, write
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-split("Josie Zhao", " ")</code></span>
+to extract
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Josie"</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Zhao"</code></span>
+as separate strings.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write a task plan (not the code, just the plan) for a function that
+would replace the current
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">name</code></span>
+column in the events table with two columns called
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">last-name</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">first-name</code></span>.</p></blockquote></blockquote>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Write down a collection of specific name strings on which you would
+want to test a name-splitting function.</p></blockquote></blockquote>
+<p>Hopefully, you at least looked at the table and noticed that we have
+one individual,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Zander"</code></span>
+whose entire name is a single string, rather than having both a first
+name and a last name. How would we handle middle names? Or names from
+cultures where a person’s name has the last names of both of their
+parents as part of their name? Or cultures that put the family name
+before the given name? Or cultures where names are not written as in the
+Latin alphabet. This is definitely getting more complicated.</p>
+<blockquote class="RespCS"><p class="RespCSHeader">Responsible Computing</p><blockquote class="RespCSBody"><p>Representing names as data is heavily context- and culture-dependent.
+Think carefully about the individuals your dataset needs to include and
+design your table structure accordingly. It’s okay to have a table
+structure that excludes names outside of the population you are trying
+to represent. The headache comes from realizing later that your dataset
+or program excludes data that need to be supported. In short, examine
+your table structure for assumptions it makes about your data and choose
+table structure after thinking about which observations or individuals
+it needs to represent.</p>
+<p>For a deeper look at the complexity of representing real-world names
+and dates in programs, search for “falsehoods programmers believe about
+…”, which turns up articles such as <a
+href="https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/">Falsehoods
+Programmers Believe About Names</a> and <a
+href="https://infiniteundo.com/post/25509354022/more-falsehoods-programmers-believe-about-time">Falsehoods
+Programmers Believe About Time</a>.</p></blockquote></blockquote>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write a program that filters a table to only include rows in which
+the name is not comprised of two strings separated by a space.</p></blockquote></blockquote>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write a program that takes a table with a
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">name</code></span>
+column in
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"first-name last-name"</code></span>
+format and replaces the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">name</code></span>
+column with two columns called
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">last-name</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">first-name</code></span>.
+To extract the first- and last-names from a single name string, use:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">string-split(name-string, " ").get(0)  # get first name
+string-split(name-string, " ").get(1)  # get last name</code></pre></div></div></blockquote></blockquote>
+<h4 id="naming-tables">Managing and Naming Data Tables</h4>
+<p>At this point, we have worked with several versions of the events
+table:</p>
+<ul>
+<li>The original dataset that we tried to load</li>
+<li>The new sheet of the dataset with manual corrections</li>
+<li>The version with the discount codes normalized</li>
+<li>Another version that normalized the delivery mode</li>
+<li>The version extended with the order-scale column</li>
+</ul>
+<p>Which of these versions should get explicit names within our code
+file?</p>
+<p>Usually, we keep both the original raw source datasheet, as well as
+the copy with our manual corrections. Why? In case we ever have to look
+at the original data again, either to identify kinds of errors that
+people were making or to apply different fixes.</p>
+<p>For similar reasons, we want to keep the cleaned (normalized) data
+separate from the version that we initially loaded. Fortunately, Pyret
+helps with this since it creates new tables, rather than modify the
+prior ones. If we have to normalize multiple columns, however, do we
+really need a new name for every intermediate table?</p>
+<p>As a general rule, we usually maintain separate names for the
+initially-loaded table, the cleaned table, and for significant
+variations for analysis purposes. In our code, this might mean having
+names:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">event-data = ... # the loaded table
+
+cleaned-event-data =
+  transform-column(
+    transform-column(event-data, "discount", cell-to-discount-code),
+    "delivery", yes-to-email)
+
+order-bin-data =
+  build-column(
+    cleaned-event-data, "order-scale", order-scale-label)</code></pre></div></div>
+<p>where
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">yes-to-email</code></span>
+is a function we have not written, but that might have normalized the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"yes"</code></span>
+value in the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"delivery"</code></span>
+column. Note that we applied each of the normalizations in sequence,
+naming only the final table with all normalizations applied.
+<span class="refelem"><span class="refcolumn"><span class="refcontent">In professional practice, if you were working with a very large dataset,
+you might just write the cleaned dataset out to a file, so that you
+loaded only the clean version during analysis. We will look at writing
+to file later.</span></span></span> Having only a few table names will
+reduce your own confusion when working with your files. If you work on
+multiple data-analyses, developing a consistent strategy for how you
+name your tables will likely help you better manage your code as you
+switch between projects.</p>
+<h4 id="visualizing-tables">Visualizations and Plots</h4>
+<p>Now that our data are cleaned and prepared, we are ready to analyze
+it. What might we want to know? Perhaps we want to know which discount
+code has been used most often. Maybe we want to know whether the time
+when a purchase was made correlates with how many tickets people buy.
+There’s a host of different kinds of visualizations and plots that
+people use to summarize data.</p>
+<p>Which plot type to use depends on both the question and the data at
+hand. The nature of variables in a dataset helps determine relevant
+plots or statistical operations. An attribute or variable in a dataset
+(i.e., a single column of a table) can be classified as one of several
+different kinds, including:</p>
+<ul>
+<li>quantitative: a variable whose values are numeric and can be ordered
+with a consistent interval between values. They are meaningful to use in
+computations.</li>
+<li>categorical: a variable with a fixed set of values. The values may
+have an order, but there are no meaningful computational operations
+between the values other than ordering. Such variables usually
+correspond to characteristics of your samples.</li>
+</ul>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Which kind of variable are last names? Grades in courses?
+Zipcodes?</p></blockquote></blockquote>
+<p>Common plots and the kinds of variables they require include:</p>
+<ul>
+<li>Scatterplots show relationships between two quantitative variables,
+with one variable on each axis of a 2D chart.</li>
+<li>Frequency Bar charts show the frequency of each categorical value
+within a column of a dataset.</li>
+<li>Histograms segment quantitative data into equal-size intervals,
+showing the distribution of values across each interval.</li>
+<li>Pie charts show the proportion of cells in a column across the
+categorical values in a dataset.</li>
+</ul>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Map each of the following questions to a chart type, based on the
+kinds of variables involved in the question:</p>
+<ul>
+<li>Which discount code has been used most often?</li>
+<li>Is there a relationship between the number of tickets purchased in
+one order and the time of purchase?</li>
+<li>How many orders have been made for each delivery option?</li>
+</ul></blockquote></blockquote>
+<p>For example, we might use a frequency-bar-chart to answer the third
+question. Based on the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Table</code></span>
+documentation, we would generate this using the following code (with
+similar style for the other kinds of plots):</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">freq-bar-chart(cleaned-event-data, "delivery")</code></pre></div></div>
+<p>Which yields the following chart (assuming we had not actually
+normalized the contents of the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"delivery"</code></span>
+column):</p>
+<p><img src="bar-chart-bad-col.png" width="475" height="334" /></p>
+<p>Whoa – where did that extra
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"email"</code></span>
+column come from? If you look closely, you’ll spot the error: in the row
+for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Alvina"</code></span>,
+there’s a typo
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"emall"</code></span>
+with an
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">l</code></span>
+instead of an
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">i</code></span>)
+in the discount column (drop-down menus, anyone?).</p>
+<p>The lesson here is that plots and visualizations are valuable not
+only in the analysis phase, but also early on, when we are trying to
+sanity check that our data are clean and ready to use. Good data
+scientists</p>
+<p>never</p>
+<p>trust a dataset without first making sure that the values make sense.
+In larger datasets, manually inspecting all of the data is often
+infeasible. But creating some plots or other summaries of the data is
+also useful for identifying errors.</p>
+<h4 id="Summary-Managing-a-Data-Analysis">Summary: Managing a Data
+Analysis</h4>
+<p>This chapter has given you a high-level overview of how to use coding
+for managing and processing data. When doing any data analysis, a good
+data practitioner undergoes several steps:</p>
+<ol type="1">
+<li>Think about the data in each column: what are plausible values in
+the column, and what kinds of errors might be in that column based on
+what you know about the data collection methods?</li>
+<li>Check the data for errors, using a combination of manual inspection
+of the table, plots, and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter-with</code></span>
+expressions that check for unexpected values. Normalize or correct the
+data, either at the source (if you control that) or via small
+programs.</li>
+<li>Store the normalized/cleaned data table, either as a name in your
+program, or by saving it back out to a new file. Leave the raw data
+intact (in case you need to refer to the original later).</li>
+<li>Prepare the data based on the questions you want to ask about it:
+compute new columns, bin existing columns, or combine data from across
+tables. You can either finish all preparations and name the final table,
+or you can make separate preparations for each question, naming the
+per-question tables.</li>
+<li>At last, perform your analysis, using the statistical methods,
+visualizations, and interpretations that make sense for the question and
+kinds of variables involved. When you report out on the data, always
+store notes about the file that holds your analysis code, and which
+parts of the file were used to generate each graph or interpretation in
+your report.</li>
+</ol>
+<p>There’s a lot more to managing data and performing analysis than this
+book can cover. There are entire books, degrees, and careers in each of
+the management of data and its analysis. One area we have not discussed,
+for example, is machine learning, in which programs (that others have
+written) are used to make predictions from datasets (in contrast, this
+chapter has focused on projects in which you will use summary statistics
+and visualizations to perform analysis). These skills covered in this
+chapter are all prerequisites for using machine learning effectively and
+responsibly. But we still have much more to explore and understand about
+data themselves, which we turn to in the coming chapters. Onward!</p>
+<blockquote class="RespCS"><p class="RespCSHeader">Responsible Computing</p><blockquote class="RespCSBody"><p>In a book that is discussing data and social responsibility, we would
+be remiss in not at least mentioning some of the many issues that arise
+when using data to make predictions (via techniques like machine
+learning). Some issues arise from problems with the data themselves
+(e.g., whether samples are representative, or whether correlations
+between variables lead to discrimination as in algorithmic hiring).
+Others arise with how data collected for one purpose is misused to make
+predictions for another. Still more arise with the interpretation of
+results.</p>
+<p>These are all rich topics. There are myriad articles which you could
+read at this point to begin to understand the pitfalls (and benefits) of
+algorithmic decision making. This book will focus instead on issues that
+arise from the programs we are teaching you to write, leaving other
+courses, or the interests of instructors, to augment the material as
+appropriate for readers’ contexts.</p></blockquote></blockquote>
+<div class="navsetbottom">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="intro-tabular-data.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_tabular-data.html">up</a>&nbsp;&nbsp;<a href="part_lists.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+</div><!-- .main -->
+</div><!-- .maincolumn -->
+</body>
+</html>

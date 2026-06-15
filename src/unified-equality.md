@@ -1,0 +1,411 @@
+---
+title: Understanding Equality
+section_number: 12.2
+source_file: unified-equality.html
+prev: mutating-structures.html
+up: part_state.html
+next: unified-lists-memory.html
+---
+
+### Understanding Equality {#unified-equality}
+
+#### Equality of Data {#equality-of-data}
+
+Now that we have the ability to mutate data, it’s worth asking what it
+means for two pieces of data to be equal. We’ll motivate this through
+a concrete example. Following the naming convention of
+[Structure Mutation and the Directory](mutating-structures.html##structure-mut-dir), we will write every name only once, using the
+upper-case name from Python, but everything we write will equally be
+true for Pyret.
+
+First, consider these three statements:
+
+```python
+a1 = Account(8603, 500)
+a2 = Account(8603, 500)
+a3 = Account(8603, 250)
+```
+
+::: {.do-now}
+Which of the above `Account`{.python}s do you consider “equal”?
+:::
+
+The third `Account`{.python} has a different balance than the first two,
+so it can’t be considered equal to either of the first two. The first
+two have the same contents, so arguably they can be considered equal.
+
+Now, let’s consider the directory and heap that would result from
+running these three statements:
+
+```{=html}
+<div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">a1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1120</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">a2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1121</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">a3</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1122</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1120</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">Account(8603, 500)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1121</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">Account(8603, 500)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1122</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">Account(8603, 250)</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
+```
+
+From the perspective of the heap, each account ends up at its own
+address. Those different addresses are a way in which the two values
+are not the same: they have the same contents, but not the same
+address. Is that relevant? To explore this, let’s associate another
+name (`a4`{.python}) with the same address as `a2`{.python}, then change
+the balance in `a2`{.python}.
+For now we will show just the Python version:
+
+```python
+a1 = Account(8603, 500)
+a2 = Account(8603, 500)
+a3 = Account(8603, 250)
+a4 = a2
+# checkpoint 1
+a2.balance = 800
+# checkpoint 2
+```
+
+What does memory look like before and after checkpoint 1? Before the
+checkpoint:
+
+```{=html}
+<div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">a1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1130</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">a2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1131</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">a3</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1132</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">a4</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1131</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1130</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">Account(8603, 500)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1131</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">Account(8603, 500)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1132</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">Account(8603, 250)</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
+```
+`a1`{.python} and `a2`{.python} refer to two different
+`Account`{.python}s with the same contents. After checkpoint 1, those
+contents are different because we modified the contents of the balance
+field in `a2`{.python}:
+
+```{=html}
+<div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">a1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1130</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">a2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1131</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">a3</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1132</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">a4</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1131</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1130</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">Account(8603, 500)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1131</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">Account(8603, 800)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1132</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">Account(8603, 250)</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
+```
+In contrast, `a2`{.python} and `a4`{.python} are aliases for the
+same `Account`{.python}. Therefore, their values change in lockstep:
+asking to display the value of either one would now show an account
+with a balance of `800`{.python}.
+
+::: {.do-now}
+What do you think now? Are the first two accounts equal?
+:::
+
+#### Different Equality Operations {#equality-operations}
+
+This sequence of examples points out that we seem to be raising two
+possible notions of equality:
+
+1. Whether two values have the same contents. This is formally called
+  structural equality; you can think of it as a “print
+  equality”, namely, when displayed, do the two values look the same.
+2. Whether two values live at the same address, i.e., there is
+  actually only one value in memory. This is formally called
+  reference equality. Usually, we would refer to the two values by
+  different names (so there is the possibility that they are
+  different), and reference equality checks whether the names are
+  aliases. Observe that a given value always prints the same way, so
+  any two names that have reference equality also have structural
+  equality, but not vice versa.
+
+Which notion of equality is “correct”? It turns out that they are
+valuable in different contexts. For this reason, programming languages
+generally provide multiple equality operations, letting the programmer
+indicate which kind of equality they mean in their context.
+
+Unfortunately, the names of equality operations, and their exact
+meaning, vary across languages. Therefore, we will examine each of
+Pyret and Python separately.
+
+##### Equality in Python {#Equality-in-Python}
+
+The `==`{.python} operator that you learned in Pyret and we carried into
+Python checks for structural equality, independent of addresses:
+
+::: {.pyret-repl}
+``` pyret
+a1 == a2
+```
+``` output
+True
+```
+:::
+
+::: {.pyret-repl}
+``` pyret
+a2 == a4
+```
+``` output
+True
+```
+:::
+
+However, note that this will no longer be true at checkpoint
+2:
+
+::: {.pyret-repl}
+``` pyret
+a1 == a2
+```
+``` output
+False
+```
+:::
+
+::: {.pyret-repl}
+``` pyret
+a2 == a4
+```
+``` output
+True
+```
+:::
+
+If we instead want to check for aliasing, we instead use an operation
+called `is`{.python} (not to be confused with Pyret’s `is`{.pyret}, which
+is used for writing tests):
+
+::: {.pyret-repl}
+``` pyret
+a1 is a2
+```
+``` output
+False
+```
+:::
+
+::: {.pyret-repl}
+``` pyret
+a2 is a4
+```
+``` output
+True
+```
+:::
+
+This explains why `a2 == a4`{.python} was true both before and
+after the mutation, but `a1 == a2`{.python} was no longer true
+after it. The latter seems to violate a very basic meaning of
+“equality”; the problem here is caused by the introduction of
+mutation.
+
+As we go forward, you’ll get more practice with when to use each kind
+of equality. The `==`{.python} operator is more accepting, so it is
+usually the right default. If you actually need to know whether two
+expressions evaluate to the same address, you should instead use `is`{.python}.
+
+##### Equality in Pyret {#Equality-in-Pyret}
+
+Equality in Pyret is somewhat more detailed, because the language
+wants you to think harder about what is happening in your programs.
+
+Recall that we are using the datatype in [Example: Bank Accounts](mutating-structures.html##eg-bank-acc) and
+have written the following definitions:
+
+```pyret
+a1 = account(8603, 500)
+a2 = account(8603, 500)
+a3 = account(8603, 250)
+a4 = a2
+# checkpoint 1
+a2!{balance: 800}
+# checkpoint 2
+```
+
+In Python, we saw that `a1 == a2`{.python} before the
+mutation. However, in Pyret, this produces `false`{.pyret}! Why?
+
+The reason is because structural equality is actually complicated;
+there are two different questions we could be asking:
+
+
+1. Are these two values structurally equal right now?
+2. Will these two values be structurally equal always?
+
+Pyret makes a distinction between these two.
+
+By default, Pyret tends towards safer programming
+practices. Therefore, the standard (structural) equality predicate,
+`==`{.pyret}, will only return `true`{.pyret} if the two values will
+always be equal. Thus:
+
+::: {.pyret-repl}
+``` pyret
+a2 == a4
+```
+``` output
+true
+```
+:::
+
+Because the two values are actually aliases, no matter how one
+changes, the “other” will always change in the same way. Therefore,
+they will always “print the same”. We can confirm that they are
+aliases by using Pyret’s reference equality operator, `<=>`{.pyret}:
+
+::: {.pyret-repl}
+``` pyret
+a1 <=> a2
+```
+``` output
+false
+```
+:::
+
+::: {.pyret-repl}
+``` pyret
+a2 <=> a4
+```
+``` output
+true
+```
+:::
+
+In contrast, that guarantee does not apply to `a1`{.pyret} and
+`a2`{.pyret}; and indeed, at checkpoint 2, we see that they are no
+longer equal. Hence
+
+::: {.pyret-repl}
+``` pyret
+a1 == a2
+```
+``` output
+false
+```
+:::
+
+However, there is a time when `a1`{.pyret} and `a2`{.pyret} do print
+the same, namely before checkpoint 1. Therefore, Pyret provides
+another equality operator that checks whether values are equal
+at the moment, `=~`{.pyret}. If we ask this before checkpoint 1,
+we get:
+
+::: {.pyret-repl}
+``` pyret
+a1 =~ a2
+```
+``` output
+true
+```
+:::
+
+But if we ask the same question at checkpoint 2, we get:
+
+::: {.pyret-repl}
+``` pyret
+a1 =~ a2
+```
+``` output
+false
+```
+:::
+
+These operators and their funny symbols may be hard to remember, but
+Pyret also gives them useful (if longer) names, and they can be
+used as ordinary functions:
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span style="font-weight: bold">Symbol</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">Function</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">Type</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">Meaning</span></p></td></tr><tr><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">==</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">equal-always</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p>Structural</p></td><td><p><span class="hspace">    </span></p></td><td><p>If it returns <span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">true</code></span>, they will always be equal,
+irrespective of any future mutations.</p></td></tr><tr><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">=~</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">equal-now</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p>Structural</p></td><td><p><span class="hspace">    </span></p></td><td><p>If it returns <span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">true</code></span> they are currently equal,
+but that may change after future mutations.</p></td></tr><tr><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">&lt;=&gt;</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">identical</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p>Reference</p></td><td><p><span class="hspace">    </span></p></td><td><p>Returns <span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">true</code></span> if the two arguments are aliases,
+<span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">false</code></span> otherwise.</p></td></tr></table>
+```
+Thus, before checkpoint 1:
+
+::: {.pyret-repl}
+``` pyret
+equal-now(a1, a2)
+```
+``` output
+true
+```
+:::
+
+::: {.pyret-repl}
+``` pyret
+equal-now(a2, a4)
+```
+``` output
+true
+```
+:::
+
+::: {.pyret-repl}
+``` pyret
+equal-always(a1, a2)
+```
+``` output
+false
+```
+:::
+
+::: {.pyret-repl}
+``` pyret
+equal-always(a2, a4)
+```
+``` output
+true
+```
+:::
+
+::: {.pyret-repl}
+``` pyret
+identical(a1, a2)
+```
+``` output
+false
+```
+:::
+
+::: {.pyret-repl}
+``` pyret
+identical(a2, a4)
+```
+``` output
+true
+```
+:::
+
+After checkpoint 2, we no longer need to check any of the
+`equal-always`{.pyret} or `identical`{.pyret} relationships again, because
+by definition they cannot change. But we should check `equal-now`{.pyret}
+again. Sure enough:
+
+::: {.pyret-repl}
+``` pyret
+equal-now(a1, a2)
+```
+``` output
+false
+```
+:::
+
+::: {.pyret-repl}
+``` pyret
+equal-now(a2, a4)
+```
+``` output
+true
+```
+:::
+
+Therefore, in Pyret, the `==`{.pyret} operator is the same as
+`equal-always`{.pyret}. When data contain mutable fields, this will
+always produce `false`{.pyret}, because even if the values are
+structurally equal now, it’s possible that a future
+mutation will change that. This is to remind you to be careful in the
+presence of mutation. In situations where we really care only about
+equality at that instant, we can use `=~`{.pyret}, i.e., `equal-now`{.pyret}.
+
+The examples above might suggest that only aliased values are
+`equal-always`{.pyret}. This is not true! If our data are immutable
+(which is the default in the language), then if two values are
+structurally equal now, they must remain structurally equal
+forever. For such data, `equal-always`{.pyret} will return `true`{.pyret}
+even when they are not aliases. This is a reminder that we get
+stronger guarantees about immutable data.
+
+It is worth noting that upto this point we have used
+`equal-always`{.pyret}—in the form of both `==`{.pyret} and Pyret’s
+`is`{.pyret} in testing—without really bothering to understand very
+much about how it works, and yet have always gotten predictable
+answers. This suggests that there is something natural about working
+with immutable data. In contrast, with mutable data, something has to
+give. Pyret made a conscious design choice to reflect this in the
+distinction between `equal-always`{.pyret} and `equal-now`{.pyret}. Python
+made a different choice, which results in “equality” having a
+perhaps surprising meaning. (Python has no notion of
+`equal-always`{.pyret}, only `equal-now`{.pyret} or `=~`{.pyret}, which is
+written as `==`{.python}, and `identical`{.pyret} or `<=>`{.pyret}, which is
+written as `is`{.python}.)

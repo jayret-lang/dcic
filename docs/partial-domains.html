@@ -1,0 +1,622 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$","$"],
+                   ["\\[","\\]"],
+                   ["\\begin{equation}","\\end{equation}"],
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.8"/>
+<title>23 Partial Domains</title>
+<link rel="stylesheet" type="text/css" href="scribble.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="editor.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/>
+<script type="text/javascript" src="scribble-common.js"></script>
+<script type="text/javascript" src="manual-racket.js"></script>
+</head>
+<body id="scribble-racket-lang-org">
+<div class="tocset"><div class="tocview">
+<div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
+<tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
+<tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
+<tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
+<tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr>
+<tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr>
+<tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9658;</a></td><td>VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr></table><div class="tocviewsublist" style="display: none;" id="tocview_1"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">19&nbsp;</td><td><a href="state-in-pyret.html" class="tocviewlink" data-pltdoc="x">State and Equality</a></td></tr>
+<tr><td align="right">20&nbsp;</td><td><a href="rec-from-mut.html" class="tocviewlink" data-pltdoc="x">Recursion and Cycles from Mutation</a></td></tr>
+<tr><td align="right">21&nbsp;</td><td><a href="cycle-detection.html" class="tocviewlink" data-pltdoc="x">Detecting Cycles</a></td></tr>
+<tr><td align="right">22&nbsp;</td><td><a href="avoid-recomp.html" class="tocviewlink" data-pltdoc="x">Avoiding Recomputation by Remembering Answers</a></td></tr>
+<tr><td align="right">23&nbsp;</td><td><a href="partial-domains.html" class="tocviewselflink" data-pltdoc="x">Partial Domains</a></td></tr>
+<tr><td align="right">24&nbsp;</td><td><a href="staging.html" class="tocviewlink" data-pltdoc="x">Staging</a></td></tr>
+<tr><td align="right">25&nbsp;</td><td><a href="factoring-numbers.html" class="tocviewlink" data-pltdoc="x">Factoring Numbers</a></td></tr>
+<tr><td align="right">26&nbsp;</td><td><a href="deconstructing-loops.html" class="tocviewlink" data-pltdoc="x">Deconstructing Loops</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9658;</a></td><td>23&nbsp;</td><td><a href="partial-domains.html" class="tocviewselflink" data-pltdoc="x">Partial Domains</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_2"><table cellspacing="0" cellpadding="0">
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_3&quot;);">&#9658;</a></td><td>23&nbsp;</td><td><a href="partial-domains.html" class="tocviewselflink" data-pltdoc="x">Partial Domains</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_3"></div></div>
+</div>
+<div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"></table></div>
+</div>
+<div class="maincolumn">
+<div class="main">
+<div class="navsettop">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="avoid-recomp.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_advanced.html">up</a>&nbsp;&nbsp;<a href="staging.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+<h2 id="partial-domains">Partial Domains</h2>
+<p>Sometimes, we cannot precisely capture the domain of a function with
+the precision we would like. In mathematics, if a function cannot accept
+all values in its domain, it is called partial. This is a problem we
+encounter more often than we might like in programming, so we need to
+know how to handle it. There are actually several programming strategies
+that we can use, with different benefits and weaknesses. Here, we will
+examine some of them.</p>
+<p>Consider some functions on lists of numbers, such as computing the
+median or the average. In both cases, these functions don’t work on all
+lists of numbers: there is no median for the empty list, and we can’t
+compute its average either, because there are no elements (so trying to
+compute the average would result in a divison-by-zero error). Thus,
+while it is a convenient fiction to write</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">average :: List&lt;Number&gt; -&gt; Number</code></pre></div></div>
+<p>it is just that: a (bit of a) fiction. The function is only defined
+on non-empty lists.</p>
+<p>We will now see how to handle this from a software engineering
+perspective. We’ll specifically work through
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">average</code></span>
+because the function is simple enough that we can focus on the software
+structure without getting lost in the solution details. There are at
+least four solutions, and one non-solution.</p>
+<h3 id="pd-sentinel">A Non-Solution</h3>
+<p>We will start with a strategy that has often been used by programmers
+in the past, but that we reject as a non-solution. This strategy is to
+make the above contract absolutely correct by returning a value in the
+erroneous case; this value is often called a sentinel. For instance, the
+sentinel might be
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>.
+Here is the full program:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">type LoN = List&lt;Number&gt;
+
+fun sum(l :: LoN) -&gt; Number:
+  fold({(a, b): a + b}, 0, l)
+end
+
+avg0 :: LoN -&gt; Number
+
+fun avg0(l):
+  cases (List) l:
+    | empty =&gt; 0
+    | link(_, _) =&gt;
+      s = sum(l)
+      c = l.length()
+      s / c
+  end
+end</code></pre></div></div>
+<p>and here are a few tests:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  avg0([list: 1]) is 1
+  avg0([list: 1, 2, 3]) is 2
+  avg0([list: 1, 2, 3, 10]) is 4
+end</code></pre></div></div>
+<p>Is there a test missing here? Yes, for the empty list! Should we add
+it?</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  avg0(empty) is 0
+end</code></pre></div></div>
+<p>The question is, should we be happy with this “solution”? There are
+two problems with it.</p>
+<p>First, every single use of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>
+needs to check for whether it got back
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>
+or not. If it did not, then the answer is legitimate, and it can proceed
+with the computation. But if it did, then it has to assume that the
+input may have been illegitimate, and cannot use the answer.</p>
+<p>Second, even that’s not quite true. To understand why, we need to
+write a few more tests:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  avg0([list: -1, 0, 1]) is 0
+  avg0([list: -5, 4, 1]) is 0
+end</code></pre></div></div>
+<p>So the problem is that when
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>
+returns
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>,
+we don’t know whether that’s a legitimate answer or a “fake” answer that
+stands for “this is not a valid input”. So even our strategy of “check
+everywhere” fails!</p>
+<p>Ah, but maybe the problem is the use of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>!
+Perhaps we could use a different number that would work. How about
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>?
+Or
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">-1</code></span>?
+The question is: Is there any number that reasonably can’t be the
+average of an actual input? (And in general, for all problems, can you
+be sure of this?) Well, of course not.</p>
+<p>That’s why this is a non-solution. It has created several
+problems:</p>
+<ul>
+<li>We can’t tell from the output whether the input was invalid.</li>
+<li>That means every caller needs to check.</li>
+<li>A caller that forgets to check may compute with nonsense.</li>
+<li>Compositionality is ruined: any function passed
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">average</code></span>
+needs to know to check the output (and there is nothing in the contract
+to warn it!).</li>
+</ul>
+<p>Indeed, decades of experience tells us that some of the world’s most
+sophisticated programmers have not been able to handle this issue even
+when it matters most, resulting in numerous, pernicious security
+problems. Therefore, we should now regard this as a flawed approach to
+software construction, and never do it ourselves.</p>
+<p>Let’s instead look at four actual solutions.</p>
+<h3 id="pd-exceptions">Exceptions</h3>
+<p>One technique that many languages, including Pyret, provide is called
+the exception. An exception is a special programming construct that
+effectively halts the computation because the program cannot figure out
+how to continue computing with the data it has. There are more
+sophisticated forms of exceptions in some languages, but here we focus
+simply on using them as a strategy for handling partiality.</p>
+<p>Here is the average program written using an exception (we reuse
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum</code></span>
+from before):</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">avg1 :: LoN -&gt; Number
+
+fun avg1(l):
+  cases (List) l:
+    | empty =&gt; raise("no average for empty list")
+    | link(_, _) =&gt;
+      s = sum(l)
+      c = l.length()
+      s / c
+  end
+end
+
+check:
+  avg1([list: 1]) is 1
+  avg1([list: 1, 2, 3]) is 2
+  avg1([list: 1, 2, 3, 10]) is 4
+end</code></pre></div></div>
+<p>The way
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>
+works is that it terminates everything that is waiting to happen. For
+instance, if we were to write</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">1 + avg1(empty)</code></pre></div></div>
+<p>the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1 + …</code></span>
+part never happens: the whole computation ends.
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>
+creates exceptions.</p>
+<p>Again, we’re missing a test. How do we write it?</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  avg1(empty) raises "no average for empty list"
+end</code></pre></div></div>
+<p>The
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raises</code></span>
+form takes a string that it matches against that provided to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>.
+In act, for convenience, any sub-string of the original string is
+permitted: we can, for instance, also write
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check:   avg1(empty) raises "no average"   avg1(empty) raises "empty list" end</code></span></p>
+<p>In many programming languages, the use of exceptions is the standard
+way of dealing with partiality. It is certainly a pragmatic solution.
+Observe that we got to reuse
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum</code></span>
+from earlier; the contract looks clean; and we only needed to use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>
+at the spot where we didn’t know what to do. What’s not to like?</p>
+<p>There are two main problems with exceptions:</p>
+<ol type="1">
+<li>In real systems, exceptions halt a program’s execution in
+unpredictable ways. A caller to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg1</code></span>
+may be half-way through doing something else (e.g., it may have opened a
+file that it intends to close), but the exception causes the call to not
+finish cleanly, causing the remaining computation to not run, leaving
+the system in a messy state.</li>
+<li>Relatedly, what we presented as a feature should actually be treated
+as a problem: the contract lies! There’s no indication at all in the
+contract that an exception might occur. A programmer has to read the
+whole implementation—which could change at any time—instead of being
+able to rely on its published contract, when the whole point of
+contracts was that they saved us from having to read the whole
+implementation!</li>
+</ol>
+<p>Indeed, some modern programming languages designed for large-scale
+programming (such as Go and Rust) no longer have exception constructs.
+Therefore, you should not assume that this will continue to be the
+“standard” way of doing things in the future.</p>
+<p>Observe that there is are two kinds of exceptions that can occur. One
+is as we’ve written above. The other is when we completely ignore (or
+forget to even think about) the empty list case, and end up getting an
+error from Pyret, which is also a kind of exception. If Pyret will raise
+an exception anyway, does it make sense for us to go through the trouble
+of doing it ourselves?</p>
+<p>Yes it does! For several reasons:</p>
+<ol type="1">
+<li>First, you get to control where the exception occurs and what it
+says.</li>
+<li>You can document that the exception will occur.</li>
+<li>You are less dependent on the behavior of Pyret or whatever
+underlying programming language, which can change in subtle ways.</li>
+<li>You can create an exception that is unique to you, so it can’t be
+confused with other division-by-zero errors that may lurk in your
+program.</li>
+</ol>
+<p>For these reasons, it’s better to check and raise an exception
+explicitly than letting it “fall through” to the programming language.
+Instead, the real problems with this solution are subtler: the lying
+contract, and the impact on program execution.</p>
+<h3 id="pd-option">The Option Type</h3>
+<p>Let’s revisit
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>.
+The problem with it was that it returned a value that was not
+distinguishable from an actual answer. So perhaps another approach is to
+return a value that is guaranteed to be distinguishable! For this, a
+growing number of languages (including Pyret) have something like this
+type:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Option&lt;T&gt;:
+  | none
+  | some(value :: T)
+end</code></pre></div></div>
+<p>This is a type we use when we aren’t sure we will have an answer:
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
+means we don’t have an answer, whereas
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>
+means we do and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">value</code></span>
+is that answer.</p>
+<p>Here’s how our program now looks:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">avg2 :: LoN -&gt; Option&lt;Number&gt;
+
+fun avg2(l):
+  cases (List) l:
+    | empty =&gt; none
+    | link(_, _) =&gt;
+      s = sum(l)
+      c = l.length()
+      some(s / c)
+  end
+end</code></pre></div></div>
+<p>Now our tests look a bit different:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  avg2([list: 1]) is some(1)
+  avg2([list: 1, 2, 3]) is some(2)
+  avg2([list: 1, 2, 3, 10]) is some(4)
+end
+
+check:
+  avg2(empty) is none
+end</code></pre></div></div>
+<p>The good news is, the contract is now truthful. Just by looking at
+it, we are reminded that
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>
+may not always be able to compute an answer.</p>
+<p>Unfortunately, this imposes some cost on every user: they have to use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+to check return values and only use them if they are legitimate.
+However, this is the same thing we expected in
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>—except
+we lacked a discipline for making sure we didn’t abuse that value! So
+this is
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>
+done in a principled way.</p>
+<h3 id="pd-total-dyn">Total Domains, Dynamically</h3>
+<p>All these problems arise because we said that
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">average</code></span>
+(like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">median</code></span>)
+is partial. However, it’s only partial if we give the domain as
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">List&lt;Number&gt;</code></span>;
+it’s actually a total function on the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">non-empty</code></span>
+list of numbers. But how do we represent that?</p>
+<p>In some languages, like Pyret, we can actually express this
+directly:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">type NeLoND = List&lt;Number&gt;%(is-link)</code></pre></div></div>
+<p>This says that we’re refining numeric lists to always have a
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>,
+i.e., to be non-empty. In Pyret, currently, this check is only done at
+run-time; in some other programming languages, this can be done by the
+type-checker itself.</p>
+<p>This refinement lets us pretend that we’re dealing with regular lists
+and reuse all existing list code, while knowing for sure we will never
+get a divide-by-zero error:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">avg3 :: NeLoND -&gt; Number
+
+fun avg3(l):
+  s = sum(l)
+  c = l.length()
+  s / c
+end
+
+check:
+  avg3([list: 1]) is 1
+  avg3([list: 1, 2, 3]) is 2
+  avg3([list: 1, 2, 3, 10]) is 4
+end</code></pre></div></div>
+<p>If we do try passing an empty list, we get an internal exception:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  avg3(empty) raises ""
+end</code></pre></div></div>
+<p>This is a pretty interesting solution. Our function’s code is clean.
+We don’t deal with nonsensical values. The interface is truthful!
+(However, it does require a careful reading to observe that there’s an
+exception lurking underneath the domain.) And it lets us reuse existing
+code.</p>
+<p>There are two main weaknesses:</p>
+<ol type="1">
+<li>Dynamic refinements aren’t found in most languages, so we’d have to
+do more manual work to obtain the same solution.</li>
+<li>We don’t get a static guarantee (i.e., before even running the
+program) that we’ll never get an exception.</li>
+</ol>
+<h3 id="pd-total-static">Total Domains, Statically</h3>
+<p>How do we make the function total with a static guarantee? That would
+require that we ensure that we can never construct an empty list!
+Obviously, this is not possible with the existing lists in Pyret.
+However, we can construct a new list-like datatype that “bottoms out”
+not at empty lists but at lists of one element:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data NeLoN:
+  | one(n :: Number)
+  | more(n :: Number, r :: NeLoN)
+end</code></pre></div></div>
+<p>Observe that there is simply no way to make an empty list: the
+smallest list has one element in it. Furthermore, our type checker
+enforces this for us.</p>
+<p>Of course, this is an entirely different datatype than a list of
+numbers. We can’t, for instance, use the existing
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum</code></span>
+or
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">length</code></span>
+code on it. However, one option is to convert a
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">NeLoN</code></span>
+into a
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">LoN</code></span>,
+which is always safe, and reuse that code:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun nelon-to-lon(nl :: NeLoN):
+  cases (NeLoN) nl:
+    | one(n) =&gt; [list: n]
+    | more(n, r) =&gt; link(n, nelon-to-lon(r))
+  end
+end
+
+fun nl-sum(nl :: NeLoN) -&gt; Number:
+  sum(nelon-to-lon(nl))
+end
+
+fun nl-len(nl :: NeLoN) -&gt; Number:
+  nelon-to-lon(nl).length()
+end</code></pre></div></div>
+<p>Now we can write the average in an interesting way:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun avg4(nl :: NeLoN) -&gt; Number:
+  s = nl-sum(nl)
+  c = nl-len(nl)
+  s / c
+end</code></pre></div></div>
+<p>Once again, we don’t have to have any logic for dealing with errors.
+However, it’s not because we’re sloppy or letting Pyret deal with it or
+getting it checked at runtime or anything else: it’s because there is no
+way for an empty list to arise. Thus we have both the simplest body and
+the most truthful interface! But it comes at a cost: we need to do some
+work to reuse existing functions.</p>
+<p>This problem extends to writing tests, which is now more painful:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  nl1 = one(1)
+  nl2 = more(1, more(2, one(3)))
+  nl3 = more(1, more(2, more(3, one(10))))
+
+  avg4(nl1) is 1
+  avg4(nl2) is 2
+  avg4(nl3) is 4
+end</code></pre></div></div>
+<p>That is, we’ve lost our convenient way of writing lists. We can
+recover that by writing a helper that creates
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">NeLoN</code></span>s:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun lon-to-nelon(l :: LoN) -&gt; NeLoN:
+  cases (List) l:
+    | empty =&gt; raise("can't make an empty NeLoN")
+    | link(f, r) =&gt;
+      cases (List) r:
+        | empty =&gt; one(f)
+        | else =&gt; more(f, lon-to-nelon(r))
+      end
+  end
+end
+
+check:
+  avg4(lon-to-nelon([list: 1])) is 1
+  avg4(lon-to-nelon([list: 1, 2, 3])) is 2
+  avg4(lon-to-nelon([list: 1, 2, 3, 10])) is 4
+end</code></pre></div></div>
+<p>Notice that if we try to use an empty list, we get an exception:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  avg4(lon-to-nelon(empty)) raises ""
+end</code></pre></div></div>
+<p>However, it’s very important to understand where the error is coming
+from: the exception is not from
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg4</code></span>,
+it’s coming from
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lon-to-nelon</code></span>,
+i.e., from the “interface” function. The bad datum never makes it as far
+as
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg4</code></span>!
+We can verify this:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  lon-to-nelon(empty) raises ""
+end</code></pre></div></div>
+<p>Remember, there’s no way to send an empty list to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg4</code></span>!
+Nevertheless, this suggests a trade-off: we can either use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">NeLoN</code></span>
+explicitly but with more notational pain, or we can use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">list</code></span>
+but run the risk of some confusion about exceptions. This is a trade-off
+in general, but there are better options in some languages (<a
+href="partial-domains.html##pd-pyret-list-constr">A Note on
+Notation</a>).</p>
+<p>So this is actually a very powerful technique: building a datatype
+that reflects exactly what we want, thereby turning a partial function
+into a total one. Programmers call this principle making illegal states
+unrepresentable. It may require writing some procedures to convert to
+and from other convenient representations for code reuse. Somewhere in
+those procedures there must be checks that reflect the partiality.</p>
+<h3 id="pd-summary">Summary</h3>
+<p>In general, there is one non-solution:</p>
+<ul>
+<li>Return a sentinel value. Do not ever do this unless you’ve first
+fixed all the security bugs lurking in C programs from the past several
+decades.</li>
+</ul>
+<p>and there are four solutions:</p>
+<ul>
+<li><p>Use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>.
+This is not very good for software engineering in general because
+exceptions are clunky, semantically complicated, and not
+compositional.</p></li>
+<li><p>Use a dynamic refinement. Dynamic refinements aren’t in most
+languages. Also, it’s less good than each of the other solutions, but
+it’s a decent compromise in many settings.</p></li>
+<li><p>Define a datatype to make illegal states unrepresentable. A bit
+of work. Pretty sophisticated, invaluable in some places, but not always
+worth the effort.</p></li>
+<li><p>Use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Option</code></span>.
+Often the ideal option, because:</p>
+<ul>
+<li>The type tells us to expect funny business.
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>
+hides that.)</li>
+<li>We can’t accidentally misuse the value. (Sentinels hide that.)</li>
+<li>It’s compositional: we can create functions to help us handle
+it.</li>
+<li>It’s much lower overhead than the static totality solution.</li>
+<li>It’s more statically robust than the dynamic totality solution.</li>
+<li>It generalizes: in practice, instead of just
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>,
+a real program will have
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>
+for the “normal” case, and a bunch of variants describing the different
+kinds of errors that are possible, with extra information in each case.
+For concrete examples of this, see <a
+href="Collections_of_Structured_Data.html##coll-sd-pick">Picking
+Elements from Sets</a> on sets <a
+href="queues-from-lists.html##qfl-comb-ans">Combining Answers</a> on
+queues.</li>
+</ul></li>
+</ul>
+<h3 id="pd-pyret-list-constr">A Note on Notation</h3>
+<p>When we wrote above that we can’t get the convenience of writing,
+say,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[list: 1, 2, 3]</code></span>
+when using
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">NeLoN</code></span>s,
+we were speaking in general. In some languages, we can actually make
+similar convenient constructors. In Pyret, for instance, there is a
+protocol for defining custom constructors; in fact, seemingly built-in
+constructors like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">list</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">set</code></span>
+are built using this protocol. The code for doing this is a bit ungainly
+(in part because it’s optimized to save some space and time by making
+the constructor-writer’s life a little harder), but it only needs to be
+written once. Here’s a
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nelon</code></span>
+constructor for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">NeLoN</code></span>s:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun ra-to-nelon(r :: RawArray&lt;Number&gt;) -&gt; NeLoN:
+  len = raw-array-length(r)
+  fun make-from-index(n :: Number):
+    v = raw-array-get(r, n)
+    if n == (len - 1):
+      one(v)
+    else:
+      more(v, make-from-index(n + 1))
+    end
+  end
+  make-from-index(0)
+end
+
+nelon = {
+  make0: {(): raise("can't make an empty NeLoN")},
+  make1: {(a1): one(a1)},
+  make2: {(a1, a2): more(a1, one(a2))},
+  make3: {(a1, a2, a3): more(a1, more(a2, one(a3)))},
+  make4: {(a1, a2, a3, a4): more(a1, more(a2, more(a3, one(a4))))},
+  make5: {(a1, a2, a3, a4, a5): more(a1, more(a2, more(a3, more(a4, one(a5)))))},
+  make: {(args :: RawArray&lt;Number&gt;): ra-to-nelon(args)} }</code></pre></div></div>
+<p>These tests show that this constructor works very much like the
+built-in
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">list</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  [nelon: ] raises "empty"
+  [nelon: 1] is one(1)
+  [nelon: 1, 2] is more(1, one(2))
+  [nelon: 1, 2, 3] is more(1, more(2, one(3)))
+  [nelon: 1, 2, 3, 4] is more(1, more(2, more(3, one(4))))
+  [nelon: 1, 2, 3, 4, 5] is more(1, more(2, more(3, more(4, one(5)))))
+  [nelon: 1, 2, 3, 4, 5, 6] is
+  more(1, more(2, more(3, more(4, more(5, one(6))))))
+  [nelon: 1, 2, 3, 4, 5, 6, 7] is
+  more(1, more(2, more(3, more(4, more(5, more(6, one(7)))))))
+end</code></pre></div></div>
+<p>With this, we can rewrite the tests from <a
+href="partial-domains.html##pd-total-static">Total Domains,
+Statically</a> very conveniently:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  avg4([nelon: 1]) is 1
+  avg4([nelon: 1, 2, 3]) is 2
+  avg4([nelon: 1, 2, 3, 10]) is 4
+end</code></pre></div></div>
+<p>thereby having our cake and eating it too!</p>
+<div class="navsetbottom">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="avoid-recomp.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_advanced.html">up</a>&nbsp;&nbsp;<a href="staging.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+</div><!-- .main -->
+</div><!-- .maincolumn -->
+</body>
+</html>

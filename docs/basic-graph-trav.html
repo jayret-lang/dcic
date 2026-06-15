@@ -1,0 +1,303 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$","$"],
+                   ["\\[","\\]"],
+                   ["\\begin{equation}","\\end{equation}"],
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.8"/>
+<title>17.2 Basic Graph Traversals</title>
+<link rel="stylesheet" type="text/css" href="scribble.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="editor.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/>
+<script type="text/javascript" src="scribble-common.js"></script>
+<script type="text/javascript" src="manual-racket.js"></script>
+</head>
+<body id="scribble-racket-lang-org">
+<div class="tocset"><div class="tocview">
+<div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
+<tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
+<tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
+<tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
+<tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr>
+<tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr>
+<tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9658;</a></td><td>VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr></table><div class="tocviewsublist" style="display: none;" id="tocview_1"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">16&nbsp;</td><td><a href="part_dags.html" class="tocviewlink" data-pltdoc="x">Directed Acyclic Graphs</a></td></tr>
+<tr><td align="right">17&nbsp;</td><td><a href="part_graphs.html" class="tocviewlink" data-pltdoc="x">Graphs</a></td></tr>
+<tr><td align="right">18&nbsp;</td><td><a href="part_sets.html" class="tocviewlink" data-pltdoc="x">Several Variations on Sets</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9660;</a></td><td>17&nbsp;</td><td><a href="part_graphs.html" class="tocviewlink" data-pltdoc="x">Graphs</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_2"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">17.1&nbsp;</td><td><a href="intro-graphs.html" class="tocviewlink" data-pltdoc="x">Introducing Graphs</a></td></tr>
+<tr><td align="right">17.2&nbsp;</td><td><a href="basic-graph-trav.html" class="tocviewselflink" data-pltdoc="x">Basic Graph Traversals</a></td></tr>
+<tr><td align="right">17.3&nbsp;</td><td><a href="weighted-graphs.html" class="tocviewlink" data-pltdoc="x">Graphs With Weighted Edges</a></td></tr>
+<tr><td align="right">17.4&nbsp;</td><td><a href="lightest-paths.html" class="tocviewlink" data-pltdoc="x">Shortest (or Lightest) Paths</a></td></tr>
+<tr><td align="right">17.5&nbsp;</td><td><a href="mst.html" class="tocviewlink" data-pltdoc="x">Moravian Spanning Trees</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_3&quot;);">&#9658;</a></td><td>17.2&nbsp;</td><td><a href="basic-graph-trav.html" class="tocviewselflink" data-pltdoc="x">Basic Graph Traversals</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_3"></div></div>
+</div>
+<div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"></table></div>
+</div>
+<div class="maincolumn">
+<div class="main">
+<div class="navsettop">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="intro-graphs.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_graphs.html">up</a>&nbsp;&nbsp;<a href="weighted-graphs.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+<h3 id="basic-graph-trav">Basic Graph Traversals</h3>
+<p>As with all the data we have seen so far, to process a datum we have
+to traverse it—i.e., visit the constituent data. With graphs, that can
+be quite interesting!</p>
+<h4 id="Reachability">Reachability</h4>
+<p>Many uses of graphs need to address reachability: whether we can,
+using edges in the graph, get from one node to another. For instance, a
+social network might suggest as contacts all those who are reachable
+from existing contacts. On the Internet, traffic engineers care about
+whether packets can get from one machine to another. On the Web, we care
+about whether all public pages on a site are reachable from the home
+page. We will study how to compute reachability using our travel graph
+as a running example.</p>
+<h5 id="Simple-Recursion">Simple Recursion</h5>
+<p>At its simplest, reachability is easy. We want to know whether there
+exists a
+path<span class="refelem"><span class="refcolumn"><span class="refcontent">A path is a sequence of zero or more linked edges.</span></span></span>
+between a pair of nodes, a source and a destination. (A more
+sophisticated version of reachability might compute the actual path, but
+we’ll ignore this for now.) There are two possibilities: the source and
+destintion nodes are the same, or they’re not.</p>
+<ul>
+<li>If they are the same, then clearly reachability is trivially
+satisfied.</li>
+<li>If they are not, we have to iterate through the neighbors of the
+source node and ask whether the destination is reachable from each of
+those neighbors.</li>
+</ul>
+<p>This translates into the following function: <graph-reach-1-main>
+::=</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun reach-1(src :: Key, dst :: Key, g :: Graph) -&gt; Boolean:
+  if src == dst:
+    true
+  else:
+    &lt;graph-reach-1-loop&gt;
+    loop(neighbors(src, g))
+  end
+end</code></pre></div></div>
+<p>where the loop through the neighbors of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">src</code></span>
+is: <graph-reach-1-loop> ::=</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun loop(ns):
+  cases (List) ns:
+    | empty =&gt; false
+    | link(f, r) =&gt;
+      if reach-1(f, dst, g): true else: loop(r) end
+  end
+end</code></pre></div></div>
+<p>We can test this as follows: <graph-reach-tests> ::=</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  reach = reach-1
+  reach("was", "was", kn-cities) is true
+  reach("was", "chi", kn-cities) is true
+  reach("was", "bmg", kn-cities) is false
+  reach("was", "hou", kn-cities) is true
+  reach("was", "den", kn-cities) is true
+  reach("was", "saf", kn-cities) is true
+end</code></pre></div></div>
+<p>Unfortunately, we don’t find out about how these tests fare, because
+some of them don’t complete at all. That’s because we have an infinite
+loop, due to the cyclic nature of graphs!</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Which of the above examples leads to a cycle? Why?</p></blockquote></blockquote>
+<h5 id="Cleaning-up-the-Loop">Cleaning up the Loop</h5>
+<p>Before we continue, let’s try to improve the expression of the loop.
+While the nested function above is a perfectly reasonable definition, we
+can use Pyret’s
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>
+to improve its readability.</p>
+<p>The essence of the above loop is to iterate over a list of boolean
+values; if one of them is true, the entire loop evaluates to true; if
+they are all false, then we haven’t found a path to the destination
+node, so the loop evaluates to false. Thus:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun ormap(fun-body, l):
+  cases (List) l:
+    | empty =&gt; false
+    | link(f, r) =&gt;
+      if fun-body(f): true else: ormap(fun-body, r) end
+  end
+end</code></pre></div></div>
+<p>With this, we can replace the loop definition and use with:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">for ormap(n from neighbors(src, g)):
+  reach-1(n, dst, g)
+end</code></pre></div></div>
+<h5 id="Traversal-with-Memory">Traversal with Memory</h5>
+<p>Because we have cyclic data, we have to remember what nodes we’ve
+already visited and avoid traversing them again. Then, every time we
+begin traversing a new node, we add it to the set of nodes we’ve already
+started to visit so that. If we return to that node, because we can
+assume the graph has not changed in the meanwhile, we know that
+additional traversals from that node won’t make any difference to the
+outcome.<span class="refelem"><span class="refcolumn"><span class="refcontent">This property is known as <a
+href="glossary.html#%28elem._glossary-idempotence%29">☛ idempotence</a>.</span></span></span></p>
+<p>We therefore define a second attempt at reachability that take an
+extra argument: the set of nodes we have begun visiting (where the set
+is represented as a graph). The key difference from <a
+href="basic-graph-trav.html#%28elem._graph-reach-1-main%29"><graph-reach-1-main></a>
+is, before we begin to traverse edges, we should check whether we’ve
+begun processing the node or not. This results in the following
+definition: <graph-reach-2> ::=</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun reach-2(src :: Key, dst :: Key, g :: Graph, visited :: List&lt;Key&gt;) -&gt; Boolean:
+  if visited.member(src):
+    false
+  else if src == dst:
+    true
+  else:
+    new-visited = link(src, visited)
+    for ormap(n from neighbors(src, g)):
+      reach-2(n, dst, g, new-visited)
+    end
+  end
+end</code></pre></div></div>
+<p>In particular, note the extra new conditional: if the reachability
+check has already visited this node before, there is no point traversing
+further from here, so it returns
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.
+(There may still be other parts of the graph to explore, which other
+recursive calls will do.)</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Does it matter if the first two conditions were swapped, i.e., the
+beginning of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">reach-2</code></span>
+began with</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">if src == dst:
+  true
+else if visited.member(src):
+  false</code></pre></div></div>
+<p>? Explain concretely with examples.</p></blockquote></blockquote>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>We repeatedly talk about remembering the nodes that we have begun to
+visit, not the ones we’ve finished visiting. Does this distinction
+matter? How?</p></blockquote></blockquote>
+<h5 id="A-Better-Interface">A Better Interface</h5>
+<p>As the process of testing
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">reach-2</code></span>
+shows, we may have a better implementation, but we’ve changed the
+function’s interface; now it has a needless extra argument, which is not
+only a nuisance but might also result in errors if we accidentally
+misuse it. Therefore, we should clean up our definition by moving the
+core code to an internal function:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun reach-3(s :: Key, d :: Key, g :: Graph) -&gt; Boolean:
+  fun reacher(src :: Key, dst :: Key, visited :: List&lt;Key&gt;) -&gt; Boolean:
+    if visited.member(src):
+      false
+    else if src == dst:
+      true
+    else:
+      new-visited = link(src, visited)
+      for ormap(n from neighbors(src, g)):
+        reacher(n, dst, new-visited)
+      end
+    end
+  end
+  reacher(s, d, empty)
+end</code></pre></div></div>
+<p>We have now restored the original interface while correctly
+implementing reachability.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Does this really gives us a correct implementation? In particular,
+does this address the problem that the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+function above addressed? Create a test case that demonstrates the
+problem, and then fix it.</p></blockquote></blockquote>
+<h4 id="dfs-bfs">Depth- and Breadth-First Traversals</h4>
+<p><span class="refelem"><span class="refcolumn"><span class="refcontent">It is conventional for computer science texts to call these depth- and
+breadth-first search. However, searching is just a specific purpose;
+traversal is a general task that can be used for many purposes.</span></span></span></p>
+<p>The reachability algorithm we have seen above has a special property.
+At every node it visits, there is usually a set of adjacent nodes at
+which it can continue the traversal. It has at least two choices: it can
+either visit each immediate neighbor first, then visit all of the
+neighbors’ neighbors; or it can choose a neighbor, recur, and visit the
+next immediate neighbor only after that visit is done. The former is
+known as breadth-first traversal, while the latter is depth-first
+traversal.</p>
+<p>The algorithm we have designed uses a depth-first strategy: inside <a
+href="basic-graph-trav.html#%28elem._graph-reach-1-loop%29"><graph-reach-1-loop></a>,
+we recur on the first element of the list of neighbors before we visit
+the second neighbor, and so on. The alternative would be to have a data
+structure into which we insert all the neighbors, then pull out an
+element at a time such that we first visit all the neighbors before
+their neighbors, and so on. This naturally corresponds to a queue [<a
+href="amortized-analysis.html##queue-data-structure">An Example: Queues
+from Lists</a>].</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Using a queue, implement breadth-first traversal.</p></blockquote></blockquote>
+<p>If we correctly check to ensure we don’t re-visit nodes, then both
+breadth- and depth-first traversal will properly visit the entire
+reachable graph without repetition (and hence not get into an infinite
+loop). Each one traverses from a node only once, from which it considers
+every single edge. Thus, if a graph has <span
+class="math inline">\(N\)</span> nodes and <span
+class="math inline">\(E\)</span> edges, then a lower-bound on the
+complexity of traversal is <span class="math inline">\(O([N, E
+\rightarrow N + E])\)</span>. We must also consider the cost of checking
+whether we have already visited a node before (which is a set membership
+problem, which we address elsewhere: <a href="part_sets.html">Several
+Variations on Sets</a>). Finally, we have to consider the cost of
+maintaining the data structure that keeps track of our traversal. In the
+case of depth-first traversal, recursion—which uses the machine’s
+stack—does it automatically at constant overhead. In the case of
+breadth-first traversal, the program must manage the queue, which can
+add more than constant
+overhead.<span class="refelem"><span class="refcolumn"><span class="refcontent">In practice, too, the stack will usually perform much better than a
+queue, because it is supported by machine hardware.</span></span></span></p>
+<p>This would suggest that depth-first traversal is always better than
+breadth-first traversal. However, breadth-first traversal has one very
+important and valuable property. Starting from a node <span
+class="math inline">\(N\)</span>, when it visits a node <span
+class="math inline">\(P\)</span>, count the number of edges taken to get
+to <span class="math inline">\(P\)</span>. Breadth-first traversal
+guarantees that there cannot have been a shorter path to <span
+class="math inline">\(P\)</span>: that is, it finds a shortest path to
+<span class="math inline">\(P\)</span>.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Why “a” rather than “the” shortest path?</p></blockquote></blockquote>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Prove that breadth-first traversal finds a shortest path.</p></blockquote></blockquote>
+<div class="navsetbottom">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="intro-graphs.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_graphs.html">up</a>&nbsp;&nbsp;<a href="weighted-graphs.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+</div><!-- .main -->
+</div><!-- .maincolumn -->
+</body>
+</html>

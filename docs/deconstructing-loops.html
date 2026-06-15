@@ -1,0 +1,480 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$","$"],
+                   ["\\[","\\]"],
+                   ["\\begin{equation}","\\end{equation}"],
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.8"/>
+<title>26 Deconstructing Loops</title>
+<link rel="stylesheet" type="text/css" href="scribble.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="editor.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/>
+<script type="text/javascript" src="scribble-common.js"></script>
+<script type="text/javascript" src="manual-racket.js"></script>
+</head>
+<body id="scribble-racket-lang-org">
+<div class="tocset"><div class="tocview">
+<div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
+<tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
+<tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
+<tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
+<tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr>
+<tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr>
+<tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9658;</a></td><td>VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr></table><div class="tocviewsublist" style="display: none;" id="tocview_1"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">19&nbsp;</td><td><a href="state-in-pyret.html" class="tocviewlink" data-pltdoc="x">State and Equality</a></td></tr>
+<tr><td align="right">20&nbsp;</td><td><a href="rec-from-mut.html" class="tocviewlink" data-pltdoc="x">Recursion and Cycles from Mutation</a></td></tr>
+<tr><td align="right">21&nbsp;</td><td><a href="cycle-detection.html" class="tocviewlink" data-pltdoc="x">Detecting Cycles</a></td></tr>
+<tr><td align="right">22&nbsp;</td><td><a href="avoid-recomp.html" class="tocviewlink" data-pltdoc="x">Avoiding Recomputation by Remembering Answers</a></td></tr>
+<tr><td align="right">23&nbsp;</td><td><a href="partial-domains.html" class="tocviewlink" data-pltdoc="x">Partial Domains</a></td></tr>
+<tr><td align="right">24&nbsp;</td><td><a href="staging.html" class="tocviewlink" data-pltdoc="x">Staging</a></td></tr>
+<tr><td align="right">25&nbsp;</td><td><a href="factoring-numbers.html" class="tocviewlink" data-pltdoc="x">Factoring Numbers</a></td></tr>
+<tr><td align="right">26&nbsp;</td><td><a href="deconstructing-loops.html" class="tocviewselflink" data-pltdoc="x">Deconstructing Loops</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9658;</a></td><td>26&nbsp;</td><td><a href="deconstructing-loops.html" class="tocviewselflink" data-pltdoc="x">Deconstructing Loops</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_2"><table cellspacing="0" cellpadding="0">
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_3&quot;);">&#9658;</a></td><td>26&nbsp;</td><td><a href="deconstructing-loops.html" class="tocviewselflink" data-pltdoc="x">Deconstructing Loops</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_3"></div></div>
+</div>
+<div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"></table></div>
+</div>
+<div class="maincolumn">
+<div class="main">
+<div class="navsettop">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="factoring-numbers.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_advanced.html">up</a>&nbsp;&nbsp;<a href="booklet_interaction.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+<h2 id="deconstructing-loops">Deconstructing Loops</h2>
+<h3 id="Setup-Two-Functions">Setup: Two Functions</h3>
+<p>Let’s look at two functions we wrote earlier in <a
+href="factoring-numbers.html">Factoring Numbers</a>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun gcd(a, b):
+  if b == 0:
+    a
+  else:
+    gcd(b, num-modulo(a, b))
+  end
+end
+
+fun pr(n):
+  fun g(x): num-modulo((x * x) + 1, n) end
+  fun iter(x, y, d):
+    new-x = g(x)
+    new-y = g(g(y))
+    new-d = gcd(num-abs(new-x - new-y), n)
+    ask:
+      | new-d == 1 then:
+        iter(new-x, new-y, new-d)
+      | new-d == n then:
+        none
+      | otherwise:
+        some(new-d)
+    end
+  end
+  iter(2, 2, 1)
+end</code></pre></div></div>
+<p>We’ve written both recursively:
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">gcd</code></span>
+by calling itself and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pr</code></span>
+with recursion on its inner function. But if you’ve programmed before,
+you’ve probably written similar programs with loops.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Because we don’t have loops in Pyret, the best we can do is to use a
+higher-order function; which ones would you use?</p></blockquote></blockquote>
+<p>But let’s see if we can do something “better”, i.e., get closer to a
+traditional-looking program.</p>
+<p>Before we start changing any code, let’s make sure we have some tests
+for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">gcd</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  gcd(4, 5) is 1
+  gcd(5, 7) is 1
+  gcd(21, 21) is 21
+  gcd(12, 24) is 12
+  gcd(12, 9) is 3
+end</code></pre></div></div>
+<h3 id="Abstracting-a-Loop">Abstracting a Loop</h3>
+<p>Now let’s think about how we can create a loop. At each iteration, a
+loop has a status: whether it’s done or whether it should continue.
+Since we have two parameters here, let’s record two parameters for
+continuing:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data LoopStatus:
+  | done(final-value)
+  | next-2(new-arg-1, new-arg-2)
+end</code></pre></div></div>
+<p>Now we can write a function that does the actual iteration:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun loop-2(f, arg-1, arg-2):
+  r = f(arg-1, arg-2)
+  cases (LoopStatus) r:
+    | done(v) =&gt; v
+    | next-2(new-arg-1, new-arg-2) =&gt; loop-2(f, new-arg-1, new-arg-2)
+  end
+end</code></pre></div></div>
+<p>Note that this is completely generic: it has nothing to do with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">gcd</code></span>.
+(It is generic in the same way that higher-order functions like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>
+are generic.) It just repeats if
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+says to repeat, stops if
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+says to stop. This is the essence of a loop.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Observe also that we could, if we wanted, stage [<a
+href="staging.html">Staging</a>]
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>,
+because
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+never changes. Rewrite it that way.</p></blockquote></blockquote>
+<p>With
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>,
+we can rewrite
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">gcd</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun gcd(p, q):
+  loop-2(
+    {(a, b):
+      if b == 0:
+        done(a)
+      else:
+        next-2(b, num-modulo(a, b))
+      end},
+    p,
+    q)
+end</code></pre></div></div>
+<p>Now it might seem to you we haven’t done anything useful at all. In
+fact, this looks like a significant step backward. At least before we
+just had simple, clean recursion, the way Euclid intended it. Now we
+have a higher-order function and we’re passing it the erstwhile
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">gcd</code></span>
+code as a function and there’s this
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">LoopStatus</code></span>
+datatype and…everything’s gotten much more complicated.</p>
+<p>But, not really. The reason we put it in this form is because we’re
+about to exploit a feature of Pyret. The
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>
+construct in Pyret actually rewrites as follows:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">for F(a from a_i, b from b_i, …): BODY end</code></pre></div></div>
+<p>gets rewritten to</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">F({(a, b, …): BODY}, a_i, b_i, …)</code></pre></div></div>
+<p>For example, if we write</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">for map(i from range(0, 10)): i + 1 end</code></pre></div></div>
+<p>this becomes</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">map({(i): i + 1}, range(0, 10))</code></pre></div></div>
+<p>Now you may see why we rewrote
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">gcd</code></span>.
+Going in reverse, we can rewrite</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">F({(a, b, …): BODY}, a_i, b_i, …)</code></pre></div></div>
+<p>as</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">for F(a from a_i, b from b_i, …): BODY end</code></pre></div></div>
+<p>so the function becomes just</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun gcd(p, q):
+  for loop-2(a from p, b from q):
+    if b == 0:
+      done(a)
+    else:
+      next-2(b, num-modulo(a, b))
+    end
+  end
+end</code></pre></div></div>
+<p>and now closely resembles a traditional “loop” program.</p>
+<h3 id="Is-It-Really-a-Loop">Is It Really a Loop?</h3>
+<p>This whole section should be considered an aside for people with more
+advanced computing knowledge.</p>
+<p>If you know something about language implementation, you may know
+that loops have the property that the iteration does not consume extra
+space (beyond what the program already needs), and the repetition takes
+place very quickly (a “jump instruction”). In principle, our
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
+function does not have this property: every iteration is a function
+call, which is more expensive and builds additional stack context.
+However, one or both of these does not actually occur in practice.</p>
+<p>In terms of space, the recursive call to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
+is the last thing that a call to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
+does. Furthermore, nothing in
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
+consumes and manipulates the return from that recursive call. This is
+therefore called a tail call. Pyret—like some other languages—causes
+tail calls to not take any extra stack space. In principle, Pyret can
+also turn some tail calls into jumps. Therefore, this version has close
+to the same performance as a traditional loop.</p>
+<h3
+id="Re-Examining-struct-traverse-element-procedure-lib-render-cond-rkt-38-12">Re-Examining
+for</h3>
+<p>The definition of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>
+given above should make you suspicious: Where’s the loop?!? In fact,
+Pyret’s
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>
+does not do any looping at all: it’s simply a fancy way of writing
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>.
+Any “looping” behavior is in the function written after
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>.
+To see that, let’s use for with a non-looping function.</p>
+<p>Recall that</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">for F(a from a_i, b from b_i, …): BODY end</code></pre></div></div>
+<p>gets rewritten to</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">F({(a, b, …): BODY}, a_i, b_i, …)</code></pre></div></div>
+<p>Thus, suppose we have this function (from <a
+href="func-as-data.html">Functions as Data</a>):</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">delta-x = 0.0001
+fun d-dx-at(f, x):
+  (f(x + delta-x) - f(x)) / delta-x
+end</code></pre></div></div>
+<p>We can call it like this to get approximately 20:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">d-dx-at({(n): n * n}, 10)</code></pre></div></div>
+<p>That means we can also call it like this:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">for d-dx-at(n from 10): n * n end</code></pre></div></div>
+<p>Indeed:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  for d-dx-at(n from 10): n * n end
+  is
+  d-dx-at({(n): n * n}, 10)
+end</code></pre></div></div>
+<p>Since
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d-dx-at</code></span>
+has no iterative behavior, no iteration occurs. The looping behavior is
+given entirely by the function specified after
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>,
+such as
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>,
+or
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
+above.</p>
+<h3 id="Rewriting-Pollard-Rho">Rewriting Pollard-Rho</h3>
+<p>Now let’s tackle Pollard-rho. Notice that it’s a three-parameter
+function, so we can’t use the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
+we had before: that’s only a suitable loop when we have two arguments
+that change on each iteration (often the iteration variable and an
+accumulator). It would be easy to design a 3-argument version of loop,
+say
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-3</code></span>,
+but we could also have a more general solution, using a tuple:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data LoopStatus:
+  | done(v)
+  | next–2(new-x, new-y)
+  | next-n(new-t)
+end
+
+fun loop-n(f, t):
+  r = f(t)
+  cases (LoopStatus) r:
+    | done(v) =&gt; v
+    | next-n(new-t) =&gt; loop-n(f, new-t)
+  end
+end</code></pre></div></div>
+<p>where
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">t</code></span>
+is a tuple.</p>
+<p>So now we can rewrite
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pr</code></span>.
+Let’s first rename the old
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pr</code></span>
+function as
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pr-old</code></span>
+so we can keep it around for testing. Now we can define a “loop”-based
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pr</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun pr(n):
+  fun g(x): num-modulo((x * x) + 1, n) end
+  for loop-n({x; y; d} from {2; 2; 1}):
+    new-x = g(x)
+    new-y = g(g(y))
+    new-d = gcd(num-abs(new-x - new-y), n)
+    ask:
+      | new-d == 1 then:
+        next-n({new-x; new-y; new-d})
+      | new-d == n then:
+        done(none)
+      | otherwise:
+        done(some(new-d))
+    end
+  end
+end</code></pre></div></div>
+<p>Indeed, we can test that the two behave in exactly the same way:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+  ns = range(2, 100)
+  l1 = map(pr-old, ns)
+  l2 = map(pr, ns)
+  l1 is l2
+end</code></pre></div></div>
+<h3 id="Nested-Loops">Nested Loops</h3>
+<p>We can also write a nested loop this way. Suppose we have a list
+like</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">lol = [list: [list: 1, 2], [list: 3], [list:], [list: 4, 5, 6]]</code></pre></div></div>
+<p>and we want to sum the whole thing by summing each sub-list. Here it
+is:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">for loop-2(ll from lol, sum from 0):
+  cases (List) ll:
+    | empty =&gt; done(sum)
+    | link(l, rl) =&gt;
+      l-sum =
+        for loop-2(es from l, sub-sum from 0):
+          cases (List) es:
+            | empty =&gt; done(sub-sum)
+            | link(e, r) =&gt; next-2(r, e + sub-sum)
+          end
+        end
+      next-2(rl, sum + l-sum)
+  end
+end</code></pre></div></div>
+<p>We can simplify this by writing it as two functions:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun sum-a-lon(lon :: List&lt;Number&gt;):
+  for loop-2(es from lon, sum from 0):
+    cases (List) es:
+      | empty =&gt; done(sum)
+      | link(e, r) =&gt;
+        next-2(r, e + sum)
+    end
+  end
+end
+
+fun sum-a-lolon(lolon :: List&lt;List&lt;Number&gt;&gt;):
+  for loop-2(l from lolon, sum from 0):
+    cases (List) l:
+      | empty =&gt; done(sum)
+      | link(lon, r) =&gt;
+        next-2(r, sum-a-lon(lon) + sum)
+    end
+  end
+end
+
+check:
+  sum-a-lolon(lol) is 21
+end</code></pre></div></div>
+<p>Notice that the two functions are remarkably similar. This suggests
+an abstraction:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun sum-a-list(f, L):
+  for loop-2(e from L, sum from 0):
+    cases (List) e:
+      | empty =&gt; done(sum)
+      | link(elt, r) =&gt;
+        next-2(r, f(elt) + sum)
+    end
+  end
+end</code></pre></div></div>
+<p>Using this, we can rewrite the two previous functions as:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun sum-a-lon(lon :: List&lt;Number&gt;):
+  sum-a-list({(e): e}, lon)
+end
+
+fun sum-a-lolon(lolon :: List&lt;List&lt;Number&gt;&gt;):
+  sum-a-list(sum-a-lon, lolon)
+end
+
+check:
+  sum-a-lolon(lol) is 21
+end</code></pre></div></div>
+<p>With the annotations, it becomes clear what each function does. In
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lon</code></span>,
+each element is a number, so it “contributes itself” to the overall sum.
+In
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lolon</code></span>,
+each element is a list of numbers, so it “contributes its
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lon</code></span>”
+to the overall sum.</p>
+<p>Finally, to bring this full circle, we can rewrite the above the
+functions as follows:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun sum-a-lon(lon :: List&lt;Number&gt;):
+  for sum-a-list(e :: Number from lon): e end
+end
+
+fun sum-a-lolon(lolon :: List&lt;List&lt;Number&gt;&gt;):
+  for sum-a-list(l :: List&lt;Number&gt; from lolon): sum-a-lon(l) end
+end</code></pre></div></div>
+<p>Arguably this makes even clearer what each element contributes. In
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lon</code></span>
+each element is a number, so it contributes just that number. In
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lolon</code></span>,
+each element is a list of numbers, so it must contribute
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lon</code></span>
+of that list.</p>
+<h3 id="Loops-Values-and-Customization">Loops, Values, and
+Customization</h3>
+<p>Observe two important ways in which the loops above differ from
+traditional loops:</p>
+<ol type="1">
+<li>Every loop produces a value. This is consistent with the rest of the
+language, where—as much as possible—computations try to produce answers.
+We don’t have to produce a value; for instance, the following program,
+reminiscent of looping programs in many other languages, will work just
+fine in Pyret:</li>
+</ol>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">for each(i from range(0, 10)): print(i) end</code></pre></div></div>
+<p>However, this is the unusual case. In general, we want expressions to
+produce values so that we can compose them together. 2. Many languages
+have strong opinions on exactly how many looping constructs there should
+be: two? three? four? In Pyret, there are no built-in looping constructs
+at all; there’s just a syntax
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>)
+that serves as a proxy for creating a specific
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>.
+With it, we can reuse existing iterative functions (like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>),
+but also define new ones. Some can be very generic, like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
+or
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-n</code></span>,
+but others can be very specific, like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-list</code></span>.
+The language designers don’t prevent you from writing a loop that is
+useful to your situation, and sometimes the loop can be very expressive,
+as we see from rewriting
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lon</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lolon</code></span>
+atop
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-list</code></span>.</p>
+<div class="navsetbottom">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="factoring-numbers.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_advanced.html">up</a>&nbsp;&nbsp;<a href="booklet_interaction.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+</div><!-- .main -->
+</div><!-- .maincolumn -->
+</body>
+</html>

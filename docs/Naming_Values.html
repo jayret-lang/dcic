@@ -1,0 +1,385 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$","$"],
+                   ["\\[","\\]"],
+                   ["\\begin{equation}","\\end{equation}"],
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.8"/>
+<title>3.2 Naming Values</title>
+<link rel="stylesheet" type="text/css" href="scribble.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="editor.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/>
+<script type="text/javascript" src="scribble-common.js"></script>
+<script type="text/javascript" src="manual-racket.js"></script>
+</head>
+<body id="scribble-racket-lang-org">
+<div class="tocset"><div class="tocview">
+<div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
+<tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
+<tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
+<tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
+<tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr>
+<tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr>
+<tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9658;</a></td><td>II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr></table><div class="tocviewsublist" style="display: none;" id="tocview_1"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">3&nbsp;</td><td><a href="part_foundations.html" class="tocviewlink" data-pltdoc="x">Basic Data</a></td></tr>
+<tr><td align="right">4&nbsp;</td><td><a href="part_tabular-data.html" class="tocviewlink" data-pltdoc="x">Tabular Data</a></td></tr>
+<tr><td align="right">5&nbsp;</td><td><a href="part_lists.html" class="tocviewlink" data-pltdoc="x">Lists</a></td></tr>
+<tr><td align="right">6&nbsp;</td><td><a href="part_structured-data.html" class="tocviewlink" data-pltdoc="x">Structured Data</a></td></tr>
+<tr><td align="right">7&nbsp;</td><td><a href="part_trees.html" class="tocviewlink" data-pltdoc="x">Trees</a></td></tr>
+<tr><td align="right">8&nbsp;</td><td><a href="part_bonus-foundations.html" class="tocviewlink" data-pltdoc="x">Foundations: Bonus Materials</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9660;</a></td><td>3&nbsp;</td><td><a href="part_foundations.html" class="tocviewlink" data-pltdoc="x">Basic Data</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_2"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">3.1&nbsp;</td><td><a href="getting-started.html" class="tocviewlink" data-pltdoc="x">Getting Started</a></td></tr>
+<tr><td align="right">3.2&nbsp;</td><td><a href="Naming_Values.html" class="tocviewselflink" data-pltdoc="x">Naming Values</a></td></tr>
+<tr><td align="right">3.3&nbsp;</td><td><a href="From_Repeated_Expressions_to_Functions.html" class="tocviewlink" data-pltdoc="x">From Repeated Expressions to Functions</a></td></tr>
+<tr><td align="right">3.4&nbsp;</td><td><a href="Conditionals_and_Booleans.html" class="tocviewlink" data-pltdoc="x">Conditionals and Booleans</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_3&quot;);">&#9658;</a></td><td>3.2&nbsp;</td><td><a href="Naming_Values.html" class="tocviewselflink" data-pltdoc="x">Naming Values</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_3"></div></div>
+</div>
+<div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"></table></div>
+</div>
+<div class="maincolumn">
+<div class="main">
+<div class="navsettop">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="getting-started.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_foundations.html">up</a>&nbsp;&nbsp;<a href="From_Repeated_Expressions_to_Functions.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+<h3 id="Naming-Values">Naming Values</h3>
+<h4 id="naming-defns-pane">The Definitions Pane</h4>
+<p>So far, we have only used the interactions pane on the right half of
+the CPO screen. As we have seen, this pane acts like a calculator: you
+type an expression at the prompt and CPO produces the result of
+evaluating that expression.</p>
+<p>The left pane is called the definitions pane. This is where you can
+put code that you want to save to a file. It has another use, too: it
+can help you organize your code as your expressions get larger.</p>
+<h4 id="naming-name-vals">Naming Values</h4>
+<p>The expressions that create images involve a bit of typing. It would
+be nice to have shorthands so we can “name” images and refer to them by
+their names. This is what the definitions pane is for: you can put
+expressions and programs in the definitions pane, then use the “Run”
+button in CPO to make the definitions available in the interactions
+pane.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Put the following in the definitions pane:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">red-circ = circle(30, "solid", "red")</code></pre></div></div>
+<p>Hit run, then enter
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">red-circ</code></span>
+in the interactions pane. You should see the red circle.</p></blockquote></blockquote>
+<p>More generally, if you write code in the form:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">NAME = EXPRESSION</code></pre></div></div>
+<p>Pyret will associate the value of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">EXPRESSION</code></span>
+with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">NAME</code></span>.
+Anytime you write the (shorthand)
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">NAME</code></span>,
+Pyret will automatically (behind the scenes) replace it with the value
+of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">EXPRESSION</code></span>.
+For example, if you write
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x = 5 + 4</code></span>
+at the prompt, then write
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x</code></span>,
+CPO will give you the value
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">9</code></span>
+(not the original
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">5 + 4</code></span>
+expression).</p>
+<p>What if you enter a name at the prompt that you haven’t associated
+with a value?</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Try typing
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">puppy</code></span>
+at the interactions pane prompt (›››). Are there any terms in the error
+message that are unfamiliar to you?</p></blockquote></blockquote>
+<p>CPO (and indeed many programming tools) use the phrase “unbound
+identifier” when an expression contains a name that has not been
+associated with (or bound to) a value.</p>
+<h5 id="naming-strings">Names Versus Strings</h5>
+<p>At this point, we have seen words being used in two ways in
+programming: (1) as data within strings and (2) as names for values
+(also called identifiers). These are two very different uses, so it is
+worth reviewing them.</p>
+<ul>
+<li>Syntactically (another way of saying “in terms of how we write it”),
+we distinguish strings and names by the presence of double quotation
+marks. Note the difference between
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">puppy</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"puppy"</code></span>.</li>
+<li>Strings can contain spaces, but names cannot. For example,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"hot pink"</code></span>
+is a valid piece of data, but
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hot pink</code></span>
+is not a single name. When you want to combine multiple words into a
+name (like we did above with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">red-circ</code></span>),
+use a hyphen to separate the words while still having a single name (as
+a sequence of characters). Different programming languages allow
+different separators; for Pyret, we’ll use hyphens.</li>
+<li>Entering a word as a name versus as a string at the interactions
+prompt changes the computation that you are asking Pyret to perform. If
+you enter
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">puppy</code></span>
+(the name, without double quotes), you are asking Pyret to lookup the
+value that you previously stored under that name. If you enter
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"puppy"</code></span>
+(the string, with double quotes) you are simply writing down a piece of
+data (akin to typing a number like
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>):
+Pyret returns the value you entered as the result of the
+computation.</li>
+<li>If you enter a name that you have not previously associated with a
+value, Pyret will give you an “unbound identifier” error message. In
+contrast, since strings are just data, you won’t get an error for
+writing a previously-unused string (there are some special cases of
+strings, such as when you want to put a quotation mark inside them, but
+we’ll set that aside for now).</li>
+</ul>
+<p>Novice programmers frequently confuse names and strings at first. For
+now, remember that the names you associate with values using
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=</code></span>
+cannot contain quotation marks, while word- or text-based data must be
+wrapped in double quotes.</p>
+<h5 id="naming-expr-statements">Expressions versus Statements</h5>
+<p>Definitions and expressions are two useful aspects of programs, each
+with their own role. Definitions tell Pyret to associate names with
+values. Expressions tell Pyret to perform a computation and return the
+result.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Enter each of the following at the interactions prompt:</p>
+<ul>
+<li><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">5 + 8</code></span></li>
+<li><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x = 14 + 16</code></span></li>
+<li><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">triangle(20, "solid", "purple")</code></span></li>
+<li><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">blue-circ = circle(x, "solid", "blue")</code></span></li>
+</ul>
+<p>The first and third are expressions, while the second and fourth are
+definitions. What do you observe about the results of entering
+expressions versus the results of entering definitions?</p></blockquote></blockquote>
+<p>Hopefully, you notice that Pyret doesn’t seem to return anything from
+the definitions, but it does display a value from the expressions. In
+programming, we distinguish expressions, which yield values, from
+statements, which don’t yield values but instead give some other kind of
+instruction to the language. So far, definitions are the only kinds of
+statements we’ve seen.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Assuming you still have the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">blue-circ</code></span>
+definition from above in your interactions pane, enter
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">blue-circ</code></span>
+at the prompt (you can re-enter that definition if it is no longer
+there).</p>
+<p>Based on what Pyret does in response, is
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">blue-circ</code></span>
+an expression or a definition?</p></blockquote></blockquote>
+<p>Since
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">blue-circ</code></span>
+yielded a result, we infer that a name by itself is also an expression.
+This exercise highlights the difference between making a definition and
+using a defined name. One produces a value while the other does not. But
+surely something must happen, somewhere, when you run a definition.
+Otherwise, how could you use that name later?</p>
+<h4 id="program-directory">The Program Directory</h4>
+<p>Programming tools do work behind the scenes as they run programs.
+Given the program
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">2 + 3</code></span>,
+for example, a calculation takes place to produce
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">5</code></span>,
+which in turn displays in the interactions pane.</p>
+<p>When you write a definition, Pyret makes an entry in an internal
+directory in which it associates names with values. You can’t see the
+directory, but Pyret uses it to manage the values that you’ve associated
+with names. If you write:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">width = 30</code></pre></div></div>
+<p>Pyret makes a new directory entry for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">width</code></span>
+and records that
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">width</code></span>
+has value
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">30</code></span>.
+If you then write</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">height = width * 3</code></pre></div></div>
+<p>Pyret evaluates the expression on the right side
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">width * 3</code></span>),
+then stores the resulting value (here,
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">90</code></span>)
+alongside
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">height</code></span>
+in the directory.</p>
+<p>How does Pyret evaluate
+(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">width * 3</code></span>)?
+Since
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">width</code></span>
+is a word (not a string), Pyret looks up its value in the directory.
+Pyret substitutes that value for the name in the expression, resulting
+in
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">30 * 3</code></span>,
+which then evaluates to
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">90</code></span>.
+After running these two expressions, the directory looks like:</p>
+<div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">width</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">30</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">height</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">90</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
+<p>Note that the entry for
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">height</code></span>
+in the directory has the result of
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">width * 3</code></span>,
+not the expression. This will become important as we use named values to
+prevent us from doing the same computation more than once.</p>
+<p>The program directory is an essential part of how programs evaluate.
+If you are trying to track how your program is working, it sometimes
+helps to track the directory contents on a sheet of paper (since you
+can’t view Pyret’s directory).</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Imagine that you have the following code in the definitions pane when
+you press the Run button:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">name = "Matthias"
+"name"</code></pre></div></div>
+<p>What appears in the interactions pane? How does each of these lines
+interact with the program directory?</p></blockquote></blockquote>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What happens if you enter a subsequent definition for the same name,
+such as
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">width = 50</code></span>?
+How does Pyret respond? What if you then ask to see the value associated
+with this same name at the prompt? What does this tell you about the
+directory?</p></blockquote></blockquote>
+<p>When you try to give a new value to a name that is already in the
+directory, Pyret will respond that the new definition “conflicts with an
+earlier declaration of the same name”. This is Pyret’s way of warning
+you that the name is already in the directory. If you ask for the value
+associated with the name again, you’ll see that it still has the
+original value. Pyret doesn’t let you change the value associated with
+an existing name with the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">name = value</code></span>
+notation. While there is a notation that will let you reassign values,
+we won’t work with this concept until <a
+href="mutating-variables.html">Mutating Variables</a>.</p>
+<h5 id="Understanding-the-Run-Button">Understanding the Run Button</h5>
+<p>Now that we’ve learned about the program directory, let’s discuss
+what happens when you press the Run button. Let’s assume the following
+contents are in the definitions pane:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">width = 30
+height = width * 3
+blue-rect = rectangle(width, height, "solid", "blue")</code></pre></div></div>
+<p>When you press Run, Pyret first clears out the program directory. It
+then processes your file line by line, starting at the top. If you have
+an
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">include</code></span>
+statement, Pyret adds the definitions from the included library to the
+directory. After processing all of the lines for this program, the
+directory will look like:</p>
+<div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">circle</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span>&lt;the circle operation&gt;</div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">rectangle</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span>&lt;the rectangle operation&gt;</div></p></li><li><p>...</p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">width</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">30</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">height</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">90</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">blue-rect</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span>&lt;the actual rectangle image&gt;</div></p></li></ul></div><p></p><div class="clear"></div></div>
+<p>If you now type at the interactions prompt, any use of an identifier
+(a sequence of characters not enclosed in quotation marks) results in
+Pyret consulting the directory.</p>
+<p>If you now type</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">beside(blue-rect, rectangle(20, 20, "solid", "purple"))</code></pre></div></div>
+<p>Pyret will look up the image associated with
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">blue-rect</code></span>.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Is the purple rectangle in the directory? What about the image with
+the two rectangles?</p></blockquote></blockquote>
+<p>Neither of these shapes is in the directory. Why? We didn’t ask Pyret
+to store them there with a name. What would be different if we instead
+wrote the following (at the interactions prompt)?</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">two-rects = beside(blue-rect, rectangle(20, 20, "solid", "purple"))</code></pre></div></div>
+<p>Now, the two-shape image would be in the directory, associated with
+the name
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">two-rects</code></span>.
+The purple rectangle by itself, however, still would not be stored in
+the directory. We could, however, reference the two-shape image by name,
+as shown below:</p>
+<p><img src="run-demo.png" width="982" height="239" /></p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Imagine that we now hit the Run button again, then typed
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">two-rects</code></span>
+at the interactions prompt. How would Pyret respond and why?</p></blockquote></blockquote>
+<h4 id="naming-for-images">Using Names to Streamline Building
+Images</h4>
+<p>The ability to name values can make it easier to build up complex
+expressions. Let’s put a rotated purple triangle inside a green
+square:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">overlay(rotate(45, triangle(30, "solid", "purple")),
+  rectangle(60, 60, "solid", "green"))</code></pre></div></div>
+<p>However, this can get quite difficult to read and understand.
+Instead, we can name the individual shapes before building the overall
+image:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">purple-tri = triangle(30, "solid", "purple")
+green-sqr = rectangle(60, 60, "solid", "green")
+
+overlay(rotate(45, purple-tri),
+  green-sqr)</code></pre></div></div>
+<p>In this version, the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">overlay</code></span>
+expression is quicker to read because we gave descriptive names to the
+initial shapes.</p>
+<p>Go one step further: let’s add another purple-triangle on top of the
+existing image:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">purple-tri = triangle(30, "solid", "purple")
+green-sqr = rectangle(60, 60, "solid", "green")
+
+above(purple-tri,
+  overlay(rotate(45, purple-tri),
+    green-sqr))</code></pre></div></div>
+<p>Here, we see a new benefit to leveraging names: we can use
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">purple-tri</code></span>
+twice in the same expression without having to write out the longer
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">triangle</code></span>
+expression more than once.</p>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Assume that your definitions pane contained only this most recent
+code example (including the
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">purple-tri</code></span>
+and
+<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">green-sqr</code></span>
+definitions). How many separate images would appear in the interactions
+pane if you pressed Run? Do you see the purple triangle and green square
+on their own, or only combined? Why or why not?</p></blockquote></blockquote>
+<blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Re-write your expression of the Armenian flag (from <a
+href="getting-started.html##expressions-first-flag">Making a Flag</a>),
+this time giving intermediate names to each of the stripes.</p></blockquote></blockquote>
+<p>In practice, programmers don’t name every individual image or
+expression result when creating more complex expressions. They name ones
+that will get used more than once, or ones that have particular
+significance for understanding their program. We’ll have more to say
+about naming as our programs get more complicated.</p>
+<div class="navsetbottom">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="getting-started.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_foundations.html">up</a>&nbsp;&nbsp;<a href="From_Repeated_Expressions_to_Functions.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+</div><!-- .main -->
+</div><!-- .maincolumn -->
+</body>
+</html>

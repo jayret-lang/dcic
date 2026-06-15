@@ -1,0 +1,232 @@
+<!doctype HTML>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="codemirror.js"></script>
+<script src="runmode.js"></script>
+<script src="pyret.js"></script>
+<script src="python.js"></script>
+<script src="hilite.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS"],
+  tex2jax: {
+    inlineMath: [ ["\\(","\\)"] ],
+    displayMath: [ ["$","$"],
+                   ["\\[","\\]"],
+                   ["\\begin{equation}","\\end{equation}"],
+                   ["\\begin{equation*}","\\end{equation*}"] ],
+    processEscapes: true,
+    ignoreClass: "tex2jax_ignore|JavaHighlightBlock|JavaHighlight|PyretHighlightBlock|PyretHighlight"
+  },
+  "HTML-CSS": {
+    availableFonts: [],
+    webFont: "Asana-Math",
+    preferredFont: "Asana-Math",
+    imageFont: null,
+    mtexFontInherit: true
+  }
+});
+</script>
+<script src="MathJax.js@config=default"></script>
+<link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
+<link href="my-style-changes.css" rel="stylesheet" media="print"/>
+<link rel="icon" href="favicon.png"/>
+<script src="colorspaces.min.js"></script>
+<script src="heap.js"></script>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.8"/>
+<title>13.2 Mutable Lists</title>
+<link rel="stylesheet" type="text/css" href="scribble.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="codemirror.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="editor.css" title="default"/>
+<link rel="stylesheet" type="text/css" href="my-style-changes.css" title="default"/>
+<script type="text/javascript" src="scribble-common.js"></script>
+<script type="text/javascript" src="manual-racket.js"></script>
+</head>
+<body id="scribble-racket-lang-org">
+<div class="tocset"><div class="tocview">
+<div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
+<tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
+<tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
+<tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
+<tr><td align="right">VII&nbsp;</td><td><a href="booklet_advanced.html" class="tocviewlink" data-pltdoc="x">Advanced Topics</a></td></tr>
+<tr><td align="right">VIII&nbsp;</td><td><a href="booklet_interaction.html" class="tocviewlink" data-pltdoc="x">Interactive Programs</a></td></tr>
+<tr><td align="right">IX&nbsp;</td><td><a href="booklet_appendices.html" class="tocviewlink" data-pltdoc="x">Appendices</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9658;</a></td><td>IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr></table><div class="tocviewsublist" style="display: none;" id="tocview_1"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">12&nbsp;</td><td><a href="part_state.html" class="tocviewlink" data-pltdoc="x">Programming with State (in Both Pyret and Python)</a></td></tr>
+<tr><td align="right">13&nbsp;</td><td><a href="part_python-state.html" class="tocviewlink" data-pltdoc="x">More Programming with State: Python</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_2&quot;);">&#9660;</a></td><td>13&nbsp;</td><td><a href="part_python-state.html" class="tocviewlink" data-pltdoc="x">More Programming with State: Python</a></td></tr></table><div class="tocviewsublist" style="display: block;" id="tocview_2"><table cellspacing="0" cellpadding="0">
+<tr><td align="right">13.1&nbsp;</td><td><a href="mutating-variables.html" class="tocviewlink" data-pltdoc="x">Mutating Variables</a></td></tr>
+<tr><td align="right">13.2&nbsp;</td><td><a href="mutable-lists.html" class="tocviewselflink" data-pltdoc="x">Mutable Lists</a></td></tr>
+</table></div></div>
+<div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_3&quot;);">&#9658;</a></td><td>13.2&nbsp;</td><td><a href="mutable-lists.html" class="tocviewselflink" data-pltdoc="x">Mutable Lists</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_3"></div></div>
+</div>
+<div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"></table></div>
+</div>
+<div class="maincolumn">
+<div class="main">
+<div class="navsettop">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="mutating-variables.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_python-state.html">up</a>&nbsp;&nbsp;<a href="booklet_algo-analysis.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+<h3 id="mutable-lists">Mutable Lists</h3>
+<table cellpadding="0" cellspacing="0"><tr><td></td></tr></table>
+<p>Let’s expand our study of updates yet again, this time looking at
+updating lists. We’ll start with lists.</p>
+<p>Imagine that Shaunae wants to use a program to maintain her shopping
+list. She creates an initial list with two items:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">shaunae_list = ["bread", "coffee"]</code></pre></div></div>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Shaunae wants to add eggs to her list. Write a line of code to
+accomplish this.</p></blockquote></blockquote>
+<p>There are two ways you could have done this:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python"># approach 1
+shaunae_list = shaunae_list + ["eggs"]
+
+#approach 2
+shaunae_list.append("eggs")</code></pre></div></div>
+<p>What is the difference between these two approaches? The difference
+lies in the impact on the heap.</p>
+<ul>
+<li>The first version creates a new list containing
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">"eggs"</code></span>,
+then puts the elements of the two lists together in a new list.</li>
+<li>The second version inserts
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">"eggs"</code></span>
+into the existing list in the heap.</li>
+</ul>
+<p>Let’s look at the directories for each version. Here’s the final
+directory for the first version:</p>
+<div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">shaunae_list</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1010</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1005</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">List(len:2)</code></span></p></li><li><p><span class="heapref source">1006</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"bread"</code></span></p></li><li><p><span class="heapref source">1007</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"coffee"</code></span></p></li><li><p><span class="heapref source">1008</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">List(len:1)</code></span></p></li><li><p><span class="heapref source">1009</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"eggs"</code></span></p></li><li><p><span class="heapref source">1010</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">List(len:3)</code></span></p></li><li><p><span class="heapref source">1011</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"bread"</code></span></p></li><li><p><span class="heapref source">1012</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"coffee"</code></span></p></li><li><p><span class="heapref source">1013</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"eggs"</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
+<p>The original version of
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">shaunae_list</code></span>
+is in address 1005, the list with
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">"eggs"</code></span>
+is in 1008, and the combined list is in 1010.</p>
+<p>In contrast, the final directory for the second version would look
+like:</p>
+<div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">shaunae_list</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1010</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1005</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">List(len:3)</code></span></p></li><li><p><span class="heapref source">1006</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"bread"</code></span></p></li><li><p><span class="heapref source">1007</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"coffee"</code></span></p></li><li><p><span class="heapref source">1008</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"eggs"</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
+<p>Notice here that the length and contents of the original list are
+changed to include the newly-appended
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">"eggs"</code></span>.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Which approach do you think is better? Why?</p></blockquote></blockquote>
+<p>At first glance, the second approach might seem better because it
+doesn’t create additional unnecessary lists. Both approaches result in
+the same contents in
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">shaunae_List</code></span>,
+so there seems little benefit to using the additional space.</p>
+<p>Unless, of course, we want to still have access to the old version of
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">shaunae_list</code></span>
+later on. The old list is still in the heap (though our current program
+has no name through which to access that old list). What if we instead
+had written the program this way?</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">shaunae_list = ["bread", "coffee"]
+prev_list = shaunae_list
+shaunae_list = ["paint", "brushes"] + shaunae_list</code></pre></div></div>
+<p>Now, if Shaunae realizes she goofed and put her art supply shopping
+on the grocery list on that last update, she could “undo” the update by
+resetting her list variable to the previous list:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">shaunae_list = prev_list</code></pre></div></div>
+<p>Undoing a modification (just like the undo feature in
+document-editing tools) is just one example of where it can help to hang
+on to older versions of data for a little while. The point here is not
+to give a sophisticated treatment of undoing computations, but more to
+motivate that there are situations in which creating a new list is
+preferable to updating the old one.</p>
+<p>When might we want to update, rather than preserve, the existing
+list?</p>
+<p>Remember our discussion of aliasing? We wanted two people, Elena and
+Jorge to share access to a common bank account. Might we ever want a
+shared shopping list? Sure, Shaunae and her roommate Jonella do share a
+shopping list, so that they can both add items while letting either one
+go to the store.</p>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Set up a shared shopping list that is accessible through two names,
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">shaunae_list</code></span>
+and
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">jonella_list</code></span>.
+Then, add an item to the list via one of these names and check that the
+item appears under the other name.</p></blockquote></blockquote>
+<p>You might have written something like the following:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">shaunae_list = ["bread", "coffee"]
+jonella_list = shaunae_list
+jonella_list.append("eggs")</code></pre></div></div>
+<p>If you load this code at the prompt and look at both lists at the
+end, you’ll see they have the same values.</p>
+<p>In contrast, had we written the code as follows, only one of them
+would see the new item:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">&gt;&gt;&gt; jonella_list = ["apples"] + jonella_list
+&gt;&gt;&gt; jonella_list
+["apples", "bread", "coffee", "eggs"]
+&gt;&gt;&gt; shaunae_list
+["bread", "coffee", "eggs"]</code></pre></div></div>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Draw the memory diagram for the above program.</p></blockquote></blockquote>
+<h4 id="Exercise-Creating-Lists-of-Accounts">Exercise: Creating Lists of
+Accounts</h4>
+<p>In <a
+href="mutating-variables.html##mut-top-level-vars-in-func">Mutating
+Top-Level Variables within Functions</a>, we wrote a function to create
+new accounts for the bank. That function returned each new account as it
+was created. That meant that every newly-created account had to be
+associated with a name in the directory (otherwise we would not be able
+to access it from the heap).</p>
+<p>Maintaining either a list or a dictionary of all the created accounts
+makes much more sense. We’d need only a single name for the collection
+of accounts, but could still access individual accounts as needed. For
+example, we might want an
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">all_accts</code></span>
+list that looks something like the following:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">all_accts = [Account(8623, 100),
+             Account(8624, 300),
+             Account(8625, 225),
+             ...
+             ]</code></pre></div></div>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Write a program that creates an empty
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">all_accts</code></span>
+list, then adds a new
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">Account</code></span>
+to it each time
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">create_acct</code></span>
+is called. You will need to modify
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">create_acct</code></span>
+in order to do this. Here is the existing code as a starting point.</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">next_id = 1
+
+def create_acct(init_bal: float) -&gt; Account:
+  global next_id
+  new_acct = Account(next_id, init_bal, [])
+  next_id = next_id + 1
+  return new_acct</code></pre></div></div></blockquote></blockquote>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Did you include a line like
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">global all_accts</code></span>
+in your code? Why or why not?</p></blockquote></blockquote>
+<p>If you used
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">append</code></span>
+to update the
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">all_accts</code></span>
+list, then you would not need to include
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">global all_accts</code></span>.
+Recall that
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">global</code></span>
+is needed to tell Python to update a variable in the top-level directory
+rather than the local directory. If you use
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">all_accts.append</code></span>,
+however, you are modifying the heap instead of the directory. There is
+no need for
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">global</code></span>
+if your code is only modifying heap contents.</p>
+<div class="navsetbottom">
+<span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
+<span class="navright">&nbsp;&nbsp;<a href="mutating-variables.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_python-state.html">up</a>&nbsp;&nbsp;<a href="booklet_algo-analysis.html" rel="next">next &rarr;</a></span>&nbsp;
+</div>
+</div><!-- .main -->
+</div><!-- .maincolumn -->
+</body>
+</html>
