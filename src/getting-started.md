@@ -1,13 +1,18 @@
 ---
 title: Getting Started
 section_number: 3.1
-source_file: getting-started.html
+source_file: dcic_orig_getting-started.html
 prev: part_foundations.html
 up: part_foundations.html
 next: Naming_Values.html
 ---
 
 ### Getting Started {#getting-started}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._flags-notice-wonder%29">3.1.1<span class="hspace"> </span>Motivating Example: Flags</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-numbers%29">3.1.2<span class="hspace"> </span>Numbers</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions%29">3.1.3<span class="hspace"> </span>Expressions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-terminology%29">3.1.4<span class="hspace"> </span>Terminology</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-strings%29">3.1.5<span class="hspace"> </span>Strings</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-images%29">3.1.6<span class="hspace"> </span>Images</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-combine-images%29">3.1.6.1<span class="hspace"> </span>Combining Images</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-first-flag%29">3.1.6.2<span class="hspace"> </span>Making a Flag</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._types-and-errors%29">3.1.7<span class="hspace"> </span>Stepping Back: Types, Errors, and Documentation</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-types%29">3.1.7.1<span class="hspace"> </span>Types and Contracts</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-errors%29">3.1.7.2<span class="hspace"> </span>Format and Notation Errors</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-documentation%29">3.1.7.3<span class="hspace"> </span>Finding Other
+Functions: Documentation</a></p></td></tr></table>
+```
 
 #### Motivating Example: Flags {#flags-notice-wonder}
 

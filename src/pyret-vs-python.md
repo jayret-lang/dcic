@@ -1,7 +1,7 @@
 ---
 title: Pyret vs. Python
 section_number: 29
-source_file: pyret-vs-python.html
+source_file: dcic_orig_pyret-vs-python.html
 prev: p4rs.html
 up: booklet_appendices.html
 next: htdp-vs-dcic.html

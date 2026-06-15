@@ -1,13 +1,17 @@
 ---
 title: Queues from Lists
 section_number: 8.2
-source_file: queues-from-lists.html
+source_file: dcic_orig_queues-from-lists.html
 prev: func-as-data.html
 up: part_bonus-foundations.html
 next: testing.html
 ---
 
 ### Queues from Lists {#queues-from-lists}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._.Using_a_.Wrapper_.Datatype%29">8.2.1<span class="hspace"> </span>Using a Wrapper Datatype</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._qfl-comb-ans%29">8.2.2<span class="hspace"> </span>Combining Answers</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._.Using_a_.Picker%29">8.2.3<span class="hspace"> </span>Using a Picker</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._qfl-tuples%29">8.2.4<span class="hspace"> </span>Using Tuples</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._.A_.Picker_.Method%29">8.2.5<span class="hspace"> </span>A Picker Method</a></p></td></tr></table>
+```
 
 Suppose you have a list. When you take its first element, you get the
 element that was most recently `link`{.pyret}ed to create it. The next element is the

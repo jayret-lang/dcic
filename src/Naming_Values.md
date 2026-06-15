@@ -1,13 +1,18 @@
 ---
 title: Naming Values
 section_number: 3.2
-source_file: Naming_Values.html
+source_file: dcic_orig_Naming_Values.html
 prev: getting-started.html
 up: part_foundations.html
 next: From_Repeated_Expressions_to_Functions.html
 ---
 
 ### Naming Values {#Naming-Values}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-defns-pane%29">3.2.1<span class="hspace"> </span>The Definitions Pane</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-name-vals%29">3.2.2<span class="hspace"> </span>Naming Values</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-strings%29">3.2.2.1<span class="hspace"> </span>Names Versus Strings</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-expr-statements%29">3.2.2.2<span class="hspace"> </span>Expressions versus
+Statements</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._program-directory%29">3.2.3<span class="hspace"> </span>The Program Directory</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._.Understanding_the_.Run_.Button%29">3.2.3.1<span class="hspace"> </span>Understanding the Run Button</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-for-images%29">3.2.4<span class="hspace"> </span>Using Names to Streamline Building Images</a></p></td></tr></table>
+```
 
 #### The Definitions Pane {#naming-defns-pane}
 

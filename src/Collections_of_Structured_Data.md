@@ -1,13 +1,17 @@
 ---
 title: Collections of Structured Data
 section_number: 6.2
-source_file: Collections_of_Structured_Data.html
+source_file: dcic_orig_Collections_of_Structured_Data.html
 prev: intro-struct-data.html
 up: part_structured-data.html
 next: part_trees.html
 ---
 
 ### Collections of Structured Data {#Collections-of-Structured-Data}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._.Lists_as_.Collective_.Data%29">6.2.1<span class="hspace"> </span>Lists as Collective Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._sets-as-collections%29">6.2.2<span class="hspace"> </span>Sets as Collective Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._coll-sd-pick%29">6.2.2.1<span class="hspace"> </span>Picking Elements from Sets</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._.Computing_with_.Sets%29">6.2.2.2<span class="hspace"> </span>Computing with Sets</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._.Combining_.Structured_and_.Collective_.Data%29">6.2.3<span class="hspace"> </span>Combining Structured and Collective Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._.Data_.Design_.Problem__.Representing_.Quizzes%29">6.2.4<span class="hspace"> </span>Data Design Problem: Representing Quizzes</a></p></td></tr></table>
+```
 
 As we were looking at structured data [[Introduction to Structured Data](intro-struct-data.html)],
 we came across several situations where we have not one but many data:

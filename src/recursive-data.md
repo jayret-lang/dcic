@@ -1,13 +1,17 @@
 ---
 title: Recursive Data
 section_number: 5.3
-source_file: recursive-data.html
+source_file: dcic_orig_recursive-data.html
 prev: processing-lists.html
 up: part_lists.html
 next: part_structured-data.html
 ---
 
 ### Recursive Data {#recursive-data}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._.Functions_to_.Process_.Recursive_.Data%29">5.3.1<span class="hspace"> </span>Functions to Process Recursive Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._.A_.Template_for_.Processing_.Recursive_.Data%29">5.3.2<span class="hspace"> </span>A Template for Processing Recursive Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._.The_.Design_.Recipe%29">5.3.3<span class="hspace"> </span>The Design Recipe</a></p></td></tr></table>
+```
 
 In [Telling Apart Variants of Conditional Data](intro-struct-data.html##telling-apart-variants), we used `cases`{.pyret} to distinguish
 between different forms of conditional data. We had used `cases`{.pyret}

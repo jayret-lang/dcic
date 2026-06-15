@@ -1,13 +1,17 @@
 ---
 title: Making Sets Grow on Trees
 section_number: 18.2
-source_file: sets-from-trees.html
+source_file: dcic_orig_sets-from-trees.html
 prev: sets-from-lists.html
 up: part_sets.html
 next: union-find.html
 ---
 
 ### Making Sets Grow on Trees {#sets-from-trees}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Using_.Binary_.Trees%29">18.2.1<span class="hspace"> </span>Using Binary Trees</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Checking_the_.Complexity%29">18.2.2<span class="hspace"> </span>Checking the Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._sets-from-balanced-trees%29">18.2.3<span class="hspace"> </span>A Fine Balance: Tree Surgery</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Left-.Left_.Case%29">18.2.3.1<span class="hspace"> </span>Left-Left Case</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Left-.Right_.Case%29">18.2.3.2<span class="hspace"> </span>Left-Right Case</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Any_.Other_.Cases_%29">18.2.3.3<span class="hspace"> </span>Any Other Cases?</a></p></td></tr></table>
+```
 
 In [Representing Sets as Lists](sets-from-lists.html) we saw multiple list representations of
 sets. They all came with at least some operations having linear time

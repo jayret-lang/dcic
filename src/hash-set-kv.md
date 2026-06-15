@@ -1,13 +1,17 @@
 ---
 title: Hashes, Sets, and Key-Values
 section_number: 18.4
-source_file: hash-set-kv.html
+source_file: dcic_orig_hash-set-kv.html
 prev: union-find.html
 up: part_sets.html
 next: orderability.html
 ---
 
 ### Hashes, Sets, and Key-Values {#hash-set-kv}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._hash-string%29">18.4.1<span class="hspace"> </span>A Hash Function for Strings</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Sets_from_.Hashing%29">18.4.2<span class="hspace"> </span>Sets from Hashing</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Arrays%29">18.4.3<span class="hspace"> </span>Arrays</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._hash-tables%29">18.4.4<span class="hspace"> </span>Sets from Hashing and Arrays</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Collisions%29">18.4.5<span class="hspace"> </span>Collisions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Resolving_.Collisions%29">18.4.6<span class="hspace"> </span>Resolving Collisions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._hash-comp%29">18.4.7<span class="hspace"> </span>Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._bloom-filters%29">18.4.8<span class="hspace"> </span>Bloom Filters</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Generalizing_from_.Sets_to_.Key-.Values%29">18.4.9<span class="hspace"> </span>Generalizing from Sets to Key-Values</a></p></td></tr></table>
+```
 
 We have seen several solutions to set membership
 [[Several Variations on Sets](part_sets.html)]. In particular, trees

@@ -1,13 +1,17 @@
 ---
 title: Dictionaries
 section_number: 9.2
-source_file: dictionaries.html
+source_file: dcic_orig_dictionaries.html
 prev: intro-python.html
 up: part_pyret-to-python.html
 next: arrays.html
 ---
 
 ### Dictionaries {#dictionaries}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Creating_and_.Using_a_.Dictionary%29">9.2.1<span class="hspace"> </span>Creating and Using a Dictionary</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Searching_.Through_the_.Values_in_a_.Dictionary%29">9.2.2<span class="hspace"> </span>Searching Through the Values in a Dictionary</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Dictionaries_with_.More_.Complex_.Values%29">9.2.3<span class="hspace"> </span>Dictionaries with More Complex Values</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Dictionaries_versus_.Dataclasses%29">9.2.4<span class="hspace"> </span>Dictionaries versus Dataclasses</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Summary%29">Summary</a></p></td></tr></table>
+```
 
 So far, we have seen several ways to process sequential data such as
 lists. In each of Pyret and Python, we can use `filter`{.python} and

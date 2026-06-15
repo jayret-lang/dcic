@@ -1,13 +1,17 @@
 ---
 title: Introducing Graphs
 section_number: 17.1
-source_file: intro-graphs.html
+source_file: dcic_orig_intro-graphs.html
 prev: part_graphs.html
 up: part_graphs.html
 next: basic-graph-trav.html
 ---
 
 ### Introducing Graphs {#intro-graphs}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._.Understanding_.Graphs%29">17.1.1<span class="hspace"> </span>Understanding Graphs</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._.Representations%29">17.1.2<span class="hspace"> </span>Representations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._string-keys%29">17.1.2.1<span class="hspace"> </span>Links by Name</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._.Links_by_.Indices%29">17.1.2.2<span class="hspace"> </span>Links by Indices</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._.A_.List_of_.Edges%29">17.1.2.3<span class="hspace"> </span>A List of Edges</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._.Abstracting_.Representations%29">17.1.2.4<span class="hspace"> </span>Abstracting Representations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._complexity-of-graphs%29">17.1.3<span class="hspace"> </span>Measuring Complexity for Graphs</a></p></td></tr></table>
+```
 
 In [From Acyclicity to Cycles](Sharing_and_Equality.html##acyc-to-cyc) we introduced a special kind of sharing:
 when the data become cyclic, i.e., there exist values such that

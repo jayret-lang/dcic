@@ -1,13 +1,17 @@
 ---
 title: Arrays
 section_number: 9.3
-source_file: arrays.html
+source_file: dcic_orig_arrays.html
 prev: dictionaries.html
 up: part_pyret-to-python.html
 next: part_python-tables.html
 ---
 
 ### Arrays {#arrays}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="arrays.html#%28part._.Two_.Memory_.Layouts_for_.Ordered_.Items%29">9.3.1<span class="hspace"> </span>Two Memory Layouts for Ordered Items</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="arrays.html#%28part._.Iterating_.Partly_through_an_.Ordered_.Datum%29">9.3.2<span class="hspace"> </span>Iterating Partly through an Ordered Datum</a></p></td></tr></table>
+```
 
 We ended the last chapter with a question about how fast one can access a
 specific element of a list. Specifically, if you have a list called

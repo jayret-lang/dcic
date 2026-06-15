@@ -1,13 +1,17 @@
 ---
 title: Basic Graph Traversals
 section_number: 17.2
-source_file: basic-graph-trav.html
+source_file: dcic_orig_basic-graph-trav.html
 prev: intro-graphs.html
 up: part_graphs.html
 next: weighted-graphs.html
 ---
 
 ### Basic Graph Traversals {#basic-graph-trav}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.Reachability%29">17.2.1<span class="hspace"> </span>Reachability</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.Simple_.Recursion%29">17.2.1.1<span class="hspace"> </span>Simple Recursion</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.Cleaning_up_the_.Loop%29">17.2.1.2<span class="hspace"> </span>Cleaning up the Loop</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.Traversal_with_.Memory%29">17.2.1.3<span class="hspace"> </span>Traversal with Memory</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.A_.Better_.Interface%29">17.2.1.4<span class="hspace"> </span>A Better Interface</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._dfs-bfs%29">17.2.2<span class="hspace"> </span>Depth- and Breadth-First Traversals</a></p></td></tr></table>
+```
 
 As with all the data we have seen so far, to process a datum we have
 to traverse it—i.e., visit the constituent data. With graphs, that

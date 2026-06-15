@@ -1,13 +1,17 @@
 ---
 title: Conditionals and Booleans
 section_number: 3.4
-source_file: Conditionals_and_Booleans.html
+source_file: dcic_orig_Conditionals_and_Booleans.html
 prev: From_Repeated_Expressions_to_Functions.html
 up: part_foundations.html
 next: part_tabular-data.html
 ---
 
 ### Conditionals and Booleans {#Conditionals-and-Booleans}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._add-shipping-setup%29">3.4.1<span class="hspace"> </span>Motivating Example: Shipping Costs</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._cond-boolean-intro%29">3.4.2<span class="hspace"> </span>Conditionals: Computations with Decisions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._booleans%29">3.4.3<span class="hspace"> </span>Booleans</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._bool-comparisons%29">3.4.3.1<span class="hspace"> </span>Other Boolean Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Combining_.Booleans%29">3.4.3.2<span class="hspace"> </span>Combining Booleans</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._else-if%29">3.4.4<span class="hspace"> </span>Asking Multiple Questions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._conditional-nm%29">3.4.5<span class="hspace"> </span>Evaluating by Reducing Expressions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Composing_.Functions%29">3.4.6<span class="hspace"> </span>Composing Functions</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.How_.Function_.Compositions_.Evaluate%29">3.4.6.1<span class="hspace"> </span>How Function Compositions Evaluate</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._func-comp-directory%29">3.4.6.2<span class="hspace"> </span>Function Composition and the Directory</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Nested_.Conditionals%29">3.4.7<span class="hspace"> </span>Nested Conditionals</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Recap__.Booleans_and_.Conditionals%29">3.4.8<span class="hspace"> </span>Recap: Booleans and Conditionals</a></p></td></tr></table>
+```
 
 #### Motivating Example: Shipping Costs {#add-shipping-setup}
 

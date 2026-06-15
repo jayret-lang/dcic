@@ -1,13 +1,17 @@
 ---
 title: Examples, Testing, and Program Checking
 section_number: 8.3
-source_file: testing.html
+source_file: dcic_orig_testing.html
 prev: queues-from-lists.html
 up: part_bonus-foundations.html
 next: booklet_pyret-to-python.html
 ---
 
 ### Examples, Testing, and Program Checking {#testing}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._from-examples-to-tests%29">8.3.1<span class="hspace"> </span>From Examples to Tests</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._s~3arefined%29">8.3.2<span class="hspace"> </span>More Refined Comparisons</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._.When_.Tests_.Fail%29">8.3.3<span class="hspace"> </span>When Tests Fail</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._test-oracle%29">8.3.4<span class="hspace"> </span>Oracles for Testing</a></p></td></tr></table>
+```
 
 Back in [Documenting Functions with Examples](From_Repeated_Expressions_to_Functions.html##writing-examples), we began to develop your habit of
 writing concrete examples of functions. In [Task Plans](processing-tables.html##task-plans), we

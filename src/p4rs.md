@@ -1,13 +1,17 @@
 ---
 title: Pyret for Racketeers and Schemers
 section_number: 28
-source_file: p4rs.html
+source_file: dcic_orig_p4rs.html
 prev: booklet_appendices.html
 up: booklet_appendices.html
 next: pyret-vs-python.html
 ---
 
 ## Pyret for Racketeers and Schemers {#p4rs}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Numbers__.Strings__and_.Booleans%29">28.1<span class="hspace"> </span>Numbers, Strings, and Booleans</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Infix_.Expressions%29">28.2<span class="hspace"> </span>Infix Expressions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Function_.Definition_and_.Application%29">28.3<span class="hspace"> </span>Function Definition and Application</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Tests%29">28.4<span class="hspace"> </span>Tests</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Variable_.Names%29">28.5<span class="hspace"> </span>Variable Names</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Data_.Definitions%29">28.6<span class="hspace"> </span>Data Definitions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Conditionals%29">28.7<span class="hspace"> </span>Conditionals</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Lists%29">28.8<span class="hspace"> </span>Lists</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.First-.Class_.Functions%29">28.9<span class="hspace"> </span>First-Class Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Annotations%29">28.10<span class="hspace"> </span>Annotations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.What_.Else_%29">28.11<span class="hspace"> </span>What Else?</a></p></td></tr></table>
+```
 
 If you’ve programmed before in a language like Scheme or the student
 levels of Racket (or the WeScheme programming environment), or for

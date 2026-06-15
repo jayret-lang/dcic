@@ -1,13 +1,17 @@
 ---
 title: Sharing and Equality
 section_number: 16.1
-source_file: Sharing_and_Equality.html
+source_file: dcic_orig_Sharing_and_Equality.html
 prev: part_dags.html
 up: part_dags.html
 next: size-of-dag.html
 ---
 
 ### Sharing and Equality {#Sharing-and-Equality}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._identical-eq%29">16.1.1<span class="hspace"> </span>Re-Examining Equality</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._.The_.Cost_of_.Evaluating_.References%29">16.1.2<span class="hspace"> </span>The Cost of Evaluating References</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._equal-always%29">16.1.3<span class="hspace"> </span>Notations for Equality</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._.On_the_.Internet__.Nobody_.Knows_.You_re_a_.D.A.G%29">16.1.4<span class="hspace"> </span>On the Internet, Nobody Knows You’re a DAG</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._.It_s_.Always_.Been_a_.D.A.G%29">16.1.5<span class="hspace"> </span>It’s Always Been a DAG</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._acyc-to-cyc%29">16.1.6<span class="hspace"> </span>From Acyclicity to Cycles</a></p></td></tr></table>
+```
 
 #### Re-Examining Equality {#identical-eq}
 
@@ -81,7 +85,7 @@ in a separate location alongside the running program. We can draw the
 first step as creating a `node`{.pyret} with value `4`{.pyret}:
 
 ```{=html}
-<div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree =
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree =
   node(5,
     <span class="heapref sink">1001</span>,
     node(4, leaf, leaf))
@@ -92,18 +96,14 @@ b-tree =
     node(5,
       four-node,
       four-node)
-  end</code></pre></div></div></p></pre></div>
-```
-
-```{=html}
-<div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div>
+  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
 ```
 
 The next step creates another node with value `4`{.pyret}, distinct from the
 first:
 
 ```{=html}
-<div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree =
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree =
   node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)
 
 b-tree =
@@ -112,17 +112,13 @@ b-tree =
     node(5,
       four-node,
       four-node)
-  end</code></pre></div></div></p></pre></div>
-```
-
-```{=html}
-<div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div>
+  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
 ```
 
 Then the `node`{.pyret} for `a-tree`{.pyret} is created:
 
 ```{=html}
-<div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree = <span class="heapref sink">1003</span>
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree = <span class="heapref sink">1003</span>
 
 b-tree =
   block:
@@ -130,18 +126,14 @@ b-tree =
     node(5,
       four-node,
       four-node)
-  end</code></pre></div></div></p></pre></div>
-```
-
-```{=html}
-<div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li></ul></div>
+  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
 ```
 
 When evaluating the `block`{.pyret} for `b-tree`{.pyret}, first a single node is
 created for the `four-node`{.pyret} binding:
 
 ```{=html}
-<div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree = <span class="heapref sink">1003</span>
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree = <span class="heapref sink">1003</span>
 
 b-tree =
   block:
@@ -149,11 +141,7 @@ b-tree =
     node(5,
       four-node,
       four-node)
-  end</code></pre></div></div></p></pre></div>
-```
-
-```{=html}
-<div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div>
+  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
 ```
 
 These location values can be substituted just like any other, so they get
@@ -162,28 +150,20 @@ block.[We skipped substituting `a-tree`{.pyret} for the moment, that
 will come up later.]{.margin-note}
 
 ```{=html}
-<div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree = <span class="heapref sink">1003</span>
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree = <span class="heapref sink">1003</span>
 
 b-tree =
   block:
     node(5, <span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)
-  end</code></pre></div></div></p></pre></div>
-```
-
-```{=html}
-<div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div>
+  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
 ```
 
 Finally, the node for `b-tree`{.pyret} is created:
 
 ```{=html}
-<div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree = <span class="heapref sink">1003</span>
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree = <span class="heapref sink">1003</span>
 
-b-tree = <span class="heapref sink">1005</span></code></pre></div></div></p></pre></div>
-```
-
-```{=html}
-<div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1005</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)</code></pre></div></div></p></div></p></li></ul></div>
+b-tree = <span class="heapref sink">1005</span></code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1005</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
 ```
 
 This visualization can help us explain the test we wrote using `identical`{.pyret}.
@@ -191,7 +171,7 @@ Let’s consider the test with the appropriate location references substituted
 for `a-tree`{.pyret} and `b-tree`{.pyret}:
 
 ```{=html}
-<div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
   identical(<span class="heapref sink">1003</span>, <span class="heapref sink">1005</span>)
     is false
   identical(<span class="heapref sink">1003</span>.l, <span class="heapref sink">1003</span>.l)
@@ -200,15 +180,11 @@ for `a-tree`{.pyret} and `b-tree`{.pyret}:
     is false
   identical(<span class="heapref sink">1005</span>.l, <span class="heapref sink">1005</span>.r)
     is true
-end</code></pre></div></div></p></pre></div>
+end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1005</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
 ```
 
 ```{=html}
-<div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1005</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)</code></pre></div></div></p></div></p></li></ul></div>
-```
-
-```{=html}
-<div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
   identical(<span class="heapref sink">1003</span>, <span class="heapref sink">1005</span>)
     is false
   identical(<span class="heapref sink">1001</span>, <span class="heapref sink">1001</span>)
@@ -217,11 +193,7 @@ end</code></pre></div></div></p></pre></div>
     is false
   identical(<span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)
     is true
-end</code></pre></div></div></p></pre></div>
-```
-
-```{=html}
-<div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1005</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)</code></pre></div></div></p></div></p></li></ul></div>
+end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1005</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
 ```
 
 There is actually another way to write these tests in Pyret: the

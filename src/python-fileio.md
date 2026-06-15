@@ -1,13 +1,17 @@
 ---
 title: File Input and Output in Python
 section_number: 11.1
-source_file: python-fileio.html
+source_file: dcic_orig_python-fileio.html
 prev: part_python-fileio.html
 up: part_python-fileio.html
 next: booklet_programming-with-state.html
 ---
 
 ### File Input and Output in Python {#python-fileio}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-fileio.html#%28part._.Basic_.File_.Operations%29">11.1.1<span class="hspace"> </span>Basic File Operations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-fileio.html#%28part._.Reading_.C.S.V_.Files_.Step_by_.Step%29">11.1.2<span class="hspace"> </span>Reading CSV Files Step by Step</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-fileio.html#%28part._.Processing_and_.Filtering_.Data%29">11.1.3<span class="hspace"> </span>Processing and Filtering Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-fileio.html#%28part._.Writing_.C.S.V_.Files%29">11.1.4<span class="hspace"> </span>Writing CSV Files</a></p></td></tr></table>
+```
 
 In [Introduction to Pandas](python-tables-Pandas.html), we loaded data from CSV (comma-separated value) files, but we let Pandas handle the low-level details: reading files and converting their contents into DataFrames.
 

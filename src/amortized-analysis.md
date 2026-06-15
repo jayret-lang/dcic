@@ -1,13 +1,17 @@
 ---
 title: Halloween Analysis
 section_number: 15
-source_file: amortized-analysis.html
+source_file: dcic_orig_amortized-analysis.html
 prev: predicting-growth.html
 up: booklet_algo-analysis.html
 next: booklet_data-with-analysis.html
 ---
 
 ## Halloween Analysis {#amortized-analysis}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.A_.First_.Example%29">15.1<span class="hspace"> </span>A First Example</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.The_.New_.Form_of_.Analysis%29">15.2<span class="hspace"> </span>The New Form of Analysis</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._queue-data-structure%29">15.3<span class="hspace"> </span>An Example: Queues from Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.List_.Representations%29">15.3.1<span class="hspace"> </span>List Representations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.A_.First_.Analysis%29">15.3.2<span class="hspace"> </span>A First Analysis</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.More_.Liberal_.Sequences_of_.Operations%29">15.3.3<span class="hspace"> </span>More Liberal Sequences of Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.A_.Second_.Analysis%29">15.3.4<span class="hspace"> </span>A Second Analysis</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._worst-case-ops-amort%29">15.3.5<span class="hspace"> </span>Amortization Versus Individual Operations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.Reading_.More%29">15.4<span class="hspace"> </span>Reading More</a></p></td></tr></table>
+```
 
 In [Predicting Growth](predicting-growth.html), we introduced the idea of big-Oh
 complexity to measure the worst-case time of a computation. As we see

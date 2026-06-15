@@ -1,7 +1,7 @@
 ---
 title: Release Notes
 section_number: 31
-source_file: Release_Notes.html
+source_file: dcic_orig_Release_Notes.html
 prev: htdp-vs-dcic.html
 up: booklet_appendices.html
 next: glossary.html

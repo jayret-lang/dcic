@@ -1,13 +1,17 @@
 ---
 title: Predicting Growth
 section_number: 14
-source_file: predicting-growth.html
+source_file: dcic_orig_predicting-growth.html
 prev: booklet_algo-analysis.html
 up: booklet_algo-analysis.html
 next: amortized-analysis.html
 ---
 
 ## Predicting Growth {#predicting-growth}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.A_.Little__.True__.Story%29">14.1<span class="hspace"> </span>A Little (True) Story</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.The_.Analytical_.Idea%29">14.2<span class="hspace"> </span>The Analytical Idea</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._cost-model%29">14.3<span class="hspace"> </span>A Cost Model for Pyret Running Time</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._size-of-input%29">14.4<span class="hspace"> </span>The Size of the Input</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.The_.Tabular_.Method_for_.Singly-.Structurally-.Recursive_.Functions%29">14.5<span class="hspace"> </span>The Tabular Method for Singly-Structurally-Recursive Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._creating-recurrences%29">14.6<span class="hspace"> </span>Creating Recurrences</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._math-anon-functions%29">14.7<span class="hspace"> </span>A Notation for Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._big-oh-def%29">14.8<span class="hspace"> </span>Comparing Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._big-oh-closure%29">14.9<span class="hspace"> </span>Combining Big-Oh Without Woe</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._solving-recurrences%29">14.10<span class="hspace"> </span>Solving Recurrences</a></p></td></tr></table>
+```
 
 We will now commence the study of determining how long a computation
 takes. We’ll begin with a little (true) story.

@@ -1,7 +1,7 @@
 ---
 title: Graphs With Weighted Edges
 section_number: 17.3
-source_file: weighted-graphs.html
+source_file: dcic_orig_weighted-graphs.html
 prev: basic-graph-trav.html
 up: part_graphs.html
 next: lightest-paths.html

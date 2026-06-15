@@ -1,13 +1,17 @@
 ---
 title: Sets as a Case Study
 section_number: 18.6
-source_file: sets-case-study.html
+source_file: dcic_orig_sets-case-study.html
 prev: orderability.html
 up: part_sets.html
 next: booklet_advanced.html
 ---
 
 ### Sets as a Case Study {#sets-case-study}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-case-study.html#%28part._.Nature_of_the_.Data%29">18.6.1<span class="hspace"> </span>Nature of the Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-case-study.html#%28part._.Nature_of_the_.Operations%29">18.6.2<span class="hspace"> </span>Nature of the Operations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-case-study.html#%28part._.Nature_of_the_.Guarantee%29">18.6.3<span class="hspace"> </span>Nature of the Guarantee</a></p></td></tr></table>
+```
 
 We have spent a lot of time on sets. That is not only because they are
 useful in their own right, but also because they offer a window into a

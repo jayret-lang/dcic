@@ -1,7 +1,7 @@
 ---
 title: Arrays and Lists in Memory
 section_number: 12.3
-source_file: unified-lists-memory.html
+source_file: dcic_orig_unified-lists-memory.html
 prev: unified-equality.html
 up: part_state.html
 next: unified-cyclic-data.html

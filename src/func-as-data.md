@@ -1,13 +1,17 @@
 ---
 title: Functions as Data
 section_number: 8.1
-source_file: func-as-data.html
+source_file: dcic_orig_func-as-data.html
 prev: part_bonus-foundations.html
 up: part_bonus-foundations.html
 next: queues-from-lists.html
 ---
 
 ### Functions as Data {#func-as-data}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="func-as-data.html#%28part._fd-calculus%29">8.1.1<span class="hspace"> </span>A Little Calculus</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="func-as-data.html#%28part._lam-shorthand%29">8.1.2<span class="hspace"> </span>A Helpful Shorthand for Anonymous Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="func-as-data.html#%28part._streams-from-funs%29">8.1.3<span class="hspace"> </span>Streams From Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="func-as-data.html#%28part._d-dx-streams%29">8.1.4<span class="hspace"> </span>Combining Forces: Streams of Derivatives</a></p></td></tr></table>
+```
 
 It’s interesting to consider how expressive the little programming
 we’ve learned so far can be. To illustrate this, we’ll work through a

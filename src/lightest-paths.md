@@ -1,7 +1,7 @@
 ---
 title: Shortest (or Lightest) Paths
 section_number: 17.4
-source_file: lightest-paths.html
+source_file: dcic_orig_lightest-paths.html
 prev: weighted-graphs.html
 up: part_graphs.html
 next: mst.html

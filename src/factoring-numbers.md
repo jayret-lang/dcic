@@ -1,7 +1,7 @@
 ---
 title: Factoring Numbers
 section_number: 25
-source_file: factoring-numbers.html
+source_file: dcic_orig_factoring-numbers.html
 prev: staging.html
 up: booklet_advanced.html
 next: deconstructing-loops.html

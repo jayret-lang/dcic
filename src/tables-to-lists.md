@@ -1,13 +1,17 @@
 ---
 title: From Tables to Lists
 section_number: 5.1
-source_file: tables-to-lists.html
+source_file: dcic_orig_tables-to-lists.html
 prev: part_lists.html
 up: part_lists.html
 next: processing-lists.html
 ---
 
 ### From Tables to Lists {#tables-to-lists}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._table-stat-qs%29">5.1.1<span class="hspace"> </span>Basic Statistical Questions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Extracting_a_.Column_from_a_.Table%29">5.1.2<span class="hspace"> </span>Extracting a Column from a Table</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Understanding_.Lists%29">5.1.3<span class="hspace"> </span>Understanding Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._lists-generic-data%29">5.1.3.1<span class="hspace"> </span>Lists as Anonymous Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Creating_.Literal_.Lists%29">5.1.3.2<span class="hspace"> </span>Creating Literal Lists</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Operating_on_.Lists%29">5.1.4<span class="hspace"> </span>Operating on Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Built-.In_.Operations_on_.Lists_of_.Numbers%29">5.1.4.1<span class="hspace"> </span>Built-In Operations on Lists of Numbers</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Built-.In_.Operations_on_.Lists_in_.General%29">5.1.4.2<span class="hspace"> </span>Built-In Operations on Lists in General</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.An_.Aside_on_.Naming_.Conventions%29">5.1.4.3<span class="hspace"> </span>An Aside on Naming Conventions</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Getting_.Elements_.By_.Position%29">5.1.4.4<span class="hspace"> </span>Getting Elements By Position</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Transforming_.Lists%29">5.1.4.5<span class="hspace"> </span>Transforming Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._lists-recap%29">5.1.4.6<span class="hspace"> </span>Recap: Summary of List Operations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Lambda__.Anonymous_.Functions%29">5.1.5<span class="hspace"> </span>Lambda: Anonymous Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Combining_.Lists_and_.Tables%29">5.1.6<span class="hspace"> </span>Combining Lists and Tables</a></p></td></tr></table>
+```
 
 Previously [[Introduction to Tabular Data](intro-tabular-data.html)] we began to process
 collective data in the form of tables. Though we saw

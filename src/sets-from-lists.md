@@ -1,13 +1,17 @@
 ---
 title: Representing Sets as Lists
 section_number: 18.1
-source_file: sets-from-lists.html
+source_file: dcic_orig_sets-from-lists.html
 prev: part_sets.html
 up: part_sets.html
 next: sets-from-trees.html
 ---
 
 ### Representing Sets as Lists {#sets-from-lists}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._.Representation_.Choices%29">18.1.1<span class="hspace"> </span>Representation Choices</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._.Time_.Complexity%29">18.1.2<span class="hspace"> </span>Time Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._choosing-set-reps%29">18.1.3<span class="hspace"> </span>Choosing Between Representations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._.Other_.Operations%29">18.1.4<span class="hspace"> </span>Other Operations</a></p></td></tr></table>
+```
 
 Earlier [[Sets as Collective Data](Collections_of_Structured_Data.html##sets-as-collections)] we introduced sets. Recall
 that the elements of a set have no specific order, and ignore

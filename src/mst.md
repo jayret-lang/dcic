@@ -1,13 +1,17 @@
 ---
 title: Moravian Spanning Trees
 section_number: 17.5
-source_file: mst.html
+source_file: dcic_orig_mst.html
 prev: lightest-paths.html
 up: part_graphs.html
 next: part_sets.html
 ---
 
 ### Moravian Spanning Trees {#mst}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.The_.Problem%29">17.5.1<span class="hspace"> </span>The Problem</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.A_.Greedy_.Solution%29">17.5.2<span class="hspace"> </span>A Greedy Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.Another_.Greedy_.Solution%29">17.5.3<span class="hspace"> </span>Another Greedy Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.A_.Third_.Solution%29">17.5.4<span class="hspace"> </span>A Third Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._union-find-functional%29">17.5.5<span class="hspace"> </span>Checking Component Connectedness</a></p></td></tr></table>
+```
 
 At the turn of the milennium, the US National Academy of Engineering
 surveyed its members to determine the “Greatest Engineering

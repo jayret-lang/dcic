@@ -1,7 +1,7 @@
 ---
 title: Recursion and Cycles from Mutation
 section_number: 20
-source_file: rec-from-mut.html
+source_file: dcic_orig_rec-from-mut.html
 prev: state-in-pyret.html
 up: booklet_advanced.html
 next: cycle-detection.html

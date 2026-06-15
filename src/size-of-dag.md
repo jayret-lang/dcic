@@ -1,13 +1,17 @@
 ---
 title: The Size of a DAG
 section_number: 16.2
-source_file: size-of-dag.html
+source_file: dcic_orig_size-of-dag.html
 prev: Sharing_and_Equality.html
 up: part_dags.html
 next: part_graphs.html
 ---
 
 ### The Size of a DAG {#size-of-dag}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_1%29">16.2.1<span class="hspace"> </span>Stage 1</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_2%29">16.2.2<span class="hspace"> </span>Stage 2</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_3%29">16.2.3<span class="hspace"> </span>Stage 3</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_4%29">16.2.4<span class="hspace"> </span>Stage 4</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_5%29">16.2.5<span class="hspace"> </span>Stage 5</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.What_.We~e2~80~99ve_.Learned%29">16.2.6<span class="hspace"> </span>What We’ve Learned</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.More_on_.Value_.Printing__.An_.Aside_from_.Racket%29">16.2.7<span class="hspace"> </span>More on Value Printing: An Aside from Racket</a></p></td></tr></table>
+```
 
 Let’s start by defining a function to compute the size of a tree:
 

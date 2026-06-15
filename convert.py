@@ -259,9 +259,6 @@ class Converter:
         # Tables (non-REPL, non-custom) — keep as raw HTML
         if tag.name == 'table' and 'PyretReplInteraction' not in cls \
                 and 'TwoColumn' not in cls and 'TwoColumnAsRows' not in cls:
-            # Could be a sub-TOC table right after a heading — skip those
-            if self._is_toc_table(tag):
-                return ''
             return self._raw_html(tag)
 
         # Div / span containers — transparent or special
@@ -342,9 +339,6 @@ class Converter:
                     parts.append(t)
                 continue
             cls = get_classes(child)
-            # Skip the mini sub-TOC table that appears right after a heading
-            if child.name == 'table' and self._is_toc_table(child):
-                continue
             result = self.convert(child)
             if result.strip():
                 parts.append(result)

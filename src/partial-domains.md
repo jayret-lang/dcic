@@ -1,13 +1,17 @@
 ---
 title: Partial Domains
 section_number: 23
-source_file: partial-domains.html
+source_file: dcic_orig_partial-domains.html
 prev: avoid-recomp.html
 up: booklet_advanced.html
 next: staging.html
 ---
 
 ## Partial Domains {#partial-domains}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-sentinel%29">23.1<span class="hspace"> </span>A Non-Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-exceptions%29">23.2<span class="hspace"> </span>Exceptions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-option%29">23.3<span class="hspace"> </span>The Option Type</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-total-dyn%29">23.4<span class="hspace"> </span>Total Domains, Dynamically</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-total-static%29">23.5<span class="hspace"> </span>Total Domains, Statically</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-summary%29">23.6<span class="hspace"> </span>Summary</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-pyret-list-constr%29">23.7<span class="hspace"> </span>A Note on Notation</a></p></td></tr></table>
+```
 
 Sometimes, we cannot precisely capture the domain of a function with the
 precision we would like. In mathematics, if a function cannot accept all values

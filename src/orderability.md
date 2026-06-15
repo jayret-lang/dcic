@@ -1,13 +1,17 @@
 ---
 title: Equality, Ordering, and Hashing
 section_number: 18.5
-source_file: orderability.html
+source_file: dcic_orig_orderability.html
 prev: hash-set-kv.html
 up: part_sets.html
 next: sets-case-study.html
 ---
 
 ### Equality, Ordering, and Hashing {#orderability}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="orderability.html#%28part._hashing-values%29">18.5.1<span class="hspace"> </span>Converting Values to Ordered Values</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="orderability.html#%28part._hash-in-practice%29">18.5.2<span class="hspace"> </span>Hashing in Practice</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="orderability.html#%28part._eq-ord%29">18.5.3<span class="hspace"> </span>Equality and Ordering</a></p></td></tr></table>
+```
 
 #### Converting Values to Ordered Values {#hashing-values}
 

@@ -1,13 +1,17 @@
 ---
 title: Detecting Cycles
 section_number: 21
-source_file: cycle-detection.html
+source_file: dcic_orig_cycle-detection.html
 prev: rec-from-mut.html
 up: booklet_advanced.html
 next: avoid-recomp.html
 ---
 
 ## Detecting Cycles {#cycle-detection}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.A_.Running_.Example%29">21.1<span class="hspace"> </span>A Running Example</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.Types%29">21.2<span class="hspace"> </span>Types</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.A_.First_.Checker%29">21.3<span class="hspace"> </span>A First Checker</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._cyc-det-comp%29">21.4<span class="hspace"> </span>Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.A_.Fabulous_.Improvement%29">21.5<span class="hspace"> </span>A Fabulous Improvement</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.Testing%29">21.6<span class="hspace"> </span>Testing</a></p></td></tr></table>
+```
 
 ### A Running Example {#A-Running-Example}
 

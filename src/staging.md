@@ -1,13 +1,17 @@
 ---
 title: Staging
 section_number: 24
-source_file: staging.html
+source_file: dcic_orig_staging.html
 prev: partial-domains.html
 up: booklet_advanced.html
 next: factoring-numbers.html
 ---
 
 ## Staging {#staging}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Problem_.Definition%29">24.1<span class="hspace"> </span>Problem Definition</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Initial_.Solution%29">24.2<span class="hspace"> </span>Initial Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Refactoring%29">24.3<span class="hspace"> </span>Refactoring</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Separating_.Parameters%29">24.4<span class="hspace"> </span>Separating Parameters</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Context%29">24.5<span class="hspace"> </span>Context</a></p></td></tr></table>
+```
 
 ### Problem Definition {#Problem-Definition}
 

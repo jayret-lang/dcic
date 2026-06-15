@@ -1,13 +1,17 @@
 ---
 title: Understanding Equality
 section_number: 12.2
-source_file: unified-equality.html
+source_file: dcic_orig_unified-equality.html
 prev: mutating-structures.html
 up: part_state.html
 next: unified-lists-memory.html
 ---
 
 ### Understanding Equality {#unified-equality}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._equality-of-data%29">12.2.1<span class="hspace"> </span>Equality of Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._equality-operations%29">12.2.2<span class="hspace"> </span>Different Equality Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._.Equality_in_.Python%29">12.2.2.1<span class="hspace"> </span>Equality in Python</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._.Equality_in_.Pyret%29">12.2.2.2<span class="hspace"> </span>Equality in Pyret</a></p></td></tr></table>
+```
 
 #### Equality of Data {#equality-of-data}
 

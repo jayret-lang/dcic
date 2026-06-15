@@ -1,7 +1,7 @@
 ---
 title: Introduction
 section_number: I
-source_file: booklet_intro.html
+source_file: dcic_orig_booklet_intro.html
 prev: index.html
 up: index.html
 next: booklet_intro-to-programming.html
@@ -10,6 +10,10 @@ next: booklet_intro-to-programming.html
 ## Introduction {#booklet-intro}
 
 ## Overview {#Overview}
+
+```{=html}
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.What_.This_.Book_is_.About%29">1.1<span class="hspace"> </span>What This Book is About</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.The_.Values_.That_.Drive_.This_.Book%29">1.2<span class="hspace"> </span>The Values That Drive This Book</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Our_.Perspective_on_.Data%29">1.3<span class="hspace"> </span>Our Perspective on Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.What_.Makes_.This_.Book_.Unique%29">1.4<span class="hspace"> </span>What Makes This Book Unique</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Who_.This_.Book_is_.For%29">1.5<span class="hspace"> </span>Who This Book is For</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._book-style%29">1.6<span class="hspace"> </span>The Structure of This Book</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._book-org%29">1.7<span class="hspace"> </span>Organization of the Material</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Our_.Programming_.Language_.Choice%29">1.8<span class="hspace"> </span>Our Programming Language Choice</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Programming_.Tools%29">1.9<span class="hspace"> </span>Programming Tools</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Sending_.Us_.Feedback__.Errors__and_.Comments%29">1.10<span class="hspace"> </span>Sending Us Feedback, Errors, and Comments</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Staying_.Up-.To-.Date%29">1.11<span class="hspace"> </span>Staying Up-To-Date</a></p></td></tr></table>
+```
 
 ### What This Book is About {#What-This-Book-is-About}
 

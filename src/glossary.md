@@ -1,7 +1,7 @@
 ---
 title: Glossary
 section_number: 32
-source_file: glossary.html
+source_file: dcic_orig_glossary.html
 prev: Release_Notes.html
 up: booklet_appendices.html
 ---
