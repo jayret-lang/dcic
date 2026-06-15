@@ -9,7 +9,9 @@ booklets:
     number: "I"
     title: "Introduction"
     file: booklet_intro.html
-    chapters: []   # booklet_intro has no sub-chapters in the HTML set
+    chapters:
+      - { number: "1", title: "Overview",         file: booklet_intro.html, sections: [] }
+      - { number: "2", title: "Acknowledgments",  file: booklet_intro.html, sections: [] }
 
   - id: intro-to-programming
     number: "II"

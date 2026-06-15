@@ -48,6 +48,10 @@ def flat_file_list(book):
         }
         entries.append(bl)
         for ch in booklet.get('chapters', []):
+            # Skip chapters that live in the same file as the booklet
+            # (e.g. booklet_intro sections — in-page anchors, not separate files)
+            if ch['file'] == booklet['file']:
+                continue
             ch_entry = {
                 'file':   ch['file'],
                 'title':  ch['title'],
@@ -144,7 +148,10 @@ def build_tocset_html(current_file, book, flat, nav_index):
         )
         toc_id += 1
         for ch in current_booklet.get('chapters', []):
-            ch_class = 'tocviewselflink' if ch['file'] == current_file else 'tocviewlink'
+            # Same-file chapters are never "self" — they're all on the current page
+            same_file = ch['file'] == current_booklet['file']
+            ch_class = 'tocviewlink' if same_file else \
+                       ('tocviewselflink' if ch['file'] == current_file else 'tocviewlink')
             lines.append(
                 f'<tr><td align="right">{esc(ch["number"])}&nbsp;</td>'
                 f'<td><a href="{esc(ch["file"])}" class="{ch_class}" data-pltdoc="x">'
@@ -153,8 +160,11 @@ def build_tocset_html(current_file, book, flat, nav_index):
         lines.append('</table></div></div>')
 
         # --- Current chapter section list ---
+        # Skip "inline" chapters (same file as booklet) — they have no sub-panel.
         current_chapter = None
         for ch in current_booklet.get('chapters', []):
+            if ch['file'] == current_booklet['file']:
+                continue
             if ch['file'] == current_file or any(
                 s['file'] == current_file for s in ch.get('sections', [])
             ):
