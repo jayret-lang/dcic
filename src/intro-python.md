@@ -1,13 +1,13 @@
 ---
 title: From Pyret to Python
 section_number: 9.1
-source_file: dcic_orig_intro-python.html
+source_file: intro-python.html
 prev: part_pyret-to-python.html
 up: part_pyret-to-python.html
 next: dictionaries.html
 ---
 
-### From Pyret to Python {#intro-python}
+### 9.1 From Pyret to Python {#intro-python}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Expressions__.Functions__and_.Types%29">9.1.1<span class="hspace"> </span>Expressions, Functions, and Types</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Returning_.Values_from_.Functions%29">9.1.2<span class="hspace"> </span>Returning Values from Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._testing-python%29">9.1.3<span class="hspace"> </span>Examples and Test Cases</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.An_.Aside_on_.Numbers%29">9.1.4<span class="hspace"> </span>An Aside on Numbers</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._conditionals-python%29">9.1.5<span class="hspace"> </span>Conditionals</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._python-create-process-lists%29">9.1.6<span class="hspace"> </span>Creating and Processing
@@ -44,7 +44,7 @@ Python that you haven’t seen in Pyret. [A future release will contain material
 We highlight the basic notational differences between Pyret and Python
 by redoing some of our earlier code examples in Python.
 
-#### Expressions, Functions, and Types {#Expressions-Functions-and-Types}
+#### 9.1.1 Expressions, Functions, and Types {#Expressions-Functions-and-Types}
 
 Back in [Functions Practice: Cost of pens](From_Repeated_Expressions_to_Functions.html##pen-cost-pyret), we introduced the notation for functions and types
 using an example of computing the cost of an order of pens. An order
@@ -115,7 +115,7 @@ end
 ```
 :::
 
-#### Returning Values from Functions {#Returning-Values-from-Functions}
+#### 9.1.2 Returning Values from Functions {#Returning-Values-from-Functions}
 
 In Pyret, a function body consisted of optional statements to name
 intermediate values, followed by a single expression. The value of
@@ -168,7 +168,7 @@ without it, no value is returned, which means you can’t use the result
 of a function within another expression. So what use is
 `add1v2`{.python} then? Hold that question; we’ll return to it in [Mutating Variables](mutating-variables.html).
 
-#### Examples and Test Cases {#testing-python}
+#### 9.1.3 Examples and Test Cases {#testing-python}
 
 In Pyret, we included examples with every function using `where:`{.pyret}
 blocks. We also had the ability to write `check:`{.pyret} blocks for more
@@ -242,7 +242,7 @@ Whoa! Something weird happened: the test failed. Stop and think
 about that: the same test that worked in Pyret failed in
 Python. How can that be?
 
-#### An Aside on Numbers {#An-Aside-on-Numbers}
+#### 9.1.4 An Aside on Numbers {#An-Aside-on-Numbers}
 
 It turns out that different programming languages make different
 decisions about how to represent and manage real (non-integer)
@@ -330,7 +330,7 @@ indicate that we’ll accept any answer that is nearly the value we
 specified. You can control the number of decimal points of precision
 if you want to, but the default of `± 2.3e-06`{.pyret} often suffices.
 
-#### Conditionals {#conditionals-python}
+#### 9.1.5 Conditionals {#conditionals-python}
 
 Continuing with our original `pen_cost`{.python} example, here’s the
 Python version of the function that computed shipping costs on an
@@ -367,7 +367,7 @@ text. The same principle holds for ending conditionals.
 We’ll return to this point about indentation, and see more examples,
 as we work more with Python.
 
-#### Creating and Processing Lists {#python-create-process-lists}
+#### 9.1.6 Creating and Processing Lists {#python-create-process-lists}
 
 As an example of lists, let’s assume we’ve been playing a game that
 involves making words out of a collection of letters. In Pyret, we
@@ -386,7 +386,7 @@ words = ["banana", "bean", "falafel", "leaf"]
 The only difference here is that Python does not use the `list:`{.pyret}
 label that is needed in Pyret.
 
-##### Filters, Maps, and Friends {#Filters-Maps-and-Friends}
+##### 9.1.6.1 Filters, Maps, and Friends {#Filters-Maps-and-Friends}
 
 When we first learned about lists in Pyret, we started with common
 built-in functions such as `filter`{.pyret}, `map`{.pyret}, `member`{.pyret}
@@ -444,7 +444,7 @@ recursive functions to process lists in Pyret, a different style of
 program is more conventional for that purpose. We’ll look at that in
 the chapter on [Mutating Variables](mutating-variables.html).
 
-#### Data with Components {#python-data-with-components}
+#### 9.1.7 Data with Components {#python-data-with-components}
 
 An analog to a Pyret data definition (without variants) is called a dataclass in
 Python.[Those experienced with Python may wonder why we are
@@ -501,7 +501,7 @@ Things to note:
   variants, like we did frequently in Pyret. Doing that needs more
   advanced concepts than we will cover in this book.
 
-##### Accessing Fields within Dataclasses {#Accessing-Fields-within-Dataclasses}
+##### 9.1.7.1 Accessing Fields within Dataclasses {#Accessing-Fields-within-Dataclasses}
 
 In Pyret, we extracted a field from structured data by using a dot
 (period) to “dig into” the datum and access the field. The same
@@ -522,9 +522,9 @@ travel.descr
 ```
 :::
 
-#### Traversing Lists {#python-traverse-lists}
+#### 9.1.8 Traversing Lists {#python-traverse-lists}
 
-##### Introducing For Loops {#python-for-loops}
+##### 9.1.8.1 Introducing For Loops {#python-for-loops}
 
 In Pyret, we typically write recursive functions to compute summary values over
 lists. As a reminder, here’s a Pyret function that sums the numbers in
@@ -653,7 +653,7 @@ Here are some things to notice about the two pieces of code:
   list, the Python version returns the value in the variable as the
   result of the function.
 
-##### An Aside on Order of Processing List Elements {#An-Aside-on-Order-of-Processing-List-Elements}
+##### 9.1.8.2 An Aside on Order of Processing List Elements {#An-Aside-on-Order-of-Processing-List-Elements}
 
 There’s another subtlety here if we consider how the two programs run:
 the Python version sums the elements from left to right, whereas
@@ -693,7 +693,7 @@ the two versions because the sum is the same whether we compute it
 left-to-right or right-to-left. In other functions we write, this
 difference may start to matter.
 
-##### Using For Loops in Functions that Produce Lists {#python-funcs-produce-lists}
+##### 9.1.8.3 Using For Loops in Functions that Produce Lists {#python-funcs-produce-lists}
 
 Let’s practice using `for`{.python} loops on another function that
 traverses lists, this time one that produces a list. Specifically,
@@ -736,7 +736,7 @@ Contrast these two versions and the corresponding tests. Did you
 notice anything interesting?
 :::
 
-##### Summary: The List-Processing Template for Python {#Summary-The-List-Processing-Template-for-Python}
+##### 9.1.8.4 Summary: The List-Processing Template for Python {#Summary-The-List-Processing-Template-for-Python}
 
 Just as we had a template for writing list-processing functions in
 Pyret, there is a corresponding template in Python based on
@@ -754,7 +754,7 @@ def func(lst: list):
 Keep this template in mind as you learn to write functions over lists
 in Python.
 
-##### for each loops in Pyret {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-loops-in-Pyret}
+##### 9.1.8.5 for each loops in Pyret {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-loops-in-Pyret}
 
 [This section can be read
 without reading the rest of this chapter, so if you have been directed to it
@@ -779,7 +779,7 @@ end
 There are a few new language features used in this example, introduced in the
 following several sections.
 
-##### Variables that can change {#Variables-that-can-change}
+##### 9.1.8.5.1 Variables that can change {#Variables-that-can-change}
 
 First, note that we introduce the variable `result`{.pyret} with `var result`{.pyret}
 – this means that it can vary, which is important for the use with
@@ -810,7 +810,7 @@ Note that trying to use `:=`{.pyret} on a variable that was not declared using
 `var`{.pyret} will produce an error, and variables can still only ever be declared
 once (whether with `var x = ...`{.pyret} or `x = ...`{.pyret}).
 
-##### block notation {#block-notation}
+##### 9.1.8.5.2 block notation {#block-notation}
 
 Another new language feature shown in these examples is that since Pyret
 functions by default expect only a single (non-definition) expression, we have
@@ -853,7 +853,7 @@ fun my-function() block:
 end
 ```
 
-##### How for each works {#How-struct-traverse-element-procedure-lib-render-cond-rkt-38-12-works}
+##### 9.1.8.5.3 How for each works {#How-struct-traverse-element-procedure-lib-render-cond-rkt-38-12-works}
 
 A `for each`{.pyret} expression runs its body once for each element in the input
 list, adding an entry to the program directory for each element as it goes. It
@@ -893,7 +893,7 @@ run_total = run_total + 7
 run_total = run_total + 3
 ```
 
-##### Testing and variables that can change {#Testing-and-variables-that-can-change}
+##### 9.1.8.5.4 Testing and variables that can change {#Testing-and-variables-that-can-change}
 
 We intentionally showed a very particular pattern of using variables that can
 change. While there are other uses (explored in part in

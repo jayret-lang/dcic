@@ -1,19 +1,19 @@
 ---
 title: Staging
 section_number: 24
-source_file: dcic_orig_staging.html
+source_file: staging.html
 prev: partial-domains.html
 up: booklet_advanced.html
 next: factoring-numbers.html
 ---
 
-## Staging {#staging}
+## 24 Staging {#staging}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Problem_.Definition%29">24.1<span class="hspace"> </span>Problem Definition</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Initial_.Solution%29">24.2<span class="hspace"> </span>Initial Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Refactoring%29">24.3<span class="hspace"> </span>Refactoring</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Separating_.Parameters%29">24.4<span class="hspace"> </span>Separating Parameters</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Context%29">24.5<span class="hspace"> </span>Context</a></p></td></tr></table>
 ```
 
-### Problem Definition {#Problem-Definition}
+### 24.1 Problem Definition {#Problem-Definition}
 
 Earlier, we saw a detailed development of binary trees representing ancestry
 [[Creating a Datatype for Ancestor Trees](trees.html##ancestor-tree)]. In what follows we don’t need a lot of detail, so
@@ -59,7 +59,7 @@ It takes a tree in which to search, a name to search for, and returns a count.
 Define `how-many-named`{.pyret}.
 :::
 
-### Initial Solution {#Initial-Solution}
+### 24.2 Initial Solution {#Initial-Solution}
 
 Presumably you ended up with something like this:
 
@@ -96,7 +96,7 @@ check:
 end
 ```
 
-### Refactoring {#Refactoring}
+### 24.3 Refactoring {#Refactoring}
 
 Now let’s apply some transformations, sometimes called code refactorings,
 to this function.
@@ -205,7 +205,7 @@ end
 and the example reads `how-many-named("A", p)`{.pyret}
 instead.
 
-### Separating Parameters {#Separating-Parameters}
+### 24.4 Separating Parameters {#Separating-Parameters}
 
 This sets us up for the next stage. The parameters of functions are meant to
 indicate what might vary in a function. Because the name we’re looking for is a
@@ -314,7 +314,7 @@ returns a function, and the way we apply a function to arguments is
 how-many-named("A")(p) is 3
 ```
 
-### Context {#Context}
+### 24.5 Context {#Context}
 
 The transformation we just applied is generally called currying, in honor
 of Haskell Curry, who was one of the early people to describe it, though it was

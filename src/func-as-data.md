@@ -1,13 +1,13 @@
 ---
 title: Functions as Data
 section_number: 8.1
-source_file: dcic_orig_func-as-data.html
+source_file: func-as-data.html
 prev: part_bonus-foundations.html
 up: part_bonus-foundations.html
 next: queues-from-lists.html
 ---
 
-### Functions as Data {#func-as-data}
+### 8.1 Functions as Data {#func-as-data}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="func-as-data.html#%28part._fd-calculus%29">8.1.1<span class="hspace"> </span>A Little Calculus</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="func-as-data.html#%28part._lam-shorthand%29">8.1.2<span class="hspace"> </span>A Helpful Shorthand for Anonymous Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="func-as-data.html#%28part._streams-from-funs%29">8.1.3<span class="hspace"> </span>Streams From Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="func-as-data.html#%28part._d-dx-streams%29">8.1.4<span class="hspace"> </span>Combining Forces: Streams of Derivatives</a></p></td></tr></table>
@@ -19,7 +19,7 @@ few exercises of interesting concepts we can express using just
 functions as values. We’ll write two quite different things, then show
 how they converge nicely.
 
-#### A Little Calculus {#fd-calculus}
+#### 8.1.1 A Little Calculus {#fd-calculus}
 
 If you’ve studied the differential calculus, you’ve come across
 curious sytactic statements such as this:
@@ -164,7 +164,7 @@ d-dx(lam(x): x * x end) = lam(x): 2 * x end
 or, in the notation of [A Notation for Functions](predicting-growth.html##math-anon-functions),
 \begin{equation*}{\frac{d}{dx}} [x \rightarrow x^2] = [x \rightarrow 2x]\end{equation*}Pity math textbooks for not wanting to tell us the truth!
 
-#### A Helpful Shorthand for Anonymous Functions {#lam-shorthand}
+#### 8.1.2 A Helpful Shorthand for Anonymous Functions {#lam-shorthand}
 
 Pyret offers a shorter syntax for writing anonymous functions. Though,
 stylistically, we generally avoid it so that our programs don’t become
@@ -195,7 +195,7 @@ because the prominent `lam`{.pyret} makes clear that `d-dx`{.pyret} returns
 an (anonymous) function, whereas this syntax obscures it. Therefore,
 we will usually only use this shorthand syntax for “one-liners”.
 
-#### Streams From Functions {#streams-from-funs}
+#### 8.1.3 Streams From Functions {#streams-from-funs}
 
 People typically think of a function as serving one purpose: to
 parameterize an expression. While that is both true and the most
@@ -470,7 +470,7 @@ by default. In such a language, there is no need to use
 thunks. However, lazy evaluation places other burdens on the language,
 which you can learn about in a programming-languages class.
 
-#### Combining Forces: Streams of Derivatives {#d-dx-streams}
+#### 8.1.4 Combining Forces: Streams of Derivatives {#d-dx-streams}
 
 When we defined `d-dx`{.pyret}, we set `epsilon`{.pyret} to an arbitrary, high
 value. We could instead think of `epsilon`{.pyret} as itself a stream that

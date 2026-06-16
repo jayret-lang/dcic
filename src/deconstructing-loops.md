@@ -1,19 +1,19 @@
 ---
 title: Deconstructing Loops
 section_number: 26
-source_file: dcic_orig_deconstructing-loops.html
+source_file: deconstructing-loops.html
 prev: factoring-numbers.html
 up: booklet_advanced.html
 next: booklet_interaction.html
 ---
 
-## Deconstructing Loops {#deconstructing-loops}
+## 26 Deconstructing Loops {#deconstructing-loops}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Setup__.Two_.Functions%29">26.1<span class="hspace"> </span>Setup: Two Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Abstracting_a_.Loop%29">26.2<span class="hspace"> </span>Abstracting a Loop</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Is_.It_.Really_a_.Loop_%29">26.3<span class="hspace"> </span>Is It Really a Loop?</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Re-.Examining___struct_traverse-element___procedure____lib_render-cond_rkt_38_12__%29">26.4<span class="hspace"> </span>Re-Examining <span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">for</code></span></a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Rewriting_.Pollard-.Rho%29">26.5<span class="hspace"> </span>Rewriting Pollard-Rho</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Nested_.Loops%29">26.6<span class="hspace"> </span>Nested Loops</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Loops__.Values__and_.Customization%29">26.7<span class="hspace"> </span>Loops, Values, and Customization</a></p></td></tr></table>
 ```
 
-### Setup: Two Functions {#Setup-Two-Functions}
+### 26.1 Setup: Two Functions {#Setup-Two-Functions}
 
 Let’s look at two functions we wrote earlier in [Factoring Numbers](factoring-numbers.html):
 
@@ -70,7 +70,7 @@ check:
 end
 ```
 
-### Abstracting a Loop {#Abstracting-a-Loop}
+### 26.2 Abstracting a Loop {#Abstracting-a-Loop}
 
 Now let’s think about how we can create a loop. At each iteration, a
 loop has a status: whether it’s done or whether it should
@@ -176,7 +176,7 @@ end
 ```
 and now closely resembles a traditional “loop” program.
 
-### Is It Really a Loop? {#Is-It-Really-a-Loop}
+### 26.3 Is It Really a Loop? {#Is-It-Really-a-Loop}
 
 This whole section should be considered an aside for people with more
 advanced computing knowledge.
@@ -199,7 +199,7 @@ take any extra stack space. In principle, Pyret can also turn some
 tail calls into jumps. Therefore, this version has close to the same
 performance as a traditional loop.
 
-### Re-Examining for {#Re-Examining-struct-traverse-element-procedure-lib-render-cond-rkt-38-12}
+### 26.4 Re-Examining for {#Re-Examining-struct-traverse-element-procedure-lib-render-cond-rkt-38-12}
 
 The definition of `for`{.pyret} given above should make you suspicious:
 Where’s the loop?!? In fact, Pyret’s `for`{.pyret} does not do any
@@ -249,7 +249,7 @@ occurs. The looping behavior is given entirely by the function
 specified after `for`{.pyret}, such as `map`{.pyret}, `filter`{.pyret}, or
 `loop-2`{.pyret} above.
 
-### Rewriting Pollard-Rho {#Rewriting-Pollard-Rho}
+### 26.5 Rewriting Pollard-Rho {#Rewriting-Pollard-Rho}
 
 Now let’s tackle Pollard-rho. Notice that it’s a three-parameter
 function, so we can’t use the `loop-2`{.pyret} we had before: that’s only
@@ -308,7 +308,7 @@ check:
 end
 ```
 
-### Nested Loops {#Nested-Loops}
+### 26.6 Nested Loops {#Nested-Loops}
 
 We can also write a nested loop this way. Suppose we have a list like
 
@@ -413,7 +413,7 @@ Arguably this makes even clearer what each element contributes. In
 number. In `sum-a-lolon`{.pyret}, each element is a list of numbers, so
 it must contribute `sum-a-lon`{.pyret} of that list.
 
-### Loops, Values, and Customization {#Loops-Values-and-Customization}
+### 26.7 Loops, Values, and Customization {#Loops-Values-and-Customization}
 
 Observe two important ways in which the loops above differ from
 traditional loops:

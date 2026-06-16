@@ -1,13 +1,13 @@
 ---
 title: Factoring Numbers
 section_number: 25
-source_file: dcic_orig_factoring-numbers.html
+source_file: factoring-numbers.html
 prev: staging.html
 up: booklet_advanced.html
 next: deconstructing-loops.html
 ---
 
-## Factoring Numbers {#factoring-numbers}
+## 25 Factoring Numbers {#factoring-numbers}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td></td></tr></table>

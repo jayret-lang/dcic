@@ -1,13 +1,13 @@
 ---
 title: Representing Sets as Lists
 section_number: 18.1
-source_file: dcic_orig_sets-from-lists.html
+source_file: sets-from-lists.html
 prev: part_sets.html
 up: part_sets.html
 next: sets-from-trees.html
 ---
 
-### Representing Sets as Lists {#sets-from-lists}
+### 18.1 Representing Sets as Lists {#sets-from-lists}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._.Representation_.Choices%29">18.1.1<span class="hspace"> </span>Representation Choices</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._.Time_.Complexity%29">18.1.2<span class="hspace"> </span>Time Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._choosing-set-reps%29">18.1.3<span class="hspace"> </span>Choosing Between Representations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._.Other_.Operations%29">18.1.4<span class="hspace"> </span>Other Operations</a></p></td></tr></table>
@@ -63,7 +63,7 @@ be done with all values (such as functions). We discuss the nuances of
 this elsewhere [[Equality and Ordering](orderability.html##eq-ord)]. For now, we can ignore these
 issues by focusing on sets of (non-rough)numbers.
 
-#### Representation Choices {#Representation-Choices}
+#### 18.1.1 Representation Choices {#Representation-Choices}
 
 The empty list can stand in for the empty set—
 
@@ -120,7 +120,7 @@ insert = link
 ```
 —and have some other procedure perform the filtering of duplicates.
 
-#### Time Complexity {#Time-Complexity}
+#### 18.1.2 Time Complexity {#Time-Complexity}
 
 What is the complexity of this representation of sets? Let’s consider
 just `insert`{.pyret}, `is-in`{.pyret}, and `size`{.pyret}.
@@ -184,7 +184,7 @@ Note that this is quadratic in the number of elements in the
 list, which may be much bigger than the size of the
 set.
 
-#### Choosing Between Representations {#choosing-set-reps}
+#### 18.1.3 Choosing Between Representations {#choosing-set-reps}
 
 Now that we have two representations with different complexities, it’s
 worth thinking about how to choose between them. To do so, let’s build
@@ -248,7 +248,7 @@ its workload and pick a representation accordingly, but maintain
 statistics as it runs and, when it finds its assumption is wrong,
 switch representations—and can do so as many times as needed.
 
-#### Other Operations {#Other-Operations}
+#### 18.1.4 Other Operations {#Other-Operations}
 
 ::: {.exercise}
 Implement the remaining operations catalogued above

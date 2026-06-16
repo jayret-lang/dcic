@@ -245,9 +245,16 @@ def build_tocset_html(current_file, book, flat, nav_index):
 
     lines.append('</div>')  # close tocview
 
-    # --- "On this page" sub-TOC panel (tocsub) is generated client-side by JS ---
-    lines.append('<div class="tocsub"><div class="tocsubtitle">On this page:</div>'
-                 '<table class="tocsublist" cellspacing="0"></table></div>')
+    # --- "On this page" sub-TOC panel (tocsub) — only on section/leaf chapter pages.
+    # The original Scribble output omits this panel on booklet and chapter-with-sections
+    # pages, where it would be empty/useless.
+    show_tocsub = current_booklet and current_chapter and (
+        (current_sec is not None) or
+        (not has_sections and current_chapter['file'] == current_file)
+    )
+    if show_tocsub:
+        lines.append('<div class="tocsub"><div class="tocsubtitle">On this page:</div>'
+                     '<table class="tocsublist" cellspacing="0"></table></div>')
 
     lines.append('</div>')  # close tocset
     return '\n'.join(lines)

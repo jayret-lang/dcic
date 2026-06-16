@@ -1,20 +1,20 @@
 ---
 title: Getting Started
 section_number: 3.1
-source_file: dcic_orig_getting-started.html
+source_file: getting-started.html
 prev: part_foundations.html
 up: part_foundations.html
 next: Naming_Values.html
 ---
 
-### Getting Started {#getting-started}
+### 3.1 Getting Started {#getting-started}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._flags-notice-wonder%29">3.1.1<span class="hspace"> </span>Motivating Example: Flags</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-numbers%29">3.1.2<span class="hspace"> </span>Numbers</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions%29">3.1.3<span class="hspace"> </span>Expressions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-terminology%29">3.1.4<span class="hspace"> </span>Terminology</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-strings%29">3.1.5<span class="hspace"> </span>Strings</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-images%29">3.1.6<span class="hspace"> </span>Images</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-combine-images%29">3.1.6.1<span class="hspace"> </span>Combining Images</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-first-flag%29">3.1.6.2<span class="hspace"> </span>Making a Flag</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._types-and-errors%29">3.1.7<span class="hspace"> </span>Stepping Back: Types, Errors, and Documentation</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-types%29">3.1.7.1<span class="hspace"> </span>Types and Contracts</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-errors%29">3.1.7.2<span class="hspace"> </span>Format and Notation Errors</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-documentation%29">3.1.7.3<span class="hspace"> </span>Finding Other
 Functions: Documentation</a></p></td></tr></table>
 ```
 
-#### Motivating Example: Flags {#flags-notice-wonder}
+#### 3.1.1 Motivating Example: Flags {#flags-notice-wonder}
 
 Imagine that you are starting a graphic design company, and want to be
 able to create images of flags of different sizes and configurations
@@ -68,7 +68,7 @@ to do to write programs to generate flags:
 
 Let’s get started!
 
-#### Numbers {#expressions-numbers}
+#### 3.1.2 Numbers {#expressions-numbers}
 
 Start simple: compute the sum of 3 and 5.
 
@@ -191,7 +191,7 @@ num-min(2, 8)
 on data other than numbers; Pyret calls the min operator `num-min`{.pyret} to
 avoid ambiguity.]{.margin-note}
 
-#### Expressions {#expressions}
+#### 3.1.3 Expressions {#expressions}
 
 Note that when we run `num-min`{.pyret}, we get a number in return (as we did
 for `+`{.pyret}, `*`{.pyret}, …). This means we should be able to use the result of
@@ -243,7 +243,7 @@ Either way, you can click on the result
 in the interactions pane to change how the number is presented. Try it!
 :::
 
-#### Terminology {#expressions-terminology}
+#### 3.1.4 Terminology {#expressions-terminology}
 
 Look at an interaction like
 
@@ -269,7 +269,7 @@ and we should give them names:
   So far, the only values we’ve seen are numbers.
 - Program: a sequence of expressions that you want to run
 
-#### Strings {#expressions-strings}
+#### 3.1.5 Strings {#expressions-strings}
 
 What if we wanted to write a program that used information other than
 numbers, such as someone’s name? For names and other text-like data,
@@ -289,7 +289,7 @@ example, we’ll use strings to name colors: `"red"`{.pyret}, `"blue"`{.pyret}, 
 Note that strings are case-sensitive, meaning that
 capitalization matters (we’ll see where it matters shortly).
 
-#### Images {#expressions-images}
+#### 3.1.6 Images {#expressions-images}
 
 We have seen two kinds of data: numbers and strings. For flags, we’ll
 also need images. Images are different from both numbers and strings
@@ -325,7 +325,7 @@ Which shapes and colors does Pyret know about? Hold this
 question for just a moment. We’ll show you how to look up information
 like this in the documentation shortly.
 
-##### Combining Images {#expressions-combine-images}
+##### 3.1.6.1 Combining Images {#expressions-combine-images}
 
 Earlier, we saw that we could use operations like `+`{.pyret} and
 `*`{.pyret} to combine numbers through expressions. Any time you get a
@@ -415,7 +415,7 @@ function only takes two images, so you’ll need to think about how to
 use composition to layer three circles.
 :::
 
-##### Making a Flag {#expressions-first-flag}
+##### 3.1.6.2 Making a Flag {#expressions-first-flag}
 
 We’re ready to make our first flag! Let’s start with the flag of
 Armenia, which has three horizontal stripes: red on top, blue in the
@@ -429,13 +429,13 @@ Armenian flag. You pick the dimensions (we recommend a width between
 Make a list of the questions and ideas that occur to you along the way.
 :::
 
-#### Stepping Back: Types, Errors, and Documentation {#types-and-errors}
+#### 3.1.7 Stepping Back: Types, Errors, and Documentation {#types-and-errors}
 
 Now that you have an idea of how to create a flag image, let’s go back
 and look a bit more carefully at two concepts that you’ve already
 encountered: types and error messages.
 
-##### Types and Contracts {#expressions-types}
+##### 3.1.7.1 Types and Contracts {#expressions-types}
 
 Now that we are composing functions to build more complicated
 expressions out of smaller ones, we will have to keep track of which
@@ -544,7 +544,7 @@ Take note
 of these so you can recognize them if they arise while you are programming.
 :::
 
-##### Format and Notation Errors {#expressions-errors}
+##### 3.1.7.2 Format and Notation Errors {#expressions-errors}
 
 We’ve just seen two different kinds of mistakes that we might make
 while programming: providing the wrong type of inputs and
@@ -592,7 +592,7 @@ your syntax is common at first. In time, you’ll internalize the
 rules. For now, don’t get discouraged if you get errors about syntax
 from Pyret. It’s all part of the learning process.
 
-##### Finding Other Functions: Documentation {#expressions-documentation}
+##### 3.1.7.3 Finding Other Functions: Documentation {#expressions-documentation}
 
 At this point, you may be wondering what else you can do with
 images. We mentioned scaling images. What other shapes might we make?

@@ -1,13 +1,13 @@
 ---
 title: Processing Tables
 section_number: 4.2
-source_file: dcic_orig_processing-tables.html
+source_file: processing-tables.html
 prev: intro-tabular-data.html
 up: part_tabular-data.html
 next: part_lists.html
 ---
 
-### Processing Tables {#processing-tables}
+### 4.2 Processing Tables {#processing-tables}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._cleaning-tables%29">4.2.1<span class="hspace"> </span>Cleaning Data Tables</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._loading-tables%29">4.2.1.1<span class="hspace"> </span>Loading Data Tables</a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._loading-tables-from-google-sheets%29">4.2.1.1.1<span class="hspace"> </span>Loading Tables from
@@ -50,9 +50,9 @@ adjusted or prepared to fit the questions we want to ask. This chapter
 looks at both steps, and the programming techniques that are helpful
 for them.
 
-#### Cleaning Data Tables {#cleaning-tables}
+#### 4.2.1 Cleaning Data Tables {#cleaning-tables}
 
-##### Loading Data Tables {#loading-tables}
+##### 4.2.1.1 Loading Data Tables {#loading-tables}
 
 The first step to working with an outside data source is to load it
 into your programming and analysis environment. Which source you use
@@ -72,7 +72,7 @@ appear to contain both numbers and strings highlight the
 differences. We discuss these nuances in separate sections for each
 kind of source file.
 
-##### Loading Tables from Google Sheets in CPO {#loading-tables-from-google-sheets}
+##### 4.2.1.1.1 Loading Tables from Google Sheets in CPO {#loading-tables-from-google-sheets}
 
 ```pyret
 include gdrive-sheets
@@ -104,7 +104,7 @@ column) is not a number. We’ll discuss how to handle this in
 [Dealing with Columns
 with Multiple Types of Data](processing-tables.html##cols-multiple-types-data).
 
-##### Loading Tables from CSV files in VSCode {#loading-tables-from-csv}
+##### 4.2.1.1.2 Loading Tables from CSV files in VSCode {#loading-tables-from-csv}
 
 We configure the `load-table`{.pyret} operation differently depending on
 whether the CSV file is on your computer or available through a URL.
@@ -159,7 +159,7 @@ resurface, however, if we try to use the column data assuming that
 they are all strings of numerals. If we notice this problem before
 loading our data, we should fix it before we proceed.
 
-##### Dealing with Columns with Multiple Types of Data {#cols-multiple-types-data}
+##### 4.2.1.1.3 Dealing with Columns with Multiple Types of Data {#cols-multiple-types-data}
 
 Well-formed data should not mix types of data within a single
 column. In some situations, we might be able to write small programs
@@ -193,7 +193,7 @@ use in the rest of this chapter.
   to end with `"events-f25.csv"`{.pyret} instead of
   `"events-orig-f25.csv"`{.pyret}.
 
-##### Dealing with Missing Entries {#missing-data}
+##### 4.2.1.2 Dealing with Missing Entries {#missing-data}
 
 When we create tables manually in Pyret, we have to provide a value
 for each cell – there’s no way to "skip" a cell. When we create
@@ -346,7 +346,7 @@ well as the option to use (or not) sanitizers at all.
 Rule of thumb: when you load a table, use a sanitizer to guard against
 errors in case the original sheet is missing data in some cells.
 
-##### Normalizing Data {#Normalizing-Data}
+##### 4.2.1.3 Normalizing Data {#Normalizing-Data}
 
 Next, let’s look at the `"Discount Code"`{.pyret} column. Our goal is to be
 able to accurately answer the question "How many orders were placing
@@ -496,7 +496,7 @@ within a larger table), but there must have been a cell of the source
 data with a string of blanks, rather than missing
 content. How do we approach normalization to avoid missing cases like this?
 
-##### Normalization, Systematically {#Normalization-Systematically}
+##### 4.2.1.4 Normalization, Systematically {#Normalization-Systematically}
 
 As the previous example showed, we need a way to think through potential
 normalizations systematically. Our initial discussion of writing
@@ -570,7 +570,7 @@ containing only spaces were also converted to `"none"`{.pyret}? (Hint:
 look for `string-replace`{.pyret} in the strings library.)
 :::
 
-##### Using Programs to Detect Data Errors {#Using-Programs-to-Detect-Data-Errors}
+##### 4.2.1.5 Using Programs to Detect Data Errors {#Using-Programs-to-Detect-Data-Errors}
 
 Sometimes, we also look for errors by writing functions to check
 whether a table contains unexpected values. Let’s consider the
@@ -600,7 +600,7 @@ email addresses corrected. The point here is that programs are often
 helpful for finding data that need correcting, even if a program
 can’t be written to perform the fixing.
 
-#### Task Plans {#task-plans}
+#### 4.2.2 Task Plans {#task-plans}
 
 Before we move on, it’s worth stepping back to reflect on our process
 for producing the discount-summary table. We started from a concrete
@@ -697,7 +697,7 @@ the core idea is the same: use concrete examples to help identify the
 intermediate computations that will need, then convert those
 intermediate computations to code after or as you figure them out.
 
-#### Preparing Data Tables {#preparing-tables}
+#### 4.2.3 Preparing Data Tables {#preparing-tables}
 
 Sometimes, the data we have is clean (in that we’ve normalized the
 data and dealt with errors), but it still isn’t in a format that we
@@ -708,7 +708,7 @@ order, but not an explicit label on the scale of that order. If we
 wanted to produce some sort of chart showing our order scales, we will
 need to make those labels explicit.
 
-##### Creating bins {#creating-bins}
+##### 4.2.3.1 Creating bins {#creating-bins}
 
 The act of reducing one set of values (such as the `tickcounts`{.pyret} values) into a
 smaller set of categories (such as small/medium/large for orders, or
@@ -734,7 +734,7 @@ order-bin-data =
   build-column(cleaned-event-data, "order-scale", order-scale-label)
 ```
 
-##### Splitting Columns {#splitting-columns}
+##### 4.2.3.2 Splitting Columns {#splitting-columns}
 
 The events table currently uses a single string to represent the name
 of a person. This single string is not useful if we want to sort data
@@ -802,7 +802,7 @@ string-split(name-string, " ").get(1)  # get last name
 ```
 :::
 
-#### Managing and Naming Data Tables {#naming-tables}
+#### 4.2.4 Managing and Naming Data Tables {#naming-tables}
 
 At this point, we have worked with several versions of the events
 table:
@@ -857,7 +857,7 @@ multiple data-analyses, developing a consistent strategy for how you
 name your tables will likely help you better manage your code as you
 switch between projects.
 
-#### Visualizations and Plots {#visualizing-tables}
+#### 4.2.5 Visualizations and Plots {#visualizing-tables}
 
 Now that our data are cleaned and prepared, we are ready to analyze
 it. What might we want to know? Perhaps we want to know which discount
@@ -936,7 +936,7 @@ make sense. In larger datasets, manually inspecting all of the data is
 often infeasible. But creating some plots or other summaries of the
 data is also useful for identifying errors.
 
-#### Summary: Managing a Data Analysis {#Summary-Managing-a-Data-Analysis}
+#### 4.2.6 Summary: Managing a Data Analysis {#Summary-Managing-a-Data-Analysis}
 
 This chapter has given you a high-level overview of how to use coding
 for managing and processing data. When doing any data analysis, a

@@ -1,13 +1,13 @@
 ---
 title: Hashes, Sets, and Key-Values
 section_number: 18.4
-source_file: dcic_orig_hash-set-kv.html
+source_file: hash-set-kv.html
 prev: union-find.html
 up: part_sets.html
 next: orderability.html
 ---
 
-### Hashes, Sets, and Key-Values {#hash-set-kv}
+### 18.4 Hashes, Sets, and Key-Values {#hash-set-kv}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._hash-string%29">18.4.1<span class="hspace"> </span>A Hash Function for Strings</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Sets_from_.Hashing%29">18.4.2<span class="hspace"> </span>Sets from Hashing</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Arrays%29">18.4.3<span class="hspace"> </span>Arrays</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._hash-tables%29">18.4.4<span class="hspace"> </span>Sets from Hashing and Arrays</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Collisions%29">18.4.5<span class="hspace"> </span>Collisions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Resolving_.Collisions%29">18.4.6<span class="hspace"> </span>Resolving Collisions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._hash-comp%29">18.4.7<span class="hspace"> </span>Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._bloom-filters%29">18.4.8<span class="hspace"> </span>Bloom Filters</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Generalizing_from_.Sets_to_.Key-.Values%29">18.4.9<span class="hspace"> </span>Generalizing from Sets to Key-Values</a></p></td></tr></table>
@@ -25,7 +25,7 @@ will use it to construct sets in a very different way.
 We will then generalize sets to another important data
 structure: key-value repositories. But first…
 
-#### A Hash Function for Strings {#hash-string}
+#### 18.4.1 A Hash Function for Strings {#hash-string}
 
 As we have seen in [Converting Values to Ordered Values](orderability.html##hashing-values), we have multiple
 strategies for converting arbitrary values into numbers, which we will
@@ -41,7 +41,7 @@ when built-in hashing does not suffice, we do write (more complex
 versions of) functions like it. And finally, because it’s all laid
 bare, it’s easy for us to experiment with.
 
-#### Sets from Hashing {#Sets-from-Hashing}
+#### 18.4.2 Sets from Hashing {#Sets-from-Hashing}
 
 Suppose we are given a set of strings. We can hash each element of
 that set. Each string is now mapped to a number. Each of these numbers
@@ -75,7 +75,7 @@ they both require at least some amount of (non-constant) traversal to
 get to an arbitrary element. Instead we need a different data
 structure…
 
-#### Arrays {#Arrays}
+#### 18.4.3 Arrays {#Arrays}
 
 Arrays are another linear data structure, like lists. There are two
 key differences between lists and arrays that reflect each one’s
@@ -100,7 +100,7 @@ While not necessary in principle, it is conventional to think of
 arrays as data structures that support mutation, and that is how we
 will use them here.
 
-#### Sets from Hashing and Arrays {#hash-tables}
+#### 18.4.4 Sets from Hashing and Arrays {#hash-tables}
 
 Okay, so now we have a strategy. When we want to insert a string into
 the set, we compute its hash, go to the corresponding location in the
@@ -130,7 +130,7 @@ Observe that if this were to work, we would have constant time
 insertion and membership checking. Unfortunately, two things make this
 plan untenable in general.
 
-#### Collisions {#Collisions}
+#### 18.4.5 Collisions {#Collisions}
 
 First, our choice of hash function. For the above scheme to work, two
 different strings have to map to two different locations.
@@ -253,7 +253,7 @@ collisions: the remainder computation. If we have 10 buckets, then the
 hashes 5, 15, 25, 35, … all refer to the same bucket. Thus, there are
 two sources of collision, and we have to deal with them both.
 
-#### Resolving Collisions {#Resolving-Collisions}
+#### 18.4.6 Resolving Collisions {#Resolving-Collisions}
 
 Surprisingly or disappointingly, we have a very simple solution to the
 collision problems. Each bucket is not a single Boolean value, but
@@ -304,7 +304,7 @@ check:
 end
 ```
 
-#### Complexity {#hash-comp}
+#### 18.4.7 Complexity {#hash-comp}
 
 Now we have yet another working implementation for (some primitives
 of) sets. The use of arrays supposedly enables us to get constant-time
@@ -349,7 +349,7 @@ cases—depending on the nature of the data and parameters set for the
 array—they can be much closer to constant time. As a result, they
 tend to be very popular in practice.
 
-#### Bloom Filters {#bloom-filters}
+#### 18.4.8 Bloom Filters {#bloom-filters}
 
 Another way to improve the space and time complexity is to relax the
 properties we expect of the operations. Right now, set membership
@@ -442,7 +442,7 @@ bound of error, we can design hash table sizes so that with high
 probability, the Bloom Filter will lie within the acceptable error
 bounds.
 
-#### Generalizing from Sets to Key-Values {#Generalizing-from-Sets-to-Key-Values}
+#### 18.4.9 Generalizing from Sets to Key-Values {#Generalizing-from-Sets-to-Key-Values}
 
 Above, we focused on sets: that is, a string effectively mapped to a
 Boolean value, indicating whether it was present or not. However,

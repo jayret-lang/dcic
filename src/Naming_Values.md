@@ -1,20 +1,20 @@
 ---
 title: Naming Values
 section_number: 3.2
-source_file: dcic_orig_Naming_Values.html
+source_file: Naming_Values.html
 prev: getting-started.html
 up: part_foundations.html
 next: From_Repeated_Expressions_to_Functions.html
 ---
 
-### Naming Values {#Naming-Values}
+### 3.2 Naming Values {#Naming-Values}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-defns-pane%29">3.2.1<span class="hspace"> </span>The Definitions Pane</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-name-vals%29">3.2.2<span class="hspace"> </span>Naming Values</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-strings%29">3.2.2.1<span class="hspace"> </span>Names Versus Strings</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-expr-statements%29">3.2.2.2<span class="hspace"> </span>Expressions versus
 Statements</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._program-directory%29">3.2.3<span class="hspace"> </span>The Program Directory</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._.Understanding_the_.Run_.Button%29">3.2.3.1<span class="hspace"> </span>Understanding the Run Button</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-for-images%29">3.2.4<span class="hspace"> </span>Using Names to Streamline Building Images</a></p></td></tr></table>
 ```
 
-#### The Definitions Pane {#naming-defns-pane}
+#### 3.2.1 The Definitions Pane {#naming-defns-pane}
 
 So far, we have only used the interactions pane on the right half of
 the CPO screen. As we have seen, this pane acts like a calculator:
@@ -26,7 +26,7 @@ you can put code that you want
 to save to a file. It has another use, too:
 it can help you organize your code as your expressions get larger.
 
-#### Naming Values {#naming-name-vals}
+#### 3.2.2 Naming Values {#naming-name-vals}
 
 The expressions that create images involve a bit of typing. It would
 be nice to have shorthands so we can “name” images and refer to them
@@ -70,7 +70,7 @@ CPO (and indeed many programming tools) use the phrase “unbound identifier”
 when an expression contains a name that has not been associated with
 (or bound to) a value.
 
-##### Names Versus Strings {#naming-strings}
+##### 3.2.2.1 Names Versus Strings {#naming-strings}
 
 At this point, we have seen words being used in two ways in
 programming: (1) as data within strings and (2) as names for
@@ -107,7 +107,7 @@ now, remember that the names you associate with values using `=`{.pyret}
 cannot contain quotation marks, while word- or text-based data must
 be wrapped in double quotes.
 
-##### Expressions versus Statements {#naming-expr-statements}
+##### 3.2.2.2 Expressions versus Statements {#naming-expr-statements}
 
 Definitions and expressions are two useful aspects of programs, each
 with their own role. Definitions tell Pyret to associate names with
@@ -150,7 +150,7 @@ value while the other does not. But surely something must
 happen, somewhere, when you run a definition. Otherwise, how
 could you use that name later?
 
-#### The Program Directory {#program-directory}
+#### 3.2.3 The Program Directory {#program-directory}
 
 Programming tools do work behind the scenes as they run
 programs. Given the program `2 + 3`{.pyret}, for example, a calculation
@@ -222,7 +222,7 @@ with an existing name with the `name = value`{.pyret} notation. While
 there is a notation that will let you reassign values, we won’t work
 with this concept until [Mutating Variables](mutating-variables.html).
 
-##### Understanding the Run Button {#Understanding-the-Run-Button}
+##### 3.2.3.1 Understanding the Run Button {#Understanding-the-Run-Button}
 
 Now that we’ve learned about the program directory, let’s discuss what happens when you
 press the Run button. Let’s assume the following contents are in the
@@ -279,7 +279,7 @@ Imagine that we now hit the Run button again, then typed
 and why?
 :::
 
-#### Using Names to Streamline Building Images {#naming-for-images}
+#### 3.2.4 Using Names to Streamline Building Images {#naming-for-images}
 
 The ability to name values can make it easier to build up complex
 expressions. Let’s put a rotated purple triangle inside a green square:

@@ -1,19 +1,19 @@
 ---
 title: Cyclic Data
 section_number: 12.4
-source_file: dcic_orig_unified-cyclic-data.html
+source_file: unified-cyclic-data.html
 prev: unified-lists-memory.html
 up: part_state.html
 next: part_python-state.html
 ---
 
-### Cyclic Data {#unified-cyclic-data}
+### 12.4 Cyclic Data {#unified-cyclic-data}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._.Creating_.Cyclic_.Data%29">12.4.1<span class="hspace"> </span>Creating Cyclic Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._.Testing_.Cyclic_.Data%29">12.4.2<span class="hspace"> </span>Testing Cyclic Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._.Cycles_in_.Practice%29">12.4.3<span class="hspace"> </span>Cycles in Practice</a></p></td></tr></table>
 ```
 
-#### Creating Cyclic Data {#Creating-Cyclic-Data}
+#### 12.4.1 Creating Cyclic Data {#Creating-Cyclic-Data}
 
 Earlier [[Aliasing](mutating-structures.html##mult-bank-acct)], we introduced the idea of aliased
 bank accounts, where multiple customers can operate the same
@@ -184,7 +184,7 @@ list of owners is empty).
 Write a function that takes care of adding a customer to an account.
 :::
 
-#### Testing Cyclic Data {#Testing-Cyclic-Data}
+#### 12.4.2 Testing Cyclic Data {#Testing-Cyclic-Data}
 
 When you want to write a test involving circular data, you can’t write
 out the circular data manually. For example, imagine that we wanted
@@ -217,7 +217,7 @@ of the existing item in the directory. This doesn’t require you to write
 ellipses. We also focused on just the `owner`{.python} component, as a part of
 the `Account`{.python} value that we expected to change.
 
-#### Cycles in Practice {#Cycles-in-Practice}
+#### 12.4.3 Cycles in Practice {#Cycles-in-Practice}
 
 Cyclic data show up in many settings in real programs. Whenever two
 data are interrelated, and we have good reason to want to get from

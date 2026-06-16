@@ -82,12 +82,12 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="intro-graphs.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_graphs.html">up</a>&nbsp;&nbsp;<a href="weighted-graphs.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="basic-graph-trav">Basic Graph Traversals</h3>
+<h3 id="basic-graph-trav">17.2 Basic Graph Traversals</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.Reachability%29">17.2.1<span class="hspace"> </span>Reachability</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.Simple_.Recursion%29">17.2.1.1<span class="hspace"> </span>Simple Recursion</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.Cleaning_up_the_.Loop%29">17.2.1.2<span class="hspace"> </span>Cleaning up the Loop</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.Traversal_with_.Memory%29">17.2.1.3<span class="hspace"> </span>Traversal with Memory</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.A_.Better_.Interface%29">17.2.1.4<span class="hspace"> </span>A Better Interface</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._dfs-bfs%29">17.2.2<span class="hspace"> </span>Depth- and Breadth-First Traversals</a></p></td></tr></table>
 <p>As with all the data we have seen so far, to process a datum we have
 to traverse it—i.e., visit the constituent data. With graphs, that can
 be quite interesting!</p>
-<h4 id="Reachability">Reachability</h4>
+<h4 id="Reachability">17.2.1 Reachability</h4>
 <p>Many uses of graphs need to address reachability: whether we can,
 using edges in the graph, get from one node to another. For instance, a
 social network might suggest as contacts all those who are reachable
@@ -96,7 +96,7 @@ whether packets can get from one machine to another. On the Web, we care
 about whether all public pages on a site are reachable from the home
 page. We will study how to compute reachability using our travel graph
 as a running example.</p>
-<h5 id="Simple-Recursion">Simple Recursion</h5>
+<h5 id="Simple-Recursion">17.2.1.1 Simple Recursion</h5>
 <p>At its simplest, reachability is easy. We want to know whether there
 exists a
 path<span class="refelem"><span class="refcolumn"><span class="refcontent">A path is a sequence of zero or more linked edges.</span></span></span>
@@ -145,7 +145,7 @@ end</code></pre></div></div>
 some of them don’t complete at all. That’s because we have an infinite
 loop, due to the cyclic nature of graphs!</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Which of the above examples leads to a cycle? Why?</p></blockquote></blockquote>
-<h5 id="Cleaning-up-the-Loop">Cleaning up the Loop</h5>
+<h5 id="Cleaning-up-the-Loop">17.2.1.2 Cleaning up the Loop</h5>
 <p>Before we continue, let’s try to improve the expression of the loop.
 While the nested function above is a perfectly reasonable definition, we
 can use Pyret’s
@@ -166,7 +166,7 @@ end</code></pre></div></div>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">for ormap(n from neighbors(src, g)):
   reach-1(n, dst, g)
 end</code></pre></div></div>
-<h5 id="Traversal-with-Memory">Traversal with Memory</h5>
+<h5 id="Traversal-with-Memory">17.2.1.3 Traversal with Memory</h5>
 <p>Because we have cyclic data, we have to remember what nodes we’ve
 already visited and avoid traversing them again. Then, every time we
 begin traversing a new node, we add it to the set of nodes we’ve already
@@ -212,7 +212,7 @@ else if visited.member(src):
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>We repeatedly talk about remembering the nodes that we have begun to
 visit, not the ones we’ve finished visiting. Does this distinction
 matter? How?</p></blockquote></blockquote>
-<h5 id="A-Better-Interface">A Better Interface</h5>
+<h5 id="A-Better-Interface">17.2.1.4 A Better Interface</h5>
 <p>As the process of testing
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">reach-2</code></span>
 shows, we may have a better implementation, but we’ve changed the
@@ -242,7 +242,7 @@ does this address the problem that the
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
 function above addressed? Create a test case that demonstrates the
 problem, and then fix it.</p></blockquote></blockquote>
-<h4 id="dfs-bfs">Depth- and Breadth-First Traversals</h4>
+<h4 id="dfs-bfs">17.2.2 Depth- and Breadth-First Traversals</h4>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">It is conventional for computer science texts to call these depth- and
 breadth-first search. However, searching is just a specific purpose;
 traversal is a general task that can be used for many purposes.</span></span></span></p>

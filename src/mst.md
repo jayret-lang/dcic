@@ -1,13 +1,13 @@
 ---
 title: Moravian Spanning Trees
 section_number: 17.5
-source_file: dcic_orig_mst.html
+source_file: mst.html
 prev: lightest-paths.html
 up: part_graphs.html
 next: part_sets.html
 ---
 
-### Moravian Spanning Trees {#mst}
+### 17.5 Moravian Spanning Trees {#mst}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.The_.Problem%29">17.5.1<span class="hspace"> </span>The Problem</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.A_.Greedy_.Solution%29">17.5.2<span class="hspace"> </span>A Greedy Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.Another_.Greedy_.Solution%29">17.5.3<span class="hspace"> </span>Another Greedy Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.A_.Third_.Solution%29">17.5.4<span class="hspace"> </span>A Third Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._union-find-functional%29">17.5.5<span class="hspace"> </span>Checking Component Connectedness</a></p></td></tr></table>
@@ -21,7 +21,7 @@ perhaps surprising idea topped the list: (rural)
 electrification.[Read more about it
 [on their site](http://www.greatachievements.org/).]{.margin-note}
 
-#### The Problem {#The-Problem}
+#### 17.5.1 The Problem {#The-Problem}
 
 To understand the history of national electrical grids, it helps to go
 back to [Moravia](http://en.wikipedia.org/wiki/Moravia)
@@ -52,7 +52,7 @@ of creating a network must have the following characteristics:
 
 Thus Borůvka defined the Moravian Spanning Tree (MST) problem.
 
-#### A Greedy Solution {#A-Greedy-Solution}
+#### 17.5.2 A Greedy Solution {#A-Greedy-Solution}
 
 Borůvka had published his problem, and another Czech mathematician,
 [Vojtěch Jarník](http://en.wikipedia.org/wiki/Vojt%C4%9Bch_Jarn%C3%ADk),
@@ -92,7 +92,7 @@ would seem to require an operation linear in the number of edges for
 each node. With better representations we can improve on this
 complexity, but let’s look at other ideas first.
 
-#### Another Greedy Solution {#Another-Greedy-Solution}
+#### 17.5.3 Another Greedy Solution {#Another-Greedy-Solution}
 
 Recall that Jarník presented his algorithm in 1930, when computers
 didn’t exist, and Prim his in 1957, when they were very much in their
@@ -137,7 +137,7 @@ because we sort all the edges once, then keep checking them off in
 order, crossing out the ones that create cycles—with no dynamic
 updating of the list needed.
 
-#### A Third Solution {#A-Third-Solution}
+#### 17.5.4 A Third Solution {#A-Third-Solution}
 
 Both the Jarník and Kruskal solutions have one flaw: they require a
 centralized data structure (the priority heap, or the sorted list) to
@@ -200,7 +200,7 @@ MST in other textbooks, but “M” stands not for Moravia but for
 “Minimum”. But given Borůvka’s forgotten place in history, we prefer
 the more whimsical name.
 
-#### Checking Component Connectedness {#union-find-functional}
+#### 17.5.5 Checking Component Connectedness {#union-find-functional}
 
 As we’ve seen, we need to be able to efficiently tell whether two
 nodes are in the same component. One way to do this is to conduct a

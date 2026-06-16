@@ -1,13 +1,13 @@
 ---
 title: Introduction to Tabular Data
 section_number: 4.1
-source_file: dcic_orig_intro-tabular-data.html
+source_file: intro-tabular-data.html
 prev: part_tabular-data.html
 up: part_tabular-data.html
 next: processing-tables.html
 ---
 
-### Introduction to Tabular Data {#intro-tabular-data}
+### 4.1 Introduction to Tabular Data {#intro-tabular-data}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-tabular-data.html#%28part._.Creating_.Tabular_.Data%29">4.1.1<span class="hspace"> </span>Creating Tabular Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-tabular-data.html#%28part._.Extracting_.Rows_and_.Cell_.Values%29">4.1.2<span class="hspace"> </span>Extracting Rows and Cell Values</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-tabular-data.html#%28part._.Functions_over_.Rows%29">4.1.3<span class="hspace"> </span>Functions over Rows</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-tabular-data.html#%28part._.Processing_.Rows%29">4.1.4<span class="hspace"> </span>Processing Rows</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-tabular-data.html#%28part._subsec~3afinding-rows%29">4.1.4.1<span class="hspace"> </span>Finding Rows</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-tabular-data.html#%28part._.Ordering_.Rows%29">4.1.4.2<span class="hspace"> </span>Ordering Rows</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-tabular-data.html#%28part._.Adding_.New_.Columns%29">4.1.4.3<span class="hspace"> </span>Adding New Columns</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-tabular-data.html#%28part._.Calculating_.New_.Column_.Values%29">4.1.4.4<span class="hspace"> </span>Calculating New Column Values</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-tabular-data.html#%28part._.Examples_for_.Table-.Producing_.Functions%29">4.1.5<span class="hspace"> </span>Examples for Table-Producing Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-tabular-data.html#%28part._sec~3alambda-tables%29">4.1.6<span class="hspace"> </span>Lambda: Anonymous Functions</a></p></td></tr></table>
@@ -98,7 +98,7 @@ the name of the context as in the following image:
 function-based table operators](https://hackmd.io/@cs111/table) is available on a separate
 page outside of the Pyret documentation.
 
-#### Creating Tabular Data {#Creating-Tabular-Data}
+#### 4.1.1 Creating Tabular Data {#Creating-Tabular-Data}
 
 Pyret provides multiple easy ways of creating tabular data. The
 simplest is to define the datum in a program as follows:
@@ -183,7 +183,7 @@ way (here, rows and columns). As with images, when we wrote code that
 reflected the structure of the final image, we will see that code that
 works with tables also follows the structure of the data.
 
-#### Extracting Rows and Cell Values {#Extracting-Rows-and-Cell-Values}
+#### 4.1.2 Extracting Rows and Cell Values {#Extracting-Rows-and-Cell-Values}
 
 Given a table, we sometimes want to look up the value of a particular
 cell. We’ll work with the following table showing the number of riders
@@ -285,7 +285,7 @@ shuttle.row-n(2)[riders]
 What would Pyret do and why?
 :::
 
-#### Functions over Rows {#Functions-over-Rows}
+#### 4.1.3 Functions over Rows {#Functions-over-Rows}
 
 Now that we have the ability to isolate Rows from tables, we can write
 functions that ask questions about individual rows. We just saw an
@@ -366,7 +366,7 @@ one of its `where`{.pyret} examples, and show how the program directory
 evolves as you evaluate the example.
 :::
 
-#### Processing Rows {#Processing-Rows}
+#### 4.1.4 Processing Rows {#Processing-Rows}
 
 So far, we have looked at extracting individual rows by their position
 in the table and computing over them. Extracting rows by position
@@ -385,7 +385,7 @@ include the file specified in the main narrative.]{.margin-note}
 The rest of this section assumes that you have loaded the functions
 notations for working with tables.
 
-##### Finding Rows {#subsec-finding-rows}
+##### 4.1.4.1 Finding Rows {#subsec-finding-rows}
 
 Imagine that we wanted to write a program to locate a row that has
 fewer than `1000`{.pyret} riders from our `shuttle`{.pyret} table. With what
@@ -475,7 +475,7 @@ computations, we can do so with our usual notation for naming values:
 winter = filter-with(shuttle, is-winter)
 ```
 
-##### Ordering Rows {#Ordering-Rows}
+##### 4.1.4.2 Ordering Rows {#Ordering-Rows}
 
 Let’s ask a new question: which winter month had the fewest number
 of riders?. This question requires us to identify a specific row,
@@ -549,7 +549,7 @@ and a column name). This is typical of how we will operate on tables,
 combining multiple operations to compute a result (much as we did with
 programs that manipulate images).
 
-##### Adding New Columns {#Adding-New-Columns}
+##### 4.1.4.3 Adding New Columns {#Adding-New-Columns}
 
 Sometimes, we want to create a new column whose value is based on
 those of existing columns. For instance, our table might reflect
@@ -647,7 +647,7 @@ This creates a new column, `total-wage`{.pyret}, whose value in each row
 is the product of the two named columns in that row. Pyret will put
 the new column at the right end.
 
-##### Calculating New Column Values {#Calculating-New-Column-Values}
+##### 4.1.4.4 Calculating New Column Values {#Calculating-New-Column-Values}
 
 Sometimes, we just want to calculate new values for an existing
 column, rather than create an entirely new column. Giving raises to
@@ -692,7 +692,7 @@ producing new tables with any modifications, then creating a new name
 for the updated table once you have the one you want, is a less
 error-prone way of working with datasets.
 
-#### Examples for Table-Producing Functions {#Examples-for-Table-Producing-Functions}
+#### 4.1.5 Examples for Table-Producing Functions {#Examples-for-Table-Producing-Functions}
 
 How do we write examples for functions that produce tables? Conceptually,
 the answer is simply "make sure you got the output table that you
@@ -774,7 +774,7 @@ doing more complex processing than a single call to a built-in table
 operation that you really need to present your own examples to a
 reader of your code.
 
-#### Lambda: Anonymous Functions {#sec-lambda-tables}
+#### 4.1.6 Lambda: Anonymous Functions {#sec-lambda-tables}
 
 Let’s revisit the program we wrote in [Finding Rows](intro-tabular-data.html##subsec-finding-rows) for
 finding all of the months in a table with fewer than 1000 riders:

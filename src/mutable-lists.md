@@ -1,13 +1,13 @@
 ---
 title: Mutable Lists
 section_number: 13.2
-source_file: dcic_orig_mutable-lists.html
+source_file: mutable-lists.html
 prev: mutating-variables.html
 up: part_python-state.html
 next: booklet_algo-analysis.html
 ---
 
-### Mutable Lists {#mutable-lists}
+### 13.2 Mutable Lists {#mutable-lists}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td></td></tr></table>

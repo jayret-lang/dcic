@@ -1,12 +1,12 @@
 ---
 title: Glossary
 section_number: 32
-source_file: dcic_orig_glossary.html
+source_file: glossary.html
 prev: Release_Notes.html
 up: booklet_appendices.html
 ---
 
-## Glossary {#glossary}
+## 32 Glossary {#glossary}
 
 ☞ bandwidth
 

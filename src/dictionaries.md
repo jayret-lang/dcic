@@ -1,13 +1,13 @@
 ---
 title: Dictionaries
 section_number: 9.2
-source_file: dcic_orig_dictionaries.html
+source_file: dictionaries.html
 prev: intro-python.html
 up: part_pyret-to-python.html
 next: arrays.html
 ---
 
-### Dictionaries {#dictionaries}
+### 9.2 Dictionaries {#dictionaries}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Creating_and_.Using_a_.Dictionary%29">9.2.1<span class="hspace"> </span>Creating and Using a Dictionary</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Searching_.Through_the_.Values_in_a_.Dictionary%29">9.2.2<span class="hspace"> </span>Searching Through the Values in a Dictionary</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Dictionaries_with_.More_.Complex_.Values%29">9.2.3<span class="hspace"> </span>Dictionaries with More Complex Values</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Dictionaries_versus_.Dataclasses%29">9.2.4<span class="hspace"> </span>Dictionaries versus Dataclasses</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Summary%29">Summary</a></p></td></tr></table>
@@ -93,7 +93,7 @@ dictionary (hashmap, hashtable, and
 associative arrays are names for similar data structures in other
 languages, though there are key nuances that distinguish all these variations).
 
-#### Creating and Using a Dictionary {#Creating-and-Using-a-Dictionary}
+#### 9.2.1 Creating and Using a Dictionary {#Creating-and-Using-a-Dictionary}
 
 A dictionary maps unique values (called keys) to corresponding pieces
 of data for each key (called values). Here is our flight example
@@ -167,7 +167,7 @@ office_dict[412] = 'Zeynep'
 Now, any use of `office_dict[412]`{.python} will evaluate to
 `'Zeynep'`{.python} instead of `'Marisol'`{.python}.
 
-#### Searching Through the Values in a Dictionary {#Searching-Through-the-Values-in-a-Dictionary}
+#### 9.2.2 Searching Through the Values in a Dictionary {#Searching-Through-the-Values-in-a-Dictionary}
 
 What if we wanted to find all of the flights with more than 100 seats?
 For this, we have to search through all of the key-value pairs and
@@ -202,7 +202,7 @@ the numbers of seats that they have. Write expressions to:
 3. Find all rooms that can seat at least 50 students
 :::
 
-#### Dictionaries with More Complex Values {#Dictionaries-with-More-Complex-Values}
+#### 9.2.3 Dictionaries with More Complex Values {#Dictionaries-with-More-Complex-Values}
 
 ::: {.do-now}
 A track-and-field tournament needs to manage the names of the
@@ -248,7 +248,7 @@ can be arbitrarily complex, including lists, tables, or even other
 dictionaries (and more!). There is still only one value
 per key, which is the requirement of a dictionary.
 
-#### Dictionaries versus Dataclasses {#Dictionaries-versus-Dataclasses}
+#### 9.2.4 Dictionaries versus Dataclasses {#Dictionaries-versus-Dataclasses}
 
 Previously, we learned about dataclasses as a way to create compound
 data in Python. Here again is the `ToDoItem`{.python} dataclass that we

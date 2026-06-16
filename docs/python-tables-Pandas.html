@@ -79,7 +79,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="part_python-tables.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_python-tables.html">up</a>&nbsp;&nbsp;<a href="pandas-reshape-tables.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="python-tables-Pandas">Introduction to Pandas</h3>
+<h3 id="python-tables-Pandas">10.1 Introduction to Pandas</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Pandas_.Table_.Basics%29">10.1.1<span class="hspace"> </span>Pandas Table Basics</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Core_.Datatypes__.Data.Frame_and_.Series%29">10.1.1.1<span class="hspace"> </span>Core Datatypes: DataFrame and Series</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Creating_and_.Loading_.Data.Frames%29">10.1.1.2<span class="hspace"> </span>Creating and Loading DataFrames</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Using_.Labels_and_.Indices_to_.Access_.Cells%29">10.1.1.3<span class="hspace"> </span>Using Labels and Indices to Access Cells</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Filtering_.Rows%29">10.1.2<span class="hspace"> </span>Filtering Rows</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Cleaning_and_.Normalizing_.Data%29">10.1.3<span class="hspace"> </span>Cleaning and Normalizing Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Clearing_out_unknown_values%29">10.1.3.1<span class="hspace"> </span>Clearing out unknown values</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Repairing_.Values_and_.Column_.Types%29">10.1.3.2<span class="hspace"> </span>Repairing Values and Column Types</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Computing_.New_.Columns%29">10.1.4<span class="hspace"> </span>Computing New Columns</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Aggregating_and_.Grouping_.Columns%29">10.1.5<span class="hspace"> </span>Aggregating and Grouping Columns</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Wide_.Versus_.Tall_.Data%29">10.1.6<span class="hspace"> </span>Wide Versus Tall Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Converting_.Between_.Wide_and_.Tall_.Data%29">Converting Between Wide and Tall Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Plotting_.Data%29">10.1.7<span class="hspace"> </span>Plotting Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Takeaways%29">10.1.8<span class="hspace"> </span>Takeaways</a></p></td></tr></table>
 <p>Now it’s time to transfer what we learned about tables in Pyret over
 to Python. Pandas is a popular package, and you’ll find many tutorial
@@ -90,9 +90,9 @@ ways that align with the concepts as we covered them in Pyret.</p>
 <p>To work in Pandas, you’ll need to include the following line at the
 top of your file:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">import pandas as pd</code></pre></div></div>
-<h4 id="Pandas-Table-Basics">Pandas Table Basics</h4>
-<h5 id="Core-Datatypes-Data-Frame-and-Series">Core Datatypes: DataFrame
-and Series</h5>
+<h4 id="Pandas-Table-Basics">10.1.1 Pandas Table Basics</h4>
+<h5 id="Core-Datatypes-Data-Frame-and-Series">10.1.1.1 Core Datatypes:
+DataFrame and Series</h5>
 <p>Pandas uses the term DataFrame for a table with rows and columns.
 DataFrames are built out of two more basic types:</p>
 <ul>
@@ -112,7 +112,7 @@ in addition to the position numbers.</li>
 <p>In Pandas, a row is a Series in which an array of the cell values is
 labeled with the column headers (this is similar to the ‘Row‘ datatype
 in Pyret). A DataFrame is a series of these rows.</p>
-<h5 id="Creating-and-Loading-Data-Frames">Creating and Loading
+<h5 id="Creating-and-Loading-Data-Frames">10.1.1.2 Creating and Loading
 DataFrames</h5>
 <p>DataFrames can be created manually or loaded in from a file, as we
 did in Pyret. Here’s a simple example of creating one by hand:</p>
@@ -166,8 +166,8 @@ the discount column will contain
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">NaN</code></span>,
 which is the standard Python value for “missing information”. We will
 deal with that information shortly.</p>
-<h5 id="Using-Labels-and-Indices-to-Access-Cells">Using Labels and
-Indices to Access Cells</h5>
+<h5 id="Using-Labels-and-Indices-to-Access-Cells">10.1.1.3 Using Labels
+and Indices to Access Cells</h5>
 <p>Rows, columns, and cells can be accessed using either their (numeric)
 positions or their labels. Here are some examples:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">events['numtix']         # extract the numtix column as a series
@@ -194,7 +194,7 @@ notation works on either rows or columns, we just happened to illustrate
 the notation on the rows since we had already created labels on the
 columns when we loaded
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">events</code></span>.</p>
-<h4 id="Filtering-Rows">Filtering Rows</h4>
+<h4 id="Filtering-Rows">10.1.2 Filtering Rows</h4>
 <p>Back in Pyret, we filtered rows from a table by writing a function
 from
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Row</code></span>
@@ -302,7 +302,7 @@ them easier for other programmers to read), and are often engineered to
 run more efficiently under the hood. As a general rule, only default to
 basic loops if there is no built-in operator to do the computation that
 you have in mind.</span></span></span></p>
-<h4 id="Cleaning-and-Normalizing-Data">Cleaning and Normalizing
+<h4 id="Cleaning-and-Normalizing-Data">10.1.3 Cleaning and Normalizing
 Data</h4>
 <p>The same operator-lifting idea that we just saw when creating masks
 from DataFrames also comes into play for normalizing data. Recall that
@@ -359,7 +359,8 @@ the original table. There are many nuances to having operations destroy
 and replace data; the chapter on <a
 href="mutating-structures.html">Mutating Structures</a> studies them in
 detail.</p>
-<h5 id="Clearing-out-unknown-values">Clearing out unknown values</h5>
+<h5 id="Clearing-out-unknown-values">10.1.3.1 Clearing out unknown
+values</h5>
 <p>Now let’s try a different cleaning and normalization problem: we want
 the discount column to contain only known discount codes or empty
 strings. The
@@ -434,8 +435,8 @@ to give those cells their new value</li>
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">'yes'</code></span>
 to
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">'pickup'</code></span>.</p></blockquote></blockquote>
-<h5 id="Repairing-Values-and-Column-Types">Repairing Values and Column
-Types</h5>
+<h5 id="Repairing-Values-and-Column-Types">10.1.3.2 Repairing Values and
+Column Types</h5>
 <p>The source file for the
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">events</code></span>
 table contained an error in which someone entered the string
@@ -480,7 +481,7 @@ process.</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">events['numtix'] = events['numtix'].astype('int')
 
 events['numtix'].sum()    # now this works</code></pre></div></div>
-<h4 id="Computing-New-Columns">Computing New Columns</h4>
+<h4 id="Computing-New-Columns">10.1.4 Computing New Columns</h4>
 <p>Let’s extend the events table with the total cost of tickets, while
 also accounting for a discount. We’ll start by building a column for the
 ticket price without any discounts. This is a straightforward
@@ -502,8 +503,8 @@ and
 In Pandas, a new column is created if the given column name doesn’t
 already exist in the DataFrame; otherwise, the existing column with the
 given name gets updated.</p>
-<h4 id="Aggregating-and-Grouping-Columns">Aggregating and Grouping
-Columns</h4>
+<h4 id="Aggregating-and-Grouping-Columns">10.1.5 Aggregating and
+Grouping Columns</h4>
 <p>Pandas has built-in operations for doing standard mathematical
 computations over series. For example, to total the number of tickets
 sold or to compute the average number of tickets per order, we can
@@ -553,7 +554,7 @@ that can used on
 data; these cover computations such as counting, mean, finding largest
 and smallest values, and performing various other statistical
 operations.</p>
-<h4 id="Wide-Versus-Tall-Data">Wide Versus Tall Data</h4>
+<h4 id="Wide-Versus-Tall-Data">10.1.6 Wide Versus Tall Data</h4>
 <p>Let’s try grouping data on a different dataset. Here’s a table
 showing sales data across several regions during each month of the
 year:</p>
@@ -700,7 +701,7 @@ tot_sales_region.sort_values('sales',ascending=False).reset_index().iloc[0]['reg
 which is needed if you want to manipulate the output of a
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">group-by</code></span>
 as a regular DataFrame.</p>
-<h4 id="Plotting-Data">Plotting Data</h4>
+<h4 id="Plotting-Data">10.1.7 Plotting Data</h4>
 <p>Let’s continue with the sales data as we explore plotting in
 Pandas.</p>
 <p>Let’s say we now want to take a seasonal view, rather than a monthly
@@ -745,7 +746,7 @@ package offers many kinds of charts and customizations to graph layouts.
 A more comprehensive look is beyond the scope of this book; see the <a
 href="https://matplotlib.org/stable/index.html">matplotlib website</a>
 for tutorials and many examples of more sophisticated plots.</p>
-<h4 id="Takeaways">Takeaways</h4>
+<h4 id="Takeaways">10.1.8 Takeaways</h4>
 <p>This chapter has been designed to give you an overview of Pandas
 while pointing out key concepts in programming for data science. It is
 by no means a comprehensive Pandas tutorial or reference guide: for

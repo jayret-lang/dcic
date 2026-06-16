@@ -1,13 +1,13 @@
 ---
 title: Sets as a Case Study
 section_number: 18.6
-source_file: dcic_orig_sets-case-study.html
+source_file: sets-case-study.html
 prev: orderability.html
 up: part_sets.html
 next: booklet_advanced.html
 ---
 
-### Sets as a Case Study {#sets-case-study}
+### 18.6 Sets as a Case Study {#sets-case-study}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-case-study.html#%28part._.Nature_of_the_.Data%29">18.6.1<span class="hspace"> </span>Nature of the Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-case-study.html#%28part._.Nature_of_the_.Operations%29">18.6.2<span class="hspace"> </span>Nature of the Operations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-case-study.html#%28part._.Nature_of_the_.Guarantee%29">18.6.3<span class="hspace"> </span>Nature of the Guarantee</a></p></td></tr></table>
@@ -21,7 +21,7 @@ our needs.
 
 There are several dimensions along which we can divide our designs.
 
-#### Nature of the Data {#Nature-of-the-Data}
+#### 18.6.1 Nature of the Data {#Nature-of-the-Data}
 
 If the data cannot even be comparable for quality, then we can’t
 construct sets out of them, because equality is central to the
@@ -36,7 +36,7 @@ values [[Converting Values to Ordered Values](orderability.html##hashing-values)
 most expensive atomic operations, while hashtables give us
 constant-to-linear complexity.
 
-#### Nature of the Operations {#Nature-of-the-Operations}
+#### 18.6.2 Nature of the Operations {#Nature-of-the-Operations}
 
 Another dimension of variation is the collection of operations we
 need. We began with a fairly ambitious, but standard, collection of
@@ -48,7 +48,7 @@ another instance of this. There is a general computer science
 principle at work here: the fewer operations we need to support, the
 better we can (sometimes) make the complexity of the remaining ones.
 
-#### Nature of the Guarantee {#Nature-of-the-Guarantee}
+#### 18.6.3 Nature of the Guarantee {#Nature-of-the-Guarantee}
 
 Most subtly, there was another distinction: whether or not we needed
 reliable results. Most of our set representations are

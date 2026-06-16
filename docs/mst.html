@@ -82,7 +82,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="lightest-paths.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_graphs.html">up</a>&nbsp;&nbsp;<a href="part_sets.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="mst">Moravian Spanning Trees</h3>
+<h3 id="mst">17.5 Moravian Spanning Trees</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.The_.Problem%29">17.5.1<span class="hspace"> </span>The Problem</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.A_.Greedy_.Solution%29">17.5.2<span class="hspace"> </span>A Greedy Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.Another_.Greedy_.Solution%29">17.5.3<span class="hspace"> </span>Another Greedy Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.A_.Third_.Solution%29">17.5.4<span class="hspace"> </span>A Third Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._union-find-functional%29">17.5.5<span class="hspace"> </span>Checking Component Connectedness</a></p></td></tr></table>
 <p>At the turn of the milennium, the US National Academy of Engineering
 surveyed its members to determine the “Greatest Engineering Achievements
@@ -91,7 +91,7 @@ electronics, computers, the Internet, and so on. But a perhaps
 surprising idea topped the list: (rural)
 electrification.<span class="refelem"><span class="refcolumn"><span class="refcontent">Read more about it <a href="http://www.greatachievements.org/">on their
 site</a>.</span></span></span></p>
-<h4 id="The-Problem">The Problem</h4>
+<h4 id="The-Problem">17.5.1 The Problem</h4>
 <p>To understand the history of national electrical grids, it helps to
 go back to <a href="http://en.wikipedia.org/wiki/Moravia">Moravia</a> in
 the 1920s. Like many parts of the world, it was beginning to realize the
@@ -118,7 +118,7 @@ possible. In graph terms, the graph would be weighted, and the solution
 had to be a minimum.</li>
 </ul>
 <p>Thus Borůvka defined the Moravian Spanning Tree (MST) problem.</p>
-<h4 id="A-Greedy-Solution">A Greedy Solution</h4>
+<h4 id="A-Greedy-Solution">17.5.2 A Greedy Solution</h4>
 <p>Borůvka had published his problem, and another Czech mathematician,
 <a href="http://en.wikipedia.org/wiki/Vojt%C4%9Bch_Jarn%C3%ADk">Vojtěch
 Jarník</a>, came across it. Jarník came up with a solution that should
@@ -153,7 +153,7 @@ add the lightest edge and iterate. Even given an efficient solution for
 checking cyclicity, this would seem to require an operation linear in
 the number of edges for each node. With better representations we can
 improve on this complexity, but let’s look at other ideas first.</p>
-<h4 id="Another-Greedy-Solution">Another Greedy Solution</h4>
+<h4 id="Another-Greedy-Solution">17.5.3 Another Greedy Solution</h4>
 <p>Recall that Jarník presented his algorithm in 1930, when computers
 didn’t exist, and Prim his in 1957, when they were very much in their
 infancy. Programming computers to track heaps was a non-trivial problem,
@@ -193,7 +193,7 @@ that set—modulo the time to check for cycles. This algorithm is also
 easy to implement on paper, because we sort all the edges once, then
 keep checking them off in order, crossing out the ones that create
 cycles—with no dynamic updating of the list needed.</p>
-<h4 id="A-Third-Solution">A Third Solution</h4>
+<h4 id="A-Third-Solution">17.5.4 A Third Solution</h4>
 <p>Both the Jarník and Kruskal solutions have one flaw: they require a
 centralized data structure (the priority heap, or the sorted list) to
 incrementally build the solution. As parallel computers became
@@ -247,7 +247,8 @@ which is only fitting.</p>
 MST in other textbooks, but “M” stands not for Moravia but for
 “Minimum”. But given Borůvka’s forgotten place in history, we prefer the
 more whimsical name.</p>
-<h4 id="union-find-functional">Checking Component Connectedness</h4>
+<h4 id="union-find-functional">17.5.5 Checking Component
+Connectedness</h4>
 <p>As we’ve seen, we need to be able to efficiently tell whether two
 nodes are in the same component. One way to do this is to conduct a
 depth-first traversal (or breadth-first traversal) starting from the

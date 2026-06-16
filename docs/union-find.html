@@ -83,7 +83,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="sets-from-trees.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_sets.html">up</a>&nbsp;&nbsp;<a href="hash-set-kv.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="union-find">Union-Find</h3>
+<h3 id="union-find">18.3 Union-Find</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="union-find.html#%28part._.Implementing_with_.State%29">18.3.1<span class="hspace"> </span>Implementing with State</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="union-find.html#%28part._.Optimizations%29">18.3.2<span class="hspace"> </span>Optimizations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="union-find.html#%28part._.Analysis%29">18.3.3<span class="hspace"> </span>Analysis</a></p></td></tr></table>
 <p>We have previously [<a
 href="mst.html##union-find-functional">Checking Component
@@ -94,7 +94,7 @@ whether two elements are in the same set.</p>
 <p>We will now see how to do this using state. We will try to keep
 things as similar to the previous version as possible, to enhance
 comparison.</p>
-<h4 id="Implementing-with-State">Implementing with State</h4>
+<h4 id="Implementing-with-State">18.3.1 Implementing with State</h4>
 <p>First, we have to update the definition of an element, making the
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
 field be mutable:</p>
@@ -161,7 +161,7 @@ mutation. Hence:</p>
     | some(p) =&gt; fynd(p)
   end
 end</code></pre></div></div>
-<h4 id="Optimizations">Optimizations</h4>
+<h4 id="Optimizations">18.3.2 Optimizations</h4>
 <p>Look again at
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>.
 In the
@@ -198,7 +198,7 @@ with the smaller rank. This has the effect of avoiding growing very tall
 paths to set name elements, instead tending towards “bushy” trees. This
 too reduces the number of parents that must be traversed to find the
 representative.</p>
-<h4 id="Analysis">Analysis</h4>
+<h4 id="Analysis">18.3.3 Analysis</h4>
 <p>This optimized union-find data structure has a remarkble analysis. In
 the worst case, of course, we must traverse the entire chain of parents
 to find the name element, which takes time proportional to the number of

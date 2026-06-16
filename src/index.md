@@ -1,6 +1,6 @@
 ---
 title: A Data-Centric Introduction to Computing
-source_file: dcic_orig_index.html
+source_file: index.html
 next: booklet_intro.html
 ---
 

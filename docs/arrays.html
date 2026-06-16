@@ -80,7 +80,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="dictionaries.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_pyret-to-python.html">up</a>&nbsp;&nbsp;<a href="part_python-tables.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="arrays">Arrays</h3>
+<h3 id="arrays">9.3 Arrays</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="arrays.html#%28part._.Two_.Memory_.Layouts_for_.Ordered_.Items%29">9.3.1<span class="hspace"> </span>Two Memory Layouts for Ordered Items</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="arrays.html#%28part._.Iterating_.Partly_through_an_.Ordered_.Datum%29">9.3.2<span class="hspace"> </span>Iterating Partly through an Ordered Datum</a></p></td></tr></table>
 <p>We ended the last chapter with a question about how fast one can
 access a specific element of a list. Specifically, if you have a list
@@ -90,8 +90,8 @@ write:</p>
 <p>How long does it take to locate the Runner in 10th place (remember,
 indices start at 0)?</p>
 <p>It depends on how the list is laid out in memory.</p>
-<h4 id="Two-Memory-Layouts-for-Ordered-Items">Two Memory Layouts for
-Ordered Items</h4>
+<h4 id="Two-Memory-Layouts-for-Ordered-Items">9.3.1 Two Memory Layouts
+for Ordered Items</h4>
 <p>When we say “list”, we usually mean simply: a collection of items
 with order. How might a collection of ordered items be arranged in
 memory? Here are two examples, using a list of course names:</p>
@@ -159,8 +159,8 @@ maintain the
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">in_range</code></span>
 variable? Yes, we could have, though this version sets up a contrast to
 our next example.</p>
-<h4 id="Iterating-Partly-through-an-Ordered-Datum">Iterating Partly
-through an Ordered Datum</h4>
+<h4 id="Iterating-Partly-through-an-Ordered-Datum">9.3.2 Iterating
+Partly through an Ordered Datum</h4>
 <p>What if instead we just wanted to print out the top 5 finishers,
 rather than gather a list? While in general it is usually better to
 separate computing and displaying data, in practice we do sometimes

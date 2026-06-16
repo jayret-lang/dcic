@@ -1,19 +1,19 @@
 ---
 title: Conditionals and Booleans
 section_number: 3.4
-source_file: dcic_orig_Conditionals_and_Booleans.html
+source_file: Conditionals_and_Booleans.html
 prev: From_Repeated_Expressions_to_Functions.html
 up: part_foundations.html
 next: part_tabular-data.html
 ---
 
-### Conditionals and Booleans {#Conditionals-and-Booleans}
+### 3.4 Conditionals and Booleans {#Conditionals-and-Booleans}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._add-shipping-setup%29">3.4.1<span class="hspace"> </span>Motivating Example: Shipping Costs</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._cond-boolean-intro%29">3.4.2<span class="hspace"> </span>Conditionals: Computations with Decisions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._booleans%29">3.4.3<span class="hspace"> </span>Booleans</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._bool-comparisons%29">3.4.3.1<span class="hspace"> </span>Other Boolean Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Combining_.Booleans%29">3.4.3.2<span class="hspace"> </span>Combining Booleans</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._else-if%29">3.4.4<span class="hspace"> </span>Asking Multiple Questions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._conditional-nm%29">3.4.5<span class="hspace"> </span>Evaluating by Reducing Expressions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Composing_.Functions%29">3.4.6<span class="hspace"> </span>Composing Functions</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.How_.Function_.Compositions_.Evaluate%29">3.4.6.1<span class="hspace"> </span>How Function Compositions Evaluate</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._func-comp-directory%29">3.4.6.2<span class="hspace"> </span>Function Composition and the Directory</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Nested_.Conditionals%29">3.4.7<span class="hspace"> </span>Nested Conditionals</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Recap__.Booleans_and_.Conditionals%29">3.4.8<span class="hspace"> </span>Recap: Booleans and Conditionals</a></p></td></tr></table>
 ```
 
-#### Motivating Example: Shipping Costs {#add-shipping-setup}
+#### 3.4.1 Motivating Example: Shipping Costs {#add-shipping-setup}
 
 In [Functions Practice: Cost of pens](From_Repeated_Expressions_to_Functions.html##pen-cost-pyret), we wrote a program (`pen-cost`{.pyret}) to
 compute the cost of ordering pens. Continuing the example, we now want
@@ -81,7 +81,7 @@ different values and (b) have a pattern to their inputs (whether the
 input value is less than or equal to `10`{.pyret}). This calls for being able to
 ask questions about inputs within our programs.
 
-#### Conditionals: Computations with Decisions {#cond-boolean-intro}
+#### 3.4.2 Conditionals: Computations with Decisions {#cond-boolean-intro}
 
 To ask a question about our inputs, we use a new kind of expression
 called an if expression. Here’s the full definition of `add-shipping`{.pyret}:
@@ -112,7 +112,7 @@ another for when the result is false (`order-amt +
 this the else clause.
 We also need `end`{.pyret} to tell Pyret we’re done with the question and answers.
 
-#### Booleans {#booleans}
+#### 3.4.3 Booleans {#booleans}
 
 Every expression in Pyret evaluates in a value. So far, we have seen
 three types of values: `Number`{.pyret}, `String`{.pyret}, and
@@ -141,7 +141,7 @@ What would happen if we entered `order-amt <= 10`{.pyret} at the interactions pr
 to explore booleans? Why does that happen?
 :::
 
-##### Other Boolean Operations {#bool-comparisons}
+##### 3.4.3.1 Other Boolean Operations {#bool-comparisons}
 
 There are many other built-in operations that return `Boolean`{.pyret}
 values. Comparing values for equality is a common one: [There is
@@ -359,7 +359,7 @@ false
 In fact, just about every kind of data will have some Boolean-valued
 operators to enable comparisons.
 
-##### Combining Booleans {#Combining-Booleans}
+##### 3.4.3.2 Combining Booleans {#Combining-Booleans}
 
 Often, we want to base decisions on more than one Boolean value. For
 instance, you are allowed to vote if you’re a citizen of a country
@@ -424,7 +424,7 @@ Explain why numbers and strings are not good ways to express the
 answer to a true/false question.
 :::
 
-#### Asking Multiple Questions {#else-if}
+#### 3.4.4 Asking Multiple Questions {#else-if}
 
 Shipping costs are rising, so we want to modify the
 `add-shipping`{.pyret} program to include a third shipping level: orders
@@ -592,7 +592,7 @@ about them. Decisions based on those predictions can be inaccurate and
 hence harmful.
 :::
 
-#### Evaluating by Reducing Expressions {#conditional-nm}
+#### 3.4.5 Evaluating by Reducing Expressions {#conditional-nm}
 
 In [How Functions Evaluate](From_Repeated_Expressions_to_Functions.html##function-call-nm), we talked about how Pyret reduces expressions and
 function calls to values. Let’s revisit this process, this time
@@ -674,7 +674,7 @@ it, proceeding by simple rules. You can use this style yourself if you
 want to try and work through the evaluation of a Pyret program by hand
 (or in your head).
 
-#### Composing Functions {#Composing-Functions}
+#### 3.4.6 Composing Functions {#Composing-Functions}
 
 We started this chapter wanting to account for shipping costs on an
 order of pens. So far, we have written two functions:
@@ -710,7 +710,7 @@ add-shipping(pens)
 
 Both methods would produce the same answer.
 
-##### How Function Compositions Evaluate {#How-Function-Compositions-Evaluate}
+##### 3.4.6.1 How Function Compositions Evaluate {#How-Function-Compositions-Evaluate}
 
 Let’s review how these programs evaluate in the context of
 substitution and the directory. We’ll start with the second
@@ -767,7 +767,7 @@ turn out (once we’ve learned more about nuances of how programs
 evaluate) that the two versions aren’t as different as they appear
 right now.
 
-##### Function Composition and the Directory {#func-comp-directory}
+##### 3.4.6.2 Function Composition and the Directory {#func-comp-directory}
 
 Let’s try one more variation on this problem. Perhaps seeing us name
 the intermediate result of `pen-cost`{.pyret} made you wish that we had
@@ -839,7 +839,7 @@ function call peek inside the local directory for another function
 call. Once a function call completes, its local directory disappears
 (because nothing else would be able to use it anyway).
 
-#### Nested Conditionals {#Nested-Conditionals}
+#### 3.4.7 Nested Conditionals {#Nested-Conditionals}
 
 We showed that the results in `if`{.pyret}-expressions are themselves
 expressions (such as `order-amt + 4`{.pyret} in the following function):
@@ -1041,7 +1041,7 @@ fun buy-tickets6(count :: Number, is-senior :: Boolean)
 end
 ```
 
-#### Recap: Booleans and Conditionals {#Recap-Booleans-and-Conditionals}
+#### 3.4.8 Recap: Booleans and Conditionals {#Recap-Booleans-and-Conditionals}
 
 With this chapter, our computations can produce different results in
 different situations. We ask questions using if-expressions, in

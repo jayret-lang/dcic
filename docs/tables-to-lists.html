@@ -83,7 +83,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="part_lists.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_lists.html">up</a>&nbsp;&nbsp;<a href="processing-lists.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="tables-to-lists">From Tables to Lists</h3>
+<h3 id="tables-to-lists">5.1 From Tables to Lists</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._table-stat-qs%29">5.1.1<span class="hspace"> </span>Basic Statistical Questions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Extracting_a_.Column_from_a_.Table%29">5.1.2<span class="hspace"> </span>Extracting a Column from a Table</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Understanding_.Lists%29">5.1.3<span class="hspace"> </span>Understanding Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._lists-generic-data%29">5.1.3.1<span class="hspace"> </span>Lists as Anonymous Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Creating_.Literal_.Lists%29">5.1.3.2<span class="hspace"> </span>Creating Literal Lists</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Operating_on_.Lists%29">5.1.4<span class="hspace"> </span>Operating on Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Built-.In_.Operations_on_.Lists_of_.Numbers%29">5.1.4.1<span class="hspace"> </span>Built-In Operations on Lists of Numbers</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Built-.In_.Operations_on_.Lists_in_.General%29">5.1.4.2<span class="hspace"> </span>Built-In Operations on Lists in General</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.An_.Aside_on_.Naming_.Conventions%29">5.1.4.3<span class="hspace"> </span>An Aside on Naming Conventions</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Getting_.Elements_.By_.Position%29">5.1.4.4<span class="hspace"> </span>Getting Elements By Position</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Transforming_.Lists%29">5.1.4.5<span class="hspace"> </span>Transforming Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._lists-recap%29">5.1.4.6<span class="hspace"> </span>Recap: Summary of List Operations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Lambda__.Anonymous_.Functions%29">5.1.5<span class="hspace"> </span>Lambda: Anonymous Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="tables-to-lists.html#%28part._.Combining_.Lists_and_.Tables%29">5.1.6<span class="hspace"> </span>Combining Lists and Tables</a></p></td></tr></table>
 <p>Previously [<a href="intro-tabular-data.html">Introduction to Tabular
 Data</a>] we began to process collective data in the form of tables.
@@ -96,7 +96,7 @@ href="getting-started.html">Getting Started</a>] there are many other
 kinds of data, and sometimes we will want to compute one of them. We
 will now see how to achieve both of these things, introducing an
 important new type of data in the process.</p>
-<h4 id="table-stat-qs">Basic Statistical Questions</h4>
+<h4 id="table-stat-qs">5.1.1 Basic Statistical Questions</h4>
 <p>There are many more questions we might want to ask of our events
 data. For instance:</p>
 <ul>
@@ -149,8 +149,8 @@ cleaned-data =
     sanitize delivery using string-sanitizer
     sanitize zip using string-sanitizer
   end</code></pre></div></div>
-<h4 id="Extracting-a-Column-from-a-Table">Extracting a Column from a
-Table</h4>
+<h4 id="Extracting-a-Column-from-a-Table">5.1.2 Extracting a Column from
+a Table</h4>
 <p>Our collection of table functions includes one that we haven’t yet
 used, called
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">select-columns</code></span>.
@@ -190,7 +190,7 @@ column, without the enclosing table. Yet the numbers are still bundled
 up, this time in the
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[list: ...]</code></span>
 notation. What is that?</p>
-<h4 id="Understanding-Lists">Understanding Lists</h4>
+<h4 id="Understanding-Lists">5.1.3 Understanding Lists</h4>
 <p>A list has much in common with a single-column table:</p>
 <ul>
 <li>The elements have an order, so it makes sense to talk about the
@@ -200,7 +200,7 @@ notation. What is that?</p>
 <p>The crucial difference is that a list does not have a “column name”;
 it is anonymous. That is, by itself a list does not describe what it
 represents; this interpretation is done by our program.</p>
-<h5 id="lists-generic-data">Lists as Anonymous Data</h5>
+<h5 id="lists-generic-data">5.1.3.1 Lists as Anonymous Data</h5>
 <p>This might sound rather abstract—and it is—but this isn’t actually a
 new idea in our programming experience. Consider a value like
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>
@@ -230,7 +230,7 @@ so on—that can be asked of a list of values without regard for what the
 list represents (heights, ages, playcounts). In fact, some are specific
 to numbers (like average) while some (like maximum) can be asked of any
 type on which we can perform a comparison (like strings).</p>
-<h5 id="Creating-Literal-Lists">Creating Literal Lists</h5>
+<h5 id="Creating-Literal-Lists">5.1.3.2 Creating Literal Lists</h5>
 <p>We have already seen how we can create lists from a table, using
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">get-column</code></span>.
 As you might expect, however, we can also create lists directly:</p>
@@ -247,9 +247,9 @@ list?</p></blockquote></blockquote>
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[list: ]</code></span>
 (the space isn’t necessary, but it’s a useful visual reminder of the
 void).</p>
-<h4 id="Operating-on-Lists">Operating on Lists</h4>
-<h5 id="Built-In-Operations-on-Lists-of-Numbers">Built-In Operations on
-Lists of Numbers</h5>
+<h4 id="Operating-on-Lists">5.1.4 Operating on Lists</h4>
+<h5 id="Built-In-Operations-on-Lists-of-Numbers">5.1.4.1 Built-In
+Operations on Lists of Numbers</h5>
 <p>Pyret handily provides a useful set of operations we can already
 perform on lists.
 <span class="refelem"><span class="refcolumn"><span class="refcontent">The <a href="https://www.pyret.org/docs/latest/lists.html">lists
@@ -277,8 +277,8 @@ statement in the above code gave the name
 to the
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">math</code></span>
 library.</p>
-<h5 id="Built-In-Operations-on-Lists-in-General">Built-In Operations on
-Lists in General</h5>
+<h5 id="Built-In-Operations-on-Lists-in-General">5.1.4.2 Built-In
+Operations on Lists in General</h5>
 <p>Some of the useful computations in our list at the start of the
 chapter involved the
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">discount</code></span>
@@ -344,7 +344,7 @@ in which all letters are in lowercase. (Hint: combine
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-to-lower</code></span>
 and
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>).</p></blockquote></blockquote>
-<h5 id="An-Aside-on-Naming-Conventions">An Aside on Naming
+<h5 id="An-Aside-on-Naming-Conventions">5.1.4.3 An Aside on Naming
 Conventions</h5>
 <p>Our use of the plural
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">codes</code></span>
@@ -355,7 +355,8 @@ is appropriate. In a table, in contrast, we think of a column header as
 naming a single value that appears in a specific row. Often, we speak of
 looking up a value in a specific row and column: the singular name for
 the column supports thinking about lookup in an individual row.</p>
-<h5 id="Getting-Elements-By-Position">Getting Elements By Position</h5>
+<h5 id="Getting-Elements-By-Position">5.1.4.4 Getting Elements By
+Position</h5>
 <p>Let’s look at a new analysis question: the events company recently
 ran an advertising campaign on
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web.com</code></span>,
@@ -429,7 +430,7 @@ L.length(L.filter(web-com-address, emails))</code></pre></div></div>
 doesn’t contain the
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">@</code></span>
 string? What would happen? What could you do about that?</p></blockquote></blockquote>
-<h5 id="Transforming-Lists">Transforming Lists</h5>
+<h5 id="Transforming-Lists">5.1.4.5 Transforming Lists</h5>
 <p>Imagine now that we had a list of email addresses, but instead just
 wanted a list of usernames. This doesn’t make sense for our event data,
 but it does make sense in other contexts (such as connecting messages to
@@ -467,7 +468,7 @@ end
 
 L.map(extract-username,
   [list: "parrot@web.com", "bonnie@pyret.org"])</code></pre></div></div>
-<h5 id="lists-recap">Recap: Summary of List Operations</h5>
+<h5 id="lists-recap">5.1.4.6 Recap: Summary of List Operations</h5>
 <p>At this point, we have seen several useful built-in functions for
 working with lists:</p>
 <ul>
@@ -548,7 +549,8 @@ needed.</p></blockquote></blockquote>
 ingredient lists and returns all of the ingredients that are common to
 both lists. What issue(s) or limitations do you run into?</p>
 <p>Come back to this problem after you finish the next section.</p></blockquote></blockquote>
-<h4 id="Lambda-Anonymous-Functions">Lambda: Anonymous Functions</h4>
+<h4 id="Lambda-Anonymous-Functions">5.1.5 Lambda: Anonymous
+Functions</h4>
 <p>NOTE: if you already saw</p>
 <p><span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span></p>
 <p>in</p>
@@ -672,7 +674,8 @@ rather than a named helper-function.</p></blockquote></blockquote>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Try again to tackle the problem from the end of the previous section:
 write a function that takes two ingredient lists and returns all of the
 ingredients that are common to both lists.</p></blockquote></blockquote>
-<h4 id="Combining-Lists-and-Tables">Combining Lists and Tables</h4>
+<h4 id="Combining-Lists-and-Tables">5.1.6 Combining Lists and
+Tables</h4>
 <p>The table functions we studied previously were primarily for
 processing rows. The list functions we’ve learned in this chapter have
 been primarily for processing columns (but there are many more uses in

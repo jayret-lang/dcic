@@ -80,9 +80,9 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="unified-lists-memory.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_state.html">up</a>&nbsp;&nbsp;<a href="part_python-state.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="unified-cyclic-data">Cyclic Data</h3>
+<h3 id="unified-cyclic-data">12.4 Cyclic Data</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._.Creating_.Cyclic_.Data%29">12.4.1<span class="hspace"> </span>Creating Cyclic Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._.Testing_.Cyclic_.Data%29">12.4.2<span class="hspace"> </span>Testing Cyclic Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._.Cycles_in_.Practice%29">12.4.3<span class="hspace"> </span>Cycles in Practice</a></p></td></tr></table>
-<h4 id="Creating-Cyclic-Data">Creating Cyclic Data</h4>
+<h4 id="Creating-Cyclic-Data">12.4.1 Creating Cyclic Data</h4>
 <p>Earlier [<a
 href="mutating-structures.html##mult-bank-acct">Aliasing</a>], we
 introduced the idea of aliased bank accounts, where multiple customers
@@ -223,7 +223,7 @@ is more general in that it will work in all settings (including when the
 prior list of owners is empty).</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write a function that takes care of adding a customer to an
 account.</p></blockquote></blockquote>
-<h4 id="Testing-Cyclic-Data">Testing Cyclic Data</h4>
+<h4 id="Testing-Cyclic-Data">12.4.2 Testing Cyclic Data</h4>
 <p>When you want to write a test involving circular data, you can’t
 write out the circular data manually. For example, imagine that we
 wanted to write out
@@ -251,7 +251,7 @@ doesn’t require you to write ellipses. We also focused on just the
 component, as a part of the
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">Account</code></span>
 value that we expected to change.</p>
-<h4 id="Cycles-in-Practice">Cycles in Practice</h4>
+<h4 id="Cycles-in-Practice">12.4.3 Cycles in Practice</h4>
 <p>Cyclic data show up in many settings in real programs. Whenever two
 data are interrelated, and we have good reason to want to get from
 either one to the other, they have the potential to have references to

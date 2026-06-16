@@ -1,19 +1,19 @@
 ---
 title: Mutating Variables
 section_number: 13.1
-source_file: dcic_orig_mutating-variables.html
+source_file: mutating-variables.html
 prev: part_python-state.html
 up: part_python-state.html
 next: mutable-lists.html
 ---
 
-### Mutating Variables {#mutating-variables}
+### 13.1 Mutating Variables {#mutating-variables}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._mutating-vars-memory%29">13.1.1<span class="hspace"> </span>Mutating Variables in Memory</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._var-mut-aliasing%29">13.1.2<span class="hspace"> </span>Variable Mutation and Aliasing</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._.Mutating_.Variables_versus_.Mutating_.Data_.Fields%29">13.1.3<span class="hspace"> </span>Mutating Variables versus Mutating Data Fields</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._.Mutating_.Parameters_in_.Function_.Calls%29">13.1.4<span class="hspace"> </span>Mutating Parameters in Function Calls</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._mut-top-level-vars-in-func%29">13.1.5<span class="hspace"> </span>Mutating Top-Level Variables within Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._.The_.Many_.Roles_of_.Variables%29">13.1.6<span class="hspace"> </span>The Many Roles of Variables</a></p></td></tr></table>
 ```
 
-#### Mutating Variables in Memory {#mutating-vars-memory}
+#### 13.1.1 Mutating Variables in Memory {#mutating-vars-memory}
 
 Now that we have introduced the idea of the heap, let’s revisit our
 use of a variable to compute the sum of elements in a list. Here again
@@ -110,7 +110,7 @@ for word in ["here", "are", "some", "words"]:
 ```
 :::
 
-#### Variable Mutation and Aliasing {#var-mut-aliasing}
+#### 13.1.2 Variable Mutation and Aliasing {#var-mut-aliasing}
 
 In [Mutating Structures](mutating-structures.html), we saw how a statement of the form
 `elena.acct.balance = 500`{.python} resulted in a change to
@@ -196,7 +196,7 @@ Since the value of `savings`{.python} is stored in `ac3.balance`{.python},
 and not the name `savings`{.python} itself, updating the value of
 `savings`{.python} on the third line does not affect `ac3.balance`{.python}.
 
-#### Mutating Variables versus Mutating Data Fields {#Mutating-Variables-versus-Mutating-Data-Fields}
+#### 13.1.3 Mutating Variables versus Mutating Data Fields {#Mutating-Variables-versus-Mutating-Data-Fields}
 
 We’ve now seen two different forms of updates in programs: updates to
 fields of structured data in [Mutating Structures](mutating-structures.html), and updates to
@@ -265,7 +265,7 @@ whether the right side is basic data or data with components. We will
 continue to work with these various combinations to build your
 understanding of when and how to use each one.
 
-#### Mutating Parameters in Function Calls {#Mutating-Parameters-in-Function-Calls}
+#### 13.1.4 Mutating Parameters in Function Calls {#Mutating-Parameters-in-Function-Calls}
 
 In [Function Composition and the Directory](Conditionals_and_Booleans.html##func-comp-directory), we showed how
 function calls create their own local directory segments to store any
@@ -369,7 +369,7 @@ of data. You cannot have it be basic data associated with a variable
 name.
 :::
 
-#### Mutating Top-Level Variables within Functions {#mut-top-level-vars-in-func}
+#### 13.1.5 Mutating Top-Level Variables within Functions {#mut-top-level-vars-in-func}
 
 Let’s return to our banking example to illustrate a situation where
 the ability to update variables is extremely useful. Consider our
@@ -510,7 +510,7 @@ pattern we have shown you is fine. If you were building a real system,
 however, you’d want to make that computation a bit more sophisticated.
 :::
 
-#### The Many Roles of Variables {#The-Many-Roles-of-Variables}
+#### 13.1.6 The Many Roles of Variables {#The-Many-Roles-of-Variables}
 
 At this point, we have used the single coding construct of a variable
 in the directory for multiple purposes. It’s worth stepping back and

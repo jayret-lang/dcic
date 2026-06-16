@@ -1,13 +1,13 @@
 ---
 title: Comparing This Book to HtDP
 section_number: 30
-source_file: dcic_orig_htdp-vs-dcic.html
+source_file: htdp-vs-dcic.html
 prev: pyret-vs-python.html
 up: booklet_appendices.html
 next: Release_Notes.html
 ---
 
-## Comparing This Book to HtDP {#htdp-vs-dcic}
+## 30 Comparing This Book to HtDP {#htdp-vs-dcic}
 
 This book (DCIC) is often compared to
 [How to Design Programs](https://www.htdp.org/) (HtDP),

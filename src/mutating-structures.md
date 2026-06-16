@@ -1,13 +1,13 @@
 ---
 title: Mutating Structures
 section_number: 12.1
-source_file: dcic_orig_mutating-structures.html
+source_file: mutating-structures.html
 prev: part_state.html
 up: part_state.html
 next: unified-equality.html
 ---
 
-### Mutating Structures {#mutating-structures}
+### 12.1 Mutating Structures {#mutating-structures}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-structures.html#%28part._eg-bank-acc%29">12.1.1<span class="hspace"> </span>Example: Bank Accounts</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-structures.html#%28part._.Testing_.Functions_that_.Mutate_.Structures%29">12.1.2<span class="hspace"> </span>Testing Functions that Mutate Structures</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-structures.html#%28part._mult-bank-acct%29">12.1.3<span class="hspace"> </span>Aliasing</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-structures.html#%28part._structure-mut-dir%29">12.1.4<span class="hspace"> </span>Structure Mutation and the Directory</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="mutating-structures.html#%28part._heap-intro%29">12.1.4.1<span class="hspace"> </span>Introducing the Heap</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="mutating-structures.html#%28part._basic-data-heap%29">12.1.4.2<span class="hspace"> </span>Basic Data and the Heap</a></p></td></tr></table>
@@ -20,7 +20,7 @@ both because the core concept arises in both (indeed in nearly all)
 languages and
 because their contrast is instructive.
 
-#### Example: Bank Accounts {#eg-bank-acc}
+#### 12.1.1 Example: Bank Accounts {#eg-bank-acc}
 
 Imagine that we want to represent bank accounts, where each account
 has a (unique) id number and a balance:
@@ -190,7 +190,7 @@ instruction—i.e., the same piece of program text—may produce
 different answers. This makes programming much harder, and we will
 have to get used to the subtleties that come along with it.
 
-#### Testing Functions that Mutate Structures {#Testing-Functions-that-Mutate-Structures}
+#### 12.1.2 Testing Functions that Mutate Structures {#Testing-Functions-that-Mutate-Structures}
 
 Our example of adding funds to an account corresponds to making a
 deposit into a bank account. Let’s turn our balance-updating
@@ -270,7 +270,7 @@ end</code></pre></div></div></p></td></tr></table>
 ```
 :::
 
-#### Aliasing {#mult-bank-acct}
+#### 12.1.3 Aliasing {#mult-bank-acct}
 
 Now let’s
 suppose our bank allows accounts to be shared by multiple customers.
@@ -372,7 +372,7 @@ sure that fields accessed through `.`{.pyret} will never change in value
 over time or even if there are aliases, but those accessed through
 `!`{.pyret} might change over time (and via aliases).
 
-#### Structure Mutation and the Directory {#structure-mut-dir}
+#### 12.1.4 Structure Mutation and the Directory {#structure-mut-dir}
 
 Now that we have the ability to mutate the contents of data, we will need to show and then revise our
 notion of directories. The directories are essentially the same
@@ -455,7 +455,7 @@ simple idea of mapping names to values breaks down because it
 doesn’t capture the aliases. We need a refined representation of the
 connections between names and values that does capture aliasing.
 
-##### Introducing the Heap {#heap-intro}
+##### 12.1.4.1 Introducing the Heap {#heap-intro}
 
 Our original presentation of the directory reflected the aliases that referred to a single
 `Account`{.pyret} through repeated use of the name `acct1`{.pyret}. We only
@@ -594,7 +594,7 @@ In the example above, we did not alter the heap in any way; only the
 directory should be modified to reflect that `acct3`{.python} and
 `acct1`{.python} are now aliases.
 
-##### Basic Data and the Heap {#basic-data-heap}
+##### 12.1.4.2 Basic Data and the Heap {#basic-data-heap}
 
 The above rules don’t indicate what happens when we have basic data,
 such as numbers or strings, associated with names in the directory. Do

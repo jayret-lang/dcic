@@ -1,19 +1,19 @@
 ---
 title: Understanding Equality
 section_number: 12.2
-source_file: dcic_orig_unified-equality.html
+source_file: unified-equality.html
 prev: mutating-structures.html
 up: part_state.html
 next: unified-lists-memory.html
 ---
 
-### Understanding Equality {#unified-equality}
+### 12.2 Understanding Equality {#unified-equality}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._equality-of-data%29">12.2.1<span class="hspace"> </span>Equality of Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._equality-operations%29">12.2.2<span class="hspace"> </span>Different Equality Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._.Equality_in_.Python%29">12.2.2.1<span class="hspace"> </span>Equality in Python</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._.Equality_in_.Pyret%29">12.2.2.2<span class="hspace"> </span>Equality in Pyret</a></p></td></tr></table>
 ```
 
-#### Equality of Data {#equality-of-data}
+#### 12.2.1 Equality of Data {#equality-of-data}
 
 Now that we have the ability to mutate data, it’s worth asking what it
 means for two pieces of data to be equal. We’ll motivate this through
@@ -86,7 +86,7 @@ with a balance of `800`{.python}.
 What do you think now? Are the first two accounts equal?
 :::
 
-#### Different Equality Operations {#equality-operations}
+#### 12.2.2 Different Equality Operations {#equality-operations}
 
 This sequence of examples points out that we seem to be raising two
 possible notions of equality:
@@ -112,7 +112,7 @@ Unfortunately, the names of equality operations, and their exact
 meaning, vary across languages. Therefore, we will examine each of
 Pyret and Python separately.
 
-##### Equality in Python {#Equality-in-Python}
+##### 12.2.2.1 Equality in Python {#Equality-in-Python}
 
 The `==`{.python} operator that you learned in Pyret and we carried into
 Python checks for structural equality, independent of addresses:
@@ -189,7 +189,7 @@ of equality. The `==`{.python} operator is more accepting, so it is
 usually the right default. If you actually need to know whether two
 expressions evaluate to the same address, you should instead use `is`{.python}.
 
-##### Equality in Pyret {#Equality-in-Pyret}
+##### 12.2.2.2 Equality in Pyret {#Equality-in-Pyret}
 
 Equality in Pyret is somewhat more detailed, because the language
 wants you to think harder about what is happening in your programs.

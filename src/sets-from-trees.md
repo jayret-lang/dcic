@@ -1,13 +1,13 @@
 ---
 title: Making Sets Grow on Trees
 section_number: 18.2
-source_file: dcic_orig_sets-from-trees.html
+source_file: sets-from-trees.html
 prev: sets-from-lists.html
 up: part_sets.html
 next: union-find.html
 ---
 
-### Making Sets Grow on Trees {#sets-from-trees}
+### 18.2 Making Sets Grow on Trees {#sets-from-trees}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Using_.Binary_.Trees%29">18.2.1<span class="hspace"> </span>Using Binary Trees</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Checking_the_.Complexity%29">18.2.2<span class="hspace"> </span>Checking the Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._sets-from-balanced-trees%29">18.2.3<span class="hspace"> </span>A Fine Balance: Tree Surgery</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Left-.Left_.Case%29">18.2.3.1<span class="hspace"> </span>Left-Left Case</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Left-.Right_.Case%29">18.2.3.2<span class="hspace"> </span>Left-Right Case</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Any_.Other_.Cases_%29">18.2.3.3<span class="hspace"> </span>Any Other Cases?</a></p></td></tr></table>
@@ -61,7 +61,7 @@ constructing sets of numbers, we don’t need to confront this issue
 here. Instead, we go into it in much more detail in
 [Converting Values to Ordered Values](orderability.html##hashing-values).
 
-#### Using Binary Trees {#Using-Binary-Trees}
+#### 18.2.1 Using Binary Trees {#Using-Binary-Trees}
 
 [Because logs come from trees.]{.margin-note}
 
@@ -234,7 +234,7 @@ Update the data definition and all affected functions to keep track of
 this information correctly.
 :::
 
-#### Checking the Complexity {#Checking-the-Complexity}
+#### 18.2.2 Checking the Complexity {#Checking-the-Complexity}
 
 But wait a minute. Are we actually done? Our recurrence takes the
 form \(T(k) = T(k/2) + c\), but what in our data definition guaranteed
@@ -280,7 +280,7 @@ Even if we could assume that the binary tree is balanced, how do we
 determine the size in logarithmic-or-better time?
 :::
 
-#### A Fine Balance: Tree Surgery {#sets-from-balanced-trees}
+#### 18.2.3 A Fine Balance: Tree Surgery {#sets-from-balanced-trees}
 
 Let’s define a balanced binary search tree (BBST). It must
 obviously be a search tree, so let’s focus on the “balanced” part.
@@ -420,7 +420,7 @@ Why can they both not have height \(k+1\) after insertion?
 
 This gives us two cases to consider.
 
-##### Left-Left Case {#Left-Left-Case}
+##### 18.2.3.1 Left-Left Case {#Left-Left-Case}
 
 Let’s say the imbalance is in \(A\), i.e., it has height \(k+1\).
 Let’s expand that tree:
@@ -460,7 +460,7 @@ root than earlier relative to \(B\) and \(C\). This restores the
 balance (as you can see if you work out the heights of each of
 \(A_i\), \(B\), and \(C\)). Thus, we have also restored balance.
 
-##### Left-Right Case {#Left-Right-Case}
+##### 18.2.3.2 Left-Right Case {#Left-Right-Case}
 
 The imbalance might instead be in \(B\). Expanding:
 
@@ -502,7 +502,7 @@ constraints. Furthermore, from the root, \(A\)’s lowest node is at
 height \(k+1\) or \(k+2\); so is \(B_1\)’s; so is \(B_2\)’s; and
 \(C\)’s is at \(k+2\).
 
-##### Any Other Cases? {#Any-Other-Cases}
+##### 18.2.3.3 Any Other Cases? {#Any-Other-Cases}
 
 Were we a little too glib before? In the left-right case we said that
 only one of \(B_1\) or \(B_2\) could be of height \(k\) (after

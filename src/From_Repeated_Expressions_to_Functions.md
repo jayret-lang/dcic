@@ -1,19 +1,19 @@
 ---
 title: From Repeated Expressions to Functions
 section_number: 3.3
-source_file: dcic_orig_From_Repeated_Expressions_to_Functions.html
+source_file: From_Repeated_Expressions_to_Functions.html
 prev: Naming_Values.html
 up: part_foundations.html
 next: Conditionals_and_Booleans.html
 ---
 
-### From Repeated Expressions to Functions {#From-Repeated-Expressions-to-Functions}
+### 3.3 From Repeated Expressions to Functions {#From-Repeated-Expressions-to-Functions}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._similar-flags%29">3.3.1<span class="hspace"> </span>Example: Similar Flags</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._defining-functions%29">3.3.2<span class="hspace"> </span>Defining Functions</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._function-call-nm%29">3.3.2.1<span class="hspace"> </span>How Functions Evaluate</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._fun-annotations%29">3.3.2.2<span class="hspace"> </span>Type Annotations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._doc-strings%29">3.3.2.3<span class="hspace"> </span>Documentation</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._moon-weight-pyret%29">3.3.3<span class="hspace"> </span>Functions Practice: Moon Weight</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._writing-examples%29">3.3.4<span class="hspace"> </span>Documenting Functions with Examples</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._pen-cost-pyret%29">3.3.5<span class="hspace"> </span>Functions Practice: Cost of pens</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._.Recap__.Defining_.Functions%29">3.3.6<span class="hspace"> </span>Recap: Defining Functions</a></p></td></tr></table>
 ```
 
-#### Example: Similar Flags {#similar-flags}
+#### 3.3.1 Example: Similar Flags {#similar-flags}
 
 Consider the following two expressions to draw the flags of Armenia
 and Austria (respectively). These two countries have the same flag,
@@ -60,7 +60,7 @@ our application of creating flag images. To make this program work, then,
 we need the ability to add our own operators (henceforth called
 functions) to Pyret.
 
-#### Defining Functions {#defining-functions}
+#### 3.3.2 Defining Functions {#defining-functions}
 
 In programming, a function takes one or more (configuration)
 parameters and uses them to produce a result.
@@ -149,7 +149,7 @@ your file already had definitions for the names `armenia`{.pyret} or
 use a different name (like `austria2`{.pyret}) or comment out the
 original definition using `#`{.pyret}.)
 
-##### How Functions Evaluate {#function-call-nm}
+##### 3.3.2.1 How Functions Evaluate {#function-call-nm}
 
 So far, we have learned three rules for how Pyret processes your program:
 
@@ -206,7 +206,7 @@ same expression we started from for the Armenian flag. Substitution
 restores that expression, while still allowing the programmer to write
 the shorthand in terms of `three-stripe-flag`{.pyret}.
 
-##### Type Annotations {#fun-annotations}
+##### 3.3.2.2 Type Annotations {#fun-annotations}
 
 What if we made a mistake, and tried to call the function as follows:
 
@@ -290,7 +290,7 @@ We will think of types as playing two roles: giving Pyret information
 that it can use to focus error messages more accurately, and guiding
 human readers of programs as to the proper use of user-defined functions.
 
-##### Documentation {#doc-strings}
+##### 3.3.2.3 Documentation {#doc-strings}
 
 Imagine that you opened your program file from this chapter a couple
 of months from now. Would you remember what computation
@@ -320,7 +320,7 @@ should always provide one when you write a function. They are
 extremely helpful to anyone who has to read your program, whether that is
 a co-worker, grader…or yourself, a couple of weeks from now.
 
-#### Functions Practice: Moon Weight {#moon-weight-pyret}
+#### 3.3.3 Functions Practice: Moon Weight {#moon-weight-pyret}
 
 Suppose we’re responsible for outfitting a team of astronauts for
 lunar exploration. We have to determine how much each of them will
@@ -380,7 +380,7 @@ Let’s remind ourselves of the steps for creating a function:
   end
   ```
 
-#### Documenting Functions with Examples {#writing-examples}
+#### 3.3.4 Documenting Functions with Examples {#writing-examples}
 
 In each of the functions above, we’ve started with some examples of
 what we wanted to compute, generalized from there to a generic
@@ -457,7 +457,7 @@ can’t write the examples, chances are you won’t be able to write the
 function either. Examples break down the programming process into
 smaller, manageable steps.
 
-#### Functions Practice: Cost of pens {#pen-cost-pyret}
+#### 3.3.5 Functions Practice: Cost of pens {#pen-cost-pyret}
 
 Let’s create one more function, this time for a more complicated example.
 Imagine that you are trying to compute the total cost of an order of
@@ -580,7 +580,7 @@ pen-cost(0, "") is 0
 Does doing this seem like a good idea? Why or why not?
 :::
 
-#### Recap: Defining Functions {#Recap-Defining-Functions}
+#### 3.3.6 Recap: Defining Functions {#Recap-Defining-Functions}
 
 This chapter has introduced the idea of a function. Functions play a
 key role in programming: they let us configure computations with

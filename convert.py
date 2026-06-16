@@ -322,8 +322,9 @@ class Converter:
             el.decompose()
         for el in tag.find_all('a'):
             el.decompose()
-        raw_text = re.sub(r'\s+', ' ', tag.get_text(' ', strip=True)).strip()
-        title = strip_section_number(raw_text)
+        # Keep section number prefix — the original site renders headings as
+        # "<number> <title>" (e.g. "II Introduction to Programming").
+        title = re.sub(r'\s+', ' ', tag.get_text(' ', strip=True)).strip()
         hashes = '#' * level
         anchor_attr = f' {{#{anchor}}}' if anchor else ''
         return f'\n{hashes} {title}{anchor_attr}\n'

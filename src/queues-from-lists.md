@@ -1,13 +1,13 @@
 ---
 title: Queues from Lists
 section_number: 8.2
-source_file: dcic_orig_queues-from-lists.html
+source_file: queues-from-lists.html
 prev: func-as-data.html
 up: part_bonus-foundations.html
 next: testing.html
 ---
 
-### Queues from Lists {#queues-from-lists}
+### 8.2 Queues from Lists {#queues-from-lists}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._.Using_a_.Wrapper_.Datatype%29">8.2.1<span class="hspace"> </span>Using a Wrapper Datatype</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._qfl-comb-ans%29">8.2.2<span class="hspace"> </span>Combining Answers</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._.Using_a_.Picker%29">8.2.3<span class="hspace"> </span>Using a Picker</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._qfl-tuples%29">8.2.4<span class="hspace"> </span>Using Tuples</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._.A_.Picker_.Method%29">8.2.5<span class="hspace"> </span>A Picker Method</a></p></td></tr></table>
@@ -35,7 +35,7 @@ were the same. Another option we have when encoding is to create a completely
 new type that does nothing more than wrap a value of the encoding type. We’ll
 use that principle here to illustrate how that might work.
 
-#### Using a Wrapper Datatype {#Using-a-Wrapper-Datatype}
+#### 8.2.1 Using a Wrapper Datatype {#Using-a-Wrapper-Datatype}
 
 Concretely, here’s how we’ll represent queues. For all the code that follows,
 it’s helpful to use the Pyret type-checker to make sure we’re composing code
@@ -133,7 +133,7 @@ fun qrest(q):
 end
 ```
 
-#### Combining Answers {#qfl-comb-ans}
+#### 8.2.2 Combining Answers {#qfl-comb-ans}
 
 However, it would be nice if we could obtain both the oldest element and the
 rest of the queue at once, if we want them both. That means the single function
@@ -162,7 +162,7 @@ manifest in the return type: [The Option Type](partial-domains.html##pd-option),
 Write out the function using this return type.
 :::
 
-#### Using a Picker {#Using-a-Picker}
+#### 8.2.3 Using a Picker {#Using-a-Picker}
 
 Does `Dequeued`{.pyret} look familiar? Of course it should! It’s basically the
 same as the pickers used for sets in Pyret: [Picking Elements from Sets](Collections_of_Structured_Data.html##coll-sd-pick). If we make
@@ -218,7 +218,7 @@ interface, rather than in place of one.
 At this point we’re done with the essential content, but here are two more
 parts that you may find interesting.
 
-#### Using Tuples {#qfl-tuples}
+#### 8.2.4 Using Tuples {#qfl-tuples}
 
 Earlier, we created the `Dequeued`{.pyret} datatype to represent the return value
 from the dequeue. Indeed, it is often useful to create datatypes of this sort
@@ -325,7 +325,7 @@ reduction in readability, and increase the likelihood of errors (because tuples
 from one source aren’t distinguishable from those from another source). Use
 them with caution!
 
-#### A Picker Method {#A-Picker-Method}
+#### 8.2.5 A Picker Method {#A-Picker-Method}
 
 Second, and this is truly optional: you may have noticed earlier that `Set`{.pyret}s had a
 built-in `pick`{.pyret} method. We have a function, but not method,

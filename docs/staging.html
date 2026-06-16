@@ -80,9 +80,9 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="partial-domains.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_advanced.html">up</a>&nbsp;&nbsp;<a href="factoring-numbers.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h2 id="staging">Staging</h2>
+<h2 id="staging">24 Staging</h2>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Problem_.Definition%29">24.1<span class="hspace"> </span>Problem Definition</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Initial_.Solution%29">24.2<span class="hspace"> </span>Initial Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Refactoring%29">24.3<span class="hspace"> </span>Refactoring</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Separating_.Parameters%29">24.4<span class="hspace"> </span>Separating Parameters</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Context%29">24.5<span class="hspace"> </span>Context</a></p></td></tr></table>
-<h3 id="Problem-Definition">Problem Definition</h3>
+<h3 id="Problem-Definition">24.1 Problem Definition</h3>
 <p>Earlier, we saw a detailed development of binary trees representing
 ancestry [<a href="trees.html##ancestor-tree">Creating a Datatype for
 Ancestor Trees</a>]. In what follows we don’t need a lot of detail, so
@@ -116,7 +116,7 @@ step!</p></blockquote></blockquote>
 a count.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Define
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>.</p></blockquote></blockquote>
-<h3 id="Initial-Solution">Initial Solution</h3>
+<h3 id="Initial-Solution">24.2 Initial Solution</h3>
 <p>Presumably you ended up with something like this:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun how-many-named(p, looking-for):
   cases (ABT) p:
@@ -142,7 +142,7 @@ end</code></pre></div></div>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
   how-many-named(p, "A") is 3
 end</code></pre></div></div>
-<h3 id="Refactoring">Refactoring</h3>
+<h3 id="Refactoring">24.3 Refactoring</h3>
 <p>Now let’s apply some transformations, sometimes called code
 refactorings, to this function.</p>
 <p>First, notice the repeated expression. What the whole conditional is
@@ -236,7 +236,7 @@ end</code></pre></div></div>
 <p>and the example reads
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named("A", p)</code></span>
 instead.</p>
-<h3 id="Separating-Parameters">Separating Parameters</h3>
+<h3 id="Separating-Parameters">24.4 Separating Parameters</h3>
 <p>This sets us up for the next stage. The parameters of functions are
 meant to indicate what might vary in a function. Because the name we’re
 looking for is a constant once we initially have it, we’d like the
@@ -332,7 +332,7 @@ returns a function, and the way we apply a function to arguments is
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">(…)</code></span>.
 Thus, we can also write this as:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">how-many-named("A")(p) is 3</code></pre></div></div>
-<h3 id="Context">Context</h3>
+<h3 id="Context">24.5 Context</h3>
 <p>The transformation we just applied is generally called currying, in
 honor of Haskell Curry, who was one of the early people to describe it,
 though it was earlier discovered by Moses Schönfinkel and even earlier

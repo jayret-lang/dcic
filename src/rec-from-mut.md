@@ -1,13 +1,13 @@
 ---
 title: Recursion and Cycles from Mutation
 section_number: 20
-source_file: dcic_orig_rec-from-mut.html
+source_file: rec-from-mut.html
 prev: state-in-pyret.html
 up: booklet_advanced.html
 next: cycle-detection.html
 ---
 
-## Recursion and Cycles from Mutation {#rec-from-mut}
+## 20 Recursion and Cycles from Mutation {#rec-from-mut}
 
 Earlier [[From Acyclicity to Cycles](Sharing_and_Equality.html##acyc-to-cyc)], we saw the difficulty of
 constructing cyclic data, and saw how we could address this problem
@@ -63,7 +63,7 @@ down these two definitions because one of them must precede the other,
 but each one depends on the other. (This is the same problem as trying
 to write a single definition above.)
 
-### Partial Definitions {#Partial-Definitions}
+### 20.1 Partial Definitions {#Partial-Definitions}
 
 What we need to instead do is to partially define each list,
 and then complete the definition using the other one. However,
@@ -124,7 +124,7 @@ check:
 end
 ```
 
-### Recursive Functions {#rec-for-recursive}
+### 20.2 Recursive Functions {#rec-for-recursive}
 
 Based on this, we can now understand recursive functions. Consider a
 very simple example, such as this:
@@ -169,7 +169,7 @@ an environment where the name is bound, unboxing the use of the name;
 and finally, it replaces the box’s content with the defined function,
 following the same pattern we saw earlier for `web-colors`{.pyret}.
 
-### Premature Evaluation {#premature-eval}
+### 20.3 Premature Evaluation {#premature-eval}
 
 Observe that the above description reveals that there is a time
 between the creation of the name and the assignment of a value to
@@ -209,7 +209,7 @@ There are generally three solutions to this problem:
   binding is syntactically a function. This solution precludes some
   reasonable programs, but is certainly safe.
 
-### Cyclic Lists Versus Streams {#Cyclic-Lists-Versus-Streams}
+### 20.4 Cyclic Lists Versus Streams {#Cyclic-Lists-Versus-Streams}
 
 The color list example above is, as we have noted, very reminiscent of
 stream examples. What is the relationship between the two ways of

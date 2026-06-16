@@ -1,13 +1,13 @@
 ---
 title: Recursive Data
 section_number: 5.3
-source_file: dcic_orig_recursive-data.html
+source_file: recursive-data.html
 prev: processing-lists.html
 up: part_lists.html
 next: part_structured-data.html
 ---
 
-### Recursive Data {#recursive-data}
+### 5.3 Recursive Data {#recursive-data}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._.Functions_to_.Process_.Recursive_.Data%29">5.3.1<span class="hspace"> </span>Functions to Process Recursive Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._.A_.Template_for_.Processing_.Recursive_.Data%29">5.3.2<span class="hspace"> </span>A Template for Processing Recursive Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._.The_.Design_.Recipe%29">5.3.3<span class="hspace"> </span>The Design Recipe</a></p></td></tr></table>
@@ -113,7 +113,7 @@ nl-link(1,
                 nl-empty))))
 ```
 
-#### Functions to Process Recursive Data {#Functions-to-Process-Recursive-Data}
+#### 5.3.1 Functions to Process Recursive Data {#Functions-to-Process-Recursive-Data}
 
 Let’s try to write a function `contains-3`{.pyret}, which returns `true`{.pyret} if
 the `NumList`{.pyret} contains the value `3`{.pyret}, and `false`{.pyret} otherwise.
@@ -403,7 +403,7 @@ datum. This idea of doing recursion with the same function on self-recursive
 parts of the datatype lets us extend our template to handle recursive
 fields.
 
-#### A Template for Processing Recursive Data {#A-Template-for-Processing-Recursive-Data}
+#### 5.3.2 A Template for Processing Recursive Data {#A-Template-for-Processing-Recursive-Data}
 
 Stepping back, we have actually derived a new way to approach writing
 functions over recursive data. Back in [Processing Lists](processing-lists.html), we
@@ -472,7 +472,7 @@ data definitions (where writing examples by hand would prove
 tedious). We will see examples of this as our data get more complex in
 coming chapters.
 
-#### The Design Recipe {#The-Design-Recipe}
+#### 5.3.3 The Design Recipe {#The-Design-Recipe}
 
 We’ve showed you many techniques to use while designing programs,
 including developing examples, writing tests, and now writing and

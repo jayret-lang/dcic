@@ -77,7 +77,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="booklet_appendices.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_appendices.html">up</a>&nbsp;&nbsp;<a href="pyret-vs-python.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h2 id="p4rs">Pyret for Racketeers and Schemers</h2>
+<h2 id="p4rs">28 Pyret for Racketeers and Schemers</h2>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Numbers__.Strings__and_.Booleans%29">28.1<span class="hspace"> </span>Numbers, Strings, and Booleans</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Infix_.Expressions%29">28.2<span class="hspace"> </span>Infix Expressions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Function_.Definition_and_.Application%29">28.3<span class="hspace"> </span>Function Definition and Application</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Tests%29">28.4<span class="hspace"> </span>Tests</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Variable_.Names%29">28.5<span class="hspace"> </span>Variable Names</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Data_.Definitions%29">28.6<span class="hspace"> </span>Data Definitions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Conditionals%29">28.7<span class="hspace"> </span>Conditionals</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Lists%29">28.8<span class="hspace"> </span>Lists</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.First-.Class_.Functions%29">28.9<span class="hspace"> </span>First-Class Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Annotations%29">28.10<span class="hspace"> </span>Annotations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.What_.Else_%29">28.11<span class="hspace"> </span>What Else?</a></p></td></tr></table>
 <p>If you’ve programmed before in a language like Scheme or the student
 levels of Racket (or the WeScheme programming environment), or for that
@@ -90,7 +90,7 @@ all these languages, though in some cases we will refer specifically to
 Racket (and WeScheme) features not found in Scheme.</p>
 <p>In every example below, the two programs will produce the same
 results.</p>
-<h3 id="Numbers-Strings-and-Booleans">Numbers, Strings, and
+<h3 id="Numbers-Strings-and-Booleans">28.1 Numbers, Strings, and
 Booleans</h3>
 <p>Numbers are very similar between the two. Like Scheme, Pyret
 implements arbitrary-precision numbers and rationals. Some of the more
@@ -107,7 +107,7 @@ single-quotes as well.</p>
 <p>Booleans have the same names:</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktSym">true</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">true</code></span></p></td></tr></table>
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktSym">false</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">false</code></span></p></td></tr></table>
-<h3 id="Infix-Expressions">Infix Expressions</h3>
+<h3 id="Infix-Expressions">28.2 Infix Expressions</h3>
 <p>Pyret uses an infix syntax, reminiscent of many other textual
 programming languages:</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">+</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">1</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">2</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">1 + 2</code></span></p></td></tr></table>
@@ -119,8 +119,8 @@ operator you don’t need to parenthesize; chaining associates to the left
 in both languages:</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">/</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">1</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">2</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">3</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">4</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">1 / 2 / 3 / 4</code></span></p></td></tr></table>
 <p>These both evaluate to 1/24.</p>
-<h3 id="Function-Definition-and-Application">Function Definition and
-Application</h3>
+<h3 id="Function-Definition-and-Application">28.3 Function Definition
+and Application</h3>
 <p>Function definition and application in Pyret have an infix syntax,
 more reminiscent of many other textual programming languages.
 Application uses a syntax familiar from conventional algebra books:</p>
@@ -131,7 +131,7 @@ headers, and infix in the body:</p>
   num-sqrt((x * x) +
            (y * y))
 end</code></pre></div></div></p></td></tr></table>
-<h3 id="Tests">Tests</h3>
+<h3 id="Tests">28.4 Tests</h3>
 <p>There are essentially three different ways of writing the equivalent
 of Racket’s check-expect tests. They can be translated into check
 blocks:</p>
@@ -179,7 +179,7 @@ addition to
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>).
 See <a href="https://www.pyret.org/docs/latest/testing.html">the
 documentation</a>.</p>
-<h3 id="Variable-Names">Variable Names</h3>
+<h3 id="Variable-Names">28.5 Variable Names</h3>
 <p>Both languages have a fairly permissive system for naming variables.
 While you can use CamelCase and under_scores in both, it is conventional
 to instead use what is known as <a
@@ -199,7 +199,7 @@ in the latter must be surrounded by spaces.</p>
 more exotic names permitted by Scheme. For instance, one can write</p>
 <blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym">define</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">e^i*pi</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">-1</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr></table></blockquote>
 <p>in Scheme but that is not a valid variable name in Pyret.</p>
-<h3 id="Data-Definitions">Data Definitions</h3>
+<h3 id="Data-Definitions">28.6 Data Definitions</h3>
 <p>Pyret diverges from Racket (and even more so from Scheme) in its
 handling of data definitions. First, we will see how to define a
 structure:</p>
@@ -258,7 +258,7 @@ or
 (or indeed anything else with that field). In contrast,
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
 does pay attention to this distinction.</p>
-<h3 id="Conditionals">Conditionals</h3>
+<h3 id="Conditionals">28.7 Conditionals</h3>
 <p>There are several kinds of conditionals in Pyret, one more than in
 the Racket student languages.</p>
 <p>General conditionals can be written using
@@ -333,7 +333,7 @@ to process data definitions. However, there are times when, for
 instance, there many variants of data but a function processes only very
 few of them. In such situations, it makes more sense to explicitly use
 predicates and selectors.</p>
-<h3 id="Lists">Lists</h3>
+<h3 id="Lists">28.8 Lists</h3>
 <p>In Racket, depending on the language level, lists are created using
 either cons or list, with empty for the empty list. The corresponding
 notions in Pyret are called
@@ -383,11 +383,11 @@ nested destructuring of a list, we conventionally write
 and
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rr</code></span>
 (for “first of the rest” and “rest of the rest”).</p>
-<h3 id="First-Class-Functions">First-Class Functions</h3>
+<h3 id="First-Class-Functions">28.9 First-Class Functions</h3>
 <p>The equivalent of Racket’s lambda is Pyret’s
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>:</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">lambda</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">y</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">+</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">y</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">lam(x, y): x + y end</code></span></p></td></tr></table>
-<h3 id="Annotations">Annotations</h3>
+<h3 id="Annotations">28.10 Annotations</h3>
 <p>In student Racket languages, annotations are usually written as
 comments:</p>
 <blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktCmt">;</span><span class="hspace"> </span><span class="RktCmt">square:</span><span class="hspace"> </span><span class="RktCmt">Number</span><span class="hspace"> </span><span class="RktCmt">-&gt;</span><span class="hspace"> </span><span class="RktCmt">Number</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktCmt">;</span><span class="hspace"> </span><span class="RktCmt">sort-nums:</span><span class="hspace"> </span><span class="RktCmt">List&lt;Number&gt;</span><span class="hspace"> </span><span class="RktCmt">-&gt;</span><span class="hspace"> </span><span class="RktCmt">List&lt;Number&gt;</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="RktCmt">;</span><span class="hspace"> </span><span class="RktCmt">sort:</span><span class="hspace"> </span><span class="RktCmt">List&lt;T&gt;</span><span class="hspace"> </span><span class="RktCmt">*</span><span class="hspace"> </span><span class="RktCmt">(T</span><span class="hspace"> </span><span class="RktCmt">*</span><span class="hspace"> </span><span class="RktCmt">T</span><span class="hspace"> </span><span class="RktCmt">-&gt;</span><span class="hspace"> </span><span class="RktCmt">Boolean)</span><span class="hspace"> </span><span class="RktCmt">-&gt;</span><span class="hspace"> </span><span class="RktCmt">List&lt;T&gt;</span><span class="RktMeta"></span></td></tr></table></blockquote>
@@ -400,7 +400,7 @@ annotations to those above would be written as</p>
 fun sort-nums(l :: List&lt;Number&gt;) -&gt; List&lt;Number&gt;: ...
 
 fun sort&lt;T&gt;(l :: List&lt;T&gt;, cmp :: (T, T -&gt; Boolean)) -&gt; List&lt;T&gt;: ...</code></pre></div></div>
-<h3 id="What-Else">What Else?</h3>
+<h3 id="What-Else">28.11 What Else?</h3>
 <p>If there are other parts of Scheme or Racket syntax that you would
 like to see translated, please <a
 href="http://cs.brown.edu/~sk/Contact/">let us know</a>.</p>

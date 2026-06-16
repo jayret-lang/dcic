@@ -1,13 +1,13 @@
 ---
 title: Basic Graph Traversals
 section_number: 17.2
-source_file: dcic_orig_basic-graph-trav.html
+source_file: basic-graph-trav.html
 prev: intro-graphs.html
 up: part_graphs.html
 next: weighted-graphs.html
 ---
 
-### Basic Graph Traversals {#basic-graph-trav}
+### 17.2 Basic Graph Traversals {#basic-graph-trav}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.Reachability%29">17.2.1<span class="hspace"> </span>Reachability</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.Simple_.Recursion%29">17.2.1.1<span class="hspace"> </span>Simple Recursion</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.Cleaning_up_the_.Loop%29">17.2.1.2<span class="hspace"> </span>Cleaning up the Loop</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.Traversal_with_.Memory%29">17.2.1.3<span class="hspace"> </span>Traversal with Memory</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._.A_.Better_.Interface%29">17.2.1.4<span class="hspace"> </span>A Better Interface</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="basic-graph-trav.html#%28part._dfs-bfs%29">17.2.2<span class="hspace"> </span>Depth- and Breadth-First Traversals</a></p></td></tr></table>
@@ -17,7 +17,7 @@ As with all the data we have seen so far, to process a datum we have
 to traverse it—i.e., visit the constituent data. With graphs, that
 can be quite interesting!
 
-#### Reachability {#Reachability}
+#### 17.2.1 Reachability {#Reachability}
 
 Many uses of graphs need to address reachability: whether we
 can, using edges in the graph, get from one node to another. For
@@ -28,7 +28,7 @@ Web, we care about whether all public pages on a site are reachable
 from the home page. We will study how to compute reachability using
 our travel graph as a running example.
 
-##### Simple Recursion {#Simple-Recursion}
+##### 17.2.1.1 Simple Recursion {#Simple-Recursion}
 
 At its simplest, reachability is easy. We want to know whether there
 exists a path[A path is a sequence of zero or more
@@ -88,7 +88,7 @@ loop, due to the cyclic nature of graphs!
 Which of the above examples leads to a cycle? Why?
 :::
 
-##### Cleaning up the Loop {#Cleaning-up-the-Loop}
+##### 17.2.1.2 Cleaning up the Loop {#Cleaning-up-the-Loop}
 
 Before we continue, let’s try to improve the expression of the
 loop. While the nested function above is a perfectly reasonable
@@ -116,7 +116,7 @@ for ormap(n from neighbors(src, g)):
 end
 ```
 
-##### Traversal with Memory {#Traversal-with-Memory}
+##### 17.2.1.3 Traversal with Memory {#Traversal-with-Memory}
 
 Because we have cyclic data, we have to remember what nodes we’ve
 already visited and avoid traversing them again. Then, every time we
@@ -173,7 +173,7 @@ begun to visit, not the ones we’ve finished
 visiting. Does this distinction matter? How?
 :::
 
-##### A Better Interface {#A-Better-Interface}
+##### 17.2.1.4 A Better Interface {#A-Better-Interface}
 
 As the process of testing `reach-2`{.pyret} shows, we may have a better
 implementation, but we’ve changed the function’s interface; now it has
@@ -209,7 +209,7 @@ addressed? Create a test case that demonstrates the problem, and then
 fix it.
 :::
 
-#### Depth- and Breadth-First Traversals {#dfs-bfs}
+#### 17.2.2 Depth- and Breadth-First Traversals {#dfs-bfs}
 
 [It is
 conventional for computer science texts to call these depth- and

@@ -1,13 +1,13 @@
 ---
 title: Collections of Structured Data
 section_number: 6.2
-source_file: dcic_orig_Collections_of_Structured_Data.html
+source_file: Collections_of_Structured_Data.html
 prev: intro-struct-data.html
 up: part_structured-data.html
 next: part_trees.html
 ---
 
-### Collections of Structured Data {#Collections-of-Structured-Data}
+### 6.2 Collections of Structured Data {#Collections-of-Structured-Data}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._.Lists_as_.Collective_.Data%29">6.2.1<span class="hspace"> </span>Lists as Collective Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._sets-as-collections%29">6.2.2<span class="hspace"> </span>Sets as Collective Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._coll-sd-pick%29">6.2.2.1<span class="hspace"> </span>Picking Elements from Sets</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._.Computing_with_.Sets%29">6.2.2.2<span class="hspace"> </span>Computing with Sets</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._.Combining_.Structured_and_.Collective_.Data%29">6.2.3<span class="hspace"> </span>Combining Structured and Collective Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._.Data_.Design_.Problem__.Representing_.Quizzes%29">6.2.4<span class="hspace"> </span>Data Design Problem: Representing Quizzes</a></p></td></tr></table>
@@ -71,7 +71,7 @@ We have already seen tables [[Introduction to Tabular Data](intro-tabular-data.h
 a form of collective, structured data. Now we will look at a few more,
 and how to program them.
 
-#### Lists as Collective Data {#Lists-as-Collective-Data}
+#### 6.2.1 Lists as Collective Data {#Lists-as-Collective-Data}
 
 We have already seen one example of a collection in
 some depth before: lists. A list is not limited to numbers or strings;
@@ -166,7 +166,7 @@ where:
 end
 ```
 
-#### Sets as Collective Data {#sets-as-collections}
+#### 6.2.2 Sets as Collective Data {#sets-as-collections}
 
 As we’ve already seen, for some problems we don’t care about the order
 of inputs, nor about duplicates. Here are more examples where we don’t
@@ -227,7 +227,7 @@ end
 We can again try several different kinds of duplication and confirm
 that sets ignore them.
 
-##### Picking Elements from Sets {#coll-sd-pick}
+##### 6.2.2.1 Picking Elements from Sets {#coll-sd-pick}
 
 This lack of an ordering, however, poses a problem. With lists, it was
 meaningful to talk about the “first” and corresponding “rest”. By
@@ -291,7 +291,7 @@ what we can write are tests that ensure the resulting element is a
 member of the set—though in this case, that would not be
 particularly surprising.
 
-##### Computing with Sets {#Computing-with-Sets}
+##### 6.2.2.2 Computing with Sets {#Computing-with-Sets}
 
 Once we have picked an element from a set, it’s often useful to obtain
 the set consisting of the remaining elements. We have already seen
@@ -319,7 +319,7 @@ Though the process of deriving this is similar to that we used for
 `my-len`{.pyret}, the random nature of picking elements makes it harder to
 write examples that the actual function’s behavior will match.
 
-#### Combining Structured and Collective Data {#Combining-Structured-and-Collective-Data}
+#### 6.2.3 Combining Structured and Collective Data {#Combining-Structured-and-Collective-Data}
 
 As the above examples illustrate, a program’s data organization will
 often involve multiple kinds of compound data, often deeply
@@ -352,7 +352,7 @@ data they present. Classify these as structured, conditional, and
 collective. How do they combine these data?
 :::
 
-#### Data Design Problem: Representing Quizzes {#Data-Design-Problem-Representing-Quizzes}
+#### 6.2.4 Data Design Problem: Representing Quizzes {#Data-Design-Problem-Representing-Quizzes}
 
 Now that you can make collections of structured data, you can approach
 creating the data and programs for fairly sophisticated

@@ -1,13 +1,13 @@
 ---
 title: Introducing Graphs
 section_number: 17.1
-source_file: dcic_orig_intro-graphs.html
+source_file: intro-graphs.html
 prev: part_graphs.html
 up: part_graphs.html
 next: basic-graph-trav.html
 ---
 
-### Introducing Graphs {#intro-graphs}
+### 17.1 Introducing Graphs {#intro-graphs}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._.Understanding_.Graphs%29">17.1.1<span class="hspace"> </span>Understanding Graphs</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._.Representations%29">17.1.2<span class="hspace"> </span>Representations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._string-keys%29">17.1.2.1<span class="hspace"> </span>Links by Name</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._.Links_by_.Indices%29">17.1.2.2<span class="hspace"> </span>Links by Indices</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._.A_.List_of_.Edges%29">17.1.2.3<span class="hspace"> </span>A List of Edges</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._.Abstracting_.Representations%29">17.1.2.4<span class="hspace"> </span>Abstracting Representations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._complexity-of-graphs%29">17.1.3<span class="hspace"> </span>Measuring Complexity for Graphs</a></p></td></tr></table>
@@ -46,7 +46,7 @@ programs. In addition, graphs have a very rich structure, which lends
 itself to several interesting computations over them. We will study
 both these aspects of graphs below.
 
-#### Understanding Graphs {#Understanding-Graphs}
+#### 17.1.1 Understanding Graphs {#Understanding-Graphs}
 
 Consider again the binary trees we saw earlier
 [[Re-Examining Equality](Sharing_and_Equality.html##identical-eq)]. Let’s now try to distort the definition of
@@ -214,7 +214,7 @@ end
 
 Sure enough, this function satisfies the above tests.
 
-#### Representations {#Representations}
+#### 17.1.2 Representations {#Representations}
 
 The representation we’ve seen above for graphs is certainly a start
 towards creating cyclic data, but it’s not very elegant. It’s both
@@ -262,7 +262,7 @@ them:
 
 ![](us-flight-map.png){width="640" height="412"}
 
-##### Links by Name {#string-keys}
+##### 17.1.2.1 Links by Name {#string-keys}
 
 Here’s our first representation. We will assume that every node has a
 unique name (such a name, when used to look up information in a
@@ -342,7 +342,7 @@ check:
 end
 ```
 
-##### Links by Indices {#Links-by-Indices}
+##### 17.1.2.2 Links by Indices {#Links-by-Indices}
 
 In some languages, it is common to use numbers as names. This is
 especially useful when numbers can be used to get access to an element
@@ -421,7 +421,7 @@ information. (In return, extrinsically keyed representations are
 easier to reassemble into new collections of data, because there is no
 danger of keys clashing: there are no intrinsic keys to clash.)
 
-##### A List of Edges {#A-List-of-Edges}
+##### 17.1.2.3 A List of Edges {#A-List-of-Edges}
 
 The representations we have seen until now have given priority
 to nodes, making edges simply a part of the information in a node. We
@@ -491,7 +491,7 @@ weaker, we often prefer node-centric representations. Of course, an
 alternative is to think of the node names as keys into some other data
 structure from which we can retrieve rich information about nodes.
 
-##### Abstracting Representations {#Abstracting-Representations}
+##### 17.1.2.4 Abstracting Representations {#Abstracting-Representations}
 
 We would like a general representation that lets us abstract over the
 specific implementations. We will assume that broadly we have
@@ -502,7 +502,7 @@ sufficient for what follows. However, we still need to choose concrete
 keys to write examples and tests. For simplicity, we’ll use
 string keys [[Links by Name](intro-graphs.html##string-keys)].
 
-#### Measuring Complexity for Graphs {#complexity-of-graphs}
+#### 17.1.3 Measuring Complexity for Graphs {#complexity-of-graphs}
 
 Before we begin to define algorithms over graphs, we should consider
 how to measure the size of a graph. A graph has two components:

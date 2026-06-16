@@ -1,19 +1,19 @@
 ---
 title: Sharing and Equality
 section_number: 16.1
-source_file: dcic_orig_Sharing_and_Equality.html
+source_file: Sharing_and_Equality.html
 prev: part_dags.html
 up: part_dags.html
 next: size-of-dag.html
 ---
 
-### Sharing and Equality {#Sharing-and-Equality}
+### 16.1 Sharing and Equality {#Sharing-and-Equality}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._identical-eq%29">16.1.1<span class="hspace"> </span>Re-Examining Equality</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._.The_.Cost_of_.Evaluating_.References%29">16.1.2<span class="hspace"> </span>The Cost of Evaluating References</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._equal-always%29">16.1.3<span class="hspace"> </span>Notations for Equality</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._.On_the_.Internet__.Nobody_.Knows_.You_re_a_.D.A.G%29">16.1.4<span class="hspace"> </span>On the Internet, Nobody Knows You’re a DAG</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._.It_s_.Always_.Been_a_.D.A.G%29">16.1.5<span class="hspace"> </span>It’s Always Been a DAG</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._acyc-to-cyc%29">16.1.6<span class="hspace"> </span>From Acyclicity to Cycles</a></p></td></tr></table>
 ```
 
-#### Re-Examining Equality {#identical-eq}
+#### 16.1.1 Re-Examining Equality {#identical-eq}
 
 Consider the following data definition and example values:
 
@@ -237,7 +237,7 @@ tests should we conduct? Predict what results they should produce
 before running them!
 :::
 
-#### The Cost of Evaluating References {#The-Cost-of-Evaluating-References}
+#### 16.1.2 The Cost of Evaluating References {#The-Cost-of-Evaluating-References}
 
 From a complexity viewpoint, it’s important for us to understand how
 these references work. As we have hinted, `four-node`{.pyret} is computed
@@ -315,7 +315,7 @@ constant.]{.margin-note} The important thing to observe here is that, instead of
 simply relying on authority, we have used operations in the
 language itself to understand how the language behaves.
 
-#### Notations for Equality {#equal-always}
+#### 16.1.3 Notations for Equality {#equal-always}
 
 Until now we have used `==`{.pyret} for equality. Now we have learned that it’s
 only one of multiple equality operators, and that there is another one called
@@ -348,7 +348,7 @@ fun check-for-no-copy(another-l):
 end
 ```
 
-#### On the Internet, Nobody Knows You’re a DAG {#On-the-Internet-Nobody-Knows-You-re-a-D-A-G}
+#### 16.1.4 On the Internet, Nobody Knows You’re a DAG {#On-the-Internet-Nobody-Knows-You-re-a-D-A-G}
 
 Despite the name we’ve given it, `b-tree`{.pyret} is not actually a
 tree. In a tree, by definition, there are no shared nodes,
@@ -427,7 +427,7 @@ check:
 end
 ```
 
-#### It’s Always Been a DAG {#It-s-Always-Been-a-D-A-G}
+#### 16.1.5 It’s Always Been a DAG {#It-s-Always-Been-a-D-A-G}
 
 What we may not realize is that we’ve actually been creating a DAG for longer
 than we think. To see this, consider `a-tree`{.pyret}, which very clearly seems to
@@ -479,7 +479,7 @@ check:
 end
 ```
 
-#### From Acyclicity to Cycles {#acyc-to-cyc}
+#### 16.1.6 From Acyclicity to Cycles {#acyc-to-cyc}
 
 Here’s another example that arises on the Web. Suppose we are
 constructing a table of output in a Web page. We would like the rows

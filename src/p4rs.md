@@ -1,13 +1,13 @@
 ---
 title: Pyret for Racketeers and Schemers
 section_number: 28
-source_file: dcic_orig_p4rs.html
+source_file: p4rs.html
 prev: booklet_appendices.html
 up: booklet_appendices.html
 next: pyret-vs-python.html
 ---
 
-## Pyret for Racketeers and Schemers {#p4rs}
+## 28 Pyret for Racketeers and Schemers {#p4rs}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Numbers__.Strings__and_.Booleans%29">28.1<span class="hspace"> </span>Numbers, Strings, and Booleans</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Infix_.Expressions%29">28.2<span class="hspace"> </span>Infix Expressions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Function_.Definition_and_.Application%29">28.3<span class="hspace"> </span>Function Definition and Application</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Tests%29">28.4<span class="hspace"> </span>Tests</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Variable_.Names%29">28.5<span class="hspace"> </span>Variable Names</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Data_.Definitions%29">28.6<span class="hspace"> </span>Data Definitions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Conditionals%29">28.7<span class="hspace"> </span>Conditionals</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Lists%29">28.8<span class="hspace"> </span>Lists</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.First-.Class_.Functions%29">28.9<span class="hspace"> </span>First-Class Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.Annotations%29">28.10<span class="hspace"> </span>Annotations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="p4rs.html#%28part._.What_.Else_%29">28.11<span class="hspace"> </span>What Else?</a></p></td></tr></table>
@@ -25,7 +25,7 @@ specifically to Racket (and WeScheme) features not found in Scheme.
 
 In every example below, the two programs will produce the same results.
 
-### Numbers, Strings, and Booleans {#Numbers-Strings-and-Booleans}
+### 28.1 Numbers, Strings, and Booleans {#Numbers-Strings-and-Booleans}
 
 Numbers are very similar between the two. Like Scheme, Pyret
 implements arbitrary-precision numbers and rationals. Some of the more
@@ -69,7 +69,7 @@ Booleans have the same names:
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktSym">false</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">false</code></span></p></td></tr></table>
 ```
 
-### Infix Expressions {#Infix-Expressions}
+### 28.2 Infix Expressions {#Infix-Expressions}
 
 Pyret uses an infix syntax, reminiscent of many other textual
 programming languages:
@@ -93,7 +93,7 @@ left in both languages:
 ```
 These both evaluate to 1/24.
 
-### Function Definition and Application {#Function-Definition-and-Application}
+### 28.3 Function Definition and Application {#Function-Definition-and-Application}
 
 Function definition and application in Pyret have an infix syntax,
 more reminiscent of many other textual programming
@@ -114,7 +114,7 @@ and infix in the body:
 end</code></pre></div></div></p></td></tr></table>
 ```
 
-### Tests {#Tests}
+### 28.4 Tests {#Tests}
 
 There are essentially three different ways of writing the equivalent
 of Racket’s check-expect tests. They can be translated into
@@ -175,7 +175,7 @@ addition to `is`{.pyret}). See
 [the
 documentation](https://www.pyret.org/docs/latest/testing.html).
 
-### Variable Names {#Variable-Names}
+### 28.5 Variable Names {#Variable-Names}
 
 Both languages have a fairly permissive system for naming
 variables. While you can use CamelCase and under_scores in both, it is
@@ -200,7 +200,7 @@ more exotic names permitted by Scheme. For instance, one can write
 ```
 in Scheme but that is not a valid variable name in Pyret.
 
-### Data Definitions {#Data-Definitions}
+### 28.6 Data Definitions {#Data-Definitions}
 
 Pyret diverges from Racket (and even more so from Scheme) in its
 handling of data definitions. First, we will see how to define a
@@ -277,7 +277,7 @@ constructed by `pt`{.pyret} or `pt3d`{.pyret} (or indeed anything else with
 that field). In contrast, `cases`{.pyret} does pay attention to this
 distinction.
 
-### Conditionals {#Conditionals}
+### 28.7 Conditionals {#Conditionals}
 
 There are several kinds of conditionals in Pyret, one more than in the
 Racket student languages.
@@ -366,7 +366,7 @@ variants of data but a function processes only very few of them. In
 such situations, it makes more sense to explicitly use predicates and
 selectors.
 
-### Lists {#Lists}
+### 28.8 Lists {#Lists}
 
 In Racket, depending on the language level, lists are created using
 either cons or list, with empty for the empty
@@ -410,7 +410,7 @@ there are other things by the same name; in particular, when writing a
 nested destructuring of a list, we conventionally write `fr`{.pyret} and
 `rr`{.pyret} (for “first of the rest” and “rest of the rest”).
 
-### First-Class Functions {#First-Class-Functions}
+### 28.9 First-Class Functions {#First-Class-Functions}
 
 The equivalent of Racket’s lambda is Pyret’s `lam`{.pyret}:
 
@@ -418,7 +418,7 @@ The equivalent of Racket’s lambda is Pyret’s `lam`{.pyret}:
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">lambda</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">y</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">+</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">y</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">lam(x, y): x + y end</code></span></p></td></tr></table>
 ```
 
-### Annotations {#Annotations}
+### 28.10 Annotations {#Annotations}
 
 In student Racket languages, annotations are usually written as comments:
 
@@ -438,7 +438,7 @@ fun sort-nums(l :: List<Number>) -> List<Number>: ...
 fun sort<T>(l :: List<T>, cmp :: (T, T -> Boolean)) -> List<T>: ...
 ```
 
-### What Else? {#What-Else}
+### 28.11 What Else? {#What-Else}
 
 If there are other parts of Scheme or Racket syntax that you would
 like to see translated, please

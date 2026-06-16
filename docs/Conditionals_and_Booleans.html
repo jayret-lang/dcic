@@ -84,9 +84,10 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="From_Repeated_Expressions_to_Functions.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_foundations.html">up</a>&nbsp;&nbsp;<a href="part_tabular-data.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="Conditionals-and-Booleans">Conditionals and Booleans</h3>
+<h3 id="Conditionals-and-Booleans">3.4 Conditionals and Booleans</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._add-shipping-setup%29">3.4.1<span class="hspace"> </span>Motivating Example: Shipping Costs</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._cond-boolean-intro%29">3.4.2<span class="hspace"> </span>Conditionals: Computations with Decisions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._booleans%29">3.4.3<span class="hspace"> </span>Booleans</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._bool-comparisons%29">3.4.3.1<span class="hspace"> </span>Other Boolean Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Combining_.Booleans%29">3.4.3.2<span class="hspace"> </span>Combining Booleans</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._else-if%29">3.4.4<span class="hspace"> </span>Asking Multiple Questions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._conditional-nm%29">3.4.5<span class="hspace"> </span>Evaluating by Reducing Expressions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Composing_.Functions%29">3.4.6<span class="hspace"> </span>Composing Functions</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.How_.Function_.Compositions_.Evaluate%29">3.4.6.1<span class="hspace"> </span>How Function Compositions Evaluate</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._func-comp-directory%29">3.4.6.2<span class="hspace"> </span>Function Composition and the Directory</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Nested_.Conditionals%29">3.4.7<span class="hspace"> </span>Nested Conditionals</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Recap__.Booleans_and_.Conditionals%29">3.4.8<span class="hspace"> </span>Recap: Booleans and Conditionals</a></p></td></tr></table>
-<h4 id="add-shipping-setup">Motivating Example: Shipping Costs</h4>
+<h4 id="add-shipping-setup">3.4.1 Motivating Example: Shipping
+Costs</h4>
 <p>In <a
 href="From_Repeated_Expressions_to_Functions.html##pen-cost-pyret">Functions
 Practice: Cost of pens</a>, we wrote a program
@@ -162,7 +163,7 @@ than or equal to
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>).
 This calls for being able to ask questions about inputs within our
 programs.</p>
-<h4 id="cond-boolean-intro">Conditionals: Computations with
+<h4 id="cond-boolean-intro">3.4.2 Conditionals: Computations with
 Decisions</h4>
 <p>To ask a question about our inputs, we use a new kind of expression
 called an if expression. Here’s the full definition of
@@ -197,7 +198,7 @@ in the program marks the answer in the false case; we call this the else
 clause. We also need
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">end</code></span>
 to tell Pyret we’re done with the question and answers.</p>
-<h4 id="booleans">Booleans</h4>
+<h4 id="booleans">3.4.3 Booleans</h4>
 <p>Every expression in Pyret evaluates in a value. So far, we have seen
 three types of values:
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>,
@@ -231,7 +232,7 @@ and
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 10</code></span>
 at the interactions prompt to explore booleans? Why does that
 happen?</p></blockquote></blockquote>
-<h5 id="bool-comparisons">Other Boolean Operations</h5>
+<h5 id="bool-comparisons">3.4.3.1 Other Boolean Operations</h5>
 <p>There are many other built-in operations that return
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>
 values. Comparing values for equality is a common one:
@@ -311,7 +312,7 @@ which lets your program continue to compute a nonsensical value.</p>
 <table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">string-contains(wm, "Will")</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">false</code></pre></div></div></p></td></tr></table>
 <p>In fact, just about every kind of data will have some Boolean-valued
 operators to enable comparisons.</p>
-<h5 id="Combining-Booleans">Combining Booleans</h5>
+<h5 id="Combining-Booleans">3.4.3.2 Combining Booleans</h5>
 <p>Often, we want to base decisions on more than one Boolean value. For
 instance, you are allowed to vote if you’re a citizen of a country and
 you are above a certain age. You’re allowed to board a bus if you have a
@@ -333,7 +334,7 @@ Here are some examples of their use:</p>
 <table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">not(1 &lt; 2)</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">false</code></pre></div></div></p></td></tr></table>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Explain why numbers and strings are not good ways to express the
 answer to a true/false question.</p></blockquote></blockquote>
-<h4 id="else-if">Asking Multiple Questions</h4>
+<h4 id="else-if">3.4.4 Asking Multiple Questions</h4>
 <p>Shipping costs are rising, so we want to modify the
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
 program to include a third shipping level: orders between $10 and $30
@@ -509,7 +510,7 @@ housing office, for examples, stores student ID numbers and which room a
 student is living in). But in other cases, data about individuals get
 interpreted in order to predict something about them. Decisions based on
 those predictions can be inaccurate and hence harmful.</p></blockquote></blockquote>
-<h4 id="conditional-nm">Evaluating by Reducing Expressions</h4>
+<h4 id="conditional-nm">3.4.5 Evaluating by Reducing Expressions</h4>
 <p>In <a
 href="From_Repeated_Expressions_to_Functions.html##function-call-nm">How
 Functions Evaluate</a>, we talked about how Pyret reduces expressions
@@ -572,7 +573,7 @@ of Pyret expressions. The whole expression takes steps that simplify it,
 proceeding by simple rules. You can use this style yourself if you want
 to try and work through the evaluation of a Pyret program by hand (or in
 your head).</p>
-<h4 id="Composing-Functions">Composing Functions</h4>
+<h4 id="Composing-Functions">3.4.6 Composing Functions</h4>
 <p>We started this chapter wanting to account for shipping costs on an
 order of pens. So far, we have written two functions:</p>
 <ul>
@@ -604,8 +605,8 @@ as an intermediate step:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">pens = pen-cost(10, "bravo")
 add-shipping(pens)</code></pre></div></div>
 <p>Both methods would produce the same answer.</p>
-<h5 id="How-Function-Compositions-Evaluate">How Function Compositions
-Evaluate</h5>
+<h5 id="How-Function-Compositions-Evaluate">3.4.6.1 How Function
+Compositions Evaluate</h5>
 <p>Let’s review how these programs evaluate in the context of
 substitution and the directory. We’ll start with the second version, in
 which we explicitly name the result of calling
@@ -680,7 +681,8 @@ opinions on this, and that’s fine). So which should we use?</p>
 be times when we prefer each of these styles. Furthermore, it will turn
 out (once we’ve learned more about nuances of how programs evaluate)
 that the two versions aren’t as different as they appear right now.</p>
-<h5 id="func-comp-directory">Function Composition and the Directory</h5>
+<h5 id="func-comp-directory">3.4.6.2 Function Composition and the
+Directory</h5>
 <p>Let’s try one more variation on this problem. Perhaps seeing us name
 the intermediate result of
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
@@ -750,7 +752,7 @@ But in no case can one function call peek inside the local directory for
 another function call. Once a function call completes, its local
 directory disappears (because nothing else would be able to use it
 anyway).</p>
-<h4 id="Nested-Conditionals">Nested Conditionals</h4>
+<h4 id="Nested-Conditionals">3.4.7 Nested Conditionals</h4>
 <p>We showed that the results in
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>-expressions
 are themselves expressions (such as
@@ -938,7 +940,7 @@ price, then applying the discount when appropriate:</p>
     base
   end
 end</code></pre></div></div>
-<h4 id="Recap-Booleans-and-Conditionals">Recap: Booleans and
+<h4 id="Recap-Booleans-and-Conditionals">3.4.8 Recap: Booleans and
 Conditionals</h4>
 <p>With this chapter, our computations can produce different results in
 different situations. We ask questions using if-expressions, in which

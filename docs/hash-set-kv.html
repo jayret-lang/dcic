@@ -83,7 +83,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="union-find.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_sets.html">up</a>&nbsp;&nbsp;<a href="orderability.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="hash-set-kv">Hashes, Sets, and Key-Values</h3>
+<h3 id="hash-set-kv">18.4 Hashes, Sets, and Key-Values</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._hash-string%29">18.4.1<span class="hspace"> </span>A Hash Function for Strings</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Sets_from_.Hashing%29">18.4.2<span class="hspace"> </span>Sets from Hashing</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Arrays%29">18.4.3<span class="hspace"> </span>Arrays</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._hash-tables%29">18.4.4<span class="hspace"> </span>Sets from Hashing and Arrays</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Collisions%29">18.4.5<span class="hspace"> </span>Collisions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Resolving_.Collisions%29">18.4.6<span class="hspace"> </span>Resolving Collisions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._hash-comp%29">18.4.7<span class="hspace"> </span>Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._bloom-filters%29">18.4.8<span class="hspace"> </span>Bloom Filters</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="hash-set-kv.html#%28part._.Generalizing_from_.Sets_to_.Key-.Values%29">18.4.9<span class="hspace"> </span>Generalizing from Sets to Key-Values</a></p></td></tr></table>
 <p>We have seen several solutions to set membership [<a
 href="part_sets.html">Several Variations on Sets</a>]. In particular,
@@ -96,7 +96,7 @@ Values</a>], which we saw was useful for constructing search trees.
 Here, we will use it to construct sets in a very different way. We will
 then generalize sets to another important data structure: key-value
 repositories. But first…</p>
-<h4 id="hash-string">A Hash Function for Strings</h4>
+<h4 id="hash-string">18.4.1 A Hash Function for Strings</h4>
 <p>As we have seen in <a
 href="orderability.html##hashing-values">Converting Values to Ordered
 Values</a>, we have multiple strategies for converting arbitrary values
@@ -111,7 +111,7 @@ illustrate some of the consequences of hashing. Second, in practice,
 when built-in hashing does not suffice, we do write (more complex
 versions of) functions like it. And finally, because it’s all laid bare,
 it’s easy for us to experiment with.</p>
-<h4 id="Sets-from-Hashing">Sets from Hashing</h4>
+<h4 id="Sets-from-Hashing">18.4.2 Sets from Hashing</h4>
 <p>Suppose we are given a set of strings. We can hash each element of
 that set. Each string is now mapped to a number. Each of these numbers
 is a member of the set; every other number is not a member of this
@@ -142,7 +142,7 @@ anything over the BBST. So, given a hash, how can we perform only a
 constant amount of work? For that, lists and trees don’t work: they both
 require at least some amount of (non-constant) traversal to get to an
 arbitrary element. Instead we need a different data structure…</p>
-<h4 id="Arrays">Arrays</h4>
+<h4 id="Arrays">18.4.3 Arrays</h4>
 <p>Arrays are another linear data structure, like lists. There are two
 key differences between lists and arrays that reflect each one’s
 strength and weakness.</p>
@@ -165,7 +165,7 @@ href="https://www.pyret.org/docs/latest/arrays.html">documented
 here</a>. While not necessary in principle, it is conventional to think
 of arrays as data structures that support mutation, and that is how we
 will use them here.</p>
-<h4 id="hash-tables">Sets from Hashing and Arrays</h4>
+<h4 id="hash-tables">18.4.4 Sets from Hashing and Arrays</h4>
 <p>Okay, so now we have a strategy. When we want to insert a string into
 the set, we compute its hash, go to the corresponding location in the
 array, and record the presence of that string. If we want to check for
@@ -189,7 +189,7 @@ end</code></pre></div></div>
 <p>Observe that if this were to work, we would have constant time
 insertion and membership checking. Unfortunately, two things make this
 plan untenable in general.</p>
-<h4 id="Collisions">Collisions</h4>
+<h4 id="Collisions">18.4.5 Collisions</h4>
 <p>First, our choice of hash function. For the above scheme to work, two
 different strings have to map to two different locations.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Is the above hash function invertible?</p></blockquote></blockquote>
@@ -275,7 +275,7 @@ end</code></pre></div></div>
 collisions: the remainder computation. If we have 10 buckets, then the
 hashes 5, 15, 25, 35, … all refer to the same bucket. Thus, there are
 two sources of collision, and we have to deal with them both.</p>
-<h4 id="Resolving-Collisions">Resolving Collisions</h4>
+<h4 id="Resolving-Collisions">18.4.6 Resolving Collisions</h4>
 <p>Surprisingly or disappointingly, we have a very simple solution to
 the collision problems. Each bucket is not a single Boolean value, but
 rather a list of the actual values that hashed to that bucket. Then, we
@@ -312,7 +312,7 @@ end</code></pre></div></div>
   is-in("Where") is false
   is-in("elloH") is false
 end</code></pre></div></div>
-<h4 id="hash-comp">Complexity</h4>
+<h4 id="hash-comp">18.4.7 Complexity</h4>
 <p>Now we have yet another working implementation for (some primitives
 of) sets. The use of arrays supposedly enables us to get constant-time
 complexity. Yet we should feel at least some discomfort. After all, the
@@ -355,7 +355,7 @@ about duplicates as the list-based representation. In many
 cases—depending on the nature of the data and parameters set for the
 array—they can be much closer to constant time. As a result, they tend
 to be very popular in practice.</p>
-<h4 id="bloom-filters">Bloom Filters</h4>
+<h4 id="bloom-filters">18.4.8 Bloom Filters</h4>
 <p>Another way to improve the space and time complexity is to relax the
 properties we expect of the operations. Right now, set membership gives
 perfect answers, in that it answers
@@ -436,8 +436,8 @@ problem slightly to accept incorrect answers. If we know something about
 the distribution of hash values, and we have some acceptable bound of
 error, we can design hash table sizes so that with high probability, the
 Bloom Filter will lie within the acceptable error bounds.</p>
-<h4 id="Generalizing-from-Sets-to-Key-Values">Generalizing from Sets to
-Key-Values</h4>
+<h4 id="Generalizing-from-Sets-to-Key-Values">18.4.9 Generalizing from
+Sets to Key-Values</h4>
 <p>Above, we focused on sets: that is, a string effectively mapped to a
 Boolean value, indicating whether it was present or not. However, there
 are many settings where it is valuable to associate one value with

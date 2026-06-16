@@ -1,13 +1,13 @@
 ---
 title: File Input and Output in Python
 section_number: 11.1
-source_file: dcic_orig_python-fileio.html
+source_file: python-fileio.html
 prev: part_python-fileio.html
 up: part_python-fileio.html
 next: booklet_programming-with-state.html
 ---
 
-### File Input and Output in Python {#python-fileio}
+### 11.1 File Input and Output in Python {#python-fileio}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-fileio.html#%28part._.Basic_.File_.Operations%29">11.1.1<span class="hspace"> </span>Basic File Operations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-fileio.html#%28part._.Reading_.C.S.V_.Files_.Step_by_.Step%29">11.1.2<span class="hspace"> </span>Reading CSV Files Step by Step</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-fileio.html#%28part._.Processing_and_.Filtering_.Data%29">11.1.3<span class="hspace"> </span>Processing and Filtering Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-fileio.html#%28part._.Writing_.C.S.V_.Files%29">11.1.4<span class="hspace"> </span>Writing CSV Files</a></p></td></tr></table>
@@ -19,7 +19,7 @@ In this chapter, we’ll learn to read and write files using Python’s basic fi
 
 While Pandas can certainly do all that we will do in this chapter (and more!), understanding how file operations work helps you become a more complete programmer, and to one day perhaps either create or work on libraries like Pandas.
 
-#### Basic File Operations {#Basic-File-Operations}
+#### 11.1.1 Basic File Operations {#Basic-File-Operations}
 
 Python provides built-in functions for working with files. Before you can do anything else with a file, you must "open" it:
 
@@ -80,7 +80,7 @@ with open('data.csv', 'r') as file:
 In addition to not making us remember to close the files, it this approach also guarantees
 that the file will be closed even if an error occurs while processing it.
 
-#### Reading CSV Files Step by Step {#Reading-C-S-V-Files-Step-by-Step}
+#### 11.1.2 Reading CSV Files Step by Step {#Reading-C-S-V-Files-Step-by-Step}
 
 Let’s work through reading a CSV file manually, as a way to practice using files for a practical (if small) example.
 
@@ -127,7 +127,7 @@ What would our code do if one of the cells in your CSV contained a comma?
 For example, what if a dish name was "Mac and cheese, deluxe"? How could you handle this?
 :::
 
-#### Processing and Filtering Data {#Processing-and-Filtering-Data}
+#### 11.1.3 Processing and Filtering Data {#Processing-and-Filtering-Data}
 
 Once we have our data as a list of lists, we can process it using the same programming
 techniques we’ve learned, by using the `.index()`{.python} method to return the numeric
@@ -170,7 +170,7 @@ print("Total revenue: $" + str(total_revenue))
 What would happen if one of the quantity cells contained invalid data, like the string "three" instead of the number 3? How could you make your code more robust to handle such errors?
 :::
 
-#### Writing CSV Files {#Writing-C-S-V-Files}
+#### 11.1.4 Writing CSV Files {#Writing-C-S-V-Files}
 
 Writing CSV files follows a similar pattern. We need to:
 

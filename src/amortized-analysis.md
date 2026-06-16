@@ -1,13 +1,13 @@
 ---
 title: Halloween Analysis
 section_number: 15
-source_file: dcic_orig_amortized-analysis.html
+source_file: amortized-analysis.html
 prev: predicting-growth.html
 up: booklet_algo-analysis.html
 next: booklet_data-with-analysis.html
 ---
 
-## Halloween Analysis {#amortized-analysis}
+## 15 Halloween Analysis {#amortized-analysis}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.A_.First_.Example%29">15.1<span class="hspace"> </span>A First Example</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.The_.New_.Form_of_.Analysis%29">15.2<span class="hspace"> </span>The New Form of Analysis</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._queue-data-structure%29">15.3<span class="hspace"> </span>An Example: Queues from Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.List_.Representations%29">15.3.1<span class="hspace"> </span>List Representations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.A_.First_.Analysis%29">15.3.2<span class="hspace"> </span>A First Analysis</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.More_.Liberal_.Sequences_of_.Operations%29">15.3.3<span class="hspace"> </span>More Liberal Sequences of Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.A_.Second_.Analysis%29">15.3.4<span class="hspace"> </span>A Second Analysis</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._worst-case-ops-amort%29">15.3.5<span class="hspace"> </span>Amortization Versus Individual Operations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.Reading_.More%29">15.4<span class="hspace"> </span>Reading More</a></p></td></tr></table>
@@ -20,7 +20,7 @@ a bound when the complexity is heavily dependent on the exact sequence
 of operations run. Now, we will consider a different style of
 complexity analysis that better accommodates operation sequences.
 
-### A First Example {#A-First-Example}
+### 15.1 A First Example {#A-First-Example}
 
 Consider, for instance, a set that starts out empty, followed by a
 sequence of \(k\) insertions and then \(k\) membership tests, and
@@ -34,7 +34,7 @@ distinct elements into the set. The total time is then
 \begin{equation*}k^2 / 2 + k / 2 + k^2\end{equation*}for a total of \(2k\) operations, yielding an average of
 \begin{equation*}\frac{3}{4} k + \frac{1}{4}\end{equation*}steps per operation in the worst case.
 
-### The New Form of Analysis {#The-New-Form-of-Analysis}
+### 15.2 The New Form of Analysis {#The-New-Form-of-Analysis}
 
 What have we computed? We are still computing a worst case
 cost, because we have taken the cost of each operation in the sequence
@@ -71,7 +71,7 @@ of death. Amortization comes from the Latin root mort-,
 which means death, because an amortized analysis is one conducted “at
 the death”, i.e., at the end of a fixed sequence of operations.]{.margin-note}
 
-### An Example: Queues from Lists {#queue-data-structure}
+### 15.3 An Example: Queues from Lists {#queue-data-structure}
 
 We have seen lists [[From Tables to Lists](tables-to-lists.html)] and sets [[Several Variations on Sets](part_sets.html)].
 Here we focus on queues, which too can be represented as lists:
@@ -80,7 +80,7 @@ reading at least the early portions now. In this section, we will ignore the
 various programming niceties discussed there, and focus on raw list
 representations to make an algorithmic point.
 
-#### List Representations {#List-Representations}
+#### 15.3.1 List Representations {#List-Representations}
 
 Consider two natural ways of defining queues using lists. One is that every
 enqueue is implemented with `link`{.pyret}, while every
@@ -107,7 +107,7 @@ the most recent addition first. Now for the (first) crucial insight:
 when we need to dequeue, we reverse the list. Now, dequeuing
 also takes constant time.
 
-#### A First Analysis {#A-First-Analysis}
+#### 15.3.2 A First Analysis {#A-First-Analysis}
 
 Of course, to fully analyze the complexity of this data structure, we
 must also account for the reversal. In the worst case, we might argue
@@ -126,7 +126,7 @@ to the number of elements in the list, which at that point is
 \(2k\) operations, giving an amortized complexity of
 effectively constant time per operation!
 
-#### More Liberal Sequences of Operations {#More-Liberal-Sequences-of-Operations}
+#### 15.3.3 More Liberal Sequences of Operations {#More-Liberal-Sequences-of-Operations}
 
 In the process of this, however, we’ve quietly glossed over something that you
 may not have picked up on: in our candidate sequence all dequeues
@@ -183,7 +183,7 @@ fun dequeue<T>(q :: Queue<T>) -> Response<T>:
 end
 ```
 
-#### A Second Analysis {#A-Second-Analysis}
+#### 15.3.4 A Second Analysis {#A-Second-Analysis}
 
 We can now reason about sequences of operations as we did before, by
 adding up costs and averaging. However, another way to think of it is
@@ -202,7 +202,7 @@ element. From this (very informal) analysis, we can conclude that in
 the worst case, any permutation of enqueues and dequeues will still
 cost only a constant amount of amortized time.
 
-#### Amortization Versus Individual Operations {#worst-case-ops-amort}
+#### 15.3.5 Amortization Versus Individual Operations {#worst-case-ops-amort}
 
 Note, however, that the constant represents an average across the
 sequence of operations. It does not put a bound on the cost of any one
@@ -214,7 +214,7 @@ bounded. Nevertheless, an amortized analysis sometimes gives us a much
 more nuanced understanding of the real behavior of a data structure
 than a worst-case analysis does on its own.
 
-### Reading More {#Reading-More}
+### 15.4 Reading More {#Reading-More}
 
 At this point we have only briefly touched on the subject of amortized
 analysis. A very nice

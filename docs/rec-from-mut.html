@@ -80,7 +80,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="state-in-pyret.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_advanced.html">up</a>&nbsp;&nbsp;<a href="cycle-detection.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h2 id="rec-from-mut">Recursion and Cycles from Mutation</h2>
+<h2 id="rec-from-mut">20 Recursion and Cycles from Mutation</h2>
 <p>Earlier [<a href="Sharing_and_Equality.html##acyc-to-cyc">From
 Acyclicity to Cycles</a>], we saw the difficulty of constructing cyclic
 data, and saw how we could address this problem using state [<a
@@ -130,7 +130,7 @@ A grey list. What follows grey? A white list. It is clear we can’t write
 down these two definitions because one of them must precede the other,
 but each one depends on the other. (This is the same problem as trying
 to write a single definition above.)</p>
-<h3 id="Partial-Definitions">Partial Definitions</h3>
+<h3 id="Partial-Definitions">20.1 Partial Definitions</h3>
 <p>What we need to instead do is to partially define each list, and then
 complete the definition using the other one. However, that is impossible
 using the above definition, because we cannot change anything once it is
@@ -174,7 +174,7 @@ end</code></pre></div></div>
   ctake(4, web-colors) is
   [list: "white", "grey", "white", "grey"]
 end</code></pre></div></div>
-<h3 id="rec-for-recursive">Recursive Functions</h3>
+<h3 id="rec-for-recursive">20.2 Recursive Functions</h3>
 <p>Based on this, we can now understand recursive functions. Consider a
 very simple example, such as this:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun sum(n):
@@ -213,7 +213,7 @@ function in an environment where the name is bound, unboxing the use of
 the name; and finally, it replaces the box’s content with the defined
 function, following the same pattern we saw earlier for
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors</code></span>.</p>
-<h3 id="premature-eval">Premature Evaluation</h3>
+<h3 id="premature-eval">20.3 Premature Evaluation</h3>
 <p>Observe that the above description reveals that there is a time
 between the creation of the name and the assignment of a value to it.
 Can this intermediate state be observed? It sure can!</p>
@@ -255,7 +255,8 @@ be able to manage the consequences of such premature use by themselves.
 binding functions, and then make sure that the right-hand side of the
 binding is syntactically a function. This solution precludes some
 reasonable programs, but is certainly safe.</p>
-<h3 id="Cyclic-Lists-Versus-Streams">Cyclic Lists Versus Streams</h3>
+<h3 id="Cyclic-Lists-Versus-Streams">20.4 Cyclic Lists Versus
+Streams</h3>
 <p>The color list example above is, as we have noted, very reminiscent
 of stream examples. What is the relationship between the two ways of
 defining infinite data?</p>

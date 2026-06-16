@@ -83,9 +83,9 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="hash-set-kv.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_sets.html">up</a>&nbsp;&nbsp;<a href="sets-case-study.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="orderability">Equality, Ordering, and Hashing</h3>
+<h3 id="orderability">18.5 Equality, Ordering, and Hashing</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="orderability.html#%28part._hashing-values%29">18.5.1<span class="hspace"> </span>Converting Values to Ordered Values</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="orderability.html#%28part._hash-in-practice%29">18.5.2<span class="hspace"> </span>Hashing in Practice</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="orderability.html#%28part._eq-ord%29">18.5.3<span class="hspace"> </span>Equality and Ordering</a></p></td></tr></table>
-<h4 id="hashing-values">Converting Values to Ordered Values</h4>
+<h4 id="hashing-values">18.5.1 Converting Values to Ordered Values</h4>
 <p>In <a href="sets-from-trees.html">Making Sets Grow on Trees</a>, we
 noted that a single comparison needs to eliminate an entire set of
 values. With numbers, we were able to accomplish that easily: every
@@ -187,7 +187,7 @@ answer.</li>
 </ul>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Why do we care about these two properties? Think about what would
 could go wrong if each one was violated.</p></blockquote></blockquote>
-<h4 id="hash-in-practice">Hashing in Practice</h4>
+<h4 id="hash-in-practice">18.5.2 Hashing in Practice</h4>
 <p>In practice, programmers do not want hash functions to do what we
 have described above. While Gödel encoding is extremely expensive, even
 computing
@@ -221,7 +221,7 @@ sufficient to illustrate how hashing works. Second, in practice, when
 built-in hashing does not suffice, we do write (more complex versions
 of) functions like the above. And finally, because it’s all laid bare,
 it’s easy for us to experiment with.</p>
-<h4 id="eq-ord">Equality and Ordering</h4>
+<h4 id="eq-ord">18.5.3 Equality and Ordering</h4>
 <p>What we’ve seen [<a
 href="sets-from-trees.html##sets-from-balanced-trees">A Fine Balance:
 Tree Surgery</a>] for the construction of balanced binary search trees

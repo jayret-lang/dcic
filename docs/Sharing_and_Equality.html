@@ -79,9 +79,9 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="part_dags.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_dags.html">up</a>&nbsp;&nbsp;<a href="size-of-dag.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="Sharing-and-Equality">Sharing and Equality</h3>
+<h3 id="Sharing-and-Equality">16.1 Sharing and Equality</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._identical-eq%29">16.1.1<span class="hspace"> </span>Re-Examining Equality</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._.The_.Cost_of_.Evaluating_.References%29">16.1.2<span class="hspace"> </span>The Cost of Evaluating References</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._equal-always%29">16.1.3<span class="hspace"> </span>Notations for Equality</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._.On_the_.Internet__.Nobody_.Knows_.You_re_a_.D.A.G%29">16.1.4<span class="hspace"> </span>On the Internet, Nobody Knows You’re a DAG</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._.It_s_.Always_.Been_a_.D.A.G%29">16.1.5<span class="hspace"> </span>It’s Always Been a DAG</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._acyc-to-cyc%29">16.1.6<span class="hspace"> </span>From Acyclicity to Cycles</a></p></td></tr></table>
-<h4 id="identical-eq">Re-Examining Equality</h4>
+<h4 id="identical-eq">16.1.1 Re-Examining Equality</h4>
 <p>Consider the following data definition and example values:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data BT:
   | leaf
@@ -290,7 +290,7 @@ with the basic data above to make sure we really understand equality
 and, relatedly, storage of data in memory. What other tests should we
 conduct? Predict what results they should produce before running
 them!</p></blockquote></blockquote>
-<h4 id="The-Cost-of-Evaluating-References">The Cost of Evaluating
+<h4 id="The-Cost-of-Evaluating-References">16.1.2 The Cost of Evaluating
 References</h4>
 <p>From a complexity viewpoint, it’s important for us to understand how
 these references work. As we have hinted,
@@ -368,7 +368,7 @@ parameter remains constant.</span></span></span> The important thing to
 observe here is that, instead of simply relying on authority, we have
 used operations in the language itself to understand how the language
 behaves.</p>
-<h4 id="equal-always">Notations for Equality</h4>
+<h4 id="equal-always">16.1.3 Notations for Equality</h4>
 <p>Until now we have used
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
 for equality. Now we have learned that it’s only one of multiple
@@ -410,8 +410,8 @@ as</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun check-for-no-copy(another-l):
   another-l &lt;=&gt; L
 end</code></pre></div></div>
-<h4 id="On-the-Internet-Nobody-Knows-You-re-a-D-A-G">On the Internet,
-Nobody Knows You’re a DAG</h4>
+<h4 id="On-the-Internet-Nobody-Knows-You-re-a-D-A-G">16.1.4 On the
+Internet, Nobody Knows You’re a DAG</h4>
 <p>Despite the name we’ve given it,
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
 is not actually a tree. In a tree, by definition, there are no shared
@@ -472,7 +472,7 @@ one Web page current; for instance:</p>
   theory-dijkstra is             systems-dijkstra
   theory-dijkstra is%(identical) systems-dijkstra
 end</code></pre></div></div>
-<h4 id="It-s-Always-Been-a-D-A-G">It’s Always Been a DAG</h4>
+<h4 id="It-s-Always-Been-a-D-A-G">16.1.5 It’s Always Been a DAG</h4>
 <p>What we may not realize is that we’ve actually been creating a DAG
 for longer than we think. To see this, consider
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>,
@@ -528,7 +528,7 @@ function everywhere:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
   leaf() is-not%(identical) leaf()
 end</code></pre></div></div>
-<h4 id="acyc-to-cyc">From Acyclicity to Cycles</h4>
+<h4 id="acyc-to-cyc">16.1.6 From Acyclicity to Cycles</h4>
 <p>Here’s another example that arises on the Web. Suppose we are
 constructing a table of output in a Web page. We would like the rows of
 the table to alternate between white and grey. If the table had only two

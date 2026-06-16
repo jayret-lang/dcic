@@ -73,7 +73,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="booklet_interaction.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_interaction.html">up</a>&nbsp;&nbsp;<a href="booklet_appendices.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h2 id="games-reactive">Interactive Games as Reactive Systems</h2>
+<h2 id="games-reactive">27 Interactive Games as Reactive Systems</h2>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.About_.Reactive_.Animations%29">27.1<span class="hspace"> </span>About Reactive Animations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Preliminaries%29">27.2<span class="hspace"> </span>Preliminaries</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.Airplane_.Moving_.Across_the_.Screen%29">27.3<span class="hspace"> </span>Version: Airplane Moving Across the Screen</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Updating_the_.World_.State%29">27.3.1<span class="hspace"> </span>Updating the World State</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Displaying_the_.World_.State%29">27.3.2<span class="hspace"> </span>Displaying the World State</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Observing_.Time__and_.Combining_the_.Pieces_%29">27.3.3<span class="hspace"> </span>Observing Time (and Combining the Pieces)</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.Wrapping_.Around%29">27.4<span class="hspace"> </span>Version: Wrapping Around</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.Descending%29">27.5<span class="hspace"> </span>Version: Descending</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Moving_the_.Airplane%29">27.5.1<span class="hspace"> </span>Moving the Airplane</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Drawing_the_.Scene%29">27.5.2<span class="hspace"> </span>Drawing the Scene</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Finishing_.Touches%29">27.5.3<span class="hspace"> </span>Finishing Touches</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.Responding_to_.Keystrokes%29">27.6<span class="hspace"> </span>Version: Responding to Keystrokes</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.Landing%29">27.7<span class="hspace"> </span>Version: Landing</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.A_.Fixed_.Balloon%29">27.8<span class="hspace"> </span>Version: A Fixed Balloon</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.Keep_.Your_.Eye_on_the_.Tank%29">27.9<span class="hspace"> </span>Version: Keep Your Eye on the Tank</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.The_.Balloon_.Moves__.Too%29">27.10<span class="hspace"> </span>Version: The Balloon Moves, Too</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.One__.Two_______.Ninety-.Nine_.Luftballons_%29">27.11<span class="hspace"> </span>Version: One, Two, ..., Ninety-Nine Luftballons!</a></p></td></tr></table>
 <p>In this tutorial we’re going to write a little interactive game. The
 game won’t be sophisticated, but it’ll have all the elements you need to
@@ -110,7 +110,7 @@ program. Your program will:</p>
 <p>Phew: that’s a lot going on! Therefore, we won’t write it all at
 once; instead, we’ll build it up bit-by-bit. But we’ll get there by the
 end.</p>
-<h3 id="About-Reactive-Animations">About Reactive Animations</h3>
+<h3 id="About-Reactive-Animations">27.1 About Reactive Animations</h3>
 <p>We are writing a program with two important interactive elements: it
 is an animation, meaning it gives the impression of motion, and it is
 reactive, meaning it responds to user input. Both of these can be
@@ -128,7 +128,7 @@ motion:</p>
 a sequence of individual images, and we will ask Pyret to show these in
 rapid succession. We will then see how reactivity folds into the same
 process.</p>
-<h3 id="Preliminaries">Preliminaries</h3>
+<h3 id="Preliminaries">27.2 Preliminaries</h3>
 <p>To begin with, we should inform Pyret that we plan to make use of
 both images and animations. We load the libraries as follows:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">import image as I
@@ -142,8 +142,8 @@ Thus, all image operations are obtained from
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">I</code></span>
 and animation operations from
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">R</code></span>.</p>
-<h3 id="Version-Airplane-Moving-Across-the-Screen">Version: Airplane
-Moving Across the Screen</h3>
+<h3 id="Version-Airplane-Moving-Across-the-Screen">27.3 Version:
+Airplane Moving Across the Screen</h3>
 <p>We will start with the simplest version: one in which the airplane
 moves horizontally across the screen. Watch <a
 href="https://drive.google.com/file/d/1rbDJJJEQV2z-FZT3R1c15xelLsCwhaLI/view?usp=share_link">this
@@ -188,7 +188,7 @@ display.</li>
 <p>This sounds like a lot! Fortunately, Pyret makes this much easier
 than it sounds. We’ll do these in a slightly different order than listed
 above.</p>
-<h4 id="Updating-the-World-State">Updating the World State</h4>
+<h4 id="Updating-the-World-State">27.3.1 Updating the World State</h4>
 <p>As we’ve noted, the airplane doesn’t actually “move”. Rather, we can
 ask Pyret to notify us every time a clock ticks. If on each tick we
 place the airplane in an appropriately different position, and the ticks
@@ -214,7 +214,8 @@ its tests.</p>
 <blockquote class="Note"><p>If you have prior experience programming animations and reactive
 programs, you will immediately notice an important difference: it’s easy
 to test parts of your program in Pyret!</p></blockquote>
-<h4 id="Displaying-the-World-State">Displaying the World State</h4>
+<h4 id="Displaying-the-World-State">27.3.2 Displaying the World
+State</h4>
 <p>Now we’re ready to draw the game’s visual output. We produce an image
 that consists of all the necessary components. It first helps to define
 some constants representing the visual output:</p>
@@ -257,8 +258,8 @@ State represents! So we create a function out of this expression:</p>
     50,
     BACKGROUND)
 end</code></pre></div></div>
-<h4 id="Observing-Time-and-Combining-the-Pieces">Observing Time (and
-Combining the Pieces)</h4>
+<h4 id="Observing-Time-and-Combining-the-Pieces">27.3.3 Observing Time
+(and Combining the Pieces)</h4>
 <p>Finally, we’re ready to put these pieces together.</p>
 <p>We create a special kind of Pyret value called a reactor, which
 creates animations. We’ll start by creating a fairly simple kind of
@@ -288,7 +289,7 @@ background!</p>
 all the preliminaries out of the way, we can go about enhancing it.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>If you want the airplane to appear to move faster, what can you
 change?</p></blockquote></blockquote>
-<h3 id="Version-Wrapping-Around">Version: Wrapping Around</h3>
+<h3 id="Version-Wrapping-Around">27.4 Version: Wrapping Around</h3>
 <p>When you run the preceding program, you’ll notice that after a while,
 the airplane just disappears. This is because it has gone past the right
 edge of the screen; it is still being “drawn”, but in a location that
@@ -346,7 +347,7 @@ our definition of the World State.</p></blockquote>
 change in behavior?</p></blockquote></blockquote>
 <p>If you didn’t…did you remember to update your reactor to use the new
 airplane-moving function?</p>
-<h3 id="Version-Descending">Version: Descending</h3>
+<h3 id="Version-Descending">27.5 Version: Descending</h3>
 <p>Of course, we need our airplane to move in more than just one
 dimension: to get to the final game, it must both ascend and descend as
 well. For now, we’ll focus on the simplest version of this, which is an
@@ -369,7 +370,7 @@ end</code></pre></div></div>
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">posn</code></span>,
 representing the x-position and y-position of the airplane on the
 screen.</p></blockquote>
-<h4 id="Moving-the-Airplane">Moving the Airplane</h4>
+<h4 id="Moving-the-Airplane">27.5.1 Moving the Airplane</h4>
 <p>First, let’s consider
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">move-airplane-wrapping-x-on-tick</code></span>.
 Previously our airplane moved only in the x-direction; now we want it to
@@ -430,7 +431,7 @@ end</code></pre></div></div>
 separation of concerns, and makes it possible for the complexity of
 movement in each dimension to evolve independently while keeping the
 code relatively readable.</p>
-<h4 id="Drawing-the-Scene">Drawing the Scene</h4>
+<h4 id="Drawing-the-Scene">27.5.2 Drawing the Scene</h4>
 <p>We have to also examine and update
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">place-airplane-x</code></span>.
 Our earlier definition placed the airplane at an arbitrary y-coordinate;
@@ -443,7 +444,7 @@ now we have to take the y-coordinate from the World State:</p>
 end</code></pre></div></div>
 <p>Notice that we can’t really reuse the previous definition because it
 hard-coded the y-position, which we must now make a parameter.</p>
-<h4 id="Finishing-Touches">Finishing Touches</h4>
+<h4 id="Finishing-Touches">27.5.3 Finishing Touches</h4>
 <p>Are we done? It would seem so: we’ve examined all the procedures that
 consume and produce World State and updated them appropriately.
 Actually, we’re forgetting one small thing: the initial World State
@@ -468,7 +469,7 @@ to obtain the dimensions of an image, such as the airplane. Use these to
 ensure the airplane fits entirely within the screen for the initial
 scene, and similarly in
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">move-airplane-xy-on-tick</code></span>.</p></blockquote></blockquote>
-<h3 id="Version-Responding-to-Keystrokes">Version: Responding to
+<h3 id="Version-Responding-to-Keystrokes">27.6 Version: Responding to
 Keystrokes</h3>
 <p>Now that we have the airplane descending, there’s no reason it can’t
 ascend as well. <a
@@ -525,7 +526,7 @@ need to ask Pyret to use it to handle keystrokes:</p>
 end</code></pre></div></div>
 <p>Now your airplane moves not only with the passage of time but also in
 response to your keystrokes. You can keep it up in the air forever!</p>
-<h3 id="Version-Landing">Version: Landing</h3>
+<h3 id="Version-Landing">27.7 Version: Landing</h3>
 <p>Remember that the objective of our game is to land the airplane, not
 to keep it airborne indefinitely. That means we need to detect when the
 airplane reaches the land or water level and, when it does, <a
@@ -564,7 +565,7 @@ opens up only when the airplane comes in to land. That means, after
 landing, only the parts of the airplane that stick above ground level
 would be visible. Implement this. As a hint, consider modifying
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">place-airplane-xy</code></span>.</p></blockquote></blockquote>
-<h3 id="Version-A-Fixed-Balloon">Version: A Fixed Balloon</h3>
+<h3 id="Version-A-Fixed-Balloon">27.8 Version: A Fixed Balloon</h3>
 <p>Now let’s add a balloon to the scene. <a
 href="https://drive.google.com/file/d/1QLt9tdt2sSPWR90-mmMLCDW4ZklgR_lN/view?usp=share_link">Here’s
 a video of the action.</a></p>
@@ -648,8 +649,8 @@ more concisely?</p></blockquote></blockquote>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun game-ends(w):
   is-on-land-or-water(w) or are-overlapping(w, BALLOON-LOC)
 end</code></pre></div></div>
-<h3 id="Version-Keep-Your-Eye-on-the-Tank">Version: Keep Your Eye on the
-Tank</h3>
+<h3 id="Version-Keep-Your-Eye-on-the-Tank">27.9 Version: Keep Your Eye
+on the Tank</h3>
 <p>Now we’ll introduce the idea of fuel. In our simplified world, fuel
 isn’t necessary to descend—gravity does that automatically—but it is
 needed to climb. We’ll assume that fuel is counted in whole number
@@ -718,7 +719,7 @@ the other isn’t being drawn in the output.</p></blockquote></blockquote>
 incorrect because it doesn’t account for fuel. What are interesting fuel
 values to try?</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Extend your program to draw a fuel gauge.</p></blockquote></blockquote>
-<h3 id="Version-The-Balloon-Moves-Too">Version: The Balloon Moves,
+<h3 id="Version-The-Balloon-Moves-Too">27.10 Version: The Balloon Moves,
 Too</h3>
 <p>Until now we’ve left our balloon immobile. Let’s now make the game
 more interesting by letting the balloon move, as <a
@@ -755,8 +756,8 @@ unchanged).</li>
 location).</li>
 </ul>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Modify each of the above functions, along with their test cases.</p></blockquote></blockquote>
-<h3 id="Version-One-Two-Ninety-Nine-Luftballons">Version: One, Two, …,
-Ninety-Nine Luftballons!</h3>
+<h3 id="Version-One-Two-Ninety-Nine-Luftballons">27.11 Version: One,
+Two, …, Ninety-Nine Luftballons!</h3>
 <p>Finally, there’s no need to limit ourselves to only one balloon. How
 many is right? Two? Three? Ten? … Why fix any one number? It could be a
 balloon festival!</p>

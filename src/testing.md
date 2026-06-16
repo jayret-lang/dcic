@@ -1,13 +1,13 @@
 ---
 title: Examples, Testing, and Program Checking
 section_number: 8.3
-source_file: dcic_orig_testing.html
+source_file: testing.html
 prev: queues-from-lists.html
 up: part_bonus-foundations.html
 next: booklet_pyret-to-python.html
 ---
 
-### Examples, Testing, and Program Checking {#testing}
+### 8.3 Examples, Testing, and Program Checking {#testing}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._from-examples-to-tests%29">8.3.1<span class="hspace"> </span>From Examples to Tests</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._s~3arefined%29">8.3.2<span class="hspace"> </span>More Refined Comparisons</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._.When_.Tests_.Fail%29">8.3.3<span class="hspace"> </span>When Tests Fail</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._test-oracle%29">8.3.4<span class="hspace"> </span>Oracles for Testing</a></p></td></tr></table>
@@ -34,7 +34,7 @@ that a computer can understand, we achieve two things:
   actually does us good, because it helps us understand the weakness of
   our understanding.
 
-#### From Examples to Tests {#from-examples-to-tests}
+#### 8.3.1 From Examples to Tests {#from-examples-to-tests}
 
 Until now, we have written examples in `where:`{.pyret} blocks for two
 purposes: to help us figure out what a function needs to do, and to
@@ -141,7 +141,7 @@ book, we emphasize the difference between these two uses of
 input-output pairs in programming because we find them extremely
 useful both professionally and pedagogically.
 
-#### More Refined Comparisons {#s-refined}
+#### 8.3.2 More Refined Comparisons {#s-refined}
 
 Sometimes, a direct comparison via `is`{.pyret} isn’t enough for
 testing. We have already seen this in the case of `raises`{.pyret}
@@ -233,7 +233,7 @@ for an hourly employee assumes they work 40 hours, and the expected weekly
 salary for a salaried employee is 1/52 of their salary.
 :::
 
-#### When Tests Fail {#When-Tests-Fail}
+#### 8.3.3 When Tests Fail {#When-Tests-Fail}
 
 Suppose we’ve written the function `sqrt`{.pyret}, which computes the
 square root of a given number. We’ve written some tests for this
@@ -292,7 +292,7 @@ function happens to be a relation, i.e., it maps one input to
 multiple outputs (that is, \(\sqrt{4} = \pm 2\)). The question now is
 how to write the test properly.
 
-#### Oracles for Testing {#test-oracle}
+#### 8.3.4 Oracles for Testing {#test-oracle}
 
 In other words, sometimes what we want to express is not a concrete
 input-output pair, but rather check that the output has the right

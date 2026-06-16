@@ -83,7 +83,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="part_sets.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_sets.html">up</a>&nbsp;&nbsp;<a href="sets-from-trees.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="sets-from-lists">Representing Sets as Lists</h3>
+<h3 id="sets-from-lists">18.1 Representing Sets as Lists</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._.Representation_.Choices%29">18.1.1<span class="hspace"> </span>Representation Choices</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._.Time_.Complexity%29">18.1.2<span class="hspace"> </span>Time Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._choosing-set-reps%29">18.1.3<span class="hspace"> </span>Choosing Between Representations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._.Other_.Operations%29">18.1.4<span class="hspace"> </span>Other Operations</a></p></td></tr></table>
 <p>Earlier [<a
 href="Collections_of_Structured_Data.html##sets-as-collections">Sets as
@@ -130,7 +130,7 @@ all values (such as functions). We discuss the nuances of this elsewhere
 [<a href="orderability.html##eq-ord">Equality and Ordering</a>]. For
 now, we can ignore these issues by focusing on sets of
 (non-rough)numbers.</p>
-<h4 id="Representation-Choices">Representation Choices</h4>
+<h4 id="Representation-Choices">18.1.1 Representation Choices</h4>
 <p>The empty list can stand in for the empty set—</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">type LSet = List
 mt-set = empty</code></pre></div></div>
@@ -183,7 +183,7 @@ as
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">insert = link</code></pre></div></div>
 <p>—and have some other procedure perform the filtering of
 duplicates.</p>
-<h4 id="Time-Complexity">Time Complexity</h4>
+<h4 id="Time-Complexity">18.1.2 Time Complexity</h4>
 <p>What is the complexity of this representation of sets? Let’s consider
 just
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>,
@@ -270,7 +270,7 @@ T(d-1)\end{equation*}\]</span>Thus <span class="math inline">\(T \in
 O([d \rightarrow d^2])\)</span>. Note that this is quadratic in the
 number of elements in the list, which may be much bigger than the size
 of the set.</p>
-<h4 id="choosing-set-reps">Choosing Between Representations</h4>
+<h4 id="choosing-set-reps">18.1.3 Choosing Between Representations</h4>
 <p>Now that we have two representations with different complexities,
 it’s worth thinking about how to choose between them. To do so, let’s
 build up the following table. The table distinguishes between the
@@ -326,7 +326,7 @@ in the list). Thus, a program can make an initial guess about its
 workload and pick a representation accordingly, but maintain statistics
 as it runs and, when it finds its assumption is wrong, switch
 representations—and can do so as many times as needed.</p>
-<h4 id="Other-Operations">Other Operations</h4>
+<h4 id="Other-Operations">18.1.4 Other Operations</h4>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Implement the remaining operations catalogued above (<a
 href="sets-from-lists.html#%28elem._set-operations%29"><set-operations></a>)
 under each list representation.</p></blockquote></blockquote>

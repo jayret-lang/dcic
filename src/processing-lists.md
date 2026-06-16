@@ -1,13 +1,13 @@
 ---
 title: Processing Lists
 section_number: 5.2
-source_file: dcic_orig_processing-lists.html
+source_file: processing-lists.html
 prev: tables-to-lists.html
 up: part_lists.html
 next: recursive-data.html
 ---
 
-### Processing Lists {#processing-lists}
+### 5.2 Processing Lists {#processing-lists}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.Making_.Lists_and_.Taking_.Them_.Apart%29">5.2.1<span class="hspace"> </span>Making Lists and Taking Them Apart</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._my-len%29">5.2.2<span class="hspace"> </span>Some Example Exercises</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.Structural_.Problems_with_.Scalar_.Answers%29">5.2.3<span class="hspace"> </span>Structural Problems with Scalar Answers</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._len-eg%29">5.2.3.1<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-len</code></span>: Examples</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._sum-eg%29">5.2.3.2<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-sum</code></span>: Examples</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.From_.Examples_to_.Code%29">5.2.3.3<span class="hspace"> </span>From Examples to Code</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.Structural_.Problems_that_.Transform_.Lists%29">5.2.4<span class="hspace"> </span>Structural Problems that Transform Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._doubles-eg-code%29">5.2.4.1<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-doubles</code></span>: Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._str-len-eg-code%29">5.2.4.2<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-str-len</code></span>: Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.Structural_.Problems_that_.Select_from_.Lists%29">5.2.5<span class="hspace"> </span>Structural Problems that Select from Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._pos-nums-eg-code%29">5.2.5.1<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-pos-nums</code></span>: Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._alternating-eg-code%29">5.2.5.2<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-alternating</code></span>:
@@ -38,7 +38,7 @@ perhaps surprisingly, there is one standard way in which we can think
 about writing all these functions! Understanding
 and internalizing this process is the goal of this chapter.
 
-#### Making Lists and Taking Them Apart {#Making-Lists-and-Taking-Them-Apart}
+#### 5.2.1 Making Lists and Taking Them Apart {#Making-Lists-and-Taking-Them-Apart}
 
 So far we’ve seen one way to make a list: by writing
 `[list: …]`{.pyret}. While useful, writing lists this way actually
@@ -167,7 +167,7 @@ which are important when writing programs over lists:
 Let’s leverage these two structural features to write some programs to
 process lists!
 
-#### Some Example Exercises {#my-len}
+#### 5.2.2 Some Example Exercises {#my-len}
 
 To illustrate our thinking, let’s work through a few concrete examples
 of list-processing functions. All of these will consume lists; some
@@ -180,7 +180,7 @@ including inside the body of the function.]{.margin-note} As we will see, there 
 standard strategy that we can use to approach writing all of these
 functions: having you learn this strategy is the goal of this chapter.
 
-#### Structural Problems with Scalar Answers {#Structural-Problems-with-Scalar-Answers}
+#### 5.2.3 Structural Problems with Scalar Answers {#Structural-Problems-with-Scalar-Answers}
 
 Let’s write out examples for a few of the functions described
 above. We’ll approach writing examples in a very specific, stylized
@@ -191,7 +191,7 @@ have more examples specific to the kind of list stated in the
 problem. Finally, we should have even more examples to illustrate how
 we think about solving the problem.
 
-##### my-len : Examples {#len-eg}
+##### 5.2.3.1 my-len : Examples {#len-eg}
 
 We have’t precisely defined what it means to be “the length” of a
 list. We confront this right away when trying to write an
@@ -304,7 +304,7 @@ we will turn into code) is equivalent to the first (which we wrote
 down when understanding the problem).
 :::
 
-##### my-sum : Examples {#sum-eg}
+##### 5.2.3.2 my-sum : Examples {#sum-eg}
 
 Let’s repeat this process of developing examples on a second function,
 this time one that computes the sum of the elements in a list of numbers.
@@ -342,7 +342,7 @@ my-sum(empty) is 0
 Observe, again, how we can use the result of computing `my-sum`{.pyret}
 of the rest of the list to compute its result for the whole list.
 
-##### From Examples to Code {#From-Examples-to-Code}
+##### 5.2.3.3 From Examples to Code {#From-Examples-to-Code}
 
 Having developed these examples, we now want to use them to develop a
 program that can compute the length or the sum of any list, not
@@ -480,13 +480,13 @@ components of each datum rather than specifically `first`{.pyret} and
 `rest`{.pyret} as presented so far.
 :::
 
-#### Structural Problems that Transform Lists {#Structural-Problems-that-Transform-Lists}
+#### 5.2.4 Structural Problems that Transform Lists {#Structural-Problems-that-Transform-Lists}
 
 Now that we have a systematic way to develop functions that take lists
 as input, let’s apply that same strategy to functions that
 produce a list as the answer.
 
-##### my-doubles : Examples and Code {#doubles-eg-code}
+##### 5.2.4.1 my-doubles : Examples and Code {#doubles-eg-code}
 
 As always, we’ll begin with some examples. Given a list of numbers, we
 want a list that doubles each number (in the order of the
@@ -620,7 +620,7 @@ fun my-doubles(l):
 end
 ```
 
-##### my-str-len : Examples and Code {#str-len-eg-code}
+##### 5.2.4.2 my-str-len : Examples and Code {#str-len-eg-code}
 
 In `my-doubles`{.pyret}, the input and output lists have the same type of
 element. Functions can also produce lists whose contents have a
@@ -695,7 +695,7 @@ fun my-str-len(l):
 end
 ```
 
-#### Structural Problems that Select from Lists {#Structural-Problems-that-Select-from-Lists}
+#### 5.2.5 Structural Problems that Select from Lists {#Structural-Problems-that-Select-from-Lists}
 
 In the previous section, we saw functions that transform list
 elements (by doubling numbers or counting characters). The type of the
@@ -706,7 +706,7 @@ some input-list elements might not appear in the output list. This
 section adapts our method of deriving functions from examples to
 accommodate selection of elements.
 
-##### my-pos-nums : Examples and Code {#pos-nums-eg-code}
+##### 5.2.5.1 my-pos-nums : Examples and Code {#pos-nums-eg-code}
 
 As our first example, we will select the positive numbers from a list
 that contains both positive and non-positive numbers.
@@ -791,7 +791,7 @@ as lists that end with positive numbers and lists with `0`{.pyret}.
 Work through these examples and see how they affect the program!
 :::
 
-##### my-alternating : Examples and Code {#alternating-eg-code}
+##### 5.2.5.2 my-alternating : Examples and Code {#alternating-eg-code}
 
 Now let’s consider a problem that selects elements not by value, but
 by position. We want to write a function that selects
@@ -953,9 +953,9 @@ What’s the takeaway from this problem? There are two:
 These takeaways will matter again in future examples: keep an eye out
 for them!
 
-#### Structural Problems Over Relaxed Domains {#struct-prob-sub-dom}
+#### 5.2.6 Structural Problems Over Relaxed Domains {#struct-prob-sub-dom}
 
-##### my-max : Examples {#my-max}
+##### 5.2.6.1 my-max : Examples {#my-max}
 
 Now let’s find the maximum value of a list. Let’s assume for
 simplicity that we’re dealing with just lists of numbers. What kinds
@@ -1076,7 +1076,7 @@ my-max(empty) raises ""
 (which is how, in Pyret, we say that it will generate an error; we
 don’t care about the details of the error, hence the empty string).
 
-##### my-max : From Examples to Code {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-From-Examples-to-Code}
+##### 5.2.6.2 my-max : From Examples to Code {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-From-Examples-to-Code}
 
 Once again, we can codify the examples above, i.e., turn them into a
 uniform program that works for all instances. However, we now have a
@@ -1159,9 +1159,9 @@ end
 ```
 And sure enough, this definition does the job!
 
-#### More Structural Problems with Scalar Answers {#More-Structural-Problems-with-Scalar-Answers}
+#### 5.2.7 More Structural Problems with Scalar Answers {#More-Structural-Problems-with-Scalar-Answers}
 
-##### my-avg : Examples {#avg-eg}
+##### 5.2.7.1 my-avg : Examples {#avg-eg}
 
 Let’s now try to compute the average of a list of numbers. Let’s start
 with the example list `[list: 1, 2, 3, 4]`{.pyret} and work out more
@@ -1251,9 +1251,9 @@ sum of the numbers divided by the length. Thus, writing the answers in
 this form (as opposed, for instance, to writing the second of those as
 `3`{.pyret}) already reveals a structure for a solution.
 
-#### Structural Problems with Accumulators {#accumulators}
+#### 5.2.8 Structural Problems with Accumulators {#accumulators}
 
-##### my-running-sum : First Attempt {#running-sum-1st-attempt}
+##### 5.2.8.1 my-running-sum : First Attempt {#running-sum-1st-attempt}
 
 One more time, we’ll begin with an example.
 
@@ -1288,7 +1288,7 @@ then adding the first element to each element in the answer, and
 compute this solution directly, but for
 now that may be more work than finding a simpler way to answer it.)
 
-##### my-running-sum : Examples and Code {#running-sum-eg-code}
+##### 5.2.8.2 my-running-sum : Examples and Code {#running-sum-eg-code}
 
 Recall how we began in [`my-running-sum`{.pyret}: First Attempt](processing-lists.html##running-sum-1st-attempt). Our
 examples [[<running-sum-egs-1>](processing-lists.html#%28elem._running-sum-egs-1%29)] showed the following
@@ -1360,7 +1360,7 @@ value, which would distort the result. In addition, since the value is
 fixed, adding the parameter would amount to shifting additional (and
 needless) work onto others who use our code.
 
-##### my-alternating : Examples and Code {#alternating-accumulator}
+##### 5.2.8.3 my-alternating : Examples and Code {#alternating-accumulator}
 
 Recall our examples in [`my-alternating`{.pyret}:
 Examples and Code](processing-lists.html##alternating-eg-code). There, we
@@ -1418,14 +1418,14 @@ Define `my-max`{.pyret} using an accumulator. What does the accumulator
 represent? Do you encounter any difficulty?
 :::
 
-#### Dealing with Multiple Answers {#Dealing-with-Multiple-Answers}
+#### 5.2.9 Dealing with Multiple Answers {#Dealing-with-Multiple-Answers}
 
 Our discussion above has assumed there is only one answer for a given
 input. This is often true, but it also depends on how the problem is
 worded and how we choose to generate examples. We will study this in
 some detail now.
 
-##### uniq : Problem Setup {#uniq}
+##### 5.2.9.1 uniq : Problem Setup {#uniq}
 
 Consider the task of writing `uniq`{.pyret}:[uniq is the
 name of a Unix utility with similar behavior; hence the spelling of
@@ -1449,7 +1449,7 @@ something you can turn into a program. Programs can only proceed
 systematically; they can’t “think”. So, hopefully you took a
 well-defined path to computing the answer.
 
-##### uniq : Examples {#uniq-eg}
+##### 5.2.9.2 uniq : Examples {#uniq-eg}
 
 It turns out there are several possible answers, because we
 have (intentionally) left the problem unspecified. Suppose there are
@@ -1485,7 +1485,7 @@ uniq([list: 1, 2, 1, 3, 1, 2, 4, 1]) is [list: 4, 3, 2, 1]
 ```
 and so on. Let’s work with the examples we’ve worked out above.
 
-##### uniq : Code {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Code}
+##### 5.2.9.3 uniq : Code {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Code}
 
 What is the systematic approach that gets us to this answer?
 When given a non-empty list, we split it into its first element and
@@ -1559,7 +1559,7 @@ be helped by thinking about the concrete examples on which your code
 needs to work in context.
 :::
 
-##### uniq : Reducing Computation {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Reducing-Computation}
+##### 5.2.9.4 uniq : Reducing Computation {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Reducing-Computation}
 
 Notice that this function has a repeated expression. Instead of
 writing it twice, we could call it just once and use the result in
@@ -1635,7 +1635,7 @@ if we knew the list didn’t contain duplicates, we wouldn’t be
 using `uniq`{.pyret} in the first place! We will return to the issue of
 lists and duplicate elements in [Representing Sets as Lists](sets-from-lists.html).
 
-##### uniq : Example and Code Variations {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Example-and-Code-Variations}
+##### 5.2.9.5 uniq : Example and Code Variations {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Example-and-Code-Variations}
 
 As we mentioned earlier, there are other example sequences you might
 have written down. Here’s a very different process:
@@ -1657,7 +1657,7 @@ defining, as we did above. If we cannot, then we have to resort to an
 accumulator. But because we can, the accumulator is unnecessary here
 and greatly complicates even writing down examples (give it a try!).
 
-##### uniq : Why Produce a List? {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Why-Produce-a-List}
+##### 5.2.9.6 uniq : Why Produce a List? {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Why-Produce-a-List}
 
 If you go back to the original statement of the `uniq`{.pyret} problem
 [[`uniq`{.pyret}: Problem Setup](processing-lists.html##uniq)], you’ll notice it said nothing about what order the
@@ -1675,7 +1675,7 @@ given. Also, later [[Representing Sets as Lists](sets-from-lists.html)], we will
 for ourselves (at which point, `uniq`{.pyret} will look familiar, since
 it is at the heart of set-ness).
 
-#### Monomorphic Lists and Polymorphic Types {#polymorphic-data}
+#### 5.2.10 Monomorphic Lists and Polymorphic Types {#polymorphic-data}
 
 Earlier we wrote contracts like:
 

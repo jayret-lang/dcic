@@ -80,7 +80,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="avoid-recomp.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_advanced.html">up</a>&nbsp;&nbsp;<a href="staging.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h2 id="partial-domains">Partial Domains</h2>
+<h2 id="partial-domains">23 Partial Domains</h2>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-sentinel%29">23.1<span class="hspace"> </span>A Non-Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-exceptions%29">23.2<span class="hspace"> </span>Exceptions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-option%29">23.3<span class="hspace"> </span>The Option Type</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-total-dyn%29">23.4<span class="hspace"> </span>Total Domains, Dynamically</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-total-static%29">23.5<span class="hspace"> </span>Total Domains, Statically</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-summary%29">23.6<span class="hspace"> </span>Summary</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-pyret-list-constr%29">23.7<span class="hspace"> </span>A Note on Notation</a></p></td></tr></table>
 <p>Sometimes, we cannot precisely capture the domain of a function with
 the precision we would like. In mathematics, if a function cannot accept
@@ -104,7 +104,7 @@ perspective. We’ll specifically work through
 because the function is simple enough that we can focus on the software
 structure without getting lost in the solution details. There are at
 least four solutions, and one non-solution.</p>
-<h3 id="pd-sentinel">A Non-Solution</h3>
+<h3 id="pd-sentinel">23.1 A Non-Solution</h3>
 <p>We will start with a strategy that has often been used by programmers
 in the past, but that we reject as a non-solution. This strategy is to
 make the above contract absolutely correct by returning a value in the
@@ -188,7 +188,7 @@ when it matters most, resulting in numerous, pernicious security
 problems. Therefore, we should now regard this as a flawed approach to
 software construction, and never do it ourselves.</p>
 <p>Let’s instead look at four actual solutions.</p>
-<h3 id="pd-exceptions">Exceptions</h3>
+<h3 id="pd-exceptions">23.2 Exceptions</h3>
 <p>One technique that many languages, including Pyret, provide is called
 the exception. An exception is a special programming construct that
 effectively halts the computation because the program cannot figure out
@@ -285,7 +285,7 @@ program.</li>
 explicitly than letting it “fall through” to the programming language.
 Instead, the real problems with this solution are subtler: the lying
 contract, and the impact on program execution.</p>
-<h3 id="pd-option">The Option Type</h3>
+<h3 id="pd-option">23.3 The Option Type</h3>
 <p>Let’s revisit
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>.
 The problem with it was that it returned a value that was not
@@ -339,7 +339,7 @@ we lacked a discipline for making sure we didn’t abuse that value! So
 this is
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>
 done in a principled way.</p>
-<h3 id="pd-total-dyn">Total Domains, Dynamically</h3>
+<h3 id="pd-total-dyn">23.4 Total Domains, Dynamically</h3>
 <p>All these problems arise because we said that
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">average</code></span>
 (like
@@ -389,7 +389,7 @@ do more manual work to obtain the same solution.</li>
 <li>We don’t get a static guarantee (i.e., before even running the
 program) that we’ll never get an exception.</li>
 </ol>
-<h3 id="pd-total-static">Total Domains, Statically</h3>
+<h3 id="pd-total-static">23.5 Total Domains, Statically</h3>
 <p>How do we make the function total with a static guarantee? That would
 require that we ensure that we can never construct an empty list!
 Obviously, this is not possible with the existing lists in Pyret.
@@ -499,7 +499,7 @@ into a total one. Programmers call this principle making illegal states
 unrepresentable. It may require writing some procedures to convert to
 and from other convenient representations for code reuse. Somewhere in
 those procedures there must be checks that reflect the partiality.</p>
-<h3 id="pd-summary">Summary</h3>
+<h3 id="pd-summary">23.6 Summary</h3>
 <p>In general, there is one non-solution:</p>
 <ul>
 <li>Return a sentinel value. Do not ever do this unless you’ve first
@@ -546,7 +546,7 @@ href="queues-from-lists.html##qfl-comb-ans">Combining Answers</a> on
 queues.</li>
 </ul></li>
 </ul>
-<h3 id="pd-pyret-list-constr">A Note on Notation</h3>
+<h3 id="pd-pyret-list-constr">23.7 A Note on Notation</h3>
 <p>When we wrote above that we can’t get the convenience of writing,
 say,
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[list: 1, 2, 3]</code></span>

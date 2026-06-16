@@ -1,19 +1,19 @@
 ---
 title: Trees
 section_number: 7.1
-source_file: dcic_orig_trees.html
+source_file: trees.html
 prev: part_trees.html
 up: part_trees.html
 next: part_bonus-foundations.html
 ---
 
-### Trees {#trees}
+### 7.1 Trees {#trees}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._ancestor-trees%29">7.1.1<span class="hspace"> </span>Data Design Problem – Ancestry Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._compute-parents-table%29">7.1.1.1<span class="hspace"> </span>Computing Genetic Parents from an Ancestry Table</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._.Computing_.Grandparents_from_an_.Ancestry_.Table%29">7.1.1.2<span class="hspace"> </span>Computing Grandparents from an Ancestry Table</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._ancestor-tree%29">7.1.1.3<span class="hspace"> </span>Creating a Datatype for Ancestor Trees</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._.Programs_to_.Process_.Ancestor_.Trees%29">7.1.2<span class="hspace"> </span>Programs to Process Ancestor Trees</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._.Summarizing_.How_to_.Approach_.Tree_.Problems%29">7.1.3<span class="hspace"> </span>Summarizing How to Approach Tree Problems</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._.Study_.Questions%29">7.1.4<span class="hspace"> </span>Study Questions</a></p></td></tr></table>
 ```
 
-#### Data Design Problem – Ancestry Data {#ancestor-trees}
+#### 7.1.1 Data Design Problem – Ancestry Data {#ancestor-trees}
 
 Imagine that we wanted to manage ancestry information for
 purposes of a medical research study. Specifically, we want to record
@@ -60,7 +60,7 @@ parents from a name, so we should create a helper function for that
 (we’ll call it `parents-of`{.pyret}). Since this sounds like a routine
 table program, we can use it for a bit of review:
 
-##### Computing Genetic Parents from an Ancestry Table {#compute-parents-table}
+##### 7.1.1.1 Computing Genetic Parents from an Ancestry Table {#compute-parents-table}
 
 How do we compute a list of someone’s genetic parents? Let’s sketch a
 task plan for that:
@@ -153,7 +153,7 @@ the equality of values, we use `raises`{.pyret} to check whether the
 provided string is a sub-string of the actual error produced by the
 program.
 
-##### Computing Grandparents from an Ancestry Table {#Computing-Grandparents-from-an-Ancestry-Table}
+##### 7.1.1.2 Computing Grandparents from an Ancestry Table {#Computing-Grandparents-from-an-Ancestry-Table}
 
 Once we have the `parents-of`{.pyret} function, we should be able to
 compute the grandparents by computing parents of parents, as follows:
@@ -217,7 +217,7 @@ filtering there – we just follow the line in the picture immediately
 from a person to their mother or father. Can we get that idea in code
 instead? Yes, through datatypes.
 
-##### Creating a Datatype for Ancestor Trees {#ancestor-tree}
+##### 7.1.1.3 Creating a Datatype for Ancestor Trees {#ancestor-tree}
 
 For this approach, we want to create a datatype for Ancestor Trees
 that has a variant (constructor) for setting up a person. Look
@@ -339,7 +339,7 @@ fun parents-of-tree(tr :: AncTree) -> List<String>:
 end
 ```
 
-#### Programs to Process Ancestor Trees {#Programs-to-Process-Ancestor-Trees}
+#### 7.1.2 Programs to Process Ancestor Trees {#Programs-to-Process-Ancestor-Trees}
 
 How would we write a function to determine whether anyone in the tree
 had a particular name? To be clear, we are trying to fill in the
@@ -422,7 +422,7 @@ where:
 end
 ```
 
-#### Summarizing How to Approach Tree Problems {#Summarizing-How-to-Approach-Tree-Problems}
+#### 7.1.3 Summarizing How to Approach Tree Problems {#Summarizing-How-to-Approach-Tree-Problems}
 
 We design tree programs using the same design recipe that we covered
 on lists:
@@ -450,7 +450,7 @@ on lists:
 - Test your code using your examples
 :::
 
-#### Study Questions {#Study-Questions}
+#### 7.1.4 Study Questions {#Study-Questions}
 
 - Think of writing in-tree on a table (using filter-by) vs writing
   it on a tree. How many times might each approach compare the name

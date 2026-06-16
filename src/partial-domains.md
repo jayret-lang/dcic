@@ -1,13 +1,13 @@
 ---
 title: Partial Domains
 section_number: 23
-source_file: dcic_orig_partial-domains.html
+source_file: partial-domains.html
 prev: avoid-recomp.html
 up: booklet_advanced.html
 next: staging.html
 ---
 
-## Partial Domains {#partial-domains}
+## 23 Partial Domains {#partial-domains}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-sentinel%29">23.1<span class="hspace"> </span>A Non-Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-exceptions%29">23.2<span class="hspace"> </span>Exceptions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-option%29">23.3<span class="hspace"> </span>The Option Type</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-total-dyn%29">23.4<span class="hspace"> </span>Total Domains, Dynamically</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-total-static%29">23.5<span class="hspace"> </span>Total Domains, Statically</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-summary%29">23.6<span class="hspace"> </span>Summary</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-pyret-list-constr%29">23.7<span class="hspace"> </span>A Note on Notation</a></p></td></tr></table>
@@ -39,7 +39,7 @@ simple enough that we can focus on the software structure without getting lost
 in the solution details. There are at least four solutions, and one
 non-solution.
 
-### A Non-Solution {#pd-sentinel}
+### 23.1 A Non-Solution {#pd-sentinel}
 
 We will start with a strategy that has often been used by programmers in the
 past, but that we reject as a non-solution. This strategy is to make the above
@@ -127,7 +127,7 @@ never do it ourselves.
 
 Let’s instead look at four actual solutions.
 
-### Exceptions {#pd-exceptions}
+### 23.2 Exceptions {#pd-exceptions}
 
 One technique that many languages, including Pyret, provide is called the
 exception. An exception is a special programming construct that
@@ -229,7 +229,7 @@ than letting it “fall through” to the programming language. Instead, the rea
 problems with this solution are subtler: the lying contract, and the impact on
 program execution.
 
-### The Option Type {#pd-option}
+### 23.3 The Option Type {#pd-option}
 
 Let’s revisit `avg0`{.pyret}. The problem with it was that it returned a value
 that was not distinguishable from an actual answer. So perhaps another
@@ -286,7 +286,7 @@ legitimate. However, this is the same thing we expected in `avg0`{.pyret}—exce
 we lacked a discipline for making sure we didn’t abuse that value! So this is
 `avg0`{.pyret} done in a principled way.
 
-### Total Domains, Dynamically {#pd-total-dyn}
+### 23.4 Total Domains, Dynamically {#pd-total-dyn}
 
 All these problems arise because we said that `average`{.pyret} (like
 `median`{.pyret}) is partial. However, it’s only partial if we give the domain as
@@ -343,7 +343,7 @@ There are two main weaknesses:
 2. We don’t get a static guarantee (i.e., before even running the program)
   that we’ll never get an exception.
 
-### Total Domains, Statically {#pd-total-static}
+### 23.5 Total Domains, Statically {#pd-total-static}
 
 How do we make the function total with a static guarantee? That would require
 that we ensure that we can never construct an empty list! Obviously, this is
@@ -462,7 +462,7 @@ unrepresentable. It may require writing some procedures to convert to and from
 other convenient representations for code reuse. Somewhere in those procedures
 there must be checks that reflect the partiality.
 
-### Summary {#pd-summary}
+### 23.6 Summary {#pd-summary}
 
 In general, there is one non-solution:
 
@@ -495,7 +495,7 @@ and there are four solutions:
     information in each case. For concrete examples of this, see
     [Picking Elements from Sets](Collections_of_Structured_Data.html##coll-sd-pick) on sets [Combining Answers](queues-from-lists.html##qfl-comb-ans) on queues.
 
-### A Note on Notation {#pd-pyret-list-constr}
+### 23.7 A Note on Notation {#pd-pyret-list-constr}
 
 When we wrote above that we can’t get the convenience of writing, say,
 `[list: 1, 2, 3]`{.pyret} when using `NeLoN`{.pyret}s, we were speaking in

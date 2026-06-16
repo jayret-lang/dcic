@@ -1,19 +1,19 @@
 ---
 title: Detecting Cycles
 section_number: 21
-source_file: dcic_orig_cycle-detection.html
+source_file: cycle-detection.html
 prev: rec-from-mut.html
 up: booklet_advanced.html
 next: avoid-recomp.html
 ---
 
-## Detecting Cycles {#cycle-detection}
+## 21 Detecting Cycles {#cycle-detection}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.A_.Running_.Example%29">21.1<span class="hspace"> </span>A Running Example</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.Types%29">21.2<span class="hspace"> </span>Types</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.A_.First_.Checker%29">21.3<span class="hspace"> </span>A First Checker</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._cyc-det-comp%29">21.4<span class="hspace"> </span>Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.A_.Fabulous_.Improvement%29">21.5<span class="hspace"> </span>A Fabulous Improvement</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.Testing%29">21.6<span class="hspace"> </span>Testing</a></p></td></tr></table>
 ```
 
-### A Running Example {#A-Running-Example}
+### 21.1 A Running Example {#A-Running-Example}
 
 As you may have noticed, Pyret will check for and print cycles. For instance,
 
@@ -46,7 +46,7 @@ So we have two that participate in no cyclic behavior (`p0`{.pyret} and
 (`p6`{.pyret}) that is a self-cycle, and two (`p4`{.pyret} and `p5`{.pyret})
 that lead to a cycle.
 
-### Types {#Types}
+### 21.2 Types {#Types}
 
 As an aside, imagine we try to type-check this program. We have to
 provide a type for `tl`{.pyret}, but it’s not clear what this can be:
@@ -78,7 +78,7 @@ This works, but we have to deal with the `Option`{.pyret}
 everywhere. Since our goal is to focus on cycles, and this would
 become unwieldy, we ignore the typed version from now on.
 
-### A First Checker {#A-First-Checker}
+### 21.3 A First Checker {#A-First-Checker}
 
 Okay, back to the untyped version.
 
@@ -141,7 +141,7 @@ a “good” instance and `p0`{.pyret} is a “bad” one. However, `cc`{.pyret}
 is not a judgment of quality—its two responses have equal
 weight—so this would be confusing to a later reader.
 
-### Complexity {#cyc-det-comp}
+### 21.4 Complexity {#cyc-det-comp}
 
 Now that we have determined that it terminates, we can ask for its
 time and space complexity. First we have to decide what we are even
@@ -186,7 +186,7 @@ less which parts are prefix and which parts cycle)—and the time
 complexity would hopefully reduce from quadratic to
 linear-times-something-sublinear.
 
-### A Fabulous Improvement {#A-Fabulous-Improvement}
+### 21.5 A Fabulous Improvement {#A-Fabulous-Improvement}
 
 It turns out we can do a lot better! It’s called the tortoise-and-hare
 algorithm.
@@ -253,7 +253,7 @@ fun th(e):
 end
 ```
 
-### Testing {#Testing}
+### 21.6 Testing {#Testing}
 
 While it might be tempting to write tests like
 

@@ -1,13 +1,13 @@
 ---
 title: Graphs With Weighted Edges
 section_number: 17.3
-source_file: dcic_orig_weighted-graphs.html
+source_file: weighted-graphs.html
 prev: basic-graph-trav.html
 up: part_graphs.html
 next: lightest-paths.html
 ---
 
-### Graphs With Weighted Edges {#weighted-graphs}
+### 17.3 Graphs With Weighted Edges {#weighted-graphs}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td></td></tr></table>

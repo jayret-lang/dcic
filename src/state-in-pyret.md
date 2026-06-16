@@ -1,13 +1,13 @@
 ---
 title: State and Equality
 section_number: 19
-source_file: dcic_orig_state-in-pyret.html
+source_file: state-in-pyret.html
 prev: booklet_advanced.html
 up: booklet_advanced.html
 next: rec-from-mut.html
 ---
 
-## State and Equality {#state-in-pyret}
+## 19 State and Equality {#state-in-pyret}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="state-in-pyret.html#%28part._boxes%29">19.1<span class="hspace"> </span>Boxes: A Canonical Mutable Structure</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="state-in-pyret.html#%28part._.Mutation_and_.Types%29">19.2<span class="hspace"> </span>Mutation and Types</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="state-in-pyret.html#%28part._.Mutation_and_.Equality%29">19.3<span class="hspace"> </span>Mutation and Equality</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="state-in-pyret.html#%28part._.Another_.Equality_.Predicate%29">19.4<span class="hspace"> </span>Another Equality Predicate</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="state-in-pyret.html#%28part._equality-hierarchy%29">19.5<span class="hspace"> </span>A Hierarchy of Equality</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="state-in-pyret.html#%28part._.Space_and_.Time_.Complexity%29">19.6<span class="hspace"> </span>Space and Time Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="state-in-pyret.html#%28part._sem-identical%29">19.7<span class="hspace"> </span>What it Means to be Identical</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="state-in-pyret.html#%28part._comp-func%29">19.8<span class="hspace"> </span>Comparing Functions</a></p></td></tr></table>
@@ -20,7 +20,7 @@ some notion of equality: when we write a test in Pyret using
 the two sides. Here we will examine equality in the presence of state
 in more detail.
 
-### Boxes: A Canonical Mutable Structure {#boxes}
+### 19.1 Boxes: A Canonical Mutable Structure {#boxes}
 
 In [Mutating Structures](mutating-structures.html) we saw a motivating example using bank
 accounts. To focus our study of equality, it can be convenient to have
@@ -56,7 +56,7 @@ Observe that we use `b!v`{.pyret} to extract the current value, and use
 the naming convention of `-now`{.pyret} to make clear these are stateful
 operations, so the value now may not be the same as the value later.
 
-### Mutation and Types {#Mutation-and-Types}
+### 19.2 Mutation and Types {#Mutation-and-Types}
 
 In terms of types, whenever we replace the value in a box, we want it
 to be type-consistent with what was previously there. Otherwise it
@@ -99,7 +99,7 @@ extracted from `n1`{.pyret}—there is no danger that it will suddenly
 produce a string. This discipline can either be enforced by a system
 of annotations, or has to be manually maintained by the programmer.
 
-### Mutation and Equality {#Mutation-and-Equality}
+### 19.3 Mutation and Equality {#Mutation-and-Equality}
 
 We’ve already seen [[Re-Examining Equality](Sharing_and_Equality.html##identical-eq)] that equality is
 subtle. It’s about to become much subtler with the introduction of
@@ -169,7 +169,7 @@ check:
 end
 ```
 
-### Another Equality Predicate {#Another-Equality-Predicate}
+### 19.4 Another Equality Predicate {#Another-Equality-Predicate}
 
 Suppose we return to the state where we have defined the three boxes
 [[<three-boxes>](state-in-pyret.html#%28elem._three-boxes%29)] but not mutated `b1`{.pyret}. That is, when
@@ -216,7 +216,7 @@ end
 Whether they pass, of course, depends on the state of the program:
 whether `b1`{.pyret}, `b2`{.pyret}, or `b3`{.pyret} has had its content modified.
 
-### A Hierarchy of Equality {#equality-hierarchy}
+### 19.5 A Hierarchy of Equality {#equality-hierarchy}
 
 As you might guess, the equality operators have a hierarchy of
 implication. That is, if one operator is true of two expressions, the
@@ -260,7 +260,7 @@ assumptions). This is why `is`{.pyret} in testing uses
 `equal-always`{.pyret} by default, and forces users to explicitly pick a
 different primitive if they want it.
 
-### Space and Time Complexity {#Space-and-Time-Complexity}
+### 19.6 Space and Time Complexity {#Space-and-Time-Complexity}
 
 `identical`{.pyret} always takes constant time. Indeed, some programs use
 `identical`{.pyret} precisely because they want constant-time
@@ -276,7 +276,7 @@ data). The difference is that `equal-always`{.pyret} reduces to
 `identical`{.pyret} at references, thereby performing less computation
 than `equal-now`{.pyret} would.
 
-### What it Means to be Identical {#sem-identical}
+### 19.7 What it Means to be Identical {#sem-identical}
 
 Return for a moment to the state where we have just defined the three
 boxes [[<three-boxes>](state-in-pyret.html#%28elem._three-boxes%29)]. We could have written the
@@ -316,7 +316,7 @@ you make changes to one, you see the changes manifest on the “other”
 (i.e., there is really only one value, but with potentially multiple
 names for it).
 
-### Comparing Functions {#comp-func}
+### 19.8 Comparing Functions {#comp-func}
 
 We haven’t actually provided the full truth about equality because we
 haven’t discussed functions. Defining equality for functions—especially

@@ -1,13 +1,13 @@
 ---
 title: From Pyret to Python
 section_number: 9
-source_file: dcic_orig_part_pyret-to-python.html
+source_file: part_pyret-to-python.html
 prev: booklet_pyret-to-python.html
 up: booklet_pyret-to-python.html
 next: intro-python.html
 ---
 
-## From Pyret to Python {#part-pyret-to-python}
+## 9 From Pyret to Python {#part-pyret-to-python}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html">9.1<span class="hspace"> </span>From Pyret to Python</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Expressions__.Functions__and_.Types%29">9.1.1<span class="hspace"> </span>Expressions, Functions, and Types</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Returning_.Values_from_.Functions%29">9.1.2<span class="hspace"> </span>Returning Values from Functions</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._testing-python%29">9.1.3<span class="hspace"> </span>Examples and Test Cases</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.An_.Aside_on_.Numbers%29">9.1.4<span class="hspace"> </span>An Aside on Numbers</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._conditionals-python%29">9.1.5<span class="hspace"> </span>Conditionals</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._python-create-process-lists%29">9.1.6<span class="hspace"> </span>Creating and Processing

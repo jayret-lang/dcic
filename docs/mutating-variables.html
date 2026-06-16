@@ -78,9 +78,9 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="part_python-state.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_python-state.html">up</a>&nbsp;&nbsp;<a href="mutable-lists.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="mutating-variables">Mutating Variables</h3>
+<h3 id="mutating-variables">13.1 Mutating Variables</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._mutating-vars-memory%29">13.1.1<span class="hspace"> </span>Mutating Variables in Memory</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._var-mut-aliasing%29">13.1.2<span class="hspace"> </span>Variable Mutation and Aliasing</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._.Mutating_.Variables_versus_.Mutating_.Data_.Fields%29">13.1.3<span class="hspace"> </span>Mutating Variables versus Mutating Data Fields</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._.Mutating_.Parameters_in_.Function_.Calls%29">13.1.4<span class="hspace"> </span>Mutating Parameters in Function Calls</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._mut-top-level-vars-in-func%29">13.1.5<span class="hspace"> </span>Mutating Top-Level Variables within Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._.The_.Many_.Roles_of_.Variables%29">13.1.6<span class="hspace"> </span>The Many Roles of Variables</a></p></td></tr></table>
-<h4 id="mutating-vars-memory">Mutating Variables in Memory</h4>
+<h4 id="mutating-vars-memory">13.1.1 Mutating Variables in Memory</h4>
 <p>Now that we have introduced the idea of the heap, let’s revisit our
 use of a variable to compute the sum of elements in a list. Here again
 is the code we wrote for this earlier (in <a
@@ -153,7 +153,7 @@ program:</p>
 for word in ["here", "are", "some", "words"]:
   if len(word) &gt; 4:
     count_long = count_long + 1</code></pre></div></div></blockquote></blockquote>
-<h4 id="var-mut-aliasing">Variable Mutation and Aliasing</h4>
+<h4 id="var-mut-aliasing">13.1.2 Variable Mutation and Aliasing</h4>
 <p>In <a href="mutating-structures.html">Mutating Structures</a>, we saw
 how a statement of the form
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">elena.acct.balance = 500</code></span>
@@ -241,7 +241,7 @@ itself, updating the value of
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">savings</code></span>
 on the third line does not affect
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">ac3.balance</code></span>.</p>
-<h4 id="Mutating-Variables-versus-Mutating-Data-Fields">Mutating
+<h4 id="Mutating-Variables-versus-Mutating-Data-Fields">13.1.3 Mutating
 Variables versus Mutating Data Fields</h4>
 <p>We’ve now seen two different forms of updates in programs: updates to
 fields of structured data in <a href="mutating-structures.html">Mutating
@@ -323,8 +323,8 @@ is a variable name or a field reference, and on whether the right side
 is basic data or data with components. We will continue to work with
 these various combinations to build your understanding of when and how
 to use each one.</p>
-<h4 id="Mutating-Parameters-in-Function-Calls">Mutating Parameters in
-Function Calls</h4>
+<h4 id="Mutating-Parameters-in-Function-Calls">13.1.4 Mutating
+Parameters in Function Calls</h4>
 <p>In <a
 href="Conditionals_and_Booleans.html##func-comp-directory">Function
 Composition and the Directory</a>, we showed how function calls create
@@ -417,8 +417,8 @@ when they start writing functions that update variables.</p>
 after the function completes, you must put that value inside a piece of
 data. You cannot have it be basic data associated with a variable
 name.</p></blockquote></blockquote>
-<h4 id="mut-top-level-vars-in-func">Mutating Top-Level Variables within
-Functions</h4>
+<h4 id="mut-top-level-vars-in-func">13.1.5 Mutating Top-Level Variables
+within Functions</h4>
 <p>Let’s return to our banking example to illustrate a situation where
 the ability to update variables is extremely useful. Consider our
 current process for creating new accounts in the bank by looking at the
@@ -545,7 +545,8 @@ otherwise access information.</p>
 value. For now, the pattern we have shown you is fine. If you were
 building a real system, however, you’d want to make that computation a
 bit more sophisticated.</p></blockquote></blockquote>
-<h4 id="The-Many-Roles-of-Variables">The Many Roles of Variables</h4>
+<h4 id="The-Many-Roles-of-Variables">13.1.6 The Many Roles of
+Variables</h4>
 <p>At this point, we have used the single coding construct of a variable
 in the directory for multiple purposes. It’s worth stepping back and
 calling those out explicitly. In general, variables serve one of the

@@ -1,13 +1,13 @@
 ---
 title: Introduction to Pandas
 section_number: 10.1
-source_file: dcic_orig_python-tables-Pandas.html
+source_file: python-tables-Pandas.html
 prev: part_python-tables.html
 up: part_python-tables.html
 next: pandas-reshape-tables.html
 ---
 
-### Introduction to Pandas {#python-tables-Pandas}
+### 10.1 Introduction to Pandas {#python-tables-Pandas}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Pandas_.Table_.Basics%29">10.1.1<span class="hspace"> </span>Pandas Table Basics</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Core_.Datatypes__.Data.Frame_and_.Series%29">10.1.1.1<span class="hspace"> </span>Core Datatypes: DataFrame and Series</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Creating_and_.Loading_.Data.Frames%29">10.1.1.2<span class="hspace"> </span>Creating and Loading DataFrames</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Using_.Labels_and_.Indices_to_.Access_.Cells%29">10.1.1.3<span class="hspace"> </span>Using Labels and Indices to Access Cells</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Filtering_.Rows%29">10.1.2<span class="hspace"> </span>Filtering Rows</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Cleaning_and_.Normalizing_.Data%29">10.1.3<span class="hspace"> </span>Cleaning and Normalizing Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Clearing_out_unknown_values%29">10.1.3.1<span class="hspace"> </span>Clearing out unknown values</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Repairing_.Values_and_.Column_.Types%29">10.1.3.2<span class="hspace"> </span>Repairing Values and Column Types</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Computing_.New_.Columns%29">10.1.4<span class="hspace"> </span>Computing New Columns</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Aggregating_and_.Grouping_.Columns%29">10.1.5<span class="hspace"> </span>Aggregating and Grouping Columns</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Wide_.Versus_.Tall_.Data%29">10.1.6<span class="hspace"> </span>Wide Versus Tall Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Converting_.Between_.Wide_and_.Tall_.Data%29">Converting Between Wide and Tall Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Plotting_.Data%29">10.1.7<span class="hspace"> </span>Plotting Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Takeaways%29">10.1.8<span class="hspace"> </span>Takeaways</a></p></td></tr></table>
@@ -28,9 +28,9 @@ top of your file:
 import pandas as pd
 ```
 
-#### Pandas Table Basics {#Pandas-Table-Basics}
+#### 10.1.1 Pandas Table Basics {#Pandas-Table-Basics}
 
-##### Core Datatypes: DataFrame and Series {#Core-Datatypes-Data-Frame-and-Series}
+##### 10.1.1.1 Core Datatypes: DataFrame and Series {#Core-Datatypes-Data-Frame-and-Series}
 
 Pandas uses the term DataFrame for a table with rows and
 columns. DataFrames are built out of two more basic types:
@@ -52,7 +52,7 @@ In Pandas, a row is a Series in which an array of the cell values
 is labeled with the column headers (this is similar to the ‘Row‘
 datatype in Pyret). A DataFrame is a series of these rows.
 
-##### Creating and Loading DataFrames {#Creating-and-Loading-Data-Frames}
+##### 10.1.1.2 Creating and Loading DataFrames {#Creating-and-Loading-Data-Frames}
 
 DataFrames can be created manually or loaded in from a file, as we did
 in Pyret. Here’s a simple example of creating one by hand:
@@ -109,7 +109,7 @@ the discount column will contain `NaN`{.python}, which is the standard
 Python value for “missing information”. We will deal with that
 information shortly.
 
-##### Using Labels and Indices to Access Cells {#Using-Labels-and-Indices-to-Access-Cells}
+##### 10.1.1.3 Using Labels and Indices to Access Cells {#Using-Labels-and-Indices-to-Access-Cells}
 
 Rows, columns, and cells can be accessed using either their (numeric)
 positions or their labels. Here are some examples:
@@ -136,7 +136,7 @@ have labels. The `.loc`{.python} notation works on either rows or
 columns, we just happened to illustrate the notation on the rows since
 we had already created labels on the columns when we loaded `events`{.python}.
 
-#### Filtering Rows {#Filtering-Rows}
+#### 10.1.2 Filtering Rows {#Filtering-Rows}
 
 Back in Pyret, we filtered rows from a table by writing a function
 from `Row`{.pyret} to `Boolean`{.pyret}. The `filter-with`{.pyret} function
@@ -251,7 +251,7 @@ engineered to run more efficiently under the hood. As a general rule,
 only default to basic loops if there is no built-in operator to do the
 computation that you have in mind.]{.margin-note}
 
-#### Cleaning and Normalizing Data {#Cleaning-and-Normalizing-Data}
+#### 10.1.3 Cleaning and Normalizing Data {#Cleaning-and-Normalizing-Data}
 
 The same operator-lifting idea that we just saw when creating masks
 from DataFrames also comes into play for normalizing data. Recall that
@@ -302,7 +302,7 @@ destroying the original table. There are many nuances to having
 operations destroy and replace data; the chapter on
 [Mutating Structures](mutating-structures.html) studies them in detail.
 
-##### Clearing out unknown values {#Clearing-out-unknown-values}
+##### 10.1.3.1 Clearing out unknown values {#Clearing-out-unknown-values}
 
 Now let’s try a different cleaning and normalization problem: we want
 the discount column to contain only known discount codes or empty
@@ -396,7 +396,7 @@ Follow the above pattern to transform all delivery values of
 `'yes'`{.python} to `'pickup'`{.python}.
 :::
 
-##### Repairing Values and Column Types {#Repairing-Values-and-Column-Types}
+##### 10.1.3.2 Repairing Values and Column Types {#Repairing-Values-and-Column-Types}
 
 The source file for the `events`{.python} table contained an error in
 which someone entered the string `'three'`{.python} in place of the
@@ -452,7 +452,7 @@ events['numtix'] = events['numtix'].astype('int')
 events['numtix'].sum()    # now this works
 ```
 
-#### Computing New Columns {#Computing-New-Columns}
+#### 10.1.4 Computing New Columns {#Computing-New-Columns}
 
 Let’s extend the events table with the total cost of tickets, while
 also accounting for a discount. We’ll start by building a column for
@@ -484,7 +484,7 @@ Pandas, a new column is created if the given column name doesn’t
 already exist in the DataFrame; otherwise, the existing column with
 the given name gets updated.
 
-#### Aggregating and Grouping Columns {#Aggregating-and-Grouping-Columns}
+#### 10.1.5 Aggregating and Grouping Columns {#Aggregating-and-Grouping-Columns}
 
 Pandas has built-in operations for doing standard mathematical
 computations over series. For example, to total the number of tickets
@@ -542,7 +542,7 @@ that can used on `GroupBy`{.python} data; these cover computations such
 as counting, mean, finding largest and smallest values, and performing
 various other statistical operations.
 
-#### Wide Versus Tall Data {#Wide-Versus-Tall-Data}
+#### 10.1.6 Wide Versus Tall Data {#Wide-Versus-Tall-Data}
 
 Let’s try grouping data on a different dataset. Here’s a table showing
 sales data across several regions during each month of the year:
@@ -708,7 +708,7 @@ The solution to question 4 uses a new Pandas operator called
 `reset_index`{.python}, which is needed if you want to manipulate the
 output of a `group-by`{.python} as a regular DataFrame.
 
-#### Plotting Data {#Plotting-Data}
+#### 10.1.7 Plotting Data {#Plotting-Data}
 
 Let’s continue with the sales data as we explore plotting in Pandas.
 
@@ -760,7 +760,7 @@ customizations to graph layouts. A more comprehensive look is beyond
 the scope of this book; see the [matplotlib website](https://matplotlib.org/stable/index.html) for
 tutorials and many examples of more sophisticated plots.
 
-#### Takeaways {#Takeaways}
+#### 10.1.8 Takeaways {#Takeaways}
 
 This chapter has been designed to give you an overview of Pandas while
 pointing out key concepts in programming for data science. It is by no

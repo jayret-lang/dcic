@@ -1,13 +1,13 @@
 ---
 title: Arrays and Lists in Memory
 section_number: 12.3
-source_file: dcic_orig_unified-lists-memory.html
+source_file: unified-lists-memory.html
 prev: unified-equality.html
 up: part_state.html
 next: unified-cyclic-data.html
 ---
 
-### Arrays and Lists in Memory {#unified-lists-memory}
+### 12.3 Arrays and Lists in Memory {#unified-lists-memory}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td></td></tr></table>

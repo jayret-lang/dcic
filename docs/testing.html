@@ -83,7 +83,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="queues-from-lists.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_bonus-foundations.html">up</a>&nbsp;&nbsp;<a href="booklet_pyret-to-python.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="testing">Examples, Testing, and Program Checking</h3>
+<h3 id="testing">8.3 Examples, Testing, and Program Checking</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._from-examples-to-tests%29">8.3.1<span class="hspace"> </span>From Examples to Tests</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._s~3arefined%29">8.3.2<span class="hspace"> </span>More Refined Comparisons</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._.When_.Tests_.Fail%29">8.3.3<span class="hspace"> </span>When Tests Fail</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._test-oracle%29">8.3.4<span class="hspace"> </span>Oracles for Testing</a></p></td></tr></table>
 <p>Back in <a
 href="From_Repeated_Expressions_to_Functions.html##writing-examples">Documenting
@@ -108,7 +108,7 @@ understand the problem. In such situations, the force of precision
 actually does us good, because it helps us understand the weakness of
 our understanding.</li>
 </ul>
-<h4 id="from-examples-to-tests">From Examples to Tests</h4>
+<h4 id="from-examples-to-tests">8.3.1 From Examples to Tests</h4>
 <p>Until now, we have written examples in
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where:</code></span>
 blocks for two purposes: to help us figure out what a function needs to
@@ -216,7 +216,7 @@ folders and files (offering no support for examples). In this book, we
 emphasize the difference between these two uses of input-output pairs in
 programming because we find them extremely useful both professionally
 and pedagogically.</p>
-<h4 id="s-refined">More Refined Comparisons</h4>
+<h4 id="s-refined">8.3.2 More Refined Comparisons</h4>
 <p>Sometimes, a direct comparison via
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
 isn’t enough for testing. We have already seen this in the case of
@@ -321,7 +321,7 @@ that takes a
 and returns the expected weekly salary: the expected weekly salary for
 an hourly employee assumes they work 40 hours, and the expected weekly
 salary for a salaried employee is 1/52 of their salary.</p></blockquote></blockquote>
-<h4 id="When-Tests-Fail">When Tests Fail</h4>
+<h4 id="When-Tests-Fail">8.3.3 When Tests Fail</h4>
 <p>Suppose we’ve written the function
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sqrt</code></span>,
 which computes the square root of a given number. We’ve written some
@@ -371,7 +371,7 @@ particular set of test values we specified is inherently wrong; it’s
 just that the function happens to be a relation, i.e., it maps one input
 to multiple outputs (that is, <span class="math inline">\(\sqrt{4} = \pm
 2\)</span>). The question now is how to write the test properly.</p>
-<h4 id="test-oracle">Oracles for Testing</h4>
+<h4 id="test-oracle">8.3.4 Oracles for Testing</h4>
 <p>In other words, sometimes what we want to express is not a concrete
 input-output pair, but rather check that the output has the right
 relationship to the input. Concretely, what might this be in the case of

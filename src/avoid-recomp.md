@@ -1,13 +1,13 @@
 ---
 title: Avoiding Recomputation by Remembering Answers
 section_number: 22
-source_file: dcic_orig_avoid-recomp.html
+source_file: avoid-recomp.html
 prev: cycle-detection.html
 up: booklet_advanced.html
 next: partial-domains.html
 ---
 
-## Avoiding Recomputation by Remembering Answers {#avoid-recomp}
+## 22 Avoiding Recomputation by Remembering Answers {#avoid-recomp}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="avoid-recomp.html#%28part._.An_.Interesting_.Numeric_.Sequence%29">22.1<span class="hspace"> </span>An Interesting Numeric Sequence</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="avoid-recomp.html#%28part._.Using_.State_to_.Remember_.Past_.Answers%29">22.1.1<span class="hspace"> </span>Using State to Remember Past Answers</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="avoid-recomp.html#%28part._.From_a_.Tree_of_.Computation_to_a_.D.A.G%29">22.1.2<span class="hspace"> </span>From a Tree of Computation to a <span class="Smaller">DAG</span></a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="avoid-recomp.html#%28part._numbers-not-constant%29">22.1.3<span class="hspace"> </span>The Complexity of Numbers</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="avoid-recomp.html#%28part._.Abstracting_.Memoization%29">22.1.4<span class="hspace"> </span>Abstracting Memoization</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="avoid-recomp.html#%28part._levenshtein%29">22.2<span class="hspace"> </span>Edit-Distance for Spelling Correction</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="avoid-recomp.html#%28part._smith-waterman%29">22.3<span class="hspace"> </span>Nature as a Fat-Fingered Typist</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="avoid-recomp.html#%28part._.Dynamic_.Programming%29">22.4<span class="hspace"> </span>Dynamic Programming</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="avoid-recomp.html#%28part._.Catalan_.Numbers_with_.Dynamic_.Programming%29">22.4.1<span class="hspace"> </span>Catalan Numbers with Dynamic Programming</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="avoid-recomp.html#%28part._.Levenshtein_.Distance_and_.Dynamic_.Programming%29">22.4.2<span class="hspace"> </span>Levenshtein Distance and Dynamic Programming</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="avoid-recomp.html#%28part._memo-vs-dp%29">22.5<span class="hspace"> </span>Contrasting Memoization and Dynamic Programming</a></p></td></tr></table>
@@ -21,7 +21,7 @@ instance of the tradeoff because it uses space (to remember prior
 answers) in place of time (recomputing the answer). Let’s see how we
 can write such computations.
 
-### An Interesting Numeric Sequence {#An-Interesting-Numeric-Sequence}
+### 22.1 An Interesting Numeric Sequence {#An-Interesting-Numeric-Sequence}
 
 Suppose we want to create properly-parenthesized expressions, and
 ignore all non-parenthetical symbols. How many ways are there of
@@ -105,7 +105,7 @@ Catalan function does for input `3`{.pyret}:
 
 Observe the very symmetric computation, reflecting the formula.
 
-#### Using State to Remember Past Answers {#Using-State-to-Remember-Past-Answers}
+#### 22.1.1 Using State to Remember Past Answers {#Using-State-to-Remember-Past-Answers}
 
 Therefore, this is clearly a case where trading space for time is
 likely to be of help. How do we do this? We need a notion of
@@ -177,7 +177,7 @@ computations, while the latter calls simply look up the results.
 This process, of converting a function into a version that remembers
 its past answers, is called memoization.
 
-#### From a Tree of Computation to a DAG {#From-a-Tree-of-Computation-to-a-D-A-G}
+#### 22.1.2 From a Tree of Computation to a DAG {#From-a-Tree-of-Computation-to-a-D-A-G}
 
 What we have subtly done is to convert a tree of computation into a
 DAG over the same computation, with equivalent calls being
@@ -201,7 +201,7 @@ dramatic reduction in overall complexity. In contrast, other uses of
 memoization may result in much less dramatic improvements, turning the
 use of this technique into a true engineering trade-off.
 
-#### The Complexity of Numbers {#numbers-not-constant}
+#### 22.1.3 The Complexity of Numbers {#numbers-not-constant}
 
 As we start to run larger computations, however, we may start to
 notice that our computations are starting to take longer than linear
@@ -216,7 +216,7 @@ time are absolutely critical to fundamental complexity results (and,
 for instance, the presumed unbreakability of contemporary cryptography).
 (See also [Factoring Numbers](factoring-numbers.html).)
 
-#### Abstracting Memoization {#Abstracting-Memoization}
+#### 22.1.4 Abstracting Memoization {#Abstracting-Memoization}
 
 Now we’ve achieved the desired complexity improvement, but there is
 still something unsatisfactory about the structure of our revised
@@ -298,7 +298,7 @@ Note several things about this definition:
 Why is sharing memoization tables a bad idea? Be concrete.
 :::
 
-### Edit-Distance for Spelling Correction {#levenshtein}
+### 22.2 Edit-Distance for Spelling Correction {#levenshtein}
 
 Text editors, word processors, mobile phones, and various other
 devices now routinely implement spelling correction or offer
@@ -578,7 +578,7 @@ Modify the above algorithm to produce an actual (optimal) sequence of
 edit operations. This is sometimes known as the traceback.
 :::
 
-### Nature as a Fat-Fingered Typist {#smith-waterman}
+### 22.3 Nature as a Fat-Fingered Typist {#smith-waterman}
 
 We have talked about how to address mistakes made by humans. However,
 humans are not the only bad typists: nature is one, too!
@@ -616,7 +616,7 @@ peculiar to biology; we could just as well use a “gap score” to
 reflect the likelihood of a substitution based on keyboard
 characteristics.
 
-### Dynamic Programming {#Dynamic-Programming}
+### 22.4 Dynamic Programming {#Dynamic-Programming}
 
 We have used memoization as our canonical means of saving the values
 of past computations to reuse later. There is another popular
@@ -635,7 +635,7 @@ smallest computations and builds outward to larger ones.
 
 We will revisit our previous examples in light of this approach.
 
-#### Catalan Numbers with Dynamic Programming {#Catalan-Numbers-with-Dynamic-Programming}
+#### 22.4.1 Catalan Numbers with Dynamic Programming {#Catalan-Numbers-with-Dynamic-Programming}
 
 To begin with, we need to define a data structure to hold
 answers. Following convention, we will use an array.[What
@@ -695,7 +695,7 @@ which we did not need to perform when using memoization because
 there we made precisely the recursive call we needed, which either
 looked up the value or computed it afresh.
 
-#### Levenshtein Distance and Dynamic Programming {#Levenshtein-Distance-and-Dynamic-Programming}
+#### 22.4.2 Levenshtein Distance and Dynamic Programming {#Levenshtein-Distance-and-Dynamic-Programming}
 
 Now let’s take on rewriting the Levenshtein distance computation:
 <levenshtein-dp> ::=
@@ -902,7 +902,7 @@ canonical dynamic programming problems, see
 [this page](http://people.csail.mit.edu/bdean/6.046/dp/)
 and think about how each can be expressed as a direct recursion.]{.margin-note}
 
-### Contrasting Memoization and Dynamic Programming {#memo-vs-dp}
+### 22.5 Contrasting Memoization and Dynamic Programming {#memo-vs-dp}
 
 Now that we’ve seen two very different techniques for avoiding recomputation,
 it’s worth contrasting them. The important thing to note is that

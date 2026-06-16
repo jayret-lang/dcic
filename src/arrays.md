@@ -1,13 +1,13 @@
 ---
 title: Arrays
 section_number: 9.3
-source_file: dcic_orig_arrays.html
+source_file: arrays.html
 prev: dictionaries.html
 up: part_pyret-to-python.html
 next: part_python-tables.html
 ---
 
-### Arrays {#arrays}
+### 9.3 Arrays {#arrays}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="arrays.html#%28part._.Two_.Memory_.Layouts_for_.Ordered_.Items%29">9.3.1<span class="hspace"> </span>Two Memory Layouts for Ordered Items</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="arrays.html#%28part._.Iterating_.Partly_through_an_.Ordered_.Datum%29">9.3.2<span class="hspace"> </span>Iterating Partly through an Ordered Datum</a></p></td></tr></table>
@@ -27,7 +27,7 @@ indices start at 0)?
 
 It depends on how the list is laid out in memory.
 
-#### Two Memory Layouts for Ordered Items {#Two-Memory-Layouts-for-Ordered-Items}
+#### 9.3.1 Two Memory Layouts for Ordered Items {#Two-Memory-Layouts-for-Ordered-Items}
 
 When we say "list", we usually mean simply: a collection of items with
 order. How might a collection of ordered items be arranged in memory?
@@ -119,7 +119,7 @@ Couldn’t we have just looked at the length of the list, rather than
 maintain the `in_range`{.python} variable? Yes, we could have, though
 this version sets up a contrast to our next example.
 
-#### Iterating Partly through an Ordered Datum {#Iterating-Partly-through-an-Ordered-Datum}
+#### 9.3.2 Iterating Partly through an Ordered Datum {#Iterating-Partly-through-an-Ordered-Datum}
 
 What if instead we just wanted to print out the top 5 finishers,
 rather than gather a list? While in general it is usually better to

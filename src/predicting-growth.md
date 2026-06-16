@@ -1,13 +1,13 @@
 ---
 title: Predicting Growth
 section_number: 14
-source_file: dcic_orig_predicting-growth.html
+source_file: predicting-growth.html
 prev: booklet_algo-analysis.html
 up: booklet_algo-analysis.html
 next: amortized-analysis.html
 ---
 
-## Predicting Growth {#predicting-growth}
+## 14 Predicting Growth {#predicting-growth}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.A_.Little__.True__.Story%29">14.1<span class="hspace"> </span>A Little (True) Story</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.The_.Analytical_.Idea%29">14.2<span class="hspace"> </span>The Analytical Idea</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._cost-model%29">14.3<span class="hspace"> </span>A Cost Model for Pyret Running Time</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._size-of-input%29">14.4<span class="hspace"> </span>The Size of the Input</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.The_.Tabular_.Method_for_.Singly-.Structurally-.Recursive_.Functions%29">14.5<span class="hspace"> </span>The Tabular Method for Singly-Structurally-Recursive Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._creating-recurrences%29">14.6<span class="hspace"> </span>Creating Recurrences</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._math-anon-functions%29">14.7<span class="hspace"> </span>A Notation for Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._big-oh-def%29">14.8<span class="hspace"> </span>Comparing Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._big-oh-closure%29">14.9<span class="hspace"> </span>Combining Big-Oh Without Woe</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._solving-recurrences%29">14.10<span class="hspace"> </span>Solving Recurrences</a></p></td></tr></table>
@@ -16,7 +16,7 @@ next: amortized-analysis.html
 We will now commence the study of determining how long a computation
 takes. We’ll begin with a little (true) story.
 
-### A Little (True) Story {#A-Little-True-Story}
+### 14.1 A Little (True) Story {#A-Little-True-Story}
 
 My student Debbie recently wrote tools to analyze data for a startup.
 The company collects information about product scans made on mobile
@@ -104,7 +104,7 @@ about best practices in patient care, to evaluate the effectiveness of
 systems.
 :::
 
-### The Analytical Idea {#The-Analytical-Idea}
+### 14.2 The Analytical Idea {#The-Analytical-Idea}
 
 With many physical processes, the best we can do is obtain as many
 data points as possible, extrapolate, and apply statistics to reason
@@ -156,7 +156,7 @@ there isn’t just one. Given one upper-bound function, can you
 construct another one?
 :::
 
-### A Cost Model for Pyret Running Time {#cost-model}
+### 14.3 A Cost Model for Pyret Running Time {#cost-model}
 
 We begin by presenting a cost model for the running time of Pyret
 programs. We are interested in the cost of running a program, which
@@ -209,7 +209,7 @@ i.e., what is the longest it could take? For a conditional, it’s the cost of
 the condition added to the cost of the maximum of the two
 branches.
 
-### The Size of the Input {#size-of-input}
+### 14.4 The Size of the Input {#size-of-input}
 
 [We
 gloss over the size of a number, treating it as constant. Observe that
@@ -238,7 +238,7 @@ traverses all the way down to individual songs, and we have to account
 for all these data. In short, we care about the size of the
 data potentially accessed by the function.
 
-### The Tabular Method for Singly-Structurally-Recursive Functions {#The-Tabular-Method-for-Singly-Structurally-Recursive-Functions}
+### 14.5 The Tabular Method for Singly-Structurally-Recursive Functions {#The-Tabular-Method-for-Singly-Structurally-Recursive-Functions}
 
 Given sizes for the arguments, we simply examine the body of the
 function and add up the costs of the individual operations. Most
@@ -341,7 +341,7 @@ How accurate is this estimate? If you try applying
 estimate for \(k\)?
 :::
 
-### Creating Recurrences {#creating-recurrences}
+### 14.6 Creating Recurrences {#creating-recurrences}
 
 We will now see a systematic way of analytically computing the time of
 a program. Suppose we have only one function `f`{.pyret}. We will
@@ -417,7 +417,7 @@ What we haven’t seen, however, is a way to solve such relations
 in general. That’s where we’re going next
 [[Solving Recurrences](predicting-growth.html##solving-recurrences)].
 
-### A Notation for Functions {#math-anon-functions}
+### 14.7 A Notation for Functions {#math-anon-functions}
 
 We have seen above that we can describe the running time of `len`{.pyret}
 through a function. We don’t have an especially good notation for
@@ -428,7 +428,7 @@ introduce the following notation to mean precisely the same thing:
 \begin{equation*}[k \rightarrow 11k + 4]\end{equation*}The brackets denote anonymous functions, with the parameters before
 the arrow and the body after.
 
-### Comparing Functions {#big-oh-def}
+### 14.8 Comparing Functions {#big-oh-def}
 
 Let’s return to the running time of `len`{.pyret}. We’ve written down a
 function of great precision: 11! 4! Is this justified?
@@ -549,7 +549,7 @@ needs to be (a) reflexive (i.e., every function is related to itself);
 implies \(f \leq h\)).
 :::
 
-### Combining Big-Oh Without Woe {#big-oh-closure}
+### 14.9 Combining Big-Oh Without Woe {#big-oh-closure}
 
 Now that we’ve introduced this notation, we should inquire about its
 closure properties: namely, how do these families of functions
@@ -602,7 +602,7 @@ input (list) grows, the running time grows proportional to it, i.e.,
 if we add one more element to the input, we should expect to add a
 constant more of time to the running time.
 
-### Solving Recurrences {#solving-recurrences}
+### 14.10 Solving Recurrences {#solving-recurrences}
 
 There is a great deal of literature on solving recurrence equations.
 In this section we won’t go into general techniques, nor will we even

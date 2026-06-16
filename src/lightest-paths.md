@@ -1,13 +1,13 @@
 ---
 title: Shortest (or Lightest) Paths
 section_number: 17.4
-source_file: dcic_orig_lightest-paths.html
+source_file: lightest-paths.html
 prev: weighted-graphs.html
 up: part_graphs.html
 next: mst.html
 ---
 
-### Shortest (or Lightest) Paths {#lightest-paths}
+### 17.4 Shortest (or Lightest) Paths {#lightest-paths}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td></td></tr></table>

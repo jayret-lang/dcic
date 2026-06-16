@@ -1,13 +1,13 @@
 ---
 title: The Size of a DAG
 section_number: 16.2
-source_file: dcic_orig_size-of-dag.html
+source_file: size-of-dag.html
 prev: Sharing_and_Equality.html
 up: part_dags.html
 next: part_graphs.html
 ---
 
-### The Size of a DAG {#size-of-dag}
+### 16.2 The Size of a DAG {#size-of-dag}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_1%29">16.2.1<span class="hspace"> </span>Stage 1</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_2%29">16.2.2<span class="hspace"> </span>Stage 2</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_3%29">16.2.3<span class="hspace"> </span>Stage 3</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_4%29">16.2.4<span class="hspace"> </span>Stage 4</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_5%29">16.2.5<span class="hspace"> </span>Stage 5</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.What_.We~e2~80~99ve_.Learned%29">16.2.6<span class="hspace"> </span>What We’ve Learned</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.More_on_.Value_.Printing__.An_.Aside_from_.Racket%29">16.2.7<span class="hspace"> </span>More on Value Printing: An Aside from Racket</a></p></td></tr></table>
@@ -52,7 +52,7 @@ a “print size”: how much space will it occupy when printed. The current size
 function computes that well. But another is the “allocation” size: how many
 nodes did we allocate. How do we fare?
 
-#### Stage 1 {#Stage-1}
+#### 16.2.1 Stage 1 {#Stage-1}
 
 ```pyret
 check:
@@ -72,7 +72,7 @@ we’ll split the problem into two parts, a standard interface function that
 takes just the DAG and returns a number, and a richer helper function, which
 also takes a memory of the nodes already seen.
 
-#### Stage 2 {#Stage-2}
+#### 16.2.2 Stage 2 {#Stage-2}
 
 ```pyret
 fun size-2-h(b :: BT, seen :: List<BT>) -> Number:
@@ -127,7 +127,7 @@ Unfortunately, this still doesn’t work!
 Use Pyret’s `spy`{.pyret} construct in `size-2-h`{.pyret} to figure out why.
 :::
 
-#### Stage 3 {#Stage-3}
+#### 16.2.3 Stage 3 {#Stage-3}
 
 Did you remember to use `spy`{.pyret}? Otherwise you may very well miss the
 problem! Be sure to use `spy`{.pyret} (feel free to elide the first few tests for
@@ -184,7 +184,7 @@ end
 Must `seen`{.pyret} be a list? What else can it be?
 :::
 
-#### Stage 4 {#Stage-4}
+#### 16.2.4 Stage 4 {#Stage-4}
 
 Observe that the `Ret`{.pyret} data structure is only of local interest. It’s
 purely internal to the `size-3-h`{.pyret} function; even `size-3`{.pyret} ignores one
@@ -221,7 +221,7 @@ The notation `{0; seen}`{.pyret} makes an actual tuple; `{Number; List<BT>}`{.py
 declares the contract of a tuple. Also, `.{0}`{.pyret} extracts the
 `0`{.pyret}th element (the leftmost one) of a tuple.
 
-#### Stage 5 {#Stage-5}
+#### 16.2.5 Stage 5 {#Stage-5}
 
 Notice that we have the two instances of the code `{0; seen}`{.pyret}. Do they
 have to be that? What if we were to return `{0; empty}`{.pyret} instead in both
@@ -273,7 +273,7 @@ end
 Sure enough, if either tuple now returns `empty`{.pyret}, this test
 fails. Otherwise it succeeds.
 
-#### What We’ve Learned {#What-We-e2-80-99ve-Learned}
+#### 16.2.6 What We’ve Learned {#What-We-e2-80-99ve-Learned}
 
 We have learned three important principles here:
 
@@ -303,7 +303,7 @@ We have learned three important principles here:
   also apply the principle of mutation testing by hand, as we have above. At the
   very least, it will help us understand our program better!
 
-#### More on Value Printing: An Aside from Racket {#More-on-Value-Printing-An-Aside-from-Racket}
+#### 16.2.7 More on Value Printing: An Aside from Racket {#More-on-Value-Printing-An-Aside-from-Racket}
 
 Earlier, we talked about how the standard recursive size can still be thought
 of as a “size of printed value” computation. However, that actually depends on

@@ -1,13 +1,13 @@
 ---
 title: Interactive Games as Reactive Systems
 section_number: 27
-source_file: dcic_orig_games-reactive.html
+source_file: games-reactive.html
 prev: booklet_interaction.html
 up: booklet_interaction.html
 next: booklet_appendices.html
 ---
 
-## Interactive Games as Reactive Systems {#games-reactive}
+## 27 Interactive Games as Reactive Systems {#games-reactive}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.About_.Reactive_.Animations%29">27.1<span class="hspace"> </span>About Reactive Animations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Preliminaries%29">27.2<span class="hspace"> </span>Preliminaries</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.Airplane_.Moving_.Across_the_.Screen%29">27.3<span class="hspace"> </span>Version: Airplane Moving Across the Screen</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Updating_the_.World_.State%29">27.3.1<span class="hspace"> </span>Updating the World State</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Displaying_the_.World_.State%29">27.3.2<span class="hspace"> </span>Displaying the World State</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Observing_.Time__and_.Combining_the_.Pieces_%29">27.3.3<span class="hspace"> </span>Observing Time (and Combining the Pieces)</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.Wrapping_.Around%29">27.4<span class="hspace"> </span>Version: Wrapping Around</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.Descending%29">27.5<span class="hspace"> </span>Version: Descending</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Moving_the_.Airplane%29">27.5.1<span class="hspace"> </span>Moving the Airplane</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Drawing_the_.Scene%29">27.5.2<span class="hspace"> </span>Drawing the Scene</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Finishing_.Touches%29">27.5.3<span class="hspace"> </span>Finishing Touches</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.Responding_to_.Keystrokes%29">27.6<span class="hspace"> </span>Version: Responding to Keystrokes</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.Landing%29">27.7<span class="hspace"> </span>Version: Landing</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.A_.Fixed_.Balloon%29">27.8<span class="hspace"> </span>Version: A Fixed Balloon</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.Keep_.Your_.Eye_on_the_.Tank%29">27.9<span class="hspace"> </span>Version: Keep Your Eye on the Tank</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.The_.Balloon_.Moves__.Too%29">27.10<span class="hspace"> </span>Version: The Balloon Moves, Too</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="games-reactive.html#%28part._.Version__.One__.Two_______.Ninety-.Nine_.Luftballons_%29">27.11<span class="hspace"> </span>Version: One, Two, ..., Ninety-Nine Luftballons!</a></p></td></tr></table>
@@ -48,7 +48,7 @@ Phew: that’s a lot going on! Therefore, we won’t write it all at
 once; instead, we’ll build it up bit-by-bit. But we’ll get there by
 the end.
 
-### About Reactive Animations {#About-Reactive-Animations}
+### 27.1 About Reactive Animations {#About-Reactive-Animations}
 
 We are writing a program with two important interactive elements: it
 is an animation, meaning it gives the impression of motion, and
@@ -72,7 +72,7 @@ a sequence of individual images, and we will ask Pyret to show these
 in rapid succession. We will then see how reactivity folds into the
 same process.
 
-### Preliminaries {#Preliminaries}
+### 27.2 Preliminaries {#Preliminaries}
 
 To begin with, we should inform Pyret that we plan to make use of both
 images and animations. We load the libraries as follows:
@@ -86,7 +86,7 @@ to the corresponding names, `I`{.pyret} and `R`{.pyret}. Thus, all image
 operations are obtained from `I`{.pyret} and animation operations from
 `R`{.pyret}.
 
-### Version: Airplane Moving Across the Screen {#Version-Airplane-Moving-Across-the-Screen}
+### 27.3 Version: Airplane Moving Across the Screen {#Version-Airplane-Moving-Across-the-Screen}
 
 We will start with the simplest version: one in which the airplane
 moves horizontally across the screen. Watch
@@ -155,7 +155,7 @@ This sounds like a lot! Fortunately, Pyret makes this much easier than
 it sounds. We’ll do these in a slightly different order than listed
 above.
 
-#### Updating the World State {#Updating-the-World-State}
+#### 27.3.1 Updating the World State {#Updating-the-World-State}
 
 As we’ve noted, the airplane doesn’t actually “move”. Rather, we can
 ask Pyret to notify us every time a clock ticks. If on each
@@ -198,7 +198,7 @@ programs, you will immediately notice an important difference: it’s
 easy to test parts of your program in Pyret!
 :::
 
-#### Displaying the World State {#Displaying-the-World-State}
+#### 27.3.2 Displaying the World State {#Displaying-the-World-State}
 
 Now we’re ready to draw the game’s visual output. We produce an image
 that consists of all the necessary components. It first helps to
@@ -259,7 +259,7 @@ fun place-airplane-x(w):
 end
 ```
 
-#### Observing Time (and Combining the Pieces) {#Observing-Time-and-Combining-the-Pieces}
+#### 27.3.3 Observing Time (and Combining the Pieces) {#Observing-Time-and-Combining-the-Pieces}
 
 Finally, we’re ready to put these pieces together.
 
@@ -300,7 +300,7 @@ all the preliminaries out of the way, we can go about enhancing it.
 If you want the airplane to appear to move faster, what can you change?
 :::
 
-### Version: Wrapping Around {#Version-Wrapping-Around}
+### 27.4 Version: Wrapping Around {#Version-Wrapping-Around}
 
 When you run the preceding program, you’ll notice that after a while,
 the airplane just disappears. This is because it has gone past the right
@@ -378,7 +378,7 @@ change in behavior?
 If you didn’t…did you remember to update your reactor to use the new
 airplane-moving function?
 
-### Version: Descending {#Version-Descending}
+### 27.5 Version: Descending {#Version-Descending}
 
 Of course, we need our airplane to move in more than just one dimension:
 to get to the final game, it must both ascend and descend as well. For
@@ -411,7 +411,7 @@ x-position and y-position of the airplane on
 the screen.
 :::
 
-#### Moving the Airplane {#Moving-the-Airplane}
+#### 27.5.1 Moving the Airplane {#Moving-the-Airplane}
 
 First, let’s consider
 `move-airplane-wrapping-x-on-tick`{.pyret}. Previously our airplane moved
@@ -502,7 +502,7 @@ separation of concerns, and makes it possible for the complexity
 of movement in each dimension to evolve independently while keeping
 the code relatively readable.
 
-#### Drawing the Scene {#Drawing-the-Scene}
+#### 27.5.2 Drawing the Scene {#Drawing-the-Scene}
 
 We have to also examine and update `place-airplane-x`{.pyret}. Our
 earlier definition placed the airplane at an arbitrary
@@ -520,7 +520,7 @@ end
 Notice that we can’t really reuse the previous definition because it hard-coded
 the y-position, which we must now make a parameter.
 
-#### Finishing Touches {#Finishing-Touches}
+#### 27.5.3 Finishing Touches {#Finishing-Touches}
 
 Are we done? It would seem so: we’ve examined all the procedures that
 consume and produce World State and updated them
@@ -549,7 +549,7 @@ ensure the airplane fits entirely within the screen for the initial scene,
 and similarly in `move-airplane-xy-on-tick`{.pyret}.
 :::
 
-### Version: Responding to Keystrokes {#Version-Responding-to-Keystrokes}
+### 27.6 Version: Responding to Keystrokes {#Version-Responding-to-Keystrokes}
 
 Now that we have the airplane descending, there’s no reason it can’t
 ascend as well.
@@ -627,7 +627,7 @@ end
 Now your airplane moves not only with the passage of time but also in
 response to your keystrokes. You can keep it up in the air forever!
 
-### Version: Landing {#Version-Landing}
+### 27.7 Version: Landing {#Version-Landing}
 
 Remember that the objective of our game is to land the airplane, not to
 keep it airborne indefinitely. That means we need to detect when the
@@ -681,7 +681,7 @@ would be visible. Implement this. As a hint, consider modifying
 `place-airplane-xy`{.pyret}.
 :::
 
-### Version: A Fixed Balloon {#Version-A-Fixed-Balloon}
+### 27.8 Version: A Fixed Balloon {#Version-A-Fixed-Balloon}
 
 Now let’s add a balloon to the scene.
 [Here’s a video of the action.](https://drive.google.com/file/d/1QLt9tdt2sSPWR90-mmMLCDW4ZklgR_lN/view?usp=share_link)
@@ -801,7 +801,7 @@ fun game-ends(w):
 end
 ```
 
-### Version: Keep Your Eye on the Tank {#Version-Keep-Your-Eye-on-the-Tank}
+### 27.9 Version: Keep Your Eye on the Tank {#Version-Keep-Your-Eye-on-the-Tank}
 
 Now we’ll introduce the idea of fuel. In our simplified world, fuel
 isn’t necessary to descend—gravity does that automatically—but it
@@ -908,7 +908,7 @@ fuel values to try?
 Extend your program to draw a fuel gauge.
 :::
 
-### Version: The Balloon Moves, Too {#Version-The-Balloon-Moves-Too}
+### 27.10 Version: The Balloon Moves, Too {#Version-The-Balloon-Moves-Too}
 
 Until now we’ve left our balloon immobile. Let’s now make the game
 more interesting by letting the balloon move, as
@@ -959,7 +959,7 @@ We thus have to modify:
 Modify each of the above functions, along with their test cases.
 :::
 
-### Version: One, Two, ..., Ninety-Nine Luftballons! {#Version-One-Two-Ninety-Nine-Luftballons}
+### 27.11 Version: One, Two, ..., Ninety-Nine Luftballons! {#Version-One-Two-Ninety-Nine-Luftballons}
 
 Finally, there’s no need to limit ourselves to only one balloon. How
 many is right? Two? Three? Ten? ... Why fix any one number? It could be

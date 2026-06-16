@@ -1,21 +1,21 @@
 ---
 title: Introduction
 section_number: I
-source_file: dcic_orig_booklet_intro.html
+source_file: booklet_intro.html
 prev: index.html
 up: index.html
 next: booklet_intro-to-programming.html
 ---
 
-## Introduction {#booklet-intro}
+## I Introduction {#booklet-intro}
 
-## Overview {#Overview}
+## 1 Overview {#Overview}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.What_.This_.Book_is_.About%29">1.1<span class="hspace"> </span>What This Book is About</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.The_.Values_.That_.Drive_.This_.Book%29">1.2<span class="hspace"> </span>The Values That Drive This Book</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Our_.Perspective_on_.Data%29">1.3<span class="hspace"> </span>Our Perspective on Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.What_.Makes_.This_.Book_.Unique%29">1.4<span class="hspace"> </span>What Makes This Book Unique</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Who_.This_.Book_is_.For%29">1.5<span class="hspace"> </span>Who This Book is For</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._book-style%29">1.6<span class="hspace"> </span>The Structure of This Book</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._book-org%29">1.7<span class="hspace"> </span>Organization of the Material</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Our_.Programming_.Language_.Choice%29">1.8<span class="hspace"> </span>Our Programming Language Choice</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Programming_.Tools%29">1.9<span class="hspace"> </span>Programming Tools</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Sending_.Us_.Feedback__.Errors__and_.Comments%29">1.10<span class="hspace"> </span>Sending Us Feedback, Errors, and Comments</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Staying_.Up-.To-.Date%29">1.11<span class="hspace"> </span>Staying Up-To-Date</a></p></td></tr></table>
 ```
 
-### What This Book is About {#What-This-Book-is-About}
+### 1.1 What This Book is About {#What-This-Book-is-About}
 
 This book is an introduction to computer science. It will teach you to program,
 and do so in ways that are of practical value and importance. However, it will
@@ -31,7 +31,7 @@ scientific methods, such as ways of making sure that programs are reliable and
 do what they claim. Finally, some are social, thinking about the impacts that
 programs have on people.
 
-### The Values That Drive This Book {#The-Values-That-Drive-This-Book}
+### 1.2 The Values That Drive This Book {#The-Values-That-Drive-This-Book}
 
 Our perspective is guided by our decades of experience as software developers,
 researchers, and educators. This has instilled in us the following beliefs:
@@ -50,7 +50,7 @@ researchers, and educators. This has instilled in us the following beliefs:
   on, but also social impacts, benefits, and harms. Programmers have been
   notoriously poor at thinking about the latter.
 
-### Our Perspective on Data {#Our-Perspective-on-Data}
+### 1.3 Our Perspective on Data {#Our-Perspective-on-Data}
 
 These concerns intersect with our belief about how computer science has evolved
 as a discipline. It is a truism that we live in a world awash with data, but
@@ -84,7 +84,7 @@ computer science begins. In particular, the structure of data serve as a point
 of departure for thinking about and achieving some of the values above—performance, reliability, and predictability—using the many tools of computer
 science.
 
-### What Makes This Book Unique {#What-Makes-This-Book-Unique}
+### 1.4 What Makes This Book Unique {#What-Makes-This-Book-Unique}
 
 First, we propose a new perspective on structuring computing curricula,
 which we call data centricity.[For more about this, read
@@ -126,7 +126,7 @@ research live in a symbiotic relationship. You can find our papers
 [respective](https://www.ccs.neu.edu/home/blerner/papers.html)
 [pages](https://jpolitz.github.io).
 
-### Who This Book is For {#Who-This-Book-is-For}
+### 1.5 Who This Book is For {#Who-This-Book-is-For}
 
 This book is written primarily for students who are in the early stages of
 computing education at the tertiary level (college or university). However,
@@ -135,7 +135,7 @@ education (in the USA, for instance, roughly grades 6–12, or ages
 12–18). Indeed, we see a natural continuum between secondary and tertiary
 education, and think this book can serve as a useful bridge between the two.
 
-### The Structure of This Book {#book-style}
+### 1.6 The Structure of This Book {#book-style}
 
 Unlike some other textbooks, this one does not follow a top-down
 narrative. Rather it has the flow of a conversation, with
@@ -198,7 +198,7 @@ Here are social pitfalls from using
 material naively.
 :::
 
-### Organization of the Material {#book-org}
+### 1.7 Organization of the Material {#book-org}
 
 Because this book covers what would be considered multiple semesters
 worth of material at the tertiary level in the USA, we have divided it
@@ -311,7 +311,7 @@ reason, we recommend going through that material slowly and carefully.
 We of course invite readers to create their own mashups of the
 chapters within the sections. We would love to hear about others’ designs.
 
-### Our Programming Language Choice {#Our-Programming-Language-Choice}
+### 1.8 Our Programming Language Choice {#Our-Programming-Language-Choice}
 
 If we wanted to get rich, we’d have written this book entirely in Python. As of
 this writing, Python is enjoying its instructional-use heyday (just like Java
@@ -341,7 +341,7 @@ help you understand Python better, too: just like you learn to appreciate your
 own language, country, or culture better once you’ve stepped outside and been
 exposed to other ones.
 
-### Programming Tools {#Programming-Tools}
+### 1.9 Programming Tools {#Programming-Tools}
 
 [CPO](https://code.pyret.org/) (an abbreviation of
 code.pyret.org) is our default programming environment for Pyret.
@@ -372,19 +372,19 @@ We do not recommend any
 particular Python environment. Any Python editor that allows you to
 use pytest and load external data files should work fine.
 
-### Sending Us Feedback, Errors, and Comments {#Sending-Us-Feedback-Errors-and-Comments}
+### 1.10 Sending Us Feedback, Errors, and Comments {#Sending-Us-Feedback-Errors-and-Comments}
 
 As you work through the book, you may spot typos, notice points
 where we could have been clearer, or have a suggestion for a future
 release. You can pass these along to us by filing an issue on our
 [public GitHub site](https://github.com/data-centric-computing/dcic-public). Thanks in advance!
 
-### Staying Up-To-Date {#Staying-Up-To-Date}
+### 1.11 Staying Up-To-Date {#Staying-Up-To-Date}
 
 You can subscribe to our very-low-volume mailing list,
 [dcic-notifications](https://groups.google.com/g/dcic-notifications).
 
-## Acknowledgments {#Acknowledgments}
+## 2 Acknowledgments {#Acknowledgments}
 
 This book has benefited from the attention of many.
 

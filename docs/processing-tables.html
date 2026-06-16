@@ -82,7 +82,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="intro-tabular-data.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_tabular-data.html">up</a>&nbsp;&nbsp;<a href="part_lists.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="processing-tables">Processing Tables</h3>
+<h3 id="processing-tables">4.2 Processing Tables</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._cleaning-tables%29">4.2.1<span class="hspace"> </span>Cleaning Data Tables</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._loading-tables%29">4.2.1.1<span class="hspace"> </span>Loading Data Tables</a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._loading-tables-from-google-sheets%29">4.2.1.1.1<span class="hspace"> </span>Loading Tables from
 Google Sheets in <span class="Smaller">CPO</span></a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._loading-tables-from-csv%29">4.2.1.1.2<span class="hspace"> </span>Loading Tables from
 <span class="Smaller">CSV</span> files in VSCode</a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._cols-multiple-types-data%29">4.2.1.1.3<span class="hspace"> </span>Dealing with Columns
@@ -122,8 +122,8 @@ will be reliable. In addition, sometimes our dataset is clean, but it
 needs to be adjusted or prepared to fit the questions we want to ask.
 This chapter looks at both steps, and the programming techniques that
 are helpful for them.</p>
-<h4 id="cleaning-tables">Cleaning Data Tables</h4>
-<h5 id="loading-tables">Loading Data Tables</h5>
+<h4 id="cleaning-tables">4.2.1 Cleaning Data Tables</h4>
+<h5 id="loading-tables">4.2.1.1 Loading Data Tables</h5>
 <p>The first step to working with an outside data source is to load it
 into your programming and analysis environment. Which source you use
 depends on the programming environment that you are using for Pyret:</p>
@@ -143,8 +143,8 @@ Pyret columns after loading. Columns like
 that appear to contain both numbers and strings highlight the
 differences. We discuss these nuances in separate sections for each kind
 of source file.</p>
-<h5 id="loading-tables-from-google-sheets">Loading Tables from Google
-Sheets in CPO</h5>
+<h5 id="loading-tables-from-google-sheets">4.2.1.1.1 Loading Tables from
+Google Sheets in CPO</h5>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">include gdrive-sheets
 
 ssid = "1Ks4ll5_8wyYK1zyXMm_21KORhagSMZ59dcr7i3qY6T4"
@@ -181,8 +181,8 @@ reports an error that
 column) is not a number. We’ll discuss how to handle this in <a
 href="processing-tables.html##cols-multiple-types-data">Dealing with
 Columns with Multiple Types of Data</a>.</p>
-<h5 id="loading-tables-from-csv">Loading Tables from CSV files in
-VSCode</h5>
+<h5 id="loading-tables-from-csv">4.2.1.1.2 Loading Tables from CSV files
+in VSCode</h5>
 <p>We configure the
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-table</code></span>
 operation differently depending on whether the CSV file is on your
@@ -236,8 +236,8 @@ column. The inconsistency would resurface, however, if we try to use the
 column data assuming that they are all strings of numerals. If we notice
 this problem before loading our data, we should fix it before we
 proceed.</p>
-<h5 id="cols-multiple-types-data">Dealing with Columns with Multiple
-Types of Data</h5>
+<h5 id="cols-multiple-types-data">4.2.1.1.3 Dealing with Columns with
+Multiple Types of Data</h5>
 <p>Well-formed data should not mix types of data within a single column.
 In some situations, we might be able to write small programs to correct
 these inconsistencies. For example, a program could help us remove data
@@ -276,7 +276,7 @@ end with
 instead of
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"events-orig-f25.csv"</code></span>.</li>
 </ul>
-<h5 id="missing-data">Dealing with Missing Entries</h5>
+<h5 id="missing-data">4.2.1.2 Dealing with Missing Entries</h5>
 <p>When we create tables manually in Pyret, we have to provide a value
 for each cell – there’s no way to “skip” a cell. When we create tables
 in a spreadsheet program (such as Excel, Google Sheets, or something
@@ -436,7 +436,7 @@ option to use (or not) sanitizers at all.</p>
 <p>Rule of thumb: when you load a table, use a sanitizer to guard
 against errors in case the original sheet is missing data in some
 cells.</p>
-<h5 id="Normalizing-Data">Normalizing Data</h5>
+<h5 id="Normalizing-Data">4.2.1.3 Normalizing Data</h5>
 <p>Next, let’s look at the
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Discount Code"</code></span>
 column. Our goal is to be able to accurately answer the question “How
@@ -566,7 +566,8 @@ Where might that have come from?</p></blockquote></blockquote>
 within a larger table), but there must have been a cell of the source
 data with a string of blanks, rather than missing content. How do we
 approach normalization to avoid missing cases like this?</p>
-<h5 id="Normalization-Systematically">Normalization, Systematically</h5>
+<h5 id="Normalization-Systematically">4.2.1.4 Normalization,
+Systematically</h5>
 <p>As the previous example showed, we need a way to think through
 potential normalizations systematically. Our initial discussion of
 writing examples gives an idea of how to do this. One of the guidelines
@@ -630,8 +631,8 @@ so that strings containing only spaces were also converted to
 (Hint: look for
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-replace</code></span>
 in the strings library.)</p></blockquote></blockquote>
-<h5 id="Using-Programs-to-Detect-Data-Errors">Using Programs to Detect
-Data Errors</h5>
+<h5 id="Using-Programs-to-Detect-Data-Errors">4.2.1.5 Using Programs to
+Detect Data Errors</h5>
 <p>Sometimes, we also look for errors by writing functions to check
 whether a table contains unexpected values. Let’s consider the
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"email"</code></span>
@@ -667,7 +668,7 @@ could then produce a table identifying all rows that need to have their
 email addresses corrected. The point here is that programs are often
 helpful for finding data that need correcting, even if a program can’t
 be written to perform the fixing.</p>
-<h4 id="task-plans">Task Plans</h4>
+<h4 id="task-plans">4.2.2 Task Plans</h4>
 <p>Before we move on, it’s worth stepping back to reflect on our process
 for producing the discount-summary table. We started from a concrete
 example, checked the documentation for a built-in function that might
@@ -750,7 +751,7 @@ book as well). But the core idea is the same: use concrete examples to
 help identify the intermediate computations that will need, then convert
 those intermediate computations to code after or as you figure them
 out.</p>
-<h4 id="preparing-tables">Preparing Data Tables</h4>
+<h4 id="preparing-tables">4.2.3 Preparing Data Tables</h4>
 <p>Sometimes, the data we have is clean (in that we’ve normalized the
 data and dealt with errors), but it still isn’t in a format that we can
 use for the analysis that we want to run. For example, what if we want
@@ -759,7 +760,7 @@ In our current table, we have the number of tickets in an order, but not
 an explicit label on the scale of that order. If we wanted to produce
 some sort of chart showing our order scales, we will need to make those
 labels explicit.</p>
-<h5 id="creating-bins">Creating bins</h5>
+<h5 id="creating-bins">4.2.3.1 Creating bins</h5>
 <p>The act of reducing one set of values (such as the
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">tickcounts</code></span>
 values) into a smaller set of categories (such as small/medium/large for
@@ -781,7 +782,7 @@ end
 
 order-bin-data =
   build-column(cleaned-event-data, "order-scale", order-scale-label)</code></pre></div></div>
-<h5 id="splitting-columns">Splitting Columns</h5>
+<h5 id="splitting-columns">4.2.3.2 Splitting Columns</h5>
 <p>The events table currently uses a single string to represent the name
 of a person. This single string is not useful if we want to sort data by
 last names, however. Splitting one column into several columns can be a
@@ -848,7 +849,7 @@ and
 To extract the first- and last-names from a single name string, use:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">string-split(name-string, " ").get(0)  # get first name
 string-split(name-string, " ").get(1)  # get last name</code></pre></div></div></blockquote></blockquote>
-<h4 id="naming-tables">Managing and Naming Data Tables</h4>
+<h4 id="naming-tables">4.2.4 Managing and Naming Data Tables</h4>
 <p>At this point, we have worked with several versions of the events
 table:</p>
 <ul>
@@ -899,7 +900,7 @@ reduce your own confusion when working with your files. If you work on
 multiple data-analyses, developing a consistent strategy for how you
 name your tables will likely help you better manage your code as you
 switch between projects.</p>
-<h4 id="visualizing-tables">Visualizations and Plots</h4>
+<h4 id="visualizing-tables">4.2.5 Visualizations and Plots</h4>
 <p>Now that our data are cleaned and prepared, we are ready to analyze
 it. What might we want to know? Perhaps we want to know which discount
 code has been used most often. Maybe we want to know whether the time
@@ -973,7 +974,7 @@ scientists</p>
 In larger datasets, manually inspecting all of the data is often
 infeasible. But creating some plots or other summaries of the data is
 also useful for identifying errors.</p>
-<h4 id="Summary-Managing-a-Data-Analysis">Summary: Managing a Data
+<h4 id="Summary-Managing-a-Data-Analysis">4.2.6 Summary: Managing a Data
 Analysis</h4>
 <p>This chapter has given you a high-level overview of how to use coding
 for managing and processing data. When doing any data analysis, a good

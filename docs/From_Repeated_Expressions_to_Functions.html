@@ -84,10 +84,10 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="Naming_Values.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_foundations.html">up</a>&nbsp;&nbsp;<a href="Conditionals_and_Booleans.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="From-Repeated-Expressions-to-Functions">From Repeated
+<h3 id="From-Repeated-Expressions-to-Functions">3.3 From Repeated
 Expressions to Functions</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._similar-flags%29">3.3.1<span class="hspace"> </span>Example: Similar Flags</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._defining-functions%29">3.3.2<span class="hspace"> </span>Defining Functions</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._function-call-nm%29">3.3.2.1<span class="hspace"> </span>How Functions Evaluate</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._fun-annotations%29">3.3.2.2<span class="hspace"> </span>Type Annotations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._doc-strings%29">3.3.2.3<span class="hspace"> </span>Documentation</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._moon-weight-pyret%29">3.3.3<span class="hspace"> </span>Functions Practice: Moon Weight</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._writing-examples%29">3.3.4<span class="hspace"> </span>Documenting Functions with Examples</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._pen-cost-pyret%29">3.3.5<span class="hspace"> </span>Functions Practice: Cost of pens</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._.Recap__.Defining_.Functions%29">3.3.6<span class="hspace"> </span>Recap: Defining Functions</a></p></td></tr></table>
-<h4 id="similar-flags">Example: Similar Flags</h4>
+<h4 id="similar-flags">3.3.1 Example: Similar Flags</h4>
 <p>Consider the following two expressions to draw the flags of Armenia
 and Austria (respectively). These two countries have the same flag, just
 with different colors. The
@@ -127,7 +127,7 @@ program. Such an operator doesn’t exist in Pyret: it is specific only to
 our application of creating flag images. To make this program work,
 then, we need the ability to add our own operators (henceforth called
 functions) to Pyret.</p>
-<h4 id="defining-functions">Defining Functions</h4>
+<h4 id="defining-functions">3.3.2 Defining Functions</h4>
 <p>In programming, a function takes one or more (configuration)
 parameters and uses them to produce a result.</p>
 <blockquote class="Strategy"><p class="StrategyHeader">Strategy</p><blockquote class="StrategyBody"><p>If we have multiple concrete expressions that are identical except
@@ -203,7 +203,7 @@ Pyret will give you an error at this point. You can use a different name
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">austria2</code></span>)
 or comment out the original definition using
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">#</code></span>.)</p>
-<h5 id="function-call-nm">How Functions Evaluate</h5>
+<h5 id="function-call-nm">3.3.2.1 How Functions Evaluate</h5>
 <p>So far, we have learned three rules for how Pyret processes your
 program:</p>
 <ul>
@@ -250,7 +250,7 @@ same expression we started from for the Armenian flag. Substitution
 restores that expression, while still allowing the programmer to write
 the shorthand in terms of
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three-stripe-flag</code></span>.</p>
-<h5 id="fun-annotations">Type Annotations</h5>
+<h5 id="fun-annotations">3.3.2.2 Type Annotations</h5>
 <p>What if we made a mistake, and tried to call the function as
 follows:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">three-stripe-flag(50, "blue", "red")</code></pre></div></div>
@@ -328,7 +328,7 @@ languages have different rules about types.</p>
 that it can use to focus error messages more accurately, and guiding
 human readers of programs as to the proper use of user-defined
 functions.</p>
-<h5 id="doc-strings">Documentation</h5>
+<h5 id="doc-strings">3.3.2.3 Documentation</h5>
 <p>Imagine that you opened your program file from this chapter a couple
 of months from now. Would you remember what computation
 <span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three-stripe-flag</code></span>
@@ -353,7 +353,7 @@ end</code></pre></div></div>
 should always provide one when you write a function. They are extremely
 helpful to anyone who has to read your program, whether that is a
 co-worker, grader…or yourself, a couple of weeks from now.</p>
-<h4 id="moon-weight-pyret">Functions Practice: Moon Weight</h4>
+<h4 id="moon-weight-pyret">3.3.3 Functions Practice: Moon Weight</h4>
 <p>Suppose we’re responsible for outfitting a team of astronauts for
 lunar exploration. We have to determine how much each of them will weigh
 on the Moon’s surface. On the Moon, objects weigh only one-sixth their
@@ -405,7 +405,7 @@ well as the documentation string. This yields the final function:</p>
   earth-weight * 1/6
 end</code></pre></div></div></li>
 </ul>
-<h4 id="writing-examples">Documenting Functions with Examples</h4>
+<h4 id="writing-examples">3.3.4 Documenting Functions with Examples</h4>
 <p>In each of the functions above, we’ve started with some examples of
 what we wanted to compute, generalized from there to a generic formula,
 turned this into a function, and then used the function in place of the
@@ -464,7 +464,7 @@ the relevant computation on concrete values first, then worry about
 turning it into a function. If you can’t write the examples, chances are
 you won’t be able to write the function either. Examples break down the
 programming process into smaller, manageable steps.</p>
-<h4 id="pen-cost-pyret">Functions Practice: Cost of pens</h4>
+<h4 id="pen-cost-pyret">3.3.5 Functions Practice: Cost of pens</h4>
 <p>Let’s create one more function, this time for a more complicated
 example. Imagine that you are trying to compute the total cost of an
 order of pens with slogans (or messages) printed on them. Each pen costs
@@ -558,7 +558,7 @@ will help us handle such situations properly.</p>
 as</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">pen-cost(0, "") is 0</code></pre></div></div>
 <p>Does doing this seem like a good idea? Why or why not?</p></blockquote></blockquote>
-<h4 id="Recap-Defining-Functions">Recap: Defining Functions</h4>
+<h4 id="Recap-Defining-Functions">3.3.6 Recap: Defining Functions</h4>
 <p>This chapter has introduced the idea of a function. Functions play a
 key role in programming: they let us configure computations with
 different concrete values at different times. The first time we compute

@@ -80,9 +80,9 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="mutating-structures.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_state.html">up</a>&nbsp;&nbsp;<a href="unified-lists-memory.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
-<h3 id="unified-equality">Understanding Equality</h3>
+<h3 id="unified-equality">12.2 Understanding Equality</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._equality-of-data%29">12.2.1<span class="hspace"> </span>Equality of Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._equality-operations%29">12.2.2<span class="hspace"> </span>Different Equality Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._.Equality_in_.Python%29">12.2.2.1<span class="hspace"> </span>Equality in Python</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._.Equality_in_.Pyret%29">12.2.2.2<span class="hspace"> </span>Equality in Pyret</a></p></td></tr></table>
-<h4 id="equality-of-data">Equality of Data</h4>
+<h4 id="equality-of-data">12.2.1 Equality of Data</h4>
 <p>Now that we have the ability to mutate data, it’s worth asking what
 it means for two pieces of data to be equal. We’ll motivate this through
 a concrete example. Following the naming convention of <a
@@ -144,7 +144,7 @@ Therefore, their values change in lockstep: asking to display the value
 of either one would now show an account with a balance of
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">800</code></span>.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What do you think now? Are the first two accounts equal?</p></blockquote></blockquote>
-<h4 id="equality-operations">Different Equality Operations</h4>
+<h4 id="equality-operations">12.2.2 Different Equality Operations</h4>
 <p>This sequence of examples points out that we seem to be raising two
 possible notions of equality:</p>
 <ol type="1">
@@ -166,7 +166,7 @@ indicate which kind of equality they mean in their context.</p>
 <p>Unfortunately, the names of equality operations, and their exact
 meaning, vary across languages. Therefore, we will examine each of Pyret
 and Python separately.</p>
-<h5 id="Equality-in-Python">Equality in Python</h5>
+<h5 id="Equality-in-Python">12.2.2.1 Equality in Python</h5>
 <p>The
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">==</code></span>
 operator that you learned in Pyret and we carried into Python checks for
@@ -198,7 +198,7 @@ operator is more accepting, so it is usually the right default. If you
 actually need to know whether two expressions evaluate to the same
 address, you should instead use
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">is</code></span>.</p>
-<h5 id="Equality-in-Pyret">Equality in Pyret</h5>
+<h5 id="Equality-in-Pyret">12.2.2.2 Equality in Pyret</h5>
 <p>Equality in Pyret is somewhat more detailed, because the language
 wants you to think harder about what is happening in your programs.</p>
 <p>Recall that we are using the datatype in <a

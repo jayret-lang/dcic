@@ -1,13 +1,13 @@
 ---
 title: Introduction to Structured Data
 section_number: 6.1
-source_file: dcic_orig_intro-struct-data.html
+source_file: intro-struct-data.html
 prev: part_structured-data.html
 up: part_structured-data.html
 next: Collections_of_Structured_Data.html
 ---
 
-### Introduction to Structured Data {#intro-struct-data}
+### 6.1 Introduction to Structured Data {#intro-struct-data}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Understanding_the_.Kinds_of_.Compound_.Data%29">6.1.1<span class="hspace"> </span>Understanding the Kinds of Compound Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.A_.First_.Peek_at_.Structured_.Data%29">6.1.1.1<span class="hspace"> </span>A First Peek at Structured Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.A_.First_.Peek_at_.Conditional_.Data%29">6.1.1.2<span class="hspace"> </span>A First Peek at Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Defining_and_.Creating_.Structured_and_.Conditional_.Data%29">6.1.2<span class="hspace"> </span>Defining and Creating Structured and Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._struct-data-eg%29">6.1.2.1<span class="hspace"> </span>Defining and Creating Structured Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Annotations_for_.Structured_.Data%29">6.1.2.2<span class="hspace"> </span>Annotations for Structured Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Defining_and_.Creating_.Conditional_.Data%29">6.1.2.3<span class="hspace"> </span>Defining and Creating Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Programming_with_.Structured_and_.Conditional_.Data%29">6.1.3<span class="hspace"> </span>Programming with Structured and Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Extracting_.Fields_from_.Structured_.Data%29">6.1.3.1<span class="hspace"> </span>Extracting Fields from Structured Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._telling-apart-variants%29">6.1.3.2<span class="hspace"> </span>Telling Apart Variants of Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._process-fields-variants%29">6.1.3.3<span class="hspace"> </span>Processing Fields of Variants</a></p></td></tr></table>
@@ -18,9 +18,9 @@ the types that Pyret provides us, which is an interesting but
 nevertheless quite limited set. Most programs we write will contain
 many more kinds of data.
 
-#### Understanding the Kinds of Compound Data {#Understanding-the-Kinds-of-Compound-Data}
+#### 6.1.1 Understanding the Kinds of Compound Data {#Understanding-the-Kinds-of-Compound-Data}
 
-##### A First Peek at Structured Data {#A-First-Peek-at-Structured-Data}
+##### 6.1.1.1 A First Peek at Structured Data {#A-First-Peek-at-Structured-Data}
 
 There are times when a datum has many attributes, or parts. We
 need to keep them all together, and sometimes take them apart. For
@@ -47,7 +47,7 @@ in that one datum). Some might even be other structured data:
 for instance, a date usually has at least three parts, the day, month,
 and year. The parts of a structured datum are called its fields.
 
-##### A First Peek at Conditional Data {#A-First-Peek-at-Conditional-Data}
+##### 6.1.1.2 A First Peek at Conditional Data {#A-First-Peek-at-Conditional-Data}
 
 Then there are times when we want to represent different kinds of
 data under a single, collective umbrella. Here are a few examples:
@@ -87,7 +87,7 @@ of the collective, and other times when we do care about the
 conditional and do different things depending on the individual
 datum. We will make all this concrete as we start to write programs.
 
-#### Defining and Creating Structured and Conditional Data {#Defining-and-Creating-Structured-and-Conditional-Data}
+#### 6.1.2 Defining and Creating Structured and Conditional Data {#Defining-and-Creating-Structured-and-Conditional-Data}
 
 We have used the word “data” above, but that’s actually been a bit
 of a lie. As we said earlier, data are how we represent
@@ -97,7 +97,7 @@ represented. But to write programs, we must wrestle concretely with
 representations. That’s what we will do now, i.e., actually show
 data representations of all this information.
 
-##### Defining and Creating Structured Data {#struct-data-eg}
+##### 6.1.2.1 Defining and Creating Structured Data {#struct-data-eg}
 
 Let’s start with defining structured data, such as an iTunes song
 record. Here’s a simplified version of the information such an app
@@ -146,7 +146,7 @@ the directory, as follows:
 <div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">lver</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">song("La Vie en Rose", "Édith Piaf", 1945)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">so</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">song("Stressed Out", "twenty one pilots", 2015)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">wnkkhs</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">song("Waqt Ne Kiya Kya Haseen Sitam","Geeta Dutt", 1959)</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
 ```
 
-##### Annotations for Structured Data {#Annotations-for-Structured-Data}
+##### 6.1.2.2 Annotations for Structured Data {#Annotations-for-Structured-Data}
 
 Recall that in [[Type Annotations](From_Repeated_Expressions_to_Functions.html##fun-annotations)] we discussed annotating our functions. Well, we
 can annotate our data, too! In particular, we can annotate both the
@@ -186,7 +186,7 @@ Make sure you familiarize yourself with the error messages that you
 get.
 :::
 
-##### Defining and Creating Conditional Data {#Defining-and-Creating-Conditional-Data}
+##### 6.1.2.3 Defining and Creating Conditional Data {#Defining-and-Creating-Conditional-Data}
 
 The `data`{.pyret} construct in Pyret also lets us create conditional
 data, with a slightly different syntax. For instance, say we want to
@@ -262,7 +262,7 @@ end
 i.e., a conditional type with just one condition, where that one
 condition is structured.
 
-#### Programming with Structured and Conditional Data {#Programming-with-Structured-and-Conditional-Data}
+#### 6.1.3 Programming with Structured and Conditional Data {#Programming-with-Structured-and-Conditional-Data}
 
 So far we’ve learned how to create structured and conditional data,
 but not yet how to take them apart or write any expressions that
@@ -275,7 +275,7 @@ involve them. As you might expect, we need to figure out how to
 As we’ll see, Pyret also gives us a convenient way to do both
 together.
 
-##### Extracting Fields from Structured Data {#Extracting-Fields-from-Structured-Data}
+##### 6.1.3.1 Extracting Fields from Structured Data {#Extracting-Fields-from-Structured-Data}
 
 Let’s write a function that tells us how old a song is. First, let’s
 think about what the function consumes (an `ITunesSong`{.pyret}) and
@@ -322,7 +322,7 @@ where:
 end
 ```
 
-##### Telling Apart Variants of Conditional Data {#telling-apart-variants}
+##### 6.1.3.2 Telling Apart Variants of Conditional Data {#telling-apart-variants}
 
 Now let’s see how we tell apart variants. For this, we again use
 `cases`{.pyret}, as we saw for lists. We create one branch for each of
@@ -348,7 +348,7 @@ What if you leave out a variant? Leave out the `Red`{.pyret} variant,
 then try both `advice(Yellow)`{.pyret} and `advice(Red)`{.pyret}.
 :::
 
-##### Processing Fields of Variants {#process-fields-variants}
+##### 6.1.3.3 Processing Fields of Variants {#process-fields-variants}
 
 In this example, the variants had no fields. But if the variant has
 fields, Pyret expects you to list names of variables for those fields,

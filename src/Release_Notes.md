@@ -1,18 +1,18 @@
 ---
 title: Release Notes
 section_number: 31
-source_file: dcic_orig_Release_Notes.html
+source_file: Release_Notes.html
 prev: htdp-vs-dcic.html
 up: booklet_appendices.html
 next: glossary.html
 ---
 
-## Release Notes {#Release-Notes}
+## 31 Release Notes {#Release-Notes}
 
 This is a summary of updates made with each release of the book
 (excluding typos and other minor fixes).
 
-### Version 2025-08-27 {#Version-2025-08-27}
+### 31.1 Version 2025-08-27 {#Version-2025-08-27}
 
 This version has several small but potentially significant changes:
 
@@ -64,7 +64,7 @@ This version has several small but potentially significant changes:
   to update links to refer to the 2025-08-27 release should recheck URLs
   into the [Programming with State (in Both Pyret and Python)](part_state.html) section.
 
-### Version 2025-02-09 {#Version-2025-02-09}
+### 31.2 Version 2025-02-09 {#Version-2025-02-09}
 
 This version introduces a new context, `dcic2024`{.pyret}, that contains
 all of the table-processing functions that used to be in a shared
@@ -86,14 +86,14 @@ In addition, the challenge problem on computing the intersection of
 two lists that is posed at the end of [Recap: Summary of List Operations](tables-to-lists.html##lists-recap) has been
 refined, then revisited after introducing `lam`{.pyret} in the next section.
 
-### Version 2024-09-03 {#Version-2024-09-03}
+### 31.3 Version 2024-09-03 {#Version-2024-09-03}
 
 This version fixes several small issues. There is minor reorganization
 that improves the structure of sections. It also includes links to
 several interesting related content from the Web that advanced
 students will find enriching.
 
-### Version 2023-02-21 {#Version-2023-02-21}
+### 31.4 Version 2023-02-21 {#Version-2023-02-21}
 
 This version has a sweeping set of changes:
 
@@ -133,11 +133,11 @@ This version has a sweeping set of changes:
   [Advanced Topics](booklet_advanced.html).
   In addition, there are several more new advanced goodies!
 
-### Version 2022-08-28 {#Version-2022-08-28}
+### 31.5 Version 2022-08-28 {#Version-2022-08-28}
 
 Besides numerous small improvements, we added some new bonus material.
 
-### Version 2022-01-25 {#Version-2022-01-25}
+### 31.6 Version 2022-01-25 {#Version-2022-01-25}
 
 - Consistently renamed the definitions and interactions window to the
   definitions and interactions pane.
@@ -154,7 +154,7 @@ Besides numerous small improvements, we added some new bonus material.
     "1wyQZj_L0qqV9Ekgr9au6RX2iqt2Ga8Ep")
   ```
 
-### Version 2021-08-21 {#Version-2021-08-21}
+### 31.7 Version 2021-08-21 {#Version-2021-08-21}
 
 The original release! Based on the prior book
 Programming and Programming Languages.
