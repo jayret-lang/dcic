@@ -10,7 +10,7 @@ next: unified-lists-memory.html
 ### 12.2 Understanding Equality {#unified-equality}
 
 ```{=html}
-<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._equality-of-data%29">12.2.1<span class="hspace"> </span>Equality of Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._equality-operations%29">12.2.2<span class="hspace"> </span>Different Equality Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._.Equality_in_.Python%29">12.2.2.1<span class="hspace"> </span>Equality in Python</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._.Equality_in_.Pyret%29">12.2.2.2<span class="hspace"> </span>Equality in Pyret</a></p></td></tr></table>
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._equality-of-data%29">12.2.1<span class="hspace"> </span>Equality of Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._equality-operations%29">12.2.2<span class="hspace"> </span>Different Equality Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._.Equality_in_.Python%29">12.2.2.1<span class="hspace"> </span>Equality in Python</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._.Equality_in_.Jayret%29">12.2.2.2<span class="hspace"> </span>Equality in Jayret</a></p></td></tr></table>
 ```
 
 #### 12.2.1 Equality of Data {#equality-of-data}
@@ -20,7 +20,7 @@ means for two pieces of data to be equal. We’ll motivate this through
 a concrete example. Following the naming convention of
 [Structure Mutation and the Directory](mutating-structures.html##structure-mut-dir), we will write every name only once, using the
 upper-case name from Python, but everything we write will equally be
-true for Pyret.
+true for Jayret.
 
 First, consider these three statements:
 
@@ -110,16 +110,16 @@ indicate which kind of equality they mean in their context.
 
 Unfortunately, the names of equality operations, and their exact
 meaning, vary across languages. Therefore, we will examine each of
-Pyret and Python separately.
+Jayret and Python separately.
 
 ##### 12.2.2.1 Equality in Python {#Equality-in-Python}
 
-The `==`{.python} operator that you learned in Pyret and we carried into
+The `==`{.python} operator that you learned in Jayret and we carried into
 Python checks for structural equality, independent of addresses:
 
 ::: {.pyret-repl}
-``` pyret
-a1 == a2
+```jayret
+a1 == a2;
 ```
 ``` output
 True
@@ -127,8 +127,8 @@ True
 :::
 
 ::: {.pyret-repl}
-``` pyret
-a2 == a4
+```jayret
+a2 == a4;
 ```
 ``` output
 True
@@ -139,8 +139,8 @@ However, note that this will no longer be true at checkpoint
 2:
 
 ::: {.pyret-repl}
-``` pyret
-a1 == a2
+```jayret
+a1 == a2;
 ```
 ``` output
 False
@@ -148,8 +148,8 @@ False
 :::
 
 ::: {.pyret-repl}
-``` pyret
-a2 == a4
+```jayret
+a2 == a4;
 ```
 ``` output
 True
@@ -157,12 +157,12 @@ True
 :::
 
 If we instead want to check for aliasing, we instead use an operation
-called `is`{.python} (not to be confused with Pyret’s `is`{.pyret}, which
+called `is`{.python} (not to be confused with Jayret’s `is`{.pyret}, which
 is used for writing tests):
 
 ::: {.pyret-repl}
-``` pyret
-a1 is a2
+```jayret
+assertEquals(a1, a2);
 ```
 ``` output
 False
@@ -170,8 +170,8 @@ False
 :::
 
 ::: {.pyret-repl}
-``` pyret
-a2 is a4
+```jayret
+assertEquals(a2, a4);
 ```
 ``` output
 True
@@ -189,26 +189,26 @@ of equality. The `==`{.python} operator is more accepting, so it is
 usually the right default. If you actually need to know whether two
 expressions evaluate to the same address, you should instead use `is`{.python}.
 
-##### 12.2.2.2 Equality in Pyret {#Equality-in-Pyret}
+##### 12.2.2.2 Equality in Jayret {#Equality-in-Pyret}
 
-Equality in Pyret is somewhat more detailed, because the language
+Equality in Jayret is somewhat more detailed, because the language
 wants you to think harder about what is happening in your programs.
 
 Recall that we are using the datatype in [Example: Bank Accounts](mutating-structures.html##eg-bank-acc) and
 have written the following definitions:
 
-```pyret
-a1 = account(8603, 500)
-a2 = account(8603, 500)
-a3 = account(8603, 250)
-a4 = a2
-# checkpoint 1
-a2!{balance: 800}
-# checkpoint 2
+```jayret
+a1 = account(8603, 500);
+a2 = account(8603, 500);
+a3 = account(8603, 250);
+a4 = a2;
+// checkpoint 1
+a2 ! {balance 800 }
+// checkpoint 2
 ```
 
 In Python, we saw that `a1 == a2`{.python} before the
-mutation. However, in Pyret, this produces `false`{.pyret}! Why?
+mutation. However, in Jayret, this produces `false`{.pyret}! Why?
 
 The reason is because structural equality is actually complicated;
 there are two different questions we could be asking:
@@ -217,16 +217,16 @@ there are two different questions we could be asking:
 1. Are these two values structurally equal right now?
 2. Will these two values be structurally equal always?
 
-Pyret makes a distinction between these two.
+Jayret makes a distinction between these two.
 
-By default, Pyret tends towards safer programming
+By default, Jayret tends towards safer programming
 practices. Therefore, the standard (structural) equality predicate,
 `==`{.pyret}, will only return `true`{.pyret} if the two values will
 always be equal. Thus:
 
 ::: {.pyret-repl}
-``` pyret
-a2 == a4
+```jayret
+a2 == a4;
 ```
 ``` output
 true
@@ -236,11 +236,11 @@ true
 Because the two values are actually aliases, no matter how one
 changes, the “other” will always change in the same way. Therefore,
 they will always “print the same”. We can confirm that they are
-aliases by using Pyret’s reference equality operator, `<=>`{.pyret}:
+aliases by using Jayret’s reference equality operator, `<=>`{.pyret}:
 
 ::: {.pyret-repl}
-``` pyret
-a1 <=> a2
+```jayret
+a1 <=> a2;
 ```
 ``` output
 false
@@ -248,8 +248,8 @@ false
 :::
 
 ::: {.pyret-repl}
-``` pyret
-a2 <=> a4
+```jayret
+a2 <=> a4;
 ```
 ``` output
 true
@@ -261,8 +261,8 @@ In contrast, that guarantee does not apply to `a1`{.pyret} and
 longer equal. Hence
 
 ::: {.pyret-repl}
-``` pyret
-a1 == a2
+```jayret
+a1 == a2;
 ```
 ``` output
 false
@@ -270,14 +270,14 @@ false
 :::
 
 However, there is a time when `a1`{.pyret} and `a2`{.pyret} do print
-the same, namely before checkpoint 1. Therefore, Pyret provides
+the same, namely before checkpoint 1. Therefore, Jayret provides
 another equality operator that checks whether values are equal
 at the moment, `=~`{.pyret}. If we ask this before checkpoint 1,
 we get:
 
 ::: {.pyret-repl}
-``` pyret
-a1 =~ a2
+```jayret
+a1 =~ a2;
 ```
 ``` output
 true
@@ -287,8 +287,8 @@ true
 But if we ask the same question at checkpoint 2, we get:
 
 ::: {.pyret-repl}
-``` pyret
-a1 =~ a2
+```jayret
+a1 =~ a2;
 ```
 ``` output
 false
@@ -296,20 +296,20 @@ false
 :::
 
 These operators and their funny symbols may be hard to remember, but
-Pyret also gives them useful (if longer) names, and they can be
+Jayret also gives them useful (if longer) names, and they can be
 used as ordinary functions:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0"><tr><td><p><span style="font-weight: bold">Symbol</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">Function</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">Type</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">Meaning</span></p></td></tr><tr><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">==</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">equal-always</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p>Structural</p></td><td><p><span class="hspace">    </span></p></td><td><p>If it returns <span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">true</code></span>, they will always be equal,
-irrespective of any future mutations.</p></td></tr><tr><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">=~</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">equal-now</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p>Structural</p></td><td><p><span class="hspace">    </span></p></td><td><p>If it returns <span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">true</code></span> they are currently equal,
-but that may change after future mutations.</p></td></tr><tr><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">&lt;=&gt;</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">identical</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p>Reference</p></td><td><p><span class="hspace">    </span></p></td><td><p>Returns <span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">true</code></span> if the two arguments are aliases,
-<span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">false</code></span> otherwise.</p></td></tr></table>
+<table cellpadding="0" cellspacing="0"><tr><td><p><span style="font-weight: bold">Symbol</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">Function</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">Type</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">Meaning</span></p></td></tr><tr><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">==</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">equal-always</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p>Structural</p></td><td><p><span class="hspace">    </span></p></td><td><p>If it returns <span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">true</code></span>, they will always be equal,
+irrespective of any future mutations.</p></td></tr><tr><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">=~</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">equal-now</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p>Structural</p></td><td><p><span class="hspace">    </span></p></td><td><p>If it returns <span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">true</code></span> they are currently equal,
+but that may change after future mutations.</p></td></tr><tr><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">&lt;=&gt;</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">identical</code></span></p></td><td><p><span class="hspace">    </span></p></td><td><p>Reference</p></td><td><p><span class="hspace">    </span></p></td><td><p>Returns <span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">true</code></span> if the two arguments are aliases,
+<span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">false</code></span> otherwise.</p></td></tr></table>
 ```
 Thus, before checkpoint 1:
 
 ::: {.pyret-repl}
-``` pyret
-equal-now(a1, a2)
+```jayret
+equal-now(a1, a2);
 ```
 ``` output
 true
@@ -317,8 +317,8 @@ true
 :::
 
 ::: {.pyret-repl}
-``` pyret
-equal-now(a2, a4)
+```jayret
+equal-now(a2, a4);
 ```
 ``` output
 true
@@ -326,8 +326,8 @@ true
 :::
 
 ::: {.pyret-repl}
-``` pyret
-equal-always(a1, a2)
+```jayret
+equal-always(a1, a2);
 ```
 ``` output
 false
@@ -335,8 +335,8 @@ false
 :::
 
 ::: {.pyret-repl}
-``` pyret
-equal-always(a2, a4)
+```jayret
+equal-always(a2, a4);
 ```
 ``` output
 true
@@ -344,8 +344,8 @@ true
 :::
 
 ::: {.pyret-repl}
-``` pyret
-identical(a1, a2)
+```jayret
+identical(a1, a2);
 ```
 ``` output
 false
@@ -353,8 +353,8 @@ false
 :::
 
 ::: {.pyret-repl}
-``` pyret
-identical(a2, a4)
+```jayret
+identical(a2, a4);
 ```
 ``` output
 true
@@ -367,8 +367,8 @@ by definition they cannot change. But we should check `equal-now`{.pyret}
 again. Sure enough:
 
 ::: {.pyret-repl}
-``` pyret
-equal-now(a1, a2)
+```jayret
+equal-now(a1, a2);
 ```
 ``` output
 false
@@ -376,15 +376,15 @@ false
 :::
 
 ::: {.pyret-repl}
-``` pyret
-equal-now(a2, a4)
+```jayret
+equal-now(a2, a4);
 ```
 ``` output
 true
 ```
 :::
 
-Therefore, in Pyret, the `==`{.pyret} operator is the same as
+Therefore, in Jayret, the `==`{.pyret} operator is the same as
 `equal-always`{.pyret}. When data contain mutable fields, this will
 always produce `false`{.pyret}, because even if the values are
 structurally equal now, it’s possible that a future
@@ -401,12 +401,12 @@ even when they are not aliases. This is a reminder that we get
 stronger guarantees about immutable data.
 
 It is worth noting that upto this point we have used
-`equal-always`{.pyret}—in the form of both `==`{.pyret} and Pyret’s
+`equal-always`{.pyret}—in the form of both `==`{.pyret} and Jayret’s
 `is`{.pyret} in testing—without really bothering to understand very
 much about how it works, and yet have always gotten predictable
 answers. This suggests that there is something natural about working
 with immutable data. In contrast, with mutable data, something has to
-give. Pyret made a conscious design choice to reflect this in the
+give. Jayret made a conscious design choice to reflect this in the
 distinction between `equal-always`{.pyret} and `equal-now`{.pyret}. Python
 made a different choice, which results in “equality” having a
 perhaps surprising meaning. (Python has no notion of

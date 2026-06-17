@@ -10,8 +10,8 @@ next: recursive-data.html
 ### 5.2 Processing Lists {#processing-lists}
 
 ```{=html}
-<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.Making_.Lists_and_.Taking_.Them_.Apart%29">5.2.1<span class="hspace"> </span>Making Lists and Taking Them Apart</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._my-len%29">5.2.2<span class="hspace"> </span>Some Example Exercises</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.Structural_.Problems_with_.Scalar_.Answers%29">5.2.3<span class="hspace"> </span>Structural Problems with Scalar Answers</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._len-eg%29">5.2.3.1<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-len</code></span>: Examples</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._sum-eg%29">5.2.3.2<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-sum</code></span>: Examples</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.From_.Examples_to_.Code%29">5.2.3.3<span class="hspace"> </span>From Examples to Code</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.Structural_.Problems_that_.Transform_.Lists%29">5.2.4<span class="hspace"> </span>Structural Problems that Transform Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._doubles-eg-code%29">5.2.4.1<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-doubles</code></span>: Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._str-len-eg-code%29">5.2.4.2<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-str-len</code></span>: Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.Structural_.Problems_that_.Select_from_.Lists%29">5.2.5<span class="hspace"> </span>Structural Problems that Select from Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._pos-nums-eg-code%29">5.2.5.1<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-pos-nums</code></span>: Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._alternating-eg-code%29">5.2.5.2<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-alternating</code></span>:
-Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._struct-prob-sub-dom%29">5.2.6<span class="hspace"> </span>Structural Problems Over Relaxed Domains</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._my-max%29">5.2.6.1<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-max</code></span>: Examples</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part.___struct_traverse-element___procedure____lib_render-cond_rkt_38_12____.From_.Examples_to_.Code%29">5.2.6.2<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-max</code></span>: From Examples to Code</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.More_.Structural_.Problems_with_.Scalar_.Answers%29">5.2.7<span class="hspace"> </span>More Structural Problems with Scalar Answers</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._avg-eg%29">5.2.7.1<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-avg</code></span>: Examples</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._accumulators%29">5.2.8<span class="hspace"> </span>Structural Problems with Accumulators</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._running-sum-1st-attempt%29">5.2.8.1<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-running-sum</code></span>: First Attempt</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._running-sum-eg-code%29">5.2.8.2<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-running-sum</code></span>: Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._alternating-accumulator%29">5.2.8.3<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">my-alternating</code></span>: Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.Dealing_with_.Multiple_.Answers%29">5.2.9<span class="hspace"> </span>Dealing with Multiple Answers</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._uniq%29">5.2.9.1<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">uniq</code></span>: Problem Setup</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._uniq-eg%29">5.2.9.2<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">uniq</code></span>: Examples</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part.___struct_traverse-element___procedure____lib_render-cond_rkt_38_12____.Code%29">5.2.9.3<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">uniq</code></span>: Code</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part.___struct_traverse-element___procedure____lib_render-cond_rkt_38_12____.Reducing_.Computation%29">5.2.9.4<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">uniq</code></span>: Reducing Computation</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part.___struct_traverse-element___procedure____lib_render-cond_rkt_38_12____.Example_and_.Code_.Variations%29">5.2.9.5<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">uniq</code></span>: Example and Code Variations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part.___struct_traverse-element___procedure____lib_render-cond_rkt_38_12____.Why_.Produce_a_.List_%29">5.2.9.6<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">uniq</code></span>: Why Produce a List?</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._polymorphic-data%29">5.2.10<span class="hspace"> </span>Monomorphic Lists and Polymorphic Types</a></p></td></tr></table>
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.Making_.Lists_and_.Taking_.Them_.Apart%29">5.2.1<span class="hspace"> </span>Making Lists and Taking Them Apart</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._my-len%29">5.2.2<span class="hspace"> </span>Some Example Exercises</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.Structural_.Problems_with_.Scalar_.Answers%29">5.2.3<span class="hspace"> </span>Structural Problems with Scalar Answers</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._len-eg%29">5.2.3.1<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">my-len</code></span>: Examples</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._sum-eg%29">5.2.3.2<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">my-sum</code></span>: Examples</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.From_.Examples_to_.Code%29">5.2.3.3<span class="hspace"> </span>From Examples to Code</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.Structural_.Problems_that_.Transform_.Lists%29">5.2.4<span class="hspace"> </span>Structural Problems that Transform Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._doubles-eg-code%29">5.2.4.1<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">my-doubles</code></span>: Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._str-len-eg-code%29">5.2.4.2<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">my-str-len</code></span>: Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.Structural_.Problems_that_.Select_from_.Lists%29">5.2.5<span class="hspace"> </span>Structural Problems that Select from Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._pos-nums-eg-code%29">5.2.5.1<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">my-pos-nums</code></span>: Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._alternating-eg-code%29">5.2.5.2<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">my-alternating</code></span>:
+Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._struct-prob-sub-dom%29">5.2.6<span class="hspace"> </span>Structural Problems Over Relaxed Domains</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._my-max%29">5.2.6.1<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">my-max</code></span>: Examples</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part.___struct_traverse-element___procedure____lib_render-cond_rkt_38_12____.From_.Examples_to_.Code%29">5.2.6.2<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">my-max</code></span>: From Examples to Code</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.More_.Structural_.Problems_with_.Scalar_.Answers%29">5.2.7<span class="hspace"> </span>More Structural Problems with Scalar Answers</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._avg-eg%29">5.2.7.1<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">my-avg</code></span>: Examples</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._accumulators%29">5.2.8<span class="hspace"> </span>Structural Problems with Accumulators</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._running-sum-1st-attempt%29">5.2.8.1<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">my-running-sum</code></span>: First Attempt</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._running-sum-eg-code%29">5.2.8.2<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">my-running-sum</code></span>: Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._alternating-accumulator%29">5.2.8.3<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">my-alternating</code></span>: Examples and Code</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._.Dealing_with_.Multiple_.Answers%29">5.2.9<span class="hspace"> </span>Dealing with Multiple Answers</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._uniq%29">5.2.9.1<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">uniq</code></span>: Problem Setup</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._uniq-eg%29">5.2.9.2<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">uniq</code></span>: Examples</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part.___struct_traverse-element___procedure____lib_render-cond_rkt_38_12____.Code%29">5.2.9.3<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">uniq</code></span>: Code</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part.___struct_traverse-element___procedure____lib_render-cond_rkt_38_12____.Reducing_.Computation%29">5.2.9.4<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">uniq</code></span>: Reducing Computation</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part.___struct_traverse-element___procedure____lib_render-cond_rkt_38_12____.Example_and_.Code_.Variations%29">5.2.9.5<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">uniq</code></span>: Example and Code Variations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part.___struct_traverse-element___procedure____lib_render-cond_rkt_38_12____.Why_.Produce_a_.List_%29">5.2.9.6<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">uniq</code></span>: Why Produce a List?</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-lists.html#%28part._polymorphic-data%29">5.2.10<span class="hspace"> </span>Monomorphic Lists and Polymorphic Types</a></p></td></tr></table>
 ```
 
 We have already seen [[From Tables to Lists](tables-to-lists.html)] several examples of
@@ -46,9 +46,9 @@ hides their true nature. Every list actually has two parts: a
 first element and the rest of the list. The rest of the
 list is itself a list, so it too has two parts…and so on.
 
-Consider the list `[list: 1, 2, 3]`{.pyret}. Its first element is `1`{.pyret}, and
-the rest of it is `[list: 2, 3]`{.pyret}. For this second list, the first element
-is `2`{.pyret} and the rest is `[list: 3]`{.pyret}.
+Consider the list `[1, 2, 3]`{.pyret}. Its first element is `1`{.pyret}, and
+the rest of it is `[2, 3]`{.pyret}. For this second list, the first element
+is `2`{.pyret} and the rest is `[3]`{.pyret}.
 
 
 ::: {.do-now}
@@ -57,7 +57,7 @@ Take apart this third list.
 
 
 For the third list, the first element is `3`{.pyret} and the rest is
-`[list: ]`{.pyret}, i.e., the empty list. In Pyret, we have another way
+`[]`{.pyret}, i.e., the empty list. In Jayret, we have another way
 of writing the empty list: `empty`{.pyret}.
 
 Lists are an instance of structured data: data with component
@@ -78,23 +78,22 @@ of lists, there are two accessors: `first`{.pyret} and
 a dot (`.`{.pyret}), followed by the accessor’s name. As we saw with
 tables, the dot means "dig into". Thus:
 
-```pyret
-l1 = [list: 1, 2, 3]
-e1 = l1.first
-l2 = l1.rest
-e2 = l2.first
-l3 = l2.rest
-e3 = l3.first
-l4 = l3.rest
-
-check:
-  e1 is 1
-  e2 is 2
-  e3 is 3
-  l2 is [list: 2, 3]
-  l3 is [list: 3]
-  l4 is empty
-end
+```jayret
+l1 = [1, 2, 3];
+e1 = l1.first;
+l2 = l1.rest;
+e2 = l2.first;
+l3 = l2.rest;
+e3 = l3.first;
+l4 = l3.rest;
+@Check void test() {
+    assertEquals(e1, 1);
+    assertEquals(e2, 2);
+    assertEquals(e3, 3);
+    assertEquals(l2, [2, 3]);
+    assertEquals(l3, [3]);
+    assertEquals(l4, empty);
+}
 ```
 
 ::: {.do-now}
@@ -104,7 +103,7 @@ What are the accessors for tables?
 Accessors give a way to take data apart based on their structure
 (there is another way that we will see shortly). Is there a way to
 also build data based on its structure? So far, we have been
-building lists using the `[list: ...]`{.pyret} form, but that doesn’t
+building lists using the `[...]`{.pyret} form, but that doesn’t
 emphasize the structural constraint that the `rest`{.pyret} is itself a
 list. A structured operator for building lists would clearly show both
 a `first`{.pyret} element and a `rest`{.pyret} that is itself a
@@ -116,18 +115,18 @@ arguments: a `first`{.pyret} element, and the list to build on (the
 `rest`{.pyret} part). Here’s an example of using `link`{.pyret} to create a
 three-element list.
 
-```pyret
-link(1, link(2, link(3, empty)))
+```jayret
+link(1, link(2, link(3, empty)));
 ```
 
 The `link`{.pyret} form creates the same underlying list datum as our
-previous `[list: ...]`{.pyret} operation, as confirmed by the following
+previous `[...]`{.pyret} operation, as confirmed by the following
 check:
 
-```pyret
-check:
-  [list: 1, 2, 3] is link(1, link(2, link(3, empty)))
-end
+```jayret
+@Check void test() {
+    assertEquals([1, 2, 3], link(1, link(2, link(3, empty))));
+}
 ```
 
 ::: {.do-now}
@@ -152,8 +151,8 @@ more interesting structure to some lists (as we will see later), but all lists h
 in common. Specifically, a list is either
 
 
-- empty (written `empty`{.pyret} or `[list: ]`{.pyret}), or
-- non-empty (written `link(…, …)`{.pyret} or `[list: ]`{.pyret} with
+- empty (written `empty`{.pyret} or `[]`{.pyret}), or
+- non-empty (written `link(…, …)`{.pyret} or `[]`{.pyret} with
   at least one value inside the brackets), where the rest is also
   a list (and hence may in turn be empty or non-empty, …).
 
@@ -174,7 +173,7 @@ of list-processing functions. All of these will consume lists; some
 will even produce them. Some will transform their inputs (like
 `map`{.pyret}), some will select from their inputs (like `filter`{.pyret}),
 and some will aggregate their inputs. Since some of these functions already exist in
-Pyret, we’ll name them with the prefix `my-`{.pyret} to avoid
+Jayret, we’ll name them with the prefix `my-`{.pyret} to avoid
 errors.[Be sure to use the `my-`{.pyret} name consistently,
 including inside the body of the function.]{.margin-note} As we will see, there is a
 standard strategy that we can use to approach writing all of these
@@ -203,46 +202,46 @@ What do you think?
 
 Two common examples are `0`{.pyret} and `1`{.pyret}. The latter, `1`{.pyret},
 certainly looks reasonable. However, if you write the list as
-`[list: ]`{.pyret}, now it doesn’t look so right: this is clearly (as the
+`[]`{.pyret}, now it doesn’t look so right: this is clearly (as the
 name `empty`{.pyret} also suggests) an empty list, and an empty
 list has zero elements in it. Therefore, it’s conventional to
 declare that
 
-```pyret
-my-len(empty) is 0
+```jayret
+assertEquals(my-len(empty), 0);
 ```
-How about a list like `[list: 7]`{.pyret}? Well, it’s clearly got one
+How about a list like `[7]`{.pyret}? Well, it’s clearly got one
 element (`7`{.pyret}) in it, so
 
-```pyret
-my-len([list: 7]) is 1
+```jayret
+assertEquals(my-len([7]), 1);
 ```
-Similarly, for a list like `[list: 7, 8, 9]`{.pyret}, we would say
+Similarly, for a list like `[7, 8, 9]`{.pyret}, we would say
 
-```pyret
-my-len([list: 7, 8, 9]) is 3
+```jayret
+assertEquals(my-len([7, 8, 9]), 3);
 ```
 
 Now let’s look at that last example in a different light. Consider
-the argument `[list: 7, 8, 9]`{.pyret}. Its first element is `7`{.pyret} and
-the rest of it is `[list: 8, 9]`{.pyret}. Well, `7`{.pyret} is a number, not
-a list; but `[list: 8, 9]`{.pyret} certainly is a list, so we can ask for
-its length. What is `my-len([list: 8, 9])`{.pyret}? It has two
+the argument `[7, 8, 9]`{.pyret}. Its first element is `7`{.pyret} and
+the rest of it is `[8, 9]`{.pyret}. Well, `7`{.pyret} is a number, not
+a list; but `[8, 9]`{.pyret} certainly is a list, so we can ask for
+its length. What is `my-len([8, 9])`{.pyret}? It has two
 elements, so
 
-```pyret
-my-len([list: 8, 9]) is 2
+```jayret
+assertEquals(my-len([8, 9]), 2);
 ```
 The first element of that list is `8`{.pyret} while its rest is
-`[list: 9]`{.pyret}. What is its length?
+`[9]`{.pyret}. What is its length?
 Note that we asked a very similar question before, for the length of
-the list `[list: 7]`{.pyret}. But `[list: 7]`{.pyret} is not a
-sub-list of `[list: 7, 8, 9]`{.pyret}, which we started with,
-whereas `[list: 9]`{.pyret} is. And using the same reasoning as before,
+the list `[7]`{.pyret}. But `[7]`{.pyret} is not a
+sub-list of `[7, 8, 9]`{.pyret}, which we started with,
+whereas `[9]`{.pyret} is. And using the same reasoning as before,
 we can say
 
-```pyret
-my-len([list: 9]) is 1
+```jayret
+assertEquals(my-len([9]), 1);
 ```
 The rest of this last list is, of course, the empty list, whose length
 we have already decided is `0`{.pyret}.
@@ -250,19 +249,19 @@ we have already decided is `0`{.pyret}.
 Putting together these examples, and writing out `empty`{.pyret} in its
 other form, here’s what we get:
 
-```pyret
-my-len([list: 7, 8, 9]) is 3
-my-len([list:    8, 9]) is 2
-my-len([list:       9]) is 1
-my-len([list:        ]) is 0
+```jayret
+assertEquals(my-len([7, 8, 9]), 3);
+assertEquals(my-len([8, 9]), 2);
+assertEquals(my-len([9]), 1);
+assertEquals(my-len([]), 0);
 ```
 Another way we can write this (paying attention to the right side) is
 
-```pyret
-my-len([list: 7, 8, 9]) is 1 + 2
-my-len([list:    8, 9]) is 1 + 1
-my-len([list:       9]) is 1 + 0
-my-len([list:        ]) is     0
+```jayret
+assertEquals(my-len([7, 8, 9]), 1 + 2);
+assertEquals(my-len([8, 9]), 1 + 1);
+assertEquals(my-len([9]), 1 + 0);
+assertEquals(my-len([]), 0);
 ```
 Where did the `2`{.pyret}, `1`{.pyret}, and `0`{.pyret} on the right sides of
 each `+`{.pyret} operation come from? Those are the lengths of the
@@ -271,11 +270,11 @@ block, we wrote those lengths as explicit examples. Let’s substitute
 the numbers `2`{.pyret}, `1`{.pyret}, and `0`{.pyret} with the `my-len`{.pyret}
 expressions that produce them:
 
-```pyret
-my-len([list: 7, 8, 9]) is 1 + my-len([list: 8, 9])
-my-len([list:    8, 9]) is 1 + my-len([list:    9])
-my-len([list:       9]) is 1 + my-len([list:     ])
-my-len([list:        ]) is 0
+```jayret
+assertEquals(my-len([7, 8, 9]), 1 + my-len([8, 9]));
+assertEquals(my-len([8, 9]), 1 + my-len([9]));
+assertEquals(my-len([9]), 1 + my-len([]));
+assertEquals(my-len([]), 0);
 ```
 From this, maybe you can start to see a pattern. For an empty list,
 the length is `0`{.pyret}. For a non-empty list, it’s the sum of `1`{.pyret}
@@ -286,15 +285,15 @@ answer for the entire list.
 
 ::: {.do-now}
 Each of our examples in this section has written a different check on
-the expression `my-len([list: 7, 8, 9])`{.pyret}. Here are those examples
+the expression `my-len([7, 8, 9])`{.pyret}. Here are those examples
 presented together, along with one last one that explicitly uses the
 `rest`{.pyret} operation:
 
-```pyret
-my-len([list: 7, 8, 9]) is 3
-my-len([list: 7, 8, 9]) is 1 + 2
-my-len([list: 7, 8, 9]) is 1 + my-len([list: 8, 9])
-my-len([list: 7, 8, 9]) is 1 + my-len([list: 7, 8, 9].rest)
+```jayret
+assertEquals(my-len([7, 8, 9]), 3);
+assertEquals(my-len([7, 8, 9]), 1 + 2);
+assertEquals(my-len([7, 8, 9]), 1 + my-len([8, 9]));
+assertEquals(my-len([7, 8, 9]), 1 + my-len([7, 8, 9].rest));
 ```
 Check that you agree with each of these assertions. Also check whether
 you understand how the right-hand side of each `is`{.pyret} expression
@@ -309,24 +308,24 @@ down when understanding the problem).
 Let’s repeat this process of developing examples on a second function,
 this time one that computes the sum of the elements in a list of numbers.
 What is the
-sum of the list `[list: 7, 8, 9]`{.pyret}? Just adding up the numbers by hand,
+sum of the list `[7, 8, 9]`{.pyret}? Just adding up the numbers by hand,
 the result should be `24`{.pyret}. Let’s see how that works out through
 the examples.
 
 Setting aside the empty list for a moment, here are examples that show
 the sum computations:
 
-```pyret
-my-sum([list: 7, 8, 9]) is 7 + 8 + 9
-my-sum([list:    8, 9]) is     8 + 9
-my-sum([list:       9]) is         9
+```jayret
+assertEquals(my-sum([7, 8, 9]), 7 + 8 + 9);
+assertEquals(my-sum([8, 9]), 8 + 9);
+assertEquals(my-sum([9]), 9);
 ```
 which (by substitution) is the same as
 
-```pyret
-my-sum([list: 7, 8, 9]) is 7 + my-sum([list: 8, 9])
-my-sum([list:    8, 9]) is 8 + my-sum([list:    9])
-my-sum([list:       9]) is 9 + my-sum([list:     ])
+```jayret
+assertEquals(my-sum([7, 8, 9]), 7 + my-sum([8, 9]));
+assertEquals(my-sum([8, 9]), 8 + my-sum([9]));
+assertEquals(my-sum([9]), 9 + my-sum([]));
 ```
 From this, we can see that the sum of the empty list must be
 `0`{.pyret}:[Zero is called the additive identity: a
@@ -335,8 +334,8 @@ N. Therefore, it makes sense that it would be the length of the
 empty list, because the empty list has no items to contribute to a
 sum. Can you figure out what the multiplicative identity is?]{.margin-note}
 
-```pyret
-my-sum(empty) is 0
+```jayret
+assertEquals(my-sum(empty), 0);
 ```
 
 Observe, again, how we can use the result of computing `my-sum`{.pyret}
@@ -353,43 +352,42 @@ figure out how to define the general-purpose function.
 Here is one last version of the examples for `my-len`{.pyret}, this time
 making the `rest`{.pyret} explicit on the right-hand sides of `is`{.pyret}:
 
-```pyret
-my-len([list: 7, 8, 9]) is 1 + my-len([list: 7, 8, 9].rest)
-my-len([list:    8, 9]) is 1 + my-len([list:    8, 9].rest)
-my-len([list:       9]) is 1 + my-len([list:       9].rest)
-my-len([list:        ]) is 0
+```jayret
+assertEquals(my-len([7, 8, 9]), 1 + my-len([7, 8, 9].rest));
+assertEquals(my-len([8, 9]), 1 + my-len([8, 9].rest));
+assertEquals(my-len([9]), 1 + my-len([9].rest));
+assertEquals(my-len([]), 0);
 ```
 As we did when developing functions over images, let’s try to identify
 the common parts of these examples. We start by noticing that most of
-the examples have a lot in common, except for the `[list: ]`{.pyret}
+the examples have a lot in common, except for the `[]`{.pyret}
 (`empty`{.pyret}) case. So let’s separate this into two sets of examples:
 
-```pyret
-my-len([list: 7, 8, 9]) is 1 + my-len([list: 7, 8, 9].rest)
-my-len([list:    8, 9]) is 1 + my-len([list:    8, 9].rest)
-my-len([list:       9]) is 1 + my-len([list:       9].rest)
-
-
-my-len([list:        ]) is 0
+```jayret
+assertEquals(my-len([7, 8, 9]), 1 + my-len([7, 8, 9].rest));
+assertEquals(my-len([8, 9]), 1 + my-len([8, 9].rest));
+assertEquals(my-len([9]), 1 + my-len([9].rest));
+assertEquals(my-len([]), 0);
 ```
 With this separation (which follows one of the structural features of
 lists that we mentioned earlier), a clearer pattern emerges: for a
 non-empty list (called `someList`{.pyret}), we compute its length via the
 expression:
 
-```pyret
-1 + my-len(someList.rest)
+```jayret
+1 + my-len(someList.rest);
 ```
 In general, then, our `my-len`{.pyret} program needs to determine whether
 its input list is empty or non-empty, using this expression with
 `.rest`{.pyret} in the non-empty case. How do we indicate different code
 based on the structure of the list?
 
-Pyret has a construct called `cases`{.pyret} which is used to distinguish
+Jayret has a construct called `cases`{.pyret} which is used to distinguish
 different forms within a structured datatype. When working with lists,
 the general shape of a `cases`{.pyret} expression is:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 cases (List) e:
   | empty      => …
   | link(f, r) => … f … r …
@@ -402,7 +400,7 @@ where most parts are fixed, but a few you’re free to change:
   could be a variable bound to a list, or some complex expression that
   evaluates to a list.
 - `f`{.pyret} and `r`{.pyret} are names given to the first and rest of
-  the list. You can choose any names you like, though in Pyret, it’s
+  the list. You can choose any names you like, though in Jayret, it’s
   conventional to use `f`{.pyret} and `r`{.pyret}.[Occasionally
   using different names can help students recall that they can choose
   how to label the `first`{.pyret} and `rest`{.pyret} components. This can be
@@ -411,12 +409,12 @@ where most parts are fixed, but a few you’re free to change:
 
 The right-hand side of every `=>`{.pyret} is an expression.
 
-Here’s how `cases`{.pyret} works in this instance. Pyret first evaluates
+Here’s how `cases`{.pyret} works in this instance. Jayret first evaluates
 `e`{.pyret}. It then checks that the resulting value truly is a list;
-otherwise it halts with an error. If it is a list, Pyret examines what
+otherwise it halts with an error. If it is a list, Jayret examines what
 kind of list it is. If it’s an empty list, it runs the
 expression after the `=>`{.pyret} in the `empty`{.pyret} clause. Otherwise,
-the list is not empty, which means it has a first and rest; Pyret
+the list is not empty, which means it has a first and rest; Jayret
 binds `f`{.pyret} and `r`{.pyret} to the two parts, respectively, and then
 evaluates the expression after the `=>`{.pyret} in the `link`{.pyret} clause.
 
@@ -427,13 +425,13 @@ see what happens!
 
 Now let’s use `cases`{.pyret} to define `my-len`{.pyret}:
 
-```pyret
-fun my-len(l):
-  cases (List) l:
-    | empty      => 0
-    | link(f, r) => 1 + my-len(r)
-  end
-end
+```jayret
+Object my-len(l) {
+    return switch (l) {
+        case Empty: yield 0;
+        case Link(f, r): yield 1 + my-len(r);
+    }
+}
 ```
 This follows from our examples: when the list is empty `my-len`{.pyret}
 produces `0`{.pyret}; when it is not empty, we add one to the length of
@@ -441,18 +439,18 @@ the rest of the list (here, `r`{.pyret}).
 
 Note that while our most recent collection of `my-len`{.pyret} examples
 explicitly said `.rest`{.pyret}, when using `cases`{.pyret} we instead use
-just the name `r`{.pyret}, which Pyret has already defined (under the
+just the name `r`{.pyret}, which Jayret has already defined (under the
 hood) to be `l.rest`{.pyret}.
 
 Similarly, let’s define `my-sum`{.pyret}:
 
-```pyret
-fun my-sum(l):
-  cases (List) l:
-    | empty      => 0
-    | link(f, r) => f + my-sum(r)
-  end
-end
+```jayret
+Object my-sum(l) {
+    return switch (l) {
+        case Empty: yield 0;
+        case Link(f, r): yield f + my-sum(r);
+    }
+}
 ```
 Notice how similar they are in code, and how readily the structure of
 the data suggest a structure for the program. This is a pattern you
@@ -492,51 +490,51 @@ As always, we’ll begin with some examples. Given a list of numbers, we
 want a list that doubles each number (in the order of the
 original list). Here’s a reasonable example with three numbers:
 
-```pyret
-my-doubles([list: 3, 5, 2]) is [list: 6, 10, 4]
+```jayret
+assertEquals(my-doubles([3, 5, 2]), [6, 10, 4]);
 ```
 
 As before, let’s write out the answers for each suffix of our example
 list as well, including for the `empty`{.pyret} list:
 
-```pyret
-my-doubles([list:    5, 2]) is [list:    10, 4]
-my-doubles([list:       2]) is [list:        4]
-my-doubles([list:        ]) is [list:         ]
+```jayret
+assertEquals(my-doubles([5, 2]), [10, 4]);
+assertEquals(my-doubles([2]), [4]);
+assertEquals(my-doubles([]), []);
 ```
 
 Now, we rewrite the answer expressions to include the concrete
 `first`{.pyret} and `rest`{.pyret} data for each example. Let’s start with
 just the `first`{.pyret} data, and just on the first example:
 
-```pyret
-my-doubles([list: 3, 5, 2]) is [list: 3 * 2, 10, 4]
-my-doubles([list:    5, 2]) is [list:        10, 4]
-my-doubles([list:       2]) is [list:            4]
-my-doubles([list:        ]) is [list:             ]
+```jayret
+assertEquals(my-doubles([3, 5, 2]), [3 * 2, 10, 4]);
+assertEquals(my-doubles([5, 2]), [10, 4]);
+assertEquals(my-doubles([2]), [4]);
+assertEquals(my-doubles([]), []);
 ```
 
-Next, let’s include the `rest`{.pyret} data (`[list: 5, 2]`{.pyret}) in the
+Next, let’s include the `rest`{.pyret} data (`[5, 2]`{.pyret}) in the
 first example. The current answer in the first example is
 
-```pyret
-[list: 3 * 2, 10, 4]
+```jayret
+[3 * 2, 10, 4];
 ```
 
-and that `[list: 10, 4]`{.pyret} is the result of using the function on
-`[list: 5, 2]`{.pyret}. We might therefore be tempted to replace the
+and that `[10, 4]`{.pyret} is the result of using the function on
+`[5, 2]`{.pyret}. We might therefore be tempted to replace the
 right side of the first example with:
 
-```pyret
-[list: 3 * 2, my-doubles([list: 5, 2])]
+```jayret
+[3 * 2, my-doubles([5, 2])];
 ```
 
 ::: {.do-now}
 What value would this expression produce? You might want to try this
 example that doesn’t use `my-doubles`{.pyret} directly:
 
-```pyret
-[list: 3 * 2, [list: 10, 4]]
+```jayret
+[3 * 2, [10, 4]];
 ```
 :::
 
@@ -548,8 +546,8 @@ quite there yet.
 ::: {.do-now}
 What value does the following expression produce?
 
-```pyret
-link(3 * 2, [list: 10, 4])
+```jayret
+link(3 * 2, [10, 4]);
 ```
 :::
 
@@ -562,10 +560,10 @@ tried to do this with `list:`{.pyret}.
 How many elements are in the lists that result from each of the
 following expressions?
 
-```pyret
-[list: 25, 16, 32]
-[list: 25, [list: 16, 32]]
-link(25, [list: 16, 32])
+```jayret
+[25, 16, 32];
+[25, [16, 32]];
+link(25, [16, 32]);
 ```
 :::
 
@@ -581,43 +579,42 @@ new list that contains the old list as an element. Going back
 to our examples, then, we include `rest`{.pyret} in the first example by
 writing it as follows:
 
-```pyret
-my-doubles([list: 3, 5, 2]) is link(3 * 2, [list: 10, 4])
-my-doubles([list:    5, 2]) is [list:        10, 4]
-my-doubles([list:       2]) is [list:            4]
-my-doubles([list:        ]) is [list:             ]
+```jayret
+assertEquals(my-doubles([3, 5, 2]), link(3 * 2, [10, 4]));
+assertEquals(my-doubles([5, 2]), [10, 4]);
+assertEquals(my-doubles([2]), [4]);
+assertEquals(my-doubles([]), []);
 ```
 
 which we then convert to
 
-```pyret
-my-doubles([list: 3, 5, 2]) is link(3 * 2, my-doubles([list: 5, 2]))
-my-doubles([list:    5, 2]) is [list:        10, 4]
-my-doubles([list:       2]) is [list:            4]
-my-doubles([list:        ]) is [list:             ]
+```jayret
+assertEquals(my-doubles([3, 5, 2]), link(3 * 2, my-doubles([5, 2])));
+assertEquals(my-doubles([5, 2]), [10, 4]);
+assertEquals(my-doubles([2]), [4]);
+assertEquals(my-doubles([]), []);
 ```
 
 Applying this idea across the examples, we get:
 
-```pyret
-my-doubles([list: 3, 5, 2]) is link(3 * 2, my-doubles([list: 5, 2]))
-my-doubles([list:    5, 2]) is link(5 * 2, my-doubles([list: 2]))
-my-doubles([list:       2]) is link(2 * 2, my-doubles([list: ]))
-my-doubles([list:        ]) is [list:             ]
+```jayret
+assertEquals(my-doubles([3, 5, 2]), link(3 * 2, my-doubles([5, 2])));
+assertEquals(my-doubles([5, 2]), link(5 * 2, my-doubles([2])));
+assertEquals(my-doubles([2]), link(2 * 2, my-doubles([])));
+assertEquals(my-doubles([]), []);
 ```
 
 Now that we have examples that explicitly use the `first`{.pyret} and
 `rest`{.pyret} elements, we can produce to write the `my-doubles`{.pyret}
 function:
 
-```pyret
-fun my-doubles(l):
-  cases (List) l:
-    | empty => empty
-    | link(f, r) =>
-      link(f * 2, my-doubles(r))
-  end
-end
+```jayret
+Object my-doubles(l) {
+    return switch (l) {
+        case Empty: yield empty;
+        case Link(f, r): yield link(f * 2, my-doubles(r));
+    }
+}
 ```
 
 ##### 5.2.4.2 my-str-len : Examples and Code {#str-len-eg-code}
@@ -629,29 +626,29 @@ Given a list of strings, we
 want the lengths of each string (in the same order as in the input list). Thus, here’s a
 reasonable example:
 
-```pyret
-my-str-len([list: "hi", "there", "mateys"]) is [list: 2, 5, 6]
+```jayret
+assertEquals(my-str-len(["hi", "there", "mateys"]), [2, 5, 6]);
 ```
 As we have before, we should consider the answers for each
 sub-problem of the above example:
 
-```pyret
-my-str-len([list:       "there", "mateys"]) is [list:    5, 6]
-my-str-len([list:                "mateys"]) is [list:       6]
+```jayret
+assertEquals(my-str-len(["there", "mateys"]), [5, 6]);
+assertEquals(my-str-len(["mateys"]), [6]);
 ```
 
 Or, in other words:
 
-```pyret
-my-str-len([list: "hi", "there", "mateys"]) is link(2, [list: 5, 6])
-my-str-len([list:       "there", "mateys"]) is link(5, [list:    6])
-my-str-len([list:                "mateys"]) is link(6, [list:     ])
+```jayret
+assertEquals(my-str-len(["hi", "there", "mateys"]), link(2, [5, 6]));
+assertEquals(my-str-len(["there", "mateys"]), link(5, [6]));
+assertEquals(my-str-len(["mateys"]), link(6, []));
 ```
 which tells us that the response for the empty list should be
 `empty`{.pyret}:
 
-```pyret
-my-str-len(empty) is empty
+```jayret
+assertEquals(my-str-len(empty), empty);
 ```
 
 The next step is to rework the answers in the examples to make the
@@ -660,11 +657,11 @@ starting to detect a pattern: The result on the rest of the list
 appears explicitly as another example. Therefore, we’ll start by
 getting the `rest`{.pyret} value of each example input into the answer:
 
-```pyret
-my-str-len([list: "hi", "there", "mateys"]) is link(2, my-str-len([list: "there", "mateys"]))
-my-str-len([list:       "there", "mateys"]) is link(5, my-str-len([list:          "mateys"]))
-my-str-len([list:                "mateys"]) is link(6, my-str-len([list:                  ]))
-my-str-len([list:                        ]) is [list: ]
+```jayret
+assertEquals(my-str-len(["hi", "there", "mateys"]), link(2, my-str-len(["there", "mateys"])));
+assertEquals(my-str-len(["there", "mateys"]), link(5, my-str-len(["mateys"])));
+assertEquals(my-str-len(["mateys"]), link(6, my-str-len([])));
+assertEquals(my-str-len([]), []);
 ```
 
 All that remains now is to figure out how to work the `first`{.pyret}
@@ -675,24 +672,23 @@ and `5`{.pyret} are meant to be the lengths (character counts) of the
 corresponding strings. The operation that determines the length of a
 string is called `string-length`{.pyret}. Thus, our examples appear as:
 
-```pyret
-my-str-len([list: "hi", "there", "mateys"]) is link(string-length("hi"), my-str-len([list: "there", "mateys"]))
-my-str-len([list:       "there", "mateys"]) is link(string-length("there"), my-str-len([list:          "mateys"]))
-my-str-len([list:                "mateys"]) is link(string-length("mateys"), my-str-len([list: ]))
-my-str-len([list:                        ]) is [list: ]
+```jayret
+assertEquals(my-str-len(["hi", "there", "mateys"]), link(string-length("hi"), my-str-len(["there", "mateys"])));
+assertEquals(my-str-len(["there", "mateys"]), link(string-length("there"), my-str-len(["mateys"])));
+assertEquals(my-str-len(["mateys"]), link(string-length("mateys"), my-str-len([])));
+assertEquals(my-str-len([]), []);
 ```
 
 From here, we write a function that captures the pattern developed
 across our examples:
 
-```pyret
-fun my-str-len(l):
-  cases (List) l:
-    | empty => empty
-    | link(f, r) =>
-      link(string-length(f), my-str-len(r))
-  end
-end
+```jayret
+Object my-str-len(l) {
+    return switch (l) {
+        case Empty: yield empty;
+        case Link(f, r): yield link(string-length(f), my-str-len(r));
+    }
+}
 ```
 
 #### 5.2.5 Structural Problems that Select from Lists {#Structural-Problems-that-Select-from-Lists}
@@ -713,35 +709,35 @@ that contains both positive and non-positive numbers.
 
 ::: {.do-now}
 Construct the sequence of examples that we obtain from the input
-`[list: 1, -2, 3, -4]`{.pyret}.
+`[1, -2, 3, -4]`{.pyret}.
 :::
 
 Here we go:
 
-```pyret
-my-pos-nums([list: 1, -2, 3, -4]) is [list: 1, 3]
-my-pos-nums([list:    -2, 3, -4]) is [list:    3]
-my-pos-nums([list:        3, -4]) is [list:    3]
-my-pos-nums([list:           -4]) is [list:     ]
-my-pos-nums([list:             ]) is [list:     ]
+```jayret
+assertEquals(my-pos-nums([1, -2, 3, -4]), [1, 3]);
+assertEquals(my-pos-nums([-2, 3, -4]), [3]);
+assertEquals(my-pos-nums([3, -4]), [3]);
+assertEquals(my-pos-nums([-4]), []);
+assertEquals(my-pos-nums([]), []);
 ```
 We can write this in the following form:
 
-```pyret
-my-pos-nums([list: 1, -2, 3, -4]) is link(1, [list: 3])
-my-pos-nums([list:    -2, 3, -4]) is         [list: 3]
-my-pos-nums([list:        3, -4]) is link(3, [list: ])
-my-pos-nums([list:           -4]) is         [list: ]
-my-pos-nums([list:             ]) is         [list: ]
+```jayret
+assertEquals(my-pos-nums([1, -2, 3, -4]), link(1, [3]));
+assertEquals(my-pos-nums([-2, 3, -4]), [3]);
+assertEquals(my-pos-nums([3, -4]), link(3, []));
+assertEquals(my-pos-nums([-4]), []);
+assertEquals(my-pos-nums([]), []);
 ```
 or, even more explicitly,
 
-```pyret
-my-pos-nums([list: 1, -2, 3, -4]) is link(1, my-pos-nums([list: -2, 3, -4]))
-my-pos-nums([list:    -2, 3, -4]) is         my-pos-nums([list:     3, -4])
-my-pos-nums([list:        3, -4]) is link(3, my-pos-nums([list:        -4]))
-my-pos-nums([list:           -4]) is         my-pos-nums([list:          ])
-my-pos-nums([list:             ]) is         [list: ]
+```jayret
+assertEquals(my-pos-nums([1, -2, 3, -4]), link(1, my-pos-nums([-2, 3, -4])));
+assertEquals(my-pos-nums([-2, 3, -4]), my-pos-nums([3, -4]));
+assertEquals(my-pos-nums([3, -4]), link(3, my-pos-nums([-4])));
+assertEquals(my-pos-nums([-4]), my-pos-nums([]));
+assertEquals(my-pos-nums([]), []);
 ```
 Unlike in the example sequences for functions that transform lists,
 here we see that the answers have different shapes: some involve a
@@ -753,12 +749,11 @@ distinguish the conditions that yield each shape.
 What determines which shape of output we get? Let’s rearrange the
 examples (other than the empty-list input) by output shape:
 
-```pyret
-my-pos-nums([list: 1, -2, 3, -4]) is link(1, my-pos-nums([list: -2, 3, -4]))
-my-pos-nums([list:        3, -4]) is link(3, my-pos-nums([list:        -4]))
-
-my-pos-nums([list:    -2, 3, -4]) is         my-pos-nums([list:     3, -4])
-my-pos-nums([list:           -4]) is         my-pos-nums([list:          ])
+```jayret
+assertEquals(my-pos-nums([1, -2, 3, -4]), link(1, my-pos-nums([-2, 3, -4])));
+assertEquals(my-pos-nums([3, -4]), link(3, my-pos-nums([-4])));
+assertEquals(my-pos-nums([-2, 3, -4]), my-pos-nums([3, -4]));
+assertEquals(my-pos-nums([-4]), my-pos-nums([]));
 ```
 Re-organized, we can see that the examples that use `link`{.pyret} have a
 positive number in the `first`{.pyret} position, while the ones that
@@ -766,18 +761,17 @@ don’t simply process the `rest`{.pyret} of the list. That indicates that
 our `if`{.pyret} expression needs to ask whether the `first`{.pyret} element
 in the list is positive. This yields the following program:
 
-```pyret
-fun my-pos-nums(l):
-  cases (List) l:
-    | empty => empty
-    | link(f, r) =>
-      if f > 0:
-        link(f, my-pos-nums(r))
-      else:
-        my-pos-nums(r)
-      end
-  end
-end
+```jayret
+Object my-pos-nums(l) {
+    return switch (l) {
+        case Empty: yield empty;
+        case Link(f, r): yield if (f > 0) {
+            return link(f, my-pos-nums(r));
+        } else {
+            return my-pos-nums(r);
+        };
+    }
+}
 ```
 
 ::: {.do-now}
@@ -800,18 +794,18 @@ alternating elements from a list. Once again, we’re going to work from example
 
 ::: {.do-now}
 Work out the results for `my-alternating`{.pyret} starting from the list
-`[list: 1, 2, 3, 4, 5, 6]`{.pyret}.
+`[1, 2, 3, 4, 5, 6]`{.pyret}.
 :::
 
 Here’s how they work out:
 <alternating-egs-1> ::=
-```pyret
-check:
-  my-alternating([list: 1, 2, 3, 4, 5, 6]) is [list: 1, 3, 5]
-  my-alternating([list:    2, 3, 4, 5, 6]) is [list: 2, 4, 6]
-  my-alternating([list:       3, 4, 5, 6]) is [list:    3, 5]
-  my-alternating([list:          4, 5, 6]) is [list:    4, 6]
-end
+```jayret
+@Check void test() {
+    assertEquals(my-alternating([1, 2, 3, 4, 5, 6]), [1, 3, 5]);
+    assertEquals(my-alternating([2, 3, 4, 5, 6]), [2, 4, 6]);
+    assertEquals(my-alternating([3, 4, 5, 6]), [3, 5]);
+    assertEquals(my-alternating([4, 5, 6]), [4, 6]);
+}
 ```
 Wait, what’s that? The two answers above are each correct, but
 the second answer does not help us in any way construct the
@@ -825,11 +819,10 @@ What would something like this look like in code? Before we try to
 write the function, let’s rewrite the first example in terms of the
 third:
 
-```pyret
-my-alternating([list: 1, 2, 3, 4, 5, 6]) is [list: 1, 3, 5]
-my-alternating([list:       3, 4, 5, 6]) is [list:    3, 5]
-
-my-alternating([list: 1, 2, 3, 4, 5, 6]) is link(1, my-alternating([list: 3, 4, 5, 6]))
+```jayret
+assertEquals(my-alternating([1, 2, 3, 4, 5, 6]), [1, 3, 5]);
+assertEquals(my-alternating([3, 4, 5, 6]), [3, 5]);
+assertEquals(my-alternating([1, 2, 3, 4, 5, 6]), link(1, my-alternating([3, 4, 5, 6])));
 ```
 
 Note that in the rewritten version, we are dropping two
@@ -840,6 +833,7 @@ Let’s start with our usual function pattern with a `cases`{.pyret}
 expression:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 fun my-alternating(l):
   cases (List) l:
     | empty => [list:]
@@ -856,6 +850,7 @@ this, we use another `cases`{.pyret} expression, nested within the first
 `cases`{.pyret} expression:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 fun my-alternating(l):
   cases (List) l:
     | empty => [list:]
@@ -875,18 +870,18 @@ decide what to do in the `empty`{.pyret} case of the inner `cases`{.pyret}
 expression (marked by `???`{.pyret} in the code).
 
 A common temptation at this point is to replace the `???`{.pyret} with
-`[list:]`{.pyret}. After all, haven’t we always returned `[list:]`{.pyret} in
+`[]`{.pyret}. After all, haven’t we always returned `[]`{.pyret} in
 the `empty`{.pyret} cases?
 
 ::: {.do-now}
-Replace `???`{.pyret} with `[list:]`{.pyret} and test the program on our
+Replace `???`{.pyret} with `[]`{.pyret} and test the program on our
 original examples:
 
-```pyret
-my-alternating([list: 1, 2, 3, 4, 5, 6]) is [list: 1, 3, 5]
-my-alternating([list:    2, 3, 4, 5, 6]) is [list: 2, 4, 6]
-my-alternating([list:       3, 4, 5, 6]) is [list:    3, 5]
-my-alternating([list:          4, 5, 6]) is [list:    4, 6]
+```jayret
+assertEquals(my-alternating([1, 2, 3, 4, 5, 6]), [1, 3, 5]);
+assertEquals(my-alternating([2, 3, 4, 5, 6]), [2, 4, 6]);
+assertEquals(my-alternating([3, 4, 5, 6]), [3, 5]);
+assertEquals(my-alternating([4, 5, 6]), [4, 6]);
 ```
 What do you observe?
 :::
@@ -905,6 +900,7 @@ empty. In other words, we need an example with only one element.
 Finish the following example:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 my-alternating([list: 5]) is ???
 ```
 :::
@@ -913,8 +909,8 @@ my-alternating([list: 5]) is ???
 Given a list with one element, that element should be included in a
 list of alternating elements. Thus, we should finish this example as
 
-```pyret
-my-alternating([list: 5]) is [list: 5]
+```jayret
+assertEquals(my-alternating([5]), [5]);
 ```
 
 ::: {.do-now}
@@ -925,20 +921,19 @@ Use this example to update the result of `my-alternating`{.pyret} when
 Leveraging this new example, the final version of
 `my-alternating`{.pyret} is as follows:
 
-```pyret
-fun my-alternating(l):
-  cases (List) l:
-    | empty => empty
-    | link(f, r) =>
-      cases (List) r: # note: deconstructing r, not l
-        | empty =>    # the list has an odd number of elements
-          [list: f]
-        | link(fr, rr) =>
-          # fr = first of rest, rr = rest of rest
-          link(f, my-alternating(rr))
-      end
-  end
-end
+```jayret
+Object my-alternating(l) {
+    return switch (l) {
+        case Empty: yield empty;
+        case Link(f, r): yield switch (r) {
+            case Empty: yield // note: deconstructing r, not l
+            // the list has an odd number of elements
+            [f];
+            case Link(fr, rr): yield // fr = first of rest, rr = rest of rest
+            link(f, my-alternating(rr));
+        };
+    }
+}
 ```
 
 What’s the takeaway from this problem? There are two:
@@ -960,20 +955,20 @@ for them!
 Now let’s find the maximum value of a list. Let’s assume for
 simplicity that we’re dealing with just lists of numbers. What kinds
 of lists should we construct? Clearly, we should have empty and
-non-empty lists…but what else? Is a list like `[list: 1, 2, 3]`{.pyret} a
+non-empty lists…but what else? Is a list like `[1, 2, 3]`{.pyret} a
 good example? Well, there’s nothing wrong with it, but we should also
 consider lists where the maximum is at the beginning rather than at the
 end; the maximum might be in the middle; the maximum might be
 repeated; the maximum might be negative; and so on. While not
 comprehensive, here is a small but interesting set of examples:
 
-```pyret
-my-max([list: 1, 2, 3]) is 3
-my-max([list: 3, 2, 1]) is 3
-my-max([list: 2, 3, 1]) is 3
-my-max([list: 2, 3, 1, 3, 2]) is 3
-my-max([list: 2, 1, 4, 3, 2]) is 4
-my-max([list: -2, -1, -3]) is -1
+```jayret
+assertEquals(my-max([1, 2, 3]), 3);
+assertEquals(my-max([3, 2, 1]), 3);
+assertEquals(my-max([2, 3, 1]), 3);
+assertEquals(my-max([2, 3, 1, 3, 2]), 3);
+assertEquals(my-max([2, 1, 4, 3, 2]), 4);
+assertEquals(my-max([-2, -1, -3]), -1);
 ```
 What about `my-max(empty)`{.pyret}?
 
@@ -987,11 +982,11 @@ Could we define `my-max(empty)`{.pyret} to be `0`{.pyret}? Returning
 We’ll return to this in a while.
 
 Before we proceed, it’s useful to know that there’s a function called
-`num-max`{.pyret} already defined in Pyret, that compares two numbers:
+`num-max`{.pyret} already defined in Jayret, that compares two numbers:
 
-```pyret
-num-max(1, 2) is 2
-num-max(-1, -2) is -1
+```jayret
+assertEquals(num-max(1, 2), 2);
+assertEquals(num-max(-1, -2), -1);
 ```
 
 
@@ -1003,36 +998,37 @@ handy. Remember to write some tests!
 
 Now we can look at `my-max`{.pyret} at work:
 
-```pyret
-my-max([list: 1, 2, 3]) is 3
-my-max([list:    2, 3]) is 3
-my-max([list:       3]) is 3
+```jayret
+assertEquals(my-max([1, 2, 3]), 3);
+assertEquals(my-max([2, 3]), 3);
+assertEquals(my-max([3]), 3);
 ```
 Hmm. That didn’t really teach us anything, did it? Maybe, we can’t be
 sure. And we still don’t know what to do with `empty`{.pyret}.
 
 Let’s try the second example input:
 
-```pyret
-my-max([list: 3, 2, 1]) is 3
-my-max([list:    2, 1]) is 2
-my-max([list:       1]) is 1
+```jayret
+assertEquals(my-max([3, 2, 1]), 3);
+assertEquals(my-max([2, 1]), 2);
+assertEquals(my-max([1]), 1);
 ```
 This is actually telling us something useful as well, but maybe we
 can’t see it yet. Let’s take on something more ambitious:
 
-```pyret
-my-max([list: 2, 1, 4, 3, 2]) is 4
-my-max([list:    1, 4, 3, 2]) is 4
-my-max([list:       4, 3, 2]) is 4
-my-max([list:          3, 2]) is 3
-my-max([list:             2]) is 2
+```jayret
+assertEquals(my-max([2, 1, 4, 3, 2]), 4);
+assertEquals(my-max([1, 4, 3, 2]), 4);
+assertEquals(my-max([4, 3, 2]), 4);
+assertEquals(my-max([3, 2]), 3);
+assertEquals(my-max([2]), 2);
 ```
 Observe how the maximum of the rest of the list gives us a candidate
 answer, but comparing it to the first element gives us a definitive
 one:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 my-max([list: 2, 1, 4, 3, 2]) is num-max(2, 4)
 my-max([list:    1, 4, 3, 2]) is num-max(1, 4)
 my-max([list:       4, 3, 2]) is num-max(4, 3)
@@ -1042,6 +1038,7 @@ my-max([list:             2]) is …
 The last one is a little awkward: we’d like to write
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 my-max([list:             2]) is num-max(2, …)
 ```
 but we don’t really know what the maximum (or minimum, or any other
@@ -1049,11 +1046,11 @@ element) of the empty list is, but we can only provide numbers
 to `num-max`{.pyret}. Therefore, leaving out that dodgy case, we’re left
 with
 
-```pyret
-my-max([list: 2, 1, 4, 3, 2]) is num-max(2, my-max([list: 1, 4, 3, 2]))
-my-max([list:    1, 4, 3, 2]) is num-max(1, my-max([list:    4, 3, 2]))
-my-max([list:       4, 3, 2]) is num-max(4, my-max([list:       3, 2]))
-my-max([list:          3, 2]) is num-max(3, my-max([list:          2]))
+```jayret
+assertEquals(my-max([2, 1, 4, 3, 2]), num-max(2, my-max([1, 4, 3, 2])));
+assertEquals(my-max([1, 4, 3, 2]), num-max(1, my-max([4, 3, 2])));
+assertEquals(my-max([4, 3, 2]), num-max(4, my-max([3, 2])));
+assertEquals(my-max([3, 2]), num-max(3, my-max([2])));
 ```
 Our examples have again helped: they’ve revealed how we can use the
 answer for each rest of the list to compute the answer for the whole
@@ -1070,10 +1067,10 @@ minimum) of the empty list: the concept of “maximum” is only defined
 on non-empty lists! That is, when asked for the maximum of an empty
 list, we should signal an error:
 
-```pyret
-my-max(empty) raises ""
+```jayret
+assertRaises(() -> { my-max(empty) }, "");
 ```
-(which is how, in Pyret, we say that it will generate an error; we
+(which is how, in Jayret, we say that it will generate an error; we
 don’t care about the details of the error, hence the empty string).
 
 ##### 5.2.6.2 my-max : From Examples to Code {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-From-Examples-to-Code}
@@ -1083,23 +1080,23 @@ uniform program that works for all instances. However, we now have a
 twist. If we blindly followed the pattern we’ve used earlier, we would
 end up with:
 
-```pyret
-fun my-max(l):
-  cases (List) l:
-    | empty      => raise("not defined for empty lists")
-    | link(f, r) => num-max(f, my-max(r))
-  end
-end
+```jayret
+Object my-max(l) {
+    return switch (l) {
+        case Empty: yield raise("not defined for empty lists");
+        case Link(f, r): yield num-max(f, my-max(r));
+    }
+}
 ```
 
 ::: {.do-now}
 What’s wrong with this?
 :::
 
-Consider the list `[list: 2]`{.pyret}. This turns into
+Consider the list `[2]`{.pyret}. This turns into
 
-```pyret
-num-max(2, my-max([list: ]))
+```jayret
+num-max(2, my-max([]));
 ```
 which of course raises an error. Therefore, this function never works
 for any list that has one or more elements!
@@ -1111,6 +1108,7 @@ calling `my-max`{.pyret}, is check whether the rest of the list is
 empty. If it is, we do not want to call `my-max`{.pyret} at all. That is:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 fun my-max(l):
   cases (List) l:
     | empty      => raise("not defined for empty lists")
@@ -1129,6 +1127,7 @@ that the maximum is the first element in the list. Therefore, we can
 fill this in:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 fun my-max(l):
   cases (List) l:
     | empty      => raise("not defined for empty lists")
@@ -1145,17 +1144,16 @@ is not empty, however, our examples above tell us that `my-max`{.pyret}
 will give us the maximum of the rest of the list, and we just need to
 compare this answer with the first element (`f`{.pyret}):
 
-```pyret
-fun my-max(l):
-  cases (List) l:
-    | empty      => raise("not defined for empty lists")
-    | link(f, r) =>
-      cases (List) r:
-        | empty => f
-        | else  => num-max(f, my-max(r))
-      end
-  end
-end
+```jayret
+Object my-max(l) {
+    return switch (l) {
+        case Empty: yield raise("not defined for empty lists");
+        case Link(f, r): yield switch (r) {
+            case Empty: yield f;
+            default: yield num-max(f, my-max(r));
+        };
+    }
+}
 ```
 And sure enough, this definition does the job!
 
@@ -1164,19 +1162,19 @@ And sure enough, this definition does the job!
 ##### 5.2.7.1 my-avg : Examples {#avg-eg}
 
 Let’s now try to compute the average of a list of numbers. Let’s start
-with the example list `[list: 1, 2, 3, 4]`{.pyret} and work out more
+with the example list `[1, 2, 3, 4]`{.pyret} and work out more
 examples from it. The average of numbers in this list is clearly
 `(1 + 2 + 3 + 4)/4`{.pyret}, or `10/4`{.pyret}.
 
 Based on the list’s structure, we see that the rest of the list is
-`[list: 2, 3, 4]`{.pyret}, and the rest of that is `[list: 3, 4]`{.pyret},
+`[2, 3, 4]`{.pyret}, and the rest of that is `[3, 4]`{.pyret},
 and so on. The resulting averages are:
 
-```pyret
-my-avg([list: 1, 2, 3, 4]) is 10/4
-my-avg([list:    2, 3, 4]) is 9/3
-my-avg([list:       3, 4]) is 7/2
-my-avg([list:          4]) is 4/1
+```jayret
+assertEquals(my-avg([1, 2, 3, 4]), 10/4);
+assertEquals(my-avg([2, 3, 4]), 9/3);
+assertEquals(my-avg([3, 4]), 7/2);
+assertEquals(my-avg([4]), 4/1);
 ```
 The problem is, it’s simply not clear how we get from the answer for
 the sub-list to the answer for the whole list. That is, given the
@@ -1196,9 +1194,11 @@ value in a list is `1`{.pyret}, and the average of the rest of the list
 is `2`{.pyret}. Here are two very different lists that fit this
 description:
 
-```pyret
-[list: 1, 2]    # the rest has one element with sum 2
-[list: 1, 4, 0] # the rest has two elements with sum 4
+```jayret
+[1, 2];
+// the rest has one element with sum 2
+[1, 4, 0];
+// the rest has two elements with sum 4
 ```
 The average of the entire first list is `3/2`{.pyret}, while the average
 of the entire second list is `5/3`{.pyret}, and the two are not the same.
@@ -1215,10 +1215,10 @@ simply decompose the task into two smaller tasks. After all, we
 have already seen how to compute the length and how to compute the
 sum. The average, therefore, can just use these existing functions:
 
-```pyret
-fun my-avg(l):
-  my-sum(l) / my-len(l)
-end
+```jayret
+Object my-avg(l) {
+    return my-sum(l) / my-len(l);
+}
 ```
 
 ::: {.do-now}
@@ -1259,17 +1259,17 @@ One more time, we’ll begin with an example.
 
 ::: {.do-now}
 Work out the results for `my-running-sum`{.pyret} starting from the list
-`[list: 1, 2, 3, 4, 5]`{.pyret}.
+`[1, 2, 3, 4, 5]`{.pyret}.
 :::
 
 Here’s what our first few examples look like:
 <running-sum-egs-1> ::=
-```pyret
-check:
-  my-running-sum([list: 1, 2, 3, 4, 5]) is [list: 1, 3, 6, 10, 15]
-  my-running-sum([list:    2, 3, 4, 5]) is [list: 2, 5, 9, 14]
-  my-running-sum([list:       3, 4, 5]) is [list: 3, 7, 12]
-end
+```jayret
+@Check void test() {
+    assertEquals(my-running-sum([1, 2, 3, 4, 5]), [1, 3, 6, 10, 15]);
+    assertEquals(my-running-sum([2, 3, 4, 5]), [2, 5, 9, 14]);
+    assertEquals(my-running-sum([3, 4, 5]), [3, 7, 12]);
+}
 ```
 Again, there doesn’t appear to be any clear connection between the
 result on the rest of the list and the result on the entire list.
@@ -1277,10 +1277,10 @@ result on the rest of the list and the result on the entire list.
 (That isn’t strictly true: we can still line up the answers as
 follows:
 
-```pyret
-my-running-sum([list: 1, 2, 3, 4, 5]) is [list: 1, 3, 6, 10, 15]
-my-running-sum([list:    2, 3, 4, 5]) is [list:    2, 5,  9, 14]
-my-running-sum([list:       3, 4, 5]) is [list:       3,  7, 12]
+```jayret
+assertEquals(my-running-sum([1, 2, 3, 4, 5]), [1, 3, 6, 10, 15]);
+assertEquals(my-running-sum([2, 3, 4, 5]), [2, 5, 9, 14]);
+assertEquals(my-running-sum([3, 4, 5]), [3, 7, 12]);
 ```
 and observe that we’re computing the answer for the rest of the list,
 then adding the first element to each element in the answer, and
@@ -1315,8 +1315,8 @@ What should the initial sum be?
 Initially there is no “preceding list”, so we will use the additive
 identity: `0`{.pyret}. The type of `my-rs`{.pyret} is
 
-```pyret
-my-rs :: Number, List<Number> -> List<Number>
+```jayret
+/* contract: my-rs :: Object */;
 ```
 
 Let’s now re-work our examples from [<running-sum-egs-1>](processing-lists.html#%28elem._running-sum-egs-1%29) as
@@ -1324,32 +1324,33 @@ examples of `my-rs`{.pyret} instead. The examples use the `+`{.pyret}
 operator to append two lists into one (the elements of the first list
 followed by the elements of the second):
 
-```pyret
-my-rs( 0, [list: 1, 2, 3, 4, 5]) is [list:  0 + 1] + my-rs( 0 + 1, [list: 2, 3, 4, 5])
-my-rs( 1, [list:    2, 3, 4, 5]) is [list:  1 + 2] + my-rs( 1 + 2, [list:    3, 4, 5])
-my-rs( 3, [list:       3, 4, 5]) is [list:  3 + 3] + my-rs( 3 + 3, [list:       4, 5])
-my-rs( 6, [list:          4, 5]) is [list:  6 + 4] + my-rs( 6 + 4, [list:          5])
-my-rs(10, [list:             5]) is [list: 10 + 5] + my-rs(10 + 5, [list:           ])
-my-rs(15, [list:              ]) is empty
+```jayret
+assertEquals(my-rs(0, [1, 2, 3, 4, 5]), [0 + 1] + my-rs(0 + 1, [2, 3, 4, 5]));
+assertEquals(my-rs(1, [2, 3, 4, 5]), [1 + 2] + my-rs(1 + 2, [3, 4, 5]));
+assertEquals(my-rs(3, [3, 4, 5]), [3 + 3] + my-rs(3 + 3, [4, 5]));
+assertEquals(my-rs(6, [4, 5]), [6 + 4] + my-rs(6 + 4, [5]));
+assertEquals(my-rs(10, [5]), [10 + 5] + my-rs(10 + 5, []));
+assertEquals(my-rs(15, []), empty);
 ```
 That is, `my-rs`{.pyret} translates into the following code:
 
-```pyret
-fun my-rs(acc, l):
-  cases (List) l:
-    | empty => empty
-    | link(f, r) =>
-      new-sum = acc + f
-      link(new-sum, my-rs(new-sum, r))
-  end
-end
+```jayret
+Object my-rs(acc, l) {
+    return switch (l) {
+        case Empty: yield empty;
+        case Link(f, r): yield block {
+            new-sum = acc + f;
+            return link(new-sum, my-rs(new-sum, r));
+        };
+    }
+}
 ```
 All that’s then left is to call it from `my-running-sum`{.pyret}:
 
-```pyret
-fun my-running-sum(l):
-  my-rs(0, l)
-end
+```jayret
+Object my-running-sum(l) {
+    return my-rs(0, l);
+}
 ```
 
 Observe that we do not change `my-running-sum`{.pyret} itself to take
@@ -1377,8 +1378,8 @@ or even element—i.e., add “memory” to our program. Since we just
 need to track that one piece of information, we can use a
 `Boolean`{.pyret} to do it. Let’s define a new function for this purpose:
 
-```pyret
-my-alt :: List<Any>, Boolean -> List<Any>
+```jayret
+/* contract: my-alt :: Object */;
 ```
 The extra argument accumulates whether we’re at an element to keep or
 one to discard.
@@ -1390,27 +1391,26 @@ otherwise we ignore it. As we process the rest of the list, however,
 we have to remember to update the accumulator: if we kept an element
 we don’t wish to keep the next one, and vice versa.
 
-```pyret
-fun my-alt(l, keep):
-  cases (List) l:
-    | empty => empty
-    | link(f, r) =>
-      if keep:
-        link(f, my-alt(r, false))
-      else:
-        my-alt(r, true)
-      end
-  end
-end
+```jayret
+Object my-alt(l, keep) {
+    return switch (l) {
+        case Empty: yield empty;
+        case Link(f, r): yield if (keep) {
+            return link(f, my-alt(r, false));
+        } else {
+            return my-alt(r, true);
+        };
+    }
+}
 ```
 Finally, we have to determine the initial value of the accumulator. In
 this case, since we want to keep alternating elements starting
 with the first one, its initial value should be `true`{.pyret}:
 
-```pyret
-fun my-alternating(l):
-  my-alt(l, true)
-end
+```jayret
+Object my-alternating(l) {
+    return my-alt(l, true);
+}
 ```
 
 ::: {.exercise}
@@ -1433,7 +1433,7 @@ the name.]{.margin-note} given a list of values, it produces a collection of the
 same elements while avoiding any duplicates (hence `uniq`{.pyret}, short
 for “unique”).
 
-Consider the following input: `[list: 1, 2, 1, 3, 1, 2, 4, 1]`{.pyret}.
+Consider the following input: `[1, 2, 1, 3, 1, 2, 4, 1]`{.pyret}.
 
 ::: {.do-now}
 What is the sequence of examples this input generates? It’s
@@ -1460,28 +1460,28 @@ examples and deriving a solution.
 
 For instance, you might have generated this sequence:
 
-```pyret
-examples:
-  uniq([list: 1, 2, 1, 3, 1, 2, 4, 1]) is [list: 3, 2, 4, 1]
-  uniq([list:    2, 1, 3, 1, 2, 4, 1]) is [list: 3, 2, 4, 1]
-  uniq([list:       1, 3, 1, 2, 4, 1]) is [list: 3, 2, 4, 1]
-  uniq([list:          3, 1, 2, 4, 1]) is [list: 3, 2, 4, 1]
-  uniq([list:             1, 2, 4, 1]) is [list:    2, 4, 1]
-  uniq([list:                2, 4, 1]) is [list:    2, 4, 1]
-  uniq([list:                   4, 1]) is [list:       4, 1]
-  uniq([list:                      1]) is [list:          1]
-  uniq([list:                       ]) is [list:           ]
-end
+```jayret
+@Check void test() {
+    assertEquals(uniq([1, 2, 1, 3, 1, 2, 4, 1]), [3, 2, 4, 1]);
+    assertEquals(uniq([2, 1, 3, 1, 2, 4, 1]), [3, 2, 4, 1]);
+    assertEquals(uniq([1, 3, 1, 2, 4, 1]), [3, 2, 4, 1]);
+    assertEquals(uniq([3, 1, 2, 4, 1]), [3, 2, 4, 1]);
+    assertEquals(uniq([1, 2, 4, 1]), [2, 4, 1]);
+    assertEquals(uniq([2, 4, 1]), [2, 4, 1]);
+    assertEquals(uniq([4, 1]), [4, 1]);
+    assertEquals(uniq([1]), [1]);
+    assertEquals(uniq([]), []);
+}
 ```
 However, you might have also generated sequences that began with
 
-```pyret
-uniq([list: 1, 2, 1, 3, 1, 2, 4, 1]) is [list: 1, 2, 3, 4]
+```jayret
+assertEquals(uniq([1, 2, 1, 3, 1, 2, 4, 1]), [1, 2, 3, 4]);
 ```
 or
 
-```pyret
-uniq([list: 1, 2, 1, 3, 1, 2, 4, 1]) is [list: 4, 3, 2, 1]
+```jayret
+assertEquals(uniq([1, 2, 1, 3, 1, 2, 4, 1]), [4, 3, 2, 1]);
 ```
 and so on. Let’s work with the examples we’ve worked out above.
 
@@ -1503,18 +1503,17 @@ otherwise we can ignore it for now.
 
 This results in the following program:
 
-```pyret
-fun uniq-rec(l :: List<Any>) -> List<Any>:
-  cases (List) l:
-    | empty => empty
-    | link(f, r) =>
-      if r.member(f):
-        uniq-rec(r)
-      else:
-        link(f, uniq-rec(r))
-      end
-  end
-end
+```jayret
+List<Object> uniq-rec(List<Object> l) {
+    return switch (l) {
+        case Empty: yield empty;
+        case Link(f, r): yield if (r.member(f)) {
+            return uniq-rec(r);
+        } else {
+            return link(f, uniq-rec(r));
+        };
+    }
+}
 ```
 which we’ve called `uniq-rec`{.pyret} instead of `uniq`{.pyret} to
 differentiate it from other versions of `uniq`{.pyret}.
@@ -1565,19 +1564,20 @@ Notice that this function has a repeated expression. Instead of
 writing it twice, we could call it just once and use the result in
 both places:
 
-```pyret
-fun uniq-rec2(l :: List<Any>) -> List<Any>:
-  cases (List) l:
-    | empty => empty
-    | link(f, r) =>
-      ur = uniq-rec2(r)
-      if r.member(f):
-        ur
-      else:
-        link(f, ur)
-      end
-  end
-end
+```jayret
+List<Object> uniq-rec2(List<Object> l) {
+    return switch (l) {
+        case Empty: yield empty;
+        case Link(f, r): yield block {
+            ur = uniq-rec2(r);
+            return if (r.member(f)) {
+                return ur;
+            } else {
+                return link(f, ur);
+            }
+        };
+    }
+}
 ```
 You might think, because we replaced two function calls with one, that
 we’ve reduced the amount of computation the program does. It does not!
@@ -1594,7 +1594,7 @@ enabled by the structure of `uniq-rec2`{.pyret}. We currently check
 whether `f`{.pyret} is a member of `r`{.pyret}, which is the list of
 all the remaining elements. In our example, this means that in
 the very second turn, we check whether `2`{.pyret} is a member of the list
-`[list: 1, 3, 1, 2, 4, 1]`{.pyret}. This is a list of six elements,
+`[1, 3, 1, 2, 4, 1]`{.pyret}. This is a list of six elements,
 including three copies of `1`{.pyret}. We compare `2`{.pyret} against
 two copies of `1`{.pyret}. However, we gain nothing from the
 second comparison. Put differently, we can think of `uniq(r)`{.pyret} as
@@ -1604,19 +1604,20 @@ might be significantly shorter. This, of course, is exactly what
 `ur`{.pyret} represents. Therefore, we can encode this intuition as
 follows:
 
-```pyret
-fun uniq-rec3(l :: List<Any>) -> List<Any>:
-  cases (List) l:
-    | empty => empty
-    | link(f, r) =>
-      ur = uniq-rec3(r)
-      if ur.member(f):
-        ur
-      else:
-        link(f, ur)
-      end
-  end
-end
+```jayret
+List<Object> uniq-rec3(List<Object> l) {
+    return switch (l) {
+        case Empty: yield empty;
+        case Link(f, r): yield block {
+            ur = uniq-rec3(r);
+            return if (ur.member(f)) {
+                return ur;
+            } else {
+                return link(f, ur);
+            }
+        };
+    }
+}
 ```
 Note that all that changed is that we check for membership in
 `ur`{.pyret} rather than in `r`{.pyret}.
@@ -1666,7 +1667,7 @@ a list (and hence have an order). In that case, we should think about
 whether a list even makes sense for this problem. In fact, if we don’t
 care about order and don’t want duplicates (by definition of
 `uniq`{.pyret}), then there is a much simpler solution, which is to
-produce a set. Pyret already has sets built in, and converting
+produce a set. Jayret already has sets built in, and converting
 the list to a set automatically takes care of duplicates. This is of
 course cheating from the perspective of learning how to write
 `uniq`{.pyret}, but it is worth remembering that sometimes the right data
@@ -1679,14 +1680,14 @@ it is at the heart of set-ness).
 
 Earlier we wrote contracts like:
 
-```pyret
-my-len :: List<Any> -> Number
-my-max :: List<Any> -> Any
+```jayret
+/* contract: my-len :: Object */;
+/* contract: my-max :: Object */;
 ```
 These are unsatisfying for several reasons. Consider
 `my-max`{.pyret}. The contract suggests that any kind of element can be
 in the input list, but in fact that isn’t true: the input
-`[list: 1, "two", 3]`{.pyret} is not valid, because we can’t compare
+`[1, "two", 3]`{.pyret} is not valid, because we can’t compare
 `1`{.pyret} with `"two"`{.pyret} or `"two"`{.pyret} with `3`{.pyret}.
 
 ::: {.exercise}
@@ -1716,6 +1717,7 @@ return an element of that type. We write this syntactically as
 follows:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 fun my-max<T>(l :: List<T>) -> T: … end
 ```
 The notation `<T>`{.pyret} says that `T`{.pyret} is a type variable
@@ -1726,6 +1728,7 @@ Using this notation, we can also revisit `my-len`{.pyret}. Its header now
 becomes:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 fun my-len<T>(l :: List<T>) -> Number: … end
 ```
 Note that `my-len`{.pyret} did not actually “care” that whether all the
@@ -1734,5 +1737,5 @@ elements, much less at pairs of them. However, as a convention
 we demand that lists always be monomorphic. This is important because
 it enables us to process the elements of the list uniformly: if we
 know how to process elements of type `T`{.pyret}, then we will know how
-to process a `List<T>`{.pyret}. If the list elements can be of truly any
+to process a `List < T >`{.pyret}. If the list elements can be of truly any
 old type, we can’t know how to process its elements.

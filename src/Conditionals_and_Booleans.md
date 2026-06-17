@@ -35,11 +35,11 @@ in some way? If so, what’s your strategy?
 
 Here is a proposed collection of examples for `add-shipping`{.pyret}.
 
-```pyret
-add-shipping(10) is 10 + 4
-add-shipping(3.95) is 3.95 + 4
-add-shipping(20) is 20 + 8
-add-shipping(10.01) is 10.01 + 8
+```jayret
+assertEquals(add-shipping(10), 10 + 4);
+assertEquals(add-shipping(3.95), 3.95 + 4);
+assertEquals(add-shipping(20), 20 + 8);
+assertEquals(add-shipping(10.01), 10.01 + 8);
 ```
 
 ::: {.do-now}
@@ -86,20 +86,17 @@ ask questions about inputs within our programs.
 To ask a question about our inputs, we use a new kind of expression
 called an if expression. Here’s the full definition of `add-shipping`{.pyret}:
 
-```pyret
-fun add-shipping(order-amt :: Number) -> Number:
-  doc: "add shipping costs to order total"
-  if order-amt <= 10:
-    order-amt + 4
-  else:
-    order-amt + 8
-  end
-where:
-  add-shipping(10) is 10 + 4
-  add-shipping(3.95) is 3.95 + 4
-  add-shipping(20) is 20 + 8
-  add-shipping(10.01) is 10.01 + 8
-end
+```jayret
+int add-shipping(int order-amt) {
+    // add shipping costs to order total
+    return if (order-amt <= 10) {
+        return order-amt + 4;
+    } else {
+        return order-amt + 8;
+    }
+} where {
+    
+}
 ```
 
 In an `if`{.pyret} expression, we ask a question that can produce an answer that
@@ -108,16 +105,16 @@ is true or false
 [Booleans](Conditionals_and_Booleans.html##booleans)), provide one expression for
 when the answer to the question is true (`order-amt + 4`{.pyret}), and
 another for when the result is false (`order-amt +
-8`{.pyret}). The `else`{.pyret} in the program marks the answer in the false case; we call
+8`{.pyret}). The `else`{.jayret} in the program marks the answer in the false case; we call
 this the else clause.
-We also need `end`{.pyret} to tell Pyret we’re done with the question and answers.
+We also need `end`{.pyret} to tell Jayret we’re done with the question and answers.
 
 #### 3.4.3 Booleans {#booleans}
 
-Every expression in Pyret evaluates in a value. So far, we have seen
+Every expression in Jayret evaluates in a value. So far, we have seen
 three types of values: `Number`{.pyret}, `String`{.pyret}, and
 `Image`{.pyret}. What type of value does a question like `order-amt
-<= 10`{.pyret} produce? We can use the interactions prompt to experiment and
+<= 10`{.jayret} produce? We can use the interactions prompt to experiment and
 find out.
 
 ::: {.do-now}
@@ -125,13 +122,13 @@ Enter each of the following expressions at the interactions
 prompt. What type of value did you get? Do the values fit the types
 we have seen so far?
 
-```pyret
-3.95 <= 10
-20 <= 10
+```jayret
+3.95 <= 10;
+20 <= 10;
 ```
 :::
 
-The values `true`{.pyret} and `false`{.pyret} belong to a new type in Pyret,
+The values `true`{.pyret} and `false`{.pyret} belong to a new type in Jayret,
 called `Boolean`{.pyret}.[Named for [George Boole](https://en.wikipedia.org/wiki/George_Boole).]{.margin-note} While
 there are an infinitely many values of type `Number`{.pyret}, there are
 only two of type `Boolean`{.pyret}: `true`{.pyret} and `false`{.pyret}.
@@ -149,8 +146,8 @@ much more we can and should say about equality, which we will do later
 [[Re-Examining Equality](Sharing_and_Equality.html##identical-eq)].]{.margin-note}
 
 ::: {.pyret-repl}
-``` pyret
-1 == 1
+```jayret
+1 == 1;
 ```
 ``` output
 true
@@ -158,8 +155,8 @@ true
 :::
 
 ::: {.pyret-repl}
-``` pyret
-1 == 2
+```jayret
+1 == 2;
 ```
 ``` output
 false
@@ -167,8 +164,8 @@ false
 :::
 
 ::: {.pyret-repl}
-``` pyret
-"cat" == "dog"
+```jayret
+"cat" == "dog";
 ```
 ``` output
 false
@@ -176,8 +173,8 @@ false
 :::
 
 ::: {.pyret-repl}
-``` pyret
-"cat" == "CAT"
+```jayret
+"cat" == "CAT";
 ```
 ``` output
 false
@@ -197,8 +194,8 @@ Sometimes, we also want to compare strings to determine their
 alphabetical order. Here are several examples:
 
 ::: {.pyret-repl}
-``` pyret
-"a" < "b"
+```jayret
+"a" < "b";
 ```
 ``` output
 true
@@ -206,8 +203,8 @@ true
 :::
 
 ::: {.pyret-repl}
-``` pyret
-"a" >= "c"
+```jayret
+"a" >= "c";
 ```
 ``` output
 false
@@ -215,8 +212,8 @@ false
 :::
 
 ::: {.pyret-repl}
-``` pyret
-"that" < "this"
+```jayret
+"that" < "this";
 ```
 ``` output
 true
@@ -224,8 +221,8 @@ true
 :::
 
 ::: {.pyret-repl}
-``` pyret
-"alpha" < "beta"
+```jayret
+"alpha" < "beta";
 ```
 ``` output
 true
@@ -235,8 +232,8 @@ which is the alphabetical order we’re used to;
 but others need some explaining:
 
 ::: {.pyret-repl}
-``` pyret
-"a" >= "C"
+```jayret
+"a" >= "C";
 ```
 ``` output
 true
@@ -244,8 +241,8 @@ true
 :::
 
 ::: {.pyret-repl}
-``` pyret
-"a" >= "A"
+```jayret
+"a" >= "A";
 ```
 ``` output
 true
@@ -253,7 +250,7 @@ true
 :::
 These use a convention laid down a long time ago in a system called
 [ASCII](https://en.wikipedia.org/wiki/ASCII).[Things
-get far more complicated with non-ASCII letters: e.g., Pyret thinks `"Ł"`{.pyret}
+get far more complicated with non-ASCII letters: e.g., Jayret thinks `"Ł"`{.pyret}
 is `>`{.pyret} than `"Z"`{.pyret},
 but in Polish, this should be `false`{.pyret}. Worse, the ordering
 [depends on
@@ -268,8 +265,8 @@ In general, you can compare any two values for equality (well, almost,
 we’ll come back to this later); for instance:
 
 ::: {.pyret-repl}
-``` pyret
-"a" == 1
+```jayret
+"a" == 1;
 ```
 ``` output
 false
@@ -279,8 +276,8 @@ If you want to compare values of a specific kind, you can use more
 specific operators:
 
 ::: {.pyret-repl}
-``` pyret
-num-equal(1, 1)
+```jayret
+num-equal(1, 1);
 ```
 ``` output
 true
@@ -288,8 +285,8 @@ true
 :::
 
 ::: {.pyret-repl}
-``` pyret
-num-equal(1, 2)
+```jayret
+num-equal(1, 2);
 ```
 ``` output
 false
@@ -297,8 +294,8 @@ false
 :::
 
 ::: {.pyret-repl}
-``` pyret
-string-equal("a", "a")
+```jayret
+string-equal("a", "a");
 ```
 ``` output
 true
@@ -306,8 +303,8 @@ true
 :::
 
 ::: {.pyret-repl}
-``` pyret
-string-equal("a", "b")
+```jayret
+string-equal("a", "b");
 ```
 ``` output
 false
@@ -319,28 +316,28 @@ Why use these operators instead of the more generic `==`{.pyret}?
 ::: {.do-now}
 Try
 
-```pyret
-num-equal("a", 1)
-string-equal("a", 1)
+```jayret
+num-equal("a", 1);
+string-equal("a", 1);
 ```
 :::
 
 Therefore, it’s wise to use the type-specific operators where you’re expecting
-the two arguments to be of the same type. Then, Pyret will signal an error if
+the two arguments to be of the same type. Then, Jayret will signal an error if
 you go wrong, instead of blindly returning an answer (`false`{.pyret}) which lets
 your program continue to compute a nonsensical value.
 
 There are even more Boolean-producing operators, such as:
 
 ::: {.pyret-repl}
-``` pyret
-wm = "will.i.am"
+```jayret
+wm = "will.i.am";
 ```
 :::
 
 ::: {.pyret-repl}
-``` pyret
-string-contains(wm, "will")
+```jayret
+string-contains(wm, "will");
 ```
 ``` output
 true
@@ -349,8 +346,8 @@ true
 [Note the capital `W`{.pyret}.]{.margin-note}
 
 ::: {.pyret-repl}
-``` pyret
-string-contains(wm, "Will")
+```jayret
+string-contains(wm, "Will");
 ```
 ``` output
 false
@@ -370,13 +367,13 @@ a certain age and have good eyesight and—either
 pass a test or have a temporary license. Also, you’re allowed
 to drive if you are not inebriated.
 
-Corresponding to these forms of combinations, Pyret offers three main
-operations: `and`{.pyret}, `or`{.pyret}, and `not`{.pyret}. Here are some
+Corresponding to these forms of combinations, Jayret offers three main
+operations: `&&`{.pyret}, `||`{.pyret}, and `!`{.pyret}. Here are some
 examples of their use:
 
 ::: {.pyret-repl}
-``` pyret
-(1 < 2) and (2 < 3)
+```jayret
+(1 < 2) && (2 < 3);
 ```
 ``` output
 true
@@ -384,8 +381,8 @@ true
 :::
 
 ::: {.pyret-repl}
-``` pyret
-(1 < 2) and (3 < 2)
+```jayret
+(1 < 2) && (3 < 2);
 ```
 ``` output
 false
@@ -393,8 +390,8 @@ false
 :::
 
 ::: {.pyret-repl}
-``` pyret
-(1 < 2) or (2 < 3)
+```jayret
+(1 < 2) || (2 < 3);
 ```
 ``` output
 true
@@ -402,8 +399,8 @@ true
 :::
 
 ::: {.pyret-repl}
-``` pyret
-(3 < 2) or (1 < 2)
+```jayret
+(3 < 2) || (1 < 2);
 ```
 ``` output
 true
@@ -411,8 +408,8 @@ true
 :::
 
 ::: {.pyret-repl}
-``` pyret
-not(1 < 2)
+```jayret
+not(1 < 2);
 ```
 ``` output
 false
@@ -442,36 +439,37 @@ We’ll handle these in order.
 
 The current body of `add-shipping`{.pyret} asks one question:
 `order-amt <= 10`{.pyret}. We need to add another one for `order-amt
-<= 30`{.pyret}, using a charge of `12`{.pyret} if that question fails. Where do
+<= 30`{.pyret}, using a charge of `12`{.jayret} if that question fails. Where do
 we put that additional question?
 
 An expanded version of the if-expression, using `else if`{.pyret}, allows
 you to ask multiple questions:
 
-```pyret
-fun add-shipping(order-amt :: Number) -> Number:
-  doc: "add shipping costs to order total"
-  if order-amt <= 10:
-    order-amt + 4
-  else if order-amt <= 30:
-    order-amt + 8
-  else:
-    order-amt + 12
-  end
-where:
-  ...
-end
+```jayret
+int add-shipping(int order-amt) {
+    // add shipping costs to order total
+    return if (order-amt <= 10) {
+        return order-amt + 4;
+    } else if (order-amt <= 30) {
+        return order-amt + 8;
+    } else {
+        return order-amt + 12;
+    }
+} where {
+    
+}
 ```
 At this point, you should also add `where`{.pyret} examples that use the
 `12`{.pyret} charge.
 
-How does Pyret determine which answer to return? It evaluates each
+How does Jayret determine which answer to return? It evaluates each
 question expression in order, starting from the one that follows
 `if`{.pyret}. It continues through the questions, returning the value of
 the answer of the first question that returns true. Here’s a summary
 of the if-expression syntax and how it evaluates.
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 if QUESTION1:
   <result in case first question true>
 else if QUESTION2:
@@ -500,11 +498,11 @@ How might you modify the above code to build the “between 10 and 30”
 requirement explicitly into the question for the `8`{.pyret} case?
 :::
 
-Remember the `and`{.pyret} operator on booleans? We can use that to
+Remember the `&&`{.pyret} operator on booleans? We can use that to
 capture “between” relationships, as follows:
 
-```pyret
-(order-amt > 10) and (order-amt <= 30)
+```jayret
+(order-amt > 10) && (order-amt <= 30);
 ```
 
 ::: {.do-now}
@@ -514,26 +512,21 @@ off the parenthesis, what happens when you evaluate this expression in
 the interactions pane?
 :::
 
-Here is what `add-shipping`{.pyret} look like with the `and`{.pyret} included:
+Here is what `add-shipping`{.pyret} look like with the `&&`{.pyret} included:
 
-```pyret
-fun add-shipping(order-amt :: Number) -> Number:
-  doc: "add shipping costs to order total"
-  if order-amt <= 10:
-    order-amt + 4
-  else if (order-amt > 10) and (order-amt <= 30):
-    order-amt + 8
-  else:
-    order-amt + 12
-  end
-where:
-  add-shipping(10) is 10 + 4
-  add-shipping(3.95) is 3.95 + 4
-  add-shipping(20) is 20 + 8
-  add-shipping(10.01) is 10.01 + 8
-  add-shipping(30) is 30 + 8
-  add-shipping(32) is 32 + 12
-end
+```jayret
+int add-shipping(int order-amt) {
+    // add shipping costs to order total
+    return if (order-amt <= 10) {
+        return order-amt + 4;
+    } else if ((order-amt > 10) && (order-amt <= 30)) {
+        return order-amt + 8;
+    } else {
+        return order-amt + 12;
+    }
+} where {
+    
+}
 ```
 
 Both versions of `add-shipping`{.pyret} support the same examples. Are
@@ -594,7 +587,7 @@ hence harmful.
 
 #### 3.4.5 Evaluating by Reducing Expressions {#conditional-nm}
 
-In [How Functions Evaluate](From_Repeated_Expressions_to_Functions.html##function-call-nm), we talked about how Pyret reduces expressions and
+In [How Functions Evaluate](From_Repeated_Expressions_to_Functions.html##function-call-nm), we talked about how Jayret reduces expressions and
 function calls to values. Let’s revisit this process, this time
 expanding to consider if-expressions. Suppose we want
 to compute the wages of a worker. The worker is paid $10 for every
@@ -602,17 +595,17 @@ hour up to the first 40 hours, and is paid $15 for every extra
 hour. Let’s say `hours`{.pyret} contains the number of hours they work,
 and suppose it’s `45`{.pyret}:
 
-```pyret
-hours = 45
+```jayret
+hours = 45;
 ```
 Suppose the formula for computing the wage is
 
-```pyret
-if hours <= 40:
-  hours * 10
-else if hours > 40:
-  (40 * 10) + ((hours - 40) * 15)
-end
+```jayret
+if (hours <= 40) {
+    return hours * 10;
+} else if (hours > 40) {
+    return (40 * 10) + ((hours - 40) * 15);
+}
 ```
 
 Let’s now see how this results in an answer, using a step-by-step
@@ -621,18 +614,19 @@ classes (the steps are described in the margin notes to the right):
 [The first step is to substitute the
 `hours`{.pyret} with `45`{.pyret}.]{.margin-note}
 
-```pyret
-if 45 <= 40:
-  45 * 10
-else if 45 > 40:
-  (40 * 10) + ((45 - 40) * 15)
-end
+```jayret
+if (45 <= 40) {
+    return 45 * 10;
+} else if (45 > 40) {
+    return (40 * 10) + ((45 - 40) * 15);
+}
 ```
 
 [Next, the conditional part of the `if`{.pyret} expression is evaluated,
 which in this case is `false`{.pyret}.]{.margin-note}
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 =>  if false:
       45 * 10
     else if 45 > 40:
@@ -643,14 +637,16 @@ which in this case is `false`{.pyret}.]{.margin-note}
 [Since the condition is `false`{.pyret}, the next branch is tried.]{.margin-note}
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 =>  if 45 > 40:
       (40 * 10) + ((45 - 40) * 15)
     end
 ```
 
-[Pyret evaluates the question in the conditional, which in this case produces `true`{.pyret}.]{.margin-note}
+[Jayret evaluates the question in the conditional, which in this case produces `true`{.pyret}.]{.margin-note}
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 =>  if true:
       (40 * 10) + ((45 - 40) * 15)
     end
@@ -660,18 +656,20 @@ which in this case is `false`{.pyret}.]{.margin-note}
 of that branch. After that, it’s just arithmetic.]{.margin-note}
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 =>  (40 * 10) + ((45 - 40) * 15)
 ```
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 =>  400 + (5 * 15)
 =>  475
 ```
 
 This style of reduction is the best way to think about the evaluation
-of Pyret expressions. The whole expression takes steps that simplify
+of Jayret expressions. The whole expression takes steps that simplify
 it, proceeding by simple rules. You can use this style yourself if you
-want to try and work through the evaluation of a Pyret program by hand
+want to try and work through the evaluation of a Jayret program by hand
 (or in your head).
 
 #### 3.4.6 Composing Functions {#Composing-Functions}
@@ -696,16 +694,16 @@ order of `10`{.pyret} pens that say `"bravo"`{.pyret}.
 There are two ways to structure this computation. We could pass the
 result of `pen-cost`{.pyret} directly to `add-shipping`{.pyret}:
 
-```pyret
-add-shipping(pen-cost(10, "bravo"))
+```jayret
+add-shipping(pen-cost(10, "bravo"));
 ```
 
 Alternatively, you might have named the result of `pen-cost`{.pyret} as
 an intermediate step:
 
-```pyret
-pens = pen-cost(10, "bravo")
-add-shipping(pens)
+```jayret
+pens = pen-cost(10, "bravo");
+add-shipping(pens);
 ```
 
 Both methods would produce the same answer.
@@ -717,7 +715,7 @@ substitution and the directory. We’ll start with the second
 version, in which we explicitly name the result of calling
 `pen-cost`{.pyret}.
 
-Evaluating the second version: At a high level, Pyret goes
+Evaluating the second version: At a high level, Jayret goes
 through the following steps:
 
 - Substitute `10`{.pyret} for `num-pens`{.pyret} and `"bravo"`{.pyret} for
@@ -733,8 +731,8 @@ through the following steps:
 Evaluating the first version: As a reminder, the first version
 consisted of a single expression:
 
-```pyret
-add-shipping(pen-cost(10, "bravo"))
+```jayret
+add-shipping(pen-cost(10, "bravo"));
 ```
 
 - Since arguments are evaluated before functions get called,
@@ -775,6 +773,7 @@ used intermediate names to make the body of `pen-cost`{.pyret} more
 readable. For example, we could have written it as:
 
 ```pyret
+# TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
 fun pen-cost(num-pens :: Number, message :: String)
   -> Number:
   doc: ```total cost for pens, each 25 cents
@@ -787,12 +786,12 @@ end
 ```
 
 ::: {.do-now}
-Write out the high level steps for how Pyret will evaluate
+Write out the high level steps for how Jayret will evaluate
 the following program using this new version of `pen-cost`{.pyret}:
 
-```pyret
-pens = pen-cost(10, "bravo")
-add-shipping(pens)
+```jayret
+pens = pen-cost(10, "bravo");
+add-shipping(pens);
 ```
 :::
 
@@ -802,12 +801,12 @@ Hopefully, you made two entries into the directory, one for
 
 ::: {.do-now}
 Consider the following program. What result do you think
-Pyret should produce?
+Jayret should produce?
 
-```pyret
-pens = pen-cost(10, "bravo")
-cheap-message = (message-cost > 0.5)
-add-shipping(pens)
+```jayret
+pens = pen-cost(10, "bravo");
+cheap-message = (message-cost > 0.5);
+add-shipping(pens);
 ```
 
 Using the directory you envisioned for the previous activity, what
@@ -824,14 +823,14 @@ program should report an error that `message-cost`{.pyret} is undefined.
 
 Okay, so that’s what should happen. But our discussion of the
 directory suggests that both `pens`{.pyret} and `message-cost`{.pyret} will
-be in the directory, meaning Pyret would be able to use
+be in the directory, meaning Jayret would be able to use
 `message-cost`{.pyret}. What’s going on?
 
 This example prompts us to explain one more nuance about the
 directory. Precisely to avoid problems like the one illustrated here
 (which should produce an error), directory entries made within a
 function are local (private) to the function body. When you call a function,
-Pyret sets up a local directory that other functions can’t
+Jayret sets up a local directory that other functions can’t
 see. A function body can add or refer to names in either its local,
 private directory (as with `message-cost`{.pyret}) or the overall
 (global) directory (as with `pens`{.pyret}). But in no case can one
@@ -844,15 +843,15 @@ call. Once a function call completes, its local directory disappears
 We showed that the results in `if`{.pyret}-expressions are themselves
 expressions (such as `order-amt + 4`{.pyret} in the following function):
 
-```pyret
-fun add-shipping(order-amt :: Number) -> Number:
-  doc: "add shipping costs to order total"
-  if order-amt <= 10:
-    order-amt + 4
-  else:
-    order-amt + 8
-  end
-end
+```jayret
+int add-shipping(int order-amt) {
+    // add shipping costs to order total
+    return if (order-amt <= 10) {
+        return order-amt + 4;
+    } else {
+        return order-amt + 8;
+    }
+}
 ```
 
 The result expressions can be more complicated. In fact, they could be
@@ -861,15 +860,13 @@ another function. This time, we want a function that will compute the
 cost of movie tickets. Let’s start with a simple version in which
 tickets are `$10`{.pyret} apiece.
 
-```pyret
-fun buy-tickets1(count :: Number) -> Number:
-  doc: "Compute the price of tickets at $10 each"
-  count * 10
-where:
-  buy-tickets1(0) is 0
-  buy-tickets1(2) is 2 * 10
-  buy-tickets1(6) is 6 * 10
-end
+```jayret
+int buy-tickets1(int count) {
+    // Compute the price of tickets at $10 each
+    return count * 10;
+} where {
+    
+}
 ```
 
 Now, let’s augment the function with an extra parameter to indicate
@@ -877,6 +874,7 @@ whether the purchaser is a senior citizen who is entitled to a discount. In such
 `15%`{.pyret}.
 
 ```pyret
+# TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
 fun buy-tickets2(count :: Number, is-senior :: Boolean)
   -> Number:
   doc: ```Compute the price of tickets at $10 each with
@@ -912,6 +910,7 @@ the senior discount applies. If not, we check whether the number of
 tickets qualifies for a discount:
 
 ```pyret
+# TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
 fun buy-tickets3(count :: Number, is-senior :: Boolean)
   -> Number:
   doc: ```Compute the price of tickets at $10 each with
@@ -943,7 +942,7 @@ conditionals are also valid).
 ::: {.exercise}
 Show the steps through which this function would evaluate in
 a situation where no discount applies, such as `buy-tickets3(2,
-false)`{.pyret}.
+false)`{.jayret}.
 :::
 
 ::: {.do-now}
@@ -966,10 +965,11 @@ Under what conditions should the discount apply?
 
 Here, we see that the discount applies if either the purchaser is a
 senior or more than 5 tickets have been bought. We can therefore
-simplify the code by using `or`{.pyret} as follows (we’ve left out the
+simplify the code by using `||`{.pyret} as follows (we’ve left out the
 examples because they haven’t changed from the previous version):
 
 ```pyret
+# TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
 fun buy-tickets4(count :: Number, is-senior :: Boolean)
   -> Number:
   doc: ```Compute the price of tickets at $10 each with
@@ -998,6 +998,7 @@ Notice that the `== true`{.pyret} part is redundant. Since
 using the `==`{.pyret} operator. Here’s the revised code:
 
 ```pyret
+# TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
 fun buy-tickets5(count :: Number, is-senior :: Boolean)
   -> Number:
   doc: ```Compute the price of tickets at $10 each with
@@ -1027,6 +1028,7 @@ clean that up by first computing the base price, then applying the
 discount when appropriate:
 
 ```pyret
+# TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
 fun buy-tickets6(count :: Number, is-senior :: Boolean)
   -> Number:
   doc: ```Compute the price of tickets at $10 each with
@@ -1053,10 +1055,10 @@ boolean.
   or inequality(`<>`{.pyret}). Other operations that you know from math,
   like `<`{.pyret} and `>=`{.pyret}, also produce booleans.
 - We can build larger expressions that produce booleans from smaller ones using
-  the operators `and`{.pyret}, `or`{.pyret}, `not`{.pyret}.
+  the operators `&&`{.pyret}, `||`{.pyret}, `!`{.pyret}.
 - We can use `if`{.pyret} expressions to ask true/false questions
   within a computation, producing different results in each case.
 - We can nest conditionals inside one another if needed.
 - You never need to use `==`{.pyret} to compare a value to
   `true`{.pyret} or `false`{.pyret}: you can just write the value or
-  expression on its own (perhaps with `not`{.pyret} to get the same computation).
+  expression on its own (perhaps with `!`{.pyret} to get the same computation).

@@ -46,33 +46,32 @@ the modest origins above, the tenth Catalan number (i.e., tenth
 element of the Catalan sequence) is 16796. A simple recurrence formula
 gives us the Catalan number, which we can turn into a simple program:
 
-```pyret
-fun catalan(n):
-  if n == 0: 1
-  else if n > 0:
-    for fold(acc from 0, k from range(0, n)):
-      acc + (catalan(k) * catalan(n - 1 - k))
-    end
-  end
-end
+```jayret
+Object catalan(n) {
+    return if (n == 0) {
+        return 1;
+    } else if (n > 0) {
+        return [for fold(acc : 0, k : range(0, n)) { yield acc + (catalan(k) * catalan(n - 1 - k)); }];
+    }
+}
 ```
 This function’s tests look as follows—
 <catalan-tests> ::=
-```pyret
-check:
-  catalan(0) is 1
-  catalan(1) is 1
-  catalan(2) is 2
-  catalan(3) is 5
-  catalan(4) is 14
-  catalan(5) is 42
-  catalan(6) is 132
-  catalan(7) is 429
-  catalan(8) is 1430
-  catalan(9) is 4862
-  catalan(10) is 16796
-  catalan(11) is 58786
-end
+```jayret
+@Check void test() {
+    assertEquals(catalan(0), 1);
+    assertEquals(catalan(1), 1);
+    assertEquals(catalan(2), 2);
+    assertEquals(catalan(3), 5);
+    assertEquals(catalan(4), 14);
+    assertEquals(catalan(5), 42);
+    assertEquals(catalan(6), 132);
+    assertEquals(catalan(7), 429);
+    assertEquals(catalan(8), 1430);
+    assertEquals(catalan(9), 4862);
+    assertEquals(catalan(10), 16796);
+    assertEquals(catalan(11), 58786);
+}
 ```
 but beware! When we time the function’s execution, we find that the
 first few tests run very quickly, but somewhere between a value of
@@ -128,35 +127,33 @@ function to simulate a stateless one. Groovy, dude!
 First, then, we need some representation of memory. We can imagine
 several, but here’s a simple one:
 
-```pyret
-data MemoryCell:
-  | mem(in, out)
-end
-
-var memory :: List<MemoryCell> = empty
+```jayret
+data MemoryCell {
+    Mem(in, out);
+}
+var memory = empty;
 ```
 Now how does `catalan`{.pyret} need to change? We have to first look for
 whether the value is already in `memory`{.pyret}; if it is, we return it
 without any further computation, but if it isn’t, then we compute the
 result, store it in `memory`{.pyret}, and then return it:
 
-```pyret
-fun catalan(n :: Number) -> Number:
-  answer = find(lam(elt): elt.in == n end, memory)
-  cases (Option) answer block:
-    | none =>
-      result =
-        if n == 0: 1
-        else if n > 0:
-          for fold(acc from 0, k from range(0, n)):
-            acc + (catalan(k) * catalan(n - 1 - k))
-          end
-        end
-      memory := link(mem(n, result), memory)
-      result
-    | some(v) => v.out
-  end
-end
+```jayret
+int catalan(int n) {
+    answer = find((elt) -> elt.in == n, memory);
+    return switch (answer) {
+        case None: yield block {
+            result = if (n == 0) {
+                return 1;
+            } else if (n > 0) {
+                return [for fold(acc : 0, k : range(0, n)) { yield acc + (catalan(k) * catalan(n - 1 - k)); }];
+            }
+            memory = link(mem(n, result), memory);
+            return result;
+        };
+        case Some(v): yield v.out;
+    }
+}
 ```
 And that’s it! Now running our previous tests will reveal that the
 answer computes much quicker, but in addition we can dare to run
@@ -236,26 +233,24 @@ the memory we return that answer, otherwise we compute the answer,
 store it, and return it. To compute the answer, we need a function
 that determines how to do so. Putting together these pieces:
 
-```pyret
-data MemoryCell:
-  | mem(in, out)
-end
-
-fun memoize-1<T, U>(f :: (T -> U)) -> (T -> U):
-
-  var memory :: List<MemoryCell> = empty
-
-  lam(n):
-    answer = find(lam(elt): elt.in == n end, memory)
-    cases (Option) answer block:
-      | none =>
-        result = f(n)
-        memory := link(mem(n, result), memory)
-        result
-      | some(v) => v.out
-    end
-  end
-end
+```jayret
+data MemoryCell {
+    Mem(in, out);
+}
+/* arrow-ann */ Object memoize-1(/* arrow-ann */ Object f) {
+    var memory = empty;
+    return (n) -> {
+        answer = find((elt) -> elt.in == n, memory);
+        return switch (answer) {
+            case None: yield block {
+                result = f(n);
+                memory = link(mem(n, result), memory);
+                return result;
+            };
+            case Some(v): yield v.out;
+        }
+    }
+}
 ```
 We use the name `memoize-1`{.pyret} to indicate that this is a
 memoizer for single-argument functions. Observe that the code
@@ -265,17 +260,12 @@ had the logic of Catalan number computation, we now have the parameter
 
 With this, we can now define `catalan`{.pyret} as follows:
 
-```pyret
-rec catalan :: (Number -> Number) =
-  memoize-1(
-    lam(n):
-      if n == 0: 1
-      else if n > 0:
-        for fold(acc from 0, k from range(0, n)):
-          acc + (catalan(k) * catalan(n - 1 - k))
-        end
-      end
-    end)
+```jayret
+rec catalan = memoize-1((n) -> if (n == 0) {
+    return 1;
+} else if (n > 0) {
+    return [for fold(acc : 0, k : range(0, n)) { yield acc + (catalan(k) * catalan(n - 1 - k)); }];
+});
 ```
 Note several things about this definition:
 
@@ -383,51 +373,29 @@ is 3 because we have to replace “k” with “s”, replace “e” with
 “i”, and insert “g” (or symmetrically, perform the opposite
 replacements and delete “g”). Here are more examples:
 <levenshtein-tests> ::=
-```pyret
-check:
-  levenshtein(empty, empty) is 0
-  levenshtein([list: "x"], [list: "x"]) is 0
-  levenshtein([list: "x"], [list: "y"]) is 1
-  # one of about 600
-  levenshtein(
-    [list: "b", "r", "i", "t", "n", "e", "y"],
-    [list: "b", "r", "i", "t", "t", "a", "n", "y"])
-    is 3
-  # http://en.wikipedia.org/wiki/Levenshtein_distance
-  levenshtein(
-    [list: "k", "i", "t", "t", "e", "n"],
-    [list: "s", "i", "t", "t", "i", "n", "g"])
-    is 3
-  levenshtein(
-    [list: "k", "i", "t", "t", "e", "n"],
-    [list: "k", "i", "t", "t", "e", "n"])
-    is 0
-  # http://en.wikipedia.org/wiki/Levenshtein_distance
-  levenshtein(
-    [list: "S", "u", "n", "d", "a", "y"],
-    [list: "S", "a", "t", "u", "r", "d", "a", "y"])
-    is 3
-  # http://www.merriampark.com/ld.htm
-  levenshtein(
-    [list: "g", "u", "m", "b", "o"],
-    [list: "g", "a", "m", "b", "o", "l"])
-    is 2
-  # http://www.csse.monash.edu.au/~lloyd/tildeStrings/Alignment/92.IPL.html
-  levenshtein(
-    [list: "a", "c", "g", "t", "a", "c", "g", "t", "a", "c", "g", "t"],
-    [list: "a", "c", "a", "t", "a", "c", "t", "t", "g", "t", "a", "c", "t"])
-    is 4
-  levenshtein(
-    [list: "s", "u", "p", "e", "r", "c", "a", "l", "i",
-      "f", "r", "a", "g", "i", "l", "i", "s", "t" ],
-    [list: "s", "u", "p", "e", "r", "c", "a", "l", "y",
-      "f", "r", "a", "g", "i", "l", "e", "s", "t" ])
-    is 2
-end
+```jayret
+@Check void test() {
+    assertEquals(levenshtein(empty, empty), 0);
+    assertEquals(levenshtein(["x"], ["x"]), 0);
+    assertEquals(levenshtein(["x"], ["y"]), 1);
+    // one of about 600
+    assertEquals(levenshtein(["b", "r", "i", "t", "n", "e", "y"], ["b", "r", "i", "t", "t", "a", "n", "y"]), 3);
+    // http://en.wikipedia.org/wiki/Levenshtein_distance
+    assertEquals(levenshtein(["k", "i", "t", "t", "e", "n"], ["s", "i", "t", "t", "i", "n", "g"]), 3);
+    assertEquals(levenshtein(["k", "i", "t", "t", "e", "n"], ["k", "i", "t", "t", "e", "n"]), 0);
+    // http://en.wikipedia.org/wiki/Levenshtein_distance
+    assertEquals(levenshtein(["S", "u", "n", "d", "a", "y"], ["S", "a", "t", "u", "r", "d", "a", "y"]), 3);
+    // http://www.merriampark.com/ld.htm
+    assertEquals(levenshtein(["g", "u", "m", "b", "o"], ["g", "a", "m", "b", "o", "l"]), 2);
+    // http://www.csse.monash.edu.au/~lloyd/tildeStrings/Alignment/92.IPL.html
+    assertEquals(levenshtein(["a", "c", "g", "t", "a", "c", "g", "t", "a", "c", "g", "t"], ["a", "c", "a", "t", "a", "c", "t", "t", "g", "t", "a", "c", "t"]), 4);
+    assertEquals(levenshtein(["s", "u", "p", "e", "r", "c", "a", "l", "i", "f", "r", "a", "g", "i", "l", "i", "s", "t"], ["s", "u", "p", "e", "r", "c", "a", "l", "y", "f", "r", "a", "g", "i", "l", "e", "s", "t"]), 2);
+}
 ```
 The basic algorithm is in fact very simple:
 <levenshtein> ::=
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 rec levenshtein :: (List<String>, List<String> -> Number) =
   <levenshtein-body>
 ```
@@ -435,6 +403,7 @@ where, because there are two list inputs, there are four cases, of
 which two are symmetric:
 <levenshtein-body> ::=
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 lam(s, t):
   <levenshtein-both-empty>
   <levenshtein-one-empty>
@@ -444,6 +413,7 @@ end
 If both inputs are empty, the answer is simple:
 <levenshtein-both-empty> ::=
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 if is-empty(s) and is-empty(t): 0
 ```
 When one is empty, then the edit distance corresponds to the length of
@@ -451,6 +421,7 @@ the other, which needs to inserted (or deleted) in its entirety (so we
 charge a cost of one per character):
 <levenshtein-one-empty> ::=
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 else if is-empty(s): t.length()
 else if is-empty(t): s.length()
 ```
@@ -461,6 +432,7 @@ edit cost). If they are not the same, however, we consider each of the
 possible edits:
 <levenshtein-neither-empty> ::=
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 else:
   if s.first == t.first:
     levenshtein(s.rest, t.rest)
@@ -481,10 +453,10 @@ another, so we charge one but consider the rest of both words (e.g.,
 assume “s” was typed for “k” and continue with “itten” and
 “itting”). This uses the following helper function:
 
-```pyret
-fun min3(a :: Number, b :: Number, c :: Number):
-  num-min(a, num-min(b, c))
-end
+```jayret
+Object min3(int a, int b, int c) {
+    return num-min(a, num-min(b, c));
+}
 ```
 
 This algorithm will indeed pass all the tests we have written above,
@@ -509,53 +481,44 @@ that are actually evaluated.
 The solution, therefore, is naturally to memoize. First, we need a
 memoizer that works over two arguments rather than one:
 
-```pyret
-data MemoryCell2<T, U, V>:
-  | mem(in-1 :: T, in-2 :: U, out :: V)
-end
-
-fun memoize-2<T, U, V>(f :: (T, U -> V)) -> (T, U -> V):
-
-  var memory :: List<MemoryCell2<T, U, V>> = empty
-
-  lam(p, q):
-    answer = find(
-      lam(elt): (elt.in-1 == p) and (elt.in-2 == q) end,
-      memory)
-    cases (Option) answer block:
-      | none =>
-        result = f(p, q)
-        memory :=
-        link(mem(p, q, result), memory)
-        result
-      | some(v) => v.out
-    end
-  end
-end
+```jayret
+data MemoryCell2 {
+    Mem(T in-1, U in-2, V out);
+}
+/* arrow-ann */ Object memoize-2(/* arrow-ann */ Object f) {
+    var memory = empty;
+    return (p, q) -> {
+        answer = find((elt) -> (elt.in-1 == p) && (elt.in-2 == q), memory);
+        return switch (answer) {
+            case None: yield block {
+                result = f(p, q);
+                memory = link(mem(p, q, result), memory);
+                return result;
+            };
+            case Some(v): yield v.out;
+        }
+    }
+}
 ```
 Most of the code is unchanged, except that we store two arguments
 rather than one, and correspondingly look up both.
 
 With this, we can redefine `levenshtein`{.pyret} to use memoization:
 <levenshtein-memo> ::=
-```pyret
-rec levenshtein :: (List<String>, List<String> -> Number) =
-  memoize-2(
-    lam(s, t):
-      if is-empty(s) and is-empty(t): 0
-      else if is-empty(s): t.length()
-      else if is-empty(t): s.length()
-      else:
-        if s.first == t.first:
-          levenshtein(s.rest, t.rest)
-        else:
-          min3(
-            1 + levenshtein(s.rest, t),
-            1 + levenshtein(s, t.rest),
-            1 + levenshtein(s.rest, t.rest))
-        end
-      end
-    end)
+```jayret
+rec levenshtein = memoize-2((s, t) -> if (is-empty(s) && is-empty(t)) {
+    return 0;
+} else if (is-empty(s)) {
+    return t.length();
+} else if (is-empty(t)) {
+    return s.length();
+} else {
+    return if (s.first == t.first) {
+        return levenshtein(s.rest, t.rest);
+    } else {
+        return min3(1 + levenshtein(s.rest, t), 1 + levenshtein(s, t.rest), 1 + levenshtein(s.rest, t.rest));
+    }
+});
 ```
 where the argument to `memoize-2`{.pyret} is precisely what we saw
 earlier as [<levenshtein-body>](avoid-recomp.html#%28elem._levenshtein-body%29) (and now you know why we
@@ -642,43 +605,36 @@ answers. Following convention, we will use an array.[What
 happens when we run out of space? We can use the doubling technique we
 studied for [Halloween Analysis](amortized-analysis.html).]{.margin-note}
 
-```pyret
-MAX-CAT = 11
-
-answers :: Array<Option<Number>> = array-of(none, MAX-CAT + 1)
+```jayret
+MAX-CAT = 11;
+answers = array-of(none, MAX-CAT + 1);
 ```
 Then, the `catalan`{.pyret} function simply looks up the answer in this
 array:
 
-```pyret
-fun catalan(n):
-  cases (Option) array-get-now(answers, n):
-    | none => raise("looking at uninitialized value")
-    | some(v) => v
-  end
-end
+```jayret
+Object catalan(n) {
+    return switch (array-get-now(answers, n)) {
+        case None: yield raise("looking at uninitialized value");
+        case Some(v): yield v;
+    }
+}
 ```
 But how do we fill the array? We initialize the one known value, and
 use the formula to compute the rest in incremental order. Because we have
 multiple things to do in the body, we use `block`{.pyret}:
 
-```pyret
-fun fill-catalan(upper) block:
-  array-set-now(answers, 0, some(1))
-  when upper > 0:
-    for each(n from range(1, upper + 1)):
-      block:
-        cat-at-n =
-          for fold(acc from 0, k from range(0, n)):
-            acc + (catalan(k) * catalan(n - 1 - k))
-          end
-        array-set-now(answers, n, some(cat-at-n))
-      end
-    end
-  end
-end
-
-fill-catalan(MAX-CAT)
+```jayret
+Object fill-catalan(upper) {
+    array-set-now(answers, 0, some(1));
+    when (upper > 0) {
+        for (n : range(1, upper + 1)) {
+            block: cat-at-n = [for fold(acc : 0, k : range(0, n)) { yield acc + (catalan(k) * catalan(n - 1 - k)); }];
+            array-set-now(answers, n, some(cat-at-n));
+        }
+    }
+}
+fill-catalan(MAX-CAT);
 ```
 The resulting program obeys the tests in [<catalan-tests>](avoid-recomp.html#%28elem._catalan-tests%29).
 
@@ -700,6 +656,7 @@ looked up the value or computed it afresh.
 Now let’s take on rewriting the Levenshtein distance computation:
 <levenshtein-dp> ::=
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 fun levenshtein(s1 :: List<String>, s2 :: List<String>) block:
   <levenshtein-dp/1>
 end
@@ -717,6 +674,7 @@ positions, the extra one corresponding to the empty word. This will
 hold for both words:
 <levenshtein-dp/1> ::=
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 s1-len = s1.length()
 s2-len = s2.length()
 answers = array2d(s1-len + 1, s2-len + 1, none)
@@ -729,10 +687,10 @@ rather than having to over-allocate or dynamically grow the array.
 ::: {.exercise}
 Define the functions
 
-```pyret
-array2d :: Number, Number, A -> Array<A>
-set-answer :: Array<A>, Number, Number, A -> Nothing
-get-answer :: Array<A>, Number, Number -> A
+```jayret
+/* contract: array2d :: Object */;
+/* contract: set-answer :: Object */;
+/* contract: get-answer :: Object */;
 ```
 :::
 
@@ -743,17 +701,17 @@ writing and debugging this code!]{.margin-note} It will
  therefore be convenient to create helper functions that let us
  pretend the table contains only numbers:
 <levenshtein-dp/2> ::=
-```pyret
-fun put(s1-idx :: Number, s2-idx :: Number, n :: Number):
-  set-answer(answers, s1-idx, s2-idx, some(n))
-end
-fun lookup(s1-idx :: Number, s2-idx :: Number) -> Number block:
-  a = get-answer(answers, s1-idx, s2-idx)
-  cases (Option) a:
-    | none => raise("looking at uninitialized value")
-    | some(v) => v
-  end
-end
+```jayret
+Object put(int s1-idx, int s2-idx, int n) {
+    return set-answer(answers, s1-idx, s2-idx, some(n));
+}
+int lookup(int s1-idx, int s2-idx) {
+    a = get-answer(answers, s1-idx, s2-idx);
+    return switch (a) {
+        case None: yield raise("looking at uninitialized value");
+        case Some(v): yield v;
+    }
+}
 ```
 
 Now we have to populate the array. First, we initialize the row
@@ -764,6 +722,7 @@ position from zero, because that many characters must be added to one
 or deleted from the other word for the two to coincide:
 <levenshtein-dp/3> ::=
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 for each(s1i from range(0, s1-len + 1)):
   put(s1i, 0, s1i)
 end
@@ -780,6 +739,7 @@ precisely the ranges of values produced by `range(0, s1-len)`{.pyret} and
 `range(0, s2-len)`{.pyret}.
 <levenshtein-dp/4> ::=
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 for each(s1i from range(0, s1-len)):
   for each(s2i from range(0, s2-len)):
   <levenshtein-dp/compute-dist>
@@ -809,17 +769,13 @@ whether the characters at the pair of positions are identical. If they
 are, then the distance is the same as it was for the previous pair of
 prefixes; otherwise we have to try the three different kinds of edits:
 <levenshtein-dp/compute-dist> ::=
-```pyret
-dist =
-  if get(s1, s1i) == get(s2, s2i):
-    lookup(s1i, s2i)
-  else:
-    min3(
-      1 + lookup(s1i, s2i + 1),
-      1 + lookup(s1i + 1, s2i),
-      1 + lookup(s1i, s2i))
-  end
-put(s1i + 1, s2i + 1, dist)
+```jayret
+dist = if (get(s1, s1i) == get(s2, s2i)) {
+    return lookup(s1i, s2i);
+} else {
+    return min3(1 + lookup(s1i, s2i + 1), 1 + lookup(s1i + 1, s2i), 1 + lookup(s1i, s2i));
+}
+put(s1i + 1, s2i + 1, dist);
 ```
 As an aside, this sort of “off-by-one” coordinate arithmetic is
 traditional when using tabular representations, because we write code
@@ -833,8 +789,8 @@ At any rate, when this computation is done, the entire table has been
 filled with values. We still have to read out the answer, with lies at
 the end of the table:
 <levenshtein-dp/get-result> ::=
-```pyret
-lookup(s1-len, s2-len)
+```jayret
+lookup(s1-len, s2-len);
 ```
 
 Even putting aside the helper functions we wrote to satiate our
@@ -854,47 +810,39 @@ The page also shows the
 [recursive](http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&oldid=581406185#Recursive)
 solution and alludes to memoization, but does not show it in code.]{.margin-note}
 
-```pyret
-fun levenshtein(s1 :: List<String>, s2 :: List<String>) block:
-  s1-len = s1.length()
-  s2-len = s2.length()
-  answers = array2d(s1-len + 1, s2-len + 1, none)
-
-  fun put(s1-idx :: Number, s2-idx :: Number, n :: Number):
-    set-answer(answers, s1-idx, s2-idx, some(n))
-  end
-  fun lookup(s1-idx :: Number, s2-idx :: Number) -> Number block:
-    a = get-answer(answers, s1-idx, s2-idx)
-    cases (Option) a:
-      | none => raise("looking at uninitialized value")
-      | some(v) => v
-    end
-  end
-
-  for each(s1i from range(0, s1-len + 1)):
-    put(s1i, 0, s1i)
-  end
-  for each(s2i from range(0, s2-len + 1)):
-    put(0, s2i, s2i)
-  end
-
-  for each(s1i from range(0, s1-len)):
-    for each(s2i from range(0, s2-len)):
-      dist =
-        if get(s1, s1i) == get(s2, s2i):
-          lookup(s1i, s2i)
-        else:
-          min3(
-            1 + lookup(s1i, s2i + 1),
-            1 + lookup(s1i + 1, s2i),
-            1 + lookup(s1i, s2i))
-        end
-      put(s1i + 1, s2i + 1, dist)
-    end
-  end
-
-  lookup(s1-len, s2-len)
-end
+```jayret
+Object levenshtein(List<Object> s1, List<Object> s2) {
+    s1-len = s1.length();
+    s2-len = s2.length();
+    answers = array2d(s1-len + 1, s2-len + 1, none);
+    Object put(int s1-idx, int s2-idx, int n) {
+        return set-answer(answers, s1-idx, s2-idx, some(n));
+    }
+    int lookup(int s1-idx, int s2-idx) {
+        a = get-answer(answers, s1-idx, s2-idx);
+        return switch (a) {
+            case None: yield raise("looking at uninitialized value");
+            case Some(v): yield v;
+        }
+    }
+    for (s1i : range(0, s1-len + 1)) {
+        put(s1i, 0, s1i);
+    }
+    for (s2i : range(0, s2-len + 1)) {
+        put(0, s2i, s2i);
+    }
+    for (s1i : range(0, s1-len)) {
+        for (s2i : range(0, s2-len)) {
+            dist = if (get(s1, s1i) == get(s2, s2i)) {
+                return lookup(s1i, s2i);
+            } else {
+                return min3(1 + lookup(s1i, s2i + 1), 1 + lookup(s1i + 1, s2i), 1 + lookup(s1i, s2i));
+            }
+            put(s1i + 1, s2i + 1, dist);
+        }
+    }
+    return lookup(s1-len, s2-len);
+}
 ```
 which is worth contrasting with the memoized version
 ([<levenshtein-memo>](avoid-recomp.html#%28elem._levenshtein-memo%29)).[For more examples of

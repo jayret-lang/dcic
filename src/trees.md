@@ -20,16 +20,8 @@ purposes of a medical research study. Specifically, we want to record
 people’s birthyear, eye colors, and genetic parents. Here’s a
 sample table of such data, with one row for each person:
 
-```pyret
-ancestors = table: name, birthyear, eyecolor, female-parent, male-parent
-  row: "Anna", 1997, "blue", "Susan", "Charlie"
-  row: "Susan", 1971, "blue", "Ellen", "Bill"
-  row: "Charlie", 1972, "green", "", ""
-  row: "Ellen", 1945, "brown", "Laura", "John"
-  row: "John", 1922, "brown", "", "Robert"
-  row: "Laura", 1922, "brown", "", ""
-  row: "Robert", 1895, "blue", "", ""
-end
+```jayret
+ancestors = table: name ,birthyear ,eyecolor ,female-parent ,male-parent row: "Anna" ,1997 ,"blue" ,"Susan" ,"Charlie" row: "Susan" ,1971 ,"blue" ,"Ellen" ,"Bill" row: "Charlie" ,1972 ,"green" ,"" ,"" row: "Ellen" ,1945 ,"brown" ,"Laura" ,"John" row: "John" ,1922 ,"brown" ,"" ,"Robert" row: "Laura" ,1922 ,"brown" ,"" ,"" row: "Robert" ,1895 ,"blue" ,"" ,"";
 ```
 
 For our research, we want to be able to answer questions such as the following:
@@ -73,23 +65,19 @@ task plan for that:
 These are tasks we have seen before, so we can translate this
 plan directly into code:
 
-```pyret
-fun parents-of(anc-table :: Table, who :: String) -> List<String>:
-  doc: "Return list of names of known parents of given name"
-  matches = filter-with(anc-table, lam(r): r["name"] == who end)
-  if matches.length() > 0:
-    person-row = matches.row-n(0)
-    [list:
-      person-row["female-parent"],
-      person-row["male-parent"]]
-  else:
-    empty
-  end
-where:
-  parents-of(ancestors, "Anna")
-    is [list: "Susan", "Charlie"]
-  parents-of(ancestors, "Kathi") is empty
-end
+```jayret
+List<Object> parents-of(Table anc-table, String who) {
+    // Return list of names of known parents of given name
+    matches = filter-with(anc-table, (r) -> r["name"] == who);
+    return if (matches.length() > 0) {
+        person-row = matches.row-n(0);
+        return [person-row["female-parent"], person-row["male-parent"]];
+    } else {
+        return empty;
+    }
+} where {
+    
+}
 ```
 
 ::: {.do-now}
@@ -116,32 +104,27 @@ produced list of parents and return something other than the
 `empty`{.pyret} list when a name is not in the table. Since the output of
 this function is a list of strings, it’s hard to see what to return
 that couldn’t be confused for a valid list of names. Our solution for
-now is to have Pyret throw an error (like the ones you get when Pyret
+now is to have Jayret throw an error (like the ones you get when Jayret
 is not able to finish running your program). Here’s a solution that
 handles both problems:
 
-```pyret
-fun parents-of(anc-table :: Table, who :: String) -> List<String>:
-  doc: "Return list of names of known parents of given name"
-  matches = filter-with(anc-table, lam(r): r["name"] == who end)
-  if matches.length() > 0:
-    person-row = matches.row-n(0)
-    names =
-     [list: person-row["female-parent"],
-       person-row["male-parent"]]
-    L.filter(lam(n): not(n == "") end, names)
-  else:
-    raise("No such person " + who)
-  end
-where:
-  parents-of(ancestors, "Anna") is [list: "Susan", "Charlie"]
-  parents-of(ancestors, "John") is [list: "Robert"]
-  parents-of(ancestors, "Robert") is empty
-  parents-of(ancestors, "Kathi") raises "No such person"
-end
+```jayret
+List<Object> parents-of(Table anc-table, String who) {
+    // Return list of names of known parents of given name
+    matches = filter-with(anc-table, (r) -> r["name"] == who);
+    return if (matches.length() > 0) {
+        person-row = matches.row-n(0);
+        names = [person-row["female-parent"], person-row["male-parent"]];
+        return L.filter((n) -> not(n == ""), names);
+    } else {
+        return raise("No such person " + who);
+    }
+} where {
+    
+}
 ```
 
-The `raise`{.pyret} construct tells Pyret to halt the program and produce
+The `raise`{.pyret} construct tells Jayret to halt the program and produce
 an error message. The error message does not have to match the
 expected output type of the program. If you run this function with a
 name that is not in the table, you’ll see an error appear in the
@@ -158,19 +141,16 @@ program.
 Once we have the `parents-of`{.pyret} function, we should be able to
 compute the grandparents by computing parents of parents, as follows:
 
-```pyret
-fun grandparents-of(anc-table :: Table, who :: String) -> List<String>:
-  doc: "compute list of known grandparents in the table"
-  # glue together lists of mother's parents and father's parents
-  plist = parents-of(anc-table, who) # gives a list of two names
-  parents-of(anc-table, plist.first) +
-    parents-of(anc-table, plist.rest.first)
-where:
-  grandparents-of(ancestors, "Anna") is [list: "Ellen", "Bill"]
-  grandparents-of(ancestors, "Laura") is [list:]
-  grandparents-of(ancestors, "John") is [list: ]
-  grandparents-of(ancestors, "Kathi") is [list:]
-end
+```jayret
+List<Object> grandparents-of(Table anc-table, String who) {
+    // compute list of known grandparents in the table
+    // glue together lists of mother's parents and father's parents
+    plist = parents-of(anc-table, who);
+    return // gives a list of two names
+    parents-of(anc-table, plist.first) + parents-of(anc-table, plist.rest.first);
+} where {
+    
+}
 ```
 
 ::: {.do-now}
@@ -187,23 +167,22 @@ error.
 Here’s a version that checks the number of parents before computing
 the set of grandparents:
 
-```pyret
-fun grandparents-of(anc-table :: Table, who :: String) -> List<String>:
-  doc: "compute list of known grandparents in the table"
-  # glue together lists of mother's parents and father's parents
-  plist = parents-of(anc-table, who) # gives a list of two names
-  if plist.length() == 2:
-    parents-of(anc-table, plist.first) + parents-of(anc-table, plist.rest.first)
-  else if plist.length() == 1:
-    parents-of(anc-table, plist.first)
-  else: empty
-  end
-where:
-  grandparents-of(ancestors, "Anna") is [list: "Ellen", "Bill"]
-  grandparents-of(ancestors, "Laura") is [list:]
-  grandparents-of(ancestors, "John") is [list: ]
-  grandparents-of(ancestors, "Kathi") raises "No such person"
-end
+```jayret
+List<Object> grandparents-of(Table anc-table, String who) {
+    // compute list of known grandparents in the table
+    // glue together lists of mother's parents and father's parents
+    plist = parents-of(anc-table, who);
+    return // gives a list of two names
+    if (plist.length() == 2) {
+        return parents-of(anc-table, plist.first) + parents-of(anc-table, plist.rest.first);
+    } else if (plist.length() == 1) {
+        return parents-of(anc-table, plist.first);
+    } else {
+        return empty;
+    }
+} where {
+    
+}
 ```
 
 What if we now wanted to gather up all of someone’s ancestors? Since
@@ -226,21 +205,16 @@ name, their mother, and their father (along with birthyear and
 eyecolor, which aren’t shown in the picture). This suggests the following
 datatype, which basically turns a row into a person value:
 
-```pyret
-data AncTree:
-  | person(
-      name :: String,
-      birthyear :: Number,
-      eye :: String,
-      mother :: ________,
-      father :: ________
-      )
-end
+```jayret
+data AncTree {
+    Person(String name, int birthyear, String eye, ________ mother, ________ father);
+}
 ```
 
 For example, anna’s row might look like:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 anna-row = person("Anna", 1997, "blue", ???, ???)
 ```
 
@@ -249,7 +223,7 @@ several ideas:
 
 
 - `person`{.pyret}
-- `List<person>`{.pyret}
+- `List < person >`{.pyret}
 - some new datatype
 - `AncTree`{.pyret}
 - `String`{.pyret}
@@ -260,16 +234,10 @@ If we use a `String`{.pyret}, we’re back to the table row, and we don’t
 end up with a way to easily get from one person to another. We should
 therefore make this an `AncTree`{.pyret}.
 
-```pyret
-data AncTree:
-  | person(
-      name :: String,
-      birthyear :: Number,
-      eye :: String,
-      mother :: AncTree,
-      father :: AncTree
-      )
-end
+```jayret
+data AncTree {
+    Person(String name, int birthyear, String eye, AncTree mother, AncTree father);
+}
 ```
 
 ::: {.do-now}
@@ -280,45 +248,30 @@ Did you get stuck? What do we do when we run out of known people? To
 handle that, we must add an option in the `AncTree`{.pyret} definition to
 capture people for whom we don’t know anything.
 
-```pyret
-data AncTree:
-  | noInfo
-  | person(
-      name :: String,
-      birthyear :: Number,
-      eye :: String,
-      mother :: AncTree,
-      father :: AncTree
-      )
-end
+```jayret
+data AncTree {
+    NoInfo;
+    Person(String name, int birthyear, String eye, AncTree mother, AncTree father);
+}
 ```
 
 Here’s Anna’s tree written in this datatype:
 
-```pyret
-anna-tree =
-  person("Anna", 1997, "blue",
-    person("Susan", 1971, "blue",
-      person("Ellen", 1945, "brown",
-        person("Laura", 1920, "blue", noInfo, noInfo),
-        person("John", 1920, "green",
-          noInfo,
-          person("Robert", 1893, "brown", noInfo, noInfo))),
-      person("Bill", 1946, "blue", noInfo, noInfo)),
-    person("Charlie", 1972, "green", noInfo, noInfo))
+```jayret
+anna-tree = person("Anna", 1997, "blue", person("Susan", 1971, "blue", person("Ellen", 1945, "brown", person("Laura", 1920, "blue", noInfo, noInfo), person("John", 1920, "green", noInfo, person("Robert", 1893, "brown", noInfo, noInfo))), person("Bill", 1946, "blue", noInfo, noInfo)), person("Charlie", 1972, "green", noInfo, noInfo));
 ```
 
 We could also have named each person data individually.
 
-```pyret
-robert-tree = person("Robert", 1893, "brown", noInfo, noInfo)
-laura-tree = person("Laura", 1920, "blue", noInfo, noInfo)
-john-tree = person("John", 1920, "green", noInfo, robert-tree)
-ellen-tree = person("Ellen", 1945, "brown", laura-tree, john-tree)
-bill-tree = person("Bill", 1946, "blue", noInfo, noInfo)
-susan-tree = person("Susan", 1971, "blue", ellen-tree, bill-tree)
-charlie-tree = person("Charlie", 1972, "green", noInfo, noInfo)
-anna-tree2 = person("Anna", 1997, "blue", susan-tree, charlie-tree)
+```jayret
+robert-tree = person("Robert", 1893, "brown", noInfo, noInfo);
+laura-tree = person("Laura", 1920, "blue", noInfo, noInfo);
+john-tree = person("John", 1920, "green", noInfo, robert-tree);
+ellen-tree = person("Ellen", 1945, "brown", laura-tree, john-tree);
+bill-tree = person("Bill", 1946, "blue", noInfo, noInfo);
+susan-tree = person("Susan", 1971, "blue", ellen-tree, bill-tree);
+charlie-tree = person("Charlie", 1972, "green", noInfo, noInfo);
+anna-tree2 = person("Anna", 1997, "blue", susan-tree, charlie-tree);
 ```
 
 The latter gives you pieces of the tree to use as other examples, but
@@ -329,14 +282,14 @@ tree starting from "Ellen".
 
 Here’s the `parents-of`{.pyret} function written against `AncTree`{.pyret}:
 
-```pyret
-fun parents-of-tree(tr :: AncTree) -> List<String>:
-  cases (AncTree) tr:
-    | noInfo => empty
-    | person(n, y, e, m, f) => [list: m.name, f.name]
-      # person bit more complicated if parent is missing
-  end
-end
+```jayret
+List<Object> parents-of-tree(AncTree tr) {
+    return switch (tr) {
+        case NoInfo: yield empty;
+        case Person(n, y, e, m, f): yield [m.name, f.name];
+    }
+}
+// person bit more complicated if parent is missing
 ```
 
 #### 7.1.2 Programs to Process Ancestor Trees {#Programs-to-Process-Ancestor-Trees}
@@ -346,6 +299,7 @@ had a particular name? To be clear, we are trying to fill in the
 following code:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 fun in-tree(at :: AncTree, name :: String) -> Boolean:
   doc: "determine whether name is in the tree"
   ...
@@ -354,16 +308,13 @@ fun in-tree(at :: AncTree, name :: String) -> Boolean:
 How do we get started? Add some examples, remembering to check both
 cases of the `AncTree`{.pyret} definition:
 
-```pyret
-fun in-tree(at :: AncTree, name :: String) -> Boolean:
-  doc: "determine whether name is in the tree"
-  ...
-where:
-  in-tree(anna-tree, "Anna") is true
-  in-tree(anna-tree, "Ellen") is true
-  in-tree(ellen-tree, "Anna") is false
-  in-tree(noInfo, "Ellen") is false
-end
+```jayret
+boolean in-tree(AncTree at, String name) {
+    // determine whether name is in the tree
+    return ...;
+} where {
+    
+}
 ```
 
 What next? When we were working on lists, we talked about
@@ -372,19 +323,22 @@ based on the structure of the data. The template names the pieces of
 each kind of data, and makes recursive calls on pieces that have the
 same type. Here’s the template over the `AncTree`{.pyret} filled in:
 
-```pyret
-fun in-tree(at :: AncTree, name :: String) -> Boolean:
-  doc: "determine whether name is in the tree"
-  cases (AncTree) at:     # comes from AncTree being data with cases
-    | noInfo => ...
-    | person(n, y, e, m, f) => ... in-tree(m, name) ... in-tree(f, name)
-  end
-where:
-  in-tree(anna-tree, "Anna") is true
-  in-tree(anna-tree, "Ellen") is true
-  in-tree(ellen-tree, "Anna") is false
-  in-tree(noInfo, "Ellen") is false
-end
+```jayret
+boolean in-tree(AncTree at, String name) {
+    // determine whether name is in the tree
+    return switch (at) {
+        case NoInfo: yield // comes from AncTree being data with cases
+        ...;
+        case Person(n, y, e, m, f): yield block {
+            ...;
+            in-tree(m, name);
+            ...;
+            return in-tree(f, name);
+        };
+    }
+} where {
+    
+}
 ```
 
 To finish the code, we need to think about how to fill in the
@@ -401,25 +355,23 @@ ellipses.
   we are looking for. The recursive calls already ask about the name
   being in the mother’s tree or father’s tree. We just need to combine
   those pieces into one Boolean answer. Since there are three
-  possibilities, we should combine them with `or`{.pyret}
+  possibilities, we should combine them with `||`{.pyret}
 
 Here’s the final code:
 
-```pyret
-fun in-tree(at :: AncTree, name :: String) -> Boolean:
-  doc: "determine whether name is in the tree"
-  cases (AncTree) at:     # comes from AncTree being data with cases
-    | noInfo => false
-    | person(n, y, e, m, f) => (name == n) or in-tree(m, name) or in-tree(f, name)
-      # n is the same as at.name
-      # m is the same as at.mother
-  end
-where:
-  in-tree(anna-tree, "Anna") is true
-  in-tree(anna-tree, "Ellen") is true
-  in-tree(ellen-tree, "Anna") is false
-  in-tree(noInfo, "Ellen") is false
-end
+```jayret
+boolean in-tree(AncTree at, String name) {
+    // determine whether name is in the tree
+    return switch (at) {
+        case NoInfo: yield // comes from AncTree being data with cases
+        false;
+        case Person(n, y, e, m, f): yield (name == n) || in-tree(m, name) || in-tree(f, name);
+    }
+} where {
+    
+}
+// n is the same as at.name
+// m is the same as at.mother
 ```
 
 #### 7.1.3 Summarizing How to Approach Tree Problems {#Summarizing-How-to-Approach-Tree-Problems}
@@ -437,14 +389,18 @@ on lists:
   calls. Here’s the template again for an ancestor tree, for an
   arbitrary function called treeF:
   
-  ```pyret
-  fun treeF(name :: String, t :: AncTree) -> Boolean:
-    cases (AncTree) anct:
-      | unknown => ...
-      | person(n, y, e, m, f) =>
-       ... treeF(name, m) ... treeF(name, f)
-    end
-  end
+  ```jayret
+boolean treeF(String name, AncTree t) {
+    return switch (anct) {
+        case Unknown: yield ...;
+        case Person(n, y, e, m, f): yield block {
+            ...;
+            treeF(name, m);
+            ...;
+            return treeF(name, f);
+        };
+    }
+}
   ```
 - Fill in the template with details specific to the problem
 - Test your code using your examples

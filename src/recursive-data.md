@@ -17,22 +17,22 @@ In [Telling Apart Variants of Conditional Data](intro-struct-data.html##telling-
 between different forms of conditional data. We had used `cases`{.pyret}
 earlier, specifically to distinguish between empty and non-empty lists
 in [Processing Lists](processing-lists.html). This suggests that lists are also a
-form of conditional data, just one that is built into Pyret. Indeed,
+form of conditional data, just one that is built into Jayret. Indeed,
 this is the case.
 
 To understand lists as conditional data, let’s create a data
 definition for a new type `NumList`{.pyret} which contains a list of
 numbers (this differs from built-in lists, which work with any type of
-element). To avoid conflicts with Pyret’s built-in `empty`{.pyret} value
+element). To avoid conflicts with Jayret’s built-in `empty`{.pyret} value
 and `link`{.pyret} operator, we’ll have `NumList`{.pyret} use
 `nl-empty`{.pyret} as its empty value and `nl-link`{.pyret} as the operator
 that builds new lists. Here’s a partial definition:
 
-```pyret
-data NumList:
-  | nl-empty
-  | nl-link( _________ )
-end
+```jayret
+data NumList {
+    Nl-empty;
+    Nl-link(_________);
+}
 ```
 
 ::: {.do-now}
@@ -46,11 +46,11 @@ constructors take two inputs: the first element of the list and a list
 to build on (the rest of the list). That suggests that we need two
 fields here:
 
-```pyret
-data NumList:
-  | nl-empty
-  | nl-link(first :: _________, rest :: _________ )
-end
+```jayret
+data NumList {
+    Nl-empty;
+    Nl-link(_________ first, _________ rest);
+}
 ```
 
 ::: {.do-now}
@@ -61,11 +61,11 @@ Since we’re making a list of numbers, the `first`{.pyret} field should
 contain type `Number`{.pyret}. What about the `rest`{.pyret} field? It needs
 to be a list of numbers, so its type should be `NumList`{.pyret}.
 
-```pyret
-data NumList:
-  | nl-empty
-  | nl-link(first :: Number, rest :: NumList)
-end
+```jayret
+data NumList {
+    Nl-empty;
+    Nl-link(int first, NumList rest);
+}
 ```
 
 Notice something interesting (and new) here: the type of the
@@ -81,11 +81,11 @@ order). We start with `nl-empty`{.pyret}, which is a valid
 `NumList`{.pyret}. We then use `nl-link`{.pyret} to add the numbers onto
 that list, as follows:
 
-```pyret
-nl-empty
-nl-link(3, nl-empty)
-nl-link(7, nl-link(3, nl-empty))
-nl-link(2, nl-link(7, nl-link(3, nl-empty)))
+```jayret
+nl-empty;
+nl-link(3, nl-empty);
+nl-link(7, nl-link(3, nl-empty));
+nl-link(2, nl-link(7, nl-link(3, nl-empty)));
 ```
 
 In each case, the `rest`{.pyret} argument is itself a valid
@@ -102,6 +102,7 @@ is an easy way to make a new, larger one: just use `nl-link`{.pyret}. So, we
 need to consider larger lists:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 nl-link(1,
   nl-link(2,
     nl-link(3,
@@ -120,24 +121,20 @@ the `NumList`{.pyret} contains the value `3`{.pyret}, and `false`{.pyret} otherw
 
 First, our header:
 
-```pyret
-fun contains-3(nl :: NumList) -> Boolean:
-  doc: "Produces true if the list contains 3, false otherwise"
-end
+```jayret
+boolean contains-3(NumList nl) {
+    // Produces true if the list contains 3, false otherwise
+}
 ```
 
 Next, some tests:
 
-```pyret
-fun contains-3(nl :: NumList) -> Boolean:
-  doc: "Produces true if the list contains 3, false otherwise"
-where:
-  contains-3(nl-empty) is false
-  contains-3(nl-link(3, nl-empty)) is true
-  contains-3(nl-link(1, nl-link(3, nl-empty))) is true
-  contains-3(nl-link(1, nl-link(2, nl-link(3, nl-link(4, nl-empty))))) is true
-  contains-3(nl-link(1, nl-link(2, nl-link(5, nl-link(4, nl-empty))))) is false
-end
+```jayret
+boolean contains-3(NumList nl) {
+    // Produces true if the list contains 3, false otherwise
+} where {
+    
+}
 ```
 
 As we did in [Processing Fields of Variants](intro-struct-data.html##process-fields-variants), we will use `cases`{.pyret} to
@@ -145,16 +142,21 @@ distinguish the variants. In addition, since we are going to have to
 use the fields of `nl-link`{.pyret} to compute a result in that case, we
 will list those in the initial code outline:
 
-```pyret
-fun contains-3(nl :: NumList) -> Boolean:
-  doc: "Produces true if the list contains 3, false otherwise"
-  cases (NumList) nl:
-    | nl-empty => ...
-    | nl-link(first, rest) =>
-      ... first ...
-      ... rest ...
-  end
-end
+```jayret
+boolean contains-3(NumList nl) {
+    // Produces true if the list contains 3, false otherwise
+    return switch (nl) {
+        case Nl-empty: yield ...;
+        case Nl-link(first, rest): yield block {
+            ...;
+            first;
+            ...;
+            ...;
+            rest;
+            return ...;
+        };
+    }
+}
 ```
 
 Following our examples, the answer must be false in the
@@ -163,41 +165,44 @@ element is `3`{.pyret}, we’ve successfully answered the question. That
 only leaves the case where the argument is an `nl-link`{.pyret} and the
 first element does not equal `3`{.pyret}:
 
-```pyret
-fun contains-3(nl :: NumList) -> Boolean:
-  cases (NumList) nl:
-    | nl-empty => false
-    | nl-link(first, rest) =>
-      if first == 3:
-        true
-      else:
-        # handle rest here
-      end
-  end
-end
+```jayret
+boolean contains-3(NumList nl) {
+    return switch (nl) {
+        case Nl-empty: yield false;
+        case Nl-link(first, rest): yield if (first == 3) {
+            return true;
+        } else {
+        };
+    }
+}
+// handle rest here
 ```
 
 Since we know `rest`{.pyret} is a `NumList`{.pyret} (based on the data definition),
 we can use a `cases`{.pyret} expression to work with it. This is sort of like
 filling in a part of the template again:
 
-```pyret
-fun contains-3(nl :: NumList) -> Boolean:
-  cases (NumList) nl:
-    | nl-empty => false
-    | nl-link(first, rest) =>
-      if first == 3:
-        true
-      else:
-        cases (NumList) rest:
-          | nl-empty => ...
-          | nl-link(first-of-rest, rest-of-rest) =>
-            ... first-of-rest ...
-            ... rest-of-rest ...
-        end
-      end
-  end
-end
+```jayret
+boolean contains-3(NumList nl) {
+    return switch (nl) {
+        case Nl-empty: yield false;
+        case Nl-link(first, rest): yield if (first == 3) {
+            return true;
+        } else {
+            return switch (rest) {
+                case Nl-empty: yield ...;
+                case Nl-link(first-of-rest, rest-of-rest): yield block {
+                    ...;
+                    first-of-rest;
+                    ...;
+                    ...;
+                    rest-of-rest;
+                    return ...;
+                };
+            }
+        };
+    }
+}
 ```
 
 If the `rest`{.pyret} was empty, then we haven’t found `3`{.pyret} (just like when
@@ -205,56 +210,57 @@ we checked the original argument, `nl`{.pyret}). If the `rest`{.pyret} was a
 `nl-link`{.pyret}, then we need to check if the first thing in the rest of the
 list is `3`{.pyret} or not:
 
-```pyret
-fun contains-3(nl :: NumList) -> Boolean:
-  cases (NumList) nl:
-    | nl-empty => false
-    | nl-link(first, rest) =>
-      if first == 3:
-        true
-      else:
-        cases (NumList) rest:
-          | nl-empty => false
-          | nl-link(first-of-rest, rest-of-rest) =>
-            if first-of-rest == 3:
-              true
-            else:
-              # fill in here ...
-            end
-        end
-      end
-  end
-end
+```jayret
+boolean contains-3(NumList nl) {
+    return switch (nl) {
+        case Nl-empty: yield false;
+        case Nl-link(first, rest): yield if (first == 3) {
+            return true;
+        } else {
+            return switch (rest) {
+                case Nl-empty: yield false;
+                case Nl-link(first-of-rest, rest-of-rest): yield if (first-of-rest == 3) {
+                    return true;
+                } else {
+                };
+            }
+        };
+    }
+}
+// fill in here ...
 ```
 
 Since `rest-of-rest`{.pyret} is a `NumList`{.pyret}, we can fill in a `cases`{.pyret}
 for it again:
 
-```pyret
-fun contains-3(nl :: NumList) -> Boolean:
-  cases (NumList) nl:
-    | nl-empty => false
-    | nl-link(first, rest) =>
-      if first == 3:
-        true
-      else:
-        cases (NumList) rest:
-          | nl-empty => false
-          | nl-link(first-of-rest, rest-of-rest) =>
-            if first-of-rest == 3:
-              true
-            else:
-              cases (NumList) rest-of-rest:
-                | nl-empty => ...
-                | nl-link(first-of-rest-of-rest, rest-of-rest-of-rest) =>
-                  ... first-of-rest-of-rest ...
-                  ... rest-of-rest-of-rest ...
-              end
-            end
-        end
-      end
-  end
-end
+```jayret
+boolean contains-3(NumList nl) {
+    return switch (nl) {
+        case Nl-empty: yield false;
+        case Nl-link(first, rest): yield if (first == 3) {
+            return true;
+        } else {
+            return switch (rest) {
+                case Nl-empty: yield false;
+                case Nl-link(first-of-rest, rest-of-rest): yield if (first-of-rest == 3) {
+                    return true;
+                } else {
+                    return switch (rest-of-rest) {
+                        case Nl-empty: yield ...;
+                        case Nl-link(first-of-rest-of-rest, rest-of-rest-of-rest): yield block {
+                            ...;
+                            first-of-rest-of-rest;
+                            ...;
+                            ...;
+                            rest-of-rest-of-rest;
+                            return ...;
+                        };
+                    }
+                };
+            }
+        };
+    }
+}
 ```
 
 See where this is going? Not anywhere good. We can copy this `cases`{.pyret}
@@ -269,18 +275,17 @@ fact, it’s what the recipe seems to lead to naturally.
 Let’s go back to the step where the problem began, after filling in the
 template with the first check for `3`{.pyret}:
 
-```pyret
-fun contains-3(nl :: NumList) -> Boolean:
-  cases (NumList) nl:
-    | nl-empty => false
-    | nl-link(first, rest) =>
-      if first == 3:
-        true
-      else:
-        # what to do with rest?
-      end
-  end
-end
+```jayret
+boolean contains-3(NumList nl) {
+    return switch (nl) {
+        case Nl-empty: yield false;
+        case Nl-link(first, rest): yield if (first == 3) {
+            return true;
+        } else {
+        };
+    }
+}
+// what to do with rest?
 ```
 
 We need a way to compute whether or not the value `3`{.pyret} is contained in
@@ -291,32 +296,32 @@ And we have a function (or, most of one) whose job is to figure out if a
 be something we can call with `rest`{.pyret} as an argument, and get back the
 value we want:
 
-```pyret
-fun contains-3(nl :: NumList) -> Boolean:
-  cases (NumList) nl:
-    | nl-empty => false
-    | nl-link(first, rest) =>
-      if first == 3:
-        true
-      else:
-        contains-3(rest)
-      end
-  end
-end
+```jayret
+boolean contains-3(NumList nl) {
+    return switch (nl) {
+        case Nl-empty: yield false;
+        case Nl-link(first, rest): yield if (first == 3) {
+            return true;
+        } else {
+            return contains-3(rest);
+        };
+    }
+}
 ```
 
 And lo and behold, all of the tests defined above pass. It’s useful to step
 through what’s happening when this function is called. Let’s look at an
 example:
 
-```pyret
-contains-3(nl-link(1, nl-link(3, nl-empty)))
+```jayret
+contains-3(nl-link(1, nl-link(3, nl-empty)));
 ```
 
 First, we substitute the argument value in place of `nl`{.pyret} everywhere
 it appears; that’s just the usual rule for function calls.
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 =>  cases (NumList) nl-link(1, nl-link(3, nl-empty)):
        | nl-empty => false
        | nl-link(first, rest) =>
@@ -333,6 +338,7 @@ substitute the corresponding pieces of the `nl-link`{.pyret} value for the
 `first`{.pyret} and `rest`{.pyret} identifiers.
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 =>  if 1 == 3:
       true
     else:
@@ -345,6 +351,7 @@ Since `1`{.pyret} isn’t `3`{.pyret}, the comparison evaluates to
 `else`{.pyret} branch.
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 =>  if false:
       true
     else:
@@ -359,6 +366,7 @@ This is another function call, so we substitute the value
 input, into the body of `contains-3`{.pyret} this time.
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 =>  cases (NumList) nl-link(3, nl-empty):
       | nl-empty => false
       | nl-link(first, rest) =>
@@ -373,6 +381,7 @@ input, into the body of `contains-3`{.pyret} this time.
 Again, we substitute into the `nl-link`{.pyret} branch.
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 =>  if 3 == 3:
       true
     else:
@@ -384,6 +393,7 @@ This time, since `3`{.pyret} is `3`{.pyret}, we take the first branch of the
 `if`{.pyret} expression, and the whole original call evaluates to `true`{.pyret}.
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 =>  if true:
       true
     else:
@@ -418,17 +428,16 @@ the fields of each variant (by listing the field names), then calling
 the function itself on any recursive fields (fields of the same
 type). For `NumList`{.pyret}, these steps yield the following code outline:
 
-```pyret
-#|
-fun num-list-fun(nl :: NumList) -> ???:
+```jayret
+/* fun num-list-fun(nl :: NumList) -> ???:
   cases (NumList) nl:
     | nl-empty => ...
     | nl-link(first, rest) =>
       ... first ...
       ... num-list-fun(rest) ...
   end
-end
-|#
+end */
+
 ```
 Here, we are using a generic function name, `num-list-fun`{.pyret}, to
 illustrate that this is the outline for any function that
@@ -460,7 +469,7 @@ in the template with the one for your specific function, then fill in
 the ellipses to finish the function.
 
 When you see a recursive data definition (of which
-there will be many when programming in Pyret), you should naturally start thinking
+there will be many when programming in Jayret), you should naturally start thinking
 about what the recursive calls will return and how to combine their results
 with the other, non-recursive pieces of the datatype.
 

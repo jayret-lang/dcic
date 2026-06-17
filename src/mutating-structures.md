@@ -15,7 +15,7 @@ next: unified-equality.html
 
 We will now study a new kind of data and the programming style that
 accompanies it. This will give us both great power and great
-responsibility. We will develop this idea in both Pyret and Python,
+responsibility. We will develop this idea in both Jayret and Python,
 both because the core concept arises in both (indeed in nearly all)
 languages and
 because their contrast is instructive.
@@ -26,10 +26,10 @@ Imagine that we want to represent bank accounts, where each account
 has a (unique) id number and a balance:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">@dataclass
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">@dataclass
 class Account:
     id: int
-    balance: float</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Account:
+    balance: float</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Account:
     account(id :: Number,
     balance :: Number)
 end</code></pre></div></div></p></td></tr></table>
@@ -38,14 +38,14 @@ end</code></pre></div></div></p></td></tr></table>
 Let’s now make an account:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1 = Account(8404, 500)</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">acct1 = account(8404, 500)</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1 = Account(8404, 500)</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct1 = account(8404, 500)</code></pre></div></div></p></td></tr></table>
 ```
 
 Now let’s say we learn that the account has just
 earned another 200. We could always reflect the resulting account as follows:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">Account(acct1.id, acct1.balance + 200)</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Pyret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">account(acct1.id, acct1.balance + 200)</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">Account(acct1.id, acct1.balance + 200)</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">account(acct1.id, acct1.balance + 200)</code></pre></div></div></p></td></tr></table>
 ```
 However, this creates a new account; if we look at the current
 `balance`{.pyret} of `acct1`{.pyret}, by writing `acct1.balance`{.pyret}, it is
@@ -59,33 +59,33 @@ have worked with immutable data: data that cannot be altered.
 
 First, we have to declare that the data can be changed. In
 Python, this is automatically true, always, so nothing changes. In
-Pyret, however, fields cannot be changed—they are
+Jayret, however, fields cannot be changed—they are
 immutable—by default. We have to explicitly say they can be
 changed:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">@dataclass
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">@dataclass
 class Account:
     id: int
-    balance: float</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Account:
+    balance: float</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Account:
     account(id :: Number,
       ref balance :: Number)
 end</code></pre></div></div></p></td></tr></table>
 ```
-This Pyret definition says that `id`{.pyret} cannot be changed,
+This Jayret definition says that `id`{.pyret} cannot be changed,
 while `balance`{.pyret} can. This ensures that no programmer can
 accidentally change the bank account number. In Python, every
 programmer has to make sure they don’t accidentally change it.
-(If we did want `id`{.pyret} to be mutable in Pyret, we would add a
+(If we did want `id`{.pyret} to be mutable in Jayret, we would add a
 `ref`{.pyret} in front of it, too.)
 
 With this definition, making accounts looks the same (unsurprisingly
 in Python, since nothing has changed):
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1 = Account(8404, 500)</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">acct1 = account(8404, 500)</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1 = Account(8404, 500)</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct1 = account(8404, 500)</code></pre></div></div></p></td></tr></table>
 ```
-When we view the account in Pyret, we see something
+When we view the account in Jayret, we see something
 special:
 
 
@@ -95,15 +95,15 @@ The yellow-and-black “caution tape” indicator is a reminder that the
 value can change, so what is shown on screen may not be the current
 value.
 
-Accessing an immutable field in Pyret remains the same:
+Accessing an immutable field in Jayret remains the same:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1.id</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">acct1.id</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1.id</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct1.id</code></pre></div></div></p></td></tr></table>
 ```
-However, accessing a mutable field looks different in Pyret:
+However, accessing a mutable field looks different in Jayret:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1.balance</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">acct1!balance</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1.balance</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct1!balance</code></pre></div></div></p></td></tr></table>
 ```
 The `!`{.pyret} is there to remind that what you are getting is the
 current value of `balance`{.pyret}, and it may be different later.
@@ -115,9 +115,9 @@ let’s first see how to set the account balance to zero. We use slightly
 different syntaxes for it in the two languages:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">acct1.balance = 0</code></span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">acct1!{balance: 0}</code></span></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">acct1.balance = 0</code></span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">acct1!{balance: 0}</code></span></p></td></tr></table>
 ```
-In Pyret, again, we use `!`{.pyret} in the syntax for
+In Jayret, again, we use `!`{.pyret} in the syntax for
 changing the field: read it as “change the value
 now!”
 
@@ -130,20 +130,20 @@ Can you figure out how to write that?
 Here’s how we combine the pieces—accessing the value and then setting it:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">acct1.balance = acct1.balance + 200</code></span></p></td></tr><tr><td><p><span style="font-weight: bold">Pyret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">acct1!{balance: acct1!balance + 200}</code></span></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">acct1.balance = acct1.balance + 200</code></span></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">acct1!{balance: acct1!balance + 200}</code></span></p></td></tr></table>
 ```
-While Pyret’s syntax is a little more onerous for changing the value
+While Jayret’s syntax is a little more onerous for changing the value
 of one field, it proves to be ligher-weight if we want to change
 multiple fields. In Python we’d have to write `acct1.`{.pyret} for
-each of them, whereas in Pyret we need only the one `acct1!`{.pyret}. So
+each of them, whereas in Jayret we need only the one `acct1!`{.pyret}. So
 there is a trade-off between the two syntaxes.
 
 We hadn’t written any tests above. Suppose we had: already we might
 notice something a bit odd. Say we had written
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">def test_balance():
-    assert acct1.balance == 500</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">def test_balance():
+    assert acct1.balance == 500</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">check:
   acct1!balance is 500
 end</code></pre></div></div></p></td></tr></table>
 ```
@@ -153,28 +153,24 @@ update is performed. In Python, tests are run when we call the testing
 functions, which we typically do after loading the full file (either
 by running them at the prompt or by putting our tests in a separate file).
 
-In Pyret, tests are run as if they were written at the very bottom of
-definitions. Therefore, even if the program looked like this in Pyret:
+In Jayret, tests are run as if they were written at the very bottom of
+definitions. Therefore, even if the program looked like this in Jayret:
 
-```pyret
-acct1 = account(8404, 500)
-
-check:
-  acct1!balance is 500
-end
-
-acct1!{balance: acct1!balance + 200}
+```jayret
+acct1 = account(8404, 500);
+@Check void test() {
+    assertEquals(acct1 ! balance, 500);
+}
+acct1 ! {balance acct1 ! balance + 200 }
 ```
 the test fails. Alternatively, we can write
 
-```pyret
-acct1 = account(8404, 500)
-
-check:
-  acct1!balance is 700
-end
-
-acct1!{balance: acct1!balance + 200}
+```jayret
+acct1 = account(8404, 500);
+@Check void test() {
+    assertEquals(acct1 ! balance, 700);
+}
+acct1 ! {balance acct1 ! balance + 200 }
 ```
 and it passes, but not if we comment out the update.
 
@@ -201,14 +197,14 @@ that function. First, the function definition:
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">def deposit(ac: Account, amt: float):
     '''add amt to the account's balance'''
-    ac.balance = ac.balance + amt</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Pyret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun deposit(ac :: Account, amt :: Number):
+    ac.balance = ac.balance + amt</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">fun deposit(ac :: Account, amt :: Number):
   doc: "add amt to the account's balance"
   ac!{balance: ac!balance + amt}
 end</code></pre></div></div></p></td></tr></table>
 ```
 How do we test this?
 
-In Python, this function does not return anything. In Pyret, the
+In Python, this function does not return anything. In Jayret, the
 update operation does return the value being updated, but in a larger
 function we can’t always assume that it will be the value
 returned. Therefore, we have to set up our test to assume otherwise.
@@ -223,7 +219,7 @@ three to four parts:
 4. Teardown: restore data to their expected state.
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">def test_deposit():
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">def test_deposit():
     # Setup
     a1 = Account(8200, 150)
 
@@ -231,7 +227,7 @@ three to four parts:
     deposit(a1, 100)
 
     # Check
-    assert a1.balance == 250</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+    assert a1.balance == 250</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">check:
   # Setup
   a1 = account(8200, 150)
 
@@ -255,7 +251,7 @@ tests to fail. Therefore, the Setup phase requires not only creating
 necessary data but also setting the values of previously-created data
 to be what the test expects. (Again, note that in Python it is
 difficult to know which fields might have been changed, whereas in
-Pyret, we only have to reset the value of mutable fields.)
+Jayret, we only have to reset the value of mutable fields.)
 
 ::: {.exercise}
 Write tests for the following function that adds interest to an account balance:
@@ -263,7 +259,7 @@ Write tests for the following function that adds interest to an account balance:
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">def add_interest(ac: Account):
     '''increases the account value by 2 percent'''
-    ac.balance = ac.balance * 1.02</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Pyret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun add-interest(ac :: Account):
+    ac.balance = ac.balance * 1.02</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">fun add-interest(ac :: Account):
   doc: "increases the account value by 2 percent"
   ac!{balance: ac!balance * 1.02}
 end</code></pre></div></div></p></td></tr></table>
@@ -278,10 +274,10 @@ We should thus separate information about customers from that of
 the account:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">@dataclass
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">@dataclass
 class Customer:
     name: str
-    acct: Account</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Customer:
+    acct: Account</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Customer:
     cust(name :: String,
       acct :: Account)
 end</code></pre></div></div></p></td></tr></table>
@@ -290,10 +286,10 @@ Specifically, suppose we have two accounts (`acct1`{.pyret} and
 `acct2`{.pyret}), where `acct1`{.pyret} is owned jointly by Elena and Jorge:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1 = Account(8404, 500)
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1 = Account(8404, 500)
 acct2 = Account(8405, 350)
 elena = Customer("Elena", acct1)
-jorge = Customer("Jorge", acct1)</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">acct1 = account(8404, 500)
+jorge = Customer("Jorge", acct1)</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct1 = account(8404, 500)
 acct2 = account(8405, 350)
 elena = cust("Elena", acct1)
 jorge = cust("Jorge", acct1)</code></pre></div></div></p></td></tr></table>
@@ -305,8 +301,8 @@ access the account itself: `elena.acct`{.pyret} (in both languages). Then
 we would update it using the syntax above:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">a = elena.acct
-a.balance = a.balance + 150</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a = elena.acct
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">a = elena.acct
+a.balance = a.balance + 150</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">a = elena.acct
 a!{balance: a!balance + 150}</code></pre></div></div></p></td></tr></table>
 ```
 Sure enough, Elena’s account will now have the value of `850`{.pyret}
@@ -314,21 +310,21 @@ Sure enough, Elena’s account will now have the value of `850`{.pyret}
 `150`{.pyret}):
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">assert elena.acct.balance == 850</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Pyret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+<table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">assert elena.acct.balance == 850</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">check:
   elena.acct!balance is 850
 end</code></pre></div></div></p></td></tr></table>
 ```
-Observe that in Pyret we use `.`{.pyret} to get the account but `!`{.pyret}
+Observe that in Jayret we use `.`{.pyret} to get the account but `!`{.pyret}
 to get the balance: a reminder that Elena’s account will never change
 (the way we have defined the data structure), but that account’s
 balance may and, indeed, does. Between the designs of Python and
-Pyret, there’s a trade-off between convenience and precision.
+Jayret, there’s a trade-off between convenience and precision.
 
 The key question now is: what is Jorge’s balance? Put
 differently, will this test pass or fail?
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">assert jorge.acct.balance == 850</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Pyret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+<table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">assert jorge.acct.balance == 850</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">check:
   jorge.acct!balance is 850
 end</code></pre></div></div></p></td></tr></table>
 ```
@@ -337,7 +333,7 @@ Or even more simply: what
 is the value of this program?
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jorge.acct.balance</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">jorge.acct!balance</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jorge.acct.balance</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">jorge.acct!balance</code></pre></div></div></p></td></tr></table>
 ```
 
 There are two very reasonable answers here:
@@ -367,7 +363,7 @@ spooky action at a distance.
 
 Again, there is a linguistic difference here. Because all fields are
 mutable in Python, you have to always be on the alert for
-this. Because only `ref`{.pyret} fields are mutable in Pyret, you can be
+this. Because only `ref`{.pyret} fields are mutable in Jayret, you can be
 sure that fields accessed through `.`{.pyret} will never change in value
 over time or even if there are aliases, but those accessed through
 `!`{.pyret} might change over time (and via aliases).
@@ -376,14 +372,14 @@ over time or even if there are aliases, but those accessed through
 
 Now that we have the ability to mutate the contents of data, we will need to show and then revise our
 notion of directories. The directories are essentially the same
-between Pyret and Python, with one exception: we have different naming
+between Jayret and Python, with one exception: we have different naming
 conventions in the two languages. For instance, we write
 `Account(8404, 500)`{.python} in Python versus `account(8404, 500)`{.pyret}
-in Pyret. It would be annoying to write every one of these twice, with
+in Jayret. It would be annoying to write every one of these twice, with
 the only difference being the capitalization. Therefore, where the
 only difference is the naming, we will ignore this difference
 and show only one version (in this case, the Python version); you
-should assume that the exact same thing is true for Pyret, other than
+should assume that the exact same thing is true for Jayret, other than
 the capitalization.
 
 As a reminder, here are our initial definitions once again:
@@ -400,19 +396,19 @@ Review the following proposal for the directory contents after running
 the initial definitions. Is this what you expect to see?
 
 ```{=html}
-<div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Account(8404, 500)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">acct2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Account(8404, 500)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">elena</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Customer("Elena", acct1)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">jorge</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Customer("Jorge", acct1)</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
+<div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Account(8404, 500)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Account(8404, 500)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">elena</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Customer("Elena", acct1)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">jorge</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Customer("Jorge", acct1)</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
 ```
 :::
 
 There’s a problem with this version, namely the use of `acct1`{.pyret} in
 the values associated with `elena`{.pyret} and `jorge`{.pyret}. Remember,
 the values in the directory can’t refer to names in the directory:
-both Pyret and Python replace names with their values when evaluating
+both Jayret and Python replace names with their values when evaluating
 expressions. Here is the corresponding version of the directory that
 uses the value of `acct1`{.python}:
 
 ```{=html}
-<div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Account(8404, 500)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">acct2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Account(8405, 325)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">elena</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Customer("Elena", Account(8404, 500))</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">jorge</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Customer("Jorge", Account(8404, 500))</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
+<div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Account(8404, 500)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Account(8405, 325)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">elena</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Customer("Elena", Account(8404, 500))</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">jorge</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Customer("Jorge", Account(8404, 500))</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
 ```
 Observe that this is also what you would see if you were to evaluate
 the corresponding variable names.
@@ -420,7 +416,7 @@ the corresponding variable names.
 Now, let’s add funds to Elena’s account:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">elena.acct.balance = elena.acct.balance + 150</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Pyret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">elena.acct!{balance: elena.acct!balance + 150}</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">elena.acct.balance = elena.acct.balance + 150</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">elena.acct!{balance: elena.acct!balance + 150}</code></pre></div></div></p></td></tr></table>
 ```
 
 ::: {.do-now}
@@ -432,7 +428,7 @@ directory, in which only the balance in Elena’s version of the account
 changes.
 
 ```{=html}
-<div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Account(8404, 500)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">acct2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Account(8405, 325)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">elena</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Customer("Elena", Account(8404, 650))</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">jorge</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Customer("Jorge", Account(8404, 500))</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
+<div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Account(8404, 500)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Account(8405, 325)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">elena</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Customer("Elena", Account(8404, 650))</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">jorge</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Customer("Jorge", Account(8404, 500))</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
 ```
 
 We know from running the code, however, that the account is aliased,
@@ -441,11 +437,11 @@ so that the balances accessible from each of `acct`{.pyret},
 suggests that the actual directory should look something like
 
 ```{=html}
-<div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Account(8404, 650)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">acct2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Account(8405, 325)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">elena</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Customer("Elena", Account(8404, 650))</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">jorge</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Customer("Jorge", Account(8404, 650))</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
+<div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Account(8404, 650)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Account(8405, 325)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">elena</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Customer("Elena", Account(8404, 650))</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">jorge</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Customer("Jorge", Account(8404, 650))</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
 ```
 
 But this is also weird. The directory represents the information that
-Pyret or Python maintain about your defined names and their
+Jayret or Python maintain about your defined names and their
 values. What in the directory indicates that those three balances should
 change, but not the balance of `acct2`{.pyret})? Put differently, what reflects the aliasing? Nothing!
 
@@ -495,7 +491,7 @@ to associate with the new datum. In other words, our directory really
 looks like:
 
 ```{=html}
-<div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1001</span>:<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">Account(8404, 500)</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
+<div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1001</span>:<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">Account(8404, 500)</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
 ```
 Our revised version has two separate areas: the directory (mapping
 names to addresses) and the heap (showing the values stored
@@ -513,13 +509,13 @@ follows. Note that the `Account`{.pyret} associated with name
 `acct2`{.pyret} goes in address 1002.
 
 ```{=html}
-<div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1002</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1001</span>:<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">Account(8404, 500)</code></span></p></li><li><p><span class="heapref source">1002</span>:<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">Account(8404, 500)</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
+<div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1002</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1001</span>:<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">Account(8404, 500)</code></span></p></li><li><p><span class="heapref source">1002</span>:<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">Account(8404, 500)</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
 ```
 
 When we run
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">elena = Customer("Elena", acct1)</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">elena = customer("Elena", acct1)</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">elena = Customer("Elena", acct1)</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">elena = customer("Elena", acct1)</code></pre></div></div></p></td></tr></table>
 ```
 what happens? As before, we look up what the name `acct1`{.pyret} refers
 to in the directory and substitute the result for the name in the
@@ -528,12 +524,12 @@ to in the directory and substitute the result for the name in the
 the `Customer`{.pyret} value in the heap contains an address:
 
 ```{=html}
-<div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">elena</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1002</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1001</span>:<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">Account(8404, 500)</code></span></p></li><li><p><span class="heapref source">1002</span>:<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">Customer("Elena", <span class="heapref sink">1001</span>)</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
+<div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">elena</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1002</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1001</span>:<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">Account(8404, 500)</code></span></p></li><li><p><span class="heapref source">1002</span>:<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">Customer("Elena", <span class="heapref sink">1001</span>)</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
 ```
 Similarly, when we run
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jorge = Customer("Jorge", acct1)</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">jorge = customer("Jorge", acct1)</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jorge = Customer("Jorge", acct1)</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">jorge = customer("Jorge", acct1)</code></pre></div></div></p></td></tr></table>
 ```
 the directory and heap look like this:
 
@@ -564,7 +560,7 @@ Would the following statement work to update the balance in Elena and
 Jorge’s shared account?
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">elena.acct.balance = jorge.acct.balance - 50</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Pyret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">elena.acct!{balance: jorge.acct!balance - 50}</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">elena.acct.balance = jorge.acct.balance - 50</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">elena.acct!{balance: jorge.acct!balance - 50}</code></pre></div></div></p></td></tr></table>
 ```
 Does this seem like a good or bad way to do this computation? Why?
 :::
@@ -618,7 +614,7 @@ The corresponding directory and heap contents would be as follows:
 
 Notice that this particular program puts nothing in the heap:
 according to our rules above, only structured data only go into the
-heap. Now assume our program also had a dataclass (Python) or datatype (Pyret)
+heap. Now assume our program also had a dataclass (Python) or datatype (Jayret)
 for `Office`{.python}s, with a professor’s name and room number. Here’s
 another example showing a combination of basic and structured data:
 

@@ -79,16 +79,16 @@ it can contain any kind of value, including structured ones. For
 instance, using our examples from earlier [[Defining and Creating Structured Data](intro-struct-data.html##struct-data-eg)],
 we can make a list of songs:
 
-```pyret
-song-list = [list: lver, so, wnkkhs]
+```jayret
+song-list = [lver, so, wnkkhs];
 ```
 This is a three-element list where each element is a song:
 
-```pyret
-check:
-  song-list.length() is 3
-  song-list.first is lver
-end
+```jayret
+@Check void test() {
+    assertEquals(song-list.length(), 3);
+    assertEquals(song-list.first, lver);
+}
 ```
 
 Thus, what we have seen earlier about building functions over lists
@@ -106,6 +106,7 @@ to them just by their variable names. Clearly, the oldest song in our
 list is bound to `lvar`{.pyret}.
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 oldest-song([list: lver, so, wnkkhs]) is lvar
 oldest-song([list:       so, wnkkhs]) is wnkkhs
 oldest-song([list:           wnkkhs]) is wnkkhs
@@ -124,23 +125,23 @@ From our examples, we can see a solution structure echoing that of
 compute the oldest song in the rest of the list, and compare its year
 against that of the first. Whichever has the older year is the answer.
 
-```pyret
-fun oldest-song(sl :: List<ITunesSong>) -> ITunesSong:
-  cases (List) sl:
-    | empty => raise("not defined for empty song lists")
-    | link(f, r) =>
-      cases (List) r:
-        | empty => f
-        | else =>
-          osr = oldest-song(r)
-          if osr.year < f.year:
-            osr
-          else:
-            f
-          end
-      end
-  end
-end
+```jayret
+ITunesSong oldest-song(List<Object> sl) {
+    return switch (sl) {
+        case Empty: yield raise("not defined for empty song lists");
+        case Link(f, r): yield switch (r) {
+            case Empty: yield f;
+            default: yield block {
+                osr = oldest-song(r);
+                return if (osr.year < f.year) {
+                    return osr;
+                } else {
+                    return f;
+                }
+            };
+        };
+    }
+}
 ```
 
 Note that there is no guarantee there will be only oldest song, and
@@ -157,13 +158,13 @@ Haha, just kidding! You shouldn’t modify the previous solution at all!
 Instead, you should leave it alone—it may come in handy for other
 purposes—and instead build a new function to use it:
 
-```pyret
-fun oldest-song-age(sl :: List<ITunesSong>) -> Number:
-  os = oldest-song(sl)
-  song-age(os)
-where:
-  oldest-song-age(song-list) is 71
-end
+```jayret
+int oldest-song-age(List<Object> sl) {
+    os = oldest-song(sl);
+    return song-age(os);
+} where {
+    
+}
 ```
 
 #### 6.2.2 Sets as Collective Data {#sets-as-collections}
@@ -182,33 +183,33 @@ care about order or duplicates:
   does not care about the order in which people vote.
 
 For such problems a list is a bad fit relative to a set. Here we will
-see how Pyret’s built-in sets work. In
+see how Jayret’s built-in sets work. In
 [[Several Variations on Sets](part_sets.html)] we will see how we can build sets for
 ourselves.
 
 First, we can define sets just as easily as we can lists:
 
-```pyret
+```jayret
 import sets as S
-song-set = [S.set: lver, so, wnkkhs]
+song-set = [S.set: lver, so, wnkkhs];
 ```
 Of course, due to the nature of the language’s syntax, we have to
 list the elements in some order. Does it matter?
 
 ::: {.do-now}
-How can we tell whether Pyret cares about the order?
+How can we tell whether Jayret cares about the order?
 :::
 
 Here’s the simplest way to check:
 
-```pyret
-check:
-  song-set2 = [S.set: so, wnkkhs, lver]
-  song-set is song-set2
-end
+```jayret
+@Check void test() {
+    song-set2 = [S.set: so, wnkkhs, lver];
+    assertEquals(song-set, song-set2);
+}
 ```
 If we want to be especially cautious, we can write down all the other
-orderings of the elements as well, and see that Pyret doesn’t
+orderings of the elements as well, and see that Jayret doesn’t
 care.
 
 ::: {.exercise}
@@ -217,12 +218,12 @@ How many different orders are there?
 
 Similarly for duplicates:
 
-```pyret
-check:
-  song-set3 = [S.set: lver, so, wnkkhs, so, so, lver, so]
-  song-set is song-set3
-  song-set3.size() is 3
-end
+```jayret
+@Check void test() {
+    song-set3 = [S.set: lver, so, wnkkhs, so, so, lver, so];
+    assertEquals(song-set, song-set3);
+    assertEquals(song-set3.size(), 3);
+}
 ```
 We can again try several different kinds of duplication and confirm
 that sets ignore them.
@@ -231,13 +232,13 @@ that sets ignore them.
 
 This lack of an ordering, however, poses a problem. With lists, it was
 meaningful to talk about the “first” and corresponding “rest”. By
-definition, with sets there is not “first” element. In fact, Pyret
+definition, with sets there is not “first” element. In fact, Jayret
 does not even offer fields similar to `first`{.pyret} and `rest`{.pyret}. In
 its place is something a little more accurate but complex.
 
 The `.pick`{.pyret} method returns a random element of a set. It
 produces a value of type `Pick`{.pyret} (which we get with `include
-pick`{.pyret}). When we pick an element, there are two
+pick`{.jayret}). When we pick an element, there are two
 possibilities. One is that the set is empty (analogous to a list being
 empty), which gives us a `pick-none`{.pyret} value. The other option is
 called `pick-some`{.pyret}, which gives us an actual member of the set.
@@ -246,13 +247,13 @@ The `pick-some`{.pyret} variant of `Pick`{.pyret} has two fields, not
 one. To understand why takes a moment’s work. Let’s explore it by
 choosing an element of a set:
 
-```pyret
-fun an-elt(s :: S.Set):
-  cases (Pick) s.pick():
-    | pick-none => raise("empty set")
-    | pick-some(e, r) => e
-  end
-end
+```jayret
+Object an-elt(Object s) {
+    return switch (s.pick()) {
+        case Pick-none: yield raise("empty set");
+        case Pick-some(e, r): yield e;
+    }
+}
 ```
 (Notice that we aren’t using the `r`{.pyret} field in the
 `pick-some`{.pyret} case.)
@@ -274,10 +275,10 @@ No you don’t![Well, actually, it’s impossible to be certain
 you don’t. There is a very, very small likelihood you get the exact
 same element on every one of six runs. If it happens to you, keep
 running it more times!]{.margin-note}
-Pyret is designed to not always return the same element
+Jayret is designed to not always return the same element
 when picking from a set. This is on purpose: it’s to drive home the
 random nature of choosing from a set, and to prevent your program from
-accidentally depending on a particular order that Pyret might use.
+accidentally depending on a particular order that Jayret might use.
 
 ::: {.do-now}
 Given that `an-elt`{.pyret} does not return a predictable element, what
@@ -306,14 +307,13 @@ analogous to functions over lists. For instance, suppose we want to
 compute the size of a set. The function looks similar to
 `my-len`{.pyret} [[Some Example Exercises](processing-lists.html##my-len)]:
 
-```pyret
-fun my-set-size(s :: S.Set) -> Number:
-  cases (Pick) s.pick():
-    | pick-none => 0
-    | pick-some(e, r) =>
-      1 + my-set-size(r)
-  end
-end
+```jayret
+int my-set-size(Object s) {
+    return switch (s.pick()) {
+        case Pick-none: yield 0;
+        case Pick-some(e, r): yield 1 + my-set-size(r);
+    }
+}
 ```
 Though the process of deriving this is similar to that we used for
 `my-len`{.pyret}, the random nature of picking elements makes it harder to
@@ -364,7 +364,7 @@ Problem Statement:
 You’ve been hired to help create software for giving quizzes to
 students. The software will show the student a question, read in the
 student’s answer, compare the student’s answer to the expected answer
-(sort of like a Pyret example!), and produce the percentage of
+(sort of like a Jayret example!), and produce the percentage of
 questions that the student got right.
 
 Your task is to create a data definition for capturing quizzes and
@@ -381,6 +381,7 @@ would expect the student to answer `7`{.pyret}. What would capture this?
 A piece of structured data with two fields like the following:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 data Question:
   basic-ques(text :: String, expect :: ???)
 end
@@ -405,13 +406,14 @@ A quiz should still be a list of questions, but the `Question`{.pyret}
 data definition needs another variant in order to handle questions
 with hints. The following would work:
 
-```pyret
-data Question:
-  | basic-ques(text :: String, expect :: Any)
-  | hint-ques(text :: String, expect :: Any, hint :: String)
-end
-
-A quiz is a List<Question>
+```jayret
+data Question {
+    Basic-ques(String text, Object expect);
+    Hint-ques(String text, Object expect, String hint);
+}
+A;
+assertEquals(quiz, a);
+List < Question >;
 ```
 
 We could imagine extending this example to introduce dependencies

@@ -14,8 +14,8 @@ next: arrays.html
 ```
 
 So far, we have seen several ways to process sequential data such as
-lists. In each of Pyret and Python, we can use `filter`{.python} and
-`map`{.python} to perform certain operations that yield lists. In Pyret,
+lists. In each of Jayret and Python, we can use `filter`{.python} and
+`map`{.python} to perform certain operations that yield lists. In Jayret,
 we used recursion to aggregate list data into a single value. In
 Python, we used for-loops for this task. While we could use recursion
 or for-loops for `filter`{.python} and `map`{.python} tasks as well, using

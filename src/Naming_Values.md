@@ -38,8 +38,8 @@ interactions pane.
 ::: {.do-now}
 Put the following in the definitions pane:
 
-```pyret
-red-circ = circle(30, "solid", "red")
+```jayret
+red-circ = circle(30, "solid", "red");
 ```
 
 Hit run, then enter `red-circ`{.pyret} in the interactions pane. You
@@ -48,12 +48,12 @@ should see the red circle.
 
 More generally, if you write code in the form:
 
-```pyret
-NAME = EXPRESSION
+```jayret
+NAME = EXPRESSION;
 ```
 
-Pyret will associate the value of `EXPRESSION`{.pyret} with `NAME`{.pyret}. Anytime you
-write the (shorthand) `NAME`{.pyret}, Pyret will automatically (behind the
+Jayret will associate the value of `EXPRESSION`{.pyret} with `NAME`{.pyret}. Anytime you
+write the (shorthand) `NAME`{.pyret}, Jayret will automatically (behind the
 scenes) replace it with the value of `EXPRESSION`{.pyret}. For example,
 if you write `x = 5 + 4`{.pyret} at the prompt, then write `x`{.pyret}, CPO will give
 you the value `9`{.pyret} (not the original `5 + 4`{.pyret} expression).
@@ -81,22 +81,23 @@ uses, so it is worth reviewing them.
   distinguish strings and names by the presence of double quotation
   marks. Note the difference between `puppy`{.pyret} and `"puppy"`{.pyret}.
 - Strings can contain spaces, but names cannot. For example,
-  `"hot pink"`{.pyret} is a valid piece of data, but `hot pink`{.pyret} is not
+  `"hot pink"`{.pyret} is a valid piece of data, but `hot;
+pink`{.jayret} is not
   a single name. When you want to combine multiple words into a name
   (like we did above with `red-circ`{.pyret}), use a hyphen to separate
   the words while still having a single name (as a sequence of
   characters). Different programming languages allow different
-  separators; for Pyret, we’ll use hyphens.
+  separators; for Jayret, we’ll use hyphens.
 - Entering a word as a name versus as a string at the interactions
-  prompt changes the computation that you are asking Pyret to
+  prompt changes the computation that you are asking Jayret to
   perform. If you enter `puppy`{.pyret} (the name, without double quotes),
-  you are asking Pyret to lookup the value that you previously stored
+  you are asking Jayret to lookup the value that you previously stored
   under that name. If you enter `"puppy"`{.pyret} (the string, with double
   quotes) you are simply writing down a piece of data (akin to typing a
-  number like `3`{.pyret}): Pyret returns the value you
+  number like `3`{.pyret}): Jayret returns the value you
   entered as the result of the computation.
 - If you enter a name that you have not previously associated with
-  a value, Pyret will give you an “unbound identifier” error
+  a value, Jayret will give you an “unbound identifier” error
   message. In contrast, since strings are just data, you won’t get an
   error for writing a previously-unused string (there are some special
   cases of strings, such as when you want to put a quotation mark inside
@@ -110,8 +111,8 @@ be wrapped in double quotes.
 ##### 3.2.2.2 Expressions versus Statements {#naming-expr-statements}
 
 Definitions and expressions are two useful aspects of programs, each
-with their own role. Definitions tell Pyret to associate names with
-values. Expressions tell Pyret to perform a computation and return
+with their own role. Definitions tell Jayret to associate names with
+values. Expressions tell Jayret to perform a computation and return
 the result.
 
 ::: {.exercise}
@@ -127,7 +128,7 @@ definitions. What do you observe about the results of entering
 expressions versus the results of entering definitions?
 :::
 
-Hopefully, you notice that Pyret doesn’t seem to return anything from
+Hopefully, you notice that Jayret doesn’t seem to return anything from
 the definitions, but it does display a value from the
 expressions. In programming, we distinguish expressions, which yield values,
 from statements, which don’t yield values but instead give some
@@ -139,7 +140,7 @@ Assuming you still have the `blue-circ`{.pyret} definition from above in
 your interactions pane, enter `blue-circ`{.pyret} at the prompt (you
 can re-enter that definition if it is no longer there).
 
-Based on what Pyret does in response, is `blue-circ`{.pyret} an
+Based on what Jayret does in response, is `blue-circ`{.pyret} an
 expression or a definition?
 :::
 
@@ -157,32 +158,32 @@ programs. Given the program `2 + 3`{.pyret}, for example, a calculation
 takes place to produce `5`{.pyret}, which in turn displays in the
 interactions pane.
 
-When you write a definition, Pyret makes an entry in an internal
+When you write a definition, Jayret makes an entry in an internal
 directory in which it associates names with values. You can’t
-see the directory, but Pyret uses it to manage the values that you’ve
+see the directory, but Jayret uses it to manage the values that you’ve
 associated with names. If you write:
 
-```pyret
-width = 30
+```jayret
+width = 30;
 ```
-Pyret makes a new directory entry for `width`{.pyret} and records that
+Jayret makes a new directory entry for `width`{.pyret} and records that
 `width`{.pyret} has value `30`{.pyret}. If you then write
 
-```pyret
-height = width * 3
+```jayret
+height = width * 3;
 ```
-Pyret evaluates the expression on the right side
+Jayret evaluates the expression on the right side
 (`width * 3`{.pyret}), then stores the resulting value (here, `90`{.pyret})
 alongside `height`{.pyret} in the directory.
 
-How does Pyret evaluate (`width * 3`{.pyret})? Since `width`{.pyret} is a
-word (not a string), Pyret looks up its value in the directory. Pyret
+How does Jayret evaluate (`width * 3`{.pyret})? Since `width`{.pyret} is a
+word (not a string), Jayret looks up its value in the directory. Jayret
 substitutes that value for the name in the expression, resulting in
 `30 * 3`{.pyret}, which then evaluates to `90`{.pyret}. After running
 these two expressions, the directory looks like:
 
 ```{=html}
-<div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">width</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">30</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">height</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">90</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
+<div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">width</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">30</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">height</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">90</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
 ```
 Note that the entry for `height`{.pyret} in the directory has the
 result of `width * 3`{.pyret}, not the expression. This will
@@ -192,15 +193,15 @@ same computation more than once.
 The program directory is an essential part of how programs
 evaluate. If you are trying to track how your program is working, it
 sometimes helps to track the directory contents on a sheet of paper
-(since you can’t view Pyret’s directory).
+(since you can’t view Jayret’s directory).
 
 ::: {.exercise}
 Imagine that you have the following code in the definitions pane
 when you press the Run button:
 
-```pyret
-name = "Matthias"
-"name"
+```jayret
+name = "Matthias";
+"name";
 ```
 What appears in the interactions pane? How does each of these lines
 interact with the program directory?
@@ -208,16 +209,16 @@ interact with the program directory?
 
 ::: {.do-now}
 What happens if you enter a subsequent definition for the same name,
-such as `width = 50`{.pyret}? How does Pyret respond? What if you then ask to see the value associated with this same name at the prompt? What does this tell
+such as `width = 50`{.pyret}? How does Jayret respond? What if you then ask to see the value associated with this same name at the prompt? What does this tell
 you about the directory?
 :::
 
 
 When you try to give a new value to a name that is already in the
-directory, Pyret will respond that the new definition “conflicts with an earlier declaration of the same name”. This is Pyret’s way of
+directory, Jayret will respond that the new definition “conflicts with an earlier declaration of the same name”. This is Jayret’s way of
 warning you that the name is already in the directory. If you ask for
 the value associated with the name again, you’ll see that it still has
-the original value. Pyret doesn’t let you change the value associated
+the original value. Jayret doesn’t let you change the value associated
 with an existing name with the `name = value`{.pyret} notation. While
 there is a notation that will let you reassign values, we won’t work
 with this concept until [Mutating Variables](mutating-variables.html).
@@ -228,43 +229,43 @@ Now that we’ve learned about the program directory, let’s discuss what happe
 press the Run button. Let’s assume the following contents are in the
 definitions pane:
 
-```pyret
-width = 30
-height = width * 3
-blue-rect = rectangle(width, height, "solid", "blue")
+```jayret
+width = 30;
+height = width * 3;
+blue-rect = rectangle(width, height, "solid", "blue");
 ```
-When you press Run, Pyret first clears out the program directory. It
+When you press Run, Jayret first clears out the program directory. It
 then processes your file line by line, starting at the top. If you
-have an `include`{.pyret} statement, Pyret adds the definitions from the
+have an `include`{.pyret} statement, Jayret adds the definitions from the
 included library to the directory. After processing all of the lines
 for this program, the directory will look like:
 
 ```{=html}
-<div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">circle</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span>&lt;the circle operation&gt;</div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">rectangle</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span>&lt;the rectangle operation&gt;</div></p></li><li><p>...</p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">width</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">30</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">height</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">90</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">blue-rect</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span>&lt;the actual rectangle image&gt;</div></p></li></ul></div><p></p><div class="clear"></div></div>
+<div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">circle</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span>&lt;the circle operation&gt;</div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">rectangle</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span>&lt;the rectangle operation&gt;</div></p></li><li><p>...</p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">width</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">30</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">height</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">90</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">blue-rect</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span>&lt;the actual rectangle image&gt;</div></p></li></ul></div><p></p><div class="clear"></div></div>
 ```
 
 If you now type at the interactions prompt, any use of an identifier
-(a sequence of characters not enclosed in quotation marks) results in Pyret
+(a sequence of characters not enclosed in quotation marks) results in Jayret
 consulting the directory.
 
 If you now type
 
-```pyret
-beside(blue-rect, rectangle(20, 20, "solid", "purple"))
+```jayret
+beside(blue-rect, rectangle(20, 20, "solid", "purple"));
 ```
-Pyret will look up the image associated with `blue-rect`{.pyret}.
+Jayret will look up the image associated with `blue-rect`{.pyret}.
 
 ::: {.do-now}
 Is the purple rectangle in the directory? What about the image with
 the two rectangles?
 :::
 
-Neither of these shapes is in the directory. Why? We didn’t ask Pyret
+Neither of these shapes is in the directory. Why? We didn’t ask Jayret
 to store them there with a name. What would be different if we instead
 wrote the following (at the interactions prompt)?
 
-```pyret
-two-rects = beside(blue-rect, rectangle(20, 20, "solid", "purple"))
+```jayret
+two-rects = beside(blue-rect, rectangle(20, 20, "solid", "purple"));
 ```
 Now, the two-shape image would be in the directory, associated with
 the name `two-rects`{.pyret}. The purple rectangle by itself, however,
@@ -275,7 +276,7 @@ reference the two-shape image by name, as shown below:
 
 ::: {.do-now}
 Imagine that we now hit the Run button again, then typed
-`two-rects`{.pyret} at the interactions prompt. How would Pyret respond
+`two-rects`{.pyret} at the interactions prompt. How would Jayret respond
 and why?
 :::
 
@@ -284,21 +285,18 @@ and why?
 The ability to name values can make it easier to build up complex
 expressions. Let’s put a rotated purple triangle inside a green square:
 
-```pyret
-overlay(rotate(45, triangle(30, "solid", "purple")),
-  rectangle(60, 60, "solid", "green"))
+```jayret
+overlay(rotate(45, triangle(30, "solid", "purple")), rectangle(60, 60, "solid", "green"));
 ```
 
 However, this can get quite difficult to read and understand. Instead,
 we can name the individual shapes before building the overall
 image:
 
-```pyret
-purple-tri = triangle(30, "solid", "purple")
-green-sqr = rectangle(60, 60, "solid", "green")
-
-overlay(rotate(45, purple-tri),
-  green-sqr)
+```jayret
+purple-tri = triangle(30, "solid", "purple");
+green-sqr = rectangle(60, 60, "solid", "green");
+overlay(rotate(45, purple-tri), green-sqr);
 ```
 
 In this version, the `overlay`{.pyret} expression is quicker to read
@@ -307,13 +305,10 @@ because we gave descriptive names to the initial shapes.
 Go one step further: let’s add another purple-triangle on top of the
 existing image:
 
-```pyret
-purple-tri = triangle(30, "solid", "purple")
-green-sqr = rectangle(60, 60, "solid", "green")
-
-above(purple-tri,
-  overlay(rotate(45, purple-tri),
-    green-sqr))
+```jayret
+purple-tri = triangle(30, "solid", "purple");
+green-sqr = rectangle(60, 60, "solid", "green");
+above(purple-tri, overlay(rotate(45, purple-tri), green-sqr));
 ```
 
 Here, we see a new benefit to leveraging names: we can use

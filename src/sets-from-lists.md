@@ -18,7 +18,7 @@ that the elements of a set have no specific order, and ignore
 duplicates.[If these ideas are not familiar, please read
 [Sets as Collective Data](Collections_of_Structured_Data.html##sets-as-collections), since they will be important when
 discussing the representation of sets.]{.margin-note} At that time we relied on
-Pyret’s built-in representation of sets. Now we will discuss how to
+Jayret’s built-in representation of sets. Now we will discuss how to
 build sets for ourselves. In what follows, we will focus only on sets
 of numbers.
 
@@ -28,30 +28,30 @@ using lists to represent sets of data seems problematic,
 because lists respect both order and duplication. For
 instance,
 
-```pyret
-check:
-  [list: 1, 2, 3] is [list: 3, 2, 1, 1]
-end
+```jayret
+@Check void test() {
+    assertEquals([1, 2, 3], [3, 2, 1, 1]);
+}
 ```
 fails, but the corresponding sets are equal.
 
 In principle, we want sets to obey the following
 interface:[Note that a type called `Set`{.pyret} is already
-built into Pyret, so below we will use the name `LSet`{.pyret} for a set
+built into Jayret, so below we will use the name `LSet`{.pyret} for a set
 represented as a list.]{.margin-note}
 <set-operations> ::=
-```pyret
-mt-set :: Set
-is-in :: (T, Set<T> -> Bool)
-insert :: (T, Set<T> -> Set<T>)
-union :: (Set<T>, Set<T> -> Set<T>)
-size :: (Set<T> -> Number)
-to-list :: (Set<T> -> List<T>)
+```jayret
+/* contract: mt-set :: Object */;
+/* contract: is-in :: Object */;
+/* contract: insert :: Object */;
+/* contract: union :: Object */;
+/* contract: size :: Object */;
+/* contract: to-list :: Object */;
 ```
 We may also find it also useful to have functions such as
 
-```pyret
-insert-many :: (List<T>, Set<T> -> Set<T>)
+```jayret
+/* contract: insert-many :: Object */;
 ```
 which, combined with `mt-set`{.pyret}, easily gives us a `to-set`{.pyret}
 function.
@@ -67,16 +67,16 @@ issues by focusing on sets of (non-rough)numbers.
 
 The empty list can stand in for the empty set—
 
-```pyret
-type LSet = List
-mt-set = empty
+```jayret
+type LSet = List;
+mt-set = empty;
 ```
 —and we can presumably define `size`{.pyret} as
 
-```pyret
-fun size<T>(s :: LSet<T>) -> Number:
-  s.length()
-end
+```jayret
+int size(LSet<Object> s) {
+    return s.length();
+}
 ```
 However, this [☛ reduction](glossary.html#%28elem._glossary-reduction%29) (of sets to lists) can be
 dangerous:
@@ -84,13 +84,13 @@ dangerous:
 
 1. There is a subtle difference between lists and sets. The list
   
-  ```pyret
-  [list: 1, 1]
+  ```jayret
+[1, 1];
   ```
   is not the same as
   
-  ```pyret
-  [list: 1]
+  ```jayret
+[1];
   ```
   because the first list has length two whereas the second has length
   one. Treated as a set, however, the two are the same: they both have
@@ -115,8 +115,8 @@ this incurs a cost during insertion but avoids unnecessary duplication
 and lets us use `length`{.pyret} to implement `size`{.pyret}. The other
 option is to define `insert`{.pyret} as `link`{.pyret}—literally,
 
-```pyret
-insert = link
+```jayret
+insert = link;
 ```
 —and have some other procedure perform the filtering of duplicates.
 
@@ -151,18 +151,17 @@ What is the time complexity of `size`{.pyret} if the list has duplicates?
 
 One implementation of `size`{.pyret} is
 
-```pyret
-fun size<T>(s :: LSet<T>) -> Number:
-  cases (List) s:
-    | empty => 0
-    | link(f, r) =>
-      if r.member(f):
-        size(r)
-      else:
-        1 + size(r)
-      end
-  end
-end
+```jayret
+int size(LSet<Object> s) {
+    return switch (s) {
+        case Empty: yield 0;
+        case Link(f, r): yield if (r.member(f)) {
+            return size(r);
+        } else {
+            return 1 + size(r);
+        };
+    }
+}
 ```
 
 Let’s now compute the complexity of the body of the function, assuming
@@ -195,7 +194,7 @@ not be the same. In the table we’ll consider just two of the most
 common operations, insertion and membership checking:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0"><tr><td><p> </p></td><td><p><span class="hspace">  </span></p></td><td colspan="3"><p><span style="font-weight: bold">With Duplicates</span></p></td><td><p><span class="hspace">  </span></p></td><td colspan="3"><p><span style="font-weight: bold">Without Duplicates</span></p></td></tr><tr><td><p> </p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">insert</code></span></p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">is-in</code></span></p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">insert</code></span></p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">is-in</code></span></p></td></tr><tr><td><p><span style="font-weight: bold">Size of Set</span></p></td><td><p><span class="hspace">  </span></p></td><td><p>constant</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td></tr><tr><td><p><span style="font-weight: bold">Size of List</span></p></td><td><p><span class="hspace">  </span></p></td><td><p>constant</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td></tr></table>
+<table cellpadding="0" cellspacing="0"><tr><td><p> </p></td><td><p><span class="hspace">  </span></p></td><td colspan="3"><p><span style="font-weight: bold">With Duplicates</span></p></td><td><p><span class="hspace">  </span></p></td><td colspan="3"><p><span style="font-weight: bold">Without Duplicates</span></p></td></tr><tr><td><p> </p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">insert</code></span></p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">is-in</code></span></p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">insert</code></span></p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">is-in</code></span></p></td></tr><tr><td><p><span style="font-weight: bold">Size of Set</span></p></td><td><p><span class="hspace">  </span></p></td><td><p>constant</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td></tr><tr><td><p><span style="font-weight: bold">Size of List</span></p></td><td><p><span class="hspace">  </span></p></td><td><p>constant</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td></tr></table>
 ```
 A naive reading of this would suggest that the representation with
 duplicates is better because it’s sometimes constant and sometimes
@@ -259,8 +258,8 @@ under each list representation.
 ::: {.exercise}
 Implement the operation
 
-```pyret
-remove :: (Set<T>, T -> Set<T>)
+```jayret
+/* contract: remove :: Object */;
 ```
 under each list representation (renaming `Set`{.pyret} appropriately.
 What difference do you see?
@@ -270,9 +269,9 @@ What difference do you see?
 Suppose you’re asked to extend sets with these operations, as the set
 analog of `first`{.pyret} and `rest`{.pyret}:
 
-```pyret
-one :: (Set<T> -> T)
-others :: (Set<T> -> T)
+```jayret
+/* contract: one :: Object */;
+/* contract: others :: Object */;
 ```
 You should refuse to do so! Do you see why?
 :::

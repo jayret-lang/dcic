@@ -27,8 +27,8 @@ average either, because there are no elements (so trying to compute the average
 would result in a divison-by-zero error). Thus, while it is a convenient
 fiction to write
 
-```pyret
-average :: List<Number> -> Number
+```jayret
+/* contract: average :: Object */;
 ```
 it is just that: a (bit of a) fiction. The function is only defined on
 non-empty lists.
@@ -47,41 +47,39 @@ contract absolutely correct by returning a value in the erroneous case;
 this value is often called a sentinel. For instance, the sentinel might
 be `0`{.pyret}. Here is the full program:
 
-```pyret
-type LoN = List<Number>
-
-fun sum(l :: LoN) -> Number:
-  fold({(a, b): a + b}, 0, l)
-end
-
-avg0 :: LoN -> Number
-
-fun avg0(l):
-  cases (List) l:
-    | empty => 0
-    | link(_, _) =>
-      s = sum(l)
-      c = l.length()
-      s / c
-  end
-end
+```jayret
+type LoN = List < Number >;
+int sum(LoN l) {
+    return fold((a, b) -> a + b, 0, l);
+}
+/* contract: avg0 :: Object */;
+Object avg0(l) {
+    return switch (l) {
+        case Empty: yield 0;
+        case Link(_, _): yield block {
+            s = sum(l);
+            c = l.length();
+            return s / c;
+        };
+    }
+}
 ```
 and here are a few tests:
 
-```pyret
-check:
-  avg0([list: 1]) is 1
-  avg0([list: 1, 2, 3]) is 2
-  avg0([list: 1, 2, 3, 10]) is 4
-end
+```jayret
+@Check void test() {
+    assertEquals(avg0([1]), 1);
+    assertEquals(avg0([1, 2, 3]), 2);
+    assertEquals(avg0([1, 2, 3, 10]), 4);
+}
 ```
 
 Is there a test missing here? Yes, for the empty list! Should we add it?
 
-```pyret
-check:
-  avg0(empty) is 0
-end
+```jayret
+@Check void test() {
+    assertEquals(avg0(empty), 0);
+}
 ```
 The question is, should we be happy with this “solution”? There are two
 problems with it.
@@ -94,11 +92,11 @@ input may have been illegitimate, and cannot use the answer.
 Second, even that’s not quite true. To understand why, we need to write a few
 more tests:
 
-```pyret
-check:
-  avg0([list: -1, 0, 1]) is 0
-  avg0([list: -5, 4, 1]) is 0
-end
+```jayret
+@Check void test() {
+    assertEquals(avg0([-1, 0, 1]), 0);
+    assertEquals(avg0([-5, 4, 1]), 0);
+}
 ```
 So the problem is that when `avg0`{.pyret} returns `0`{.pyret}, we don’t know whether
 that’s a legitimate answer or a “fake” answer that stands for “this
@@ -129,7 +127,7 @@ Let’s instead look at four actual solutions.
 
 ### 23.2 Exceptions {#pd-exceptions}
 
-One technique that many languages, including Pyret, provide is called the
+One technique that many languages, including Jayret, provide is called the
 exception. An exception is a special programming construct that
 effectively halts the computation because the program cannot figure out how to
 continue computing with the data it has. There are more sophisticated forms of
@@ -139,40 +137,39 @@ strategy for handling partiality.
 Here is the average program written using an exception (we reuse `sum`{.pyret}
 from before):
 
-```pyret
-avg1 :: LoN -> Number
-
-fun avg1(l):
-  cases (List) l:
-    | empty => raise("no average for empty list")
-    | link(_, _) =>
-      s = sum(l)
-      c = l.length()
-      s / c
-  end
-end
-
-check:
-  avg1([list: 1]) is 1
-  avg1([list: 1, 2, 3]) is 2
-  avg1([list: 1, 2, 3, 10]) is 4
-end
+```jayret
+/* contract: avg1 :: Object */;
+Object avg1(l) {
+    return switch (l) {
+        case Empty: yield raise("no average for empty list");
+        case Link(_, _): yield block {
+            s = sum(l);
+            c = l.length();
+            return s / c;
+        };
+    }
+}
+@Check void test() {
+    assertEquals(avg1([1]), 1);
+    assertEquals(avg1([1, 2, 3]), 2);
+    assertEquals(avg1([1, 2, 3, 10]), 4);
+}
 ```
 The way `raise`{.pyret} works is that it terminates everything that is waiting to
 happen. For instance, if we were to write
 
-```pyret
-1 + avg1(empty)
+```jayret
+1 + avg1(empty);
 ```
 the `1 + …`{.pyret} part never happens: the whole computation ends. `raise`{.pyret}
 creates exceptions.
 
 Again, we’re missing a test. How do we write it?
 
-```pyret
-check:
-  avg1(empty) raises "no average for empty list"
-end
+```jayret
+@Check void test() {
+    assertRaises(() -> { avg1(empty) }, "no average for empty list");
+}
 ```
 The `raises`{.pyret} form takes a string that it matches against that provided to
 `raise`{.pyret}. In act, for convenience, any sub-string of the original string is
@@ -180,7 +177,7 @@ permitted: we can, for instance, also write
 `check:
   avg1(empty) raises "no average"
   avg1(empty) raises "empty list"
-end`{.pyret}
+end`{.jayret}
 
 In many programming languages, the use of exceptions is the standard way of
 dealing with partiality. It is certainly a pragmatic solution. Observe that we
@@ -210,8 +207,8 @@ things in the future.
 
 Observe that there is are two kinds of exceptions that can occur. One is
 as we’ve written above. The other is when we completely ignore (or forget to
-even think about) the empty list case, and end up getting an error from Pyret,
-which is also a kind of exception. If Pyret will raise an exception anyway,
+even think about) the empty list case, and end up getting an error from Jayret,
+which is also a kind of exception. If Jayret will raise an exception anyway,
 does it make sense for us to go through the trouble of doing it ourselves?
 
 Yes it does! For several reasons:
@@ -219,7 +216,7 @@ Yes it does! For several reasons:
 
 1. First, you get to control where the exception occurs and what it says.
 2. You can document that the exception will occur.
-3. You are less dependent on the behavior of Pyret or whatever underlying
+3. You are less dependent on the behavior of Jayret or whatever underlying
   programming language, which can change in subtle ways.
 4. You can create an exception that is unique to you, so it can’t be
   confused with other division-by-zero errors that may lurk in your program.
@@ -234,14 +231,14 @@ program execution.
 Let’s revisit `avg0`{.pyret}. The problem with it was that it returned a value
 that was not distinguishable from an actual answer. So perhaps another
 approach is to return a value that is guaranteed to be distinguishable!
-For this, a growing number of languages (including Pyret) have something like
+For this, a growing number of languages (including Jayret) have something like
 this type:
 
-```pyret
-data Option<T>:
-  | none
-  | some(value :: T)
-end
+```jayret
+data Option {
+    None;
+    Some(T value);
+}
 ```
 
 This is a type we use when we aren’t sure we will have an answer: `none`{.pyret}
@@ -250,31 +247,30 @@ is that answer.
 
 Here’s how our program now looks:
 
-```pyret
-avg2 :: LoN -> Option<Number>
-
-fun avg2(l):
-  cases (List) l:
-    | empty => none
-    | link(_, _) =>
-      s = sum(l)
-      c = l.length()
-      some(s / c)
-  end
-end
+```jayret
+/* contract: avg2 :: Object */;
+Object avg2(l) {
+    return switch (l) {
+        case Empty: yield none;
+        case Link(_, _): yield block {
+            s = sum(l);
+            c = l.length();
+            return some(s / c);
+        };
+    }
+}
 ```
 Now our tests look a bit different:
 
-```pyret
-check:
-  avg2([list: 1]) is some(1)
-  avg2([list: 1, 2, 3]) is some(2)
-  avg2([list: 1, 2, 3, 10]) is some(4)
-end
-
-check:
-  avg2(empty) is none
-end
+```jayret
+@Check void test() {
+    assertEquals(avg2([1]), some(1));
+    assertEquals(avg2([1, 2, 3]), some(2));
+    assertEquals(avg2([1, 2, 3, 10]), some(4));
+}
+@Check void test() {
+    assertEquals(avg2(empty), none);
+}
 ```
 
 The good news is, the contract is now truthful. Just by looking at it, we are
@@ -290,16 +286,16 @@ we lacked a discipline for making sure we didn’t abuse that value! So this is
 
 All these problems arise because we said that `average`{.pyret} (like
 `median`{.pyret}) is partial. However, it’s only partial if we give the domain as
-`List<Number>`{.pyret}; it’s actually a total function on the `non-empty`{.pyret}
+`List < Number >`{.pyret}; it’s actually a total function on the `non-empty`{.pyret}
 list of numbers. But how do we represent that?
 
-In some languages, like Pyret, we can actually express this directly:
+In some languages, like Jayret, we can actually express this directly:
 
-```pyret
-type NeLoND = List<Number>%(is-link)
+```jayret
+type NeLoND = List < Number > % (is-link );
 ```
 This says that we’re refining numeric lists to always have a `link`{.pyret},
-i.e., to be non-empty. In Pyret, currently, this check is only done at
+i.e., to be non-empty. In Jayret, currently, this check is only done at
 run-time; in some other programming languages, this can be done by the
 type-checker itself.
 
@@ -307,27 +303,25 @@ This refinement lets us pretend that we’re dealing with regular lists and reus
 all existing list code, while knowing for sure we will never get a
 divide-by-zero error:
 
-```pyret
-avg3 :: NeLoND -> Number
-
-fun avg3(l):
-  s = sum(l)
-  c = l.length()
-  s / c
-end
-
-check:
-  avg3([list: 1]) is 1
-  avg3([list: 1, 2, 3]) is 2
-  avg3([list: 1, 2, 3, 10]) is 4
-end
+```jayret
+/* contract: avg3 :: Object */;
+Object avg3(l) {
+    s = sum(l);
+    c = l.length();
+    return s / c;
+}
+@Check void test() {
+    assertEquals(avg3([1]), 1);
+    assertEquals(avg3([1, 2, 3]), 2);
+    assertEquals(avg3([1, 2, 3, 10]), 4);
+}
 ```
 If we do try passing an empty list, we get an internal exception:
 
-```pyret
-check:
-  avg3(empty) raises ""
-end
+```jayret
+@Check void test() {
+    assertRaises(() -> { avg3(empty) }, "");
+}
 ```
 This is a pretty interesting solution. Our function’s code is clean. We don’t
 deal with nonsensical values. The interface is truthful! (However, it does require a
@@ -347,15 +341,15 @@ There are two main weaknesses:
 
 How do we make the function total with a static guarantee? That would require
 that we ensure that we can never construct an empty list! Obviously, this is
-not possible with the existing lists in Pyret. However, we can construct a new
+not possible with the existing lists in Jayret. However, we can construct a new
 list-like datatype that “bottoms out” not at empty lists but at lists of one
 element:
 
-```pyret
-data NeLoN:
-  | one(n :: Number)
-  | more(n :: Number, r :: NeLoN)
-end
+```jayret
+data NeLoN {
+    One(int n);
+    More(int n, NeLoN r);
+}
 ```
 Observe that there is simply no way to make an empty list: the smallest list
 has one element in it. Furthermore, our type checker enforces this for us.
@@ -365,34 +359,32 @@ can’t, for instance, use the existing `sum`{.pyret} or `length`{.pyret} code o
 it. However, one option is to convert a `NeLoN`{.pyret} into a `LoN`{.pyret}, which
 is always safe, and reuse that code:
 
-```pyret
-fun nelon-to-lon(nl :: NeLoN):
-  cases (NeLoN) nl:
-    | one(n) => [list: n]
-    | more(n, r) => link(n, nelon-to-lon(r))
-  end
-end
-
-fun nl-sum(nl :: NeLoN) -> Number:
-  sum(nelon-to-lon(nl))
-end
-
-fun nl-len(nl :: NeLoN) -> Number:
-  nelon-to-lon(nl).length()
-end
+```jayret
+Object nelon-to-lon(NeLoN nl) {
+    return switch (nl) {
+        case One(n): yield [n];
+        case More(n, r): yield link(n, nelon-to-lon(r));
+    }
+}
+int nl-sum(NeLoN nl) {
+    return sum(nelon-to-lon(nl));
+}
+int nl-len(NeLoN nl) {
+    return nelon-to-lon(nl).length();
+}
 ```
 Now we can write the average in an interesting way:
 
-```pyret
-fun avg4(nl :: NeLoN) -> Number:
-  s = nl-sum(nl)
-  c = nl-len(nl)
-  s / c
-end
+```jayret
+int avg4(NeLoN nl) {
+    s = nl-sum(nl);
+    c = nl-len(nl);
+    return s / c;
+}
 ```
 
 Once again, we don’t have to have any logic for dealing with errors. However,
-it’s not because we’re sloppy or letting Pyret deal with it or getting it
+it’s not because we’re sloppy or letting Jayret deal with it or getting it
 checked at runtime or anything else: it’s because there is no way for an
 empty list to arise. Thus we have both the simplest body and the
 most truthful interface! But it comes at a cost: we need to do some work to
@@ -400,54 +392,51 @@ reuse existing functions.
 
 This problem extends to writing tests, which is now more painful:
 
-```pyret
-check:
-  nl1 = one(1)
-  nl2 = more(1, more(2, one(3)))
-  nl3 = more(1, more(2, more(3, one(10))))
-
-  avg4(nl1) is 1
-  avg4(nl2) is 2
-  avg4(nl3) is 4
-end
+```jayret
+@Check void test() {
+    nl1 = one(1);
+    nl2 = more(1, more(2, one(3)));
+    nl3 = more(1, more(2, more(3, one(10))));
+    assertEquals(avg4(nl1), 1);
+    assertEquals(avg4(nl2), 2);
+    assertEquals(avg4(nl3), 4);
+}
 ```
 That is, we’ve lost our convenient way of writing lists. We can recover that by
  writing a helper that creates `NeLoN`{.pyret}s:
 
-```pyret
-fun lon-to-nelon(l :: LoN) -> NeLoN:
-  cases (List) l:
-    | empty => raise("can't make an empty NeLoN")
-    | link(f, r) =>
-      cases (List) r:
-        | empty => one(f)
-        | else => more(f, lon-to-nelon(r))
-      end
-  end
-end
-
-check:
-  avg4(lon-to-nelon([list: 1])) is 1
-  avg4(lon-to-nelon([list: 1, 2, 3])) is 2
-  avg4(lon-to-nelon([list: 1, 2, 3, 10])) is 4
-end
+```jayret
+NeLoN lon-to-nelon(LoN l) {
+    return switch (l) {
+        case Empty: yield raise("can't make an empty NeLoN");
+        case Link(f, r): yield switch (r) {
+            case Empty: yield one(f);
+            default: yield more(f, lon-to-nelon(r));
+        };
+    }
+}
+@Check void test() {
+    assertEquals(avg4(lon-to-nelon([1])), 1);
+    assertEquals(avg4(lon-to-nelon([1, 2, 3])), 2);
+    assertEquals(avg4(lon-to-nelon([1, 2, 3, 10])), 4);
+}
 ```
 Notice that if we try to use an empty list, we get an exception:
 
-```pyret
-check:
-  avg4(lon-to-nelon(empty)) raises ""
-end
+```jayret
+@Check void test() {
+    assertRaises(() -> { avg4(lon-to-nelon(empty)) }, "");
+}
 ```
 However, it’s very important to understand where the error is coming from: the
 exception is not from `avg4`{.pyret}, it’s coming from `lon-to-nelon`{.pyret}, i.e., from the
 “interface” function. The bad datum never makes it as far as `avg4`{.pyret}! We can
 verify this:
 
-```pyret
-check:
-  lon-to-nelon(empty) raises ""
-end
+```jayret
+@Check void test() {
+    assertRaises(() -> { lon-to-nelon(empty) }, "");
+}
 ```
 Remember, there’s no way to send an empty list to `avg4`{.pyret}! Nevertheless,
 this suggests a trade-off: we can either use `NeLoN`{.pyret} explicitly but with
@@ -498,62 +487,52 @@ and there are four solutions:
 ### 23.7 A Note on Notation {#pd-pyret-list-constr}
 
 When we wrote above that we can’t get the convenience of writing, say,
-`[list: 1, 2, 3]`{.pyret} when using `NeLoN`{.pyret}s, we were speaking in
+`[1, 2, 3]`{.pyret} when using `NeLoN`{.pyret}s, we were speaking in
 general. In some languages, we can actually make similar convenient
-constructors. In Pyret, for instance, there is a protocol for defining custom
+constructors. In Jayret, for instance, there is a protocol for defining custom
 constructors; in fact, seemingly built-in constructors like `list`{.pyret} and
 `set`{.pyret} are built using this protocol. The code for doing this is a bit
 ungainly (in part because it’s optimized to save some space and time by making
 the constructor-writer’s life a little harder), but it only needs to be written
 once. Here’s a `nelon`{.pyret} constructor for `NeLoN`{.pyret}s:
 
-```pyret
-fun ra-to-nelon(r :: RawArray<Number>) -> NeLoN:
-  len = raw-array-length(r)
-  fun make-from-index(n :: Number):
-    v = raw-array-get(r, n)
-    if n == (len - 1):
-      one(v)
-    else:
-      more(v, make-from-index(n + 1))
-    end
-  end
-  make-from-index(0)
-end
-
-nelon = {
-  make0: {(): raise("can't make an empty NeLoN")},
-  make1: {(a1): one(a1)},
-  make2: {(a1, a2): more(a1, one(a2))},
-  make3: {(a1, a2, a3): more(a1, more(a2, one(a3)))},
-  make4: {(a1, a2, a3, a4): more(a1, more(a2, more(a3, one(a4))))},
-  make5: {(a1, a2, a3, a4, a5): more(a1, more(a2, more(a3, more(a4, one(a5)))))},
-  make: {(args :: RawArray<Number>): ra-to-nelon(args)} }
+```jayret
+NeLoN ra-to-nelon(RawArray<Object> r) {
+    len = raw-array-length(r);
+    Object make-from-index(int n) {
+        v = raw-array-get(r, n);
+        return if (n == (len - 1)) {
+            return one(v);
+        } else {
+            return more(v, make-from-index(n + 1));
+        }
+    }
+    return make-from-index(0);
+}
+nelon = {make0 () -> raise("can't make an empty NeLoN"), make1 (a1) -> one(a1), make2 (a1, a2) -> more(a1, one(a2)), make3 (a1, a2, a3) -> more(a1, more(a2, one(a3))), make4 (a1, a2, a3, a4) -> more(a1, more(a2, more(a3, one(a4)))), make5 (a1, a2, a3, a4, a5) -> more(a1, more(a2, more(a3, more(a4, one(a5))))), make (RawArray<Object> args) -> ra-to-nelon(args)}
 ```
 These tests show that this constructor works very much like the built-in `list`{.pyret}:
 
-```pyret
-check:
-  [nelon: ] raises "empty"
-  [nelon: 1] is one(1)
-  [nelon: 1, 2] is more(1, one(2))
-  [nelon: 1, 2, 3] is more(1, more(2, one(3)))
-  [nelon: 1, 2, 3, 4] is more(1, more(2, more(3, one(4))))
-  [nelon: 1, 2, 3, 4, 5] is more(1, more(2, more(3, more(4, one(5)))))
-  [nelon: 1, 2, 3, 4, 5, 6] is
-  more(1, more(2, more(3, more(4, more(5, one(6))))))
-  [nelon: 1, 2, 3, 4, 5, 6, 7] is
-  more(1, more(2, more(3, more(4, more(5, more(6, one(7)))))))
-end
+```jayret
+@Check void test() {
+    assertRaises(() -> { [nelon: ] }, "empty");
+    assertEquals([nelon: 1], one(1));
+    assertEquals([nelon: 1, 2], more(1, one(2)));
+    assertEquals([nelon: 1, 2, 3], more(1, more(2, one(3))));
+    assertEquals([nelon: 1, 2, 3, 4], more(1, more(2, more(3, one(4)))));
+    assertEquals([nelon: 1, 2, 3, 4, 5], more(1, more(2, more(3, more(4, one(5))))));
+    assertEquals([nelon: 1, 2, 3, 4, 5, 6], more(1, more(2, more(3, more(4, more(5, one(6)))))));
+    assertEquals([nelon: 1, 2, 3, 4, 5, 6, 7], more(1, more(2, more(3, more(4, more(5, more(6, one(7))))))));
+}
 ```
 With this, we can rewrite the tests from [Total Domains, Statically](partial-domains.html##pd-total-static) very
 conveniently:
 
-```pyret
-check:
-  avg4([nelon: 1]) is 1
-  avg4([nelon: 1, 2, 3]) is 2
-  avg4([nelon: 1, 2, 3, 10]) is 4
-end
+```jayret
+@Check void test() {
+    assertEquals(avg4([nelon: 1]), 1);
+    assertEquals(avg4([nelon: 1, 2, 3]), 2);
+    assertEquals(avg4([nelon: 1, 2, 3, 10]), 4);
+}
 ```
 thereby having our cake and eating it too!

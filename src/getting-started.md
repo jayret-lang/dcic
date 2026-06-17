@@ -77,9 +77,9 @@ computation and ask the computer to run or evaluate the
 computation so that we get a number back. A software or
 web-application in which you write and run programs is called a
 programming environment. In the first part of this course, we
-will use a language called Pyret.
+will use a language called Jayret.
 
-Go to [the on-line editor](https://code.pyret.org/editor) (which we’ll henceforth refer to as “CPO”).
+Go to [the on-line editor](https://jayret-lang.github.io/code/editor) (which we’ll henceforth refer to as “CPO”).
 For now, we will work only in the right-hand side (the
 interactions pane).
 
@@ -87,8 +87,8 @@ The ››› is called the “prompt”—that’s where we tell CPO to run a
 program. Let’s tell it to add `3`{.pyret} and `5`{.pyret}. Here’s what we write:
 
 ::: {.pyret-repl}
-``` pyret
-3 + 5
+```jayret
+3 + 5;
 ```
 :::
 
@@ -96,8 +96,8 @@ Press the Return key, and the result of the computation will appear on
 the line below the prompt, as shown below:
 
 ::: {.pyret-repl}
-``` pyret
-3 + 5
+```jayret
+3 + 5;
 ```
 ``` output
 8
@@ -107,8 +107,8 @@ the line below the prompt, as shown below:
 Not surprisingly, we can do other arithmetic computations
 
 ::: {.pyret-repl}
-``` pyret
-2 * 6
+```jayret
+2 * 6;
 ```
 ``` output
 12
@@ -120,30 +120,30 @@ Not surprisingly, we can do other arithmetic computations
 What if we try `3 + 4 * 5`{.pyret}?
 
 ::: {.do-now}
-Try it! See what Pyret says.
+Try it! See what Jayret says.
 :::
 
-Pyret gave you an error message. What it says is that
-Pyret isn’t sure whether we mean
+Jayret gave you an error message. What it says is that
+Jayret isn’t sure whether we mean
 
-```pyret
-(3 + 4) * 5
+```jayret
+(3 + 4) * 5;
 ```
 
 or
 
-```pyret
-3 + (4 * 5)
+```jayret
+3 + (4 * 5);
 ```
 
 so it asks us to include parentheses to make that explicit.
 Every programming language has a set of rules about how you have to
-write down programs. Pyret’s rules require parentheses to avoid
+write down programs. Jayret’s rules require parentheses to avoid
 ambiguity.
 
 ::: {.pyret-repl}
-``` pyret
-(3 + 4) * 5
+```jayret
+(3 + 4) * 5;
 ```
 ``` output
 35
@@ -151,27 +151,28 @@ ambiguity.
 :::
 
 ::: {.pyret-repl}
-``` pyret
-3 + (4 * 5)
+```jayret
+3 + (4 * 5);
 ```
 ``` output
 23
 ```
 :::
 
-Another Pyret rule requires spaces around the arithmetic operators.
+Another Jayret rule requires spaces around the arithmetic operators.
 See what happens if you forget
 the spaces:
 
 ::: {.pyret-repl}
-``` pyret
-3+4
+```jayret
+3;
++4;
 ```
 :::
 
-Pyret will show a different error message that highlights the part of
+Jayret will show a different error message that highlights the part of
 the code that isn’t formatted properly, along with an explanation of
-the issue that Pyret has detected. To fix the error, you can press the
+the issue that Jayret has detected. To fix the error, you can press the
 up-arrow key within the right pane and edit the previous computation
 to add the spaces.
 
@@ -183,12 +184,12 @@ What if we want to get beyond basic arithmetic operators? Let’s say
 we want the minimum of two numbers. We’d write this as
 
 ::: {.pyret-repl}
-``` pyret
-num-min(2, 8)
+```jayret
+num-min(2, 8);
 ```
 :::
 [Why `num-`{.pyret}? It’s because “minimum” is a concept that makes sense
-on data other than numbers; Pyret calls the min operator `num-min`{.pyret} to
+on data other than numbers; Jayret calls the min operator `num-min`{.pyret} to
 avoid ambiguity.]{.margin-note}
 
 #### 3.1.3 Expressions {#expressions}
@@ -198,8 +199,8 @@ for `+`{.pyret}, `*`{.pyret}, …). This means we should be able to use the resu
 `num-min`{.pyret} in other computations where a number is expected:
 
 ::: {.pyret-repl}
-``` pyret
-5 * num-min(2, 8)
+```jayret
+5 * num-min(2, 8);
 ```
 ``` output
 10
@@ -207,8 +208,8 @@ for `+`{.pyret}, `*`{.pyret}, …). This means we should be able to use the resu
 :::
 
 ::: {.pyret-repl}
-``` pyret
-(1 + 5) * num-min(2, 8)
+```jayret
+(1 + 5) * num-min(2, 8);
 ```
 ``` output
 12
@@ -219,7 +220,7 @@ Hopefully you are starting to see a pattern. We can build up more
 complicated computations from smaller ones, using operations to combine
 the results from the smaller computations. We will use the term
 expression to refer a computation written in a format
-that Pyret can understand and evaluate to an answer.
+that Jayret can understand and evaluate to an answer.
 
 ::: {.exercise}
 In CPO, try to write the expressions for each of the
@@ -248,8 +249,8 @@ in the interactions pane to change how the number is presented. Try it!
 Look at an interaction like
 
 ::: {.pyret-repl}
-``` pyret
-(3 + 4) * (5 + 1)
+```jayret
+(3 + 4) * (5 + 1);
 ```
 ``` output
 42
@@ -275,11 +276,11 @@ What if we wanted to write a program that used information other than
 numbers, such as someone’s name? For names and other text-like data,
 we use what are called strings. Here are some examples:
 
-```pyret
-"Kathi"
-"Go Bears!"
-"CSCI0111"
-"Carberry, Josiah"
+```jayret
+"Kathi";
+"Go Bears!";
+"CSCI0111";
+"Carberry, Josiah";
 ```
 
 What do we notice? Strings can contain spaces, punctuation, and
@@ -297,15 +298,15 @@ also need images. Images are different from both numbers and strings
 unless you get much farther into computer science but let’s not get
 ahead of ourselves).
 
-Pyret has built-in support for images. When you start up Pyret, you’ll
+Jayret has built-in support for images. When you start up Jayret, you’ll
 see a grayed-out line that says “use context essentials2021” (or
-something similar). This line configures Pyret with some basic
+something similar). This line configures Jayret with some basic
 functionality beyond basic numbers and strings.
 
 ::: {.do-now}
 Press the “Run”
 button (to activate the features in essentials), then write each of
-these Pyret expressions at the interactions prompt to see
+these Jayret expressions at the interactions prompt to see
 what they produce:
 
 
@@ -321,7 +322,7 @@ and height for rectangles, both measured in screen pixels), a string
 indicating whether to make a solid shape or just an outline, then a
 string with the color to use in drawing the shape.
 
-Which shapes and colors does Pyret know about? Hold this
+Which shapes and colors does Jayret know about? Hold this
 question for just a moment. We’ll show you how to look up information
 like this in the documentation shortly.
 
@@ -331,7 +332,7 @@ Earlier, we saw that we could use operations like `+`{.pyret} and
 `*`{.pyret} to combine numbers through expressions. Any time you get a
 new kind of datum in programming, you should ask what operations the
 language gives you for working with that data. In the case of images
-in Pyret, the collection includes the ability to:
+in Jayret, the collection includes the ability to:
 
 - rotate them
 - scale them
@@ -343,25 +344,23 @@ in Pyret, the collection includes the ability to:
 Let’s see how to use some of these.
 
 ::: {.exercise}
-Type the following expressions into Pyret:
+Type the following expressions into Jayret:
 
-```pyret
-rotate(45, rectangle(20, 30, "solid", "red"))
+```jayret
+rotate(45, rectangle(20, 30, "solid", "red"));
 ```
 
 What does the `45`{.pyret} represent? Try some different numbers in place of the
 `45`{.pyret} to confirm or refine your hypothesis.
 
-```pyret
-overlay(circle(25, "solid", "yellow"),
-  rectangle(50, 50, "solid", "blue"))
+```jayret
+overlay(circle(25, "solid", "yellow"), rectangle(50, 50, "solid", "blue"));
 ```
 
 Can you describe in prose what `overlay`{.pyret} does?
 
-```pyret
-above(circle(25, "solid", "red"),
-  rectangle(30, 50, "solid", "blue"))
+```jayret
+above(circle(25, "solid", "red"), rectangle(30, 50, "solid", "blue"));
 ```
 
 What kind of value do you get from using the `rotate`{.pyret} or
@@ -382,10 +381,8 @@ For example, we used `above`{.pyret} to create an image out of two
 smaller images. We could take that image and rotate it using the
 following expression.
 
-```pyret
-rotate(45,
-  above(circle(25, "solid", "red"),
-    rectangle(30, 50, "solid", "blue")))
+```jayret
+rotate(45, above(circle(25, "solid", "red"), rectangle(30, 50, "solid", "blue")));
 ```
 
 This idea of using the output of one function as input to another is
@@ -439,17 +436,17 @@ encountered: types and error messages.
 
 Now that we are composing functions to build more complicated
 expressions out of smaller ones, we will have to keep track of which
-combinations make sense. Consider the following sample of Pyret code:
+combinations make sense. Consider the following sample of Jayret code:
 
-```pyret
-8 * circle(25, "solid", "red")
+```jayret
+8 * circle(25, "solid", "red");
 ```
 
 What value would you expect this to produce? Multiplication is meant to work
-on numbers, but this code asks Pyret to multiply a number and an image. Does
+on numbers, but this code asks Jayret to multiply a number and an image. Does
 this even make sense?
 
-This code does not make sense, and indeed Pyret will produce an error
+This code does not make sense, and indeed Jayret will produce an error
 message if we try to run it.
 
 ::: {.do-now}
@@ -466,21 +463,22 @@ The
 
 operator expects to be given two Numbers
 
-Notice the word “Numbers”. Pyret is telling you what kind of
+Notice the word “Numbers”. Jayret is telling you what kind of
 information works with the `*`{.pyret} operation. In programming, values
 are organized into types (e.g., number, string, image). These
 types are used in turn to describe what kind of inputs and results (a.k.a.,
 outputs) a function works with. For example, * expects to be given two
 numbers, from which it will return a number. The last expression we
-tried violated that expectation, so Pyret produced an error message.
+tried violated that expectation, so Jayret produced an error message.
 
 Talking about “violating expectations” sounds almost legal, doesn’t
 it? It does, and the term contract refers to the required types
 of inputs and promised types of outputs when using a specific
-function. Here are several examples of Pyret contracts (written in the
+function. Here are several examples of Jayret contracts (written in the
 notation you will see in the documentation):
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 * :: (x1 :: Number, x2 :: Number) -> Number
 
 circle :: (radius :: Number,
@@ -508,7 +506,7 @@ understand how to read it. It gives us several pieces of information:
 - The second input is the image that will appear on the bottom
 - The output from calling the function (which follows `->`{.pyret}) will have type `Image`{.pyret}
 
-In general, we read the double-colon (`::`{.pyret}) as “has the type”. We
+In general, we read the double-colon (`:`{.pyret}) as “has the type”. We
 read the arrow (`->`{.pyret}) as “returns”.
 
 Whenever you compose smaller expressions into more complex
@@ -525,15 +523,15 @@ expects three inputs: a number (for the radius), a string (for the
 style), and a string (for the color). What if we forgot the style
 string, and only provided the radius and color, as in:
 
-```pyret
-circle(100, "purple")
+```jayret
+circle(100, "purple");
 ```
 
 The error here is not about the type of the inputs, but rather about
 the number of inputs provided.
 
 ::: {.exercise}
-Run some expressions in Pyret that use an incorrect type for some input
+Run some expressions in Jayret that use an incorrect type for some input
 to a function. Run others where you provide the wrong number of
 inputs to a function.
 
@@ -561,7 +559,7 @@ might have typed an example such as these:
 
 ::: {.do-now}
 Make sure you can spot the error in each of these! Evaluate these in
-Pyret if necessary.
+Jayret if necessary.
 :::
 
 You already know various punctuation rules for writing prose. Code
@@ -571,7 +569,7 @@ essay, a programming environment won’t be able to evaluate your
 expressions if they have punctuation errors.
 
 ::: {.do-now}
-Make a list of the punctuation rules for Pyret code that you believe
+Make a list of the punctuation rules for Jayret code that you believe
 you’ve encountered so far.
 :::
 
@@ -590,7 +588,7 @@ punctuation” because the rules go beyond what you think of as
 punctuation, but that’s a fair place to start). Making mistakes in
 your syntax is common at first. In time, you’ll internalize the
 rules. For now, don’t get discouraged if you get errors about syntax
-from Pyret. It’s all part of the learning process.
+from Jayret. It’s all part of the learning process.
 
 ##### 3.1.7.3 Finding Other Functions: Documentation {#expressions-documentation}
 
@@ -606,7 +604,7 @@ because it contains a lot of detail that you don’t even know that you
 need just yet. Let’s take a look at how you can use the documentation
 as a beginner.
 
-Open the [Pyret Image Documentation](https://www.pyret.org/docs/latest/image.html). Focus on the
+Open the [Jayret Image Documentation](https://jayret-lang.github.io/docs/latest/image.html). Focus on the
 sidebar on the left. At the top, you’ll see a list of all the
 different topics covered in the documentation. Scroll down until you
 see “rectangle” in the sidebar: surrounding that, you’ll see
@@ -618,8 +616,8 @@ If you click on a shape or function name, you’ll bring up details on
 using that function in the area on the right. You’ll see the contract
 in a shaded box, a description of what the function does (under the
 box), and then a concrete example or two of what you type to use the
-function. You could copy and paste any of the examples into Pyret to
+function. You could copy and paste any of the examples into Jayret to
 see how they work (changing the inputs, for example).
 
 For now, everything you need documentation wise is in the section on
-images. We’ll go further into Pyret and the documentation as we go.
+images. We’ll go further into Jayret and the documentation as we go.

@@ -57,38 +57,33 @@ Instead, we will focus on the code.
 
 First, we need a helper function that can compute the greatest common denominator:
 
-```pyret
-fun gcd(a, b):
-  if b == 0:
-    a
-  else:
-    gcd(b, num-modulo(a, b))
-  end
-end
+```jayret
+Object gcd(a, b) {
+    return if (b == 0) {
+        return a;
+    } else {
+        return gcd(b, num-modulo(a, b));
+    }
+}
 ```
 With that, we can define the Pollard-rho implementation. Recall that
 the function may or may not succeed in finding a factor (in
 particular, it must fail when given a prime!), so we use an
 `Option`{.pyret} type to reflect the two possibilities:
 
-```pyret
-fun pr(n):
-  fun g(x): num-modulo((x * x) + 1, n) end
-  fun loop(x, y, d):
-    new-x = g(x)
-    new-y = g(g(y))
-    new-d = gcd(num-abs(new-x - new-y), n)
-    ask:
-      | new-d == 1 then:
-        loop(new-x, new-y, new-d)
-      | new-d == n then:
-        none
-      | otherwise:
-        some(new-d)
-    end
-  end
-  loop(2, 2, 1)
-end
+```jayret
+Object pr(n) {
+    Object g(x) {
+        return num-modulo((x * x) + 1, n);
+    }
+    Object loop(x, y, d) {
+        new-x = g(x);
+        new-y = g(g(y));
+        new-d = gcd(num-abs(new-x - new-y), n);
+        return ask new-d == 1 then: loop(new-x, new-y, new-d);new-d == n then: none;otherwise: some(new-d);
+    }
+    return loop(2, 2, 1);
+}
 ```
 The key step is the computation `g(x)`{.pyret} versus `g(g(x))`{.pyret}. We
 can imagine `x`{.pyret} is the tortoise, so `g(x)`{.pyret} is the tortoise’s
@@ -97,26 +92,24 @@ update.
 
 Try to run the above on the following values and see what it produces:
 
-```pyret
-pr(6)
-pr(14)
-pr(35)
-pr(37)
-pr(41)
-pr(8)
-pr(44)
+```jayret
+pr(6);
+pr(14);
+pr(35);
+pr(37);
+pr(41);
+pr(8);
+pr(44);
 ```
 
 In general, we can check the first few numbers and see how closely
 they match our intuition:
 
-```pyret
-for map(n from range(2, 100)):
-  cases (Option) pr(n):
-    | none => num-to-string(n) + " may be prime"
-    | some(v) => num-to-string(n) + " has factor " + num-to-string(v)
-  end
-end
+```jayret
+[for map(n : range(2, 100)) { yield switch (pr(n)) {
+    case None: yield num-to-string(n) + " may be prime";
+    case Some(v): yield num-to-string(n) + " has factor " + num-to-string(v);
+}; }];
 ```
 
 ::: {.exercise}

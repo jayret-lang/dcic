@@ -16,15 +16,15 @@ next: unified-cyclic-data.html
 In [Understanding Equality](unified-equality.html), we drew memory diagrams to show how
 values appear in the heap. At that time, we looked only at structured
 data. Now we will look at aggregate data: lists in Python and arrays
-in Pyret.
+in Jayret.
 
-Both Python lists and Pyret arrays are stored in memory with a
+Both Python lists and Jayret arrays are stored in memory with a
 starting value that indicates how many values there are, followed by
 the actual elements in subsequent addresses. For instance, suppose we
 write the following value:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">sl = ['bread', 'coffee', 'eggs']</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Pyret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">sl = [array: 'bread', 'coffee', 'eggs']</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">sl = ['bread', 'coffee', 'eggs']</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">sl = [array: 'bread', 'coffee', 'eggs']</code></pre></div></div></p></td></tr></table>
 ```
 Here’s what memory might look like:
 
@@ -39,7 +39,7 @@ directory entries for the individual elements, but they can be reached
 by referring to `sl`{.pyret} followed by an offset: for instance,
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">sl[2]</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">sl.get-now(2)</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">sl[2]</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">sl.get-now(2)</code></pre></div></div></p></td></tr></table>
 ```
 Internally, this turns into: “obtain the address of `sl`{.pyret}, then
 add 1 and the offset `2`{.pyret} to it”. This produces the address
@@ -48,7 +48,7 @@ at address 1004, in both languages, produces
 `'eggs'`{.python}.[You may find it odd that the offsets begin
 at 0. While it is indeed confusing—the “first” value is at offset
 `0`{.pyret}, the “third” value at offset `2`{.pyret}, and so on—this is
-a convention both Python and Pyret chose to be consistent with most
+a convention both Python and Jayret chose to be consistent with most
 other programming languages.]{.margin-note}
 
 Similarly, suppose we try to change the shopping list’s content to
@@ -56,7 +56,7 @@ replace the second value with `'tea'`{.pyret}. Recall that the second
 value is at offset `1`{.pyret}:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">sl[1] = 'tea'</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">sl.set-now(1, 'tea')</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">sl[1] = 'tea'</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">sl.set-now(1, 'tea')</code></pre></div></div></p></td></tr></table>
 ```
 Again, we obtain the address of `sl`{.pyret}, which is 1001; add
 1 and the offset (`1`{.pyret}) to it; this gives us the address
@@ -70,19 +70,19 @@ If we now ask the language for the list as a whole, we see the change:
 in Python,
 
 ::: {.pyret-repl}
-``` pyret
-sl
+```jayret
+sl;
 ```
 ``` output
 ['bread', 'tea', 'eggs']
 ```
 :::
 
-and in Pyret,
+and in Jayret,
 
 ::: {.pyret-repl}
-``` pyret
-sl
+```jayret
+sl;
 ```
 ``` output
 [array: "bread", "tea", "eggs"]
@@ -94,7 +94,7 @@ too. Suppose Shaunae and Jonella share a shopping list, where
 `sl`{.pyret} is Shaunae’s and Jonella writes:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jl = sl</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">jl = sl</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jl = sl</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">jl = sl</code></pre></div></div></p></td></tr></table>
 ```
 Now `jl`{.pyret} and `sl`{.pyret} are aliases for the same data in the heap:
 
@@ -105,7 +105,7 @@ Thus, modifying the list `jl`{.pyret} has the same impact as modifying it
 via `sl`{.pyret}:
 
 ```{=html}
-<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Pyret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jl[0] = 'butter'</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">jl.set-now(0, 'butter')</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jl[0] = 'butter'</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">jl.set-now(0, 'butter')</code></pre></div></div></p></td></tr></table>
 ```
 means the memory looks like
 
@@ -115,19 +115,19 @@ means the memory looks like
 Thus, if we ask for the value of `sl`{.pyret}, we will see in Python:
 
 ::: {.pyret-repl}
-``` pyret
-sl
+```jayret
+sl;
 ```
 ``` output
 ['butter', 'tea', 'eggs']
 ```
 :::
 
-and in Pyret:
+and in Jayret:
 
 ::: {.pyret-repl}
-``` pyret
-sl
+```jayret
+sl;
 ```
 ``` output
 [array: "butter", "tea", "eggs"]

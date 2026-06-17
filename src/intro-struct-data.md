@@ -14,7 +14,7 @@ next: Collections_of_Structured_Data.html
 ```
 
 Earlier we had our first look at types. Until now, we have only seen
-the types that Pyret provides us, which is an interesting but
+the types that Jayret provides us, which is an interesting but
 nevertheless quite limited set. Most programs we write will contain
 many more kinds of data.
 
@@ -108,12 +108,13 @@ might store:
 - The song’s singer, which is also a `String`{.pyret}.
 - The song’s year, which is a `Number`{.pyret}.
 
-Let’s now introduce the syntax by which we can teach this to Pyret:
+Let’s now introduce the syntax by which we can teach this to Jayret:
 
-```pyret
-data ITunesSong: song(name, singer, year) end
+```jayret
+data ITunesSong {
+}
 ```
-This tells Pyret to introduce a new type of data, in this case
+This tells Jayret to introduce a new type of data, in this case
 called `ITunesSong`{.pyret}[We follow a convention that types
 always begin with a capital letter.]{.margin-note}. The way we actually make one of
 these data is by calling `song`{.pyret} with three parameters; for
@@ -122,20 +123,20 @@ capable of making distinctions between, say, Dance, Electronica, and
 Electronic/Dance, classify two of these three songs by a single genre:
 “World”.]{.margin-note}
 <structured-examples> ::=
-```pyret
-song("La Vie en Rose", "Édith Piaf", 1945)
-song("Stressed Out", "twenty one pilots", 2015)
-song("Waqt Ne Kiya Kya Haseen Sitam", "Geeta Dutt", 1959)
+```jayret
+song("La Vie en Rose", "Édith Piaf", 1945);
+song("Stressed Out", "twenty one pilots", 2015);
+song("Waqt Ne Kiya Kya Haseen Sitam", "Geeta Dutt", 1959);
 ```
 Always follow a data definition with a few concrete instances of the
 data! This makes sure you actually do know how to make data of that
 form. Indeed, it’s not essential but a good habit to give names to the
 data we’ve defined, so that we can use them later:
 
-```pyret
-lver = song("La Vie en Rose", "Édith Piaf", 1945)
-so = song("Stressed Out", "twenty one pilots", 2015)
-wnkkhs = song("Waqt Ne Kiya Kya Haseen Sitam", "Geeta Dutt", 1959)
+```jayret
+lver = song("La Vie en Rose", "Édith Piaf", 1945);
+so = song("Stressed Out", "twenty one pilots", 2015);
+wnkkhs = song("Waqt Ne Kiya Kya Haseen Sitam", "Geeta Dutt", 1959);
 ```
 
 In terms of the directory, structured data are no different from
@@ -154,31 +155,33 @@ definition of data and their creation. For the former,
 consider this data definition, which makes the annotation information
 we’d recorded informally in text a formal part of the program:
 
-```pyret
-data ITunesSong: song(name :: String, singer :: String, year :: Number) end
+```jayret
+data ITunesSong {
+}
 ```
 Similarly, we can annotate the variables bound to examples of the
 data. But what should we write here?
 
-```pyret
-lver :: ___ = song("La Vie en Rose", "Édith Piaf", 1945)
+```jayret
+lver = song("La Vie en Rose", "Édith Piaf", 1945);
 ```
 Recall that annotations takes names of types, and the new type we’ve
 created is called `ITunesSong`{.pyret}. Therefore, we should write
 
-```pyret
-lver :: ITunesSong = song("La Vie en Rose", "Édith Piaf", 1945)
+```jayret
+lver = song("La Vie en Rose", "Édith Piaf", 1945);
 ```
 
 ::: {.do-now}
 What happens if we instead write this?
 
-```pyret
-lver :: String = song("La Vie en Rose", "Édith Piaf", 1945)
+```jayret
+lver = song("La Vie en Rose", "Édith Piaf", 1945);
 ```
 What error do we get? How about if instead we write these?
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 lver :: song = song("La Vie en Rose", "Édith Piaf", 1945)
 lver :: 1 = song("La Vie en Rose", "Édith Piaf", 1945)
 ```
@@ -188,16 +191,16 @@ get.
 
 ##### 6.1.2.3 Defining and Creating Conditional Data {#Defining-and-Creating-Conditional-Data}
 
-The `data`{.pyret} construct in Pyret also lets us create conditional
+The `data`{.pyret} construct in Jayret also lets us create conditional
 data, with a slightly different syntax. For instance, say we want to
 define the colors of a traffic light:
 
-```pyret
-data TLColor:
-  | Red
-  | Yellow
-  | Green
-end
+```jayret
+data TLColor {
+    Red;
+    Yellow;
+    Green;
+}
 ```
 [Conventionally, the names of the options begin in
 lower-case, but if they have no additional structure, we often
@@ -206,29 +209,29 @@ variables: i.e., `Red`{.pyret} rather than `red`{.pyret}.]{.margin-note}
 Each `|`{.pyret} (pronounced “stick”) introduces another option. You
 would make instances of traffic light colors as
 
-```pyret
-Red
-Green
-Yellow
+```jayret
+Red;
+Green;
+Yellow;
 ```
 
 A more interesting and common example is when each condition has some
 structure to it; for instance:
 
-```pyret
-data Animal:
-  | boa(name :: String, length :: Number)
-  | armadillo(name :: String, liveness :: Boolean)
-end
+```jayret
+data Animal {
+    Boa(String name, int length);
+    Armadillo(String name, boolean liveness);
+}
 ```
 [“In Texas, there ain’t nothin’ in the middle of the road
 except yellow stripes and a dead armadillo.”—Jim Hightower]{.margin-note}
 We can make examples of them as you would expect:
 
-```pyret
-b1 = boa("Ayisha", 10)
-b2 = boa("Bonito", 8)
-a1 = armadillo("Glypto", true)
+```jayret
+b1 = boa("Ayisha", 10);
+b2 = boa("Bonito", 8);
+a1 = armadillo("Glypto", true);
 ```
 We call the different conditions variants.
 
@@ -239,25 +242,26 @@ How would you annotate the three variable bindings?
 Notice that the distinction between boas and armadillos is lost in the
 annotation.
 
-```pyret
-b1 :: Animal = boa("Ayisha", 10)
-b2 :: Animal = boa("Bonito", 8)
-a1 :: Animal = armadillo("Glypto", true)
+```jayret
+b1 = boa("Ayisha", 10);
+b2 = boa("Bonito", 8);
+a1 = armadillo("Glypto", true);
 ```
 
 When defining a conditional datum the first stick is actually
 optional, but adding it makes the variants line up nicely. This helps
 us realize that our first example
 
-```pyret
-data ITunesSong: song(name, singer, year) end
+```jayret
+data ITunesSong {
+}
 ```
 is really just the same as
 
-```pyret
-data ITunesSong:
-  | song(name, singer, year)
-end
+```jayret
+data ITunesSong {
+    Song(name, singer, year);
+}
 ```
 i.e., a conditional type with just one condition, where that one
 condition is structured.
@@ -272,7 +276,7 @@ involve them. As you might expect, we need to figure out how to
 - take apart the fields of a structured datum, and
 - tell apart the variants of a conditional datum.
 
-As we’ll see, Pyret also gives us a convenient way to do both
+As we’ll see, Jayret also gives us a convenient way to do both
 together.
 
 ##### 6.1.3.1 Extracting Fields from Structured Data {#Extracting-Fields-from-Structured-Data}
@@ -283,6 +287,7 @@ produces (a `Number`{.pyret}). This gives us a rough skeleton for the
 function:
 <song-age> ::=
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 fun song-age(s :: ITunesSong) -> Number:
   <song-age-body>
 end
@@ -290,36 +295,35 @@ end
 We know that the form of the body must be roughly:
 <song-age-body> ::=
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 2016 - <get the song year>
 ```
-We can get the song year by using Pyret’s field access, which is
+We can get the song year by using Jayret’s field access, which is
 a `.`{.pyret} followed by a field’s name—in this case,
 `year`{.pyret}—following the variable that holds the structured
 datum. Thus, we get the `year`{.pyret} field of `s`{.pyret} (the parameter
 to `song-age`{.pyret}) with
 
-```pyret
-s.year
+```jayret
+s.year;
 ```
 So the entire function body is:
 
-```pyret
-fun song-age(s :: ITunesSong) -> Number:
-  2016 - s.year
-end
+```jayret
+int song-age(ITunesSong s) {
+    return 2016 - s.year;
+}
 ```
 It would be good to also record some examples
 ([<structured-examples>](intro-struct-data.html#%28elem._structured-examples%29)), giving us a comprehensive
 definition of the function:
 
-```pyret
-fun song-age(s :: ITunesSong) -> Number:
-  2016 - s.year
-where:
-  song-age(lver) is 71
-  song-age(so) is 1
-  song-age(wnkkhs) is 57
-end
+```jayret
+int song-age(ITunesSong s) {
+    return 2016 - s.year;
+} where {
+    
+}
 ```
 
 ##### 6.1.3.2 Telling Apart Variants of Conditional Data {#telling-apart-variants}
@@ -329,14 +333,14 @@ Now let’s see how we tell apart variants. For this, we again use
 the variants. Thus, if we wanted to compute advice for a driver based on a
 traffic light’s state, we might write:
 
-```pyret
-fun advice(c :: TLColor) -> String:
-  cases (TLColor) c:
-    | Red => "wait!"
-    | Yellow => "get ready..."
-    | Green => "go!"
-  end
-end
+```jayret
+String advice(TLColor c) {
+    return switch (c) {
+        case Red: yield "wait!";
+        case Yellow: yield "get ready...";
+        case Green: yield "go!";
+    }
+}
 ```
 
 ::: {.do-now}
@@ -351,13 +355,14 @@ then try both `advice(Yellow)`{.pyret} and `advice(Red)`{.pyret}.
 ##### 6.1.3.3 Processing Fields of Variants {#process-fields-variants}
 
 In this example, the variants had no fields. But if the variant has
-fields, Pyret expects you to list names of variables for those fields,
+fields, Jayret expects you to list names of variables for those fields,
 and will then automatically bind those variables—so you don’t need
 to use the `.`{.pyret}-notation to get the field values.
 
 To illustrate this, assume we want to get the name of any animal:
 <animal-name> ::=
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 fun animal-name(a :: Animal) -> String:
   <animal-name-body>
 end
@@ -370,47 +375,45 @@ fields. Conventionally, we give longer, descriptive names to
 the field definitions and short names to the corresponding variables.]{.margin-note}
 
 <animal-name-body> ::=
-```pyret
-cases (Animal) a:
-  | boa(n, l) => ...
-  | armadillo(n, l) => ...
-end
+```jayret
+switch (a) {
+    case Boa(n, l): yield ...;
+    case Armadillo(n, l): yield ...;
+}
 ```
 
 In both cases, we want to return the field `n`{.pyret}, giving us the
 complete function:
 
-```pyret
-fun animal-name(a :: Animal) -> String:
-  cases (Animal) a:
-    | boa(n, l) => n
-    | armadillo(n, l) => n
-  end
-where:
-  animal-name(b1) is "Ayisha"
-  animal-name(b2) is "Bonito"
-  animal-name(a1) is "Glypto"
-end
+```jayret
+String animal-name(Animal a) {
+    return switch (a) {
+        case Boa(n, l): yield n;
+        case Armadillo(n, l): yield n;
+    }
+} where {
+    
+}
 ```
 
-Let’s look at how Pyret would evaluate a function call like
+Let’s look at how Jayret would evaluate a function call like
 
-```pyret
-animal-name(boa("Bonito", 8))
+```jayret
+animal-name(boa("Bonito", 8));
 ```
 The argument `boa("Bonito", 8)`{.pyret} is a value. In the same way as we
 substitute simple data types like strings and numbers for parameters
 when we evaluate a function, we do the same thing here. After
 substituting, we are left with the following expression to evaluate:
 
-```pyret
-cases (Animal) boa("Bonito", 8):
-  | boa(n, l) => n
-  | armadillo(n, l) => n
-end
+```jayret
+switch (boa("Bonito", 8)) {
+    case Boa(n, l): yield n;
+    case Armadillo(n, l): yield n;
+}
 ```
 
-Next, Pyret determines which case matches the data (the first one, for
+Next, Jayret determines which case matches the data (the first one, for
 `boa`{.pyret}, in this case). It then substitutes the field names with the
 corresponding components of the datum result expression for the
 matched case. In this case, we will substitute uses of `n`{.pyret} with

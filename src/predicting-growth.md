@@ -10,7 +10,7 @@ next: amortized-analysis.html
 ## 14 Predicting Growth {#predicting-growth}
 
 ```{=html}
-<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.A_.Little__.True__.Story%29">14.1<span class="hspace"> </span>A Little (True) Story</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.The_.Analytical_.Idea%29">14.2<span class="hspace"> </span>The Analytical Idea</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._cost-model%29">14.3<span class="hspace"> </span>A Cost Model for Pyret Running Time</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._size-of-input%29">14.4<span class="hspace"> </span>The Size of the Input</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.The_.Tabular_.Method_for_.Singly-.Structurally-.Recursive_.Functions%29">14.5<span class="hspace"> </span>The Tabular Method for Singly-Structurally-Recursive Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._creating-recurrences%29">14.6<span class="hspace"> </span>Creating Recurrences</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._math-anon-functions%29">14.7<span class="hspace"> </span>A Notation for Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._big-oh-def%29">14.8<span class="hspace"> </span>Comparing Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._big-oh-closure%29">14.9<span class="hspace"> </span>Combining Big-Oh Without Woe</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._solving-recurrences%29">14.10<span class="hspace"> </span>Solving Recurrences</a></p></td></tr></table>
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.A_.Little__.True__.Story%29">14.1<span class="hspace"> </span>A Little (True) Story</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.The_.Analytical_.Idea%29">14.2<span class="hspace"> </span>The Analytical Idea</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._cost-model%29">14.3<span class="hspace"> </span>A Cost Model for Jayret Running Time</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._size-of-input%29">14.4<span class="hspace"> </span>The Size of the Input</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.The_.Tabular_.Method_for_.Singly-.Structurally-.Recursive_.Functions%29">14.5<span class="hspace"> </span>The Tabular Method for Singly-Structurally-Recursive Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._creating-recurrences%29">14.6<span class="hspace"> </span>Creating Recurrences</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._math-anon-functions%29">14.7<span class="hspace"> </span>A Notation for Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._big-oh-def%29">14.8<span class="hspace"> </span>Comparing Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._big-oh-closure%29">14.9<span class="hspace"> </span>Combining Big-Oh Without Woe</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._solving-recurrences%29">14.10<span class="hspace"> </span>Solving Recurrences</a></p></td></tr></table>
 ```
 
 We will now commence the study of determining how long a computation
@@ -156,9 +156,9 @@ there isn’t just one. Given one upper-bound function, can you
 construct another one?
 :::
 
-### 14.3 A Cost Model for Pyret Running Time {#cost-model}
+### 14.3 A Cost Model for Jayret Running Time {#cost-model}
 
-We begin by presenting a cost model for the running time of Pyret
+We begin by presenting a cost model for the running time of Jayret
 programs. We are interested in the cost of running a program, which
 is tantamount to studying the expressions of a program. Simply making
 a definition does not cost anything; the cost is incurred only when we
@@ -293,13 +293,13 @@ First, let’s consider the `len`{.pyret} function, noting before we
 proceed that it does meet the criterion of having a single recursive
 call where the argument is structural:
 
-```pyret
-fun len(l):
-  cases (List) l:
-    | empty => 0
-    | link(f, r) => 1 + len(r)
-  end
-end
+```jayret
+Object len(l) {
+    return switch (l) {
+        case Empty: yield 0;
+        case Link(f, r): yield 1 + len(r);
+    }
+}
 ```
 Let’s compute the cost of running `len`{.pyret} on a list of length
 \(k\) (where we are only counting the number of `link`{.pyret}s in the
@@ -422,7 +422,7 @@ in general. That’s where we’re going next
 We have seen above that we can describe the running time of `len`{.pyret}
 through a function. We don’t have an especially good notation for
 writing such (anonymous) functions. Wait, we
-do—`lam(k): (11 * k) + 4 end`{.pyret}—but my colleagues would be
+do—`(k) -> (11 * k) + 4`{.pyret}—but my colleagues would be
 horrified if you wrote this on their exams. Therefore, we’ll
 introduce the following notation to mean precisely the same thing:
 \begin{equation*}[k \rightarrow 11k + 4]\end{equation*}The brackets denote anonymous functions, with the parameters before

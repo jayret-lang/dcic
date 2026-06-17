@@ -13,13 +13,13 @@ next: pandas-reshape-tables.html
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Pandas_.Table_.Basics%29">10.1.1<span class="hspace"> </span>Pandas Table Basics</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Core_.Datatypes__.Data.Frame_and_.Series%29">10.1.1.1<span class="hspace"> </span>Core Datatypes: DataFrame and Series</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Creating_and_.Loading_.Data.Frames%29">10.1.1.2<span class="hspace"> </span>Creating and Loading DataFrames</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Using_.Labels_and_.Indices_to_.Access_.Cells%29">10.1.1.3<span class="hspace"> </span>Using Labels and Indices to Access Cells</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Filtering_.Rows%29">10.1.2<span class="hspace"> </span>Filtering Rows</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Cleaning_and_.Normalizing_.Data%29">10.1.3<span class="hspace"> </span>Cleaning and Normalizing Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Clearing_out_unknown_values%29">10.1.3.1<span class="hspace"> </span>Clearing out unknown values</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Repairing_.Values_and_.Column_.Types%29">10.1.3.2<span class="hspace"> </span>Repairing Values and Column Types</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Computing_.New_.Columns%29">10.1.4<span class="hspace"> </span>Computing New Columns</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Aggregating_and_.Grouping_.Columns%29">10.1.5<span class="hspace"> </span>Aggregating and Grouping Columns</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Wide_.Versus_.Tall_.Data%29">10.1.6<span class="hspace"> </span>Wide Versus Tall Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Converting_.Between_.Wide_and_.Tall_.Data%29">Converting Between Wide and Tall Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Plotting_.Data%29">10.1.7<span class="hspace"> </span>Plotting Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="python-tables-Pandas.html#%28part._.Takeaways%29">10.1.8<span class="hspace"> </span>Takeaways</a></p></td></tr></table>
 ```
 
-Now it’s time to transfer what we learned about tables in Pyret over
+Now it’s time to transfer what we learned about tables in Jayret over
 to Python. Pandas is a popular package, and you’ll find many tutorial
 and help sites for it online. In general, Python usually provides many
 ways to approach a given task. As such, there are many ways to do
 common operations in Pandas. We have chosen to present a certain
 collection of ways that align with the concepts as we covered them in
-Pyret.
+Jayret.
 
 To work in Pandas, you’ll need to include the following line at the
 top of your file:
@@ -50,12 +50,12 @@ columns. DataFrames are built out of two more basic types:
 
 In Pandas, a row is a Series in which an array of the cell values
 is labeled with the column headers (this is similar to the ‘Row‘
-datatype in Pyret). A DataFrame is a series of these rows.
+datatype in Jayret). A DataFrame is a series of these rows.
 
 ##### 10.1.1.2 Creating and Loading DataFrames {#Creating-and-Loading-Data-Frames}
 
 DataFrames can be created manually or loaded in from a file, as we did
-in Pyret. Here’s a simple example of creating one by hand:
+in Jayret. Here’s a simple example of creating one by hand:
 
 ```python
 data = {
@@ -138,7 +138,7 @@ we had already created labels on the columns when we loaded `events`{.python}.
 
 #### 10.1.2 Filtering Rows {#Filtering-Rows}
 
-Back in Pyret, we filtered rows from a table by writing a function
+Back in Jayret, we filtered rows from a table by writing a function
 from `Row`{.pyret} to `Boolean`{.pyret}. The `filter-with`{.pyret} function
 applied that function to every row in the table, returning a new table
 with those rows for which the predicate were true.
@@ -255,7 +255,7 @@ computation that you have in mind.]{.margin-note}
 
 The same operator-lifting idea that we just saw when creating masks
 from DataFrames also comes into play for normalizing data. Recall that
-when we worked with the `events`{.python} table in Pyret, we converted
+when we worked with the `events`{.python} table in Jayret, we converted
 all of the discount codes to lowercase. Here’s the code that does this
 in Pandas:
 
@@ -294,8 +294,8 @@ events['discount'] = ...
 
 This tells Pandas to replace the current contents of the
 `'discount'`{.python} series with the series on the right side of the
-`=`{.python}. It is similar to `transform-column`{.pyret} from Pyret, but with a
-fundamental difference: in Pyret, `transform-column`{.pyret} left the old
+`=`{.python}. It is similar to `transform-column`{.pyret} from Jayret, but with a
+fundamental difference: in Jayret, `transform-column`{.pyret} left the old
 table intact and produced a new table with the new column
 values. Instead, in Pandas the old column gets replaced, thus
 destroying the original table. There are many nuances to having
@@ -478,7 +478,7 @@ events.loc[bday_mask,'total'] = events['total'] * 0.90
 ```
 
 Notice that the notation for computing new columns and updating
-existing ones is the same (unlike in Pyret, where we had different
+existing ones is the same (unlike in Jayret, where we had different
 operations `build-column`{.pyret} and `transform-column`{.pyret}). In
 Pandas, a new column is created if the given column name doesn’t
 already exist in the DataFrame; otherwise, the existing column with
@@ -635,7 +635,7 @@ The contrast between these two tables highlights that how our data are
 organized can determine how easy or hard it is to process them with the
 standard operations provided by table-processing packages such as
 Pandas (what we’re discussing here applies to other languages that
-support tables, such as Pyret and R).
+support tables, such as Jayret and R).
 
 In general, the operations in table-processing packages were designed
 to assume that there is one core observation per row (about which we

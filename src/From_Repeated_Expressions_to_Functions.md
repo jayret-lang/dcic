@@ -20,21 +20,13 @@ and Austria (respectively). These two countries have the same flag,
 just with different colors. The `frame`{.pyret} operator draws a small
 black frame around the image.
 
-```pyret
-# Lines starting with # are comments for human readers.
-# Pyret ignores everything on a line after #.
-
-# armenia
-frame(
-  above(rectangle(120, 30, "solid", "red"),
-    above(rectangle(120, 30, "solid", "blue"),
-      rectangle(120, 30, "solid", "orange"))))
-
-# austria
-frame(
-  above(rectangle(120, 30, "solid", "red"),
-    above(rectangle(120, 30, "solid", "white"),
-      rectangle(120, 30, "solid", "red"))))
+```jayret
+// Lines starting with # are comments for human readers.
+// Jayret ignores everything on a line after #.
+// armenia
+frame(above(rectangle(120, 30, "solid", "red"), above(rectangle(120, 30, "solid", "blue"), rectangle(120, 30, "solid", "orange"))));
+// austria
+frame(above(rectangle(120, 30, "solid", "red"), above(rectangle(120, 30, "solid", "white"), rectangle(120, 30, "solid", "red"))));
 ```
 
 Rather than write this program twice, it would be nice to write the
@@ -42,12 +34,11 @@ common expression only once, then just change the colors to generate each
 flag. Concretely, we’d like to have a custom operator such as
 `three-stripe-flag`{.pyret} that we could use as follows:
 
-```pyret
-# armenia
-three-stripe-flag("red", "blue", "orange")
-
-# austria
-three-stripe-flag("red", "white", "red")
+```jayret
+// armenia
+three-stripe-flag("red", "blue", "orange");
+// austria
+three-stripe-flag("red", "white", "red");
 ```
 
 In this program, we provide `three-stripe-flag`{.pyret} only with the
@@ -55,10 +46,10 @@ information that customizes the image creation to a specific flag. The
 operation itself would take care of creating and aligning the
 rectangles. We want to end up with the same images for the Armenian
 and Austrian flags as we would have gotten with our original
-program. Such an operator doesn’t exist in Pyret: it is specific only to
+program. Such an operator doesn’t exist in Jayret: it is specific only to
 our application of creating flag images. To make this program work, then,
 we need the ability to add our own operators (henceforth called
-functions) to Pyret.
+functions) to Jayret.
 
 #### 3.3.2 Defining Functions {#defining-functions}
 
@@ -81,16 +72,14 @@ code as follows:
   parameter that stands for that part.
 - Rewrite the examples to be in terms of these parameters. For example:
   
-  ```pyret
-  frame(
-    above(rectangle(120, 30, "solid", top),
-      above(rectangle(120, 30, "solid", middle),
-        rectangle(120, 30, "solid", bottom))))
+  ```jayret
+frame(above(rectangle(120, 30, "solid", top), above(rectangle(120, 30, "solid", middle), rectangle(120, 30, "solid", bottom))));
   ```
 - Name the function something suggestive: e.g., `three-stripe-flag`{.pyret}.
 - Write the syntax for functions around the expression:
   
   ```pyret
+  # TODO(pyret2jayret): parse failed (no shifts)
   fun <function name>(<parameters>):
     <the expression goes here>
   end
@@ -102,13 +91,10 @@ code as follows:
 
 Here’s the end product:
 
-```pyret
-fun three-stripe-flag(top, middle, bottom):
-  frame(
-    above(rectangle(120, 30, "solid", top),
-      above(rectangle(120, 30, "solid", middle),
-        rectangle(120, 30, "solid", bottom))))
-end
+```jayret
+Object three-stripe-flag(top, middle, bottom) {
+    return frame(above(rectangle(120, 30, "solid", top), above(rectangle(120, 30, "solid", middle), rectangle(120, 30, "solid", bottom))));
+}
 ```
 While this looks like a lot of work now, it won’t once you get used to
 it. We will go through the same steps over and over, and eventually
@@ -127,9 +113,9 @@ all the changing parts and replace them with parameters.
 With this function in hand, we can write the following two expressions
 to generate our original flag images:
 
-```pyret
-three-stripe-flag("red", "blue", "orange")
-three-stripe-flag("red", "white", "red")
+```jayret
+three-stripe-flag("red", "blue", "orange");
+three-stripe-flag("red", "white", "red");
 ```
 
 When we provide values for the parameters of a function to get a
@@ -138,65 +124,59 @@ term call for expressions of this form.
 
 If we want to name the resulting images, we can do so as follows:
 
-```pyret
-armenia = three-stripe-flag("red", "blue", "orange")
-austria = three-stripe-flag("red", "white", "red")
+```jayret
+armenia = three-stripe-flag("red", "blue", "orange");
+austria = three-stripe-flag("red", "white", "red");
 ```
 
-(Side note: Pyret only allows one value per name in the directory. If
+(Side note: Jayret only allows one value per name in the directory. If
 your file already had definitions for the names `armenia`{.pyret} or
-`austria`{.pyret}, Pyret will give you an error at this point. You can
+`austria`{.pyret}, Jayret will give you an error at this point. You can
 use a different name (like `austria2`{.pyret}) or comment out the
-original definition using `#`{.pyret}.)
+original definition using `//`{.pyret}.)
 
 ##### 3.3.2.1 How Functions Evaluate {#function-call-nm}
 
-So far, we have learned three rules for how Pyret processes your program:
+So far, we have learned three rules for how Jayret processes your program:
 
-- If you write an expression, Pyret evaluates it to produce
+- If you write an expression, Jayret evaluates it to produce
   its value.
-- If you write a statement that defines a name, Pyret evaluates
+- If you write a statement that defines a name, Jayret evaluates
   the expression (right side of `=`{.pyret}), then makes an entry in the
   directory to associate the name with the value.
 - If you write an expression that uses a name from the directory,
-  Pyret substitutes the name with the corresponding value.
+  Jayret substitutes the name with the corresponding value.
 
 Now that we can define our own functions, we have to consider two more
-cases: what does Pyret do when you define a function (using
-`fun`{.pyret}), and what does Pyret do when you call a function
+cases: what does Jayret do when you define a function (using
+`fun`{.pyret}), and what does Jayret do when you call a function
 (with values for the parameters)?
 
-- When Pyret encounters a function definition in your file, it makes an
+- When Jayret encounters a function definition in your file, it makes an
   entry in the directory to associate the name of the function with its
   code. The body of the function does not get evaluated at this time.
-- When Pyret encounters a function call while evaluating an expression,
+- When Jayret encounters a function call while evaluating an expression,
   it replaces the call with the body of the function, but with the
   parameter values substituted for the parameter names in the
-  body. Pyret then continues to evaluate the body with the substituted
+  body. Jayret then continues to evaluate the body with the substituted
   values.
 
 As an example of the function-call rule, if you evaluate
 
-```pyret
-three-stripe-flag("red", "blue", "orange")
+```jayret
+three-stripe-flag("red", "blue", "orange");
 ```
 
-Pyret starts from the function body
+Jayret starts from the function body
 
-```pyret
-frame(
-  above(rectangle(120, 30, "solid", top),
-    above(rectangle(120, 30, "solid", middle),
-      rectangle(120, 30, "solid", bottom))))
+```jayret
+frame(above(rectangle(120, 30, "solid", top), above(rectangle(120, 30, "solid", middle), rectangle(120, 30, "solid", bottom))));
 ```
 
 substitutes the parameter values
 
-```pyret
-frame(
-  above(rectangle(120, 30, "solid", "red"),
-    above(rectangle(120, 30, "solid", "blue"),
-      rectangle(120, 30, "solid", "orange"))))
+```jayret
+frame(above(rectangle(120, 30, "solid", "red"), above(rectangle(120, 30, "solid", "blue"), rectangle(120, 30, "solid", "orange"))));
 ```
 
 then evaluates the expression, producing the flag image.
@@ -210,33 +190,30 @@ the shorthand in terms of `three-stripe-flag`{.pyret}.
 
 What if we made a mistake, and tried to call the function as follows:
 
-```pyret
-three-stripe-flag(50, "blue", "red")
+```jayret
+three-stripe-flag(50, "blue", "red");
 ```
 
 ::: {.do-now}
-What do you think Pyret will produce for this expression?
+What do you think Jayret will produce for this expression?
 :::
 
 The first parameter to `three-stripe-flag`{.pyret} is supposed to be the
 color of the top stripe. The value `50`{.pyret} is not a string (much less a string naming a
-color). Pyret will substitute `50`{.pyret} for `top`{.pyret} in the first call to
+color). Jayret will substitute `50`{.pyret} for `top`{.pyret} in the first call to
 `rectangle`{.pyret}, yielding the following:
 
-```pyret
-frame(
-  above(rectangle(120, 30, "solid", 50),
-    above(rectangle(120, 30, "solid", "blue"),
-      rectangle(120, 30, "solid", "red"))))
+```jayret
+frame(above(rectangle(120, 30, "solid", 50), above(rectangle(120, 30, "solid", "blue"), rectangle(120, 30, "solid", "red"))));
 ```
 
-When Pyret tries to evaluate the `rectangle`{.pyret} expression to create
+When Jayret tries to evaluate the `rectangle`{.pyret} expression to create
 the top stripe, it generates an error that refers to that call to
 `rectangle`{.pyret}.
 
 If someone else were using your function, this error might not make
 sense: they didn’t write an expression about rectangles. Wouldn’t it
-be better to have Pyret report that there was a problem in the use of
+be better to have Jayret report that there was a problem in the use of
 `three-stripe-flag`{.pyret} itself?
 
 As the author of `three-stripe-flag`{.pyret}, you can make that happen by
@@ -244,20 +221,15 @@ annotating the parameters with information about the expected type of
 value for each parameter. Here’s the function definition again, this
 time requiring the three parameters to be strings:
 
-```pyret
-fun three-stripe-flag(top :: String,
-      middle :: String,
-      bottom :: String):
-  frame(
-    above(rectangle(120, 30, "solid", top),
-      above(rectangle(120, 30, "solid", middle),
-        rectangle(120, 30, "solid", bottom))))
-end
+```jayret
+Object three-stripe-flag(String top, String middle, String bottom) {
+    return frame(above(rectangle(120, 30, "solid", top), above(rectangle(120, 30, "solid", middle), rectangle(120, 30, "solid", bottom))));
+}
 ```
 
 Notice that the notation here is similar to what we saw in contracts
 within the documentation: the parameter name is followed by a
-double-colon (`::`{.pyret}) and a type name (so far, one of
+double-colon (`:`{.pyret}) and a type name (so far, one of
 `Number`{.pyret}, `String`{.pyret}, or `Image`{.pyret}).[Putting each parameter
 on its own line is not required, but it sometimes helps with readability.]{.margin-note}
 
@@ -269,24 +241,19 @@ It is also common practice to add a type annotation that captures the
 type of the function’s output. That annotation goes after the list of
 parameters:
 
-```pyret
-fun three-stripe-flag(top :: String,
-      middle :: String,
-      bottom :: String) -> Image:
-  frame(
-    above(rectangle(120, 30, "solid", top),
-      above(rectangle(120, 30, "solid", middle),
-        rectangle(120, 30, "solid", bottom))))
-end
+```jayret
+Image three-stripe-flag(String top, String middle, String bottom) {
+    return frame(above(rectangle(120, 30, "solid", top), above(rectangle(120, 30, "solid", middle), rectangle(120, 30, "solid", bottom))));
+}
 ```
 
-Note that all of these type annotations are optional. Pyret will run
+Note that all of these type annotations are optional. Jayret will run
 your program whether or not you include them. You can put type
 annotations on some parameters and not others; you can include the
 output type but not any of the parameter types. Different programming
 languages have different rules about types.
 
-We will think of types as playing two roles: giving Pyret information
+We will think of types as playing two roles: giving Jayret information
 that it can use to focus error messages more accurately, and guiding
 human readers of programs as to the proper use of user-defined functions.
 
@@ -301,21 +268,16 @@ height. Function names aren’t designed to carry this much information.
 
 Programmers also annotate a function with a docstring, a short,
 human-language description of what the function does. Here’s what the
-Pyret docstring might look like for `three-stripe-flag`{.pyret}:
+Jayret docstring might look like for `three-stripe-flag`{.pyret}:
 
-```pyret
-fun three-stripe-flag(top :: String,
-      middle :: String,
-      bottom :: String) -> Image:
-  doc: "produce image of flag with three equal-height horizontal stripes"
-  frame(
-    above(rectangle(120, 30, "solid", top),
-      above(rectangle(120, 30, "solid", middle),
-        rectangle(120, 30, "solid", bottom))))
-end
+```jayret
+Image three-stripe-flag(String top, String middle, String bottom) {
+    // produce image of flag with three equal-height horizontal stripes
+    return frame(above(rectangle(120, 30, "solid", top), above(rectangle(120, 30, "solid", middle), rectangle(120, 30, "solid", bottom))));
+}
 ```
 
-While docstrings are also optional from Pyret’s perspective, you
+While docstrings are also optional from Jayret’s perspective, you
 should always provide one when you write a function. They are
 extremely helpful to anyone who has to read your program, whether that is
 a co-worker, grader…or yourself, a couple of weeks from now.
@@ -328,10 +290,10 @@ weigh on the Moon’s surface. On the Moon, objects weigh only one-sixth
 their weight on earth. Here are the expressions for
 several astronauts (whose weights are expressed in pounds):
 
-```pyret
-100 * 1/6
-150 * 1/6
-90 * 1/6
+```jayret
+100 * 1/6;
+150 * 1/6;
+90 * 1/6;
 ```
 As with our examples of the Armenian and Austrian flags, we are
 writing the same expression multiple times. This is another situation
@@ -357,27 +319,27 @@ Let’s remind ourselves of the steps for creating a function:
   `earth-weight`{.pyret}), which will be the parameter that stands for it.
 - Rewrite the examples to be in terms of this parameter:
   
-  ```pyret
-  earth-weight * 1/6
+  ```jayret
+earth-weight * 1/6;
   ```
   This will be the body, i.e., the expression inside
   the function.
 - Come up with a suggestive name for the function: e.g., `moon-weight`{.pyret}.
 - Write the syntax for functions around the body expression:
   
-  ```pyret
-  fun moon-weight(earth-weight):
-    earth-weight * 1/6
-  end
+  ```jayret
+Object moon-weight(earth-weight) {
+    return earth-weight * 1/6;
+}
   ```
 - Remember to include the types of the parameter and output, as
   well as the documentation string. This yields the final function:
   
-  ```pyret
-  fun moon-weight(earth-weight :: Number) -> Number:
-    doc: "Compute weight on moon from weight on earth"
-    earth-weight * 1/6
-  end
+  ```jayret
+int moon-weight(int earth-weight) {
+    // Compute weight on moon from weight on earth
+    return earth-weight * 1/6;
+}
   ```
 
 #### 3.3.4 Documenting Functions with Examples {#writing-examples}
@@ -399,21 +361,19 @@ those examples around for future reference, so you can immediately be
 alerted if the function deviates from the examples it was supposed to
 generalize.
 
-Pyret makes this easy to do. Every function can be accompanied by a
+Jayret makes this easy to do. Every function can be accompanied by a
 `where`{.pyret} clause that records the examples. For instance, our
 `moon-weight`{.pyret} function can be modified to read:
 
-```pyret
-fun moon-weight(earth-weight :: Number) -> Number:
-  doc: "Compute weight on moon from weight on earth"
-  earth-weight * 1/6
-where:
-  moon-weight(100) is 100 * 1/6
-  moon-weight(150) is 150 * 1/6
-  moon-weight(90) is 90 * 1/6
-end
+```jayret
+int moon-weight(int earth-weight) {
+    // Compute weight on moon from weight on earth
+    return earth-weight * 1/6;
+} where {
+    
+}
 ```
-When written this way, Pyret will actually check the answers every
+When written this way, Jayret will actually check the answers every
 time you run the program, and notify you if you have changed the
 function to be inconsistent with these examples.
 
@@ -421,8 +381,8 @@ function to be inconsistent with these examples.
 Check this! Change the formula—for instance, replace the body of the
 function with
 
-```pyret
-earth-weight * 1/3
+```jayret
+earth-weight * 1/3;
 ```
 —and see what happens. Pay attention to the output from CPO: you
 should get used to recognizing this kind of output.
@@ -431,8 +391,8 @@ should get used to recognizing this kind of output.
 ::: {.do-now}
 Now, fix the function body, and instead change one of the answers—e.g., write
 
-```pyret
-moon-weight(90) is 90 * 1/3
+```jayret
+assertEquals(moon-weight(90), 90 * 1/3);
 ```
 —and see what happens. Contrast the output in this case with the output above.
 :::
@@ -469,21 +429,20 @@ Following our steps to create a function once again,
 let’s start by writing two concrete expressions that do this
 computation.
 
-```pyret
-# ordering 3 pens that say "wow"
-3 * (0.25 + (string-length("wow") * 0.02))
-
-# ordering 10 pens that say "smile"
-10 * (0.25 + (string-length("smile") * 0.02))
+```jayret
+// ordering 3 pens that say "wow"
+3 * (0.25 + (string-length("wow") * 0.02));
+// ordering 10 pens that say "smile"
+10 * (0.25 + (string-length("smile") * 0.02));
 ```
 
 These examples introduce a new built-in function called
 `string-length`{.pyret}. It takes a string as input and produces the
 number of characters (including spaces and punctuation) in the string.
 These examples also show an example of working with
-numbers other than integers.[Pyret requires a number before the
+numbers other than integers.[Jayret requires a number before the
 decimal point, so if the “whole number” part is zero, you need to write
-`0`{.pyret} before the decimal. Also observe that Pyret uses a decimal
+`0`{.pyret} before the decimal. Also observe that Jayret uses a decimal
 point; it doesn’t support conventions such as
 [“0,02”](https://en.wikipedia.org/wiki/Decimal_separator).]{.margin-note}
 
@@ -492,23 +451,23 @@ information differs across our two examples. In this case, we have
 two: the number of pens and the message to put on the pens.
 This means our function will have two parameters rather than just one.
 
-```pyret
-fun pen-cost(num-pens :: Number, message :: String) -> Number:
-  num-pens * (0.25 + (string-length(message) * 0.02))
-end
+```jayret
+int pen-cost(int num-pens, String message) {
+    return num-pens * (0.25 + (string-length(message) * 0.02));
+}
 ```
 Of course, as things get too long, it may be helpful to use multiple lines:
 
-```pyret
-fun pen-cost(num-pens :: Number, message :: String)
-  -> Number:
-  num-pens * (0.25 + (string-length(message) * 0.02))
-end
+```jayret
+int pen-cost(int num-pens, String message) {
+    return num-pens * (0.25 + (string-length(message) * 0.02));
+}
 ```
-If you want to write a multi-line docstring, you need to use `````{.pyret} rather
+If you want to write a multi-line docstring, you need to use `````{.jayret} rather
 than `"`{.pyret} to begin and end it, like so:
 
 ```pyret
+# TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
 fun pen-cost(num-pens :: Number, message :: String)
   -> Number:
   doc: ```total cost for pens, each 25 cents
@@ -520,6 +479,7 @@ We should also document the examples that we used when creating the
 function:
 
 ```pyret
+# TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
 fun pen-cost(num-pens :: Number, message :: String)
   -> Number:
   doc: ```total cost for pens, each 25 cents
@@ -537,8 +497,8 @@ When writing `where`{.pyret} examples, we also want to include special
 yet valid cases that the function might have to handle, such as an empty
 message.
 
-```pyret
-pen-cost(5, "") is 5 * 0.25
+```jayret
+assertEquals(pen-cost(5, ""), 5 * 0.25);
 ```
 Note that our empty-message example has a simpler expression on the
 right side of `is`{.pyret}. The expression for what the function returns
@@ -547,8 +507,8 @@ to the same value as you expect the example to produce. Sometimes,
 we’ll find it easier to just write the expected value directly. For
 the case of someone ordering no pens, for example, we’d include:
 
-```pyret
-pen-cost(0, "bears") is 0
+```jayret
+assertEquals(pen-cost(0, "bears"), 0);
 ```
 The point of the examples is to document how a function behaves on a
 variety of inputs. What goes to the right of the `is`{.pyret} should
@@ -574,8 +534,8 @@ techniques that will help us handle such situations properly.
 ::: {.do-now}
 We could have combined our two special cases into one example, such as
 
-```pyret
-pen-cost(0, "") is 0
+```jayret
+assertEquals(pen-cost(0, ""), 0);
 ```
 Does doing this seem like a good idea? Why or why not?
 :::
@@ -608,15 +568,15 @@ We’ve covered several specific ideas about functions:
   expression (at the interactions prompt) will compute the cost of a
   specific order of pens:
   
-  ```pyret
-  pen-cost(10, "Welcome")
+  ```jayret
+pen-cost(10, "Welcome");
   ```
 - We discussed that if we define a function in the definitions
-  pane then press Run, Pyret will make an entry in the directory with
-  the name of the function. If we later use the function, Pyret will
+  pane then press Run, Jayret will make an entry in the directory with
+  the name of the function. If we later use the function, Jayret will
   look up the code that goes with that name, substitute the concrete
   values we provided for the parameters, and return the result of
-  evaluating the resulting expression. Pyret will NOT produce anything
+  evaluating the resulting expression. Jayret will NOT produce anything
   in the interactions pane for a function definition (other than a
   report about whether the examples hold).
 

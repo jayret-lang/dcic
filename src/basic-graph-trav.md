@@ -47,6 +47,7 @@ source and destintion nodes are the same, or they’re not.
 This translates into the following function:
 <graph-reach-1-main> ::=
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 fun reach-1(src :: Key, dst :: Key, g :: Graph) -> Boolean:
   if src == dst:
     true
@@ -58,27 +59,30 @@ end
 ```
 where the loop through the neighbors of `src`{.pyret} is:
 <graph-reach-1-loop> ::=
-```pyret
-fun loop(ns):
-  cases (List) ns:
-    | empty => false
-    | link(f, r) =>
-      if reach-1(f, dst, g): true else: loop(r) end
-  end
-end
+```jayret
+Object loop(ns) {
+    return switch (ns) {
+        case Empty: yield false;
+        case Link(f, r): yield if (reach-1(f, dst, g)) {
+            return true;
+        } else {
+            return loop(r);
+        };
+    }
+}
 ```
 We can test this as follows:
 <graph-reach-tests> ::=
-```pyret
-check:
-  reach = reach-1
-  reach("was", "was", kn-cities) is true
-  reach("was", "chi", kn-cities) is true
-  reach("was", "bmg", kn-cities) is false
-  reach("was", "hou", kn-cities) is true
-  reach("was", "den", kn-cities) is true
-  reach("was", "saf", kn-cities) is true
-end
+```jayret
+@Check void test() {
+    reach = reach-1;
+    assertEquals(reach("was", "was", kn-cities), true);
+    assertEquals(reach("was", "chi", kn-cities), true);
+    assertEquals(reach("was", "bmg", kn-cities), false);
+    assertEquals(reach("was", "hou", kn-cities), true);
+    assertEquals(reach("was", "den", kn-cities), true);
+    assertEquals(reach("was", "saf", kn-cities), true);
+}
 ```
 Unfortunately, we don’t find out about how these tests fare, because
 some of them don’t complete at all. That’s because we have an infinite
@@ -92,28 +96,29 @@ Which of the above examples leads to a cycle? Why?
 
 Before we continue, let’s try to improve the expression of the
 loop. While the nested function above is a perfectly reasonable
-definition, we can use Pyret’s `for`{.pyret} to improve its readability.
+definition, we can use Jayret’s `for`{.pyret} to improve its readability.
 
 The essence of the above loop is to iterate over a list of boolean
 values; if one of them is true, the entire loop evaluates to true; if
 they are all false, then we haven’t found a path to the destination
 node, so the loop evaluates to false. Thus:
 
-```pyret
-fun ormap(fun-body, l):
-  cases (List) l:
-    | empty => false
-    | link(f, r) =>
-      if fun-body(f): true else: ormap(fun-body, r) end
-  end
-end
+```jayret
+Object ormap(fun-body, l) {
+    return switch (l) {
+        case Empty: yield false;
+        case Link(f, r): yield if (fun-body(f)) {
+            return true;
+        } else {
+            return ormap(fun-body, r);
+        };
+    }
+}
 ```
 With this, we can replace the loop definition and use with:
 
-```pyret
-for ormap(n from neighbors(src, g)):
-  reach-1(n, dst, g)
-end
+```jayret
+[for ormap(n : neighbors(src, g)) { yield reach-1(n, dst, g); }];
 ```
 
 ##### 17.2.1.3 Traversal with Memory {#Traversal-with-Memory}
@@ -134,19 +139,17 @@ is represented as a graph). The key difference from
 edges, we should check whether we’ve begun processing the node or
 not. This results in the following definition:
 <graph-reach-2> ::=
-```pyret
-fun reach-2(src :: Key, dst :: Key, g :: Graph, visited :: List<Key>) -> Boolean:
-  if visited.member(src):
-    false
-  else if src == dst:
-    true
-  else:
-    new-visited = link(src, visited)
-    for ormap(n from neighbors(src, g)):
-      reach-2(n, dst, g, new-visited)
-    end
-  end
-end
+```jayret
+boolean reach-2(Key src, Key dst, Graph g, List<Object> visited) {
+    return if (visited.member(src)) {
+        return false;
+    } else if (src == dst) {
+        return true;
+    } else {
+        new-visited = link(src, visited);
+        return [for ormap(n : neighbors(src, g)) { yield reach-2(n, dst, g, new-visited); }];
+    }
+}
 ```
 In particular, note the extra new conditional: if the reachability
 check has already visited this node before, there is no point
@@ -159,6 +162,7 @@ Does it matter if the first two conditions were swapped, i.e., the
 beginning of `reach-2`{.pyret} began with
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 if src == dst:
   true
 else if visited.member(src):
@@ -182,22 +186,20 @@ result in errors if we accidentally misuse it. Therefore, we should
 clean up our definition by moving the core code to an internal
 function:
 
-```pyret
-fun reach-3(s :: Key, d :: Key, g :: Graph) -> Boolean:
-  fun reacher(src :: Key, dst :: Key, visited :: List<Key>) -> Boolean:
-    if visited.member(src):
-      false
-    else if src == dst:
-      true
-    else:
-      new-visited = link(src, visited)
-      for ormap(n from neighbors(src, g)):
-        reacher(n, dst, new-visited)
-      end
-    end
-  end
-  reacher(s, d, empty)
-end
+```jayret
+boolean reach-3(Key s, Key d, Graph g) {
+    boolean reacher(Key src, Key dst, List<Object> visited) {
+        return if (visited.member(src)) {
+            return false;
+        } else if (src == dst) {
+            return true;
+        } else {
+            new-visited = link(src, visited);
+            return [for ormap(n : neighbors(src, g)) { yield reacher(n, dst, new-visited); }];
+        }
+    }
+    return reacher(s, d, empty);
+}
 ```
 We have now restored the original interface while correctly
 implementing reachability.

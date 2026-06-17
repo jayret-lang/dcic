@@ -69,27 +69,26 @@ Clearly, a list representation does not let us eliminate half the
 elements with a constant amount of work; instead, we need a tree.
 Thus we define a binary tree of (for simplicity) numbers:
 
-```pyret
-data BT:
-  | leaf
-  | node(v :: Number, l :: BT, r :: BT)
-end
+```jayret
+data BT {
+    Leaf;
+    Node(int v, BT l, BT r);
+}
 ```
 
 Given this definition, let’s define the membership checker:
 
-```pyret
-fun is-in-bt(e :: Number, s :: BT) -> Boolean:
-  cases (BT) s:
-    | leaf => false
-    | node(v, l, r) =>
-      if e == v:
-        true
-      else:
-        is-in-bt(e, l) or is-in-bt(e, r)
-      end
-  end
-end
+```jayret
+boolean is-in-bt(int e, BT s) {
+    return switch (s) {
+        case Leaf: yield false;
+        case Node(v, l, r): yield if (e == v) {
+            return true;
+        } else {
+            return is-in-bt(e, l) || is-in-bt(e, r);
+        };
+    }
+}
 ```
 Oh, wait. If the element we’re looking for isn’t the root, what do we
 do? It could be in the left child or it could be in the right; we
@@ -113,17 +112,13 @@ tree definition to give us a binary search tree (BST).
 Here is a candiate predicate for recognizing when a binary tree is in
 fact a binary search tree:
 
-```pyret
-fun is-a-bst-buggy(b :: BT) -> Boolean:
-  cases (BT) b:
-    | leaf => true
-    | node(v, l, r) =>
-      (is-leaf(l) or (l.v <= v)) and
-      (is-leaf(r) or (v <= r.v)) and
-      is-a-bst-buggy(l) and
-      is-a-bst-buggy(r)
-  end
-end
+```jayret
+boolean is-a-bst-buggy(BT b) {
+    return switch (b) {
+        case Leaf: yield true;
+        case Node(v, l, r): yield (is-leaf(l) || (l.v <= v)) && (is-leaf(r) || (v <= r.v)) && is-a-bst-buggy(l) && is-a-bst-buggy(r);
+    }
+}
 ```
 Is this definition correct?
 :::
@@ -142,11 +137,11 @@ could have a left child c such that c < b;
 but this does not guarantee that c > a. In fact, it is
 easy to construct a counter-example that passes this check:
 
-```pyret
-check:
-  node(5, node(3, leaf, node(6, leaf, leaf)), leaf)
-    satisfies is-a-bst-buggy # FALSE!
-end
+```jayret
+@Check void test() {
+    assertSatisfies(node(5, node(3, leaf, node(6, leaf, leaf)), leaf), is-a-bst-buggy);
+}
+// FALSE!
 ```
 
 ::: {.exercise}
@@ -156,63 +151,66 @@ Fix the BST checker.
 With a corrected definition, we can now define a refined version of
 binary trees that are search trees:
 
-```pyret
-type BST = BT%(is-a-bst)
+```jayret
+type BST = BT % (is-a-bst );
 ```
 We can also remind ourselves that the purpose of this exercise was to
 define sets, and define `TSet`{.pyret}s to be tree sets:
 
-```pyret
-type TSet = BST
-mt-set = leaf
+```jayret
+type TSet = BST;
+mt-set = leaf;
 ```
 
 Now let’s implement our operations on the BST representation. First
 we’ll write a template:
 
-```pyret
-fun is-in(e :: Number, s :: BST) -> Bool:
-  cases (BST) s:
-    | leaf => ...
-    | node(v, l :: BST, r :: BST) => ...
-      ... is-in(l) ...
-      ... is-in(r) ...
-  end
-end
+```jayret
+Bool is-in(int e, BST s) {
+    return switch (s) {
+        case Leaf: yield ...;
+        case Node(v, BST l, BST r): yield block {
+            ...;
+            ...;
+            is-in(l);
+            ...;
+            ...;
+            is-in(r);
+            return ...;
+        };
+    }
+}
 ```
 Observe that the data definition of a BST gives us rich information
 about the two children: they are each a BST, so we know their
 elements obey the ordering property. We can use this to define the
 actual operations:
 
-```pyret
-fun is-in(e :: Number, s :: BST) -> Boolean:
-  cases (BST) s:
-    | leaf => false
-    | node(v, l, r) =>
-      if e == v:
-        true
-      else if e < v:
-        is-in(e, l)
-      else if e > v:
-        is-in(e, r)
-      end
-  end
-end
-
-fun insert(e :: Number, s :: BST) -> BST:
-  cases (BST) s:
-    | leaf => node(e, leaf, leaf)
-    | node(v, l, r) =>
-      if e == v:
-        s
-      else if e < v:
-        node(v, insert(e, l), r)
-      else if e > v:
-        node(v, l, insert(e, r))
-      end
-  end
-end
+```jayret
+boolean is-in(int e, BST s) {
+    return switch (s) {
+        case Leaf: yield false;
+        case Node(v, l, r): yield if (e == v) {
+            return true;
+        } else if (e < v) {
+            return is-in(e, l);
+        } else if (e > v) {
+            return is-in(e, r);
+        };
+    }
+}
+BST insert(int e, BST s) {
+    return switch (s) {
+        case Leaf: yield node(e, leaf, leaf);
+        case Node(v, l, r): yield if (e == v) {
+            return s;
+        } else if (e < v) {
+            return node(v, insert(e, l), r);
+        } else if (e > v) {
+            return node(v, l, insert(e, r));
+        };
+    }
+}
 ```
 In both functions we are strictly assuming the invariant of
 the BST, and in the latter case also ensuring it. Make sure you
@@ -252,14 +250,10 @@ Imagine starting with the empty tree and inserting the values
 `1`{.pyret}, `2`{.pyret}, `3`{.pyret}, and `4`{.pyret}, in order. The
 resulting tree would be
 
-```pyret
-check:
-  insert(4, insert(3, insert(2, insert(1, mt-set)))) is
-  node(1, leaf,
-    node(2, leaf,
-      node(3, leaf,
-        node(4, leaf, leaf))))
-end
+```jayret
+@Check void test() {
+    assertEquals(insert(4, insert(3, insert(2, insert(1, mt-set)))), node(1, leaf, node(2, leaf, node(3, leaf, node(4, leaf, leaf)))));
+}
 ```
 Searching for `4`{.pyret} in this tree would have to examine all the set
 elements in the tree. In other words, this binary search tree is

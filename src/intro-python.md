@@ -1,5 +1,5 @@
 ---
-title: From Pyret to Python
+title: From Jayret to Python
 section_number: 9.1
 source_file: intro-python.html
 prev: part_pyret-to-python.html
@@ -7,14 +7,14 @@ up: part_pyret-to-python.html
 next: dictionaries.html
 ---
 
-### 9.1 From Pyret to Python {#intro-python}
+### 9.1 From Jayret to Python {#intro-python}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Expressions__.Functions__and_.Types%29">9.1.1<span class="hspace"> </span>Expressions, Functions, and Types</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Returning_.Values_from_.Functions%29">9.1.2<span class="hspace"> </span>Returning Values from Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._testing-python%29">9.1.3<span class="hspace"> </span>Examples and Test Cases</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.An_.Aside_on_.Numbers%29">9.1.4<span class="hspace"> </span>An Aside on Numbers</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._conditionals-python%29">9.1.5<span class="hspace"> </span>Conditionals</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._python-create-process-lists%29">9.1.6<span class="hspace"> </span>Creating and Processing
-Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Filters__.Maps__and_.Friends%29">9.1.6.1<span class="hspace"> </span>Filters, Maps, and Friends</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._python-data-with-components%29">9.1.7<span class="hspace"> </span>Data with Components</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Accessing_.Fields_within_.Dataclasses%29">9.1.7.1<span class="hspace"> </span>Accessing Fields within Dataclasses</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._python-traverse-lists%29">9.1.8<span class="hspace"> </span>Traversing Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._python-for-loops%29">9.1.8.1<span class="hspace"> </span>Introducing <span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">For</code></span> Loops</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.An_.Aside_on_.Order_of_.Processing_.List_.Elements%29">9.1.8.2<span class="hspace"> </span>An Aside on Order of Processing List Elements</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._python-funcs-produce-lists%29">9.1.8.3<span class="hspace"> </span>Using <span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">For</code></span> Loops in Functions that Produce Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Summary__.The_.List-.Processing_.Template_for_.Python%29">9.1.8.4<span class="hspace"> </span>Summary: The List-Processing Template for Python</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part.___struct_traverse-element___procedure____lib_render-cond_rkt_38_12___loops_in_.Pyret%29">9.1.8.5<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">for each</code></span> loops in Pyret</a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Variables_that_can_change%29">9.1.8.5.1<span class="hspace"> </span>Variables that can change</a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._block_notation%29">9.1.8.5.2<span class="hspace"> </span>block notation</a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.How___struct_traverse-element___procedure____lib_render-cond_rkt_38_12___works%29">9.1.8.5.3<span class="hspace"> </span>How <span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">for each</code></span> works</a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Testing_and_variables_that_can_change%29">9.1.8.5.4<span class="hspace"> </span>Testing and variables that can change</a></p></td></tr></table>
+Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Filters__.Maps__and_.Friends%29">9.1.6.1<span class="hspace"> </span>Filters, Maps, and Friends</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._python-data-with-components%29">9.1.7<span class="hspace"> </span>Data with Components</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Accessing_.Fields_within_.Dataclasses%29">9.1.7.1<span class="hspace"> </span>Accessing Fields within Dataclasses</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._python-traverse-lists%29">9.1.8<span class="hspace"> </span>Traversing Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._python-for-loops%29">9.1.8.1<span class="hspace"> </span>Introducing <span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">For</code></span> Loops</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.An_.Aside_on_.Order_of_.Processing_.List_.Elements%29">9.1.8.2<span class="hspace"> </span>An Aside on Order of Processing List Elements</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._python-funcs-produce-lists%29">9.1.8.3<span class="hspace"> </span>Using <span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">For</code></span> Loops in Functions that Produce Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Summary__.The_.List-.Processing_.Template_for_.Python%29">9.1.8.4<span class="hspace"> </span>Summary: The List-Processing Template for Python</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part.___struct_traverse-element___procedure____lib_render-cond_rkt_38_12___loops_in_.Jayret%29">9.1.8.5<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">for each</code></span> loops in Jayret</a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Variables_that_can_change%29">9.1.8.5.1<span class="hspace"> </span>Variables that can change</a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._block_notation%29">9.1.8.5.2<span class="hspace"> </span>block notation</a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.How___struct_traverse-element___procedure____lib_render-cond_rkt_38_12___works%29">9.1.8.5.3<span class="hspace"> </span>How <span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">for each</code></span> works</a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="intro-python.html#%28part._.Testing_and_variables_that_can_change%29">9.1.8.5.4<span class="hspace"> </span>Testing and variables that can change</a></p></td></tr></table>
 ```
 
-Through our work in Pyret to this point, we’ve covered several core
+Through our work in Jayret to this point, we’ve covered several core
 programming skills: how to work with tables, how to design good
 examples, the basics of creating datatypes, and how to work with the
 fundamental computational building blocks of functions, conditionals,
@@ -32,16 +32,16 @@ professional work, you’ll inevitably have to work in different
 languages at different times: we’re giving you a chance to practice
 that skill in a controlled and gentle setting.
 
-Why do we call this gentle? Because the notations in Pyret were
+Why do we call this gentle? Because the notations in Jayret were
 designed partly with this transition in mind. You’ll find many
-similarities between Pyret and Python at a notational level, yet also
+similarities between Jayret and Python at a notational level, yet also
 some interesting differences that highlight some philosophical
 differences that underlie languages. The next set of programs that we
 want to write (specifically, data-rich programs where the data must be
 updated and maintained over time) fit nicely with certain features of
-Python that you haven’t seen in Pyret. [A future release will contain material that contrasts the strengths and weaknesses of the two languages.]{.margin-note}
+Python that you haven’t seen in Jayret. [A future release will contain material that contrasts the strengths and weaknesses of the two languages.]{.margin-note}
 
-We highlight the basic notational differences between Pyret and Python
+We highlight the basic notational differences between Jayret and Python
 by redoing some of our earlier code examples in Python.
 
 #### 9.1.1 Expressions, Functions, and Types {#Expressions-Functions-and-Types}
@@ -50,9 +50,10 @@ Back in [Functions Practice: Cost of pens](From_Repeated_Expressions_to_Function
 using an example of computing the cost of an order of pens. An order
 consisted of a number of pens and a message to be printed on the
 pens. Each pen cost 25 cents, plus 2 cents per character for the
-message. Here was the original Pyret code:
+message. Here was the original Jayret code:
 
 ```pyret
+# TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
 fun pen-cost(num-pens :: Number, message :: String) -> Number:
   doc: ```total cost for pens, each 25 cents
           plus 2 cents per message character```
@@ -77,16 +78,16 @@ Here’s a summary of the differences:
 
 - Python uses `def`{.python} instead of `fun`{.pyret}.
 - Python uses underscores in names (like `pen_cost`{.python})
-  instead of hyphens as in Pyret.
+  instead of hyphens as in Jayret.
 - The type names are written differently: Python uses `str`{.python}
   and `int`{.python} instead of `String`{.pyret} and `Number`{.pyret}. In
   addition, Python uses only a single colon before the type whereas
-  Pyret uses a double colon.
+  Jayret uses a double colon.
 - Python has different types for different kinds of numbers:
   `int`{.python} is for integers, while `float`{.python} is for decimals.
-  Pyret just used a single type (`Number`{.pyret})
+  Jayret just used a single type (`Number`{.pyret})
   for all numbers.
-- Python doesn’t label the documentation string (as Pyret does with
+- Python doesn’t label the documentation string (as Jayret does with
   `doc:`{.pyret}).
 - There is no `end`{.pyret} annotation in Python. Instead, Python
   uses indentation to locate the end of an if/else statement, function, or
@@ -98,7 +99,7 @@ you write more programs in Python.
 
 There are differences beyond the notational ones. One that arises with
 this sample program arises around how the language uses types. In
-Pyret, if you put a type annotation on a parameter then pass it a
+Jayret, if you put a type annotation on a parameter then pass it a
 value of a different type, you’ll get an error message. Python ignores
 the type annotations (unless you bring in additional tools for
 checking types). Python types are like notes for programmers, but they
@@ -107,20 +108,20 @@ aren’t enforced when programs run.
 ::: {.exercise}
 Convert the following `moon-weight`{.pyret} function from [Functions Practice: Moon Weight](From_Repeated_Expressions_to_Functions.html##moon-weight-pyret) into Python:
 
-```pyret
-fun moon-weight(earth-weight :: Number) -> Number:
-  doc:" Compute weight on moon from weight on earth"
-  earth-weight * 1/6
-end
+```jayret
+int moon-weight(int earth-weight) {
+    //  Compute weight on moon from weight on earth
+    return earth-weight * 1/6;
+}
 ```
 :::
 
 #### 9.1.2 Returning Values from Functions {#Returning-Values-from-Functions}
 
-In Pyret, a function body consisted of optional statements to name
+In Jayret, a function body consisted of optional statements to name
 intermediate values, followed by a single expression. The value of
 that single expression is the result of calling the function. In
-Pyret, every function produces a result, so there is no need to label
+Jayret, every function produces a result, so there is no need to label
 where the result comes from.
 
 As we will see, Python is different: not all “functions” return
@@ -170,12 +171,13 @@ of a function within another expression. So what use is
 
 #### 9.1.3 Examples and Test Cases {#testing-python}
 
-In Pyret, we included examples with every function using `where:`{.pyret}
+In Jayret, we included examples with every function using `where:`{.pyret}
 blocks. We also had the ability to write `check:`{.pyret} blocks for more
 extensive tests. As a reminder, here was the `pen-cost`{.pyret} code
 including a `where:`{.pyret} block:
 
 ```pyret
+# TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
 fun pen-cost(num-pens :: Number, message :: String) -> Number:
   doc: ```total cost for pens, each 25 cents
        plus 2 cents per message character```
@@ -190,7 +192,7 @@ Python does not have a notion of `where:`{.pyret} blocks, or a
 distinction between examples and tests. There are a couple of
 different testing packages for Python; here we will use `pytest`{.python},
 a standard lightweight framework that resembles the form of testing
-that we did in Pyret.[How you set up pytest and your test
+that we did in Jayret.[How you set up pytest and your test
 file contents will vary according to your Python IDE. We assume
 instructors will provide separate instructions that align with their
 tool choices.]{.margin-note} To use `pytest`{.python}, we put both examples
@@ -223,13 +225,13 @@ Things to note about this code:
   ```python
   assert EXPRESSION == EXPECTED_ANS
   ```
-  rather than the `is`{.pyret} form from Pyret.
+  rather than the `is`{.pyret} form from Jayret.
 
 ::: {.do-now}
-Add one more test to the Python code, corresponding to the Pyret test
+Add one more test to the Python code, corresponding to the Jayret test
 
-```pyret
-pen-cost(3, "wow") is 0.93
+```jayret
+assertEquals(pen-cost(3, "wow"), 0.93);
 ```
 Make sure to run the test.
 :::
@@ -239,7 +241,7 @@ Did you actually try to run the test?
 :::
 
 Whoa! Something weird happened: the test failed. Stop and think
-about that: the same test that worked in Pyret failed in
+about that: the same test that worked in Jayret failed in
 Python. How can that be?
 
 #### 9.1.4 An Aside on Numbers {#An-Aside-on-Numbers}
@@ -250,11 +252,11 @@ numbers. Sometimes, differences in these representations lead to
 subtle quantitative differences in computed values. As a simple
 example, let’s look at two seemingly simple real numbers `1/2`{.pyret} and
 `1/3`{.pyret}. Here’s what we get when we type these two numbers at a
-Pyret prompt:
+Jayret prompt:
 
 ::: {.pyret-repl}
-``` pyret
-1/2
+```jayret
+1/2;
 ```
 ``` output
 0.5
@@ -262,8 +264,8 @@ Pyret prompt:
 :::
 
 ::: {.pyret-repl}
-``` pyret
-1/3
+```jayret
+1/3;
 ```
 ``` output
 0.3
@@ -273,8 +275,8 @@ Pyret prompt:
 If we type these same two numbers in a Python console, we instead get:
 
 ::: {.pyret-repl}
-``` pyret
-1/2
+```jayret
+1/2;
 ```
 ``` output
 0.5
@@ -282,8 +284,8 @@ If we type these same two numbers in a Python console, we instead get:
 :::
 
 ::: {.pyret-repl}
-``` pyret
-1/3
+```jayret
+1/3;
 ```
 ``` output
 0.3333333333333333
@@ -296,7 +298,7 @@ non-terminating, repeating decimal. In plain terms, if we tried to
 write out the exact value of `1/3`{.pyret} in decimal form, we would need
 to write an infinite sequence of `3`{.pyret}. Mathematicians denote this
 by putting a horizontal bar over the `3`{.pyret}. This is the notation we
-see in Pyret. Python, in contrast, writes out a partial sequence of
+see in Jayret. Python, in contrast, writes out a partial sequence of
 `3`{.pyret}s.
 
 Underneath this distinction lies some interesting details about
@@ -370,11 +372,11 @@ as we work more with Python.
 #### 9.1.6 Creating and Processing Lists {#python-create-process-lists}
 
 As an example of lists, let’s assume we’ve been playing a game that
-involves making words out of a collection of letters. In Pyret, we
+involves making words out of a collection of letters. In Jayret, we
 could have written a sample word list as follows:
 
-```pyret
-words = [list: "banana", "bean", "falafel", "leaf"]
+```jayret
+words = ["banana", "bean", "falafel", "leaf"];
 ```
 
 In Python, this definition would look like:
@@ -384,11 +386,11 @@ words = ["banana", "bean", "falafel", "leaf"]
 ```
 
 The only difference here is that Python does not use the `list:`{.pyret}
-label that is needed in Pyret.
+label that is needed in Jayret.
 
 ##### 9.1.6.1 Filters, Maps, and Friends {#Filters-Maps-and-Friends}
 
-When we first learned about lists in Pyret, we started with common
+When we first learned about lists in Jayret, we started with common
 built-in functions such as `filter`{.pyret}, `map`{.pyret}, `member`{.pyret}
 and `length`{.pyret}. We also saw the use of `lambda`{.pyret} to help us use
 some of these functions concisely. These same functions, including
@@ -415,8 +417,8 @@ the result of a `map`{.python} without first converting to a
 `list`{.python}, we’d get an error:
 
 ::: {.pyret-repl}
-``` pyret
-len(map(len,b))
+```jayret
+len(map(len, b));
 ```
 ``` output
 TypeError: object of type 'map' has no len()
@@ -439,24 +441,25 @@ problems. Use only the list functions we have shown you so far.
 
 We’re intentionally focusing on computations that use Python’s built-in
 functions for processing lists, rather than showing you how to write
-you own (as we did with recursion in Pyret). While you can write
-recursive functions to process lists in Pyret, a different style of
+you own (as we did with recursion in Jayret). While you can write
+recursive functions to process lists in Jayret, a different style of
 program is more conventional for that purpose. We’ll look at that in
 the chapter on [Mutating Variables](mutating-variables.html).
 
 #### 9.1.7 Data with Components {#python-data-with-components}
 
-An analog to a Pyret data definition (without variants) is called a dataclass in
+An analog to a Jayret data definition (without variants) is called a dataclass in
 Python.[Those experienced with Python may wonder why we are
 using dataclasses instead of dictionaries or raw classes. Compared to
 dictionaries, dataclasses allow the use of type hints and capture that
 our data has a fixed collection of fields. Compared to raw classes,
 dataclasses generate a lot of boilerplate code that makes them much
 lighterweight than raw classes.]{.margin-note} Here’s an example of a todo-list
-datatype in Pyret and its corresponding Python code:
+datatype in Jayret and its corresponding Python code:
 
 ```pyret
-# a todo item in Pyret
+# TODO(pyret2jayret): parse failed (no shifts)
+# a todo item in Jayret
 data ToDoItemData:
   | todoItem(descr :: String,
              due :: Date,
@@ -489,7 +492,7 @@ myTD = [ToDoItem("buy milk", date(2020, 7, 27), ["shopping", "home"]),
 Things to note:
 
 - There is a single name for the type and the constructor, rather
-  than separate names as we had in Pyret.
+  than separate names as we had in Jayret.
 - There are no commas between field names (but each has to be on
   its own line in Python)
 - There is no way to specify the type of the contents of the list
@@ -498,24 +501,25 @@ Things to note:
 - The `@dataclass`{.python} annotation is needed before
   `class`{.python}.
 - Dataclasses don’t support creating datatypes with multiple
-  variants, like we did frequently in Pyret. Doing that needs more
+  variants, like we did frequently in Jayret. Doing that needs more
   advanced concepts than we will cover in this book.
 
 ##### 9.1.7.1 Accessing Fields within Dataclasses {#Accessing-Fields-within-Dataclasses}
 
-In Pyret, we extracted a field from structured data by using a dot
+In Jayret, we extracted a field from structured data by using a dot
 (period) to “dig into” the datum and access the field. The same
 notation works in Python:
 
 ::: {.pyret-repl}
-``` pyret
+```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 travel = ToDoItem("buy tickets", date(2020, 7, 30), ["vacation"])
 ```
 :::
 
 ::: {.pyret-repl}
-``` pyret
-travel.descr
+```jayret
+travel.descr;
 ```
 ``` output
 "buy tickets"
@@ -526,17 +530,17 @@ travel.descr
 
 ##### 9.1.8.1 Introducing For Loops {#python-for-loops}
 
-In Pyret, we typically write recursive functions to compute summary values over
-lists. As a reminder, here’s a Pyret function that sums the numbers in
+In Jayret, we typically write recursive functions to compute summary values over
+lists. As a reminder, here’s a Jayret function that sums the numbers in
 a list:
 
-```pyret
-fun sum-list(numlist :: List<Number>) -> Number:
-  cases (List) numlist:
-    | empty => 0
-    | link(fst, rst) => fst + sum-list(rst)
-  end
-end
+```jayret
+int sum-list(List<Object> numlist) {
+    return switch (numlist) {
+        case Empty: yield 0;
+        case Link(fst, rst): yield fst + sum-list(rst);
+    }
+}
 ```
 
 In Python, it is unusual to break a list into its first and rest
@@ -550,7 +554,7 @@ for num in [5, 1, 7, 3]:
 ```
 
 The name `num`{.python} here is of our choosing, just as with the names
-of parameters to a function in Pyret. When a `for`{.python} loop
+of parameters to a function in Jayret. When a `for`{.python} loop
 evaluates, each item in the list is referred to as `num`{.python} in
 turn. Thus, this `for`{.python} example is equivalent to writing the
 following:
@@ -569,7 +573,7 @@ times to write the common code).
 Let’s now use `for`{.python} to compute the running sum of a list. We’ll
 start by figuring out the repeated computation with our concrete list
 again. At first, let’s express the repeated computation just in
-prose. In Pyret, our repeated computation was along the lines of “add
+prose. In Jayret, our repeated computation was along the lines of “add
 the first item to the sum of the rest of the items”. We’ve already
 said that we cannot easily access the “rest of the items” in Python,
 so we need to rephrase this. Here’s an alternative:
@@ -599,7 +603,7 @@ run_total = run_total + 3
 This idea that you can give a new value to an existing variable name
 is something we haven’t seen before. In fact, when we first saw how to
 name values (in [The Program Directory](Naming_Values.html##program-directory)), we explicitly said that
-Pyret doesn’t let
+Jayret doesn’t let
 you do this (at least, not with the constructs that we showed you). Python does. We’ll explore the consequences of this ability in
 more depth shortly (in [Mutating Variables](mutating-variables.html)). For now, let’s just use that ability so we can
 learn the pattern for traversing lists. First, let’s collapse the repeated lines of code
@@ -610,7 +614,7 @@ run_total = 0
 for num in [5, 1, 7, 3]:
    run_total = run_total + num
 ```
-This code works fine for a specific list, but our Pyret version took
+This code works fine for a specific list, but our Jayret version took
 the list to sum as a parameter to a function. To achieve this in
 Python, we wrap the `for`{.python} in a function as we have done for
 other examples earlier in this chapter. This is the final version.
@@ -628,16 +632,16 @@ def sum_list(numlist : list) -> float:
 Write a set of tests for `sum_list`{.python} (the Python version).
 :::
 
-Now that the Python version is done, let’s compare it to the original Pyret
+Now that the Python version is done, let’s compare it to the original Jayret
 version:
 
-```pyret
-fun sum-list(numlist :: List<Number>) -> Number:
-  cases (List) numlist:
-    | empty => 0
-    | link(fst, rst) => fst + sum-list(rst)
-  end
-end
+```jayret
+int sum-list(List<Object> numlist) {
+    return switch (numlist) {
+        case Empty: yield 0;
+        case Link(fst, rst): yield fst + sum-list(rst);
+    }
+}
 ```
 
 Here are some things to notice about the two pieces of code:
@@ -646,8 +650,8 @@ Here are some things to notice about the two pieces of code:
   hold the result of the computation as we build it up while traversing
   (working through) the list.
 - The initial value of that variable is the answer we returned in
-  the `empty`{.pyret} case in Pyret.
-- The computation in the `link`{.pyret} case of the Pyret function is
+  the `empty`{.pyret} case in Jayret.
+- The computation in the `link`{.pyret} case of the Jayret function is
   used to update that variable in the body of the `for`{.python}.
 - After the `for`{.python} has finished processing all items in the
   list, the Python version returns the value in the variable as the
@@ -657,7 +661,7 @@ Here are some things to notice about the two pieces of code:
 
 There’s another subtlety here if we consider how the two programs run:
 the Python version sums the elements from left to right, whereas
-the Pyret version sums them right to left. Concretely, the sequence of
+the Jayret version sums them right to left. Concretely, the sequence of
 values of `run_total`{.python} are computed as:
 
 ```python
@@ -667,24 +671,24 @@ run_total = 5 + 1
 run_total = 6 + 7
 run_total = 13 + 3
 ```
-In contrast, the Pyret version unrolls as:
+In contrast, the Jayret version unrolls as:
 
-```pyret
-sum_list([list: 5, 1, 7, 3])
-5 + sum_list([list: 1, 7, 3])
-5 + 1 + sum_list([list: 7, 3])
-5 + 1 + 7 + sum_list([list: 3])
-5 + 1 + 7 + 3 + sum_list([list:])
-5 + 1 + 7 + 3 + 0
-5 + 1 + 7 + 3
-5 + 1 + 10
-5 + 11
-16
+```jayret
+sum_list([5, 1, 7, 3]);
+5 + sum_list([1, 7, 3]);
+5 + 1 + sum_list([7, 3]);
+5 + 1 + 7 + sum_list([3]);
+5 + 1 + 7 + 3 + sum_list([]);
+5 + 1 + 7 + 3 + 0;
+5 + 1 + 7 + 3;
+5 + 1 + 10;
+5 + 11;
+16;
 ```
-As a reminder, the Pyret version did this because the `+`{.pyret} in the
+As a reminder, the Jayret version did this because the `+`{.pyret} in the
 `link`{.pyret} case can only reduce to an answer once the sum of the rest
 of the list has been computed. Even though we as humans see the chain
-of `+`{.pyret} operations in each line of the Pyret unrolling, Pyret sees
+of `+`{.pyret} operations in each line of the Jayret unrolling, Jayret sees
 only the expression `fst + sum-list(rst)`{.pyret}, which requires the
 function call to finish before the `+`{.pyret} executes.
 
@@ -718,7 +722,7 @@ def all_z_words(wordlist : list) -> list:
 ```
 This code follows the structure of `sum_list`{.python}, in that we
 update the value of `zlist`{.python} using an expression similar to what
-we would have used in Pyret. [For those with prior Python
+we would have used in Jayret. [For those with prior Python
 experience who would have used `zlist.append`{.python} here, hold that
 thought. We will get there in [Mutable Lists](mutable-lists.html).]{.margin-note}
 
@@ -739,7 +743,7 @@ notice anything interesting?
 ##### 9.1.8.4 Summary: The List-Processing Template for Python {#Summary-The-List-Processing-Template-for-Python}
 
 Just as we had a template for writing list-processing functions in
-Pyret, there is a corresponding template in Python based on
+Jayret, there is a corresponding template in Python based on
 `for`{.python} loops. As a reminder, that pattern is as follow:
 
 ```python
@@ -754,7 +758,7 @@ def func(lst: list):
 Keep this template in mind as you learn to write functions over lists
 in Python.
 
-##### 9.1.8.5 for each loops in Pyret {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-loops-in-Pyret}
+##### 9.1.8.5 for each loops in Jayret {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-loops-in-Pyret}
 
 [This section can be read
 without reading the rest of this chapter, so if you have been directed to it
@@ -762,18 +766,22 @@ before being introduced to Python, do not worry! While the content below mirrors
 similar constructs that exist in Python, it is introduced on its own.]{.margin-note}
 
 The previous sections introduced `for`{.python} loops in Python, and showed a
-template for processing lists with them. Pyret can
+template for processing lists with them. Jayret can
 do similar, using the following pattern:
 
-```pyret
-fun func(lst :: List) block:
-  var result = ...  # what to return if the input list is empty
-  for each(item from lst):
-    # combine item with the result so far
-    result := ... item ... result
-  end
-  result
-end
+```jayret
+Object func(List lst) {
+    var result = ...;
+    // what to return if the input list is empty
+    for (item : lst) {
+        // combine item with the result so far
+        result = ...;
+        item;
+        ...;
+        result;
+    }
+    return result;
+}
 ```
 
 There are a few new language features used in this example, introduced in the
@@ -788,31 +796,32 @@ First, note that we introduce the variable `result`{.pyret} with `var result`{.p
 By default, all variables in the program directory can never be changed. i.e.,
 if I define a variable `x`{.pyret}, I can not redefine it later:
 
-```pyret
-x = 10
-# ...
-x = 20 # produces shadowing error
+```jayret
+x = 10;
+// ...
+x = 20;
+// produces shadowing error
 ```
 
 If we do want to change (or mutate) a variable in the directory later, we can, but we must
 declare the variable can change – as in, when we define it, rather than writing
 `x = 10`{.pyret}, we must write `var x = 10`{.pyret}. Then, when we want to
-update it, we can do so with the `:=`{.pyret} operator, as is done in the template above.
+update it, we can do so with the `=`{.pyret} operator, as is done in the template above.
 
-```pyret
-var x = 10
-# ... x points to 10 in directory
-x := 20
-# ... x now points to 20 in directory
+```jayret
+var x = 10;
+// ... x points to 10 in directory
+x = 20;
+// ... x now points to 20 in directory
 ```
 
-Note that trying to use `:=`{.pyret} on a variable that was not declared using
+Note that trying to use `=`{.pyret} on a variable that was not declared using
 `var`{.pyret} will produce an error, and variables can still only ever be declared
 once (whether with `var x = ...`{.pyret} or `x = ...`{.pyret}).
 
 ##### 9.1.8.5.2 block notation {#block-notation}
 
-Another new language feature shown in these examples is that since Pyret
+Another new language feature shown in these examples is that since Jayret
 functions by default expect only a single (non-definition) expression, we have
 to add the `block`{.pyret} annotation at the top, indicating that the body of the
 function is multiple expressions, with the final one being what the function
@@ -820,37 +829,37 @@ evaluates to.
 
 As another example, if we tried to write:
 
-```pyret
-fun my-function():
-  1
-  2
-end
+```jayret
+Object my-function() {
+    1;
+    return 2;
+}
 ```
 
-Pyret would (rightly) error – since the function returns the last expression in
+Jayret would (rightly) error – since the function returns the last expression in
 its body, the `1`{.pyret} will be ignored – and is most likely a mistake! Perhaps
 the goal was to write:
 
-```pyret
-fun my-function():
-  1 + 2
-end
+```jayret
+Object my-function() {
+    return 1 + 2;
+}
 ```
 
 However, since a `for each`{.pyret} expression exists only to modify a variable,
 functions that contain them will always have multiple expressions, and so
-we need to communicate to Pyret that this is not a mistake. Adding `block`{.pyret}
+we need to communicate to Jayret that this is not a mistake. Adding `block`{.pyret}
 before the `:`{.pyret} that begins the function (or, in general, wrapping any
-expressions in `block:`{.pyret} and `end`{.pyret}) communicates to Pyret that we
+expressions in `block:`{.pyret} and `end`{.pyret}) communicates to Jayret that we
 understand that there are multiple expressions, and just want to evaluate to the
 last one. So, if we truly wanted to write a function as our first example, we
 could do that with:
 
-```pyret
-fun my-function() block:
-  1
-  2
-end
+```jayret
+Object my-function() {
+    1;
+    return 2;
+}
 ```
 
 ##### 9.1.8.5.3 How for each works {#How-struct-traverse-element-procedure-lib-render-cond-rkt-38-12-works}
@@ -863,19 +872,19 @@ does not produce any value directly, so much instead rely on modifying variables
 Consider summing a list of numbers. We could write a function that does this,
 following our pattern, as:
 
-```pyret
-fun sum-list(lst :: List) block:
-  var run_total = 0
-  for each(item from lst):
-    run_total := item + run_total
-  end
-  run_total
-where:
-  sum-list([list: 5, 1, 7, 3]) is 16
-end
+```jayret
+Object sum-list(List lst) {
+    var run_total = 0;
+    for (item : lst) {
+        run_total = item + run_total;
+    }
+    return run_total;
+} where {
+    
+}
 ```
 
-On the concrete test input `[list: 5, 1, 7, 3]`{.pyret}, the loop runs four times,
+On the concrete test input `[5, 1, 7, 3]`{.pyret}, the loop runs four times,
 once with `item`{.pyret} set to `5`{.pyret}, then with `item`{.pyret} set to `1`{.pyret},
 then with `item`{.pyret} set to `7`{.pyret}, and finally with `item`{.pyret} set to
 `3`{.pyret}.
@@ -918,18 +927,17 @@ elements, starting from the beginning) that sums to less than 100.
 Having learned about mutable variables, but not following the pattern, you might
 come up with code like this:
 
-```pyret
-var count = 0
-
-fun prefix-under-100(l :: List) -> List:
-  var output = [list: ]
-  for each(elt from l):
-    count := count + elt
-    when (count < 100):
-      output := output + [list: elt]
-    end
-  end
-end
+```jayret
+var count = 0;
+List prefix-under-100(List l) {
+    var output = [];
+    return for (elt : l) {
+        count = count + elt;
+        when ((count < 100)) {
+            output = output + [elt];
+        }
+    }
+}
 ```
 
 Now, this might seem reasonable – we’ve used a new construct, `when`{.pyret},
@@ -937,38 +945,38 @@ which is an `if`{.pyret} expression that has no `else`{.pyret} – this only mak
 sense to do inside of a `for each`{.pyret} block, where we don’t need a value as a
 result. It is equivalent to:
 
-```pyret
-if (count < 100):
-  output := output + [list: elt]
-else:
-  nothing
-end
+```jayret
+if ((count < 100)) {
+    output = output + [elt];
+} else {
+    return nothing;
+}
 ```
 
-Where `nothing`{.pyret} is a value that is used in Pyret to indicate that there is
+Where `nothing`{.pyret} is a value that is used in Jayret to indicate that there is
 no particular value of importance.
 
 But what happens when we use this function?
 
-```pyret
-check:
-    prefix-under-100([list: 1, 2, 3]) is [list: 1, 2, 3]
-    prefix-under-100([list: 20, 30, 40]) is [list: 20, 30, 40]
-    prefix-under-100([list: 80, 20, 10]) is [list: 80]
-end
+```jayret
+@Check void test() {
+    assertEquals(prefix-under-100([1, 2, 3]), [1, 2, 3]);
+    assertEquals(prefix-under-100([20, 30, 40]), [20, 30, 40]);
+    assertEquals(prefix-under-100([80, 20, 10]), [80]);
+}
 ```
 
 The first two tests pass, but the last one doesn’t. Why? If we run the first one
 again, things are even more confusing, i.e., if instead of the above, we ran
 this `check`{.pyret} block:
 
-```pyret
-check:
-    prefix-under-100([list: 1, 2, 3]) is [list: 1, 2, 3]
-    prefix-under-100([list: 20, 30, 40]) is [list: 20, 30, 40]
-    prefix-under-100([list: 80, 20, 10]) is [list: 80]
-    prefix-under-100([list: 1, 2, 3]) is [list: 1, 2, 3]
-end
+```jayret
+@Check void test() {
+    assertEquals(prefix-under-100([1, 2, 3]), [1, 2, 3]);
+    assertEquals(prefix-under-100([20, 30, 40]), [20, 30, 40]);
+    assertEquals(prefix-under-100([80, 20, 10]), [80]);
+    assertEquals(prefix-under-100([1, 2, 3]), [1, 2, 3]);
+}
 ```
 
 Now the test that passed at first no longer passes!

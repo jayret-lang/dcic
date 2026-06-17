@@ -35,9 +35,13 @@ represent the function that squares its input, just as \(2x\) is meant
 to be the function that doubles its input. We have nicer ways of
 writing those:
 
-```pyret
-fun sq(x :: Number) -> Number: x * x end
-fun dbl(x :: Number) -> Number: 2 * x end
+```jayret
+int sq(int x) {
+    return x * x;
+}
+int dbl(int x) {
+    return 2 * x;
+}
 ```
 and what we’re really trying to say is that the \(d/dx\) (whatever
 that is) of `sq`{.pyret} is `dbl`{.pyret}.[We’re
@@ -47,8 +51,8 @@ So now let’s unpack \(d/dx\), starting with its type. As the above
 example illustrates, \(d/dx\) is really a function from
 functions to functions. That is, we can write its type as follows:
 
-```pyret
-d-dx :: ((Number -> Number) -> (Number -> Number))
+```jayret
+/* contract: d-dx :: Object */;
 ```
 (This type might explain why your calculus course never explained this
 operation this way—though it’s not clear that obscuring its true
@@ -67,25 +71,24 @@ it: the derivative of \(f\) at \(x\) is
 infinitesimal a small but fixed value, and later
 [[Combining Forces: Streams of Derivatives](func-as-data.html##d-dx-streams)] see how we can improve on this.
 
-```pyret
-epsilon = 0.00001
+```jayret
+epsilon = 0.00001;
 ```
 
 We can now translate the above formula into a function:
 
-```pyret
-d-dx-at :: (Number -> Number), Number -> Number
-
-fun d-dx-at(f, x):
-  (f(x + epsilon) - f(x)) / epsilon
-end
+```jayret
+/* contract: d-dx-at :: Object */;
+Object d-dx-at(f, x) {
+    return (f(x + epsilon) - f(x)) / epsilon;
+}
 ```
 And sure enough, we can check and make sure it works as expected:
 
-```pyret
-check:
-  d-dx-at(sq, 10) is-roughly dbl(10)
-end
+```jayret
+@Check void test() {
+    assertRoughlyEquals(d-dx-at(sq, 10), dbl(10));
+}
 ```
 [Confession: We chose the value of `epsilon`{.pyret} so that the
 default tolerance `is-roughly`{.pyret} works for this example.]{.margin-note}
@@ -97,17 +100,17 @@ differentiation; but we’ve been forced, by the nature of numeric
 differentiation, to describe the derivative at a point. We might
 instead like to write something like this:
 
-```pyret
-fun d-dx(f):
-  (f(x + epsilon) - f(x)) / epsilon
-end
+```jayret
+Object d-dx(f) {
+    return (f(x + epsilon) - f(x)) / epsilon;
+}
 ```
 
 ::: {.do-now}
 What’s the problem with the above definition?
 :::
 
-If you didn’t notice, Pyret will soon tell you: `x`{.pyret} isn’t
+If you didn’t notice, Jayret will soon tell you: `x`{.pyret} isn’t
 bound. Indeed, what is `x`{.pyret}? It’s the point at which we’re trying
 to compute the numeric derivative. That is, `d-dx`{.pyret} needs to
 return not a number but a function (as the type indicates) that
@@ -117,21 +120,17 @@ them.”—James Iry,
 [A
 Brief, Incomplete, and Mostly Wrong History of Programming Languages](https://james-iry.blogspot.com/2009/05/brief-incomplete-and-mostly-wrong.html)]{.margin-note}
 
-```pyret
-fun d-dx(f):
-  lam(x):
-    (f(x + epsilon) - f(x)) / epsilon
-  end
-end
+```jayret
+Object d-dx(f) {
+    return (x) -> (f(x + epsilon) - f(x)) / epsilon;
+}
 ```
 If we want to be a little more explicit we can annotate the inner function:
 
-```pyret
-fun d-dx(f):
-  lam(x :: Number) -> Number:
-    (f(x + epsilon) - f(x)) / epsilon
-  end
-end
+```jayret
+Object d-dx(f) {
+    return (int x) -> (f(x + epsilon) - f(x)) / epsilon;
+}
 ```
 This is a special case of a concept useful in many programming contexts, which
 we explore in more detail elsewhere: [Staging](staging.html).
@@ -140,25 +139,19 @@ Sure enough, this definition now works. We can, for instance, test it
 as follows (note the use of `num-floor`{.pyret} to avoid numeric precision
 issues from making our tests appear to fail):
 
-```pyret
-d-dx-sq = d-dx(sq)
-
-check:
-  ins = [list: 0, 1, 10, 100]
-  for map(n from ins):
-    num-floor(d-dx-sq(n))
-  end
-  is
-  for map(n from ins):
-    num-floor(dbl(n))
-  end
-end
+```jayret
+d-dx-sq = d-dx(sq);
+@Check void test() {
+    ins = [0, 1, 10, 100];
+    assertEquals([for map(n : ins) { yield num-floor(d-dx-sq(n)); }], [for map(n : ins) { yield num-floor(dbl(n)); }]);
+}
 ```
 Now we can return to the original example that launched this
 investigation: what the sloppy and mysterious notation of math is
 really trying to say is,
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 d-dx(lam(x): x * x end) = lam(x): 2 * x end
 ```
 or, in the notation of [A Notation for Functions](predicting-growth.html##math-anon-functions),
@@ -166,29 +159,29 @@ or, in the notation of [A Notation for Functions](predicting-growth.html##math-a
 
 #### 8.1.2 A Helpful Shorthand for Anonymous Functions {#lam-shorthand}
 
-Pyret offers a shorter syntax for writing anonymous functions. Though,
+Jayret offers a shorter syntax for writing anonymous functions. Though,
 stylistically, we generally avoid it so that our programs don’t become
 a jumble of special characters, sometimes it’s particularly
 convenient, as we will see below. This syntax is
 
-```pyret
-{(a): b}
+```jayret
+(a) -> b;
 ```
 where `a`{.pyret} is zero or more arguments and `b`{.pyret} is the body. For
-instance, we can write `lam(x): x * x end`{.pyret} as
+instance, we can write `(x) -> x * x`{.pyret} as
 
-```pyret
-{(x): x * x}
+```jayret
+(x) -> x * x;
 ```
 where we can see the benefit of brevity. In particular, note that
 there is no need for `end`{.pyret}, because the braces take the place of
 showing where the expression begins and ends. Similarly, we could have
 written `d-dx`{.pyret} as
 
-```pyret
-fun d-dx-short(f):
-  {(x): (f(x + epsilon) - f(x)) / epsilon}
-end
+```jayret
+Object d-dx-short(f) {
+    return (x) -> (f(x + epsilon) - f(x)) / epsilon;
+}
 ```
 but many readers would say this makes the function harder to read,
 because the prominent `lam`{.pyret} makes clear that `d-dx`{.pyret} returns
@@ -219,10 +212,10 @@ these unbounded lists.
 First, let’s write a program to compute the sequence of natural
 numbers:
 
-```pyret
-fun nats-from(n):
-  link(n, nats-from(n + 1))
-end
+```jayret
+Object nats-from(n) {
+    return link(n, nats-from(n + 1));
+}
 ```
 
 ::: {.do-now}
@@ -248,10 +241,10 @@ must be finite, every list is finite and eventually terminates in
 `empty`{.pyret}. Therefore, we need a new data structure to represent the
 links in these lazy lists (also known as streams):
 <stream-type-def> ::=
-```pyret
-data Stream<T>:
-  | lz-link(h :: T, t :: ( -> Stream<T>))
-end
+```jayret
+data Stream {
+    Lz-link(T h, /* arrow-ann */ Object t);
+}
 ```
 where the annotation `( -> Stream<T>)`{.pyret} means a function from no
 arguments (hence the lack of anything before `->`{.pyret}),
@@ -262,41 +255,41 @@ no way to terminate them.
 Let’s construct the simplest example we can, a stream of constant
 values:
 
-```pyret
-ones = lz-link(1, lam(): ones end)
+```jayret
+ones = lz-link(1, () -> ones);
 ```
-Pyret will actually complain about this definition. Note that
+Jayret will actually complain about this definition. Note that
 the list equivalent of this also will not work:
 
-```pyret
-ones = link(1, ones)
+```jayret
+ones = link(1, ones);
 ```
 because `ones`{.pyret} is not defined at the point of
-definition, so when Pyret evaluates `link(1, ones)`{.pyret}, it complains
+definition, so when Jayret evaluates `link(1, ones)`{.pyret}, it complains
 that `ones`{.pyret} is not defined. However, it is being overly
 conservative with our former definition: the use of `ones`{.pyret} is
 “under a `lam`{.pyret}”, and hence won’t be needed until after the
 definition of `ones`{.pyret} is done, at which point `ones`{.pyret}
-will be defined. We can indicate this to Pyret by using the
+will be defined. We can indicate this to Jayret by using the
 keyword `rec`{.pyret}:
 
-```pyret
-rec ones = lz-link(1, lam(): ones end)
+```jayret
+rec ones = lz-link(1, () -> ones);
 ```
-Note that in Pyret, every `fun`{.pyret}
+Note that in Jayret, every `fun`{.pyret}
 implicitly has a `rec`{.pyret} beneath it, which is why we can
 create recursive functions with aplomb.
 
 ::: {.exercise}
 Earlier we said that we can’t write
 
-```pyret
-ones = link(1, ones)
+```jayret
+ones = link(1, ones);
 ```
 What if we tried to write
 
-```pyret
-rec ones = link(1, ones)
+```jayret
+rec ones = link(1, ones);
 ```
 instead? Does this work and, if so, what value is `ones`{.pyret} bound
 to? If it doesn’t work, does it fail to work for the same reason as
@@ -306,26 +299,26 @@ the definition without the `rec`{.pyret}?
 Henceforth, we will use the shorthand [[A Helpful Shorthand for Anonymous Functions](func-as-data.html##lam-shorthand)]
 instead. Therefore, we can rewrite the above definition as:
 
-```pyret
-rec ones = lz-link(1, {(): ones})
+```jayret
+rec ones = lz-link(1, () -> ones);
 ```
 Notice that `{(): …}`{.pyret} defines an anonymous function of no
-arguments. You can’t leave out the `()`{.pyret}! If you do, Pyret will
+arguments. You can’t leave out the `()`{.pyret}! If you do, Jayret will
 get confused about what your program means.
 
 Because functions are automatically recursive, when we write a
 function to create a stream, we don’t need to use `rec`{.pyret}. Consider
 this example:
 
-```pyret
-fun nats-from(n :: Number):
-  lz-link(n, {(): nats-from(n + 1)})
-end
+```jayret
+Object nats-from(int n) {
+    return lz-link(n, () -> nats-from(n + 1));
+}
 ```
 with which we can define the natural numbers:
 
-```pyret
-nats = nats-from(0)
+```jayret
+nats = nats-from(0);
 ```
 Note that the definition of `nats`{.pyret} is not recursive itself—the
 recursion is inside `nats-from`{.pyret}—so we don’t need to use
@@ -355,16 +348,20 @@ Now we’ve created multiple streams, but we still don’t have an easy
 way to “see” one. First we’ll define the traditional list-like
 selectors. Getting the first element works exactly as with lists:
 
-```pyret
-fun lz-first<T>(s :: Stream<T>) -> T: s.h end
+```jayret
+T lz-first(Stream<Object> s) {
+    return s.h;
+}
 ```
 In contrast, when trying to access the rest of the stream, all we get
 out of the data structure is a thunk. To access the actual rest, we
 need to force the thunk, which of course means applying it to no
 arguments:
 
-```pyret
-fun lz-rest<T>(s :: Stream<T>) -> Stream<T>: s.t() end
+```jayret
+Stream<Object> lz-rest(Stream<Object> s) {
+    return s.t();
+}
 ```
 
 This is useful for examining individual values of the
@@ -372,14 +369,14 @@ stream. It is also useful to extract a finite prefix of
 it (of a given size) as a (regular) list, which would be especially
 handy for testing. Let’s write that function:
 
-```pyret
-fun take<T>(n :: Number, s :: Stream<T>) -> List<T>:
-  if n == 0:
-    empty
-  else:
-    link(lz-first(s), take(n - 1, lz-rest(s)))
-  end
-end
+```jayret
+List<Object> take(int n, Stream<Object> s) {
+    return if (n == 0) {
+        return empty;
+    } else {
+        return link(lz-first(s), take(n - 1, lz-rest(s)));
+    }
+}
 ```
 If you pay close attention, you’ll find that this body is not defined
 by cases over the structure of the (stream) input—instead,
@@ -390,14 +387,14 @@ Now that we have this, we can use it for testing. Note that usually we
 use our data to test our functions; here, we’re using this function to
 test our data:
 
-```pyret
-check:
-  take(10, ones) is map(lam(_): 1 end, range(0, 10))
-  take(10, nats) is range(0, 10)
-  take(10, nats-from(1)) is map((_ + 1), range(0, 10))
-end
+```jayret
+@Check void test() {
+    assertEquals(take(10, ones), map((_) -> 1, range(0, 10)));
+    assertEquals(take(10, nats), range(0, 10));
+    assertEquals(take(10, nats-from(1)), map((_ + 1), range(0, 10)));
+}
 ```
-[The notation `(_ + 1)`{.pyret} defines a Pyret function of
+[The notation `(_ + 1)`{.pyret} defines a Jayret function of
 one argument that adds `1`{.pyret} to the given argument.]{.margin-note}
 
 Let’s define one more function: the equivalent of `map`{.pyret} over
@@ -405,15 +402,10 @@ streams. For reasons that will soon become obvious, we’ll define a
 version that takes two lists and applies the first argument to them
 pointwise:
 <lz-map2-def> ::=
-```pyret
-fun lz-map2<A, B, C>(
-    f :: (A, B -> C),
-    s1 :: Stream<A>,
-    s2 :: Stream<B>) -> Stream<C>:
-  lz-link(
-    f(lz-first(s1), lz-first(s2)),
-    {(): lz-map2(f, lz-rest(s1), lz-rest(s2))})
-end
+```jayret
+Stream<Object> lz-map2(/* arrow-ann */ Object f, Stream<Object> s1, Stream<Object> s2) {
+    return lz-link(f(lz-first(s1), lz-first(s2)), () -> lz-map2(f, lz-rest(s1), lz-rest(s2)));
+}
 ```
 Now we can see our earlier remark about the structure of the function
 driven home especially clearly. Whereas a traditional `map`{.pyret} over
@@ -432,18 +424,14 @@ short answer is we can’t: we must instead use
 Why did we define `lz-map2`{.pyret} instead of `lz-map`{.pyret}? Because it
 enables us to write the following:
 
-```pyret
-rec fibs =
-  lz-link(0,
-    {(): lz-link(1,
-          {(): lz-map2({(a :: Number, b :: Number): a + b},
-                fibs,
-            lz-rest(fibs))})})
+```jayret
+rec fibs = lz-link(0, () -> lz-link(1, () -> lz-map2((int a, int b) -> a + b, fibs, lz-rest(fibs))));
 ```
 from which, of course, we can extract as many Fibonacci numbers as we
 want!
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 check:
   take(10, fibs) is [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 end
@@ -488,20 +476,15 @@ what function we want to differentiate and at what value we want its
 derivative; after all, the stream of `epsilon`{.pyret} values may depend
 on both. Thus, we get:
 
-```pyret
-fun d-dx(f :: (Number -> Number)) ->
-    (Number -> (Number -> Number)):
-  lam(x :: Number) -> (Number -> Number):
-    lam(epsilon :: Number) -> Number:
-      (f(x + epsilon) - f(x)) / epsilon
-    end
-  end
-end
+```jayret
+/* arrow-ann */ Object d-dx(/* arrow-ann */ Object f) {
+    return (int x) -> (int epsilon) -> (f(x + epsilon) - f(x)) / epsilon;
+}
 ```
 with which we can return to our `square`{.pyret} example:
 
-```pyret
-d-dx-square = d-dx(square)
+```jayret
+d-dx-square = d-dx(square);
 ```
 Note that at this point we have simply redefined `d-dx`{.pyret} without
 any reference to streams: we have merely made a constant into a
@@ -509,27 +492,25 @@ parameter.
 
 Now let’s define the stream of negative powers of ten:
 
-```pyret
-tenths = block:
-  fun by-ten(d):
-    new-denom = d / 10
-    lz-link(new-denom, lam(): by-ten(new-denom) end)
-  end
-  by-ten(1)
-end
+```jayret
+tenths = block: Object by-ten(d) {
+    new-denom = d / 10;
+    return lz-link(new-denom, () -> by-ten(new-denom));
+}
+by-ten(1);
 ```
 so that
 
-```pyret
-check:
-  take(3, tenths) is [list: 1/10, 1/100, 1/1000]
-end
+```jayret
+@Check void test() {
+    assertEquals(take(3, tenths), [1/10, 1/100, 1/1000]);
+}
 ```
 For concreteness, let’s pick an abscissa at which to compute the
 numeric derivative of `square`{.pyret}—say `10`{.pyret}:
 
-```pyret
-d-dx-square-at-10 = d-dx-square(10)
+```jayret
+d-dx-square-at-10 = d-dx-square(10);
 ```
 Recall, from the types, that this is now a function of type
 `(Number -> Number)`{.pyret}: given a value for `epsilon`{.pyret}, it computes
@@ -538,8 +519,8 @@ value of this derivative should be `20`{.pyret}. We can now (lazily) map
 `tenths`{.pyret} to provide increasingly better approximations for
 `epsilon`{.pyret} and see what happens:
 
-```pyret
-lz-map(d-dx-square-at-10, tenths)
+```jayret
+lz-map(d-dx-square-at-10, tenths);
 ```
 Sure enough, the values we obtain are `20.1`{.pyret}, `20.01`{.pyret},
 `20.001`{.pyret}, and so on: progressively better numerical

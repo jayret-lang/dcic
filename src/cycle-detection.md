@@ -15,26 +15,22 @@ next: avoid-recomp.html
 
 ### 21.1 A Running Example {#A-Running-Example}
 
-As you may have noticed, Pyret will check for and print cycles. For instance,
+As you may have noticed, Jayret will check for and print cycles. For instance,
 
-```pyret
+```jayret
 import lists as L
-
-data Pair: p(hd, ref tl) end
-
-p0 = p(0, 0)
-p1 = p(1, 1)
-
-p2 = p(2, 3)
-p3 = p(3, 4)
-p2!{tl: p3}
-p3!{tl: p2}
-
-p4 = p(4, p3)
-p5 = p(5, p4)
-
-p6 = p(6, "dummy")
-p6!{tl: p6}
+data Pair {
+}
+p0 = p(0, 0);
+p1 = p(1, 1);
+p2 = p(2, 3);
+p3 = p(3, 4);
+p2 ! {tl p3 }
+p3 ! {tl p2 }
+p4 = p(4, p3);
+p5 = p(5, p4);
+p6 = p(6, "dummy");
+p6 ! {tl p6 }
 ```
 
 ::: {.do-now}
@@ -55,24 +51,23 @@ sometimes it’s a `Number`{.pyret}, and other times it’s a
 create cyclic data, then we want `tl`{.pyret} to refer to a `Pair`{.pyret}
 or to nothing at all. That suggests that a useful type is:
 
-```pyret
-data Pair: p(hd :: Number, ref tl :: Option<Pair>) end
+```jayret
+data Pair {
+}
 ```
 so that we can write
 
-```pyret
-p0 = p(0, none)
-p1 = p(1, none)
-
-p2 = p(2, none)
-p3 = p(3, none)
-p2!{tl: some(p3)}
-p3!{tl: some(p2)}
-p4 = p(4, some(p3))
-p5 = p(5, some(p4))
-
-p6 = p(6, none)
-p6!{tl: some(p6)}
+```jayret
+p0 = p(0, none);
+p1 = p(1, none);
+p2 = p(2, none);
+p3 = p(3, none);
+p2 ! {tl some(p3) }
+p3 ! {tl some(p2) }
+p4 = p(4, some(p3));
+p5 = p(5, some(p4));
+p6 = p(6, none);
+p6 ! {tl some(p6) }
 ```
 This works, but we have to deal with the `Option`{.pyret}
 everywhere. Since our goal is to focus on cycles, and this would
@@ -84,8 +79,8 @@ Okay, back to the untyped version.
 
 So let’s try to figure out whether, given a Pair, it leads to a cycle. What should the type be?
 
-```pyret
-cc :: Pair -> Boolean
+```jayret
+/* contract: cc :: Object */;
 ```
 where `cc`{.pyret} stands for “check cycle”.
 
@@ -93,21 +88,21 @@ Critically, it’s important that this be a total function: i.e., it always term
 
 So let’s write the most obvious solution:
 
-```pyret
-fun cc(e):
-  fun loop(cur, hist):
-    if is-p(cur):
-      if L.member-identical(hist, cur):
-        true
-      else:
-        loop(cur!tl, link(cur, hist))
-      end
-    else:
-      false
-    end
-  end
-  loop(e, empty)
-end
+```jayret
+Object cc(e) {
+    Object loop(cur, hist) {
+        return if (is-p(cur)) {
+            return if (L.member-identical(hist, cur)) {
+                return true;
+            } else {
+                return loop(cur ! tl, link(cur, hist));
+            }
+        } else {
+            return false;
+        }
+    }
+    return loop(e, empty);
+}
 ```
 First of all, does this even terminate? It could take a while to visit
 all the nodes, but a cycle demands that somewhere, we revisit a node
@@ -115,25 +110,25 @@ we saw before. Since we track that, we can’t not terminate. Therefore,
 termination is guaranteed, and the function is total. Indeed, all
 these tests pass:
 
-```pyret
-check:
-  cc(p0) is false
-  cc(p1) is false
-  cc(p2) is true
-  cc(p3) is true
-  cc(p4) is true
-  cc(p5) is true
-  cc(p6) is true
-end
+```jayret
+@Check void test() {
+    assertEquals(cc(p0), false);
+    assertEquals(cc(p1), false);
+    assertEquals(cc(p2), true);
+    assertEquals(cc(p3), true);
+    assertEquals(cc(p4), true);
+    assertEquals(cc(p5), true);
+    assertEquals(cc(p6), true);
+}
 ```
 
 As another aside, observe that we could have written these tests instead like
 
-```pyret
-check:
-  p0 violates cc
-  p2 satisfies cc
-end
+```jayret
+@Check void test() {
+    assertViolates(p0, cc);
+    assertSatisfies(p2, cc);
+}
 ```
 which would be more concise, but that would also be misleading: it
 would suggest that `cc`{.pyret} is a desirable property, so `p2`{.pyret} is
@@ -229,52 +224,52 @@ complexity is now significantly smaller: down to constant!
 
 Here is the code:
 
-```pyret
-fun th(e):
-  fun loop(tt, hr):
-    if tt <=> hr:
-      true
-    else:
-      if is-p(tt) and is-p(hr):
-        new-tt = tt!tl
-        int-hr = hr!tl
-        if is-p(int-hr):
-          new-hr = int-hr!tl
-          loop(new-tt, new-hr)
-        else:
-          false
-        end
-      else:
-        false
-      end
-    end
-  end
-  loop(e, e!tl)
-end
+```jayret
+Object th(e) {
+    Object loop(tt, hr) {
+        return if (tt <=> hr) {
+            return true;
+        } else {
+            return if (is-p(tt) && is-p(hr)) {
+                new-tt = tt ! tl;
+                int-hr = hr ! tl;
+                return if (is-p(int-hr)) {
+                    new-hr = int-hr ! tl;
+                    return loop(new-tt, new-hr);
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+    }
+    return loop(e, e ! tl);
+}
 ```
 
 ### 21.6 Testing {#Testing}
 
 While it might be tempting to write tests like
 
-```pyret
-check:
-  cc(p0) is false
-  cc(p2) is true
-end
+```jayret
+@Check void test() {
+    assertEquals(cc(p0), false);
+    assertEquals(cc(p2), true);
+}
 ```
 (i.e., the same as before, but with `cc`{.pyret} replaced by `ph`{.pyret}), we should instead write them as follows:
 
-```pyret
-check:
-  cc(p0) is th(p0)
-  cc(p1) is th(p1)
-  cc(p2) is th(p2)
-  cc(p3) is th(p3)
-  cc(p4) is th(p4)
-  cc(p5) is th(p5)
-  cc(p6) is th(p6)
-end
+```jayret
+@Check void test() {
+    assertEquals(cc(p0), th(p0));
+    assertEquals(cc(p1), th(p1));
+    assertEquals(cc(p2), th(p2));
+    assertEquals(cc(p3), th(p3));
+    assertEquals(cc(p4), th(p4));
+    assertEquals(cc(p5), th(p5));
+    assertEquals(cc(p6), th(p6));
+}
 ```
 
 This confers two advantages. First, if we change the example, we don’t
@@ -284,6 +279,6 @@ is that we intend for `pr`{.pyret} to be an optimized version of
 can think of `cc`{.pyret} as our clear, reference implementation. That
 is, this is another instance of model-based testing.
 
-As an aside, this algorithm is not exactly what Pyret does, because we
+As an aside, this algorithm is not exactly what Jayret does, because we
 need to check for arbitrary graph-ness, not just cycles. It’s also
 complicated due to user-defined functions, etc.

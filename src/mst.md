@@ -244,17 +244,19 @@ its name. Thus we will associate each set element with an
 indicator of the “set name” for that element; if there isn’t one,
 then its name is itself (the `none`{.pyret} case of `parent`{.pyret}):
 
-```pyret
-data Element<T>:
-  | elt(val :: T, parent :: Option<Element>)
-end
+```jayret
+data Element {
+    Elt(T val, Option<Object> parent);
+}
 ```
 We will assume we have some equality predicate for checking when two
 elements are the same, which we do by comparing their value parts,
 ignoring their parent values:
 
-```pyret
-fun is-same-element(e1, e2): e1.val <=> e2.val end
+```jayret
+Object is-same-element(e1, e2) {
+    return e1.val <=> e2.val;
+}
 ```
 
 ::: {.do-now}
@@ -265,21 +267,20 @@ We will assume that for a given set, we always return the
 same representative element. (Otherwise, equality will fail
 even though we have the same set.) Thus:[We’ve used the
 name `fynd`{.pyret} because `find`{.pyret} is already defined to mean
-something else in Pyret. If you don’t like the misspelling, you’re
+something else in Jayret. If you don’t like the misspelling, you’re
 welcome to use a longer name like `find-root`{.pyret}.]{.margin-note}
 
-```pyret
-fun is-in-same-set(e1 :: Element, e2 :: Element, s :: Sets)
-    -> Boolean:
-  s1 = fynd(e1, s)
-  s2 = fynd(e2, s)
-  identical(s1, s2)
-end
+```jayret
+boolean is-in-same-set(Element e1, Element e2, Sets s) {
+    s1 = fynd(e1, s);
+    s2 = fynd(e2, s);
+    return identical(s1, s2);
+}
 ```
 where `Sets`{.pyret} is the list of all elements:
 
-```pyret
-type Sets = List<Element>
+```jayret
+type Sets = List < Element >;
 ```
 
 How do we find the representative element for a set? We first find it
@@ -290,21 +291,20 @@ is a singleton set (we’ll initialize all elements with `none`{.pyret}),
 or it’s the name for some larger set. Either way, we’re
 done. Otherwise, we have to recursively find the parent:
 
-```pyret
-fun fynd(e :: Element, s :: Sets) -> Element:
-  cases (List) s:
-    | empty => raise("fynd: shouldn't have gotten here")
-    | link(f, r) =>
-      if is-same-element(f, e):
-        cases (Option) f.parent:
-          | none => f
-          | some(p) => fynd(p, s)
-        end
-      else:
-        fynd(e, r)
-      end
-  end
-end
+```jayret
+Element fynd(Element e, Sets s) {
+    return switch (s) {
+        case Empty: yield raise("fynd: shouldn't have gotten here");
+        case Link(f, r): yield if (is-same-element(f, e)) {
+            return switch (f.parent) {
+                case None: yield f;
+                case Some(p): yield fynd(p, s);
+            }
+        } else {
+            return fynd(e, r);
+        };
+    }
+}
 ```
 
 ::: {.exercise}
@@ -316,50 +316,48 @@ representative elements of the two sets we’re trying to union; if they
 are the same, then the two sets are already in a union; otherwise, we
 have to update the data structure:
 
-```pyret
-fun union(e1 :: Element, e2 :: Element, s :: Sets) -> Sets:
-  s1 = fynd(e1, s)
-  s2 = fynd(e2, s)
-  if identical(s1, s2):
-    s
-  else:
-    update-set-with(s, s1, s2)
-  end
-end
+```jayret
+Sets union(Element e1, Element e2, Sets s) {
+    s1 = fynd(e1, s);
+    s2 = fynd(e2, s);
+    return if (identical(s1, s2)) {
+        return s;
+    } else {
+        return update-set-with(s, s1, s2);
+    }
+}
 ```
 To update, we arbitrarily choose one of the set names to be the name
 of the new compound set. We then have to update the parent of the
 other set’s name element to be this one:
 
-```pyret
-fun update-set-with(s :: Sets, child :: Element, parent :: Element)
-    -> Sets:
-  cases (List) s:
-    | empty => raise("update: shouldn't have gotten here")
-    | link(f, r) =>
-      if is-same-element(f, child):
-        link(elt(f.val, some(parent)), r)
-      else:
-        link(f, update-set-with(r, child, parent))
-      end
-  end
-end
+```jayret
+Sets update-set-with(Sets s, Element child, Element parent) {
+    return switch (s) {
+        case Empty: yield raise("update: shouldn't have gotten here");
+        case Link(f, r): yield if (is-same-element(f, child)) {
+            return link(elt(f.val, some(parent)), r);
+        } else {
+            return link(f, update-set-with(r, child, parent));
+        };
+    }
+}
 ```
 Here are some tests to illustrate this working:
 
-```pyret
-check:
-  s0 = map(elt(_, none), [list: 0, 1, 2, 3, 4, 5, 6, 7])
-  s1 = union(get(s0, 0), get(s0, 2), s0)
-  s2 = union(get(s1, 0), get(s1, 3), s1)
-  s3 = union(get(s2, 3), get(s2, 5), s2)
-  print(s3)
-  is-same-element(fynd(get(s0, 0), s3), fynd(get(s0, 5), s3)) is true
-  is-same-element(fynd(get(s0, 2), s3), fynd(get(s0, 5), s3)) is true
-  is-same-element(fynd(get(s0, 3), s3), fynd(get(s0, 5), s3)) is true
-  is-same-element(fynd(get(s0, 5), s3), fynd(get(s0, 5), s3)) is true
-  is-same-element(fynd(get(s0, 7), s3), fynd(get(s0, 7), s3)) is true
-end
+```jayret
+@Check void test() {
+    s0 = map(elt(_, none), [0, 1, 2, 3, 4, 5, 6, 7]);
+    s1 = union(get(s0, 0), get(s0, 2), s0);
+    s2 = union(get(s1, 0), get(s1, 3), s1);
+    s3 = union(get(s2, 3), get(s2, 5), s2);
+    print(s3);
+    assertEquals(is-same-element(fynd(get(s0, 0), s3), fynd(get(s0, 5), s3)), true);
+    assertEquals(is-same-element(fynd(get(s0, 2), s3), fynd(get(s0, 5), s3)), true);
+    assertEquals(is-same-element(fynd(get(s0, 3), s3), fynd(get(s0, 5), s3)), true);
+    assertEquals(is-same-element(fynd(get(s0, 5), s3), fynd(get(s0, 5), s3)), true);
+    assertEquals(is-same-element(fynd(get(s0, 7), s3), fynd(get(s0, 7), s3)), true);
+}
 ```
 
 Unfortunately, this implementation suffers from two major problems:

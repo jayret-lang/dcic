@@ -45,11 +45,11 @@ instance:
 
 Notice the kinds of operations that we are talking about: computing
 the maximum, minimum, average, median, and other basic
-statistics.[Pyret has several built-in
+statistics.[Jayret has several built-in
 statistics functions in the
-[math](http://www.pyret.org/docs/latest/math.html)
+[math](http://jayret-lang.github.io/docs/latest/math.html)
 and
-[statistics](http://www.pyret.org/docs/latest/statistics.html)
+[statistics](http://jayret-lang.github.io/docs/latest/statistics.html)
 packages.]{.margin-note}
 
 ::: {.do-now}
@@ -69,21 +69,11 @@ applies the transformations at the end of the previous chapter, is in
 a different tab of the same Google Sheet as the other versions of the
 event data.
 
-```pyret
-include gdrive-sheets
-include data-source
-
-ssid = "1Ks4ll5_8wyYK1zyXMm_21KORhagSMZ59dcr7i3qY6T4"
-cleaned-data =
-  load-table: name, email, tickcount, discount, delivery, zip
-    source: load-spreadsheet(ssid).sheet-by-name("Cleaned", true)
-    sanitize name using string-sanitizer
-    sanitize email using string-sanitizer
-    sanitize tickcount using num-sanitizer
-    sanitize discount using string-sanitizer
-    sanitize delivery using string-sanitizer
-    sanitize zip using string-sanitizer
-  end
+```jayret
+import gdrive-sheets
+import data-source
+ssid = "1Ks4ll5_8wyYK1zyXMm_21KORhagSMZ59dcr7i3qY6T4";
+cleaned-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: load-spreadsheet(ssid).sheet-by-name("Cleaned", true) sanitize name using string-sanitizer sanitize email using string-sanitizer sanitize tickcount using num-sanitizer sanitize discount using string-sanitizer sanitize delivery using string-sanitizer sanitize zip using string-sanitizer;
 ```
 
 #### 5.1.2 Extracting a Column from a Table {#Extracting-a-Column-from-a-Table}
@@ -94,8 +84,8 @@ function produces a new table containing only certain columns from an
 existing table. Let’s extract the `tickcount`{.pyret} column so we can
 compute some statistics over it. We use the following expression:
 
-```pyret
-select-columns(cleaned-data, [list: "tickcount"])
+```jayret
+select-columns(cleaned-data, ["tickcount"]);
 ```
 
 ![](tickcount-column.png){width="94" height="295"}
@@ -109,7 +99,7 @@ wrapped up in the extra layer of table cells.
 In principle, we could have a collection of operations on a single
 column. In some languages that focus solely on tables, such as
 [SQL](https://en.wikipedia.org/wiki/SQL),
-this is what you’ll find. However, in Pyret we have many more
+this is what you’ll find. However, in Jayret we have many more
 kinds of data than just columns (as we’ll soon see [[Introduction to Structured Data](intro-struct-data.html)], we can even
 create our own!), so it makes sense to leave the gentle cocoon of
 tables sooner or later. An extracted column is a more basic kind of
@@ -120,19 +110,19 @@ Just as we have used the notation `.row-n`{.pyret} to pull a single row
 from a table, we use a similar dot-based notion to pull out a single
 column. Here’s how we extract the `tickcount`{.pyret} column:
 
-```pyret
-cleaned-data.get-column("tickcount")
+```jayret
+cleaned-data.get-column("tickcount");
 ```
 
-In response, Pyret produces the following value:
+In response, Jayret produces the following value:
 
-```pyret
-[list: 2, 1, 5, 0, 3, 10, 3]
+```jayret
+[2, 1, 5, 0, 3, 10, 3];
 ```
 
 Now, we seem to have only the values that were in the cells in the
 column, without the enclosing table. Yet the numbers are still bundled
-up, this time in the `[list: ...]`{.pyret} notation. What is that?
+up, this time in the `[...]`{.pyret} notation. What is that?
 
 #### 5.1.3 Understanding Lists {#Understanding-Lists}
 
@@ -183,16 +173,16 @@ We have already seen how we can create lists from a table, using
 `get-column`{.pyret}. As you might expect, however, we can also create lists
 directly:
 
-```pyret
-[list: 1, 2, 3]
-[list: -1, 5, 2.3, 10]
-[list: "a", "b", "c"]
-[list: "This", "is", "a", "list", "of", "words"]
+```jayret
+[1, 2, 3];
+[-1, 5, 2.3, 10];
+["a", "b", "c"];
+["This", "is", "a", "list", "of", "words"];
 ```
 Of course, lists are values so we can name them using variables—
 
-```pyret
-shopping-list = [list: "muesli", "fiddleheads"]
+```jayret
+shopping-list = ["muesli", "fiddleheads"];
 ```
 —pass them to functions (as we will soon see), and so on.
 
@@ -201,34 +191,38 @@ Based on these examples, can you figure out how to create an empty
 list?
 :::
 
-As you might have guessed, it’s `[list: ]`{.pyret} (the space isn’t
+As you might have guessed, it’s `[]`{.pyret} (the space isn’t
 necessary, but it’s a useful visual reminder of the void).
 
 #### 5.1.4 Operating on Lists {#Operating-on-Lists}
 
 ##### 5.1.4.1 Built-In Operations on Lists of Numbers {#Built-In-Operations-on-Lists-of-Numbers}
 
-Pyret handily provides a useful set of operations we can already
+Jayret handily provides a useful set of operations we can already
 perform on lists. [The
 [lists
-documentation](https://www.pyret.org/docs/latest/lists.html) describes these operations.]{.margin-note} As you might have
+documentation](https://jayret-lang.github.io/docs/latest/lists.html) describes these operations.]{.margin-note} As you might have
 guessed, we can already compute most of the answers we’ve asked for
 at the start of the chapter. First we need to include some libraries that contain useful
 functions:
 
-```pyret
+```jayret
 import math as M
 import statistics as S
+
 ```
 We can then access several useful functions:
 
-```pyret
-tickcounts = cleaned-data.get-column("tickcount")
-
-M.max(tickcounts)     # largest number in a list
-M.sum(tickcounts)     # sum of numbers in a list
-S.mean(tickcounts)    # mean (average) of numbers in a list
-S.median(tickcounts)  # median of numbers in a list
+```jayret
+tickcounts = cleaned-data.get-column("tickcount");
+M.max(tickcounts);
+// largest number in a list
+M.sum(tickcounts);
+// sum of numbers in a list
+S.mean(tickcounts);
+// mean (average) of numbers in a list
+S.median(tickcounts);
+// median of numbers in a list
 ```
 
 The `M.`{.pyret} notation means "the function inside the library
@@ -248,22 +242,22 @@ question:
 None of the table functions handle a question like this. However, this
 is a common kind of question to ask about a collection of values (How
 many unique artists are in your playlist? How many unique faculty are
-teaching courses?). As such, Pyret (as most languages) provides a way
+teaching courses?). As such, Jayret (as most languages) provides a way
 to identify the unique elements of a list. Here’s how we get the list
 of all discount codes that were used in our table:
 
-```pyret
+```jayret
 import lists as L
-codes = cleaned-data.get-column("discount")
-L.distinct(codes)
+codes = cleaned-data.get-column("discount");
+L.distinct(codes);
 ```
 
 The `distinct`{.pyret} function produces a list of the unique values from
 the input list: every value in the input list appears exactly once in
-the output list. For the above code, Pyret produces:
+the output list. For the above code, Jayret produces:
 
-```pyret
-[list: "BIRTHDAY", "STUDENT", "none"]
+```jayret
+["BIRTHDAY", "STUDENT", "none"];
 ```
 
 What if we wanted to exclude `"none"`{.pyret} from that list? After all,
@@ -271,13 +265,13 @@ What if we wanted to exclude `"none"`{.pyret} from that list? After all,
 introduced while cleaning up the table. Is there a way to easily
 remove `"none"`{.pyret} from the list?
 
-There are two ways we could do it. In the Pyret lists documentation,
+There are two ways we could do it. In the Jayret lists documentation,
 we find a function called `remove`{.pyret}, which removes a specific
 element from a list:
 
 ::: {.pyret-repl}
-``` pyret
-L.remove(L.distinct(codes), "none")
+```jayret
+L.remove(L.distinct(codes), "none");
 ```
 ``` output
 [list: "BIRTHDAY", "STUDENT"]
@@ -286,15 +280,15 @@ L.remove(L.distinct(codes), "none")
 
 But this operation should also sound familiar: with tables, we
 used `filter-with`{.pyret} to keep only those elements that meet a
-specific criterion. The filtering idea is so common that Pyret (and
+specific criterion. The filtering idea is so common that Jayret (and
 most other languages) provide a similar operation on lists. In the
 case of the discount codes, we could also have written:
 
-```pyret
-fun real-code(c :: String) -> Boolean:
-  not(c == "none")
-end
-L.filter(real-code, L.distinct(codes))
+```jayret
+boolean real-code(String c) {
+    return not(c == "none");
+}
+L.filter(real-code, L.distinct(codes));
 ```
 
 The difference between these two approaches is that `filter`{.pyret} is
@@ -352,8 +346,8 @@ splits a string into a list of substrings around a given
 character. For example:
 
 ::: {.pyret-repl}
-``` pyret
-string-split-all("this-has-hyphens", "-")
+```jayret
+string-split-all("this-has-hyphens", "-");
 ```
 ``` output
 [list: "this", "has", "hyphens"]
@@ -361,11 +355,11 @@ string-split-all("this-has-hyphens", "-")
 :::
 
 ::: {.pyret-repl}
-``` pyret
-string-split("bonnie@pyret.org", "@")
+```jayret
+string-split("bonnie@jayret-lang.github.io", "@");
 ```
 ``` output
-[list: "bonnie", "pyret.org"]
+[list: "bonnie", "jayret-lang.github.io"]
 ```
 :::
 
@@ -378,11 +372,11 @@ list, as we did to extract rows from tables, this time using the
 `get`{.pyret} operation.
 
 ::: {.pyret-repl}
-``` pyret
-string-split("bonnie@pyret.org", "@").get(1)
+```jayret
+string-split("bonnie@jayret-lang.github.io", "@").get(1);
 ```
 ``` output
-"pyret.org"
+"jayret-lang.github.io"
 ```
 :::
 
@@ -393,17 +387,15 @@ second item in the list?
 
 Here’s the complete program for doing this check:
 
-```pyret
-fun web-com-address(email :: String) -> Boolean:
-  doc: "determine whether email is from web.com"
-  string-split(email, "@").get(1) == "web.com"
-where:
-  web-com-address("bonnie@pyret.org") is false
-  web-com-address("parrot@web.com") is true
-end
-
-emails = cleaned-data.get-column("email")
-L.length(L.filter(web-com-address, emails))
+```jayret
+boolean web-com-address(String email) {
+    // determine whether email is from web.com
+    return string-split(email, "@").get(1) == "web.com";
+} where {
+    
+}
+emails = cleaned-data.get-column("email");
+L.length(L.filter(web-com-address, emails));
 ```
 
 ::: {.exercise}
@@ -421,14 +413,14 @@ messages to folders organized by students’ usernames).
 
 Specifcally, we want to start with a list of addresses such as:
 
-```pyret
-[list: "parrot@web.com", "bonnie@pyret.org"]
+```jayret
+["parrot@web.com", "bonnie@jayret-lang.github.io"];
 ```
 
 and convert it to
 
-```pyret
-[list: "parrot", "bonnie"]
+```jayret
+["parrot", "bonnie"];
 ```
 
 ::: {.do-now}
@@ -448,17 +440,14 @@ This idea of transforming elements is similar to the
 tables. The corresponding operation on lists is called
 `map`{.pyret}. Here’s an example:
 
-```pyret
-fun extract-username(email :: String) -> String:
-  doc: "extract the portion of an email address before the @ sign"
-  string-split(email, "@").get(0)
-where:
-  extract-username("bonnie@pyret.org") is "bonnie"
-  extract-username("parrot@web.com") is "parrot"
-end
-
-L.map(extract-username,
-  [list: "parrot@web.com", "bonnie@pyret.org"])
+```jayret
+String extract-username(String email) {
+    // extract the portion of an email address before the @ sign
+    return string-split(email, "@").get(0);
+} where {
+    
+}
+L.map(extract-username, ["parrot@web.com", "bonnie@jayret-lang.github.io"]);
 ```
 
 ##### 5.1.4.6 Recap: Summary of List Operations {#lists-recap}
@@ -466,18 +455,18 @@ L.map(extract-username,
 At this point, we have seen several useful built-in functions for
 working with lists:
 
-- `filter :: (A -> Boolean), List<A> -> List<A>`{.pyret}, which
+- `/* contract: filter :: Object */`{.pyret}, which
   produces a list of elements from the input list on which the given
   function returns `true`{.pyret}.
-- `map :: (A -> B), List<A> -> List<B>`{.pyret}, which
+- `/* contract: map :: Object */`{.pyret}, which
   produces a list of the results of calling the given function on each
   element of the input list.
-- `distinct :: List<A> -> List<A>`{.pyret}, which
+- `/* contract: distinct :: Object */`{.pyret}, which
   produces a list of the unique elements that appear in the input list.
-- `length :: List<A> -> Number`{.pyret}, which
+- `/* contract: length :: Object */`{.pyret}, which
   produces the number of elements in the input list.
 
-Here, a type such as `List<A>`{.pyret} says that we have a list whose
+Here, a type such as `List < A >`{.pyret} says that we have a list whose
 elements are of some (unspecified) type which we’ll call
 `A`{.pyret}. A type variable such as this is useful when we want to
 show relationships between two types in a function
@@ -488,7 +477,7 @@ differ from that in the input list.
 
 One additional built-in function that is quite useful in practice is:
 
-- `member :: List<A>, Any -> Boolean`{.pyret}, which
+- `/* contract: member :: Object */`{.pyret}, which
   determines whether the given element is in the list. We use the type
   `Any`{.pyret} when there are no constraints on the type of value provided
   to a function.
@@ -500,12 +489,10 @@ operations.
 Assume you used a list of strings to represent the ingredients in a
 recipe. Here are three examples:
 
-```pyret
-stir-fry =
-  [list: "peppers", "pork", "onions", "rice"]
-dosa = [list: "rice", "lentils", "potato"]
-misir-wot =
-  [list: "lentils", "berbere", "tomato"]
+```jayret
+stir-fry = ["peppers", "pork", "onions", "rice"];
+dosa = ["rice", "lentils", "potato"];
+misir-wot = ["lentils", "berbere", "tomato"];
 ```
 
 Write the following functions on ingredient lists:
@@ -565,26 +552,27 @@ using lists and
 Let’s revisit the program we wrote earlier in this chapter for
 finding all of the discount codes that were used in the events table:
 
-```pyret
-fun real-code(c :: String) -> Boolean:
-  not(c == "none")
-end
-L.filter(real-code, codes)
+```jayret
+boolean real-code(String c) {
+    return not(c == "none");
+}
+L.filter(real-code, codes);
 ```
 
 This program might feel a bit verbose: do we really need to write a
 helper function just to perform something as simple as a
 `filter`{.pyret}? Wouldn’t it be easier to just write something like:
 
-```pyret
-L.filter(not(c == "none"), codes)
+```jayret
+L.filter(not(c == "none"), codes);
 ```
 
 ::: {.do-now}
-What will Pyret produce if you run this expression?
+What will Jayret produce if you run this expression?
 :::
 
-Pyret will produce an `unbound identifier`{.pyret} error around the use
+Jayret will produce an `unbound;
+identifier`{.jayret} error around the use
 of `c`{.pyret} in this expression. What is `c`{.pyret}? We mean for `c`{.pyret}
 to be the elements from `codes`{.pyret} in turn. Conceptually, that’s
 what `filter`{.pyret} does, but we don’t have the mechanics right. When
@@ -595,12 +583,12 @@ The whole point of the `real-code`{.pyret} helper function is to make
 a value for `c`{.pyret} is available.
 
 To tighten the notation as in the one-line `filter`{.pyret} expression,
-then, we have to find a way to tell Pyret to make a temporary function
+then, we have to find a way to tell Jayret to make a temporary function
 that will get its inputs once `filter`{.pyret} is running. The following
 notation achieves this:
 
-```pyret
-L.filter(lam(c): not(c == "none") end, codes)
+```jayret
+L.filter((c) -> not(c == "none"), codes);
 ```
 
 We have added `lam(c)`{.pyret} and `end`{.pyret} around the expression that
@@ -617,6 +605,7 @@ about how `filter`{.pyret} is defined under the hood. In part, it looks
 like:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 fun filter(keep :: (A -> Boolean), lst :: List<A>) -> List<A>:
   if keep(<elt-from-list>):
     ...

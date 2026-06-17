@@ -27,7 +27,7 @@ This version has several small but potentially significant changes:
   been updated to include the zip code column. They also use references
   to new versions of the Google Sheet and CSV files that include the
   column.
-- The preface includes information on using Pyret within VSCode (as
+- The preface includes information on using Jayret within VSCode (as
   an alternative to CPO). The only difference between these two tools
   lies in how tables are imported from external sources. CPO imports
   tables from Google Sheets, whereas VSCode imports tables from CSV
@@ -36,22 +36,22 @@ This version has several small but potentially significant changes:
   The book uses CPO as the default presentation. When code examples can
   run only in VSCode (specifically, if they import CSV files), a border
   and VSCode logo will surround the code.
-- A section on `for each`{.pyret} iterators in Pyret has been added
-  to the end of [From Pyret to Python](intro-python.html). This placement supports courses
+- A section on `for each`{.pyret} iterators in Jayret has been added
+  to the end of [From Jayret to Python](intro-python.html). This placement supports courses
   that wish to make the transition to Python after learning how to
-  process lists in Pyret, without disrupting the flow for those who
+  process lists in Jayret, without disrupting the flow for those who
   switch to Python after covering trees (the originally-envisioned
   flow).
   
   Courses that make the switch to Python after trees will likely want to
-  skip the Pyret `for each`{.pyret} material.
+  skip the Jayret `for each`{.pyret} material.
 - There is a new chapter on [File Input and Output in Python](python-fileio.html) at the end of
-  the [From Pyret to Python](part_pyret-to-python.html) section of the book.
+  the [From Jayret to Python](part_pyret-to-python.html) section of the book.
   
   As a result of this addition, all subsequent chapter numbers have
-  increased by one beginning with those in the [Programming with State (in Both Pyret and Python)](part_state.html)
+  increased by one beginning with those in the [Programming with State (in Both Jayret and Python)](part_state.html)
   section.
-- The two major sections in [Programming with State (in Both Pyret and Python)](part_state.html) have been
+- The two major sections in [Programming with State (in Both Jayret and Python)](part_state.html) have been
   renamed to [Mutating Structures](mutating-structures.html) and [Mutating Variables](mutating-variables.html) to make
   their intents clearer. To keep the rest of the section and subsection
   titles consistent with the "mutation" terminology, we also renamed
@@ -62,7 +62,7 @@ This version has several small but potentially significant changes:
   subsections. Existing links to those sections will continue to work, as
   URLs into the book include the release tag. However, any readers who plan
   to update links to refer to the 2025-08-27 release should recheck URLs
-  into the [Programming with State (in Both Pyret and Python)](part_state.html) section.
+  into the [Programming with State (in Both Jayret and Python)](part_state.html) section.
 
 ### 31.2 Version 2025-02-09 {#Version-2025-02-09}
 
@@ -74,7 +74,7 @@ chapter that introduces tables.
 Error corrections:
 
 
-- In [The Program Directory](Naming_Values.html##program-directory), corrected the description of what Pyret reports when a program
+- In [The Program Directory](Naming_Values.html##program-directory), corrected the description of what Jayret reports when a program
   tries to redefine/give a new value to an existing identifier. The
   previous text had referred to shadowing, rather than a conflicting value.
 - In [Dealing with Missing Entries](processing-tables.html##missing-data), corrected an erroneous description
@@ -108,19 +108,19 @@ This version has a sweeping set of changes:
 - The ordering of materials has changed. The material on
   [Algorithm Analysis](booklet_algo-analysis.html)
   has been moved to after the Python material.
-- The [From Pyret to Python](booklet_pyret-to-python.html) transition has been
+- The [From Jayret to Python](booklet_pyret-to-python.html) transition has been
   improved substantially.
 - There is now a chapter on using Pandas that builds off the
-  corresponding Pyret example on tables.
+  corresponding Jayret example on tables.
 - Python dictionaries have moved into
-  [From Pyret to Python](booklet_pyret-to-python.html).
-  Even though we don’t cover Pyret’s dictionaries,
+  [From Jayret to Python](booklet_pyret-to-python.html).
+  Even though we don’t cover Jayret’s dictionaries,
   having the dictionaries material come before state is a more natural
   flow with regards to students learning Python.
   We then develop the implementation of dictionaries using state in
   [Hashes, Sets, and Key-Values](hash-set-kv.html).
 - There is now a whole new unified approach to
-  [Programming With State](booklet_programming-with-state.html) that shows the Pyret and
+  [Programming With State](booklet_programming-with-state.html) that shows the Jayret and
   Python versions side-by-side. Seeing this material in two different
   languages helps focus on similarities and differences and can improve
   transfer between languages.
@@ -148,10 +148,9 @@ Besides numerous small improvements, we added some new bonus material.
 - Added a comparison to How to Design Programs.
 - The include line for the DCIC libraries at this version is
   
-  ```pyret
-  include shared-gdrive(
-    "dcic-2021",
-    "1wyQZj_L0qqV9Ekgr9au6RX2iqt2Ga8Ep")
+  ```jayret
+import shared-gdrive("dcic-2021", , "1wyQZj_L0qqV9Ekgr9au6RX2iqt2Ga8Ep")
+
   ```
 
 ### 31.7 Version 2021-08-21 {#Version-2021-08-21}

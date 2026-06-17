@@ -28,10 +28,10 @@ enhance comparison.
 First, we have to update the definition of an element, making the
 `parent`{.pyret} field be mutable:
 
-```pyret
-data Element:
-  | elt(val, ref parent :: Option<Element>)
-end
+```jayret
+data Element {
+    Elt(val, ref Option<Object> parent);
+}
 ```
 To determine whether two elements are in the same set, we will still
 rely on `fynd`{.pyret}. However, as we will soon see, `fynd`{.pyret} no
@@ -39,20 +39,20 @@ longer needs to be given the entire set of elements. Because the only
 reason `is-in-same-set`{.pyret} consumed that set was to pass it on to
 `fynd`{.pyret}, we can remove it from here. Nothing else changes:
 
-```pyret
-fun is-in-same-set(e1 :: Element, e2 :: Element) -> Boolean:
-  s1 = fynd(e1)
-  s2 = fynd(e2)
-  identical(s1, s2)
-end
+```jayret
+boolean is-in-same-set(Element e1, Element e2) {
+    s1 = fynd(e1);
+    s2 = fynd(e2);
+    return identical(s1, s2);
+}
 ```
 Updating is now the crucial difference: we use mutation to change the
 value of the parent:
 
-```pyret
-fun update-set-with(child :: Element, parent :: Element):
-  child!{parent: some(parent)}
-end
+```jayret
+Object update-set-with(Element child, Element parent) {
+    return child ! {parent some(parent) }
+}
 ```
 In `parent: some(parent)`{.pyret}, the first `parent`{.pyret} is the name of
 the field, while the second one is the parameter name. In addition, we
@@ -65,16 +65,16 @@ other than the change to the return type. Previously, it needed to
 return the updated set of elements; now, because the update is
 performed by mutation, there is no longer any need to return anything:
 
-```pyret
-fun union(e1 :: Element, e2 :: Element):
-  s1 = fynd(e1)
-  s2 = fynd(e2)
-  if identical(s1, s2):
-    s1
-  else:
-    update-set-with(s1, s2)
-  end
-end
+```jayret
+Object union(Element e1, Element e2) {
+    s1 = fynd(e1);
+    s2 = fynd(e2);
+    return if (identical(s1, s2)) {
+        return s1;
+    } else {
+        return update-set-with(s1, s2);
+    }
+}
 ```
 Finally, `fynd`{.pyret}. Its implementation is now remarkably
 simple. There is no longer any need to search through the
@@ -82,13 +82,13 @@ set. Previously, we had to search because after union operations have
 occurred, the parent reference might have no longer been valid. Now,
 any such changes are automatically reflected by mutation. Hence:
 
-```pyret
-fun fynd(e :: Element) -> Element:
-  cases (Option) e!parent:
-    | none => e
-    | some(p) => fynd(p)
-  end
-end
+```jayret
+Element fynd(Element e) {
+    return switch (e ! parent) {
+        case None: yield e;
+        case Some(p): yield fynd(p);
+    }
+}
 ```
 
 #### 18.3.2 Optimizations {#Optimizations}
@@ -103,16 +103,17 @@ this same recursive traversal all over again.
 Using mutation helps address this problem. The idea is as simple as
 can be: compute the value of the parent, and update it.
 
-```pyret
-fun fynd(e :: Element) -> Element:
-  cases (Option) e!parent block:
-    | none => e
-    | some(p) =>
-      new-parent = fynd(p)
-      e!{parent: some(new-parent)}
-      new-parent
-  end
-end
+```jayret
+Element fynd(Element e) {
+    return switch (e ! parent) {
+        case None: yield e;
+        case Some(p): yield block {
+            new-parent = fynd(p);
+            e ! {parent some(new-parent) }
+            return new-parent;
+        };
+    }
+}
 ```
 Note that this update will apply to every element in the recursive
 chain to find the set name. Therefore, applying `fynd`{.pyret} to

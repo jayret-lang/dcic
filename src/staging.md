@@ -19,22 +19,22 @@ Earlier, we saw a detailed development of binary trees representing ancestry
 [[Creating a Datatype for Ancestor Trees](trees.html##ancestor-tree)]. In what follows we don’t need a lot of detail, so
 we will give ourselves a simplified version of essentially the same data definition:
 
-```pyret
-data ABT:
-  | unknown
-  | person(name :: String, bm :: ABT, bf :: ABT)
-end
+```jayret
+data ABT {
+    Unknown;
+    Person(String name, ABT bm, ABT bf);
+}
 ```
 We can then write functions over such as this:
 
-```pyret
-fun abt-size(p :: ABT):
-  doc: "Compute the number of known people in the ancestor tree"
-  cases (ABT) p:
-    | unknown => 0
-    | person(n, p1, p2) => 1 + abt-size(p1) + abt-size(p2)
-  end
-end
+```jayret
+Object abt-size(ABT p) {
+    // Compute the number of known people in the ancestor tree
+    return switch (p) {
+        case Unknown: yield 0;
+        case Person(n, p1, p2): yield 1 + abt-size(p1) + abt-size(p2);
+    }
+}
 ```
 
 Now let’s think about a slightly different function:
@@ -50,8 +50,8 @@ will be crucial, so make sure you do this step!
 
 Here is one meaningful contract:
 
-```pyret
-how-many-named :: ABT, String -> Number
+```jayret
+/* contract: how-many-named :: Object */;
 ```
 It takes a tree in which to search, a name to search for, and returns a count.
 
@@ -63,37 +63,29 @@ Define `how-many-named`{.pyret}.
 
 Presumably you ended up with something like this:
 
-```pyret
-fun how-many-named(p, looking-for):
-  cases (ABT) p:
-    | unknown => 0
-    | person(n, p1, p2) =>
-      if n == looking-for:
-        1 + how-many-named(p1, looking-for) + how-many-named(p2, looking-for)
-      else:
-        how-many-named(p1, looking-for) + how-many-named(p2, looking-for)
-      end
-  end
-end
+```jayret
+Object how-many-named(p, looking-for) {
+    return switch (p) {
+        case Unknown: yield 0;
+        case Person(n, p1, p2): yield if (n == looking-for) {
+            return 1 + how-many-named(p1, looking-for) + how-many-named(p2, looking-for);
+        } else {
+            return how-many-named(p1, looking-for) + how-many-named(p2, looking-for);
+        };
+    }
+}
 ```
 Let’s say you have defined this person:
 
-```pyret
-p =
-  person("A",
-    person("B",
-      person("A", unknown, unknown),
-      person("C",
-        person("A", unknown, unknown),
-        person("B", unknown, unknown))),
-    person("C", unknown, unknown))
+```jayret
+p = person("A", person("B", person("A", unknown, unknown), person("C", person("A", unknown, unknown), person("B", unknown, unknown))), person("C", unknown, unknown));
 ```
 With that, we can write a test like
 
-```pyret
-check:
-  how-many-named(p, "A") is 3
-end
+```jayret
+@Check void test() {
+    assertEquals(how-many-named(p, "A"), 3);
+}
 ```
 
 ### 24.3 Refactoring {#Refactoring}
@@ -109,18 +101,17 @@ One way to make this more explicit is to (perhaps surprisingly)
 rewrite the `else`{.pyret} to make explicit that a person with a
 different name contributes `0`{.pyret} to the count:
 
-```pyret
-fun how-many-named(p, looking-for):
-  cases (ABT) p:
-    | unknown => 0
-    | person(n, p1, p2) =>
-      if n == looking-for:
-        1 + how-many-named(p1, looking-for) + how-many-named(p2, looking-for)
-      else:
-        0 + how-many-named(p1, looking-for) + how-many-named(p2, looking-for)
-      end
-  end
-end
+```jayret
+Object how-many-named(p, looking-for) {
+    return switch (p) {
+        case Unknown: yield 0;
+        case Person(n, p1, p2): yield if (n == looking-for) {
+            return 1 + how-many-named(p1, looking-for) + how-many-named(p2, looking-for);
+        } else {
+            return 0 + how-many-named(p1, looking-for) + how-many-named(p2, looking-for);
+        };
+    }
+}
 ```
 The reason for this somewhat odd rewrite is that it makes clear what
 is common and what is different. What is common is looking in the two
@@ -129,17 +120,17 @@ that depends on the conditional. We can therefore express this
 more concisely (and, if we know how to read such code,
 more meaningfully) as the following instead:
 
-```pyret
-fun how-many-named(p, looking-for):
-  cases (ABT) p:
-    | unknown => 0
-    | person(n, p1, p2) =>
-      (if n == looking-for: 1 else: 0 end)
-      +
-      how-many-named(p1, looking-for) +
-      how-many-named(p2, looking-for)
-  end
-end
+```jayret
+Object how-many-named(p, looking-for) {
+    return switch (p) {
+        case Unknown: yield 0;
+        case Person(n, p1, p2): yield (if (n == looking-for) {
+            return 1;
+        } else {
+            return 0;
+        }) + how-many-named(p1, looking-for) + how-many-named(p2, looking-for);
+    }
+}
 ```
 If you have prior programming experience, this may look a bit odd to you, but
 `if`{.pyret} is in fact an expression, which has a value; in this case the value
@@ -155,27 +146,27 @@ First, we’ll do something that looks a little useless, but it’s also an
 innocent change, so it shouldn’t irk us too much: we’ll change the order of the
 arguments. That is, our contract changes from
 
-```pyret
-how-many-named :: ABT, String -> Number
+```jayret
+/* contract: how-many-named :: Object */;
 ```
 to
 
-```pyret
-how-many-named :: String, ABT -> Number
+```jayret
+/* contract: how-many-named :: Object */;
 ```
 so the function correspondingly changes to
 
-```pyret
-fun how-many-named(looking-for, p):
-  cases (ABT) p:
-    | unknown => 0
-    | person(n, p1, p2) =>
-      (if n == looking-for: 1 else: 0 end)
-      +
-      how-many-named(p1, looking-for) +
-      how-many-named(p2, looking-for)
-  end
-end
+```jayret
+Object how-many-named(looking-for, p) {
+    return switch (p) {
+        case Unknown: yield 0;
+        case Person(n, p1, p2): yield (if (n == looking-for) {
+            return 1;
+        } else {
+            return 0;
+        }) + how-many-named(p1, looking-for) + how-many-named(p2, looking-for);
+    }
+}
 ```
 
 What we have now done is put the “constant” argument first, and the
@@ -190,17 +181,17 @@ just the function header: we have to also change how it’s called. Keep
 in mind it’s called twice within the function body itself, and also
 from the examples. Therefore, the function as a whole reads:
 
-```pyret
-fun how-many-named(looking-for, p):
-  cases (ABT) p:
-    | unknown => 0
-    | person(n, p1, p2) =>
-      (if n == looking-for: 1 else: 0 end)
-      +
-      how-many-named(looking-for, p1) +
-      how-many-named(looking-for, p2)
-  end
-end
+```jayret
+Object how-many-named(looking-for, p) {
+    return switch (p) {
+        case Unknown: yield 0;
+        case Person(n, p1, p2): yield (if (n == looking-for) {
+            return 1;
+        } else {
+            return 0;
+        }) + how-many-named(looking-for, p1) + how-many-named(looking-for, p2);
+    }
+}
 ```
 and the example reads `how-many-named("A", p)`{.pyret}
 instead.
@@ -217,29 +208,27 @@ contract to be `(ABT -> Number)`{.pyret}. To achieve that, we need another
 function that will take the `String`{.pyret} part.
 Thus, the contract has to become
 
-```pyret
-how-many-named :: String -> (ABT -> Number)
+```jayret
+/* contract: how-many-named :: Object */;
 ```
 where `how-many-named`{.pyret} consumes a name and returns a function that will
 consume the actual tree to check.
 
 This suggests the following function body:
 
-```pyret
-fun how-many-named(looking-for):
-  lam(p :: ABT) -> Number:
-    cases (ABT) p:
-      | unknown => 0
-      | person(n, p1, p2) =>
-        (if n == looking-for: 1 else: 0 end)
-        +
-        how-many-named(looking-for, p1) +
-        how-many-named(looking-for, p2)
-    end
-  end
-end
+```jayret
+Object how-many-named(looking-for) {
+    return (ABT p) -> switch (p) {
+        case Unknown: yield 0;
+        case Person(n, p1, p2): yield (if (n == looking-for) {
+            return 1;
+        } else {
+            return 0;
+        }) + how-many-named(looking-for, p1) + how-many-named(looking-for, p2);
+    }
+}
 ```
-However, this function body is not okay: the Pyret type-checker will give us
+However, this function body is not okay: the Jayret type-checker will give us
 type errors. That’s because `how-many-named`{.pyret} takes one parameter, not two,
 as in the two recursive calls.
 
@@ -248,19 +237,19 @@ to change the name, only the tree. That means we want to recur on the inner
 function. We currently can’t do this because it doesn’t have a name! So we have
 to give it a name and recur on it:
 
-```pyret
-fun how-many-named(looking-for):
-  fun search-in(p :: ABT) -> Number:
-    cases (ABT) p:
-      | unknown => 0
-      | person(n, p1, p2) =>
-        (if n == looking-for: 1 else: 0 end)
-        +
-        search-in(p1) +
-        search-in(p2)
-    end
-  end
-end
+```jayret
+Object how-many-named(looking-for) {
+    int search-in(ABT p) {
+        return switch (p) {
+            case Unknown: yield 0;
+            case Person(n, p1, p2): yield (if (n == looking-for) {
+                return 1;
+            } else {
+                return 0;
+            }) + search-in(p1) + search-in(p2);
+        }
+    }
+}
 ```
 This now lets us recur on just the part that should vary, leaving the name
 we’re looking for unchanged (and hence, fixed for the duration of the
@@ -278,21 +267,20 @@ back a function that searches for that name in a tree. But we already
 have exactly such a function: `search-in`{.pyret}. Therefore,
 `how-many-named`{.pyret} should return just … `search-in`{.pyret}.
 
-```pyret
-fun how-many-named(looking-for):
-  fun search-in(p :: ABT) -> Number:
-    cases (ABT) p:
-      | unknown => 0
-      | person(n, p1, p2) =>
-        (if n == looking-for: 1 else: 0 end)
-        +
-        search-in(p1) +
-        search-in(p2)
-    end
-  end
-
-  search-in
-end
+```jayret
+Object how-many-named(looking-for) {
+    int search-in(ABT p) {
+        return switch (p) {
+            case Unknown: yield 0;
+            case Person(n, p1, p2): yield (if (n == looking-for) {
+                return 1;
+            } else {
+                return 0;
+            }) + search-in(p1) + search-in(p2);
+        }
+    }
+    return search-in;
+}
 ```
 
 This still won’t work, because we haven’t changed the example. Let’s
@@ -301,17 +289,17 @@ with a name (like `"A"`{.pyret}); this returns a function—the
 one bound to `search-in`{.pyret}—which expects a ancestor tree. Doing
 so should return a count. Thus, the example should be rewritten as
 
-```pyret
-how-many-As = how-many-named("A")
-how-many-As(p) is 3
+```jayret
+how-many-As = how-many-named("A");
+assertEquals(how-many-As(p), 3);
 ```
 This is an instructive way to write the example. We can, however, also
 write it more concisely. Notice that `how-many-named("A")`{.pyret}
 returns a function, and the way we apply a function to arguments is
 `(…)`{.pyret}. Thus, we can also write this as:
 
-```pyret
-how-many-named("A")(p) is 3
+```jayret
+assertEquals(how-many-named("A")(p), 3);
 ```
 
 ### 24.5 Context {#Context}
@@ -328,9 +316,9 @@ programs.
 Even more subtly but importantly, the staged computation tells a different
 story than the unstaged one, and we can read this off just from the contract:
 
-```pyret
-how-many-named :: String, ABT -> Number
-how-many-named :: String -> (ABT -> Number)
+```jayret
+/* contract: how-many-named :: Object */;
+/* contract: how-many-named :: Object */;
 ```
 The first one says the string could co-vary with the person. The second one
 rules out that interpretation.
@@ -362,7 +350,7 @@ Finally, it’s worth knowing that some languages, like Haskell and
 OCaml, do this transformation automatically. In fact, they don’t even
 have multiple-parameter functions: what look like multiple arguments
 are actually a sequence of staged functions. This can, in extremis,
-lead to a very elegant and powerful programming style. Pyret chose to
+lead to a very elegant and powerful programming style. Jayret chose to
 not do this because, while this is a powerful tool in the hands of
 advanced programmers, for less experienced programmers, finding out
 about a mismatch in the number of parameters and arguments is very

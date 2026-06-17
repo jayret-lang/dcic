@@ -94,8 +94,8 @@ a new array and copy the entire array’s content into the new array,
 which takes linear time. (We can do a better job of this by using
 [Halloween Analysis](amortized-analysis.html), but there is no real free ride.)
 
-The arrays in Pyret are
-[documented here](https://www.pyret.org/docs/latest/arrays.html).
+The arrays in Jayret are
+[documented here](https://jayret-lang.github.io/docs/latest/arrays.html).
 While not necessary in principle, it is conventional to think of
 arrays as data structures that support mutation, and that is how we
 will use them here.
@@ -110,20 +110,17 @@ corresponding location has been set. Traditionally, each location in
 the array is called a bucket, and this data structure is called
 a hashtable.
 
-```pyret
-BUCKET-COUNT = 1000
-
-buckets = array-of(false, BUCKET-COUNT)
-
-fun insert(s :: String):
-  h = hash-of(s)
-  buckets.set-now(h, true)
-end
-
-fun is-in(s :: String):
-  h = hash-of(s)
-  buckets.get-now(h)
-end
+```jayret
+BUCKET-COUNT = 1000;
+buckets = array-of(false, BUCKET-COUNT);
+Object insert(String s) {
+    h = hash-of(s);
+    return buckets.set-now(h, true);
+}
+Object is-in(String s) {
+    h = hash-of(s);
+    return buckets.get-now(h);
+}
 ```
 
 Observe that if this were to work, we would have constant time
@@ -144,8 +141,8 @@ definition of `hash-of`{.pyret}, it’s easy to see that any rearrangement of th
 letters produces the same hash:
 
 ::: {.pyret-repl}
-``` pyret
-hash-of("Hello")
+```jayret
+hash-of("Hello");
 ```
 ``` output
 500
@@ -153,8 +150,8 @@ hash-of("Hello")
 :::
 
 ::: {.pyret-repl}
-``` pyret
-hash-of("olleH")
+```jayret
+hash-of("olleH");
 ```
 ``` output
 500
@@ -163,13 +160,13 @@ hash-of("olleH")
 
 Similarly, this test suite passes:
 
-```pyret
-check:
-  hash-of("Hello") is hash-of("olleH")
-  hash-of("Where") is hash-of("Weird")
-  hash-of("Where") is hash-of("Wired")
-  hash-of("Where") is hash-of("Whine")
-end
+```jayret
+@Check void test() {
+    assertEquals(hash-of("Hello"), hash-of("olleH"));
+    assertEquals(hash-of("Where"), hash-of("Weird"));
+    assertEquals(hash-of("Where"), hash-of("Wired"));
+    assertEquals(hash-of("Where"), hash-of("Whine"));
+}
 ```
 
 When multiple values hash to the same location, we call this a
@@ -177,13 +174,13 @@ hash collision.
 
 Hash-collisions are problematic! With the above hash function, we get:
 
-```pyret
-check:
-  insert("Hello")
-  is-in("Hello") is true
-  is-in("Where") is false
-  is-in("elloH") is true
-end
+```jayret
+@Check void test() {
+    insert("Hello");
+    assertEquals(is-in("Hello"), true);
+    assertEquals(is-in("Where"), false);
+    assertEquals(is-in("elloH"), true);
+}
 ```
 where two of these tests are desirable but the third is definitely not.
 
@@ -228,25 +225,24 @@ To handle arbitrarily large values, we:
 
 That is:
 
-```pyret
-fun insert(s :: String):
-  h = hash-of(s)
-  buckets.set-now(num-remainder(h, BUCKET-COUNT), true)
-end
-
-fun is-in(s :: String):
-  h = hash-of(s)
-  buckets.get-now(num-remainder(h, BUCKET-COUNT))
-end
+```jayret
+Object insert(String s) {
+    h = hash-of(s);
+    return buckets.set-now(num-remainder(h, BUCKET-COUNT), true);
+}
+Object is-in(String s) {
+    h = hash-of(s);
+    return buckets.get-now(num-remainder(h, BUCKET-COUNT));
+}
 ```
 This addresses the second problem: we can also store the pirate flag:
 
-```pyret
-check:
-  is-in("🏴‍☠️") is false
-  insert("🏴‍☠️")
-  is-in("🏴‍☠️") is true
-end
+```jayret
+@Check void test() {
+    assertEquals(is-in("🏴‍☠️"), false);
+    insert("🏴‍☠️");
+    assertEquals(is-in("🏴‍☠️"), true);
+}
 ```
 Observe, however, we have simply created yet another source of
 collisions: the remainder computation. If we have 10 buckets, then the
@@ -263,45 +259,45 @@ we just check for membership in that list.
 First, we will abstract over finding the bucket number in
 `insert`{.pyret} and `is-in`{.pyret}:
 
-```pyret
-fun index-of(s :: String):
-  num-remainder(hash-of(s), BUCKET-COUNT)
-end
+```jayret
+Object index-of(String s) {
+    return num-remainder(hash-of(s), BUCKET-COUNT);
+}
 ```
 Next, we change what is held in each bucket: not a Boolean, but rather
 a list of the actual strings:
 
-```pyret
-buckets = array-of(empty, BUCKET-COUNT)
+```jayret
+buckets = array-of(empty, BUCKET-COUNT);
 ```
 Now we can write the more nuanced membership checker:
 
-```pyret
-fun is-in(s :: String):
-  b = index-of(s)
-  member(buckets.get-now(b), s)
-end
+```jayret
+Object is-in(String s) {
+    b = index-of(s);
+    return member(buckets.get-now(b), s);
+}
 ```
 Similarly, when inserting, we first make sure the element isn’t already there (to avoid the complexity problems caused by having duplicates), and only then insert it:
 
-```pyret
-fun insert(s :: String):
-  b = index-of(s)
-  l = buckets.get-now(b)
-  when not(member(l, s)):
-    buckets.set-now(b, link(s, l))
-  end
-end
+```jayret
+Object insert(String s) {
+    b = index-of(s);
+    l = buckets.get-now(b);
+    when (not(member(l, s))) {
+        buckets.set-now(b, link(s, l));
+    }
+}
 ```
 Now our tests pass as intended:
 
-```pyret
-check:
-  insert("Hello")
-  is-in("Hello") is true
-  is-in("Where") is false
-  is-in("elloH") is false
-end
+```jayret
+@Check void test() {
+    insert("Hello");
+    assertEquals(is-in("Hello"), true);
+    assertEquals(is-in("Where"), false);
+    assertEquals(is-in("elloH"), false);
+}
 ```
 
 #### 18.4.7 Complexity {#hash-comp}
@@ -475,8 +471,9 @@ To extend our set representation to handle a dictionary or key-value
 store, we need to make a few changes. First, we introduce the
 key-value representation:
 
-```pyret
-data KV<T>: kv(key :: String, value :: T) end
+```jayret
+data KV {
+}
 ```
 Each bucket is still an empty list, but we understand it to be a list of key-value pairs.
 
@@ -486,10 +483,10 @@ have a similar function to check whether the key is present. However,
 we rarely want to know just that; in fact, because we already know the
 key, we usually want the associated value.
 
-Therefore, we can just have this one function:[We use Pyret’s naming convention of `-now`{.pyret} to indicate that this result might change later.]{.margin-note}
+Therefore, we can just have this one function:[We use Jayret’s naming convention of `-now`{.pyret} to indicate that this result might change later.]{.margin-note}
 
-```pyret
-getkv-now :: <T> String -> T
+```jayret
+/* contract: getkv-now :: Object */;
 ```
 Of course, `getkv-now`{.pyret} may fail: the key may not be present. That is,
 it has become a partial function [[Partial Domains](partial-domains.html)]. We
@@ -501,8 +498,8 @@ implementation).
 
 Similarly, we have:
 
-```pyret
-setkv-now :: <T> String, T -> Nothing
+```jayret
+/* contract: setkv-now :: Object */;
 ```
 This is the generalization of `insert`{.pyret}. However, `insert`{.pyret}
 had no reason to return an error: inserting an element twice was
@@ -516,15 +513,15 @@ previously.]{.margin-note}
 Once we have agreed on this interface, getting a value is a natural
 extension of checking for membership:
 
-```pyret
-fun getkv-now(k):
-  b = index-of(k)
-  r = find({(kvp): kvp.key == k}, buckets.get-now(b))
-  cases (Option) r:
-    | none => raise("getkv-now can't find " + k)
-    | some(v) => v.value
-  end
-end
+```jayret
+Object getkv-now(k) {
+    b = index-of(k);
+    r = find((kvp) -> kvp.key == k, buckets.get-now(b));
+    return switch (r) {
+        case None: yield raise("getkv-now can't find " + k);
+        case Some(v): yield v.value;
+    }
+}
 ```
 Having found the index, we look in the bucket for whether any
 key-value pair has the desired key. If it does, then we return the
@@ -532,16 +529,16 @@ corresponding value. Otherwise, we error.
 
 Inserting a key-value pair similarly generalizes adding an element to the set:
 
-```pyret
-fun setkv-now(k, v):
-  b = index-of(k)
-  keys = map(_.key, buckets.get-now(b))
-  if member(keys, k):
-    raise("setkv-now already has a value for key " + k)
-  else:
-    buckets.set-now(b, link(kv(k, v), buckets.get-now(b)))
-  end
-end
+```jayret
+Object setkv-now(k, v) {
+    b = index-of(k);
+    keys = map(_.key, buckets.get-now(b));
+    return if (member(keys, k)) {
+        return raise("setkv-now already has a value for key " + k);
+    } else {
+        return buckets.set-now(b, link(kv(k, v), buckets.get-now(b)));
+    }
+}
 ```
 Once again, we check the bucket for whether the key is already
 present. If it is, we choose to halt with an error. Otherwise, we make
@@ -564,7 +561,7 @@ This concludes our brief tour of sets (yet again!) and key-value
 stores or dictionaries. We have chosen to implement both using arrays,
 which required us to employ hashes. For more on string dictionaries,
 see the
-[Pyret
-documentation](https://www.pyret.org/docs/latest/string-dict.html). Observe that Pyret offers two kinds of dictionaries:
+[Jayret
+documentation](https://jayret-lang.github.io/docs/latest/string-dict.html). Observe that Jayret offers two kinds of dictionaries:
 one mutable (like we have shown here) and one (the default)
 functional.

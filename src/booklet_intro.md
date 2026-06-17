@@ -215,8 +215,8 @@ further.
   substitution.
   
   Dependencies: None!
-2. [From Pyret to Python](booklet_pyret-to-python.html):
-  Students learn to transfer their knowledge from Pyret to
+2. [From Jayret to Python](booklet_pyret-to-python.html):
+  Students learn to transfer their knowledge from Jayret to
   Python, highlighting similarities and differences between the
   languages and their traditional programming styles
   (“paradigms”). Students are also introduced to Pandas, as a
@@ -225,7 +225,7 @@ further.
   Dependencies: [Introduction to Programming](booklet_intro-to-programming.html).
 3. [Programming With State](booklet_programming-with-state.html):
   Students learn the subtleties of state and aliasing. Much of the
-  coverage is in both Python and Pyret. This contrast lets students
+  coverage is in both Python and Jayret. This contrast lets students
   understand how multiple languages can approach the same topic; the
   ways in which the underlying ideas are actually the same; but also
   some key differences that provide insight. The notional machine grows
@@ -233,9 +233,9 @@ further.
   called the directory) from a heap of structured data values.
   
   Dependencies: [Introduction to Programming](booklet_intro-to-programming.html) is
-  essential. [From Pyret to Python](booklet_pyret-to-python.html) is helpful to follow
+  essential. [From Jayret to Python](booklet_pyret-to-python.html) is helpful to follow
   the Python portions of this booklet, but a student can
-  do the Pyret parts without having seen Python.
+  do the Jayret parts without having seen Python.
 4. [Algorithm Analysis](booklet_algo-analysis.html):
   Students are introduced to multiple techniques for analyzing
   algorithms.
@@ -274,7 +274,7 @@ courses by remixing this material, which others could follow:
 
 - An introductory course can use
   [Introduction to Programming](booklet_intro-to-programming.html),
-  [From Pyret to Python](booklet_pyret-to-python.html),
+  [From Jayret to Python](booklet_pyret-to-python.html),
   and [Programming With State](booklet_programming-with-state.html)
   to
   cover the data-centric view of computer science and leaving students
@@ -322,17 +322,17 @@ learning programming.
 
 As a result, this book features two programming languages. It starts with a
 language, called
-[Pyret](https://www.pyret.org/),
+[Jayret](https://jayret-lang.github.io/),
 that we designed to address our needs and frustrations. It has been expressly
 designed for the style of programming in this book, so the two can grow in
 harmony. It draws on Python, but also on many other excellent programming
 languages. Beginning programmers can therefore rest in the knowledge they are
 being cared for, while programmers with past acquaintance of the language
-menagerie, from serpents to dromedaries, should find Pyret familiar and
+menagerie, from serpents to dromedaries, should find Jayret familiar and
 comfortable.
 
 Then, recognizing the value of Python both as a standard language of
-communication and for its extensive libraries, the [Programming with State (in Both Pyret and Python)](part_state.html) part
+communication and for its extensive libraries, the [Programming with State (in Both Jayret and Python)](part_state.html) part
 of this book explicitly covers Python. Rather than starting from scratch in
 Python, we present a systematic and gradual transition to it from the earlier
 material. We believe this will make you learn general programming better than
@@ -343,15 +343,15 @@ exposed to other ones.
 
 ### 1.9 Programming Tools {#Programming-Tools}
 
-[CPO](https://code.pyret.org/) (an abbreviation of
-code.pyret.org) is our default programming environment for Pyret.
+[CPO](https://jayret-lang.github.io/code/) (an abbreviation of
+jayret-lang.github.io/code) is our default programming environment for Jayret.
 It runs entirely in the browser and uses Google Drive
 for authentication and file storage.
 
-Pyret support is also available for VSCode. To install it, visit
+Jayret support is also available for VSCode. To install it, visit
 [https://code.visualstudio.com](https://code.visualstudio.com).
 Once you have installed it, click the Extensions tab on the left and
-search for Pyret. You should install the "Pyret Interactive Editor for VSCode".
+search for Jayret. You should install the "Jayret Interactive Editor for VSCode".
 
 CPO and VSCode differ only in their support for loading spreadsheet
 data. CPO is designed to work with Google Sheets, while VSCode does
@@ -363,8 +363,9 @@ versions. In such cases, code that could run only in VSCode will be
 labeled with the VSCode icon, as follows:
 
 ::: {.vscode-note}
-```pyret
-include csv
+```jayret
+import csv
+
 ```
 :::
 
@@ -446,11 +447,11 @@ Even amongst the problem-spotters, one is hors catégorie:
 Sorawee Porncharoenwase.
 
 Daniel Patterson has helped us think about where to switch
-between Pyret and Python, while also helping with content on using
-Pyret with VSCode.
+between Jayret and Python, while also helping with content on using
+Jayret with VSCode.
 
-This book is completely dependent on Pyret, and thus on the
-[many people](https://www.pyret.org/crew/) who have
+This book is completely dependent on Jayret, and thus on the
+[many people](https://jayret-lang.github.io/crew/) who have
 created and sustained it.
 
 We thank

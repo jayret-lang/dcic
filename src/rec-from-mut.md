@@ -15,8 +15,8 @@ using state [[Cyclic Data](unified-cyclic-data.html)]. Let us now return to the
 earlier example of creating a cyclic list of alternating colors. We
 had tried to write:
 
-```pyret
-web-colors = link("white", link("grey", web-colors))
+```jayret
+web-colors = link("white", link("grey", web-colors));
 ```
 which, as we noted, does not pass muster because `web-colors`{.pyret} is
 not bound on the right of the `=`{.pyret}. (Why not? Because otherwise,
@@ -42,8 +42,9 @@ using `link`{.pyret}s, because we want the list to never
 terminate. Therefore, let us first define a new datatype to hold an
 cyclic list:
 
-```pyret
-data Pair: p(hd, tl) end
+```jayret
+data Pair {
+}
 ```
 You should think of this as analogous to a list, where `hd`{.pyret} is
 the first element and `tl`{.pyret} is the rest.
@@ -70,34 +71,35 @@ and then complete the definition using the other one. However,
 that is impossible using the above definition, because we cannot
 change anything once it is constructed. Instead, therefore, we need:
 
-```pyret
-data Pair: p(hd, ref tl) end
+```jayret
+data Pair {
+}
 ```
 Note that this datatype lacks a base case, which should remind you of
 definitions we saw in [Streams From Functions](func-as-data.html##streams-from-funs).
 
 Using this, we can define:
 
-```pyret
-white-pair = p("white", "dummy")
-grey-pair = p("grey", "dummy")
+```jayret
+white-pair = p("white", "dummy");
+grey-pair = p("grey", "dummy");
 ```
 Each of these definitions is quite useless by itself, but they each
 represent what we want, and they have a mutable field for the
 rest, currently holding a dummy value. Therefore, it’s clear what we
 must do next: update the mutable field.
 
-```pyret
-white-pair!{tl: grey-pair}
-grey-pair!{tl: white-pair}
+```jayret
+white-pair ! {tl grey-pair }
+grey-pair ! {tl white-pair }
 ```
 Because we have ordained that our colors must alternate beginning with
 white, this rounds up our definition:
 
-```pyret
-web-colors = white-pair
+```jayret
+web-colors = white-pair;
 ```
-If we ask Pyret to inspect the value of `web-colors`{.pyret}, we notice
+If we ask Jayret to inspect the value of `web-colors`{.pyret}, we notice
 that it employs an algorithm to prevent traversing infinite
 objects. You can learn more about how that works separately
 [[Detecting Cycles](cycle-detection.html)].
@@ -106,22 +108,21 @@ We can define a helper function, `take`{.pyret}, a variation of
 which we saw for streams [[Streams From Functions](func-as-data.html##streams-from-funs)], to inspect a
 finite prefix of an infinite list:
 
-```pyret
-fun ctake(n :: Number, il :: Pair) -> List:
-  if n == 0:
-    empty
-  else:
-    link(il.hd, ctake(n - 1, il!tl))
-  end
-end
+```jayret
+List ctake(int n, Pair il) {
+    return if (n == 0) {
+        return empty;
+    } else {
+        return link(il.hd, ctake(n - 1, il ! tl));
+    }
+}
 ```
 such that:
 
-```pyret
-check:
-  ctake(4, web-colors) is
-  [list: "white", "grey", "white", "grey"]
-end
+```jayret
+@Check void test() {
+    assertEquals(ctake(4, web-colors), ["white", "grey", "white", "grey"]);
+}
 ```
 
 ### 20.2 Recursive Functions {#rec-for-recursive}
@@ -129,39 +130,33 @@ end
 Based on this, we can now understand recursive functions. Consider a
 very simple example, such as this:
 
-```pyret
-fun sum(n):
-  if n > 0:
-    n + sum(n - 1)
-  else:
-    0
-  end
-end
+```jayret
+Object sum(n) {
+    return if (n > 0) {
+        return n + sum(n - 1);
+    } else {
+        return 0;
+    }
+}
 ```
 We might like to think this is equivalent to:
 
-```pyret
-sum =
-  lam(n):
-    if n > 0:
-      n + sum(n - 1)
-    else:
-      0
-    end
-  end
+```jayret
+sum = (n) -> if (n > 0) {
+    return n + sum(n - 1);
+} else {
+    return 0;
+}
 ```
-but if you enter this, Pyret will complain that `sum`{.pyret} is not
+but if you enter this, Jayret will complain that `sum`{.pyret} is not
 bound. We must instead write
 
-```pyret
-rec sum =
-  lam(n):
-    if n > 0:
-      n + sum(n - 1)
-    else:
-      0
-    end
-  end
+```jayret
+rec sum = (n) -> if (n > 0) {
+    return n + sum(n - 1);
+} else {
+    return 0;
+}
 ```
 What do you think `rec`{.pyret} does? It binds `sum`{.pyret} to a box
 initially containing a dummy value; it then defines the function in
@@ -186,11 +181,11 @@ There are generally three solutions to this problem:
 2. The language might create a new type of value just for use
   here. For instance, imagine this definition of `CList`{.pyret}:
   
-  ```pyret
-  data CList:
-    | undef
-    | clink(v, ref r)
-  end
+  ```jayret
+data CList {
+    Undef;
+    Clink(v, ref r);
+}
   ```
   `undef`{.pyret} appears to be a “base case”, thus
   making `CList`{.pyret} very similar to `List`{.pyret}. In truth, however,

@@ -56,49 +56,45 @@ for them.
 
 The first step to working with an outside data source is to load it
 into your programming and analysis environment. Which source you use
-depends on the programming environment that you are using for Pyret:
+depends on the programming environment that you are using for Jayret:
 
 - If you are using CPO, you can load tables from Google Sheets
   (if you want to load a CSV, you first need to import it into Google Sheets)
 - If you are using VSCode, you can load tables directly from CSV files
 
-Both use the same Pyret operation (`load-table`{.pyret}), but in slightly
+Both use the same Jayret operation (`load-table`{.pyret}), but in slightly
 different ways.
 
 Google Sheets and CSV files treat the types of data in cells
 differently, so there are also differences in how we manage the types
-of Pyret columns after loading. Columns like `"Num Tickets"`{.pyret} that
+of Jayret columns after loading. Columns like `"Num Tickets"`{.pyret} that
 appear to contain both numbers and strings highlight the
 differences. We discuss these nuances in separate sections for each
 kind of source file.
 
 ##### 4.2.1.1.1 Loading Tables from Google Sheets in CPO {#loading-tables-from-google-sheets}
 
-```pyret
-include gdrive-sheets
-
-ssid = "1Ks4ll5_8wyYK1zyXMm_21KORhagSMZ59dcr7i3qY6T4"
-event-data =
-  load-table: name, email, tickcount, discount, delivery, zip
-    source: load-spreadsheet(ssid).sheet-by-name("Orig Data", true)
-  end
+```jayret
+import gdrive-sheets
+ssid = "1Ks4ll5_8wyYK1zyXMm_21KORhagSMZ59dcr7i3qY6T4";
+event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: load-spreadsheet(ssid).sheet-by-name("Orig Data", true);
 ```
 
 - `ssid`{.pyret} is the identifier of the Google Sheet we want to
   load (the identifier is the long sequence of letters and numbers in
   the Google Sheet URL).
 - The sequence of names following `load-table`{.pyret} is used for
-  the column headers in the Pyret version of the table. These do NOT
+  the column headers in the Jayret version of the table. These do NOT
   have to match the names used in the original Sheet.
-- `source`{.pyret} tells Pyret which sheet to load. The
+- `source`{.pyret} tells Jayret which sheet to load. The
   `load-spreadsheet`{.pyret} operation takes the Google Sheet identifier
   (here, `ssid`{.pyret}), as well as the name of the individual worksheet
   (or tab) as named within the Google Sheet (here, `"Orig Data"`{.pyret}).
   The final boolean indicates whether there is a header row in
   the table (`true`{.pyret} means there is a header row).
 
-When reading a table from Google Sheets, Pyret treats each column as
-having a type, based on the value in the first row of data. Pyret thus
+When reading a table from Google Sheets, Jayret treats each column as
+having a type, based on the value in the first row of data. Jayret thus
 reports an error that `three`{.pyret} (in the `"Num Tickets"`{.pyret}
 column) is not a number. We’ll discuss how to handle this in
 [Dealing with Columns
@@ -112,47 +108,37 @@ whether the CSV file is on your computer or available through a URL.
 - Load from a CSV file via URL:
   
   ::: {.vscode-note}
-  ```pyret
-  include csv
-  
-  # the url for the file
-  url = "https://raw.githubusercontent.com/data-centric-computing/dcic-public/main/materials/datasets/events-orig-f25.csv"
-  
-  event-data =
-   load-table: name, email, tickcount, discount, delivery, zip
-      source: csv-table-url(url, default-options)
-    end
+  ```jayret
+import csv
+// the url for the file
+url = "https://raw.githubusercontent.com/data-centric-computing/dcic-public/main/materials/datasets/events-orig-f25.csv";
+event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: csv-table-url(url, default-options);
   ```
   :::
   
   - `url`{.pyret} is the identifier of the web address (URL) where the CSV data
     we want to load exists.
-  - `source`{.pyret} tells Pyret where to load the data from. The
+  - `source`{.pyret} tells Jayret where to load the data from. The
     `csv-table-url`{.pyret} operation takes the web address (here, `url`{.pyret}), as well
     as options (which indicate, for example, whether we expect there to be a header
     row).
   - The sequence of names following `load-table`{.pyret} is used for
-    the column headers in the Pyret version of the table. These do NOT
+    the column headers in the Jayret version of the table. These do NOT
     have to match the names used in the first row of the CSV file (which
     is usually a header row).
 - Load from a CSV file on your computer:
   
   ::: {.vscode-note}
-  ```pyret
-  include csv
-  
-  # the filesystem path to your CSV file on your computer
-  path = "datasets/events-orig-f25.csv"
-  
-  event-data =
-   load-table: name, email, tickcount, discount, delivery, zip
-      source: csv-table-file(path, default-options)
-    end
+  ```jayret
+import csv
+// the filesystem path to your CSV file on your computer
+path = "datasets/events-orig-f25.csv";
+event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: csv-table-file(path, default-options);
   ```
   :::
 
-When reading a table from CSV, Pyret treats every cell as containing
-a string, even if the cell data appears to be numeric. Thus, Pyret
+When reading a table from CSV, Jayret treats every cell as containing
+a string, even if the cell data appears to be numeric. Thus, Jayret
 does not report an error around the combination of `three`{.pyret} and
 numbers in the `"Num Tickets"`{.pyret} column. The inconsistency would
 resurface, however, if we try to use the column data assuming that
@@ -171,7 +157,7 @@ information that was simply entered incorrectly.
 
 Due to the need for care in dealing with such issues, we instead
 recommend fixing this sort of error in the source file before
-loading the data into Pyret (or any other programming or analysis tool).
+loading the data into Jayret (or any other programming or analysis tool).
 
 How to manage revisions like this is itself an interesting
 data-management problem. You might have received the data from another
@@ -188,32 +174,29 @@ use in the rest of this chapter.
   look for the separate worksheet/tab named `"Data"`{.pyret} in which the
   `three`{.pyret} has been replaced with a number. If we use `"Data"`{.pyret}
   instead of `"Orig Data"`{.pyret} in the above `load-spreadsheet`{.pyret}
-  command, the event table loads into Pyret.
+  command, the event table loads into Jayret.
 - If you are using the CSV files in VSCode, modify the file path
   to end with `"events-f25.csv"`{.pyret} instead of
   `"events-orig-f25.csv"`{.pyret}.
 
 ##### 4.2.1.2 Dealing with Missing Entries {#missing-data}
 
-When we create tables manually in Pyret, we have to provide a value
+When we create tables manually in Jayret, we have to provide a value
 for each cell – there’s no way to "skip" a cell. When we create
 tables in a spreadsheet program (such as Excel, Google Sheets, or
 something similar), it is possible to leave cells completely
 empty. What happens when we load a table with empty cells into
-Pyret?
+Jayret?
 
 The original data file has blanks in the `discount`{.pyret}
-column. After we load it into Pyret, we see something
+column. After we load it into Jayret, we see something
 interesting in that column (though what it is will differ depending on
 whether you’re reading from Google Sheets or CSV files).
 
 - If you are using Google Sheets and CPO, load the table as follows:
   
-  ```pyret
-  event-data =
-    load-table: name, email, tickcount, discount, delivery
-      source: load-spreadsheet(ssid).sheet-by-name("Data", true)
-    end
+  ```jayret
+event-data = load-table name ,email ,tickcount ,discount ,delivery source: load-spreadsheet(ssid).sheet-by-name("Data", true);
   ```
   
   `event-data`{.pyret} will be the following table:
@@ -225,14 +208,14 @@ whether you’re reading from Google Sheets or CSV files).
   were empty contain `none`{.pyret}, but `none`{.pyret} isn’t a string. What’s
   going on?
   
-  Pyret supports a special type of data called option. As the name
+  Jayret supports a special type of data called option. As the name
   suggests, option is for data that may or may not be
   present. `none`{.pyret} is the value that stands for "the data are
   missing". If a datum are present, it appears wrapped in `some`{.pyret}.
   
   Look also at the last two rows (for Zander and Shweta) – they also
   appear empty when seen in Google
-  Sheets, but Pyret has loaded them as strings of spaces (e.g., `some("       ")`{.pyret}).
+  Sheets, but Jayret has loaded them as strings of spaces (e.g., `some("       ")`{.pyret}).
   What does that mean? It means that those cells
   weren’t actually empty in the Google Sheet, but instead contained
   several spaces.
@@ -246,13 +229,9 @@ whether you’re reading from Google Sheets or CSV files).
   follows:
   
   ::: {.vscode-note}
-  ```pyret
-  url = "https://raw.githubusercontent.com/data-centric-computing/dcic-public/main/materials/datasets/events-f25.csv"
-  
-  event-data =
-    load-table: name, email, tickcount, discount, delivery, zip
-      source: csv-table-url(url, default-options)
-    end
+  ```jayret
+url = "https://raw.githubusercontent.com/data-centric-computing/dcic-public/main/materials/datasets/events-f25.csv";
+event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: csv-table-url(url, default-options);
   ```
   :::
   
@@ -264,7 +243,7 @@ whether you’re reading from Google Sheets or CSV files).
   or strings with spaces (`"    "`{.pyret}). What caused
   the difference? In the cells where the string has spaces, the cell in
   the original CSV appeared to be empty, but it actually
-  contained some spaces. When reading in the CSV, Pyret retains the
+  contained some spaces. When reading in the CSV, Jayret retains the
   actual content in the cell. The empty string is only used if the CSV
   cell actually had no data at all.
 
@@ -276,22 +255,13 @@ after you read them in. We do this with an additional aspect of
 `load-table`{.pyret} called sanitizers. Here’s how we modify the
 code:
 
-```pyret
-include data-source # to get the sanitizers
-
-event-data =
-  load-table: name, email, tickcount, discount, delivery, zip
-    source: load-spreadsheet(ssid).sheet-by-name("Data", true)
-    sanitize name using string-sanitizer
-    sanitize email using string-sanitizer
-    sanitize tickcount using num-sanitizer
-    sanitize discount using string-sanitizer
-    sanitize delivery using string-sanitizer
-    sanitize zip using string-sanitizer
-  end
+```jayret
+import data-source
+// to get the sanitizers
+event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: load-spreadsheet(ssid).sheet-by-name("Data", true) sanitize name using string-sanitizer sanitize email using string-sanitizer sanitize tickcount using num-sanitizer sanitize discount using string-sanitizer sanitize delivery using string-sanitizer sanitize zip using string-sanitizer;
 ```
 
-Each of the `sanitize`{.pyret} lines tells Pyret what to do in the case
+Each of the `sanitize`{.pyret} lines tells Jayret what to do in the case
 of missing data in the respective column. `string-sanitizer`{.pyret} says
 to load missing data as an empty string (`""`{.pyret}).
 Sanitizers also handle simple data conversions. If the
@@ -333,11 +303,11 @@ missing age. It could create outright errors if used as the default
 for a missing exam grade (which was later used to compute a course
 grade). As a result, `num-sanitizer`{.pyret} reports an error if the data
 (or lack thereof) in a cell cannot be reliably interpreted as a
-number. Pyret allows you to write your own custom sanitizers
+number. Jayret allows you to write your own custom sanitizers
 (e.g., one that would default missing numbers to 0). If you want to do
-this, see the Pyret documentation for details.
+this, see the Jayret documentation for details.
 
-The lack of meaningful default values is one reason why Pyret doesn’t
+The lack of meaningful default values is one reason why Jayret doesn’t
 leverage type annotations on columns to automatically sanitize
 imported data. Automation takes control away from the programmer;
 sanitizers provide the programmer with control over default values, as
@@ -374,12 +344,13 @@ sure?
 
 Start by looking in the documentation for any library functions that
 might help with this task. In the
- [documentation for Pyret’s `dcic2024`{.pyret} context](https://hackmd.io/@cs111/table), we find:
+ [documentation for Jayret’s `dcic2024`{.pyret} context](https://hackmd.io/@cs111/table), we find:
 
-```pyret
-# count(tab :: Table, colname :: String) -> Table
-# Produces a table that summarizes how many rows have
-#   each value in the named column.
+```jayret
+// count(tab :: Table, colname :: String) -> Table
+// Produces a table that summarizes how many rows have
+
+// each value in the named column.
 ```
 
 This sounds useful, as long as every column has a value in the
@@ -400,6 +371,7 @@ We can capture these together in a function that takes in and produces
 a string:
 
 ```pyret
+# TODO(pyret2jayret): Unexpected token '`', "```upperca"... is not valid JSON
 fun cell-to-discount-code(str :: String) -> String:
   doc: ```uppercase all strings other than none,
        convert blank cells to contain none```
@@ -427,11 +399,11 @@ The current examples consider different capitalizations for
 confident that the data-gathering process can’t produce different
 capitalizations of `"none"`{.pyret}, we should include that as well:
 
-```pyret
-cell-to-discount-code("NoNe") is "none"
+```jayret
+assertEquals(cell-to-discount-code("NoNe"), "none");
 ```
 Oops! If we add this example to our `where`{.pyret} block and run the
- code, Pyret reports that this example fails.
+ code, Jayret reports that this example fails.
 
 ::: {.do-now}
 Why did the `"NoNe"`{.pyret} case fail?
@@ -444,6 +416,7 @@ expression expects. Here’s the modified code, on which all the
 examples pass.
 
 ```pyret
+# TODO(pyret2jayret): Unexpected token '`', "```upperca"... is not valid JSON
 fun cell-to-discount-code(str :: String) -> String:
   doc: ```uppercase all strings other than none,
        convert blank cells to contain none```
@@ -465,9 +438,8 @@ Using this function with `transform-column`{.pyret} yields a table with a
 standardized formatting for discount codes (reminder that you need to
 be working in the `dcic2024`{.pyret} context for this to work):
 
-```pyret
-discount-fixed =
-  transform-column(event-data, "discount", cell-to-discount-code)
+```jayret
+discount-fixed = transform-column(event-data, "discount", cell-to-discount-code);
 ```
 
 ::: {.exercise}
@@ -478,8 +450,8 @@ Try it yourself: normalize the `"delivery"`{.pyret} column so that all
 Now that we’ve cleaned up the codes, we can proceed to using the
 `"count"`{.pyret} function to extract our summary table:
 
-```pyret
-count(discount-fixed, "discount")
+```jayret
+count(discount-fixed, "discount");
 ```
 
 This produces the following table:
@@ -719,19 +691,19 @@ create a column for the new bin labels.
 
 Here’s an example of creating bins for the scale of the ticket orders:
 
-```pyret
-fun order-scale-label(r :: Row) -> String:
-  doc: "categorize the number of tickets as small, medium, large"
-  numtickets = r["tickcount"]
-
-  if numtickets >= 10: "large"
-  else if numtickets >= 5: "medium"
-  else: "small"
-  end
-end
-
-order-bin-data =
-  build-column(cleaned-event-data, "order-scale", order-scale-label)
+```jayret
+String order-scale-label(Row r) {
+    // categorize the number of tickets as small, medium, large
+    numtickets = r["tickcount"];
+    return if (numtickets >= 10) {
+        return "large";
+    } else if (numtickets >= 5) {
+        return "medium";
+    } else {
+        return "small";
+    }
+}
+order-bin-data = build-column(cleaned-event-data, "order-scale", order-scale-label);
 ```
 
 ##### 4.2.3.2 Splitting Columns {#splitting-columns}
@@ -741,7 +713,7 @@ of a person. This single string is not useful if we want to sort data
 by last names, however. Splitting one column into several columns can
 be a useful step in preparing a dataset for analysis or
 use. Programming languages usually provide a variety of operations for
-splitting apart strings: Pyret has operations called
+splitting apart strings: Jayret has operations called
 `string-split`{.pyret} and `string-split-all`{.pyret} that split one string
 into several around a given character (like a space). You could, for
 example, write `string-split("Josie Zhao", " ")`{.pyret} to extract
@@ -796,9 +768,11 @@ column with two columns called `last-name`{.pyret} and
 `first-name`{.pyret}. To extract the first- and last-names from a single
 name string, use:
 
-```pyret
-string-split(name-string, " ").get(0)  # get first name
-string-split(name-string, " ").get(1)  # get last name
+```jayret
+string-split(name-string, " ").get(0);
+// get first name
+string-split(name-string, " ").get(1);
+// get last name
 ```
 :::
 
@@ -822,7 +796,7 @@ look at the original data again, either to identify kinds of errors
 that people were making or to apply different fixes.
 
 For similar reasons, we want to keep the cleaned (normalized) data
-separate from the version that we initially loaded. Fortunately, Pyret
+separate from the version that we initially loaded. Fortunately, Jayret
 helps with this since it creates new tables, rather than modify the
 prior ones. If we have to normalize multiple columns, however, do we
 really need a new name for every intermediate table?
@@ -832,17 +806,11 @@ initially-loaded table, the cleaned table, and for significant
 variations for analysis purposes. In our code, this might mean having
 names:
 
-```pyret
-event-data = ... # the loaded table
-
-cleaned-event-data =
-  transform-column(
-    transform-column(event-data, "discount", cell-to-discount-code),
-    "delivery", yes-to-email)
-
-order-bin-data =
-  build-column(
-    cleaned-event-data, "order-scale", order-scale-label)
+```jayret
+event-data = ...;
+// the loaded table
+cleaned-event-data = transform-column(transform-column(event-data, "discount", cell-to-discount-code), "delivery", yes-to-email);
+order-bin-data = build-column(cleaned-event-data, "order-scale", order-scale-label);
 ```
 where `yes-to-email`{.pyret} is a function we have not written, but that
 might have normalized the `"yes"`{.pyret} value in the `"delivery"`{.pyret}
@@ -910,8 +878,8 @@ For example, we might use a frequency-bar-chart to answer the third question. Ba
 on the `Table`{.pyret} documentation, we would generate this using the
 following code (with similar style for the other kinds of plots):
 
-```pyret
-freq-bar-chart(cleaned-event-data, "delivery")
+```jayret
+freq-bar-chart(cleaned-event-data, "delivery");
 ```
 
 Which yields the following chart (assuming we had not actually

@@ -61,34 +61,35 @@ evaluation. In turn, we have to update the annotations on the
 fields. Since these are not going to be “trees” any more, we’ll use
 a name that is suggestive but not outright incorrect:
 
-```pyret
-data BinT:
-  | leaf
-  | node(v, l :: ( -> BinT), r :: ( -> BinT))
-end
+```jayret
+data BinT {
+    Leaf;
+    Node(v, /* arrow-ann */ Object l, /* arrow-ann */ Object r);
+}
 ```
 Now let’s try to construct some cyclic values. Here are a few
 examples:
 
-```pyret
-rec tr = node("rec", lam(): tr end, lam(): tr end)
-t0 = node(0, lam(): leaf end, lam(): leaf end)
-t1 = node(1, lam(): t0 end, lam(): t0 end)
-t2 = node(2, lam(): t1 end, lam(): t1 end)
+```jayret
+rec tr = node("rec", () -> tr, () -> tr);
+t0 = node(0, () -> leaf, () -> leaf);
+t1 = node(1, () -> t0, () -> t0);
+t2 = node(2, () -> t1, () -> t1);
 ```
 Now let’s try to compute the size of a `BinT`{.pyret}. Here’s the obvious
 program:
 
-```pyret
-fun sizeinf(t :: BinT) -> Number:
-  cases (BinT) t:
-    | leaf => 0
-    | node(v, l, r) =>
-      ls = sizeinf(l())
-      rs = sizeinf(r())
-      1 + ls + rs
-  end
-end
+```jayret
+int sizeinf(BinT t) {
+    return switch (t) {
+        case Leaf: yield 0;
+        case Node(v, l, r): yield block {
+            ls = sizeinf(l());
+            rs = sizeinf(r());
+            return 1 + ls + rs;
+        };
+    }
+}
 ```
 (We’ll see why we call it `sizeinf`{.pyret} in a moment.)
 
@@ -109,13 +110,13 @@ number of times. But the total number of constructed nodes is only
 one! Let’s write this as test cases in terms of a `size`{.pyret}
 function, to be defined:
 
-```pyret
-check:
-  size(tr) is 1
-  size(t0) is 1
-  size(t1) is 2
-  size(t2) is 3
-end
+```jayret
+@Check void test() {
+    assertEquals(size(tr), 1);
+    assertEquals(size(t0), 1);
+    assertEquals(size(t1), 2);
+    assertEquals(size(t2), 3);
+}
 ```
 
 It’s clear that we need to somehow remember what nodes we have
@@ -125,24 +126,25 @@ checks whether a node has already been counted. As long as we update
 this data structure correctly, we should be all set. Here’s an
 implementation.
 
-```pyret
-fun sizect(t :: BinT) -> Number:
-  fun szacc(shadow t :: BinT, seen :: List<BinT>) -> Number:
-    if has-id(seen, t):
-      0
-    else:
-      cases (BinT) t:
-        | leaf => 0
-        | node(v, l, r) =>
-          ns = link(t, seen)
-          ls = szacc(l(), ns)
-          rs = szacc(r(), ns)
-          1 + ls + rs
-      end
-    end
-  end
-  szacc(t, empty)
-end
+```jayret
+int sizect(BinT t) {
+    int szacc(BinT shadow, List<Object> seen) {
+        return if (has-id(seen, t)) {
+            return 0;
+        } else {
+            return switch (t) {
+                case Leaf: yield 0;
+                case Node(v, l, r): yield block {
+                    ns = link(t, seen);
+                    ls = szacc(l(), ns);
+                    rs = szacc(r(), ns);
+                    return 1 + ls + rs;
+                };
+            }
+        }
+    }
+    return szacc(t, empty);
+}
 ```
 
 The extra parameter, `seen`{.pyret}, is called an accumulator,
@@ -151,16 +153,17 @@ that this could just as well be a set; it doesn’t have to be a list.]{.margin-
 The support function it needs checks whether a given node has already
 been seen:
 
-```pyret
-fun has-id<A>(seen :: List<A>, t :: A):
-  cases (List) seen:
-    | empty => false
-    | link(f, r) =>
-      if f <=> t: true
-      else: has-id(r, t)
-      end
-  end
-end
+```jayret
+Object has-id(List<Object> seen, A t) {
+    return switch (seen) {
+        case Empty: yield false;
+        case Link(f, r): yield if (f <=> t) {
+            return true;
+        } else {
+            return has-id(r, t);
+        };
+    }
+}
 ```
 
 How does this do? Well, `sizect(tr)`{.pyret} is indeed `1`{.pyret}, but
@@ -173,9 +176,9 @@ Explain why these answers came out as they did.
 The fundamental problem is that we’re not doing a very good job of
 remembering! Look at this pair of lines:
 
-```pyret
-ls = szacc(l(), ns)
-rs = szacc(r(), ns)
+```jayret
+ls = szacc(l(), ns);
+rs = szacc(r(), ns);
 ```
 The nodes seen while traversing the left branch are effectively
 forgotten, because the only nodes we remember when traversing the
@@ -191,25 +194,25 @@ are visited on only one path, not more than once. The logic for this
 is to return two values from each traversal—the size and all the
 visited nodes—and not just one.
 
-```pyret
-fun size(t :: BinT) -> Number:
-  fun szacc(shadow t :: BinT, seen :: List<BinT>)
-    -> {n :: Number, s :: List<BinT>}:
-    if has-id(seen, t):
-      {n: 0, s: seen}
-    else:
-      cases (BinT) t:
-        | leaf => {n: 0, s: seen}
-        | node(v, l, r) =>
-          ns = link(t, seen)
-          ls = szacc(l(), ns)
-          rs = szacc(r(), ls.s)
-          {n: 1 + ls.n + rs.n, s: rs.s}
-      end
-    end
-  end
-  szacc(t, empty).n
-end
+```jayret
+int size(BinT t) {
+    {} szacc(BinT shadow, List<Object> seen) {
+        return if (has-id(seen, t)) {
+            return {n 0, s seen}
+        } else {
+            return switch (t) {
+                case Leaf: yield {n 0, s seen};
+                case Node(v, l, r): yield block {
+                    ns = link(t, seen);
+                    ls = szacc(l(), ns);
+                    rs = szacc(r(), ls.s);
+                    return {n 1 + ls.n + rs.n, s rs.s}
+                };
+            }
+        }
+    }
+    return szacc(t, empty).n;
+}
 ```
 
 Sure enough, this function satisfies the above tests.
@@ -270,45 +273,39 @@ repository of data, is sometimes called a key). A node is then a
 key, some information about that node, and a list of keys that refer
 to other nodes:
 
-```pyret
-type Key = String
-
-data KeyedNode:
-  | keyed-node(key :: Key, content, adj :: List<Key>)
-end
-
-type KNGraph = List<KeyedNode>
-
-type Node = KeyedNode
-type Graph = KNGraph
+```jayret
+type Key = String;
+data KeyedNode {
+    Keyed-node(Key key, content, List<Object> adj);
+}
+type KNGraph = List < KeyedNode >;
+type Node = KeyedNode;
+type Graph = KNGraph;
 ```
 (Here we’re assuming our keys are strings.)
 
 Here’s a concrete instance of such a graph:[The prefix
 `kn-`{.pyret} stands for “keyed node”.]{.margin-note}
 
-```pyret
-kn-cities :: Graph = block:
-  knWAS = keyed-node("was", "Washington", [list: "chi", "den", "saf", "hou", "pvd"])
-  knORD = keyed-node("chi", "Chicago", [list: "was", "saf", "pvd"])
-  knBLM = keyed-node("bmg", "Bloomington", [list: ])
-  knHOU = keyed-node("hou", "Houston", [list: "was", "saf"])
-  knDEN = keyed-node("den", "Denver", [list: "was", "saf"])
-  knSFO = keyed-node("saf", "San Francisco", [list: "was", "den", "chi", "hou"])
-  knPVD = keyed-node("pvd", "Providence", [list: "was", "chi"])
-  [list: knWAS, knORD, knBLM, knHOU, knDEN, knSFO, knPVD]
-end
+```jayret
+kn-cities = block: knWAS = keyed-node("was", "Washington", ["chi", "den", "saf", "hou", "pvd"]);
+knORD = keyed-node("chi", "Chicago", ["was", "saf", "pvd"]);
+knBLM = keyed-node("bmg", "Bloomington", []);
+knHOU = keyed-node("hou", "Houston", ["was", "saf"]);
+knDEN = keyed-node("den", "Denver", ["was", "saf"]);
+knSFO = keyed-node("saf", "San Francisco", ["was", "den", "chi", "hou"]);
+knPVD = keyed-node("pvd", "Providence", ["was", "chi"]);
+[knWAS, knORD, knBLM, knHOU, knDEN, knSFO, knPVD];
 ```
 
 Given a key, here’s how we look up its neighbor:
 
-```pyret
-fun find-kn(key :: Key, graph :: Graph) -> Node:
-  matches = for filter(n from graph):
-    n.key == key
-  end
-  matches.first # there had better be exactly one!
-end
+```jayret
+Node find-kn(Key key, Graph graph) {
+    matches = [for filter(n : graph) { yield n.key == key; }];
+    return matches.first;
+}
+// there had better be exactly one!
 ```
 
 ::: {.exercise}
@@ -319,11 +316,11 @@ declaration of graphs.
 
 With this support, we can look up neighbors easily:
 
-```pyret
-fun kn-neighbors(city :: Key,  graph :: Graph) -> List<Key>:
-  city-node = find-kn(city, graph)
-  city-node.adj
-end
+```jayret
+List<Object> kn-neighbors(Key city, Graph graph) {
+    city-node = find-kn(city, graph);
+    return city-node.adj;
+}
 ```
 
 When it comes to testing, some tests are easy to write. Others,
@@ -331,15 +328,12 @@ however, might require describing entire nodes, which can be unwieldy,
 so for the purpose of checking our implementation it suffices to
 examine just a part of the result:
 
-```pyret
-check:
-  ns = kn-neighbors("hou", kn-cities)
-
-  ns is [list: "was", "saf"]
-
-  map(_.content, map(find-kn(_, kn-cities), ns)) is
-    [list: "Washington", "San Francisco"]
-end
+```jayret
+@Check void test() {
+    ns = kn-neighbors("hou", kn-cities);
+    assertEquals(ns, ["was", "saf"]);
+    assertEquals(map(_.content, map(find-kn(_, kn-cities), ns)), ["Washington", "San Francisco"]);
+}
 ```
 
 ##### 17.1.2.2 Links by Indices {#Links-by-Indices}
@@ -355,56 +349,49 @@ we had before; we’ll comment on a key difference at the end.
 First, the datatype:[The prefix `ix-`{.pyret} stands for
 “indexed”.]{.margin-note}
 
-```pyret
-data IndexedNode:
-  | idxed-node(content, adj :: List<Number>)
-end
-
-type IXGraph = List<IndexedNode>
-
-type Node = IndexedNode
-type Graph = IXGraph
+```jayret
+data IndexedNode {
+    Idxed-node(content, List<Object> adj);
+}
+type IXGraph = List < IndexedNode >;
+type Node = IndexedNode;
+type Graph = IXGraph;
 ```
 Our graph now looks like this:
 
-```pyret
-ix-cities :: Graph = block:
-  inWAS = idxed-node("Washington", [list: 1, 4, 5, 3, 6])
-  inORD = idxed-node("Chicago", [list: 0, 5, 6])
-  inBLM = idxed-node("Bloomington", [list: ])
-  inHOU = idxed-node("Houston", [list: 0, 5])
-  inDEN = idxed-node("Denver", [list: 0, 5])
-  inSFO = idxed-node("San Francisco", [list: 0, 4, 3])
-  inPVD = idxed-node("Providence", [list: 0, 1])
-  [list: inWAS, inORD, inBLM, inHOU, inDEN, inSFO, inPVD]
-end
+```jayret
+ix-cities = block: inWAS = idxed-node("Washington", [1, 4, 5, 3, 6]);
+inORD = idxed-node("Chicago", [0, 5, 6]);
+inBLM = idxed-node("Bloomington", []);
+inHOU = idxed-node("Houston", [0, 5]);
+inDEN = idxed-node("Denver", [0, 5]);
+inSFO = idxed-node("San Francisco", [0, 4, 3]);
+inPVD = idxed-node("Providence", [0, 1]);
+[inWAS, inORD, inBLM, inHOU, inDEN, inSFO, inPVD];
 ```
 where we’re assuming indices begin at `0`{.pyret}. To find a node:
 
-```pyret
-fun find-ix(idx :: Key, graph :: Graph) -> Node:
-  lists.get(graph, idx)
-end
+```jayret
+Node find-ix(Key idx, Graph graph) {
+    return lists.get(graph, idx);
+}
 ```
 We can then find neighbors almost as before:
 
-```pyret
-fun ix-neighbors(city :: Key,  graph :: Graph) -> List<Key>:
-  city-node = find-ix(city, graph)
-  city-node.adj
-end
+```jayret
+List<Object> ix-neighbors(Key city, Graph graph) {
+    city-node = find-ix(city, graph);
+    return city-node.adj;
+}
 ```
 Finally, our tests also look similar:
 
-```pyret
-check:
-  ns = ix-neighbors(3, ix-cities)
-
-  ns is [list: 0, 5]
-
-  map(_.content, map(find-ix(_, ix-cities), ns)) is
-    [list: "Washington", "San Francisco"]
-end
+```jayret
+@Check void test() {
+    ns = ix-neighbors(3, ix-cities);
+    assertEquals(ns, [0, 5]);
+    assertEquals(map(_.content, map(find-ix(_, ix-cities), ns)), ["Washington", "San Francisco"]);
+}
 ```
 
 Something deeper is going on here. The keyed nodes have
@@ -429,37 +416,17 @@ could, instead, use a representation that makes edges primary, and
 nodes simply be the entities that lie at their
 ends:[The prefix `le-`{.pyret} stands for “list of edges”.]{.margin-note}
 
-```pyret
-data Edge:
-  | edge(src :: String, dst :: String)
-end
-
-type LEGraph = List<Edge>
-
-type Graph = LEGraph
+```jayret
+data Edge {
+    Edge(String src, String dst);
+}
+type LEGraph = List < Edge >;
+type Graph = LEGraph;
 ```
 Then, our flight network becomes:
 
-```pyret
-le-cities :: Graph =
-  [list:
-    edge("Washington", "Chicago"),
-    edge("Washington", "Denver"),
-    edge("Washington", "San Francisco"),
-    edge("Washington", "Houston"),
-    edge("Washington", "Providence"),
-    edge("Chicago", "Washington"),
-    edge("Chicago", "San Francisco"),
-    edge("Chicago", "Providence"),
-    edge("Houston", "Washington"),
-    edge("Houston", "San Francisco"),
-    edge("Denver", "Washington"),
-    edge("Denver", "San Francisco"),
-    edge("San Francisco", "Washington"),
-    edge("San Francisco", "Denver"),
-    edge("San Francisco", "Houston"),
-    edge("Providence", "Washington"),
-    edge("Providence", "Chicago") ]
+```jayret
+le-cities = [edge("Washington", "Chicago"), edge("Washington", "Denver"), edge("Washington", "San Francisco"), edge("Washington", "Houston"), edge("Washington", "Providence"), edge("Chicago", "Washington"), edge("Chicago", "San Francisco"), edge("Chicago", "Providence"), edge("Houston", "Washington"), edge("Houston", "San Francisco"), edge("Denver", "Washington"), edge("Denver", "San Francisco"), edge("San Francisco", "Washington"), edge("San Francisco", "Denver"), edge("San Francisco", "Houston"), edge("Providence", "Washington"), edge("Providence", "Chicago")];
 ```
 Observe that in this representation, nodes that are not connected to
 other nodes in the graph simply never show up! You’d therefore need
@@ -467,22 +434,19 @@ an auxilliary data structure to keep track of all the nodes.
 
 To obtain the set of neighbors:
 
-```pyret
-fun le-neighbors(city :: Key, graph :: Graph) -> List<Key>:
-  neighboring-edges = for filter(e from graph):
-    city == e.src
-  end
-  names = for map(e from neighboring-edges): e.dst end
-  names
-end
+```jayret
+List<Object> le-neighbors(Key city, Graph graph) {
+    neighboring-edges = [for filter(e : graph) { yield city == e.src; }];
+    names = [for map(e : neighboring-edges) { yield e.dst; }];
+    return names;
+}
 ```
 And to be sure:
 
-```pyret
-check:
-  le-neighbors("Houston", le-cities) is
-    [list: "Washington", "San Francisco"]
-end
+```jayret
+@Check void test() {
+    assertEquals(le-neighbors("Houston", le-cities), ["Washington", "San Francisco"]);
+}
 ```
 However, this representation makes it difficult to store complex
 information about a node without replicating it. Because nodes usually

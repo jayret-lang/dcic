@@ -15,7 +15,7 @@ next: rec-from-mut.html
 
 In [Mutating Structures](mutating-structures.html), we introduced the notion of mutable
 data. We also saw the impact it has on testing. Underlying testing is
-some notion of equality: when we write a test in Pyret using
+some notion of equality: when we write a test in Jayret using
 `is`{.pyret}, we are implicitly making a statement about equality between
 the two sides. Here we will examine equality in the presence of state
 in more detail.
@@ -37,20 +37,18 @@ field—the value being boxed—and supports just three operations:
   the box to contain the value. All subsequent unbox-nows of that
   box will now return the new value—unless it is mutated again.
 
-Here are the corresponding definitions in Pyret:
+Here are the corresponding definitions in Jayret:
 
-```pyret
-data Box<T>:
-  | box(ref v :: T)
-end
-
-fun unbox-now<T>(b :: Box<T>) -> T:
-  b!v
-end
-
-fun set-box-now<T>(b :: Box<T>, new-v :: T) -> Box<T>:
-  b!{v: new-v}
-end
+```jayret
+data Box {
+    Box(ref T v);
+}
+T unbox-now(Box<Object> b) {
+    return b ! v;
+}
+Box<Object> set-box-now(Box<Object> b, T new-v) {
+    return b ! {v new-v }
+}
 ```
 Observe that we use `b!v`{.pyret} to extract the current value, and use
 the naming convention of `-now`{.pyret} to make clear these are stateful
@@ -65,28 +63,28 @@ its content would keep changing.
 
 These definitions obey the following tests:
 
-```pyret
-check:
-  n1 = box(1)
-  n2 = box(2)
-  set-box-now(n1, 3)
-  set-box-now(n2, 4)
-  unbox-now(n1) is 3
-  unbox-now(n2) is 4
-end
+```jayret
+@Check void test() {
+    n1 = box(1);
+    n2 = box(2);
+    set-box-now(n1, 3);
+    set-box-now(n2, 4);
+    assertEquals(unbox-now(n1), 3);
+    assertEquals(unbox-now(n2), 4);
+}
 ```
 However, we cannot write `set-box-now(n1, "hi")`{.pyret}, because that
-would violate the type of `n1`{.pyret}, which is `Box<Number>`{.pyret}. We
+would violate the type of `n1`{.pyret}, which is `Box < Number >`{.pyret}. We
 could make this explicit by writing
 
-```pyret
-n1 :: Box<Number> = box(1)
+```jayret
+n1 = box(1);
 ```
 if we wanted to be explicit. However, note that `n1`{.pyret} being a box
 of numbers does not preclude us from having a box of strings:
 
-```pyret
-n3 :: Box<String> = box("hello")
+```jayret
+n3 = box("hello");
 ```
 or indeed a box of any other type. We just need its type to remain
 consistent, whatever that type is.
@@ -115,22 +113,22 @@ box, while `b2`{.pyret} is referring to a different one. We can see this
 from a memory diagram:
 
 ```{=html}
-<div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">b1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">b2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1002</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">b3</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1001</span>:<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">box(7)</code></span></p></li><li><p><span class="heapref source">1002</span>:<span class="hspace"> </span><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">box(7)</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
+<div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">b1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">b2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1002</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">b3</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1001</span>:<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">box(7)</code></span></p></li><li><p><span class="heapref source">1002</span>:<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">box(7)</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
 ```
 
 We can confirm this using the following tests:
 
-```pyret
-check:
-  b1 is-not%(identical) b2
-  b1 is%(identical) b3
-  b2 is-not%(identical) b3
-end
+```jayret
+@Check void test() {
+    assertNotEquals(b1, b2);
+    assertEquals(b1, b3);
+    assertNotEquals(b2, b3);
+}
 ```
 In other words, `b1`{.pyret} and `b3`{.pyret} are aliases for the same box,
 but neither is an alias to the box referred to by `b2`{.pyret}. Since
 `identical`{.pyret} is transitive, it follows from the first two
-tests that the third test must also pass (and thankfully, Pyret
+tests that the third test must also pass (and thankfully, Jayret
 confirms this for us!).
 
 Now, you might wonder why we have used `identical`{.pyret} and not
@@ -140,33 +138,33 @@ Now, you might wonder why we have used `identical`{.pyret} and not
 ::: {.do-now}
 Let’s try that:
 
-```pyret
-check:
-  b1 is b3
-  b1 is b2
-end
+```jayret
+@Check void test() {
+    assertEquals(b1, b3);
+    assertEquals(b1, b2);
+}
 ```
 What do you see?
 :::
 
-It’s unsurprising that the first test, `b1 is b3`{.pyret},
-passes. However, the second, `b1 is b2`{.pyret}, fails! And the name
+It’s unsurprising that the first test, `assertEquals(b1, b3)`{.pyret},
+passes. However, the second, `assertEquals(b1, b2)`{.pyret}, fails! And the name
 suggests why: the two are not guaranteed to always be
 equal. That is, suppose we were to modify the box referred to by
 `b1`{.pyret}:
 
-```pyret
-set-box-now(b1, 8)
+```jayret
+set-box-now(b1, 8);
 ```
 Sure enough, the values in the boxes are not the same, but because
 `b1`{.pyret} and `b3`{.pyret} are aliases, their values change in lock-step
 (more accurately, there is only one value—the box at 1001):
 
-```pyret
-check:
-  unbox-now(b1) is-not unbox-now(b2)
-  unbox-now(b1) is unbox-now(b3)
-end
+```jayret
+@Check void test() {
+    assertNotEquals(unbox-now(b1), unbox-now(b2));
+    assertEquals(unbox-now(b1), unbox-now(b3));
+}
 ```
 
 ### 19.4 Another Equality Predicate {#Another-Equality-Predicate}
@@ -181,21 +179,21 @@ those. This is somewhat frustrating, because there is clearly some
 sense in which they are “equal”: at the moment, they contain the
 same value, even if later on one of them might not.
 
-Therefore, Pyret offers a third equality predicate that is
+Therefore, Jayret offers a third equality predicate that is
 designed for just these situations: it is (as you might guess) called
 `equal-now`{.pyret}:
 
-```pyret
-check:
-  b1 is%(equal-now) b2
-  b2 is%(equal-now) b3
-end
+```jayret
+@Check void test() {
+    assertEquals(b1, b2);
+    assertEquals(b2, b3);
+}
 ```
 The `-now`{.pyret} in the name reminds us that these values are equal at
 the moment, but may not be equal later. Sure enough, if we add
 
-```pyret
-set-box-now(b1, 8)
+```jayret
+set-box-now(b1, 8);
 ```
 back into the program, the above `equal-now`{.pyret} tests fail: now,
 they are no longer equal!
@@ -207,11 +205,11 @@ notation: `==`{.pyret} for `equal-always`{.pyret} and `<=>`{.pyret} for
 it’s equal for now, but don’t expect it to remain so. That is, we can
 rewrite the above tests as:
 
-```pyret
-check:
-  equal-now(b1, b2) is true
-  (b2 =~ b3) is true
-end
+```jayret
+@Check void test() {
+    assertEquals(equal-now(b1, b2), true);
+    assertEquals((b2 =~ b3), true);
+}
 ```
 Whether they pass, of course, depends on the state of the program:
 whether `b1`{.pyret}, `b2`{.pyret}, or `b3`{.pyret} has had its content modified.
@@ -249,7 +247,7 @@ at different heap addresses and are therefore truly different data.
 
 In most languages, it is common to have two equality operators,
 corresponding to `identical`{.pyret} (known as reference equality)
-and `equal-now`{.pyret} (known as structural equality). Pyret is
+and `equal-now`{.pyret} (known as structural equality). Jayret is
 rare in having a third operator, `equal-always`{.pyret}. For
 most programs, this is in fact the most useful equality operator: it
 is not overly bothered with details of aliasing, which can be
@@ -282,20 +280,20 @@ Return for a moment to the state where we have just defined the three
 boxes [[<three-boxes>](state-in-pyret.html#%28elem._three-boxes%29)]. We could have written the
 following:
 
-```pyret
-hold-b1-value = unbox-now(b1)
-set-box-now(b1, hold-b1-value + 1)
+```jayret
+hold-b1-value = unbox-now(b1);
+set-box-now(b1, hold-b1-value + 1);
 ```
 Now, we can compare the contents of the various boxes:
 
-```pyret
-b1-id-b2 = unbox-now(b1) == unbox-now(b2)
-b1-id-b3 = unbox-now(b1) == unbox-now(b3)
+```jayret
+b1-id-b2 = unbox-now(b1) == unbox-now(b2);
+b1-id-b3 = unbox-now(b1) == unbox-now(b3);
 ```
 And at the end of performing comparisons, we can restore them:
 
-```pyret
-set-box-now(b1, hold-b1-value)
+```jayret
+set-box-now(b1, hold-b1-value);
 ```
 Observe that `b1-id-b2`{.pyret} would be `false`{.pyret} but `b1-id-b3`{.pyret}
 would be `true`{.pyret}. And notice that this would always be true when
@@ -309,7 +307,7 @@ words, thisrepresents the essence of
 
 In practice, `identical`{.pyret} does not behave this way: it would be
 too disruptive. It is also not the most efficient implementation
-possible, when Pyret can simply check the memory addresses being the
+possible, when Jayret can simply check the memory addresses being the
 same. Nevertheless, it does demonstrate the basic idea behind
 `identical`{.pyret}: two values are `identical`{.pyret} precisely when, when
 you make changes to one, you see the changes manifest on the “other”
@@ -334,13 +332,13 @@ this, however, they are actively lying, which is something the
 equality operators do not usually do.
 
 There is one other approach we can take: simply disallow function
-comparison. This is what Pyret does: all three equality operators
+comparison. This is what Jayret does: all three equality operators
 above will result in an error if you try to compare two
 functions. (You can compare against just one function, however, and
 you will get the answer `false`{.pyret}.) This ensures that the
 language’s comparison operators are never trusted falsely.
 
-Pyret did have the choice of allowing reference equality for
+Jayret did have the choice of allowing reference equality for
 functions inside `identical`{.pyret} and erroring only in the other two
 cases. Had it done so, however, it would have violated the chain of
 implication above [[A Hierarchy of Equality](state-in-pyret.html##equality-hierarchy)]. The present design
@@ -351,7 +349,7 @@ structure like boxes.
 There is one problem with erroring when comparing two functions: a
 completely generic procedure that compares two arbitrary values may
 error if both of the values given are functions. Because this can
-cause unpredictable program failure, Pyret offers a three-valued
+cause unpredictable program failure, Jayret offers a three-valued
 version of each of the above three operators (`identical3`{.pyret},
 `equal-always3`{.pyret} and `equal-now3`{.pyret}), all of which return
 `EqualityResult`{.pyret} values that correspond to truth, falsity, and

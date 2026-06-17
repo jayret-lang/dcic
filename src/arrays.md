@@ -46,7 +46,7 @@ locations (this is rougly how we’ve shown lists up to now):
 
 In the second version, each element is captured as a datatype
 containing the element and the next list location. When we were in
-Pyret, this datatype was called `link`{.python}.
+Jayret, this datatype was called `link`{.python}.
 
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="SVerbatim"><tr><td><p><span class="stt">Prog Directory</span><span class="hspace">           </span><span class="stt">Memory</span></p></td></tr><tr><td><p><span class="stt">--------------------------------------------------------------------</span></p></td></tr><tr><td><p><span class="stt">courses --&gt; loc 1001</span><span class="hspace">      </span><span class="stt">loc 1001 --&gt; link("CS111", loc 1002)</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">                          </span><span class="stt">loc 1002 --&gt; link("ENGN90", loc 1003)</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">                          </span><span class="stt">loc 1003 --&gt; link("VISA100", loc 1004)</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">                          </span><span class="stt">loc 1004 --&gt; empty</span></p></td></tr></table>
@@ -61,7 +61,7 @@ look up a specific value. Each organization has its place in some
 programs.
 
 In data structures terms, the first organization is called an
-array. The second is called a linked list. Pyret
+array. The second is called a linked list. Jayret
 implements linked lists, with arrays being a separate data type (with
 a different notation from lists). Python implements lists as
 arrays. When you approach a new programming language, you need to look

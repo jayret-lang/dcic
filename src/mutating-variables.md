@@ -530,7 +530,7 @@ that modify the contents. The third is different from the second,
 however, in that the third is only meant to be used by a single
 function. Ideally, there would be a way to not expose the variable to
 all functions in the third case. Indeed, many programming languages
-(including Pyret) make it easy to do that. This is harder to achieve
+(including Jayret) make it easy to do that. This is harder to achieve
 with introductory-level concepts in Python, however. The fourth is
 more about local names rather than variables, in that our code never
 updates the value after the variable is created.

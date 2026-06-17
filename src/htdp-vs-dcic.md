@@ -24,7 +24,7 @@ At a high level they are very similar:
   mind. The languages provide special support for writing examples and tests; error
   reporting designed for beginners; built-in images and reactivity. The languages
   eschew weird gotchas (in a way that Python does not: see
-  [Pyret vs. Python](pyret-vs-python.html) or, if you want to read much more,
+  [Jayret vs. Python](pyret-vs-python.html) or, if you want to read much more,
   [this paper](https://cs.brown.edu/~sk/Publications/Papers/Published/pmmwplck-python-full-monty/)).
 
 and so on. To call these “similarities” is, however, a disservice. DCIC
@@ -34,18 +34,18 @@ Now for the differences. Note that they are differences now. Some ideas
 from DCIC are going to HtDP, and over time more may intermingle.
 
 
-- The most obvious is that DCIC is in Pyret. HtDP has tons of good ideas,
+- The most obvious is that DCIC is in Jayret. HtDP has tons of good ideas,
   all ignored because it uses Racket, whose syntax some people (especially some
-  educators) dislike. We built Pyret to embody good ideas we’d learned from the
+  educators) dislike. We built Jayret to embody good ideas we’d learned from the
   Racket student languages and other good ideas of our own, but package them in a
   familiar syntax. But as you can see, the two languages are not actually that
-  far apart: [Pyret for Racketeers and Schemers](p4rs.html).
+  far apart: [Jayret for Racketeers and Schemers](p4rs.html).
 - The next most obvious thing is that DCIC also includes Python. HtDP has a
   (not formally published) follow-up that
   [teaches program design in Java](https://felleisen.org/matthias/HtDC/htdc.pdf).
   In contrast, we wanted to integrate
   the transition to Python into DCIC itself. There’s much to be learned from the
-  contrast! In particular, Pyret and its environment were carefully designed around
+  contrast! In particular, Jayret and its environment were carefully designed around
   pedagogic ideas for teaching state. Python was not, despite the ubiquity and
   difficulty of state! So there’s a lot to be gained, when introducing state, to
   contrast them.

@@ -61,15 +61,15 @@ Based on that, here are two different hash functions:
   `[6, 4, 5]`{.pyret} (the first character has code `6`{.pyret}, the second
   one `4`{.pyret}, and the third `5`{.pyret}), we get the hash
   
-  ```pyret
-  num-expt(2, 6) * num-expt(3, 4) * num-expt(5, 5)
+  ```jayret
+num-expt(2, 6) * num-expt(3, 4) * num-expt(5, 5);
   ```
   or `16200000`{.pyret}.
 2. Simply add together all the character codes. For the above
   example, this would correspond to the has
   
-  ```pyret
-  6 + 4 + 5
+  ```jayret
+6 + 4 + 5;
   ```
   or `15`{.pyret}.
 
@@ -83,18 +83,15 @@ The second encoding is, of course, not invertible (e.g., simply
 permute the characters and, by commutativity, the sum will be the
 same), but computationally much cheaper. It is also easy to implement:
 
-```pyret
-fun hash-of(s :: String):
-  fold({(a :: Number, b :: Number): a + b},
-    0,
-    string-to-code-points(s))
-end
-
-check:
-  hash-of("Hello") is 500
-  hash-of("World!") is 553
-  hash-of("🏴‍☠️") is 195692
-end
+```jayret
+Object hash-of(String s) {
+    return fold((int a, int b) -> a + b, 0, string-to-code-points(s));
+}
+@Check void test() {
+    assertEquals(hash-of("Hello"), 500);
+    assertEquals(hash-of("World!"), 553);
+    assertEquals(hash-of("🏴‍☠️"), 195692);
+}
 ```
 
 Now let us consider more general datatypes. The principle of hashing
@@ -184,7 +181,7 @@ something orderable? Is something even comparable?
 So…life is complicated.
 
 That means you could potentially misuse a BBST on the wrong kind of
-data. Ideally, we would want to know if we’re doing this. In Pyret’s type
+data. Ideally, we would want to know if we’re doing this. In Jayret’s type
 system we chose not to build this in, but in some languages, the type system
 actually lets you capture these properties.
 
@@ -198,7 +195,7 @@ Eq. Similarly, there’s a type-class Ord, which ensures the
 availability of (and requires the implementation of) operations like <,
 >, <=, and >=. In Haskell, everything that is Ord
 must also be Eq, i.e., Eq is weaker than Ord (things can
-be Eq without being Ord). Pyret’s Roughnums contradict that…but
+be Eq without being Ord). Jayret’s Roughnums contradict that…but
 Haskell is okay with it. But if you try to compare two functions in Haskell,
 
 ```{=html}

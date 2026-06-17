@@ -10,39 +10,33 @@ next: booklet_interaction.html
 ## 26 Deconstructing Loops {#deconstructing-loops}
 
 ```{=html}
-<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Setup__.Two_.Functions%29">26.1<span class="hspace"> </span>Setup: Two Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Abstracting_a_.Loop%29">26.2<span class="hspace"> </span>Abstracting a Loop</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Is_.It_.Really_a_.Loop_%29">26.3<span class="hspace"> </span>Is It Really a Loop?</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Re-.Examining___struct_traverse-element___procedure____lib_render-cond_rkt_38_12__%29">26.4<span class="hspace"> </span>Re-Examining <span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">for</code></span></a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Rewriting_.Pollard-.Rho%29">26.5<span class="hspace"> </span>Rewriting Pollard-Rho</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Nested_.Loops%29">26.6<span class="hspace"> </span>Nested Loops</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Loops__.Values__and_.Customization%29">26.7<span class="hspace"> </span>Loops, Values, and Customization</a></p></td></tr></table>
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Setup__.Two_.Functions%29">26.1<span class="hspace"> </span>Setup: Two Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Abstracting_a_.Loop%29">26.2<span class="hspace"> </span>Abstracting a Loop</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Is_.It_.Really_a_.Loop_%29">26.3<span class="hspace"> </span>Is It Really a Loop?</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Re-.Examining___struct_traverse-element___procedure____lib_render-cond_rkt_38_12__%29">26.4<span class="hspace"> </span>Re-Examining <span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">for</code></span></a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Rewriting_.Pollard-.Rho%29">26.5<span class="hspace"> </span>Rewriting Pollard-Rho</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Nested_.Loops%29">26.6<span class="hspace"> </span>Nested Loops</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Loops__.Values__and_.Customization%29">26.7<span class="hspace"> </span>Loops, Values, and Customization</a></p></td></tr></table>
 ```
 
 ### 26.1 Setup: Two Functions {#Setup-Two-Functions}
 
 Let’s look at two functions we wrote earlier in [Factoring Numbers](factoring-numbers.html):
 
-```pyret
-fun gcd(a, b):
-  if b == 0:
-    a
-  else:
-    gcd(b, num-modulo(a, b))
-  end
-end
-
-fun pr(n):
-  fun g(x): num-modulo((x * x) + 1, n) end
-  fun iter(x, y, d):
-    new-x = g(x)
-    new-y = g(g(y))
-    new-d = gcd(num-abs(new-x - new-y), n)
-    ask:
-      | new-d == 1 then:
-        iter(new-x, new-y, new-d)
-      | new-d == n then:
-        none
-      | otherwise:
-        some(new-d)
-    end
-  end
-  iter(2, 2, 1)
-end
+```jayret
+Object gcd(a, b) {
+    return if (b == 0) {
+        return a;
+    } else {
+        return gcd(b, num-modulo(a, b));
+    }
+}
+Object pr(n) {
+    Object g(x) {
+        return num-modulo((x * x) + 1, n);
+    }
+    Object iter(x, y, d) {
+        new-x = g(x);
+        new-y = g(g(y));
+        new-d = gcd(num-abs(new-x - new-y), n);
+        return ask new-d == 1 then: iter(new-x, new-y, new-d);new-d == n then: none;otherwise: some(new-d);
+    }
+    return iter(2, 2, 1);
+}
 ```
 We’ve written both recursively: `gcd`{.pyret} by calling itself and
 `pr`{.pyret} with recursion on its inner function. But if you’ve
@@ -50,7 +44,7 @@ programmed before, you’ve probably written similar programs with
 loops.
 
 ::: {.exercise}
-Because we don’t have loops in Pyret, the best we can do is to use a
+Because we don’t have loops in Jayret, the best we can do is to use a
 higher-order function; which ones would you use?
 :::
 
@@ -60,14 +54,14 @@ traditional-looking program.
 Before we start changing any code, let’s make sure we have some tests
 for `gcd`{.pyret}:
 
-```pyret
-check:
-  gcd(4, 5) is 1
-  gcd(5, 7) is 1
-  gcd(21, 21) is 21
-  gcd(12, 24) is 12
-  gcd(12, 9) is 3
-end
+```jayret
+@Check void test() {
+    assertEquals(gcd(4, 5), 1);
+    assertEquals(gcd(5, 7), 1);
+    assertEquals(gcd(21, 21), 21);
+    assertEquals(gcd(12, 24), 12);
+    assertEquals(gcd(12, 9), 3);
+}
 ```
 
 ### 26.2 Abstracting a Loop {#Abstracting-a-Loop}
@@ -77,22 +71,22 @@ loop has a status: whether it’s done or whether it should
 continue. Since we have two parameters here, let’s record two
 parameters for continuing:
 
-```pyret
-data LoopStatus:
-  | done(final-value)
-  | next-2(new-arg-1, new-arg-2)
-end
+```jayret
+data LoopStatus {
+    Done(final-value);
+    Next-2(new-arg-1, new-arg-2);
+}
 ```
 Now we can write a function that does the actual iteration:
 
-```pyret
-fun loop-2(f, arg-1, arg-2):
-  r = f(arg-1, arg-2)
-  cases (LoopStatus) r:
-    | done(v) => v
-    | next-2(new-arg-1, new-arg-2) => loop-2(f, new-arg-1, new-arg-2)
-  end
-end
+```jayret
+Object loop-2(f, arg-1, arg-2) {
+    r = f(arg-1, arg-2);
+    return switch (r) {
+        case Done(v): yield v;
+        case Next-2(new-arg-1, new-arg-2): yield loop-2(f, new-arg-1, new-arg-2);
+    }
+}
 ```
 Note that this is completely generic: it has nothing to do with
 `gcd`{.pyret}. (It is generic in the same way that higher-order functions
@@ -107,18 +101,14 @@ Observe also that we could, if we wanted, stage [[Staging](staging.html)]
 
 With `loop-2`{.pyret}, we can rewrite `gcd`{.pyret}:
 
-```pyret
-fun gcd(p, q):
-  loop-2(
-    {(a, b):
-      if b == 0:
-        done(a)
-      else:
-        next-2(b, num-modulo(a, b))
-      end},
-    p,
-    q)
-end
+```jayret
+Object gcd(p, q) {
+    return loop-2((a, b) -> if (b == 0) {
+        return done(a);
+    } else {
+        return next-2(b, num-modulo(a, b));
+    }, p, q);
+}
 ```
 Now it might seem to you we haven’t done anything useful at all. In
 fact, this looks like a significant step backward. At least before we
@@ -128,51 +118,53 @@ have a higher-order function and we’re passing it the erstwhile
 datatype and…everything’s gotten much more complicated.
 
 But, not really. The reason we put it in this form is because we’re
-about to exploit a feature of Pyret. The `for`{.pyret} construct in Pyret
+about to exploit a feature of Jayret. The `for`{.pyret} construct in Jayret
 actually rewrites as follows:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 for F(a from a_i, b from b_i, …): BODY end
 ```
 gets rewritten to
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 F({(a, b, …): BODY}, a_i, b_i, …)
 ```
 For example, if we write
 
-```pyret
-for map(i from range(0, 10)): i + 1 end
+```jayret
+[for map(i : range(0, 10)) { yield i + 1; }];
 ```
 this becomes
 
-```pyret
-map({(i): i + 1}, range(0, 10))
+```jayret
+map((i) -> i + 1, range(0, 10));
 ```
 
 Now you may see why we rewrote `gcd`{.pyret}.
 Going in reverse, we can rewrite
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 F({(a, b, …): BODY}, a_i, b_i, …)
 ```
 as
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 for F(a from a_i, b from b_i, …): BODY end
 ```
 so the function becomes just
 
-```pyret
-fun gcd(p, q):
-  for loop-2(a from p, b from q):
-    if b == 0:
-      done(a)
-    else:
-      next-2(b, num-modulo(a, b))
-    end
-  end
-end
+```jayret
+Object gcd(p, q) {
+    return [for loop-2(a : p, b : q) { yield if (b == 0) {
+        return done(a);
+    } else {
+        return next-2(b, num-modulo(a, b));
+    }; }];
+}
 ```
 and now closely resembles a traditional “loop” program.
 
@@ -194,15 +186,15 @@ In terms of space, the recursive call to `loop-2`{.pyret} is the
 last thing that a call to `loop-2`{.pyret} does. Furthermore,
 nothing in `loop-2`{.pyret} consumes and manipulates the return from that
 recursive call. This is therefore called a tail call.
-Pyret—like some other languages—causes tail calls to not
-take any extra stack space. In principle, Pyret can also turn some
+Jayret—like some other languages—causes tail calls to not
+take any extra stack space. In principle, Jayret can also turn some
 tail calls into jumps. Therefore, this version has close to the same
 performance as a traditional loop.
 
 ### 26.4 Re-Examining for {#Re-Examining-struct-traverse-element-procedure-lib-render-cond-rkt-38-12}
 
 The definition of `for`{.pyret} given above should make you suspicious:
-Where’s the loop?!? In fact, Pyret’s `for`{.pyret} does not do any
+Where’s the loop?!? In fact, Jayret’s `for`{.pyret} does not do any
 looping at all: it’s simply a fancy way of writing `lam`{.pyret}. Any
 “looping” behavior is in the function written after `for`{.pyret}. To
 see that, let’s use for with a non-looping function.
@@ -210,39 +202,39 @@ see that, let’s use for with a non-looping function.
 Recall that
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 for F(a from a_i, b from b_i, …): BODY end
 ```
 gets rewritten to
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 F({(a, b, …): BODY}, a_i, b_i, …)
 ```
 Thus, suppose we have this function (from [Functions as Data](func-as-data.html)):
 
-```pyret
-delta-x = 0.0001
-fun d-dx-at(f, x):
-  (f(x + delta-x) - f(x)) / delta-x
-end
+```jayret
+delta-x = 0.0001;
+Object d-dx-at(f, x) {
+    return (f(x + delta-x) - f(x)) / delta-x;
+}
 ```
 We can call it like this to get approximately 20:
 
-```pyret
-d-dx-at({(n): n * n}, 10)
+```jayret
+d-dx-at((n) -> n * n, 10);
 ```
 That means we can also call it like this:
 
-```pyret
-for d-dx-at(n from 10): n * n end
+```jayret
+[for d-dx-at(n : 10) { yield n * n; }];
 ```
 Indeed:
 
-```pyret
-check:
-  for d-dx-at(n from 10): n * n end
-  is
-  d-dx-at({(n): n * n}, 10)
-end
+```jayret
+@Check void test() {
+    assertEquals([for d-dx-at(n : 10) { yield n * n; }], d-dx-at((n) -> n * n, 10));
+}
 ```
 Since `d-dx-at`{.pyret} has no iterative behavior, no iteration
 occurs. The looping behavior is given entirely by the function
@@ -259,6 +251,7 @@ be easy to design a 3-argument version of loop, say `loop-3`{.pyret}, but
 we could also have a more general solution, using a tuple:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 data LoopStatus:
   | done(v)
   | next–2(new-x, new-y)
@@ -279,115 +272,92 @@ So now we can rewrite `pr`{.pyret}. Let’s first rename the old `pr`{.pyret}
 function as `pr-old`{.pyret} so we can keep it around for testing. Now we
 can define a “loop”-based `pr`{.pyret}:
 
-```pyret
-fun pr(n):
-  fun g(x): num-modulo((x * x) + 1, n) end
-  for loop-n({x; y; d} from {2; 2; 1}):
-    new-x = g(x)
-    new-y = g(g(y))
-    new-d = gcd(num-abs(new-x - new-y), n)
-    ask:
-      | new-d == 1 then:
-        next-n({new-x; new-y; new-d})
-      | new-d == n then:
-        done(none)
-      | otherwise:
-        done(some(new-d))
-    end
-  end
-end
+```jayret
+Object pr(n) {
+    Object g(x) {
+        return num-modulo((x * x) + 1, n);
+    }
+    return [for loop-n(/* tuple-binding (deferred) */ : /* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {2 ;2 ;1}) { yield block { 
+    new-x = g(x);
+    new-y = g(g(y));
+    new-d = gcd(num-abs(new-x - new-y), n);
+    return ask new-d == 1 then: next-n(/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {new-x ;new-y ;new-d});new-d == n then: done(none);otherwise: done(some(new-d)); }; }];
+}
 ```
 Indeed, we can test that the two behave in exactly the same way:
 
-```pyret
-check:
-  ns = range(2, 100)
-  l1 = map(pr-old, ns)
-  l2 = map(pr, ns)
-  l1 is l2
-end
+```jayret
+@Check void test() {
+    ns = range(2, 100);
+    l1 = map(pr-old, ns);
+    l2 = map(pr, ns);
+    assertEquals(l1, l2);
+}
 ```
 
 ### 26.6 Nested Loops {#Nested-Loops}
 
 We can also write a nested loop this way. Suppose we have a list like
 
-```pyret
-lol = [list: [list: 1, 2], [list: 3], [list:], [list: 4, 5, 6]]
+```jayret
+lol = [[1, 2], [3], [], [4, 5, 6]];
 ```
 and we want to sum the whole thing by summing each sub-list. Here it is:
 
-```pyret
-for loop-2(ll from lol, sum from 0):
-  cases (List) ll:
-    | empty => done(sum)
-    | link(l, rl) =>
-      l-sum =
-        for loop-2(es from l, sub-sum from 0):
-          cases (List) es:
-            | empty => done(sub-sum)
-            | link(e, r) => next-2(r, e + sub-sum)
-          end
-        end
-      next-2(rl, sum + l-sum)
-  end
-end
+```jayret
+[for loop-2(ll : lol, sum : 0) { yield switch (ll) {
+    case Empty: yield done(sum);
+    case Link(l, rl): yield block {
+        l-sum = [for loop-2(es : l, sub-sum : 0) { yield switch (es) {
+            case Empty: yield done(sub-sum);
+            case Link(e, r): yield next-2(r, e + sub-sum);
+        }; }];
+        return next-2(rl, sum + l-sum);
+    };
+}; }];
 ```
 We can simplify this by writing it as two functions:
 
-```pyret
-fun sum-a-lon(lon :: List<Number>):
-  for loop-2(es from lon, sum from 0):
-    cases (List) es:
-      | empty => done(sum)
-      | link(e, r) =>
-        next-2(r, e + sum)
-    end
-  end
-end
-
-fun sum-a-lolon(lolon :: List<List<Number>>):
-  for loop-2(l from lolon, sum from 0):
-    cases (List) l:
-      | empty => done(sum)
-      | link(lon, r) =>
-        next-2(r, sum-a-lon(lon) + sum)
-    end
-  end
-end
-
-check:
-  sum-a-lolon(lol) is 21
-end
+```jayret
+Object sum-a-lon(List<Object> lon) {
+    return [for loop-2(es : lon, sum : 0) { yield switch (es) {
+        case Empty: yield done(sum);
+        case Link(e, r): yield next-2(r, e + sum);
+    }; }];
+}
+Object sum-a-lolon(List<Object> lolon) {
+    return [for loop-2(l : lolon, sum : 0) { yield switch (l) {
+        case Empty: yield done(sum);
+        case Link(lon, r): yield next-2(r, sum-a-lon(lon) + sum);
+    }; }];
+}
+@Check void test() {
+    assertEquals(sum-a-lolon(lol), 21);
+}
 ```
 
 Notice that the two functions are remarkably similar. This suggests an abstraction:
 
-```pyret
-fun sum-a-list(f, L):
-  for loop-2(e from L, sum from 0):
-    cases (List) e:
-      | empty => done(sum)
-      | link(elt, r) =>
-        next-2(r, f(elt) + sum)
-    end
-  end
-end
+```jayret
+Object sum-a-list(f, L) {
+    return [for loop-2(e : L, sum : 0) { yield switch (e) {
+        case Empty: yield done(sum);
+        case Link(elt, r): yield next-2(r, f(elt) + sum);
+    }; }];
+}
 ```
 Using this, we can rewrite the two previous functions as:
 
-```pyret
-fun sum-a-lon(lon :: List<Number>):
-  sum-a-list({(e): e}, lon)
-end
-
-fun sum-a-lolon(lolon :: List<List<Number>>):
-  sum-a-list(sum-a-lon, lolon)
-end
-
-check:
-  sum-a-lolon(lol) is 21
-end
+```jayret
+Object sum-a-lon(List<Object> lon) {
+    return sum-a-list((e) -> e, lon);
+}
+Object sum-a-lolon(List<Object> lolon) {
+    return sum-a-list(sum-a-lon, lolon);
+}
+@Check void test() {
+    assertEquals(sum-a-lolon(lol), 21);
+}
 ```
 With the annotations, it becomes clear what each function does. In
 `sum-a-lon`{.pyret}, each element is a number, so it “contributes
@@ -398,14 +368,13 @@ overall sum.
 Finally, to bring this full circle, we can rewrite the above the
 functions as follows:
 
-```pyret
-fun sum-a-lon(lon :: List<Number>):
-  for sum-a-list(e :: Number from lon): e end
-end
-
-fun sum-a-lolon(lolon :: List<List<Number>>):
-  for sum-a-list(l :: List<Number> from lolon): sum-a-lon(l) end
-end
+```jayret
+Object sum-a-lon(List<Object> lon) {
+    return [for sum-a-list(int e : lon) { yield e; }];
+}
+Object sum-a-lolon(List<Object> lolon) {
+    return [for sum-a-list(List<Object> l : lolon) { yield sum-a-lon(l); }];
+}
 ```
 
 Arguably this makes even clearer what each element contributes. In
@@ -423,15 +392,17 @@ traditional loops:
   the language, where—as much as possible—computations try to
   produce answers. We don’t have to produce a value; for
   instance, the following program, reminiscent of looping programs in
-  many other languages, will work just fine in Pyret:
+  many other languages, will work just fine in Jayret:
   
-  ```pyret
-  for each(i from range(0, 10)): print(i) end
+  ```jayret
+for (i : range(0, 10)) {
+    print(i);
+}
   ```
   However, this is the unusual case. In general, we want expressions to
   produce values so that we can compose them together.
 2. Many languages have strong opinions on exactly how many looping
-  constructs there should be: two? three? four? In Pyret, there are no
+  constructs there should be: two? three? four? In Jayret, there are no
   built-in looping constructs at all; there’s just a syntax (`for`{.pyret})
   that serves as a proxy for creating a specific `lam`{.pyret}. With it, we
   can reuse existing iterative functions (like `map`{.pyret} and

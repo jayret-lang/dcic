@@ -39,8 +39,8 @@ the case where the edges have weights.
 We will proceed inductively, gradually defining a function seemingly
 of this type
 
-```pyret
-w :: Key -> Number
+```jayret
+/* contract: w :: Object */;
 ```
 that reflects the weight of the lightest path from the source node to
 that one. But let’s think about this annotation: since we’re building
@@ -50,8 +50,8 @@ have no weight for a lightest (or indeed, any) path. Rather than make
 up a number that pretends to reflect this situation, we will instead
 use an option type:
 
-```pyret
-w :: Key -> Option<Number>
+```jayret
+/* contract: w :: Object */;
 ```
 When there is `some`{.pyret} value it will be the weight; otherwise the
 weight will be `none`{.pyret}.

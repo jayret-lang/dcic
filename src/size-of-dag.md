@@ -15,37 +15,33 @@ next: part_graphs.html
 
 Let’s start by defining a function to compute the size of a tree:
 
-```pyret
-data BT:
-  | mt
-  | nd(v :: Number, l :: BT, r :: BT)
-end
-
-fun size-1(b :: BT) -> Number:
-  cases (BT) b:
-    | mt => 0
-    | nd(v, l, r) => 1 + size-1(l) + size-1(r)
-  end
-end
+```jayret
+data BT {
+    Mt;
+    Nd(int v, BT l, BT r);
+}
+int size-1(BT b) {
+    return switch (b) {
+        case Mt: yield 0;
+        case Nd(v, l, r): yield 1 + size-1(l) + size-1(r);
+    }
+}
 ```
 This is straightforward enough.
 
 But let’s say that our input isn’t actually a tree, but rather a DAG. For
 instance:
 
-```pyret
-#|
-     4
+```jayret
+/* 4
     / \
    2   3
     \ /
-     1
-|#
-
-n1 = nd(1, mt, mt)
-n2 = nd(2, mt, n1)
-n3 = nd(3, n1, mt)
-n4 = nd(4, n2, n3)
+     1 */
+n1 = nd(1, mt, mt);
+n2 = nd(2, mt, n1);
+n3 = nd(3, n1, mt);
+n4 = nd(4, n2, n3);
 ```
 where `n4`{.pyret} is the DAG. There are two notions of size here. One is like
 a “print size”: how much space will it occupy when printed. The current size
@@ -54,13 +50,13 @@ nodes did we allocate. How do we fare?
 
 #### 16.2.1 Stage 1 {#Stage-1}
 
-```pyret
-check:
-  size-1(n1) is 1
-  size-1(n2) is 2
-  size-1(n3) is 2
-  size-1(n4) is 4
-end
+```jayret
+@Check void test() {
+    assertEquals(size-1(n1), 1);
+    assertEquals(size-1(n2), 2);
+    assertEquals(size-1(n3), 2);
+    assertEquals(size-1(n4), 4);
+}
 ```
 
 Clearly the answer should be `4`{.pyret}: we can just read off how many `nd`{.pyret}
@@ -74,19 +70,20 @@ also takes a memory of the nodes already seen.
 
 #### 16.2.2 Stage 2 {#Stage-2}
 
-```pyret
-fun size-2-h(b :: BT, seen :: List<BT>) -> Number:
-  if member-identical(seen, b):
-    0
-  else:
-    cases (BT) b:
-      | mt => 0
-      | nd(v, l, r) =>
-        new-seen = link(b, seen)
-        1 + size-2-h(l, new-seen) + size-2-h(r, new-seen)
-    end
-  end
-end
+```jayret
+int size-2-h(BT b, List<Object> seen) {
+    return if (member-identical(seen, b)) {
+        return 0;
+    } else {
+        return switch (b) {
+            case Mt: yield 0;
+            case Nd(v, l, r): yield block {
+                new-seen = link(b, seen);
+                return 1 + size-2-h(l, new-seen) + size-2-h(r, new-seen);
+            };
+        }
+    }
+}
 ```
 
 ::: {.exercise}
@@ -108,23 +105,25 @@ Finally, we should not export such a function to the user, who has to deal with
 an unwieldy extra parameter and may send something poorly-formed, thereby
 causing our function to break. Instead, we should write a wrapper for it:
 
-```pyret
-fun size-2(b :: BT): size-2-h(b, empty) end
+```jayret
+Object size-2(BT b) {
+    return size-2-h(b, empty);
+}
 ```
 This also enables us to use our old tests (renamed):
 
-```pyret
-check:
-  size-2(n1) is 1
-  size-2(n2) is 2
-  size-2(n3) is 2
-  size-2(n4) is 4
-end
+```jayret
+@Check void test() {
+    assertEquals(size-2(n1), 1);
+    assertEquals(size-2(n2), 2);
+    assertEquals(size-2(n3), 2);
+    assertEquals(size-2(n4), 4);
+}
 ```
 Unfortunately, this still doesn’t work!
 
 ::: {.do-now}
-Use Pyret’s `spy`{.pyret} construct in `size-2-h`{.pyret} to figure out why.
+Use Jayret’s `spy`{.pyret} construct in `size-2-h`{.pyret} to figure out why.
 :::
 
 #### 16.2.3 Stage 3 {#Stage-3}
@@ -141,26 +140,28 @@ we’re computing the marginal contribution of each node.
 
 We can do this with the following data structure:
 
-```pyret
-data Ret: ret(sz :: Number, sn :: List<BT>) end
+```jayret
+data Ret {
+}
 ```
 which is returned by the helper function:
 
-```pyret
-fun size-3-h(b :: BT, seen :: List<BT>) -> Ret:
-  if member-identical(seen, b):
-    ret(0, seen)
-  else:
-    cases (BT) b:
-      | mt => ret(0, seen)
-      | nd(v, l, r) =>
-        new-seen = link(b, seen)
-        rl = size-3-h(l, new-seen)
-        rr = size-3-h(r, rl.sn)
-        ret(1 + rl.sz + rr.sz, rr.sn)
-    end
-  end
-end
+```jayret
+Ret size-3-h(BT b, List<Object> seen) {
+    return if (member-identical(seen, b)) {
+        return ret(0, seen);
+    } else {
+        return switch (b) {
+            case Mt: yield ret(0, seen);
+            case Nd(v, l, r): yield block {
+                new-seen = link(b, seen);
+                rl = size-3-h(l, new-seen);
+                rr = size-3-h(r, rl.sn);
+                return ret(1 + rl.sz + rr.sz, rr.sn);
+            };
+        }
+    }
+}
 ```
 Note, crucially, how the `seen`{.pyret} argument for the right branch is
 `rl.sn`{.pyret}: i.e., everything that was already seen in the left branch. This
@@ -169,15 +170,16 @@ is the crucial step that avoids the bug.
 Because of this richer return type, we have to extract the actual answer for
 the purpose of testing:
 
-```pyret
-fun size-3(b :: BT): size-3-h(b, empty).sz end
-
-check:
-  size-3(n1) is 1
-  size-3(n2) is 2
-  size-3(n3) is 2
-  size-3(n4) is 4
-end
+```jayret
+Object size-3(BT b) {
+    return size-3-h(b, empty).sz;
+}
+@Check void test() {
+    assertEquals(size-3(n1), 1);
+    assertEquals(size-3(n2), 2);
+    assertEquals(size-3(n3), 2);
+    assertEquals(size-3(n4), 4);
+}
 ```
 
 ::: {.exercise}
@@ -191,40 +193,41 @@ purely internal to the `size-3-h`{.pyret} function; even `size-3`{.pyret} ignore
 half, and it will never be seen by the rest of the program. That is a good use
 of tuples, as we have seen before: [Using Tuples](queues-from-lists.html##qfl-tuples)!
 
-```pyret
-fun size-4-h(b :: BT, seen :: List<BT>) -> {Number; List<BT>}:
-  if member-identical(seen, b):
-    {0; seen}
-  else:
-    cases (BT) b:
-      | mt => {0; seen}
-      | nd(v, l, r) =>
-        new-seen = link(b, seen)
-        {lsz; lsn} = size-4-h(l, new-seen)
-        {rsz; rsn} = size-4-h(r, lsn)
-        {1 + lsz + rsz; rsn}
-    end
-  end
-end
-
-fun size-4(b :: BT): size-4-h(b, empty).{0} end
-
-check:
-  size-4(n1) is 1
-  size-4(n2) is 2
-  size-4(n3) is 2
-  size-4(n4) is 4
-end
+```jayret
+/* tuple-ann (deferred) */ Object size-4-h(BT b, List<Object> seen) {
+    return if (member-identical(seen, b)) {
+        return /* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;seen}
+    } else {
+        return switch (b) {
+            case Mt: yield /* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;seen};
+            case Nd(v, l, r): yield block {
+                new-seen = link(b, seen);
+                /* TODO(pyret2jayret): tuple-binding deferred in Jayret v0.1 */ size-4-h(l, new-seen);
+                /* TODO(pyret2jayret): tuple-binding deferred in Jayret v0.1 */ size-4-h(r, lsn);
+                return /* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {1 + lsz + rsz ;rsn}
+            };
+        }
+    }
+}
+Object size-4(BT b) {
+    return size-4-h(b, empty) .{0 }
+}
+@Check void test() {
+    assertEquals(size-4(n1), 1);
+    assertEquals(size-4(n2), 2);
+    assertEquals(size-4(n3), 2);
+    assertEquals(size-4(n4), 4);
+}
 ```
 
-The notation `{0; seen}`{.pyret} makes an actual tuple; `{Number; List<BT>}`{.pyret}
+The notation `/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;seen}`{.pyret} makes an actual tuple; `/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {Number ;List < BT >}`{.pyret}
 declares the contract of a tuple. Also, `.{0}`{.pyret} extracts the
 `0`{.pyret}th element (the leftmost one) of a tuple.
 
 #### 16.2.5 Stage 5 {#Stage-5}
 
-Notice that we have the two instances of the code `{0; seen}`{.pyret}. Do they
-have to be that? What if we were to return `{0; empty}`{.pyret} instead in both
+Notice that we have the two instances of the code `/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;seen}`{.pyret}. Do they
+have to be that? What if we were to return `/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;empty}`{.pyret} instead in both
 places? Does anything break?
 
 We might expect it to break in the case where `member-identical`{.pyret} returns
@@ -252,23 +255,19 @@ forgotten, node yet again. So we need to visit a node at least three times: the
 first time to remember it; the second time to forget it; and a third time to
 incorrectly visit it again. Here’s a DAG that will do that:
 
-```pyret
-#|
-    10
+```jayret
+/* 10
     / \
    11 12
   / \ /
- 13<--
-|#
-
-n13 = nd(13, mt, mt)
-n11 = nd(11, n13, n13)
-n12 = nd(12, n13, mt)
-n10 = nd(10, n11, n12)
-
-check:
-  size-4(n10) is 4
-end
+ 13<-- */
+n13 = nd(13, mt, mt);
+n11 = nd(11, n13, n13);
+n12 = nd(12, n13, mt);
+n10 = nd(10, n11, n12);
+@Check void test() {
+    assertEquals(size-4(n10), 4);
+}
 ```
 Sure enough, if either tuple now returns `empty`{.pyret}, this test
 fails. Otherwise it succeeds.
@@ -350,7 +349,7 @@ just that most programming languages choose to not do that, even optionally.
 Remember the “almost” above? What was that about?
 
 In Racket, we’ve made a new instance of mt over and over. We can more
-accurately reflect what is happening in Pyret by instantiating it only once:
+accurately reflect what is happening in Jayret by instantiating it only once:
 
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="SVerbatim"><tr><td><p><span class="stt">(struct mt () #:transparent)</span></p></td></tr><tr><td><p><span class="stt">(define the-mt (mt))</span></p></td></tr><tr><td><p><span class="stt">(struct nd (v l r) #:transparent)</span></p></td></tr></table>

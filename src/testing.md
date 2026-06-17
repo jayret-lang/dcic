@@ -65,29 +65,22 @@ realistic situations. Once we start considering situations like these,
 we are shifting from examples to illustrate our code to
 tests to thoroughly test our code.
 
-In Pyret, we use `where`{.pyret} blocks inside function definitions for
+In Jayret, we use `where`{.pyret} blocks inside function definitions for
 examples. We use a `check`{.pyret} block outside the function definition
 for tests. For example:
 
-```pyret
-fun count-uses(of-string :: String, in-list :: List<String>) -> Number:
-  ...
-where:
-  count-uses("pepper", [list:]) is 0
-  count-uses("pepper", [list: "onion"]) is 0
-  count-uses("pepper", [list: "pepper", "onion"]) is 1
-  count-uses("pepper", [list: "pepper", "pepper", "onion"]) is 2
-end
-
-check:
-  count-uses("ppper", [list: "pepper"]) is 0
-  count-uses("ONION", [list: "pepper", "onion"]) is 1
-  count-uses("tomato",
-    [list: "pepper", "onion", "onion", "pepper", "tomato",
-      "tomato", "onion", "tomato"])
-    is 3
-  ...
-end
+```jayret
+int count-uses(String of-string, List<Object> in-list) {
+    return ...;
+} where {
+    
+}
+@Check void test() {
+    assertEquals(count-uses("ppper", ["pepper"]), 0);
+    assertEquals(count-uses("ONION", ["pepper", "onion"]), 1);
+    assertEquals(count-uses("tomato", ["pepper", "onion", "onion", "pepper", "tomato", "tomato", "onion", "tomato"]), 3);
+    ...;
+}
 ```
 
 As a guiding rule, we put illustrative cases that would help someone
@@ -132,7 +125,7 @@ scenarios and gain users who report scenarios where the code does not
 work.
 
 Nearly all programming languages come with some constructs or packages
-in which you can write tests in separate files. Pyret is unique in
+in which you can write tests in separate files. Jayret is unique in
 supporting the distinction between examples and tests (both for
 learning and for readability of code by others). Many programming
 tools that support professionals expect you to put all tests in
@@ -150,6 +143,7 @@ some computations, especially involving math with approximations, the
 exact match of `is`{.pyret} isn’t feasible. For example, consider these tests for `distance-to-origin`{.pyret}:
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 check:
   distance-to-origin(point(1, 1)) is ???
 end
@@ -157,7 +151,7 @@ end
 
 What can we check here? Typing this into the REPL, we can find that the answer
 prints as `1.4142135623730951`{.pyret}. That’s an approximation of the real
-answer, which Pyret cannot represent exactly. But it’s hard to know that this
+answer, which Jayret cannot represent exactly. But it’s hard to know that this
 precise answer, to this decimal place, and no more, is the one we should expect
 up front, and thinking through the answers is supposed to be the first thing we
 do!
@@ -174,28 +168,25 @@ task.
 Let’s first define what we mean by “around” with one of the most precise ways
 we can, a function:
 
-```pyret
-fun around(actual :: Number, expected :: Number) -> Boolean:
-  doc: "Return whether actual is within 0.01 of expected"
-  num-abs(actual - expected) < 0.01
-where:
-  around(5, 5.01) is true
-  around(5.01, 5) is true
-  around(5.02, 5) is false
-  around(num-sqrt(2), 1.41) is true
-end
+```jayret
+boolean around(int actual, int expected) {
+    // Return whether actual is within 0.01 of expected
+    return num-abs(actual - expected) < 0.01;
+} where {
+    
+}
 ```
 
 The `is`{.pyret} form now helps us out. There is special syntax for supplying a
 user-defined function to use to compare the two values, instead of just
 checking if they are equal:
 
-```pyret
-check:
-  5 is%(around) 5.01
-  num-sqrt(2) is%(around) 1.41
-  distance-to-origin(point(1, 1)) is%(around) 1.41
-end
+```jayret
+@Check void test() {
+    assertEquals(5, 5.01);
+    assertEquals(num-sqrt(2), 1.41);
+    assertEquals(distance-to-origin(point(1, 1)), 1.41);
+}
 ```
 
 Adding `%(something)`{.pyret} after `is`{.pyret} changes the behavior of
@@ -219,8 +210,8 @@ Use the design recipe to write `x-component`{.pyret} and
 `y-component`{.pyret}, which return the `x`{.pyret} and `y`{.pyret} Cartesian parts
 of the point (which you would need, for example, if you were plotting them on a graph).
 Read about `num-sin`{.pyret} and other functions you’ll need at
-[the Pyret number
-documentation](http://www.pyret.org/docs/latest/numbers.html).
+[the Jayret number
+documentation](http://jayret-lang.github.io/docs/latest/numbers.html).
 :::
 
 ::: {.exercise}
@@ -248,14 +239,14 @@ The two reasons are, of course, the two “sides” of the test: the
 problem could be with the values we’ve written or with the function
 we’ve written. For instance, if we’ve written
 
-```pyret
-sqrt(4) is 1.75
+```jayret
+assertEquals(sqrt(4), 1.75);
 ```
 then the fault clearly lies with the values (because \(1.75^2\) is
 clearly not \(4\)). On the other hand, if it fails the test
 
-```pyret
-sqrt(4) is 2
+```jayret
+assertEquals(sqrt(4), 2);
 ```
 then the odds are that we’ve made an error in the definition of
 `sqrt`{.pyret} instead, and that’s what we need to fix.
@@ -273,8 +264,8 @@ Actually...not so fast. There’s one more possibility we didn’t
 consider: the third, not-so-obvious reason why a test might
 fail. Return to this test:
 
-```pyret
-sqrt(4) is 2
+```jayret
+assertEquals(sqrt(4), 2);
 ```
 Clearly the inputs and outputs are correct, but it could be that the
 definition of `sqrt`{.pyret} is also correct, and yet the test
@@ -303,18 +294,18 @@ the case of `sqrt`{.pyret}? We hinted at this earlier when we said that
 root (note the use of “a” instead of “the”) if squaring it yields
 the original number. That is, we might write a function like this:
 
-```pyret
-fun is-sqrt(n):
-  n-root = sqrt(n)
-  n == (n-root * n-root)
-end
+```jayret
+Object is-sqrt(n) {
+    n-root = sqrt(n);
+    return n == (n-root * n-root);
+}
 ```
 and then our test looks like
 
-```pyret
-check:
-  is-sqrt(4) is true
-end
+```jayret
+@Check void test() {
+    assertEquals(is-sqrt(4), true);
+}
 ```
 Unfortunately, this has an awkward failure case. If `sqrt`{.pyret} does
 not produce a number that is in fact a root, we aren’t told what the
@@ -323,24 +314,22 @@ failure just says that `false`{.pyret} (what `is-sqrt`{.pyret} returns) is
 not `true`{.pyret} (what the test expects)—which is both absolutely
 true and utterly useless.
 
-Fortunately, Pyret has a better way of expressing the same
+Fortunately, Jayret has a better way of expressing the same
 check. Instead of `is`{.pyret}, we can write `satisfies`{.pyret}, and then
 the value on the left must satisfy the predicate on the
 right. Concretely, this looks like:
 
-```pyret
-fun check-sqrt(n):
-  lam(n-root):
-    n == (n-root * n-root)
-  end
-end
+```jayret
+Object check-sqrt(n) {
+    return (n-root) -> n == (n-root * n-root);
+}
 ```
 which lets us write:
 
-```pyret
-check:
-  sqrt(4) satisfies check-sqrt(4)
-end
+```jayret
+@Check void test() {
+    assertSatisfies(sqrt(4), check-sqrt(4));
+}
 ```
 Now, if there’s a failure, we learn of the actual value produced by
 `sqrt(4)`{.pyret} that failed to satisfy the predicate.

@@ -139,20 +139,19 @@ of one. One of them will be the tail of the queue, where new elements
 get enqueued; the other will be the head of the queue, where they get
 dequeued:
 
-```pyret
-data Queue<T>:
-  | queue(tail :: List<T>, head :: List<T>)
-end
-
-mt-q :: Queue = queue(empty, empty)
+```jayret
+data Queue {
+    Queue(List<Object> tail, List<Object> head);
+}
+mt-q = queue(empty, empty);
 ```
 Provided the tail is stored so that the most recent element is the
 first, then enqueuing takes constant time:
 
-```pyret
-fun enqueue<T>(q :: Queue<T>, e :: T) -> Queue<T>:
-  queue(link(e, q.tail), q.head)
-end
+```jayret
+Queue<Object> enqueue(Queue<Object> q, T e) {
+    return queue(link(e, q.tail), q.head);
+}
 ```
 
 For dequeuing to take constant time, the head of the queue must be
@@ -162,25 +161,23 @@ no elements in the head, we reverse the (entire) tail into the head
 (resulting in an empty tail). We will first define a datatype to
 represent the response from dequeuing:
 
-```pyret
-data Response<T>:
-  | elt-and-q(e :: T, r :: Queue<T>)
-end
+```jayret
+data Response {
+    Elt-and-q(T e, Queue<Object> r);
+}
 ```
 Now for the implementation of `dequeue`{.pyret}:
 
-```pyret
-fun dequeue<T>(q :: Queue<T>) -> Response<T>:
-  cases (List) q.head:
-    | empty =>
-      new-head = q.tail.reverse()
-      elt-and-q(new-head.first,
-        queue(empty, new-head.rest))
-    | link(f, r) =>
-      elt-and-q(f,
-        queue(q.tail, r))
-  end
-end
+```jayret
+Response<Object> dequeue(Queue<Object> q) {
+    return switch (q.head) {
+        case Empty: yield block {
+            new-head = q.tail.reverse();
+            return elt-and-q(new-head.first, queue(empty, new-head.rest));
+        };
+        case Link(f, r): yield elt-and-q(f, queue(q.tail, r));
+    }
+}
 ```
 
 #### 15.3.4 A Second Analysis {#A-Second-Analysis}
