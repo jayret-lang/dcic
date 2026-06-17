@@ -7,6 +7,13 @@ up: booklet_interaction.html
 next: booklet_appendices.html
 ---
 
+::: {.note}
+**Jayret note:** The `reactor:` surface syntax used in this chapter is not yet
+supported in Jayret. Code samples are shown in original Jayret form.
+See [Deferred from Jayret](https://jayret-lang.github.io/docs/Deferred_from_Pyret.html)
+for status.
+:::
+
 ## 27 Interactive Games as Reactive Systems {#games-reactive}
 
 ```{=html}
@@ -53,7 +60,7 @@ the end.
 We are writing a program with two important interactive elements: it
 is an animation, meaning it gives the impression of motion, and
 it is reactive, meaning it responds to user input. Both of these
-can be challenging to program, but Pyret provides a simple mechanism
+can be challenging to program, but Jayret provides a simple mechanism
 that accommodates both and integrates well with other programming
 principles such as testing. We will learn about this as we go along.
 
@@ -68,20 +75,21 @@ create the impression of motion:
 ![](filmstrip.jpg)
 
 We are going to exploit the same idea: our animations will consist of
-a sequence of individual images, and we will ask Pyret to show these
+a sequence of individual images, and we will ask Jayret to show these
 in rapid succession. We will then see how reactivity folds into the
 same process.
 
 ### 27.2 Preliminaries {#Preliminaries}
 
-To begin with, we should inform Pyret that we plan to make use of both
+To begin with, we should inform Jayret that we plan to make use of both
 images and animations. We load the libraries as follows:
 
-```pyret
+```jayret
 import image as I
 import reactors as R
+
 ```
-This tells Pyret to load these two libraries and bind the results
+This tells Jayret to load these two libraries and bind the results
 to the corresponding names, `I`{.pyret} and `R`{.pyret}. Thus, all image
 operations are obtained from `I`{.pyret} and animation operations from
 `R`{.pyret}.
@@ -98,12 +106,11 @@ because we’ve still got a lot of work to do.]{.margin-note}
 
 [http://world.cs.brown.edu/1/clipart/airplane-small.png](http://world.cs.brown.edu/1/clipart/airplane-small.png)
 
-We can tell Pyret to load this image and give it a name as follows:
+We can tell Jayret to load this image and give it a name as follows:
 
-```pyret
-AIRPLANE-URL =
-  "http://world.cs.brown.edu/1/clipart/airplane-small.png"
-AIRPLANE = I.image-url(AIRPLANE-URL)
+```jayret
+AIRPLANE-URL = "http://world.cs.brown.edu/1/clipart/airplane-small.png";
+AIRPLANE = I.image-url(AIRPLANE-URL);
 ```
 Henceforth, when we refer to `AIRPLANE`{.pyret}, it will always refer to
 this image. (Try it out in the interactions area!)
@@ -151,14 +158,14 @@ above animation, we still have to do several things:
 3. Given an updated World State, produce the corresponding visual
   display.
 
-This sounds like a lot! Fortunately, Pyret makes this much easier than
+This sounds like a lot! Fortunately, Jayret makes this much easier than
 it sounds. We’ll do these in a slightly different order than listed
 above.
 
 #### 27.3.1 Updating the World State {#Updating-the-World-State}
 
 As we’ve noted, the airplane doesn’t actually “move”. Rather, we can
-ask Pyret to notify us every time a clock ticks. If on each
+ask Jayret to notify us every time a clock ticks. If on each
 tick we place the airplane in an appropriately different position, and
 the ticks happen often enough, we will get the impression of motion.
 
@@ -166,27 +173,27 @@ Because the World State consists of just the airplane’s
 x-position, to move it to the right, we simply increment
 its value. Let’s first give this constant distance a name:
 
-```pyret
-AIRPLANE-X-MOVE = 10
+```jayret
+AIRPLANE-X-MOVE = 10;
 ```
 We will need to write a function that reflects this movement. Let’s
 first write some test cases:
 
-```pyret
-check:
-  move-airplane-x-on-tick(50) is 50 + AIRPLANE-X-MOVE
-  move-airplane-x-on-tick(0) is 0 + AIRPLANE-X-MOVE
-  move-airplane-x-on-tick(100) is 100 + AIRPLANE-X-MOVE
-end
+```jayret
+@Check void test() {
+    assertEquals(move-airplane-x-on-tick(50), 50 + AIRPLANE-X-MOVE);
+    assertEquals(move-airplane-x-on-tick(0), 0 + AIRPLANE-X-MOVE);
+    assertEquals(move-airplane-x-on-tick(100), 100 + AIRPLANE-X-MOVE);
+}
 ```
 The function’s definition is now clear:
 
-```pyret
-fun move-airplane-x-on-tick(w):
-  w + AIRPLANE-X-MOVE
-end
+```jayret
+Object move-airplane-x-on-tick(w) {
+    return w + AIRPLANE-X-MOVE;
+}
 ```
-And sure enough, Pyret will confirm that this function passes all of
+And sure enough, Jayret will confirm that this function passes all of
 its tests.
 
 Note
@@ -195,7 +202,7 @@ Note
 ::: {.note}
 If you have prior experience programming animations and reactive
 programs, you will immediately notice an important difference: it’s
-easy to test parts of your program in Pyret!
+easy to test parts of your program in Jayret!
 :::
 
 #### 27.3.2 Displaying the World State {#Displaying-the-World-State}
@@ -204,35 +211,28 @@ Now we’re ready to draw the game’s visual output. We produce an image
 that consists of all the necessary components. It first helps to
 define some constants representing the visual output:
 
-```pyret
-WIDTH = 800
-HEIGHT = 500
-
-BASE-HEIGHT = 50
-WATER-WIDTH = 500
+```jayret
+WIDTH = 800;
+HEIGHT = 500;
+BASE-HEIGHT = 50;
+WATER-WIDTH = 500;
 ```
 Using these, we can create a blank canvas, and overlay rectangles
 representing water and land:
 
-```pyret
-BLANK-SCENE = I.empty-scene(WIDTH, HEIGHT)
-
-WATER = I.rectangle(WATER-WIDTH, BASE-HEIGHT, "solid", "blue")
-LAND = I.rectangle(WIDTH - WATER-WIDTH, BASE-HEIGHT, "solid", "brown")
-
-BASE = I.beside(WATER, LAND)
-
-BACKGROUND =
-  I.place-image(BASE,
-    WIDTH / 2, HEIGHT - (BASE-HEIGHT / 2),
-    BLANK-SCENE)
+```jayret
+BLANK-SCENE = I.empty-scene(WIDTH, HEIGHT);
+WATER = I.rectangle(WATER-WIDTH, BASE-HEIGHT, "solid", "blue");
+LAND = I.rectangle(WIDTH - WATER-WIDTH, BASE-HEIGHT, "solid", "brown");
+BASE = I.beside(WATER, LAND);
+BACKGROUND = I.place-image(BASE, WIDTH / 2, HEIGHT - (BASE-HEIGHT / 2), BLANK-SCENE);
 ```
 Examine the value of `BACKGROUND`{.pyret} in the interactions area
 to confirm that it looks right.
 
 ::: {.do-now}
 The reason we divide by two when placing `BASE`{.pyret} is because
-Pyret puts the middle of the image at the given
+Jayret puts the middle of the image at the given
 location. Remove the division and see what happens to the resulting
 image.
 :::
@@ -240,36 +240,31 @@ image.
 Now that we know how to get our background, we’re ready to place the
 airplane on it. The expression to do so looks roughly like this:
 
-```pyret
-I.place-image(AIRPLANE,
-  # some x position,
-  50,
-  BACKGROUND)
+```jayret
+I.place-image(AIRPLANE, // some x position,
+50, BACKGROUND);
 ```
 but what x position do we use? Actually, that’s just what
 the World State represents! So we create a function out of this
 expression:
 
-```pyret
-fun place-airplane-x(w):
-  I.place-image(AIRPLANE,
-    w,
-    50,
-    BACKGROUND)
-end
+```jayret
+Object place-airplane-x(w) {
+    return I.place-image(AIRPLANE, w, 50, BACKGROUND);
+}
 ```
 
 #### 27.3.3 Observing Time (and Combining the Pieces) {#Observing-Time-and-Combining-the-Pieces}
 
 Finally, we’re ready to put these pieces together.
 
-We create a special kind of Pyret value called a reactor, which
+We create a special kind of Jayret value called a reactor, which
 creates animations. We’ll start by creating a fairly simple kind of
 reactor, then grow it as the program gets more sophisticated.
 
 The following code creates a reactor named `anim`{.pyret}:
 
-```pyret
+```pyret-deferred
 anim = reactor:
   init: 0,
   on-tick: move-airplane-x-on-tick,
@@ -278,18 +273,18 @@ end
 ```
 A reactor needs to be given an initial World State
 as well as handlers that tell it how to react. Specifying
-`on-tick`{.pyret} tells Pyret to run a clock and, every time the clock
+`on-tick`{.pyret} tells Jayret to run a clock and, every time the clock
 ticks (roughly thirty times a second), invoke the associated
-handler. The `to-draw`{.pyret} handler is used by Pyret to refresh the
+handler. The `to-draw`{.pyret} handler is used by Jayret to refresh the
 visual display.
 
 Having defined this reactor, we can run it in several ways that are
 useful for finding errors, running scientific experiments, and so
-on. Our needs here are simple; we ask Pyret to just run the program
+on. Our needs here are simple; we ask Jayret to just run the program
 on the screen interactively:
 
-```pyret
-R.interact(anim)
+```jayret
+R.interact(anim);
 ```
 This creates a running program where the airplane flies across the background!
 
@@ -328,18 +323,18 @@ Therefore, we only need to modify `move-airplane-x-on-tick`{.pyret}. The
 function `num-modulo`{.pyret} does exactly what we need. That is, we want
 the x-location to always be modulo the width of the scene:
 
-```pyret
-fun move-airplane-wrapping-x-on-tick(x):
-  num-modulo(x + AIRPLANE-X-MOVE, WIDTH)
-end
+```jayret
+Object move-airplane-wrapping-x-on-tick(x) {
+    return num-modulo(x + AIRPLANE-X-MOVE, WIDTH);
+}
 ```
 Notice that, instead of copying the content of the previous definition
 we can simply reuse it:
 
-```pyret
-fun move-airplane-wrapping-x-on-tick(x):
-  num-modulo(move-airplane-x-on-tick(x), WIDTH)
-end
+```jayret
+Object move-airplane-wrapping-x-on-tick(x) {
+    return num-modulo(move-airplane-x-on-tick(x), WIDTH);
+}
 ```
 which makes our intent clearer: compute whatever position we would
 have had before, but adapt the coordinate to remain within the scene’s
@@ -395,10 +390,10 @@ World State is inadequate, and must be modified.
 
 We therefore define a new structure to hold this pair of data:
 
-```pyret
-data Posn:
-  | posn(x, y)
-end
+```jayret
+data Posn {
+    Posn(x, y);
+}
 ```
 Given this, we can revise our definition:
 
@@ -419,25 +414,23 @@ only in the x-direction; now we want it to descend as
 well, which means we must add something to the current y
 value:
 
-```pyret
-AIRPLANE-Y-MOVE = 3
+```jayret
+AIRPLANE-Y-MOVE = 3;
 ```
 Let’s write some test cases for the new function. Here’s one:
 
-```pyret
-check:
-  move-airplane-xy-on-tick(posn(10, 10)) is posn(20, 13)
-end
+```jayret
+@Check void test() {
+    assertEquals(move-airplane-xy-on-tick(posn(10, 10)), posn(20, 13));
+}
 ```
 Another way to write the test would be:
 
-```pyret
-check:
-  p = posn(10, 10)
-  move-airplane-xy-on-tick(p) is
-    posn(move-airplane-wrapping-x-on-tick(p.x),
-      move-airplane-y-on-tick(p.y))
-end
+```jayret
+@Check void test() {
+    p = posn(10, 10);
+    assertEquals(move-airplane-xy-on-tick(p), posn(move-airplane-wrapping-x-on-tick(p.x), move-airplane-y-on-tick(p.y)));
+}
 ```
 
 Note
@@ -462,13 +455,11 @@ both worlds: write the answer as concretely as possible (the former
 style), but using constants to compute the answer (the advantage
 of the latter style). For instance:
 
-```pyret
-check:
-  p = posn(10, 10)
-  move-airplane-xy-on-tick(p) is
-   posn(num-modulo(p.x + AIRPLANE-X-MOVE, WIDTH),
-    p.y + AIRPLANE-Y-MOVE)
-end
+```jayret
+@Check void test() {
+    p = posn(10, 10);
+    assertEquals(move-airplane-xy-on-tick(p), posn(num-modulo(p.x + AIRPLANE-X-MOVE, WIDTH), p.y + AIRPLANE-Y-MOVE));
+}
 ```
 :::
 
@@ -482,20 +473,19 @@ not—go back and write more tests before you proceed!
 Using the design recipe, now define `move-airplane-xy-on-tick`{.pyret}. You
 should end up with something like this:
 
-```pyret
-fun move-airplane-xy-on-tick(w):
-  posn(move-airplane-wrapping-x-on-tick(w.x),
-    move-airplane-y-on-tick(w.y))
-end
+```jayret
+Object move-airplane-xy-on-tick(w) {
+    return posn(move-airplane-wrapping-x-on-tick(w.x), move-airplane-y-on-tick(w.y));
+}
 ```
 Note that we have reused the existing function for the
 x-dimension and, correspondingly, created a helper for the
 y dimension:
 
-```pyret
-fun move-airplane-y-on-tick(y):
-  y + AIRPLANE-Y-MOVE
-end
+```jayret
+Object move-airplane-y-on-tick(y) {
+    return y + AIRPLANE-Y-MOVE;
+}
 ```
 This may be slight overkill for now, but it does lead to a cleaner
 separation of concerns, and makes it possible for the complexity
@@ -509,13 +499,10 @@ earlier definition placed the airplane at an arbitrary
 y-coordinate; now we have to take the
 y-coordinate from the World State:
 
-```pyret
-fun place-airplane-xy(w):
-  I.place-image(AIRPLANE,
-    w.x,
-    w.y,
-    BACKGROUND)
-end
+```jayret
+Object place-airplane-xy(w) {
+    return I.place-image(AIRPLANE, w.x, w.y, BACKGROUND);
+}
 ```
 Notice that we can’t really reuse the previous definition because it hard-coded
 the y-position, which we must now make a parameter.
@@ -529,7 +516,7 @@ World State given to the reactor! If we’ve changed the definition
 of World State, then we need to update this too. (We
 also need to use the new functions rather than the old ones.)
 
-```pyret
+```pyret-deferred
 INIT-POS = posn(0, 0)
 
 anim = reactor:
@@ -579,26 +566,23 @@ output (such as what we see on the screen).
 Returning to our program, let’s define a constant representing how
 much distance a key represents:
 
-```pyret
-KEY-DISTANCE = 10
+```jayret
+KEY-DISTANCE = 10;
 ```
 Now we can define a function that alter’s the airplane’s position by that
 distance depending on which key is pressed:
 
-```pyret
-fun alter-airplane-y-on-key(w, key):
-  ask:
-    | key == "up"   then: posn(w.x, w.y - KEY-DISTANCE)
-    | key == "down" then: posn(w.x, w.y + KEY-DISTANCE)
-    | otherwise: w
-  end
-end
+```jayret
+Object alter-airplane-y-on-key(w, key) {
+    return ask key == "up" then: posn(w.x, w.y - KEY-DISTANCE);key == "down" then: posn(w.x, w.y + KEY-DISTANCE);otherwise: w;
+}
 ```
 
 ::: {.do-now}
 Why does this function definition contain
 
 ```pyret
+# TODO(pyret2jayret): parse failed (no shifts)
 | otherwise: w
 ```
 as its last condition?
@@ -614,9 +598,9 @@ off the top of the screen? How about off the screen at the bottom? Can
 it overlap with the land or water?
 
 Once we’ve written and thoroughly tested this function, we simply need
-to ask Pyret to use it to handle keystrokes:
+to ask Jayret to use it to handle keystrokes:
 
-```pyret
+```pyret-deferred
 anim = reactor:
   init: INIT-POS,
   on-tick: move-airplane-xy-on-tick,
@@ -641,15 +625,15 @@ produces a boolean value: `true`{.pyret} if the animation should halt,
 `false`{.pyret} otherwise. This requires a little arithmetic based on the
 airplane’s size:
 
-```pyret
-fun is-on-land-or-water(w):
-  w.y >= (HEIGHT - BASE-HEIGHT)
-end
+```jayret
+Object is-on-land-or-water(w) {
+    return w.y >= (HEIGHT - BASE-HEIGHT);
+}
 ```
-We just need to inform Pyret to use this predicate to automatically halt
+We just need to inform Jayret to use this predicate to automatically halt
 the reactor:
 
-```pyret
+```pyret-deferred
 anim = reactor:
   init: INIT-POS,
   on-tick: move-airplane-xy-on-tick,
@@ -702,13 +686,13 @@ Where is the balloon, and how do we represent where it is? The latter
 is easy to answer: that’s what `posn`{.pyret}s are good for. As for the
 former, we can decide where it is:
 
-```pyret
-BALLOON-LOC = posn(600, 300)
+```jayret
+BALLOON-LOC = posn(600, 300);
 ```
-or we can let Pyret pick a random position:
+or we can let Jayret pick a random position:
 
-```pyret
-BALLOON-LOC = posn(random(WIDTH), random(HEIGHT))
+```jayret
+BALLOON-LOC = posn(random(WIDTH), random(HEIGHT));
 ```
 
 ::: {.exercise}
@@ -720,11 +704,10 @@ Given a position for the balloon, we just need to detect
 collision. One simple way is as follows: determine whether the
 distance between the airplane and the balloon is within some threshold:
 
-```pyret
-fun are-overlapping(airplane-posn, balloon-posn):
-  distance(airplane-posn, balloon-posn)
-    < COLLISION-THRESHOLD
-end
+```jayret
+Object are-overlapping(airplane-posn, balloon-posn) {
+    return distance(airplane-posn, balloon-posn) < COLLISION-THRESHOLD;
+}
 ```
 where `COLLISION-THRESHOLD`{.pyret} is some suitable constant computed
 based on the sizes of the airplane and balloon images. (For these
@@ -733,27 +716,25 @@ particular images, `75`{.pyret} works pretty well.)
 What is `distance`{.pyret}? It consumes two `posn`{.pyret}s and determines
 the Euclidean distance between them:
 
-```pyret
-fun distance(p1, p2):
-  fun square(n): n * n end
-  num-sqrt(square(p1.x - p2.x) + square(p1.y - p2.y))
-end
+```jayret
+Object distance(p1, p2) {
+    Object square(n) {
+        return n * n;
+    }
+    return num-sqrt(square(p1.x - p2.x) + square(p1.y - p2.y));
+}
 ```
 
 Finally, we have to weave together the two termination conditions:
 
-```pyret
-fun game-ends(w):
-  ask:
-    | is-on-land-or-water(w)          then: true
-    | are-overlapping(w, BALLOON-LOC) then: true
-    | otherwise: false
-  end
-end
+```jayret
+Object game-ends(w) {
+    return ask is-on-land-or-water(w) then: true;are-overlapping(w, BALLOON-LOC) then: true;otherwise: false;
+}
 ```
 and use it instead:
 
-```pyret
+```pyret-deferred
 anim = reactor:
   init: INIT-POS,
   on-tick: move-airplane-xy-on-tick,
@@ -773,20 +754,14 @@ didn’t update our display.
 
 You will need to define the balloon’s image:
 
-```pyret
-BALLOON-URL =
-  "http://world.cs.brown.edu/1/clipart/balloon-small.png"
-BALLOON = I.image-url(BALLOON-URL)
+```jayret
+BALLOON-URL = "http://world.cs.brown.edu/1/clipart/balloon-small.png";
+BALLOON = I.image-url(BALLOON-URL);
 ```
 and also update the drawing function:
 
-```pyret
-BACKGROUND =
-  I.place-image(BASE,
-    WIDTH / 2, HEIGHT - (BASE-HEIGHT / 2),
-    I.place-image(BALLOON,
-      BALLOON-LOC.x, BALLOON-LOC.y,
-      BLANK-SCENE))
+```jayret
+BACKGROUND = I.place-image(BASE, WIDTH / 2, HEIGHT - (BASE-HEIGHT / 2), I.place-image(BALLOON, BALLOON-LOC.x, BALLOON-LOC.y, BLANK-SCENE));
 ```
 
 ::: {.do-now}
@@ -795,10 +770,10 @@ Do you see how to write `game-ends`{.pyret} more concisely?
 
 Here’s another version:
 
-```pyret
-fun game-ends(w):
-  is-on-land-or-water(w) or are-overlapping(w, BALLOON-LOC)
-end
+```jayret
+Object game-ends(w) {
+    return is-on-land-or-water(w) || are-overlapping(w, BALLOON-LOC);
+}
 ```
 
 ### 27.9 Version: Keep Your Eye on the Tank {#Version-Keep-Your-Eye-on-the-Tank}
@@ -840,10 +815,10 @@ position and the quantity of fuel left.
 
 Concretely, we will use this structure:
 
-```pyret
-data World:
-  | world(p, f)
-end
+```jayret
+data World {
+    World(p, f);
+}
 ```
 
 ::: {.exercise}
@@ -862,32 +837,23 @@ does not consume any fuel, so this code can remain unchanged, other
 than having to create a structure containing the current amount of
 fuel. Concretely:
 
-```pyret
-fun move-airplane-xy-on-tick(w :: World):
-  world(
-    posn(
-      move-airplane-wrapping-x-on-tick(w.p.x),
-      move-airplane-y-on-tick(w.p.y)),
-    w.f)
-end
+```jayret
+Object move-airplane-xy-on-tick(World w) {
+    return world(posn(move-airplane-wrapping-x-on-tick(w.p.x), move-airplane-y-on-tick(w.p.y)), w.f);
+}
 ```
 Similarly, the function that responds to keystrokes clearly needs to
 take into account how much fuel is left:
 
-```pyret
-fun alter-airplane-y-on-key(w, key):
-  ask:
-    | key == "up"   then:
-      if w.f > 0:
-        world(posn(w.p.x, w.p.y - KEY-DISTANCE), w.f - 1)
-      else:
-        w # there's no fuel, so ignore the keystroke
-      end
-    | key == "down" then:
-      world(posn(w.p.x, w.p.y + KEY-DISTANCE), w.f)
-    | otherwise: w
-  end
-end
+```jayret
+Object alter-airplane-y-on-key(w, key) {
+    return ask key == "up" then: if (w.f > 0) {
+        return world(posn(w.p.x, w.p.y - KEY-DISTANCE), w.f - 1);
+    } else {
+        return w;
+    } // there's no fuel, so ignore the keystroke
+    key == "down" then: world(posn(w.p.x, w.p.y + KEY-DISTANCE), w.f);otherwise: w;
+}
 ```
 
 ::: {.exercise}
@@ -930,10 +896,10 @@ Here is a representation of the world state. As these states become
 more complex, it’s important to add annotations so we can keep track
 of what’s what.
 
-```pyret
-data World:
-  | world(p :: Posn, b :: Posn, f :: Number)
-end
+```jayret
+data World {
+    World(Posn p, Posn b, int f);
+}
 ```
 With this definition, we obviously need to re-write all our previous
 definitions. Most of this is quite routine relative to what we’ve seen
