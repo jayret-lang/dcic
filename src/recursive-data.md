@@ -13,8 +13,8 @@ next: part_structured-data.html
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._.Functions_to_.Process_.Recursive_.Data%29">5.3.1<span class="hspace"> </span>Functions to Process Recursive Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._.A_.Template_for_.Processing_.Recursive_.Data%29">5.3.2<span class="hspace"> </span>A Template for Processing Recursive Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._.The_.Design_.Recipe%29">5.3.3<span class="hspace"> </span>The Design Recipe</a></p></td></tr></table>
 ```
 
-In [Telling Apart Variants of Conditional Data](intro-struct-data.html##telling-apart-variants), we used `cases`{.pyret} to distinguish
-between different forms of conditional data. We had used `cases`{.pyret}
+In [Telling Apart Variants of Conditional Data](intro-struct-data.html##telling-apart-variants), we used `switch`{.jayret} to distinguish
+between different forms of conditional data. We had used `switch`{.jayret}
 earlier, specifically to distinguish between empty and non-empty lists
 in [Processing Lists](processing-lists.html). This suggests that lists are also a
 form of conditional data, just one that is built into Jayret. Indeed,
@@ -23,8 +23,8 @@ this is the case.
 To understand lists as conditional data, let’s create a data
 definition for a new type `NumList`{.pyret} which contains a list of
 numbers (this differs from built-in lists, which work with any type of
-element). To avoid conflicts with Jayret’s built-in `empty`{.pyret} value
-and `link`{.pyret} operator, we’ll have `NumList`{.pyret} use
+element). To avoid conflicts with Jayret’s built-in `Empty`{.jayret} value
+and `Link`{.jayret} constructor, we’ll have `NumList`{.pyret} use
 `nl-empty`{.pyret} as its empty value and `nl-link`{.pyret} as the operator
 that builds new lists. Here’s a partial definition:
 
@@ -101,8 +101,7 @@ unbounded or arbitrarily-sized. Given a `NumList`{.pyret}, there
 is an easy way to make a new, larger one: just use `nl-link`{.pyret}. So, we
 need to consider larger lists:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
+```jayret
 nl-link(1,
   nl-link(2,
     nl-link(3,
@@ -111,7 +110,7 @@ nl-link(1,
           nl-link(6,
             nl-link(7,
               nl-link(8,
-                nl-empty))))
+                nl-empty))))))));
 ```
 
 #### 5.3.1 Functions to Process Recursive Data {#Functions-to-Process-Recursive-Data}
@@ -137,7 +136,7 @@ boolean contains-3(NumList nl) {
 }
 ```
 
-As we did in [Processing Fields of Variants](intro-struct-data.html##process-fields-variants), we will use `cases`{.pyret} to
+As we did in [Processing Fields of Variants](intro-struct-data.html##process-fields-variants), we will use `switch`{.jayret} to
 distinguish the variants. In addition, since we are going to have to
 use the fields of `nl-link`{.pyret} to compute a result in that case, we
 will list those in the initial code outline:
@@ -179,7 +178,7 @@ boolean contains-3(NumList nl) {
 ```
 
 Since we know `rest`{.pyret} is a `NumList`{.pyret} (based on the data definition),
-we can use a `cases`{.pyret} expression to work with it. This is sort of like
+we can use a `switch`{.jayret} expression to work with it. This is sort of like
 filling in a part of the template again:
 
 ```jayret
@@ -230,7 +229,7 @@ boolean contains-3(NumList nl) {
 // fill in here ...
 ```
 
-Since `rest-of-rest`{.pyret} is a `NumList`{.pyret}, we can fill in a `cases`{.pyret}
+Since `rest-of-rest`{.pyret} is a `NumList`{.pyret}, we can fill in a `switch`{.jayret}
 for it again:
 
 ```jayret
@@ -263,13 +262,13 @@ boolean contains-3(NumList nl) {
 }
 ```
 
-See where this is going? Not anywhere good. We can copy this `cases`{.pyret}
+See where this is going? Not anywhere good. We can copy this `switch`{.jayret}
 expression as many times as we want, but we can never answer the question for a
 list that is just one element longer than the number of times we copy the code.
 
-So what to do? We tried this approach of using another copy of `cases`{.pyret}
+So what to do? We tried this approach of using another copy of `switch`{.jayret}
 based on the observation that `rest`{.pyret} is a `NumList`{.pyret}, and
-`cases`{.pyret} provides a meaningful way to break apart a `NumList`{.pyret}; in
+`switch`{.jayret} provides a meaningful way to break apart a `NumList`{.pyret}; in
 fact, it’s what the recipe seems to lead to naturally.
 
 Let’s go back to the step where the problem began, after filling in the
@@ -320,85 +319,61 @@ contains-3(nl-link(1, nl-link(3, nl-empty)));
 First, we substitute the argument value in place of `nl`{.pyret} everywhere
 it appears; that’s just the usual rule for function calls.
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-=>  cases (NumList) nl-link(1, nl-link(3, nl-empty)):
-       | nl-empty => false
-       | nl-link(first, rest) =>
-         if first == 3:
-           true
-         else:
-           contains-3(rest)
-         end
-     end
+```
+=> switch (nl-link(1, nl-link(3, nl-empty))) {
+       case Nl-empty: yield false;
+       case Nl-link(first, rest): yield
+           if (first == 3) { return true; }
+           else { return contains-3(rest); }
+   }
 ```
 
 Next, we find the case that matches the constructor `nl-link`{.pyret}, and
 substitute the corresponding pieces of the `nl-link`{.pyret} value for the
 `first`{.pyret} and `rest`{.pyret} identifiers.
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-=>  if 1 == 3:
-      true
-    else:
-      contains-3(nl-link(3, nl-empty))
-    end
+```
+=> if (1 == 3) { return true; }
+   else { return contains-3(nl-link(3, nl-empty)); }
 ```
 
 Since `1`{.pyret} isn’t `3`{.pyret}, the comparison evaluates to
 `false`{.pyret}, and this whole expression evaluates to the contents of the
 `else`{.pyret} branch.
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-=>  if false:
-      true
-    else:
-      contains-3(nl-link(3, nl-empty))
-    end
+```
+=> if (false) { return true; }
+   else { return contains-3(nl-link(3, nl-empty)); }
 
-=>  contains-3(nl-link(3, nl-empty))
+=> contains-3(nl-link(3, nl-empty))
 ```
 
 This is another function call, so we substitute the value
 `nl-link(3, nl-empty)`{.pyret}, which was the `rest`{.pyret} field of the original
 input, into the body of `contains-3`{.pyret} this time.
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-=>  cases (NumList) nl-link(3, nl-empty):
-      | nl-empty => false
-      | nl-link(first, rest) =>
-        if first == 3:
-          true
-        else:
-          contains-3(rest)
-        end
-    end
+```
+=> switch (nl-link(3, nl-empty)) {
+       case Nl-empty: yield false;
+       case Nl-link(first, rest): yield
+           if (first == 3) { return true; }
+           else { return contains-3(rest); }
+   }
 ```
 
 Again, we substitute into the `nl-link`{.pyret} branch.
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-=>  if 3 == 3:
-      true
-    else:
-      contains-3(nl-empty)
-    end
+```
+=> if (3 == 3) { return true; }
+   else { return contains-3(nl-empty); }
 ```
 
 This time, since `3`{.pyret} is `3`{.pyret}, we take the first branch of the
 `if`{.pyret} expression, and the whole original call evaluates to `true`{.pyret}.
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-=>  if true:
-      true
-    else:
-      contains-3(nl-empty)
-    end
+```
+=> if (true) { return true; }
+   else { return contains-3(nl-empty); }
 
 => true
 ```
@@ -423,7 +398,7 @@ called the function on the rest of the list. Here, we are deriving
 that structure from the shape of the data itself.
 
 In particular, we can develop a function over recursive data by
-breaking a datum into its variants (using `cases`{.pyret}), pulling out
+breaking a datum into its variants (using `switch`{.jayret}), pulling out
 the fields of each variant (by listing the field names), then calling
 the function itself on any recursive fields (fields of the same
 type). For `NumList`{.pyret}, these steps yield the following code outline:
@@ -454,7 +429,7 @@ the (reusable) template for that definition:
 
 1. Create a function header (using a general-purpose
   placeholder name if you aren’t yet writing a specific function).
-2. Use `cases`{.pyret} to break the recursive-data input into its
+2. Use `switch`{.jayret} to break the recursive-data input into its
   variants.
 3. In each case, list each of its fields in the answer portion of
   the case.

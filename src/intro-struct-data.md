@@ -180,10 +180,9 @@ lver = song("La Vie en Rose", "Édith Piaf", 1945);
 ```
 What error do we get? How about if instead we write these?
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-lver :: song = song("La Vie en Rose", "Édith Piaf", 1945)
-lver :: 1 = song("La Vie en Rose", "Édith Piaf", 1945)
+```jayret
+song lver = song("La Vie en Rose", "Édith Piaf", 1945);
+Number lver = song("La Vie en Rose", "Édith Piaf", 1945);
 ```
 Make sure you familiarize yourself with the error messages that you
 get.
@@ -206,7 +205,7 @@ data TLColor {
 lower-case, but if they have no additional structure, we often
 capitalize the initial to make them look different from ordinary
 variables: i.e., `Red`{.pyret} rather than `red`{.pyret}.]{.margin-note}
-Each `|`{.pyret} (pronounced “stick”) introduces another option. You
+Each variant name on its own line introduces another option. You
 would make instances of traffic light colors as
 
 ```jayret
@@ -286,16 +285,14 @@ think about what the function consumes (an `ITunesSong`{.pyret}) and
 produces (a `Number`{.pyret}). This gives us a rough skeleton for the
 function:
 <song-age> ::=
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-fun song-age(s :: ITunesSong) -> Number:
-  <song-age-body>
-end
+```jayret
+int song-age(ITunesSong s) {
+    <song-age-body>
+}
 ```
 We know that the form of the body must be roughly:
 <song-age-body> ::=
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
+```
 2016 - <get the song year>
 ```
 We can get the song year by using Jayret’s field access, which is
@@ -329,7 +326,7 @@ int song-age(ITunesSong s) {
 ##### 6.1.3.2 Telling Apart Variants of Conditional Data {#telling-apart-variants}
 
 Now let’s see how we tell apart variants. For this, we again use
-`cases`{.pyret}, as we saw for lists. We create one branch for each of
+`switch`{.jayret}, as we saw for lists. We create one branch for each of
 the variants. Thus, if we wanted to compute advice for a driver based on a
 traffic light’s state, we might write:
 
@@ -361,14 +358,13 @@ to use the `.`{.pyret}-notation to get the field values.
 
 To illustrate this, assume we want to get the name of any animal:
 <animal-name> ::=
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-fun animal-name(a :: Animal) -> String:
-  <animal-name-body>
-end
+```jayret
+String animal-name(Animal a) {
+    <animal-name-body>
+}
 ```
 Because an `Animal`{.pyret} is conditionally defined, we know that we are
-likely to want a `cases`{.pyret} to pull it apart; furthermore, we should
+likely to want a `switch`{.jayret} to pull it apart; furthermore, we should
 give names to each of the fields:[Note that the names of the
 variables do not have to match the names of
 fields. Conventionally, we give longer, descriptive names to

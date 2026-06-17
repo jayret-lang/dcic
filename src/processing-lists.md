@@ -58,7 +58,7 @@ Take apart this third list.
 
 For the third list, the first element is `3`{.pyret} and the rest is
 `[]`{.pyret}, i.e., the empty list. In Jayret, we have another way
-of writing the empty list: `empty`{.pyret}.
+of writing the empty list: `Empty`{.jayret}.
 
 Lists are an instance of structured data: data with component
 parts and a well-defined format for the shape of the parts. Lists are
@@ -110,16 +110,16 @@ a `first`{.pyret} element and a `rest`{.pyret} that is itself a
 list. Operators for building structured data are called
 constructors.
 
-The constructor for lists is called `link`{.pyret}. It takes two
+The constructor for lists is called `Link`{.jayret}. It takes two
 arguments: a `first`{.pyret} element, and the list to build on (the
-`rest`{.pyret} part). Here’s an example of using `link`{.pyret} to create a
+`rest`{.pyret} part). Here’s an example of using `Link`{.jayret} to create a
 three-element list.
 
 ```jayret
 link(1, link(2, link(3, empty)));
 ```
 
-The `link`{.pyret} form creates the same underlying list datum as our
+The `Link`{.jayret} form creates the same underlying list datum as our
 previous `[...]`{.pyret} operation, as confirmed by the following
 check:
 
@@ -134,24 +134,24 @@ Look at these two forms of writing lists: what differences do you notice?
 :::
 
 ::: {.do-now}
-Use the `link`{.pyret} form to write a four-element list of fruits containing
+Use the `Link`{.jayret} form to write a four-element list of fruits containing
 `"lychee"`{.pyret}, `"dates"`{.pyret}, `"mango"`{.pyret}, and `"durian"`{.pyret}.
 :::
 
 After doing this exercise, you might wonder why anyone would use the
-`link`{.pyret} form: it’s more verbose, and makes the individual elements
+`Link`{.jayret} form: it’s more verbose, and makes the individual elements
 harder to discern. This form is not very convenient to
 humans. But it will prove very valuable to programs!
 
-In particular, the `link`{.pyret} form highlights that we really have
+In particular, the `Link`{.jayret} form highlights that we really have
 two different structures of lists.
 Some lists are empty. All other lists are non-empty
-lists, meaning they have at least one `link`{.pyret}. There may be
+lists, meaning they have at least one `Link`{.jayret}. There may be
 more interesting structure to some lists (as we will see later), but all lists have this much
 in common. Specifically, a list is either
 
 
-- empty (written `empty`{.pyret} or `[]`{.pyret}), or
+- empty (written `Empty`{.jayret} or `[]`{.pyret}), or
 - non-empty (written `link(…, …)`{.pyret} or `[]`{.pyret} with
   at least one value inside the brackets), where the rest is also
   a list (and hence may in turn be empty or non-empty, …).
@@ -184,7 +184,7 @@ functions: having you learn this strategy is the goal of this chapter.
 Let’s write out examples for a few of the functions described
 above. We’ll approach writing examples in a very specific, stylized
 way. First of all, we should always construct at least two examples:
-one with `empty`{.pyret} and the other with at least one `link`{.pyret}, so
+one with `Empty`{.jayret} and the other with at least one `Link`{.jayret}, so
 that we’ve covered the two very broad kinds of lists. Then, we should
 have more examples specific to the kind of list stated in the
 problem. Finally, we should have even more examples to illustrate how
@@ -194,7 +194,7 @@ we think about solving the problem.
 
 We have’t precisely defined what it means to be “the length” of a
 list. We confront this right away when trying to write an
-example. What is the length of the list `empty`{.pyret}?
+example. What is the length of the list `Empty`{.jayret}?
 
 ::: {.do-now}
 What do you think?
@@ -203,7 +203,7 @@ What do you think?
 Two common examples are `0`{.pyret} and `1`{.pyret}. The latter, `1`{.pyret},
 certainly looks reasonable. However, if you write the list as
 `[]`{.pyret}, now it doesn’t look so right: this is clearly (as the
-name `empty`{.pyret} also suggests) an empty list, and an empty
+name `Empty`{.jayret} also suggests) an empty list, and an empty
 list has zero elements in it. Therefore, it’s conventional to
 declare that
 
@@ -246,7 +246,7 @@ assertEquals(my-len([9]), 1);
 The rest of this last list is, of course, the empty list, whose length
 we have already decided is `0`{.pyret}.
 
-Putting together these examples, and writing out `empty`{.pyret} in its
+Putting together these examples, and writing out `Empty`{.jayret} in its
 other form, here’s what we get:
 
 ```jayret
@@ -361,7 +361,7 @@ assertEquals(my-len([]), 0);
 As we did when developing functions over images, let’s try to identify
 the common parts of these examples. We start by noticing that most of
 the examples have a lot in common, except for the `[]`{.pyret}
-(`empty`{.pyret}) case. So let’s separate this into two sets of examples:
+(`Empty`{.jayret}) case. So let’s separate this into two sets of examples:
 
 ```jayret
 assertEquals(my-len([7, 8, 9]), 1 + my-len([7, 8, 9].rest));
@@ -382,16 +382,15 @@ its input list is empty or non-empty, using this expression with
 `.rest`{.pyret} in the non-empty case. How do we indicate different code
 based on the structure of the list?
 
-Jayret has a construct called `cases`{.pyret} which is used to distinguish
+Jayret has a construct called `switch`{.jayret} which is used to distinguish
 different forms within a structured datatype. When working with lists,
-the general shape of a `cases`{.pyret} expression is:
+the general shape of a `switch`{.jayret} expression is:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-cases (List) e:
-  | empty      => …
-  | link(f, r) => … f … r …
-end
+```jayret
+switch (e) {
+    case Empty: yield …;
+    case Link(f, r): yield … f … r …;
+}
 ```
 where most parts are fixed, but a few you’re free to change:
 
@@ -407,23 +406,23 @@ where most parts are fixed, but a few you’re free to change:
   particularly useful for `first`{.pyret}, which has a problem-specific
   meaning (such as `price`{.pyret} in a list of prices, and so on).]{.margin-note}
 
-The right-hand side of every `=>`{.pyret} is an expression.
+The yield expression in each `case` is the result for that branch.
 
-Here’s how `cases`{.pyret} works in this instance. Jayret first evaluates
+Here’s how `switch`{.jayret} works in this instance. Jayret first evaluates
 `e`{.pyret}. It then checks that the resulting value truly is a list;
 otherwise it halts with an error. If it is a list, Jayret examines what
 kind of list it is. If it’s an empty list, it runs the
-expression after the `=>`{.pyret} in the `empty`{.pyret} clause. Otherwise,
+`Empty`{.jayret} case. Otherwise,
 the list is not empty, which means it has a first and rest; Jayret
 binds `f`{.pyret} and `r`{.pyret} to the two parts, respectively, and then
-evaluates the expression after the `=>`{.pyret} in the `link`{.pyret} clause.
+evaluates the `Link`{.jayret} case.
 
 ::: {.exercise}
 Try using a non-list—e.g., a number—in the `e`{.pyret} position and
 see what happens!
 :::
 
-Now let’s use `cases`{.pyret} to define `my-len`{.pyret}:
+Now let’s use `switch`{.jayret} to define `my-len`{.pyret}:
 
 ```jayret
 Object my-len(l) {
@@ -438,7 +437,7 @@ produces `0`{.pyret}; when it is not empty, we add one to the length of
 the rest of the list (here, `r`{.pyret}).
 
 Note that while our most recent collection of `my-len`{.pyret} examples
-explicitly said `.rest`{.pyret}, when using `cases`{.pyret} we instead use
+explicitly said `.rest`{.pyret}, when using `switch`{.jayret} we instead use
 just the name `r`{.pyret}, which Jayret has already defined (under the
 hood) to be `l.rest`{.pyret}.
 
@@ -470,8 +469,8 @@ develop list-processing functions.
   in the new answers, but you should see the `first`{.pyret} and
   `rest`{.pyret} values represented explicitly in the answer.
 - Look for a pattern across the answers in the examples. Use these
-  to develop the code: write a `cases`{.pyret} expression, filling in the
-  right side of each `=>`{.pyret} based on your examples.
+  to develop the code: write a `switch`{.jayret} expression, filling in the
+  `yield` expression of each case based on your examples.
 
 This strategy applies to structured data in general, leveraging
 components of each datum rather than specifically `first`{.pyret} and
@@ -495,7 +494,7 @@ assertEquals(my-doubles([3, 5, 2]), [6, 10, 4]);
 ```
 
 As before, let’s write out the answers for each suffix of our example
-list as well, including for the `empty`{.pyret} list:
+list as well, including for the `Empty`{.jayret} list:
 
 ```jayret
 assertEquals(my-doubles([5, 2]), [10, 4]);
@@ -552,7 +551,7 @@ link(3 * 2, [10, 4]);
 :::
 
 Notice the difference between the two expressions in these last two
-exercises: the latter used `link`{.pyret} to put the value involving
+exercises: the latter used `Link`{.jayret} to put the value involving
 `first`{.pyret} into the conversion of the `rest`{.pyret}, while the former
 tried to do this with `list:`{.pyret}.
 
@@ -568,12 +567,12 @@ link(25, [16, 32]);
 :::
 
 ::: {.do-now}
-Summarize the difference between how `link`{.pyret} and `list:`{.pyret}
+Summarize the difference between how `Link`{.jayret} and `list:`{.pyret}
 combine an element and a list. Try additional examples at the
 interactions prompt if needed to explore these ideas.
 :::
 
-The takeaway here is that we use `link`{.pyret} to insert an
+The takeaway here is that we use `Link`{.jayret} to insert an
 element into an existing list, whereas we use `list:`{.pyret} to make a
 new list that contains the old list as an element. Going back
 to our examples, then, we include `rest`{.pyret} in the first example by
@@ -645,7 +644,7 @@ assertEquals(my-str-len(["there", "mateys"]), link(5, [6]));
 assertEquals(my-str-len(["mateys"]), link(6, []));
 ```
 which tells us that the response for the empty list should be
-`empty`{.pyret}:
+`Empty`{.jayret}:
 
 ```jayret
 assertEquals(my-str-len(empty), empty);
@@ -741,7 +740,7 @@ assertEquals(my-pos-nums([]), []);
 ```
 Unlike in the example sequences for functions that transform lists,
 here we see that the answers have different shapes: some involve a
-`link`{.pyret}, while others simply process the `rest`{.pyret} of the
+`Link`{.jayret}, while others simply process the `rest`{.pyret} of the
 list. Whenever we need different shapes of outputs across a set of
 examples, we will need an `if`{.pyret} expression in our code to
 distinguish the conditions that yield each shape.
@@ -755,7 +754,7 @@ assertEquals(my-pos-nums([3, -4]), link(3, my-pos-nums([-4])));
 assertEquals(my-pos-nums([-2, 3, -4]), my-pos-nums([3, -4]));
 assertEquals(my-pos-nums([-4]), my-pos-nums([]));
 ```
-Re-organized, we can see that the examples that use `link`{.pyret} have a
+Re-organized, we can see that the examples that use `Link`{.jayret} have a
 positive number in the `first`{.pyret} position, while the ones that
 don’t simply process the `rest`{.pyret} of the list. That indicates that
 our `if`{.pyret} expression needs to ask whether the `first`{.pyret} element
@@ -829,49 +828,45 @@ Note that in the rewritten version, we are dropping two
 elements from the list before using `my-alternating`{.pyret} again, not
 just one. We will have to figure out how to handle that in our code.
 
-Let’s start with our usual function pattern with a `cases`{.pyret}
+Let’s start with our usual function pattern with a `switch`{.jayret}
 expression:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-fun my-alternating(l):
-  cases (List) l:
-    | empty => [list:]
-    | link(f, r) => link(f, … r …)
-  end
-end
+```jayret
+Object my-alternating(l) {
+    return switch (l) {
+        case Empty: yield empty;
+        case Link(f, r): yield link(f, … r …);
+    }
+}
 ```
 
 Note that we cannot simply call `my-alternating`{.pyret} on `r`{.pyret},
 because `r`{.pyret} excludes only one item from the list, not two as this
 problem requires. We have to break down `r`{.pyret} as well, in order to
 get to the `rest`{.pyret} of the `rest`{.pyret} of the original list. To do
-this, we use another `cases`{.pyret} expression, nested within the first
-`cases`{.pyret} expression:
+this, we use another `switch`{.jayret} expression, nested within the first
+`switch`{.jayret} expression:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-fun my-alternating(l):
-  cases (List) l:
-    | empty => [list:]
-    | link(f, r) =>
-      cases (List) r:  # note: deconstructing r, not l
-        | empty => ??? # note the ???
-        | link(fr, rr) =>
-          # fr = first of rest, rr = rest of rest
-          link(f, my-alternating(rr))
-      end
-  end
-end
+```jayret
+Object my-alternating(l) {
+    return switch (l) {
+        case Empty: yield empty;
+        case Link(f, r): yield switch (r) {  // note: deconstructing r, not l
+            case Empty: yield ???;  // note the ???
+            case Link(fr, rr): yield  // fr = first of rest, rr = rest of rest
+                link(f, my-alternating(rr));
+        };
+    }
+}
 ```
 This code is consistent with the example that we just worked out. But
 note that we still have a bit of unfinished work to do: we need to
-decide what to do in the `empty`{.pyret} case of the inner `cases`{.pyret}
+decide what to do in the `Empty`{.jayret} case of the inner `switch`{.jayret}
 expression (marked by `???`{.pyret} in the code).
 
 A common temptation at this point is to replace the `???`{.pyret} with
 `[]`{.pyret}. After all, haven’t we always returned `[]`{.pyret} in
-the `empty`{.pyret} cases?
+the `Empty`{.jayret} cases?
 
 ::: {.do-now}
 Replace `???`{.pyret} with `[]`{.pyret} and test the program on our
@@ -889,8 +884,8 @@ What do you observe?
 Oops! We’ve written a program that appears to work on lists with an
 even number of elements, but not on lists with an odd number of
 elements. How did that happen? The only part of this code that we
-guessed at was how to fill in the `empty`{.pyret} case of the inner
-`cases`{.pyret}, so the issue must be there. Rather than focus on the
+guessed at was how to fill in the `Empty`{.jayret} case of the inner
+`switch`{.jayret}, so the issue must be there. Rather than focus on the
 code, however, focus on the examples. We need a simple example
 that would land on that part of the code. We get to that spot when the
 list `l`{.pyret} is not empty, but `r`{.pyret} (the rest of `l`{.pyret}) is
@@ -899,9 +894,8 @@ empty. In other words, we need an example with only one element.
 ::: {.do-now}
 Finish the following example:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-my-alternating([list: 5]) is ???
+```jayret
+assertEquals(my-alternating([5]), ???);
 ```
 :::
 
@@ -915,7 +909,7 @@ assertEquals(my-alternating([5]), [5]);
 
 ::: {.do-now}
 Use this example to update the result of `my-alternating`{.pyret} when
-`r`{.pyret} is `empty`{.pyret} in our code.
+`r`{.pyret} is `Empty`{.jayret} in our code.
 :::
 
 Leveraging this new example, the final version of
@@ -940,9 +934,9 @@ What’s the takeaway from this problem? There are two:
 
 
 - Don’t skip the small examples: the result of a list-processing
-  function on the `empty`{.pyret} case won’t always be `empty`{.pyret}.
+  function on the `Empty`{.jayret} case won’t always be `Empty`{.jayret}.
 - If a problem asks you to work with multiple elements from the
-  front of a list, you can nest `cases`{.pyret} expressions to access later
+  front of a list, you can nest `switch`{.jayret} expressions to access later
   elements.
 
 These takeaways will matter again in future examples: keep an eye out
@@ -1004,7 +998,7 @@ assertEquals(my-max([2, 3]), 3);
 assertEquals(my-max([3]), 3);
 ```
 Hmm. That didn’t really teach us anything, did it? Maybe, we can’t be
-sure. And we still don’t know what to do with `empty`{.pyret}.
+sure. And we still don’t know what to do with `Empty`{.jayret}.
 
 Let’s try the second example input:
 
@@ -1027,19 +1021,17 @@ Observe how the maximum of the rest of the list gives us a candidate
 answer, but comparing it to the first element gives us a definitive
 one:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-my-max([list: 2, 1, 4, 3, 2]) is num-max(2, 4)
-my-max([list:    1, 4, 3, 2]) is num-max(1, 4)
-my-max([list:       4, 3, 2]) is num-max(4, 3)
-my-max([list:          3, 2]) is num-max(3, 2)
-my-max([list:             2]) is …
+```
+assertEquals(my-max([2, 1, 4, 3, 2]), num-max(2, my-max([1, 4, 3, 2])));
+assertEquals(my-max([   1, 4, 3, 2]), num-max(1, my-max([   4, 3, 2])));
+assertEquals(my-max([      4, 3, 2]), num-max(4, my-max([      3, 2])));
+assertEquals(my-max([         3, 2]), num-max(3, my-max([         2])));
+assertEquals(my-max([            2]), …);
 ```
 The last one is a little awkward: we’d like to write
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-my-max([list:             2]) is num-max(2, …)
+```
+assertEquals(my-max([2]), num-max(2, …));
 ```
 but we don’t really know what the maximum (or minimum, or any other
 element) of the empty list is, but we can only provide numbers
@@ -1058,7 +1050,7 @@ list, which in turn is the rest of some other list, and so on. If you
 go back and look at the other example lists we wrote above, you’ll see
 the pattern holds there too.
 
-However, it’s time we now confront the `empty`{.pyret} case. The real
+However, it’s time we now confront the `Empty`{.jayret} case. The real
 problem is that we don’t have a maximum for the empty list: for any
 number we might provide, there is always a number bigger than it
 (assuming our computer is large enough) that could have been the
@@ -1107,18 +1099,16 @@ Going back to our examples, we see that what we need to do, before
 calling `my-max`{.pyret}, is check whether the rest of the list is
 empty. If it is, we do not want to call `my-max`{.pyret} at all. That is:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-fun my-max(l):
-  cases (List) l:
-    | empty      => raise("not defined for empty lists")
-    | link(f, r) =>
-      cases (List) r:
-        | empty => …
-        | …
-      end
-  end
-end
+```jayret
+Object my-max(l) {
+    return switch (l) {
+        case Empty: yield raise("not defined for empty lists");
+        case Link(f, r): yield switch (r) {
+            case Empty: yield …;
+            // …
+        };
+    }
+}
 ```
 We’ll return to what to do when the rest is not empty in a moment.
 
@@ -1126,18 +1116,16 @@ If the rest of the list `l`{.pyret} is empty, our examples above tell us
 that the maximum is the first element in the list. Therefore, we can
 fill this in:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-fun my-max(l):
-  cases (List) l:
-    | empty      => raise("not defined for empty lists")
-    | link(f, r) =>
-      cases (List) r:
-        | empty => f
-        | …
-      end
-  end
-end
+```jayret
+Object my-max(l) {
+    return switch (l) {
+        case Empty: yield raise("not defined for empty lists");
+        case Link(f, r): yield switch (r) {
+            case Empty: yield f;
+            // …
+        };
+    }
+}
 ```
 Note in particular the absence of a call to `my-max`{.pyret}. If the list
 is not empty, however, our examples above tell us that `my-max`{.pyret}
@@ -1284,7 +1272,7 @@ assertEquals(my-running-sum([3, 4, 5]), [3, 7, 12]);
 ```
 and observe that we’re computing the answer for the rest of the list,
 then adding the first element to each element in the answer, and
-`link`{.pyret}ing the first element to the front. In principle, we can
+`Link`{.jayret}ing the first element to the front. In principle, we can
 compute this solution directly, but for
 now that may be more work than finding a simpler way to answer it.)
 
@@ -1386,7 +1374,7 @@ one to discard.
 
 We can reuse the existing template for list functions. When we have an
 element, we have to consult the accumulator whether to keep it or
-not. If its value is `true`{.pyret} we `link`{.pyret} it to the answer;
+not. If its value is `true`{.pyret} we `Link`{.jayret} it to the answer;
 otherwise we ignore it. As we process the rest of the list, however,
 we have to remember to update the accumulator: if we kept an element
 we don’t wish to keep the next one, and vice versa.
@@ -1493,7 +1481,7 @@ the rest of the list. Suppose we have the answer to `uniq`{.pyret}
 applied to the rest of the list. Now we can ask: is the first element
 in the rest of the list? If it is, then we can ignore it, since it is
 certain to be in the `uniq`{.pyret} of the rest of the list. If, however,
-it is not in the rest of the list, it’s critical that we `link`{.pyret}
+it is not in the rest of the list, it’s critical that we `Link`{.jayret}
 it to the answer.
 
 This translates into the following program. For the empty list, we
@@ -1716,9 +1704,8 @@ type of element in the list. Given that type, `my-max`{.pyret} will
 return an element of that type. We write this syntactically as
 follows:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-fun my-max<T>(l :: List<T>) -> T: … end
+```jayret
+<T> T my-max(List<T> l) { … }
 ```
 The notation `<T>`{.pyret} says that `T`{.pyret} is a type variable
 parameter that will be used in the rest of the function (both the
@@ -1727,9 +1714,8 @@ header and the body).
 Using this notation, we can also revisit `my-len`{.pyret}. Its header now
 becomes:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-fun my-len<T>(l :: List<T>) -> Number: … end
+```jayret
+<T> int my-len(List<T> l) { … }
 ```
 Note that `my-len`{.pyret} did not actually “care” that whether all the
 values were of the same type or not: it never looks at the individual

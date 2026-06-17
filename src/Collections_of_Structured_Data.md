@@ -105,12 +105,11 @@ write, instead of writing out the full data for the songs, we’ll refer
 to them just by their variable names. Clearly, the oldest song in our
 list is bound to `lvar`{.pyret}.
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-oldest-song([list: lver, so, wnkkhs]) is lvar
-oldest-song([list:       so, wnkkhs]) is wnkkhs
-oldest-song([list:           wnkkhs]) is wnkkhs
-oldest-song([list:                 ]) is ???
+```jayret
+assertEquals(oldest-song([lver, so, wnkkhs]), lvar);
+assertEquals(oldest-song([so, wnkkhs]), wnkkhs);
+assertEquals(oldest-song([wnkkhs]), wnkkhs);
+assertEquals(oldest-song([]), ???);
 ```
 
 What do we write in the last case? Recall that we saw this problem
@@ -240,10 +239,10 @@ The `.pick`{.pyret} method returns a random element of a set. It
 produces a value of type `Pick`{.pyret} (which we get with `include
 pick`{.jayret}). When we pick an element, there are two
 possibilities. One is that the set is empty (analogous to a list being
-empty), which gives us a `pick-none`{.pyret} value. The other option is
-called `pick-some`{.pyret}, which gives us an actual member of the set.
+empty), which gives us a `Pick-none`{.jayret} value. The other option is
+called `Pick-some`{.jayret}, which gives us an actual member of the set.
 
-The `pick-some`{.pyret} variant of `Pick`{.pyret} has two fields, not
+The `Pick-some`{.jayret} variant of `Pick`{.pyret} has two fields, not
 one. To understand why takes a moment’s work. Let’s explore it by
 choosing an element of a set:
 
@@ -256,7 +255,7 @@ Object an-elt(Object s) {
 }
 ```
 (Notice that we aren’t using the `r`{.pyret} field in the
-`pick-some`{.pyret} case.)
+`Pick-some`{.jayret} case.)
 
 ::: {.do-now}
 Can you guess why we didn’t write examples for `an-elt`{.pyret}?
@@ -296,11 +295,11 @@ particularly surprising.
 
 Once we have picked an element from a set, it’s often useful to obtain
 the set consisting of the remaining elements. We have already seen
-that choosing the first field of a `pick-some`{.pyret} is similar to
+that choosing the first field of a `Pick-some`{.jayret} is similar to
 taking the “first” of a set. We therefore want a way to get the
 “rest” of the set. However, we want the rest to what we obtain after
 excluding this particular “first”. That’s what the second
-field of a `pick-some`{.pyret} is: what’s left of the set.
+field of a `Pick-some`{.jayret} is: what’s left of the set.
 
 Given this, we can write functions over sets that look roughly
 analogous to functions over lists. For instance, suppose we want to
@@ -380,16 +379,15 @@ We might imagine asking a quiz question like “what is 3 + 4?“. We
 would expect the student to answer `7`{.pyret}. What would capture this?
 A piece of structured data with two fields like the following:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-data Question:
-  basic-ques(text :: String, expect :: ???)
-end
+```jayret
+data Question {
+    Basic-ques(String text, Object expect);
+}
 ```
 
 What’s a good type for the expected answer? This specific problem has
 a numeric answer, but other questions might have other types of
-answers. `Any`{.pyret} is therefore an appropriate type for the answer.
+answers. `Object`{.jayret} is therefore an appropriate type for the answer.
 
 We would also need a list of `Question`{.pyret} to form an entire quiz.
 

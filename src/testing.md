@@ -36,11 +36,11 @@ that a computer can understand, we achieve two things:
 
 #### 8.3.1 From Examples to Tests {#from-examples-to-tests}
 
-Until now, we have written examples in `where:`{.pyret} blocks for two
+Until now, we have written examples in `where { }`{.jayret} blocks for two
 purposes: to help us figure out what a function needs to do, and to
 provide guidance to someone reading our code as to what behavior they can
 expect when using our function. For the smaller programs that we have
-written until now, `where`{.pyret}-based examples have been
+written until now, `where { }`{.jayret}-based examples have been
 sufficient. As our programs get more complicated, however, a small set
 of related illustrative examples won’t suffice. We need to think about being
 much more thorough in the sets of inputs that we consider.
@@ -65,8 +65,8 @@ realistic situations. Once we start considering situations like these,
 we are shifting from examples to illustrate our code to
 tests to thoroughly test our code.
 
-In Jayret, we use `where`{.pyret} blocks inside function definitions for
-examples. We use a `check`{.pyret} block outside the function definition
+In Jayret, we use `where { }`{.jayret} blocks inside function definitions for
+examples. We use a `@Check void`{.jayret} function outside the function definition
 for tests. For example:
 
 ```jayret
@@ -84,13 +84,13 @@ int count-uses(String of-string, List<Object> in-list) {
 ```
 
 As a guiding rule, we put illustrative cases that would help someone
-else reading our code into the `where`{.pyret} block, while we put the
+else reading our code into the `where { }`{.jayret} block, while we put the
 nitty-gritty checks that our code handles the wider range of usage
-scenarios (including error cases) into the `check`{.pyret}. Sometimes,
+scenarios (including error cases) into the `@Check void`{.jayret} function. Sometimes,
 the line between these two isn’t clear: for example, one could easily
 argue that the second test (the function handles different
-capitalization) belongs in `where`{.pyret} instead. The third test about
-using a really long list would remain in `check`{.pyret}, however, as
+capitalization) belongs in `where { }`{.jayret} instead. The third test about
+using a really long list would remain in `@Check void`{.jayret}, however, as
 longer inputs are generally not instructive to a reader of your code.
 
 Putting tests in a block that lives outside the function has another
@@ -98,7 +98,7 @@ advantage at the level of professional programming: it allows your
 tests to live in a separate file from your code. This has two key
 benefits. First, it makes it easier for someone to read the essential parts
 of your code (if they are building on your work). Second, it makes it
-easier to control when tests are run. When your `check`{.pyret} blocks
+easier to control when tests are run. When your `@Check void`{.jayret} functions
 are in the same file as your code, all the tests will be checked when
 you run your code. When they are in a different file, an organization
 can choose when to run the tests. During development, tests are run
@@ -110,11 +110,7 @@ discovered an error with the code). This is standard practice in software projec
 It is also worth noting that the collection of tests grows throughout
 the development process, moreso than do the collection of examples. As
 you are developing code, every time you find a bug in your code,
-add a test for it in your
-
-`check`{.pyret}
-
-block so you don’t accidentally
+add a test for it in your `@Check void`{.jayret} function so you don’t accidentally
 introduce that same error again later. Whereas we develop
 examples up front as we figure out what we want our program to do, we
 augment our tests as we discover what our program actually does (and
@@ -136,17 +132,16 @@ useful both professionally and pedagogically.
 
 #### 8.3.2 More Refined Comparisons {#s-refined}
 
-Sometimes, a direct comparison via `is`{.pyret} isn’t enough for
-testing. We have already seen this in the case of `raises`{.pyret}
+Sometimes, a direct comparison via `assertEquals`{.jayret} isn’t enough for
+testing. We have already seen this in the case of `assertRaises`{.jayret}
 tests ([Computing Genetic Parents from an Ancestry Table](trees.html##compute-parents-table)). As another example, when doing
 some computations, especially involving math with approximations, the
-exact match of `is`{.pyret} isn’t feasible. For example, consider these tests for `distance-to-origin`{.pyret}:
+exact match of `assertEquals`{.jayret} isn’t feasible. For example, consider these tests for `distance-to-origin`{.pyret}:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-check:
-  distance-to-origin(point(1, 1)) is ???
-end
+```jayret
+@Check void test() {
+    assertEquals(distance-to-origin(point(1, 1)), ???);
+}
 ```
 
 What can we check here? Typing this into the REPL, we can find that the answer
@@ -173,29 +168,26 @@ boolean around(int actual, int expected) {
     // Return whether actual is within 0.01 of expected
     return num-abs(actual - expected) < 0.01;
 } where {
-    
+    assertEquals(around(5, 5.005), true);
+    assertEquals(around(5, 5.02), false);
 }
 ```
 
-The `is`{.pyret} form now helps us out. There is special syntax for supplying a
-user-defined function to use to compare the two values, instead of just
-checking if they are equal:
+Jayret provides `assertRoughlyEquals`{.jayret} for approximate comparisons:
+it takes the actual value, the expected value, and an allowed tolerance.
 
 ```jayret
 @Check void test() {
-    assertEquals(5, 5.01);
-    assertEquals(num-sqrt(2), 1.41);
-    assertEquals(distance-to-origin(point(1, 1)), 1.41);
+    assertRoughlyEquals(5, 5.01, 0.01);
+    assertRoughlyEquals(num-sqrt(2), 1.41, 0.01);
+    assertRoughlyEquals(distance-to-origin(point(1, 1)), 1.41, 0.01);
 }
 ```
 
-Adding `%(something)`{.pyret} after `is`{.pyret} changes the behavior of
-`is`{.pyret}. Normally, it would compare the left and right values for equality.
-If something is provided with `%`{.pyret}, however, it instead passes the left
-and right values to the provided function (in this example `around`{.pyret}). If
-the provided function produces `true`{.pyret}, the test passes, if it produces
-`false`{.pyret}, the test fails. This gives us the control we need to test
-functions with predictable approximate results.
+The third argument to `assertRoughlyEquals`{.jayret} sets the tolerance: the
+test passes when the actual and expected values are within that amount of each
+other. This gives us the control we need to test functions with predictable
+approximate results.
 
 ::: {.exercise}
 Extend the definition of `distance-to-origin`{.pyret} to include
@@ -315,9 +307,8 @@ not `true`{.pyret} (what the test expects)—which is both absolutely
 true and utterly useless.
 
 Fortunately, Jayret has a better way of expressing the same
-check. Instead of `is`{.pyret}, we can write `satisfies`{.pyret}, and then
-the value on the left must satisfy the predicate on the
-right. Concretely, this looks like:
+check. Instead of `assertEquals`{.jayret}, we can use `assertSatisfies`{.jayret}:
+the first argument must satisfy the predicate given as the second argument. Concretely, this looks like:
 
 ```jayret
 Object check-sqrt(n) {
