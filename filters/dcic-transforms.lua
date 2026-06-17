@@ -30,7 +30,8 @@ end
 
 local function lang_label(lang)
   if lang == "python" or lang == "text/x-python" then return "Python"
-  elseif lang == "pyret" then return "Pyret"
+  elseif lang == "pyret" or lang == "jayret" then return "Jayret"
+  elseif lang == "pyret-deferred" then return "Pyret (deferred in Jayret)"
   elseif lang == "output" then return ""
   else return lang or "" end
 end
@@ -41,7 +42,7 @@ end
 
 local function code_wrapper_html(code_text, lang)
   local label     = lang_label(lang)
-  local data_lang = (lang == "output") and "pyret" or (lang or "pyret")
+  local data_lang = (lang == "output") and "jayret" or (lang or "jayret")
   local label_span = label ~= ""
     and '<span class="sourceLangLabel" data-label="' .. label .. '"></span>'
     or  ""
@@ -79,7 +80,7 @@ end
 
 local function transform_Code(code)
   local lang = code.attr.classes[1]
-  if lang == "pyret" or lang == "python" then
+  if lang == "pyret" or lang == "jayret" or lang == "python" then
     return pandoc.RawInline("html", inline_code_html(code.text, lang))
   end
 end
@@ -127,10 +128,10 @@ end
 
 local function repl_input_table(code, lang)
   return
-    '<table cellpadding="0" cellspacing="0" class="PyretReplInteraction">'
+    '<table cellpadding="0" cellspacing="0" class="JayretReplInteraction">'
     .. '<tr><td>'
-    .. '<blockquote class="PyretRepl">'
-    .. '<p class="PyretReplPrompt"></p>'
+    .. '<blockquote class="JayretRepl">'
+    .. '<p class="JayretReplPrompt"></p>'
     .. '<p>' .. code_wrapper_html(code, lang) .. '</p>'
     .. '</blockquote>'
     .. '</td></tr>'
@@ -152,7 +153,7 @@ local function handle_repl(div)
 
   if out then
     return pandoc.RawBlock("html",
-      '<table cellpadding="0" cellspacing="0" class="PyretReplInteraction">'
+      '<table cellpadding="0" cellspacing="0" class="JayretReplInteraction">'
       .. '<tr><td>' .. repl_input_table(inp.code, inp.lang) .. '</td></tr>'
       .. '<tr><td><p>' .. code_wrapper_html(out.code, out.lang) .. '</p></td></tr>'
       .. '</table>')

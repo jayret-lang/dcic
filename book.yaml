@@ -60,14 +60,14 @@ booklets:
 
   - id: pyret-to-python
     number: "III"
-    title: "From Pyret to Python"
+    title: "From Jayret to Python"
     file: booklet_pyret-to-python.html
     chapters:
       - number: "9"
-        title: "From Pyret to Python"
+        title: "From Jayret to Python"
         file: part_pyret-to-python.html
         sections:
-          - { number: "9.1", title: "From Pyret to Python", file: intro-python.html }
+          - { number: "9.1", title: "From Jayret to Python", file: intro-python.html }
           - { number: "9.2", title: "Dictionaries",         file: dictionaries.html }
           - { number: "9.3", title: "Arrays",               file: arrays.html }
       - number: "10"
