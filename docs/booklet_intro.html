@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9660;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: block;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewselflink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -281,8 +281,8 @@ before covering lists and trees. The notional machine throughout this
 section is based on substitution.</li>
 </ol>
 <p>Dependencies: None! 2. <a href="booklet_pyret-to-python.html">From
-Pyret to Python</a>: Students learn to transfer their knowledge from
-Pyret to Python, highlighting similarities and differences between the
+Jayret to Python</a>: Students learn to transfer their knowledge from
+Jayret to Python, highlighting similarities and differences between the
 languages and their traditional programming styles (“paradigms”).
 Students are also introduced to Pandas, as a real-world table-processing
 system.</p>
@@ -291,7 +291,7 @@ href="booklet_intro-to-programming.html">Introduction to
 Programming</a>. 3. <a
 href="booklet_programming-with-state.html">Programming With State</a>:
 Students learn the subtleties of state and aliasing. Much of the
-coverage is in both Python and Pyret. This contrast lets students
+coverage is in both Python and Jayret. This contrast lets students
 understand how multiple languages can approach the same topic; the ways
 in which the underlying ideas are actually the same; but also some key
 differences that provide insight. The notional machine grows to cover
@@ -299,9 +299,9 @@ state and aliasing by separating the naming environment (here called the
 directory) from a heap of structured data values.</p>
 <p>Dependencies: <a
 href="booklet_intro-to-programming.html">Introduction to Programming</a>
-is essential. <a href="booklet_pyret-to-python.html">From Pyret to
+is essential. <a href="booklet_pyret-to-python.html">From Jayret to
 Python</a> is helpful to follow the Python portions of this booklet, but
-a student can do the Pyret parts without having seen Python. 4. <a
+a student can do the Jayret parts without having seen Python. 4. <a
 href="booklet_algo-analysis.html">Algorithm Analysis</a>: Students are
 introduced to multiple techniques for analyzing algorithms.</p>
 <p>Dependencies: <a
@@ -338,7 +338,7 @@ courses by remixing this material, which others could follow:</p>
 <ul>
 <li>An introductory course can use <a
 href="booklet_intro-to-programming.html">Introduction to
-Programming</a>, <a href="booklet_pyret-to-python.html">From Pyret to
+Programming</a>, <a href="booklet_pyret-to-python.html">From Jayret to
 Python</a>, and <a
 href="booklet_programming-with-state.html">Programming With State</a> to
 cover the data-centric view of computer science and leaving students
@@ -383,17 +383,18 @@ Python, not least its presence next to bullet points on job listings.
 However, we’ve been <a href="pyret-vs-python.html">repeatedly frustrated
 by Python</a> as an entrypoint into learning programming.</p>
 <p>As a result, this book features two programming languages. It starts
-with a language, called <a href="https://www.pyret.org/">Pyret</a>, that
-we designed to address our needs and frustrations. It has been expressly
-designed for the style of programming in this book, so the two can grow
-in harmony. It draws on Python, but also on many other excellent
-programming languages. Beginning programmers can therefore rest in the
-knowledge they are being cared for, while programmers with past
-acquaintance of the language menagerie, from serpents to dromedaries,
-should find Pyret familiar and comfortable.</p>
+with a language, called <a
+href="https://jayret-lang.github.io/">Jayret</a>, that we designed to
+address our needs and frustrations. It has been expressly designed for
+the style of programming in this book, so the two can grow in harmony.
+It draws on Python, but also on many other excellent programming
+languages. Beginning programmers can therefore rest in the knowledge
+they are being cared for, while programmers with past acquaintance of
+the language menagerie, from serpents to dromedaries, should find Jayret
+familiar and comfortable.</p>
 <p>Then, recognizing the value of Python both as a standard language of
 communication and for its extensive libraries, the <a
-href="part_state.html">Programming with State (in Both Pyret and
+href="part_state.html">Programming with State (in Both Jayret and
 Python)</a> part of this book explicitly covers Python. Rather than
 starting from scratch in Python, we present a systematic and gradual
 transition to it from the earlier material. We believe this will make
@@ -403,14 +404,14 @@ Python better, too: just like you learn to appreciate your own language,
 country, or culture better once you’ve stepped outside and been exposed
 to other ones.</p>
 <h3 id="Programming-Tools">1.9 Programming Tools</h3>
-<p><a href="https://code.pyret.org/">CPO</a> (an abbreviation of
-code.pyret.org) is our default programming environment for Pyret. It
-runs entirely in the browser and uses Google Drive for authentication
-and file storage.</p>
-<p>Pyret support is also available for VSCode. To install it, visit <a
+<p><a href="https://jayret-lang.github.io/code/">CPO</a> (an
+abbreviation of jayret-lang.github.io/code) is our default programming
+environment for Jayret. It runs entirely in the browser and uses Google
+Drive for authentication and file storage.</p>
+<p>Jayret support is also available for VSCode. To install it, visit <a
 href="https://code.visualstudio.com">https://code.visualstudio.com</a>.
 Once you have installed it, click the Extensions tab on the left and
-search for Pyret. You should install the “Pyret Interactive Editor for
+search for Jayret. You should install the “Jayret Interactive Editor for
 VSCode”.</p>
 <p>CPO and VSCode differ only in their support for loading spreadsheet
 data. CPO is designed to work with Google Sheets, while VSCode does not
@@ -420,7 +421,8 @@ either tool, and the interface for editing and interacting with programs
 is the same. If there are differences, the book will present both
 versions. In such cases, code that could run only in VSCode will be
 labeled with the VSCode icon, as follows:</p>
-<blockquote class="VSCode"><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">include csv</code></pre></div></div></blockquote>
+<blockquote class="VSCode"><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">import csv
+</code></pre></div></div></blockquote>
 <p>We do not recommend any particular Python environment. Any Python
 editor that allows you to use pytest and load external data files should
 work fine.</p>
@@ -464,11 +466,11 @@ Litichevskiy.</p>
 <p>Even amongst the problem-spotters, one is hors catégorie:</p>
 <p>Sorawee Porncharoenwase.</p>
 <p>Daniel Patterson has helped us think about where to switch between
-Pyret and Python, while also helping with content on using Pyret with
+Jayret and Python, while also helping with content on using Jayret with
 VSCode.</p>
-<p>This book is completely dependent on Pyret, and thus on the <a
-href="https://www.pyret.org/crew/">many people</a> who have created and
-sustained it.</p>
+<p>This book is completely dependent on Jayret, and thus on the <a
+href="https://jayret-lang.github.io/crew/">many people</a> who have
+created and sustained it.</p>
 <p>We thank <a href="https://practicaltypography.com/">Matthew
 Butterick</a> for his help with book styling (though the ultimate style
 is ours, so don’t blame him!).</p>

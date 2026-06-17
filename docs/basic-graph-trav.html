@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -154,7 +154,8 @@ those neighbors.</li>
 </ul>
 <p>This translates into the following function: <graph-reach-1-main>
 ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun reach-1(src :: Key, dst :: Key, g :: Graph) -&gt; Boolean:
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+fun reach-1(src :: Key, dst :: Key, g :: Graph) -&gt; Boolean:
   if src == dst:
     true
   else:
@@ -163,25 +164,28 @@ those neighbors.</li>
   end
 end</code></pre></div></div>
 <p>where the loop through the neighbors of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">src</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">src</code></span>
 is: <graph-reach-1-loop> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun loop(ns):
-  cases (List) ns:
-    | empty =&gt; false
-    | link(f, r) =&gt;
-      if reach-1(f, dst, g): true else: loop(r) end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object loop(ns) {
+    return switch (ns) {
+        case Empty: yield false;
+        case Link(f, r): yield if (reach-1(f, dst, g)) {
+            return true;
+        } else {
+            return loop(r);
+        };
+    }
+}</code></pre></div></div>
 <p>We can test this as follows: <graph-reach-tests> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  reach = reach-1
-  reach("was", "was", kn-cities) is true
-  reach("was", "chi", kn-cities) is true
-  reach("was", "bmg", kn-cities) is false
-  reach("was", "hou", kn-cities) is true
-  reach("was", "den", kn-cities) is true
-  reach("was", "saf", kn-cities) is true
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    reach = reach-1;
+    assertEquals(reach("was", "was", kn-cities), true);
+    assertEquals(reach("was", "chi", kn-cities), true);
+    assertEquals(reach("was", "bmg", kn-cities), false);
+    assertEquals(reach("was", "hou", kn-cities), true);
+    assertEquals(reach("was", "den", kn-cities), true);
+    assertEquals(reach("was", "saf", kn-cities), true);
+}</code></pre></div></div>
 <p>Unfortunately, we don’t find out about how these tests fare, because
 some of them don’t complete at all. That’s because we have an infinite
 loop, due to the cyclic nature of graphs!</p>
@@ -189,24 +193,25 @@ loop, due to the cyclic nature of graphs!</p>
 <h5 id="Cleaning-up-the-Loop">17.2.1.2 Cleaning up the Loop</h5>
 <p>Before we continue, let’s try to improve the expression of the loop.
 While the nested function above is a perfectly reasonable definition, we
-can use Pyret’s
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>
+can use Jayret’s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>
 to improve its readability.</p>
 <p>The essence of the above loop is to iterate over a list of boolean
 values; if one of them is true, the entire loop evaluates to true; if
 they are all false, then we haven’t found a path to the destination
 node, so the loop evaluates to false. Thus:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun ormap(fun-body, l):
-  cases (List) l:
-    | empty =&gt; false
-    | link(f, r) =&gt;
-      if fun-body(f): true else: ormap(fun-body, r) end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object ormap(fun-body, l) {
+    return switch (l) {
+        case Empty: yield false;
+        case Link(f, r): yield if (fun-body(f)) {
+            return true;
+        } else {
+            return ormap(fun-body, r);
+        };
+    }
+}</code></pre></div></div>
 <p>With this, we can replace the loop definition and use with:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">for ormap(n from neighbors(src, g)):
-  reach-1(n, dst, g)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">[for ormap(n : neighbors(src, g)) { yield reach-1(n, dst, g); }];</code></pre></div></div>
 <h5 id="Traversal-with-Memory">17.2.1.3 Traversal with Memory</h5>
 <p>Because we have cyclic data, we have to remember what nodes we’ve
 already visited and avoid traversing them again. Then, every time we
@@ -223,29 +228,28 @@ href="basic-graph-trav.html#%28elem._graph-reach-1-main%29"><graph-reach-1-main>
 is, before we begin to traverse edges, we should check whether we’ve
 begun processing the node or not. This results in the following
 definition: <graph-reach-2> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun reach-2(src :: Key, dst :: Key, g :: Graph, visited :: List&lt;Key&gt;) -&gt; Boolean:
-  if visited.member(src):
-    false
-  else if src == dst:
-    true
-  else:
-    new-visited = link(src, visited)
-    for ormap(n from neighbors(src, g)):
-      reach-2(n, dst, g, new-visited)
-    end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">boolean reach-2(Key src, Key dst, Graph g, List&lt;Object&gt; visited) {
+    return if (visited.member(src)) {
+        return false;
+    } else if (src == dst) {
+        return true;
+    } else {
+        new-visited = link(src, visited);
+        return [for ormap(n : neighbors(src, g)) { yield reach-2(n, dst, g, new-visited); }];
+    }
+}</code></pre></div></div>
 <p>In particular, note the extra new conditional: if the reachability
 check has already visited this node before, there is no point traversing
 further from here, so it returns
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.
 (There may still be other parts of the graph to explore, which other
 recursive calls will do.)</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Does it matter if the first two conditions were swapped, i.e., the
 beginning of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">reach-2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">reach-2</code></span>
 began with</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">if src == dst:
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+if src == dst:
   true
 else if visited.member(src):
   false</code></pre></div></div>
@@ -255,32 +259,30 @@ visit, not the ones we’ve finished visiting. Does this distinction
 matter? How?</p></blockquote></blockquote>
 <h5 id="A-Better-Interface">17.2.1.4 A Better Interface</h5>
 <p>As the process of testing
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">reach-2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">reach-2</code></span>
 shows, we may have a better implementation, but we’ve changed the
 function’s interface; now it has a needless extra argument, which is not
 only a nuisance but might also result in errors if we accidentally
 misuse it. Therefore, we should clean up our definition by moving the
 core code to an internal function:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun reach-3(s :: Key, d :: Key, g :: Graph) -&gt; Boolean:
-  fun reacher(src :: Key, dst :: Key, visited :: List&lt;Key&gt;) -&gt; Boolean:
-    if visited.member(src):
-      false
-    else if src == dst:
-      true
-    else:
-      new-visited = link(src, visited)
-      for ormap(n from neighbors(src, g)):
-        reacher(n, dst, new-visited)
-      end
-    end
-  end
-  reacher(s, d, empty)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">boolean reach-3(Key s, Key d, Graph g) {
+    boolean reacher(Key src, Key dst, List&lt;Object&gt; visited) {
+        return if (visited.member(src)) {
+            return false;
+        } else if (src == dst) {
+            return true;
+        } else {
+            new-visited = link(src, visited);
+            return [for ormap(n : neighbors(src, g)) { yield reacher(n, dst, new-visited); }];
+        }
+    }
+    return reacher(s, d, empty);
+}</code></pre></div></div>
 <p>We have now restored the original interface while correctly
 implementing reachability.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Does this really gives us a correct implementation? In particular,
 does this address the problem that the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
 function above addressed? Create a test case that demonstrates the
 problem, and then fix it.</p></blockquote></blockquote>
 <h4 id="dfs-bfs">17.2.2 Depth- and Breadth-First Traversals</h4>

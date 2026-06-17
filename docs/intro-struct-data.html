@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -126,7 +126,7 @@ MathJax.Hub.Config({
 <h3 id="intro-struct-data">6.1 Introduction to Structured Data</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Understanding_the_.Kinds_of_.Compound_.Data%29">6.1.1<span class="hspace"> </span>Understanding the Kinds of Compound Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.A_.First_.Peek_at_.Structured_.Data%29">6.1.1.1<span class="hspace"> </span>A First Peek at Structured Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.A_.First_.Peek_at_.Conditional_.Data%29">6.1.1.2<span class="hspace"> </span>A First Peek at Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Defining_and_.Creating_.Structured_and_.Conditional_.Data%29">6.1.2<span class="hspace"> </span>Defining and Creating Structured and Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._struct-data-eg%29">6.1.2.1<span class="hspace"> </span>Defining and Creating Structured Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Annotations_for_.Structured_.Data%29">6.1.2.2<span class="hspace"> </span>Annotations for Structured Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Defining_and_.Creating_.Conditional_.Data%29">6.1.2.3<span class="hspace"> </span>Defining and Creating Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Programming_with_.Structured_and_.Conditional_.Data%29">6.1.3<span class="hspace"> </span>Programming with Structured and Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Extracting_.Fields_from_.Structured_.Data%29">6.1.3.1<span class="hspace"> </span>Extracting Fields from Structured Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._telling-apart-variants%29">6.1.3.2<span class="hspace"> </span>Telling Apart Variants of Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._process-fields-variants%29">6.1.3.3<span class="hspace"> </span>Processing Fields of Variants</a></p></td></tr></table>
 <p>Earlier we had our first look at types. Until now, we have only seen
-the types that Pyret provides us, which is an interesting but
+the types that Jayret provides us, which is an interesting but
 nevertheless quite limited set. Most programs we write will contain many
 more kinds of data.</p>
 <h4 id="Understanding-the-Kinds-of-Compound-Data">6.1.1 Understanding
@@ -206,34 +206,36 @@ record. Here’s a simplified version of the information such an app might
 store:</p>
 <ul>
 <li>The song’s name, which is a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>.</li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>.</li>
 <li>The song’s singer, which is also a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>.</li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>.</li>
 <li>The song’s year, which is a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>.</li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>.</li>
 </ul>
 <p>Let’s now introduce the syntax by which we can teach this to
-Pyret:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data ITunesSong: song(name, singer, year) end</code></pre></div></div>
-<p>This tells Pyret to introduce a new type of data, in this case called
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ITunesSong</code></span><span class="refelem"><span class="refcolumn"><span class="refcontent">We follow a convention that types always begin with a capital letter.</span></span></span>.
+Jayret:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data ITunesSong {
+}</code></pre></div></div>
+<p>This tells Jayret to introduce a new type of data, in this case
+called
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ITunesSong</code></span><span class="refelem"><span class="refcolumn"><span class="refcontent">We follow a convention that types always begin with a capital letter.</span></span></span>.
 The way we actually make one of these data is by calling
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">song</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">song</code></span>
 with three parameters; for
 instance:<span class="refelem"><span class="refcolumn"><span class="refcontent">It’s worth noting that music managers that are capable of making
 distinctions between, say, Dance, Electronica, and Electronic/Dance,
 classify two of these three songs by a single genre: “World”.</span></span></span>
 <structured-examples> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">song("La Vie en Rose", "Édith Piaf", 1945)
-song("Stressed Out", "twenty one pilots", 2015)
-song("Waqt Ne Kiya Kya Haseen Sitam", "Geeta Dutt", 1959)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">song("La Vie en Rose", "Édith Piaf", 1945);
+song("Stressed Out", "twenty one pilots", 2015);
+song("Waqt Ne Kiya Kya Haseen Sitam", "Geeta Dutt", 1959);</code></pre></div></div>
 <p>Always follow a data definition with a few concrete instances of the
 data! This makes sure you actually do know how to make data of that
 form. Indeed, it’s not essential but a good habit to give names to the
 data we’ve defined, so that we can use them later:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">lver = song("La Vie en Rose", "Édith Piaf", 1945)
-so = song("Stressed Out", "twenty one pilots", 2015)
-wnkkhs = song("Waqt Ne Kiya Kya Haseen Sitam", "Geeta Dutt", 1959)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">lver = song("La Vie en Rose", "Édith Piaf", 1945);
+so = song("Stressed Out", "twenty one pilots", 2015);
+wnkkhs = song("Waqt Ne Kiya Kya Haseen Sitam", "Geeta Dutt", 1959);</code></pre></div></div>
 <p>In terms of the directory, structured data are no different from
 simple data. Each of the three definitions above creates an entry in the
 directory, as follows:</p>
@@ -247,74 +249,77 @@ annotate our data, too! In particular, we can annotate both the
 definition of data and their creation. For the former, consider this
 data definition, which makes the annotation information we’d recorded
 informally in text a formal part of the program:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data ITunesSong: song(name :: String, singer :: String, year :: Number) end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data ITunesSong {
+}</code></pre></div></div>
 <p>Similarly, we can annotate the variables bound to examples of the
 data. But what should we write here?</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">lver :: ___ = song("La Vie en Rose", "Édith Piaf", 1945)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">lver = song("La Vie en Rose", "Édith Piaf", 1945);</code></pre></div></div>
 <p>Recall that annotations takes names of types, and the new type we’ve
 created is called
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ITunesSong</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ITunesSong</code></span>.
 Therefore, we should write</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">lver :: ITunesSong = song("La Vie en Rose", "Édith Piaf", 1945)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">lver = song("La Vie en Rose", "Édith Piaf", 1945);</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What happens if we instead write this?</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">lver :: String = song("La Vie en Rose", "Édith Piaf", 1945)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">lver = song("La Vie en Rose", "Édith Piaf", 1945);</code></pre></div></div>
 <p>What error do we get? How about if instead we write these?</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">lver :: song = song("La Vie en Rose", "Édith Piaf", 1945)
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+lver :: song = song("La Vie en Rose", "Édith Piaf", 1945)
 lver :: 1 = song("La Vie en Rose", "Édith Piaf", 1945)</code></pre></div></div>
 <p>Make sure you familiarize yourself with the error messages that you
 get.</p></blockquote></blockquote>
 <h5 id="Defining-and-Creating-Conditional-Data">6.1.2.3 Defining and
 Creating Conditional Data</h5>
 <p>The
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">data</code></span>
-construct in Pyret also lets us create conditional data, with a slightly
-different syntax. For instance, say we want to define the colors of a
-traffic light:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data TLColor:
-  | Red
-  | Yellow
-  | Green
-end</code></pre></div></div>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">data</code></span>
+construct in Jayret also lets us create conditional data, with a
+slightly different syntax. For instance, say we want to define the
+colors of a traffic light:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data TLColor {
+    Red;
+    Yellow;
+    Green;
+}</code></pre></div></div>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">Conventionally, the names of the options begin in lower-case, but if
 they have no additional structure, we often capitalize the initial to
 make them look different from ordinary variables: i.e.,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Red</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Red</code></span>
 rather than
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">red</code></span>.</span></span></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">red</code></span>.</span></span></span>
 Each
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">|</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">|</code></span>
 (pronounced “stick”) introduces another option. You would make instances
 of traffic light colors as</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">Red
-Green
-Yellow</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Red;
+Green;
+Yellow;</code></pre></div></div>
 <p>A more interesting and common example is when each condition has some
 structure to it; for instance:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Animal:
-  | boa(name :: String, length :: Number)
-  | armadillo(name :: String, liveness :: Boolean)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Animal {
+    Boa(String name, int length);
+    Armadillo(String name, boolean liveness);
+}</code></pre></div></div>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">“In Texas, there ain’t nothin’ in the middle of the road except yellow
 stripes and a dead armadillo.”—Jim Hightower</span></span></span> We can
 make examples of them as you would expect:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">b1 = boa("Ayisha", 10)
-b2 = boa("Bonito", 8)
-a1 = armadillo("Glypto", true)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">b1 = boa("Ayisha", 10);
+b2 = boa("Bonito", 8);
+a1 = armadillo("Glypto", true);</code></pre></div></div>
 <p>We call the different conditions variants.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>How would you annotate the three variable bindings?</p></blockquote></blockquote>
 <p>Notice that the distinction between boas and armadillos is lost in
 the annotation.</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">b1 :: Animal = boa("Ayisha", 10)
-b2 :: Animal = boa("Bonito", 8)
-a1 :: Animal = armadillo("Glypto", true)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">b1 = boa("Ayisha", 10);
+b2 = boa("Bonito", 8);
+a1 = armadillo("Glypto", true);</code></pre></div></div>
 <p>When defining a conditional datum the first stick is actually
 optional, but adding it makes the variants line up nicely. This helps us
 realize that our first example</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data ITunesSong: song(name, singer, year) end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data ITunesSong {
+}</code></pre></div></div>
 <p>is really just the same as</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data ITunesSong:
-  | song(name, singer, year)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data ITunesSong {
+    Song(name, singer, year);
+}</code></pre></div></div>
 <p>i.e., a conditional type with just one condition, where that one
 condition is structured.</p>
 <h4 id="Programming-with-Structured-and-Conditional-Data">6.1.3
@@ -326,138 +331,137 @@ them. As you might expect, we need to figure out how to</p>
 <li>take apart the fields of a structured datum, and</li>
 <li>tell apart the variants of a conditional datum.</li>
 </ul>
-<p>As we’ll see, Pyret also gives us a convenient way to do both
+<p>As we’ll see, Jayret also gives us a convenient way to do both
 together.</p>
 <h5 id="Extracting-Fields-from-Structured-Data">6.1.3.1 Extracting
 Fields from Structured Data</h5>
 <p>Let’s write a function that tells us how old a song is. First, let’s
 think about what the function consumes (an
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ITunesSong</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ITunesSong</code></span>)
 and produces (a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>).
 This gives us a rough skeleton for the function: <song-age> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun song-age(s :: ITunesSong) -&gt; Number:
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+fun song-age(s :: ITunesSong) -&gt; Number:
   &lt;song-age-body&gt;
 end</code></pre></div></div>
 <p>We know that the form of the body must be roughly: <song-age-body>
 ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">2016 - &lt;get the song year&gt;</code></pre></div></div>
-<p>We can get the song year by using Pyret’s field access, which is a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.</code></span>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+2016 - &lt;get the song year&gt;</code></pre></div></div>
+<p>We can get the song year by using Jayret’s field access, which is a
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.</code></span>
 followed by a field’s name—in this case,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">year</code></span>—following
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">year</code></span>—following
 the variable that holds the structured datum. Thus, we get the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">year</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">year</code></span>
 field of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s</code></span>
 (the parameter to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">song-age</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">song-age</code></span>)
 with</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">s.year</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">s.year;</code></pre></div></div>
 <p>So the entire function body is:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun song-age(s :: ITunesSong) -&gt; Number:
-  2016 - s.year
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int song-age(ITunesSong s) {
+    return 2016 - s.year;
+}</code></pre></div></div>
 <p>It would be good to also record some examples (<a
 href="intro-struct-data.html#%28elem._structured-examples%29"><structured-examples></a>),
 giving us a comprehensive definition of the function:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun song-age(s :: ITunesSong) -&gt; Number:
-  2016 - s.year
-where:
-  song-age(lver) is 71
-  song-age(so) is 1
-  song-age(wnkkhs) is 57
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int song-age(ITunesSong s) {
+    return 2016 - s.year;
+} where {
+    
+}</code></pre></div></div>
 <h5 id="telling-apart-variants">6.1.3.2 Telling Apart Variants of
 Conditional Data</h5>
 <p>Now let’s see how we tell apart variants. For this, we again use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>,
 as we saw for lists. We create one branch for each of the variants.
 Thus, if we wanted to compute advice for a driver based on a traffic
 light’s state, we might write:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun advice(c :: TLColor) -&gt; String:
-  cases (TLColor) c:
-    | Red =&gt; "wait!"
-    | Yellow =&gt; "get ready..."
-    | Green =&gt; "go!"
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">String advice(TLColor c) {
+    return switch (c) {
+        case Red: yield "wait!";
+        case Yellow: yield "get ready...";
+        case Green: yield "go!";
+    }
+}</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What happens if you leave out the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=&gt;</code></span>?</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=&gt;</code></span>?</p></blockquote></blockquote>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What if you leave out a variant? Leave out the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Red</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Red</code></span>
 variant, then try both
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">advice(Yellow)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">advice(Yellow)</code></span>
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">advice(Red)</code></span>.</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">advice(Red)</code></span>.</p></blockquote></blockquote>
 <h5 id="process-fields-variants">6.1.3.3 Processing Fields of
 Variants</h5>
 <p>In this example, the variants had no fields. But if the variant has
-fields, Pyret expects you to list names of variables for those fields,
+fields, Jayret expects you to list names of variables for those fields,
 and will then automatically bind those variables—so you don’t need to
 use the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.</code></span>-notation
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.</code></span>-notation
 to get the field values.</p>
 <p>To illustrate this, assume we want to get the name of any animal:
 <animal-name> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun animal-name(a :: Animal) -&gt; String:
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+fun animal-name(a :: Animal) -&gt; String:
   &lt;animal-name-body&gt;
 end</code></pre></div></div>
 <p>Because an
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Animal</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Animal</code></span>
 is conditionally defined, we know that we are likely to want a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
 to pull it apart; furthermore, we should give names to each of the
 fields:<span class="refelem"><span class="refcolumn"><span class="refcontent">Note that the names of the variables do not have to match the names of
 fields. Conventionally, we give longer, descriptive names to the field
 definitions and short names to the corresponding variables.</span></span></span></p>
 <p><animal-name-body> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">cases (Animal) a:
-  | boa(n, l) =&gt; ...
-  | armadillo(n, l) =&gt; ...
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">switch (a) {
+    case Boa(n, l): yield ...;
+    case Armadillo(n, l): yield ...;
+}</code></pre></div></div>
 <p>In both cases, we want to return the field
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">n</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">n</code></span>,
 giving us the complete function:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun animal-name(a :: Animal) -&gt; String:
-  cases (Animal) a:
-    | boa(n, l) =&gt; n
-    | armadillo(n, l) =&gt; n
-  end
-where:
-  animal-name(b1) is "Ayisha"
-  animal-name(b2) is "Bonito"
-  animal-name(a1) is "Glypto"
-end</code></pre></div></div>
-<p>Let’s look at how Pyret would evaluate a function call like</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">animal-name(boa("Bonito", 8))</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">String animal-name(Animal a) {
+    return switch (a) {
+        case Boa(n, l): yield n;
+        case Armadillo(n, l): yield n;
+    }
+} where {
+    
+}</code></pre></div></div>
+<p>Let’s look at how Jayret would evaluate a function call like</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">animal-name(boa("Bonito", 8));</code></pre></div></div>
 <p>The argument
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">boa("Bonito", 8)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">boa("Bonito", 8)</code></span>
 is a value. In the same way as we substitute simple data types like
 strings and numbers for parameters when we evaluate a function, we do
 the same thing here. After substituting, we are left with the following
 expression to evaluate:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">cases (Animal) boa("Bonito", 8):
-  | boa(n, l) =&gt; n
-  | armadillo(n, l) =&gt; n
-end</code></pre></div></div>
-<p>Next, Pyret determines which case matches the data (the first one,
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">switch (boa("Bonito", 8)) {
+    case Boa(n, l): yield n;
+    case Armadillo(n, l): yield n;
+}</code></pre></div></div>
+<p>Next, Jayret determines which case matches the data (the first one,
 for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">boa</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">boa</code></span>,
 in this case). It then substitutes the field names with the
 corresponding components of the datum result expression for the matched
 case. In this case, we will substitute uses of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">n</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">n</code></span>
 with
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Bonito"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Bonito"</code></span>
 and uses of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">l</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">l</code></span>
 with
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>.
 In this program, the entire result expression is a use of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">n</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">n</code></span>,
 so the result of the program in this case is
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Bonito"</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Bonito"</code></span>.</p>
 <div class="navsetbottom">
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="part_structured-data.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_structured-data.html">up</a>&nbsp;&nbsp;<a href="Collections_of_Structured_Data.html" rel="next">next &rarr;</a></span>&nbsp;

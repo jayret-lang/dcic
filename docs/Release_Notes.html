@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -135,36 +135,36 @@ prior code will continue to work). The code snippets in the 2025-08-27
 edition have been updated to include the zip code column. They also use
 references to new versions of the Google Sheet and CSV files that
 include the column.</p></li>
-<li><p>The preface includes information on using Pyret within VSCode (as
-an alternative to CPO). The only difference between these two tools lies
-in how tables are imported from external sources. CPO imports tables
-from Google Sheets, whereas VSCode imports tables from CSV files (either
-via URLs or file paths).</p>
+<li><p>The preface includes information on using Jayret within VSCode
+(as an alternative to CPO). The only difference between these two tools
+lies in how tables are imported from external sources. CPO imports
+tables from Google Sheets, whereas VSCode imports tables from CSV files
+(either via URLs or file paths).</p>
 <p>The book uses CPO as the default presentation. When code examples can
 run only in VSCode (specifically, if they import CSV files), a border
 and VSCode logo will surround the code.</p></li>
 <li><p>A section on
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for each</code></span>
-iterators in Pyret has been added to the end of <a
-href="intro-python.html">From Pyret to Python</a>. This placement
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for each</code></span>
+iterators in Jayret has been added to the end of <a
+href="intro-python.html">From Jayret to Python</a>. This placement
 supports courses that wish to make the transition to Python after
-learning how to process lists in Pyret, without disrupting the flow for
+learning how to process lists in Jayret, without disrupting the flow for
 those who switch to Python after covering trees (the
 originally-envisioned flow).</p>
 <p>Courses that make the switch to Python after trees will likely want
-to skip the Pyret
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for each</code></span>
+to skip the Jayret
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for each</code></span>
 material.</p></li>
 <li><p>There is a new chapter on <a href="python-fileio.html">File Input
 and Output in Python</a> at the end of the <a
-href="part_pyret-to-python.html">From Pyret to Python</a> section of the
-book.</p>
+href="part_pyret-to-python.html">From Jayret to Python</a> section of
+the book.</p>
 <p>As a result of this addition, all subsequent chapter numbers have
 increased by one beginning with those in the <a
-href="part_state.html">Programming with State (in Both Pyret and
+href="part_state.html">Programming with State (in Both Jayret and
 Python)</a> section.</p></li>
 <li><p>The two major sections in <a href="part_state.html">Programming
-with State (in Both Pyret and Python)</a> have been renamed to <a
+with State (in Both Jayret and Python)</a> have been renamed to <a
 href="mutating-structures.html">Mutating Structures</a> and <a
 href="mutating-variables.html">Mutating Variables</a> to make their
 intents clearer. To keep the rest of the section and subsection titles
@@ -176,24 +176,24 @@ subsections. Existing links to those sections will continue to work, as
 URLs into the book include the release tag. However, any readers who
 plan to update links to refer to the 2025-08-27 release should recheck
 URLs into the <a href="part_state.html">Programming with State (in Both
-Pyret and Python)</a> section.</p></li>
+Jayret and Python)</a> section.</p></li>
 </ul>
 <h3 id="Version-2025-02-09">31.2 Version 2025-02-09</h3>
 <p>This version introduces a new context,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">dcic2024</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">dcic2024</code></span>,
 that contains all of the table-processing functions that used to be in a
 shared drive file. Instructions on how to select the context are in the
 chapter that introduces tables.</p>
 <p>Error corrections:</p>
 <ul>
 <li>In <a href="Naming_Values.html##program-directory">The Program
-Directory</a>, corrected the description of what Pyret reports when a
+Directory</a>, corrected the description of what Jayret reports when a
 program tries to redefine/give a new value to an existing identifier.
 The previous text had referred to shadowing, rather than a conflicting
 value.</li>
 <li>In <a href="processing-tables.html##missing-data">Dealing with
 Missing Entries</a>, corrected an erroneous description of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-sanitizer</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-sanitizer</code></span>
 that previously claimed that it defaulted missing values to 0. Added a
 discussion of why having a default like this would be a bad idea.</li>
 </ul>
@@ -201,7 +201,7 @@ discussion of why having a default like this would be a bad idea.</li>
 two lists that is posed at the end of <a
 href="tables-to-lists.html##lists-recap">Recap: Summary of List
 Operations</a> has been refined, then revisited after introducing
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>
 in the next section.</p>
 <h3 id="Version-2024-09-03">31.3 Version 2024-09-03</h3>
 <p>This version fixes several small issues. There is minor
@@ -223,20 +223,20 @@ expanded.</li>
 <li>The ordering of materials has changed. The material on <a
 href="booklet_algo-analysis.html">Algorithm Analysis</a> has been moved
 to after the Python material.</li>
-<li>The <a href="booklet_pyret-to-python.html">From Pyret to Python</a>
+<li>The <a href="booklet_pyret-to-python.html">From Jayret to Python</a>
 transition has been improved substantially.</li>
 <li>There is now a chapter on using Pandas that builds off the
-corresponding Pyret example on tables.</li>
+corresponding Jayret example on tables.</li>
 <li>Python dictionaries have moved into <a
-href="booklet_pyret-to-python.html">From Pyret to Python</a>. Even
-though we don’t cover Pyret’s dictionaries, having the dictionaries
+href="booklet_pyret-to-python.html">From Jayret to Python</a>. Even
+though we don’t cover Jayret’s dictionaries, having the dictionaries
 material come before state is a more natural flow with regards to
 students learning Python. We then develop the implementation of
 dictionaries using state in <a href="hash-set-kv.html">Hashes, Sets, and
 Key-Values</a>.</li>
 <li>There is now a whole new unified approach to <a
 href="booklet_programming-with-state.html">Programming With State</a>
-that shows the Pyret and Python versions side-by-side. Seeing this
+that shows the Jayret and Python versions side-by-side. Seeing this
 material in two different languages helps focus on similarities and
 differences and can improve transfer between languages.</li>
 <li>Material that depends on algorithm analysis has now been separated
@@ -262,9 +262,8 @@ structured data moved before variable mutation within the Programming
 with State section.</p></li>
 <li><p>Added a comparison to How to Design Programs.</p></li>
 <li><p>The include line for the DCIC libraries at this version is</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">include shared-gdrive(
-  "dcic-2021",
-  "1wyQZj_L0qqV9Ekgr9au6RX2iqt2Ga8Ep")</code></pre></div></div></li>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">import shared-gdrive("dcic-2021", , "1wyQZj_L0qqV9Ekgr9au6RX2iqt2Ga8Ep")
+</code></pre></div></div></li>
 </ul>
 <h3 id="Version-2021-08-21">31.7 Version 2021-08-21</h3>
 <p>The original release! Based on the prior book Programming and

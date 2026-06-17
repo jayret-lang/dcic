@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -137,98 +137,99 @@ things as similar to the previous version as possible, to enhance
 comparison.</p>
 <h4 id="Implementing-with-State">18.3.1 Implementing with State</h4>
 <p>First, we have to update the definition of an element, making the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
 field be mutable:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Element:
-  | elt(val, ref parent :: Option&lt;Element&gt;)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Element {
+    Elt(val, ref Option&lt;Object&gt; parent);
+}</code></pre></div></div>
 <p>To determine whether two elements are in the same set, we will still
 rely on
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>.
 However, as we will soon see,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>
 no longer needs to be given the entire set of elements. Because the only
 reason
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in-same-set</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in-same-set</code></span>
 consumed that set was to pass it on to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>,
 we can remove it from here. Nothing else changes:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun is-in-same-set(e1 :: Element, e2 :: Element) -&gt; Boolean:
-  s1 = fynd(e1)
-  s2 = fynd(e2)
-  identical(s1, s2)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">boolean is-in-same-set(Element e1, Element e2) {
+    s1 = fynd(e1);
+    s2 = fynd(e2);
+    return identical(s1, s2);
+}</code></pre></div></div>
 <p>Updating is now the crucial difference: we use mutation to change the
 value of the parent:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun update-set-with(child :: Element, parent :: Element):
-  child!{parent: some(parent)}
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object update-set-with(Element child, Element parent) {
+    return child ! {parent some(parent) }
+}</code></pre></div></div>
 <p>In
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent: some(parent)</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent: some(parent)</code></span>,
 the first
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
 is the name of the field, while the second one is the parameter name. In
 addition, we must use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>
 to satisfy the option type. Naturally, it is not
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
 because the entire point of this mutation is to change the parent to be
 the other element, irrespective of what was there before.</p>
 <p>Given this definition,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">union</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">union</code></span>
 also stays largely unchanged, other than the change to the return type.
 Previously, it needed to return the updated set of elements; now,
 because the update is performed by mutation, there is no longer any need
 to return anything:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun union(e1 :: Element, e2 :: Element):
-  s1 = fynd(e1)
-  s2 = fynd(e2)
-  if identical(s1, s2):
-    s1
-  else:
-    update-set-with(s1, s2)
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object union(Element e1, Element e2) {
+    s1 = fynd(e1);
+    s2 = fynd(e2);
+    return if (identical(s1, s2)) {
+        return s1;
+    } else {
+        return update-set-with(s1, s2);
+    }
+}</code></pre></div></div>
 <p>Finally,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>.
 Its implementation is now remarkably simple. There is no longer any need
 to search through the set. Previously, we had to search because after
 union operations have occurred, the parent reference might have no
 longer been valid. Now, any such changes are automatically reflected by
 mutation. Hence:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun fynd(e :: Element) -&gt; Element:
-  cases (Option) e!parent:
-    | none =&gt; e
-    | some(p) =&gt; fynd(p)
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Element fynd(Element e) {
+    return switch (e ! parent) {
+        case None: yield e;
+        case Some(p): yield fynd(p);
+    }
+}</code></pre></div></div>
 <h4 id="Optimizations">18.3.2 Optimizations</h4>
 <p>Look again at
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>.
 In the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>
 case, the element bound to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">e</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">e</code></span>
 is not the set name; that is obtained by recursively traversing
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
 references. As this value returns, however, we don’t do anything to
 reflect this new knowledge! Instead, the next time we try to find the
 parent of this element, we’re going to perform this same recursive
 traversal all over again.</p>
 <p>Using mutation helps address this problem. The idea is as simple as
 can be: compute the value of the parent, and update it.</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun fynd(e :: Element) -&gt; Element:
-  cases (Option) e!parent block:
-    | none =&gt; e
-    | some(p) =&gt;
-      new-parent = fynd(p)
-      e!{parent: some(new-parent)}
-      new-parent
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Element fynd(Element e) {
+    return switch (e ! parent) {
+        case None: yield e;
+        case Some(p): yield block {
+            new-parent = fynd(p);
+            e ! {parent some(new-parent) }
+            return new-parent;
+        };
+    }
+}</code></pre></div></div>
 <p>Note that this update will apply to every element in the recursive
 chain to find the set name. Therefore, applying
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>
 to any of those elements the next time around will benefit from this
 update. This idea is called path compression.</p>
 <p>There is one more interesting idea we can apply. This is to maintain

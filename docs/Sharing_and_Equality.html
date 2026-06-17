@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -124,77 +124,67 @@ MathJax.Hub.Config({
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._identical-eq%29">16.1.1<span class="hspace"> </span>Re-Examining Equality</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._.The_.Cost_of_.Evaluating_.References%29">16.1.2<span class="hspace"> </span>The Cost of Evaluating References</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._equal-always%29">16.1.3<span class="hspace"> </span>Notations for Equality</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._.On_the_.Internet__.Nobody_.Knows_.You_re_a_.D.A.G%29">16.1.4<span class="hspace"> </span>On the Internet, Nobody Knows You’re a DAG</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._.It_s_.Always_.Been_a_.D.A.G%29">16.1.5<span class="hspace"> </span>It’s Always Been a DAG</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Sharing_and_Equality.html#%28part._acyc-to-cyc%29">16.1.6<span class="hspace"> </span>From Acyclicity to Cycles</a></p></td></tr></table>
 <h4 id="identical-eq">16.1.1 Re-Examining Equality</h4>
 <p>Consider the following data definition and example values:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data BT:
-  | leaf
-  | node(v, l :: BT, r :: BT)
-end
-
-a-tree =
-  node(5,
-    node(4, leaf, leaf),
-    node(4, leaf, leaf))
-
-b-tree =
-  block:
-    four-node = node(4, leaf, leaf)
-    node(5,
-      four-node,
-      four-node)
-  end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data BT {
+    Leaf;
+    Node(v, BT l, BT r);
+}
+a-tree = node(5, node(4, leaf, leaf), node(4, leaf, leaf));
+b-tree = block: four-node = node(4, leaf, leaf);
+node(5, four-node, four-node);</code></pre></div></div>
 <p>In particular, it might seem that the way we’ve written
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
 is morally equivalent to how we’ve written
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>,
 but we’ve created a helpful binding to avoid code duplication.</p>
 <p>Because both
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
 are bound to trees with
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">5</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">5</code></span>
 at the root and a left and right child each containing
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>,
 we can indeed reasonably consider these trees equivalent. Sure enough:
 <equal-tests> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  a-tree   is b-tree
-  a-tree.l is a-tree.l
-  a-tree.l is a-tree.r
-  b-tree.l is b-tree.r
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(a-tree, b-tree);
+    assertEquals(a-tree.l, a-tree.l);
+    assertEquals(a-tree.l, a-tree.r);
+    assertEquals(b-tree.l, b-tree.r);
+}</code></pre></div></div>
 <p>However, there is another sense in which these trees are not
 equivalent. concretely,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>
 constructs a distinct node for each child, while
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
 uses the same node for both children. Surely this difference should show
 up somehow, but we have not yet seen a way to write a program that will
 tell these apart.</p>
 <p>By default, the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
-operator uses the same equality test as Pyret’s
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>.
-There are, however, other equality tests in Pyret. In particular, the
-way we can tell apart these data is by using Pyret’s
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+operator uses the same equality test as Jayret’s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>.
+There are, however, other equality tests in Jayret. In particular, the
+way we can tell apart these data is by using Jayret’s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>
 function, which implements reference equality. This checks not only
 whether two values are structurally equivalent but whether they are the
 result of the very same act of value construction. With this, we can now
 write additional tests:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  identical(a-tree, b-tree)     is false
-  identical(a-tree.l, a-tree.l) is true
-  identical(a-tree.l, a-tree.r) is false
-  identical(b-tree.l, b-tree.r) is true
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(identical(a-tree, b-tree), false);
+    assertEquals(identical(a-tree.l, a-tree.l), true);
+    assertEquals(identical(a-tree.l, a-tree.r), false);
+    assertEquals(identical(b-tree.l, b-tree.r), true);
+}</code></pre></div></div>
 <p>Let’s step back for a moment and consider the behavior that gives us
 this result. We can visualize the different values by putting each
 distinct value in a separate location alongside the running program. We
 can draw the first step as creating a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">node</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">node</code></span>
 with value
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>:</p>
-<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree =
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>:</p>
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">a-tree =
   node(5,
     <span class="heapref sink">1001</span>,
     node(4, leaf, leaf))
@@ -205,11 +195,11 @@ b-tree =
     node(5,
       four-node,
       four-node)
-  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
+  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
 <p>The next step creates another node with value
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>,
 distinct from the first:</p>
-<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree =
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">a-tree =
   node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)
 
 b-tree =
@@ -218,13 +208,13 @@ b-tree =
     node(5,
       four-node,
       four-node)
-  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
+  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
 <p>Then the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">node</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">node</code></span>
 for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>
 is created:</p>
-<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree = <span class="heapref sink">1003</span>
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">a-tree = <span class="heapref sink">1003</span>
 
 b-tree =
   block:
@@ -232,15 +222,15 @@ b-tree =
     node(5,
       four-node,
       four-node)
-  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
+  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
 <p>When evaluating the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">block</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">block</code></span>
 for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>,
 first a single node is created for the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">four-node</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">four-node</code></span>
 binding:</p>
-<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree = <span class="heapref sink">1003</span>
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">a-tree = <span class="heapref sink">1003</span>
 
 b-tree =
   block:
@@ -248,34 +238,34 @@ b-tree =
     node(5,
       four-node,
       four-node)
-  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
+  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
 <p>These location values can be substituted just like any other, so they
 get substituted for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">four-node</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">four-node</code></span>
 to continue evaluation of the
 block.<span class="refelem"><span class="refcolumn"><span class="refcontent">We skipped substituting
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>
 for the moment, that will come up later.</span></span></span></p>
-<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree = <span class="heapref sink">1003</span>
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">a-tree = <span class="heapref sink">1003</span>
 
 b-tree =
   block:
     node(5, <span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)
-  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
+  end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
 <p>Finally, the node for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
 is created:</p>
-<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">a-tree = <span class="heapref sink">1003</span>
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">a-tree = <span class="heapref sink">1003</span>
 
-b-tree = <span class="heapref sink">1005</span></code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1005</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
+b-tree = <span class="heapref sink">1005</span></code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1005</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(5, <span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
 <p>This visualization can help us explain the test we wrote using
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>.
 Let’s consider the test with the appropriate location references
 substituted for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>:</p>
-<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>:</p>
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">check:
   identical(<span class="heapref sink">1003</span>, <span class="heapref sink">1005</span>)
     is false
   identical(<span class="heapref sink">1003</span>.l, <span class="heapref sink">1003</span>.l)
@@ -284,8 +274,8 @@ and
     is false
   identical(<span class="heapref sink">1005</span>.l, <span class="heapref sink">1005</span>.r)
     is true
-end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1005</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
-<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1005</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(5, <span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
+<div class="HeapExpr"><div class="ExprPart"><pre class="HeapCode"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">check:
   identical(<span class="heapref sink">1003</span>, <span class="heapref sink">1005</span>)
     is false
   identical(<span class="heapref sink">1001</span>, <span class="heapref sink">1001</span>)
@@ -294,37 +284,37 @@ end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul
     is false
   identical(<span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)
     is true
-end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1005</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">node(5, <span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
-<p>There is actually another way to write these tests in Pyret: the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+end</code></pre></div></div></p></pre></div><div class="HeapPart"><p>Heap</p><ul><li><p><div class="SIntrapara"><span class="heapref source">1001</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1002</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1003</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(5, <span class="heapref sink">1001</span>, <span class="heapref sink">1002</span>)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1004</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(4, leaf, leaf)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><span class="heapref source">1005</span>:<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">node(5, <span class="heapref sink">1004</span>, <span class="heapref sink">1004</span>)</code></pre></div></div></p></div></p></li></ul></div><div class="clear"></div></div>
+<p>There is actually another way to write these tests in Jayret: the
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
 operator can also be parameterized by a different equality predicate
 than the default
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>.
 Thus, the above block can equivalently be written
 as:<span class="refelem"><span class="refcolumn"><span class="refcontent">We can use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-not</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-not</code></span>
 to check for expected failure of equality.</span></span></span></p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  a-tree   is-not%(identical) b-tree
-  a-tree.l is%(identical)     a-tree.l
-  a-tree.l is-not%(identical) a-tree.r
-  b-tree.l is%(identical)     b-tree.r
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertNotEquals(a-tree, b-tree);
+    assertEquals(a-tree.l, a-tree.l);
+    assertNotEquals(a-tree.l, a-tree.r);
+    assertEquals(b-tree.l, b-tree.r);
+}</code></pre></div></div>
 <p>We will use this style of equality testing from now on.</p>
 <p>Observe how these are the same values that were compared earlier (<a
 href="Sharing_and_Equality.html#%28elem._equal-tests%29"><equal-tests></a>),
 but the results are now different: some values that were true earlier
 are now false. In particular,</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  a-tree   is                 b-tree
-  a-tree   is-not%(identical) b-tree
-  a-tree.l is                 a-tree.r
-  a-tree.l is-not%(identical) a-tree.r
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(a-tree, b-tree);
+    assertNotEquals(a-tree, b-tree);
+    assertEquals(a-tree.l, a-tree.r);
+    assertNotEquals(a-tree.l, a-tree.r);
+}</code></pre></div></div>
 <p>Later we will return both to what
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>
 really means [<a href="unified-equality.html">Understanding
-Equality</a>] (Pyret has a full range of equality operations suitable
+Equality</a>] (Jayret has a full range of equality operations suitable
 for different situations).</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>There are many more equality tests we can and should perform even
 with the basic data above to make sure we really understand equality
@@ -335,133 +325,132 @@ them!</p></blockquote></blockquote>
 References</h4>
 <p>From a complexity viewpoint, it’s important for us to understand how
 these references work. As we have hinted,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">four-node</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">four-node</code></span>
 is computed only once, and each use of it refers to the same value: if,
 instead, it was evaluated each time we referred to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">four-node</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">four-node</code></span>,
 there would be no real difference between
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>,
 and the above tests would not distinguish between them.</p>
 <p>This is especially relevant when understanding the cost of function
 evaluation. We’ll construct two simple examples that illustrate this.
 We’ll begin with a contrived data structure:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">L = range(0, 100)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">L = range(0, 100);</code></pre></div></div>
 <p>Suppose we now define</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">L1 = link(1, L)
-L2 = link(-1, L)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">L1 = link(1, L);
+L2 = link(-1, L);</code></pre></div></div>
 <p>Constructing a list clearly takes time at least proportional to the
 length; therefore, we expect the time to compute
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L</code></span>
 to be considerably more than that for a single
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
 operation. Therefore, the question is how long it takes to compute
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L1</code></span>
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L2</code></span>
 after
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L</code></span>
 has been computed: constant time, or time proportional to the length of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L</code></span>?</p>
-<p>The answer, for Pyret, and for most other contemporary languages
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L</code></span>?</p>
+<p>The answer, for Jayret, and for most other contemporary languages
 (including Java, C#, OCaml, Racket, etc.), is that these additional
 computations take constant time. That is, the value bound to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L</code></span>
 is computed once and bound to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L</code></span>;
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L</code></span>;
 subsequent expressions refer to this value (hence “reference”) rather
 than reconstructing it, as reference equality shows:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  L1.rest is%(identical) L
-  L2.rest is%(identical) L
-  L1.rest is%(identical) L2.rest
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(L1.rest, L);
+    assertEquals(L2.rest, L);
+    assertEquals(L1.rest, L2.rest);
+}</code></pre></div></div>
 <p>Similarly, we can define a function, pass
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">L</code></span>
 to it, and see whether the resulting argument is
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>
 to the original:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun check-for-no-copy(another-l):
-  identical(another-l, L)
-end
-
-check:
-  check-for-no-copy(L) is true
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object check-for-no-copy(another-l) {
+    return identical(another-l, L);
+}
+@Check void test() {
+    assertEquals(check-for-no-copy(L), true);
+}</code></pre></div></div>
 <p>or, equivalently,</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  L satisfies check-for-no-copy
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertSatisfies(L, check-for-no-copy);
+}</code></pre></div></div>
 <p>Therefore, neither built-in operations (like
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.rest</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.rest</code></span>)
 nor user-defined ones (like
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check-for-no-copy</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check-for-no-copy</code></span>)
 make copies of their
 arguments.<span class="refelem"><span class="refcolumn"><span class="refcontent">Strictly speaking, of course, we cannot conclude that no copy was made.
-Pyret could have made a copy, discarded it, and still passed a reference
-to the original. Given how perverse this would be, we can assume—and
-take the language’s creators’ word for it—that this doesn’t actually
-happen. By creating extremely large lists, we can also use timing
-information to observe that the time of constructing the list grows
-proportional to the length of the list while the time of passing it as a
-parameter remains constant.</span></span></span> The important thing to
-observe here is that, instead of simply relying on authority, we have
-used operations in the language itself to understand how the language
-behaves.</p>
+Jayret could have made a copy, discarded it, and still passed a
+reference to the original. Given how perverse this would be, we can
+assume—and take the language’s creators’ word for it—that this doesn’t
+actually happen. By creating extremely large lists, we can also use
+timing information to observe that the time of constructing the list
+grows proportional to the length of the list while the time of passing
+it as a parameter remains constant.</span></span></span> The important
+thing to observe here is that, instead of simply relying on authority,
+we have used operations in the language itself to understand how the
+language behaves.</p>
 <h4 id="equal-always">16.1.3 Notations for Equality</h4>
 <p>Until now we have used
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
 for equality. Now we have learned that it’s only one of multiple
 equality operators, and that there is another one called
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>.
 However, these two have somewhat subtly different syntactic properties.
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>
 is a name for a function, which can therefore be used to refer to it
 like any other function (e.g., when we need to mention it in a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-not</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-not</code></span>
 clause). In contrast,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
 is a binary operator, which can only be used in the middle of
 expressions.</p>
 <p>This should naturally make us wonder about the other two
 possibilities: a binary expression version of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>
 and a function name equivalent of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>.
 They do, in fact, exist! The operation performed by
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
 is called
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">equal-always</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">equal-always</code></span>.
 Therefore, we can write the first block of tests equivalently, but more
 explicitly, as</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  a-tree   is%(equal-always) b-tree
-  a-tree.l is%(equal-always) a-tree.l
-  a-tree.l is%(equal-always) a-tree.r
-  b-tree.l is%(equal-always) b-tree.r
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(a-tree, b-tree);
+    assertEquals(a-tree.l, a-tree.l);
+    assertEquals(a-tree.l, a-tree.r);
+    assertEquals(b-tree.l, b-tree.r);
+}</code></pre></div></div>
 <p>Conversely, the binary operator notation for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>
 is
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;=&gt;</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;=&gt;</code></span>.
 Thus, we can equivalently write
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check-for-no-copy</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check-for-no-copy</code></span>
 as</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun check-for-no-copy(another-l):
-  another-l &lt;=&gt; L
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object check-for-no-copy(another-l) {
+    return another-l &lt;=&gt; L;
+}</code></pre></div></div>
 <h4 id="On-the-Internet-Nobody-Knows-You-re-a-D-A-G">16.1.4 On the
 Internet, Nobody Knows You’re a DAG</h4>
 <p>Despite the name we’ve given it,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
 is not actually a tree. In a tree, by definition, there are no shared
 nodes, whereas in
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
 the node named by
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">four-node</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">four-node</code></span>
 is shared by two parts of the tree. Despite this, traversing
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b-tree</code></span>
 will still terminate, because there are no cyclic references in it: if
 you start from any node and visit its “children”, you cannot end up back
 at that node. There is a special name for a value with such a shape:
@@ -480,95 +469,84 @@ one page per person (for both maintenance and search indexing purposes),
 all these personnel links refer back to the same page for people.</p>
 <p>Let’s construct a simple form of this. First a datatype to represent
 a site’s content:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Content:
-  | page(s :: String)
-  | section(title :: String, sub :: List&lt;Content&gt;)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Content {
+    Page(String s);
+    Section(String title, List&lt;Object&gt; sub);
+}</code></pre></div></div>
 <p>Let’s now define a few people:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">people-pages :: Content =
-  section("People",
-    [list: page("Church"),
-      page("Dijkstra"),
-      page("Hopper") ])</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">people-pages = section("People", [page("Church"), page("Dijkstra"), page("Hopper")]);</code></pre></div></div>
 <p>and a way to extract a particular person’s page:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun get-person(n): get(people-pages.sub, n) end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object get-person(n) {
+    return get(people-pages.sub, n);
+}</code></pre></div></div>
 <p>Now we can define theory and systems sections:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">theory-pages :: Content =
-  section("Theory",
-    [list: get-person(0), get-person(1)])
-systems-pages :: Content =
-  section("Systems",
-    [list: get-person(1), get-person(2)])</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">theory-pages = section("Theory", [get-person(0), get-person(1)]);
+systems-pages = section("Systems", [get-person(1), get-person(2)]);</code></pre></div></div>
 <p>which are integrated into a site as a whole:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">site :: Content =
-  section("Computing Sciences",
-    [list: theory-pages, systems-pages])</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">site = section("Computing Sciences", [theory-pages, systems-pages]);</code></pre></div></div>
 <p>Now we can confirm that each of these luminaries needs to keep only
 one Web page current; for instance:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  theory  = get(site.sub, 0)
-  systems = get(site.sub, 1)
-  theory-dijkstra  = get(theory.sub, 1)
-  systems-dijkstra = get(systems.sub, 0)
-  theory-dijkstra is             systems-dijkstra
-  theory-dijkstra is%(identical) systems-dijkstra
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    theory = get(site.sub, 0);
+    systems = get(site.sub, 1);
+    theory-dijkstra = get(theory.sub, 1);
+    systems-dijkstra = get(systems.sub, 0);
+    assertEquals(theory-dijkstra, systems-dijkstra);
+    assertEquals(theory-dijkstra, systems-dijkstra);
+}</code></pre></div></div>
 <h4 id="It-s-Always-Been-a-D-A-G">16.1.5 It’s Always Been a DAG</h4>
 <p>What we may not realize is that we’ve actually been creating a DAG
 for longer than we think. To see this, consider
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a-tree</code></span>,
 which very clearly seems to be a tree. But look more closely not at the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">node</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">node</code></span>s
 but rather at the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf</code></span>(s).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf</code></span>(s).
 How many actual
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf</code></span>s
 do we create?</p>
 <p>One hint is that we don’t seem to call a function when creating a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf</code></span>:
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf</code></span>:
 the data definition does not list any fields, and when constructing a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">BT</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">BT</code></span>
 value, we simply write
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf</code></span>,
 not (say)
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf()</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf()</code></span>.
 Still, it would be nice to know what is happening behind the scenes. To
-check, we can simply ask Pyret:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  leaf is%(identical) leaf
-end</code></pre></div></div>
+check, we can simply ask Jayret:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(leaf, leaf);
+}</code></pre></div></div>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">It’s important that we not write
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf &lt;=&gt; leaf</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf &lt;=&gt; leaf</code></span>
 here, because that is just an expression whose result is ignored. We
 have to write
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
 to register this as a test whose result is checked and reported.</span></span></span>
 and this check passes. That is, when we write a variant without any
-fields, Pyret automatically creates a singleton: it makes just one
+fields, Jayret automatically creates a singleton: it makes just one
 instance and uses that instance everywhere. This leads to a more
 efficient memory representation, because there is no reason to have lots
 of distinct
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf</code></span>s
 each taking up their own memory. However, a subtle consequence of that
 is that we have been creating a DAG all along.</p>
 <p>If we really wanted each
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf</code></span>
 to be distinct, it’s easy: we can write</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data BTDistinct:
-  | leaf()
-  | node(v, l :: BTDistinct, r :: BTDistinct)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data BTDistinct {
+    Leaf();
+    Node(v, BTDistinct l, BTDistinct r);
+}</code></pre></div></div>
 <p>Then we would need to use the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">leaf</code></span>
 function everywhere:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">c-tree :: BTDistinct =
-  node(5,
-    node(4, leaf(), leaf()),
-    node(4, leaf(), leaf()))</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">c-tree = node(5, node(4, leaf(), leaf()), node(4, leaf(), leaf()));</code></pre></div></div>
 <p>And sure enough:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  leaf() is-not%(identical) leaf()
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertNotEquals(leaf(), leaf());
+}</code></pre></div></div>
 <h4 id="acyc-to-cyc">16.1.6 From Acyclicity to Cycles</h4>
 <p>Here’s another example that arises on the Web. Suppose we are
 constructing a table of output in a Web page. We would like the rows of
@@ -577,16 +555,16 @@ rows, we could map the row-generating function over a list of these two
 colors. Since we do not know how many rows it will have, however, we
 would like the list to be as long as necessary. In effect, we would like
 to write:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">web-colors = link("white", link("grey", web-colors))</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">web-colors = link("white", link("grey", web-colors));</code></pre></div></div>
 <p>to obtain an indefinitely long list, so that we could eventually
 write</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">map2(color-table-row, table-row-content, web-colors)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">map2(color-table-row, table-row-content, web-colors);</code></pre></div></div>
 <p>which applies a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">color-table-row</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">color-table-row</code></span>
 function to two arguments: the current row from
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">table-row-content</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">table-row-content</code></span>,
 and the current color from
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors</code></span>,
 proceeding in lockstep over the two lists.</p>
 <p>Unfortunately, there are many things wrong with this attempted
 definition.</p>
@@ -594,36 +572,38 @@ definition.</p>
 <p>Here are some problems in turn:</p>
 <ul>
 <li><p>This will not even parse. The identifier
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors</code></span>
 is not bound on the right of the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=</code></span>.</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=</code></span>.</p></li>
 <li><p>Earlier, we saw a solution to such a problem: use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>
 [<a href="func-as-data.html##streams-from-funs">Streams From
 Functions</a>]. What happens if we write</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">rec web-colors = link("white", link("grey", web-colors))</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">rec web-colors = link("white", link("grey", web-colors));</code></pre></div></div>
 <p>instead?</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Why does
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>
 work in the definition of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
 but not above?</p></blockquote></blockquote></li>
 <li><p>Assuming we have fixed the above problem, one of two things will
 happen. It depends on what the initial value of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors</code></span>
 is. Because it is a dummy value, we do not get an arbitrarily long list
 of colors but rather a list of two colors followed by the dummy value.
 Indeed, this program will not even type-check.</p>
 <p>Suppose, however, that
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors</code></span>
 were written instead as a function definition to delay its creation:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun web-colors(): link("white", link("grey", web-colors())) end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object web-colors() {
+  return link("white", link("grey", web-colors()));
+}</code></pre></div></div>
 <p>On its own this just defines a function. If, however, we use
-it—<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors()</code></span>—it
+it—<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors()</code></span>—it
 goes into an infinite loop constructing
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>s.</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>s.</p></li>
 <li><p>Even if all that were to work,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map2</code></span>
 would either (a) not terminate because its second argument is
 indefinitely long, or (b) report an error because the two arguments
 aren’t the same length.</p></li>

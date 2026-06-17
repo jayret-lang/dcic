@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -308,20 +308,20 @@ applicable in several other applications as well.</p>
 <p>The setup is as follows. For arbitrary values, we want the ability to
 think of them as elements in a set. We are interested in two operations.
 One is obviously
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">union</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">union</code></span>,
 which merges two sets into one. The other would seem to be something
 like
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in-same-set</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in-same-set</code></span>
 that takes two elements and determines whether they’re in the same set.
 Over time, however, it has proven useful to instead define the operator
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">find</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">find</code></span>
 that, given an element, “names” the set (more on this in a moment) that
 the element belongs to. To check whether two elements are in the same
 set, we then have to get the “set name” for each element, and check
 whether these names are the same. This certainly sounds more roundabout,
 but this means we have a primitive that may be useful in other contexts,
 and from which we can easily implement
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in-same-set</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in-same-set</code></span>.</p>
 <p>Now the question is, how do we name sets? The real question we should
 ask is, what operations do we care to perform on these names? All we
 care about is, given two names, they represent the same set precisely
@@ -330,121 +330,119 @@ or number, or something else, but we have another option: simply pick
 some element of the set to represent it, i.e., to serve as its name.
 Thus we will associate each set element with an indicator of the “set
 name” for that element; if there isn’t one, then its name is itself (the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
 case of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>):</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Element&lt;T&gt;:
-  | elt(val :: T, parent :: Option&lt;Element&gt;)
-end</code></pre></div></div>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>):</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Element {
+    Elt(T val, Option&lt;Object&gt; parent);
+}</code></pre></div></div>
 <p>We will assume we have some equality predicate for checking when two
 elements are the same, which we do by comparing their value parts,
 ignoring their parent values:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun is-same-element(e1, e2): e1.val &lt;=&gt; e2.val end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object is-same-element(e1, e2) {
+    return e1.val &lt;=&gt; e2.val;
+}</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Why do we check only the value parts?</p></blockquote></blockquote>
 <p>We will assume that for a given set, we always return the same
 representative element. (Otherwise, equality will fail even though we
 have the same set.)
 Thus:<span class="refelem"><span class="refcolumn"><span class="refcontent">We’ve used the name
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>
 because
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">find</code></span>
-is already defined to mean something else in Pyret. If you don’t like
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">find</code></span>
+is already defined to mean something else in Jayret. If you don’t like
 the misspelling, you’re welcome to use a longer name like
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">find-root</code></span>.</span></span></span></p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun is-in-same-set(e1 :: Element, e2 :: Element, s :: Sets)
-    -&gt; Boolean:
-  s1 = fynd(e1, s)
-  s2 = fynd(e2, s)
-  identical(s1, s2)
-end</code></pre></div></div>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">find-root</code></span>.</span></span></span></p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">boolean is-in-same-set(Element e1, Element e2, Sets s) {
+    s1 = fynd(e1, s);
+    s2 = fynd(e2, s);
+    return identical(s1, s2);
+}</code></pre></div></div>
 <p>where
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Sets</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Sets</code></span>
 is the list of all elements:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">type Sets = List&lt;Element&gt;</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">type Sets = List &lt; Element &gt;;</code></pre></div></div>
 <p>How do we find the representative element for a set? We first find it
 using
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-same-element</code></span>;
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-same-element</code></span>;
 when we do, we check the element’s
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
 field. If it is
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>,
 that means this very element names its set; this can happen either
 because the element is a singleton set (we’ll initialize all elements
 with
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>),
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>),
 or it’s the name for some larger set. Either way, we’re done. Otherwise,
 we have to recursively find the parent:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun fynd(e :: Element, s :: Sets) -&gt; Element:
-  cases (List) s:
-    | empty =&gt; raise("fynd: shouldn't have gotten here")
-    | link(f, r) =&gt;
-      if is-same-element(f, e):
-        cases (Option) f.parent:
-          | none =&gt; f
-          | some(p) =&gt; fynd(p, s)
-        end
-      else:
-        fynd(e, r)
-      end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Element fynd(Element e, Sets s) {
+    return switch (s) {
+        case Empty: yield raise("fynd: shouldn't have gotten here");
+        case Link(f, r): yield if (is-same-element(f, e)) {
+            return switch (f.parent) {
+                case None: yield f;
+                case Some(p): yield fynd(p, s);
+            }
+        } else {
+            return fynd(e, r);
+        };
+    }
+}</code></pre></div></div>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Why is there a recursive call in the nested
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>?</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>?</p></blockquote></blockquote>
 <p>What’s left is to implement
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">union</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">union</code></span>.
 For this, we find the representative elements of the two sets we’re
 trying to union; if they are the same, then the two sets are already in
 a union; otherwise, we have to update the data structure:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun union(e1 :: Element, e2 :: Element, s :: Sets) -&gt; Sets:
-  s1 = fynd(e1, s)
-  s2 = fynd(e2, s)
-  if identical(s1, s2):
-    s
-  else:
-    update-set-with(s, s1, s2)
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Sets union(Element e1, Element e2, Sets s) {
+    s1 = fynd(e1, s);
+    s2 = fynd(e2, s);
+    return if (identical(s1, s2)) {
+        return s;
+    } else {
+        return update-set-with(s, s1, s2);
+    }
+}</code></pre></div></div>
 <p>To update, we arbitrarily choose one of the set names to be the name
 of the new compound set. We then have to update the parent of the other
 set’s name element to be this one:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun update-set-with(s :: Sets, child :: Element, parent :: Element)
-    -&gt; Sets:
-  cases (List) s:
-    | empty =&gt; raise("update: shouldn't have gotten here")
-    | link(f, r) =&gt;
-      if is-same-element(f, child):
-        link(elt(f.val, some(parent)), r)
-      else:
-        link(f, update-set-with(r, child, parent))
-      end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Sets update-set-with(Sets s, Element child, Element parent) {
+    return switch (s) {
+        case Empty: yield raise("update: shouldn't have gotten here");
+        case Link(f, r): yield if (is-same-element(f, child)) {
+            return link(elt(f.val, some(parent)), r);
+        } else {
+            return link(f, update-set-with(r, child, parent));
+        };
+    }
+}</code></pre></div></div>
 <p>Here are some tests to illustrate this working:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  s0 = map(elt(_, none), [list: 0, 1, 2, 3, 4, 5, 6, 7])
-  s1 = union(get(s0, 0), get(s0, 2), s0)
-  s2 = union(get(s1, 0), get(s1, 3), s1)
-  s3 = union(get(s2, 3), get(s2, 5), s2)
-  print(s3)
-  is-same-element(fynd(get(s0, 0), s3), fynd(get(s0, 5), s3)) is true
-  is-same-element(fynd(get(s0, 2), s3), fynd(get(s0, 5), s3)) is true
-  is-same-element(fynd(get(s0, 3), s3), fynd(get(s0, 5), s3)) is true
-  is-same-element(fynd(get(s0, 5), s3), fynd(get(s0, 5), s3)) is true
-  is-same-element(fynd(get(s0, 7), s3), fynd(get(s0, 7), s3)) is true
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    s0 = map(elt(_, none), [0, 1, 2, 3, 4, 5, 6, 7]);
+    s1 = union(get(s0, 0), get(s0, 2), s0);
+    s2 = union(get(s1, 0), get(s1, 3), s1);
+    s3 = union(get(s2, 3), get(s2, 5), s2);
+    print(s3);
+    assertEquals(is-same-element(fynd(get(s0, 0), s3), fynd(get(s0, 5), s3)), true);
+    assertEquals(is-same-element(fynd(get(s0, 2), s3), fynd(get(s0, 5), s3)), true);
+    assertEquals(is-same-element(fynd(get(s0, 3), s3), fynd(get(s0, 5), s3)), true);
+    assertEquals(is-same-element(fynd(get(s0, 5), s3), fynd(get(s0, 5), s3)), true);
+    assertEquals(is-same-element(fynd(get(s0, 7), s3), fynd(get(s0, 7), s3)), true);
+}</code></pre></div></div>
 <p>Unfortunately, this implementation suffers from two major
 problems:</p>
 <ul>
 <li>First, because we are performing functional updates, the value of
 the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
 reference keeps “changing”, but these changes are not visible to older
 copies of the “same” value. An element from different stages of unioning
 has different parent references, even though it is arguably the same
 element throughout. This is a place where functional programming
 hurts.</li>
 <li>Relatedly, the performance of this implementation is quite bad.
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>
 recursively traverses parents to find the set’s name, but the elements
 traversed are not updated to record this new name. We certainly could
 update them by reconstructing the set afresh each time, but that
@@ -453,7 +451,7 @@ better.</li>
 </ul>
 <p>Even worse, it may not even be correct!</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Is it? Consider constructing
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">union</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">union</code></span>s
 that are not quite so skewed as above, and see whether you get the
 results you expect.</p></blockquote></blockquote>
 <p>The bottom line is that pure functional programming is not a great

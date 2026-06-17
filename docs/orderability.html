@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -144,9 +144,9 @@ href="orderability.html##eq-ord">Equality and Ordering</a>.</p>
 <p>Let us now consider how one can compute hashes. If the input datatype
 is a number, it can serve as its own hash. Comparison simply uses
 numeric comparison (e.g.,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;</code></span>).
 Then, transitivity of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;</code></span>
 ensures that if an element <span class="math inline">\(A\)</span> is
 less than another element <span class="math inline">\(B\)</span>, then
 <span class="math inline">\(A\)</span> is also less than all the other
@@ -167,44 +167,41 @@ that, here are two different hash functions:</p>
 <li>Consider a list of primes as long as the string. Raise each prime by
 the corresponding number, and multiply the result. For instance, if the
 string is represented by the character codes
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[6, 4, 5]</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[6, 4, 5]</code></span>
 (the first character has code
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">6</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">6</code></span>,
 the second one
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>,
 and the third
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">5</code></span>),
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">5</code></span>),
 we get the hash</li>
 </ol>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">num-expt(2, 6) * num-expt(3, 4) * num-expt(5, 5)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">num-expt(2, 6) * num-expt(3, 4) * num-expt(5, 5);</code></pre></div></div>
 <p>or
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">16200000</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">16200000</code></span>.
 2. Simply add together all the character codes. For the above example,
 this would correspond to the has</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">6 + 4 + 5</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">6 + 4 + 5;</code></pre></div></div>
 <p>or
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">15</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">15</code></span>.</p>
 <p>The first representation is invertible, using the <a
 href="http://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic">Fundamental
 Theorem of Arithmetic</a>: given the resulting number, we can
 reconstruct the input unambiguously (i.e.,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">16200000</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">16200000</code></span>
 can only map to the input above, and none other). This is also known as
 the Gödel encoding. This is computationally expensive. The second
 encoding is, of course, not invertible (e.g., simply permute the
 characters and, by commutativity, the sum will be the same), but
 computationally much cheaper. It is also easy to implement:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun hash-of(s :: String):
-  fold({(a :: Number, b :: Number): a + b},
-    0,
-    string-to-code-points(s))
-end
-
-check:
-  hash-of("Hello") is 500
-  hash-of("World!") is 553
-  hash-of("🏴‍☠️") is 195692
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object hash-of(String s) {
+    return fold((int a, int b) -&gt; a + b, 0, string-to-code-points(s));
+}
+@Check void test() {
+    assertEquals(hash-of("Hello"), 500);
+    assertEquals(hash-of("World!"), 553);
+    assertEquals(hash-of("🏴‍☠️"), 195692);
+}</code></pre></div></div>
 <p>Now let us consider more general datatypes. The principle of hashing
 will be similar. If we have a datatype with several variants, we can
 order the variants lexicographically, and use a numeric tag to represent
@@ -217,9 +214,9 @@ numbers, which we have shown how to handle.</p>
 meaningful
 operation.<span class="refelem"><span class="refcolumn"><span class="refcontent">Observe that Gödel encodings are not “meaningful”, either.</span></span></span>
 We don’t actually care if a hash function concludes that the hash of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
 is less than the hash of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>!
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>!
 All we need is a function that is</p>
 <ul>
 <li>non-trivial: not everything should be equal; and</li>
@@ -232,7 +229,7 @@ could go wrong if each one was violated.</p></blockquote></blockquote>
 <p>In practice, programmers do not want hash functions to do what we
 have described above. While Gödel encoding is extremely expensive, even
 computing
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hash-of</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hash-of</code></span>
 takes time linear in the size of a string, which can get quite expensive
 if strings are large or we compute hashes often or both.</p>
 <p>Instead, many programming languages do something very pragmatic. They
@@ -281,7 +278,7 @@ comparable?</p>
 <table cellpadding="0" cellspacing="0"><tr><td><p> </p></td><td><p><span class="hspace">  </span></p></td><td><p><span style="font-weight: bold">Comparable</span></p></td><td><p><span class="hspace">  </span></p></td><td><p><span style="font-weight: bold">Orderable</span></p></td></tr><tr><td><p>Numbers</p></td><td><p><span class="hspace">  </span></p></td><td><p>Yes (but not Roughnums!)</p></td><td><p><span class="hspace">  </span></p></td><td><p>Yes</p></td></tr><tr><td><p>Booleans</p></td><td><p><span class="hspace">  </span></p></td><td><p>Yes</p></td><td><p><span class="hspace">  </span></p></td><td><p>Yes</p></td></tr><tr><td><p>Data instances</p></td><td><p><span class="hspace">  </span></p></td><td><p>Yes</p></td><td><p><span class="hspace">  </span></p></td><td><p>Not by default</p></td></tr><tr><td><p>Roughnums</p></td><td><p><span class="hspace">  </span></p></td><td><p>No</p></td><td><p><span class="hspace">  </span></p></td><td><p>Yes</p></td></tr><tr><td><p>Functions</p></td><td><p><span class="hspace">  </span></p></td><td><p>Not really</p></td><td><p><span class="hspace">  </span></p></td><td><p>No</p></td></tr></table>
 <p>So…life is complicated.</p>
 <p>That means you could potentially misuse a BBST on the wrong kind of
-data. Ideally, we would want to know if we’re doing this. In Pyret’s
+data. Ideally, we would want to know if we’re doing this. In Jayret’s
 type system we chose not to build this in, but in some languages, the
 type system actually lets you capture these properties.</p>
 <p>In Haskell, for instance, there’s a mechanism called the type-class;
@@ -293,7 +290,7 @@ Eq type-class. Thus the comparable datatypes above would be part of Eq.
 Similarly, there’s a type-class Ord, which ensures the availability of
 (and requires the implementation of) operations like &lt;, &gt;, &lt;=,
 and &gt;=. In Haskell, everything that is Ord must also be Eq, i.e., Eq
-is weaker than Ord (things can be Eq without being Ord). Pyret’s
+is weaker than Ord (things can be Eq without being Ord). Jayret’s
 Roughnums contradict that…but Haskell is okay with it. But if you try to
 compare two functions in Haskell,</p>
 <table cellpadding="0" cellspacing="0" class="SVerbatim"><tr><td><p><span class="stt">(\x -&gt; x + 1) &lt; (\x -&gt; x)</span></p></td></tr></table>

@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -153,34 +153,33 @@ It has the property of growing quite large very quickly: starting from
 the modest origins above, the tenth Catalan number (i.e., tenth element
 of the Catalan sequence) is 16796. A simple recurrence formula gives us
 the Catalan number, which we can turn into a simple program:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun catalan(n):
-  if n == 0: 1
-  else if n &gt; 0:
-    for fold(acc from 0, k from range(0, n)):
-      acc + (catalan(k) * catalan(n - 1 - k))
-    end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object catalan(n) {
+    return if (n == 0) {
+        return 1;
+    } else if (n &gt; 0) {
+        return [for fold(acc : 0, k : range(0, n)) { yield acc + (catalan(k) * catalan(n - 1 - k)); }];
+    }
+}</code></pre></div></div>
 <p>This function’s tests look as follows— <catalan-tests> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  catalan(0) is 1
-  catalan(1) is 1
-  catalan(2) is 2
-  catalan(3) is 5
-  catalan(4) is 14
-  catalan(5) is 42
-  catalan(6) is 132
-  catalan(7) is 429
-  catalan(8) is 1430
-  catalan(9) is 4862
-  catalan(10) is 16796
-  catalan(11) is 58786
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(catalan(0), 1);
+    assertEquals(catalan(1), 1);
+    assertEquals(catalan(2), 2);
+    assertEquals(catalan(3), 5);
+    assertEquals(catalan(4), 14);
+    assertEquals(catalan(5), 42);
+    assertEquals(catalan(6), 132);
+    assertEquals(catalan(7), 429);
+    assertEquals(catalan(8), 1430);
+    assertEquals(catalan(9), 4862);
+    assertEquals(catalan(10), 16796);
+    assertEquals(catalan(11), 58786);
+}</code></pre></div></div>
 <p>but beware! When we time the function’s execution, we find that the
 first few tests run very quickly, but somewhere between a value of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">20</code></span>—depending
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">20</code></span>—depending
 on your machine and programming language implementation—you ought to see
 things start to slow down, first a little, then with extreme effect.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Check at what value you start to observe a significant slowdown on
@@ -191,12 +190,12 @@ of what we alluded to earlier: at each level, we depend on computing the
 Catalan number of all the smaller levels; this computation in turn needs
 the numbers of all of its smaller levels; and so on down the road.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Map the subcomputations of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
 to see why the computation time explodes as it does. What is the
 worst-case time complexity of this function?</p></blockquote></blockquote>
 <p>Here is a graphical representation of all the sub-computations the
 Catalan function does for input
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>:</p>
 <p><img src="cat-no-memo.png" width="644" height="223" /></p>
 <p>Observe the very symmetric computation, reflecting the formula.</p>
 <h4 id="Using-State-to-Remember-Past-Answers">22.1.1 Using State to
@@ -216,44 +215,42 @@ the same answer on a given input—and thereby use state in a stateful
 function to simulate a stateless one. Groovy, dude!</p>
 <p>First, then, we need some representation of memory. We can imagine
 several, but here’s a simple one:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data MemoryCell:
-  | mem(in, out)
-end
-
-var memory :: List&lt;MemoryCell&gt; = empty</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data MemoryCell {
+    Mem(in, out);
+}
+var memory = empty;</code></pre></div></div>
 <p>Now how does
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
 need to change? We have to first look for whether the value is already
 in
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">memory</code></span>;
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">memory</code></span>;
 if it is, we return it without any further computation, but if it isn’t,
 then we compute the result, store it in
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">memory</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">memory</code></span>,
 and then return it:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun catalan(n :: Number) -&gt; Number:
-  answer = find(lam(elt): elt.in == n end, memory)
-  cases (Option) answer block:
-    | none =&gt;
-      result =
-        if n == 0: 1
-        else if n &gt; 0:
-          for fold(acc from 0, k from range(0, n)):
-            acc + (catalan(k) * catalan(n - 1 - k))
-          end
-        end
-      memory := link(mem(n, result), memory)
-      result
-    | some(v) =&gt; v.out
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int catalan(int n) {
+    answer = find((elt) -&gt; elt.in == n, memory);
+    return switch (answer) {
+        case None: yield block {
+            result = if (n == 0) {
+                return 1;
+            } else if (n &gt; 0) {
+                return [for fold(acc : 0, k : range(0, n)) { yield acc + (catalan(k) * catalan(n - 1 - k)); }];
+            }
+            memory = link(mem(n, result), memory);
+            return result;
+        };
+        case Some(v): yield v.out;
+    }
+}</code></pre></div></div>
 <p>And that’s it! Now running our previous tests will reveal that the
 answer computes much quicker, but in addition we can dare to run bigger
 computations such as
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan(50)</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan(50)</code></span>.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Trace through a call of this revised function and see how many calls
 it makes.</p></blockquote></blockquote>
 <p>Here is a revised visualization of computing for input
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>:</p>
 <p><img src="cat-memo.png" width="644" height="294" /></p>
 <p>Observe the asymmetric computation: the early calls perform the
 computations, while the latter calls simply look up the results.</p>
@@ -272,12 +269,12 @@ calls.</p>
 <p>This has an important complexity benefit. Whereas previously we were
 performing a super-exponential number of calls, now we perform only one
 call per input and share all previous calls—thereby reducing
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan(n)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan(n)</code></span>
 to take a number of fresh calls proportional to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">n</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">n</code></span>.
 Looking up the result of a previous call takes time proportional to the
 size of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">memory</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">memory</code></span>
 (because we’ve represented it as a list; better representations would
 improve on that), but that only contributes another linear
 multiplicative factor, reducing the overall complexity to quadratic in
@@ -290,9 +287,9 @@ true engineering trade-off.</p>
 notice that our computations are starting to take longer than linear
 growth. This is because our numbers are growing arbitrarily large—for
 instance,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan(100)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan(100)</code></span>
 is
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">896519947090131496687170070074100632420837521538745909320</code></span>—and
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">896519947090131496687170070074100632420837521538745909320</code></span>—and
 computations on numbers can no longer be constant time, contrary to what
 we said earlier [<a href="predicting-growth.html##size-of-input">The
 Size of the Input</a>]. Indeed, when working on cryptographic problems,
@@ -304,13 +301,13 @@ instance, the presumed unbreakability of contemporary cryptography).
 <p>Now we’ve achieved the desired complexity improvement, but there is
 still something unsatisfactory about the structure of our revised
 definition of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>:
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>:
 the act of memoization is deeply intertwined with the definition of a
 Catalan number, even though these should be intellectually distinct.
 Let’s do that next.</p>
 <p>In effect, we want to separate our program into two parts. One part
 defines a general notion of memoization, while the other defines
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
 in terms of this general notion.</p>
 <p>What does the former mean? We want to encapsulate the idea of
 “memory” (since we presumably don’t want this stored in a variable that
@@ -319,67 +316,60 @@ function that takes the input we want to check; if it is found in the
 memory we return that answer, otherwise we compute the answer, store it,
 and return it. To compute the answer, we need a function that determines
 how to do so. Putting together these pieces:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data MemoryCell:
-  | mem(in, out)
-end
-
-fun memoize-1&lt;T, U&gt;(f :: (T -&gt; U)) -&gt; (T -&gt; U):
-
-  var memory :: List&lt;MemoryCell&gt; = empty
-
-  lam(n):
-    answer = find(lam(elt): elt.in == n end, memory)
-    cases (Option) answer block:
-      | none =&gt;
-        result = f(n)
-        memory := link(mem(n, result), memory)
-        result
-      | some(v) =&gt; v.out
-    end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data MemoryCell {
+    Mem(in, out);
+}
+/* arrow-ann */ Object memoize-1(/* arrow-ann */ Object f) {
+    var memory = empty;
+    return (n) -&gt; {
+        answer = find((elt) -&gt; elt.in == n, memory);
+        return switch (answer) {
+            case None: yield block {
+                result = f(n);
+                memory = link(mem(n, result), memory);
+                return result;
+            };
+            case Some(v): yield v.out;
+        }
+    }
+}</code></pre></div></div>
 <p>We use the name
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">memoize-1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">memoize-1</code></span>
 to indicate that this is a memoizer for single-argument functions.
 Observe that the code above is virtually identical to what we had
 before, except where we had the logic of Catalan number computation, we
 now have the parameter
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
 determining what to do.</p>
 <p>With this, we can now define
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
 as follows:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">rec catalan :: (Number -&gt; Number) =
-  memoize-1(
-    lam(n):
-      if n == 0: 1
-      else if n &gt; 0:
-        for fold(acc from 0, k from range(0, n)):
-          acc + (catalan(k) * catalan(n - 1 - k))
-        end
-      end
-    end)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">rec catalan = memoize-1((n) -&gt; if (n == 0) {
+    return 1;
+} else if (n &gt; 0) {
+    return [for fold(acc : 0, k : range(0, n)) { yield acc + (catalan(k) * catalan(n - 1 - k)); }];
+});</code></pre></div></div>
 <p>Note several things about this definition:</p>
 <ol type="1">
 <li>We don’t write
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fun catalan(...): ...;</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fun catalan(...): ...;</code></span>
 because the procedure bound to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
 is produced by
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">memoize-1</code></span>.</li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">memoize-1</code></span>.</li>
 <li>Note carefully that the recursive calls to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
 have to be to the function bound to the result of memoization, thereby
 behaving like an object. Failing to refer to this same shared procedure
 means the recursive calls will not be memoized, thereby losing the
 benefit of this process.</li>
 <li>We need to use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>
 for reasons we saw earlier [<a
 href="func-as-data.html##streams-from-funs">Streams From
 Functions</a>].</li>
 <li>Each invocation of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">memoize-1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">memoize-1</code></span>
 creates a new table of stored results. Therefore the memoization of
 different functions will each get their own tables rather than sharing
 tables, which is a bad idea!</li>
@@ -454,70 +444,52 @@ Fat-Fingered Typist</a>].</p>
 because we have to replace “k” with “s”, replace “e” with “i”, and
 insert “g” (or symmetrically, perform the opposite replacements and
 delete “g”). Here are more examples: <levenshtein-tests> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  levenshtein(empty, empty) is 0
-  levenshtein([list: "x"], [list: "x"]) is 0
-  levenshtein([list: "x"], [list: "y"]) is 1
-  # one of about 600
-  levenshtein(
-    [list: "b", "r", "i", "t", "n", "e", "y"],
-    [list: "b", "r", "i", "t", "t", "a", "n", "y"])
-    is 3
-  # http://en.wikipedia.org/wiki/Levenshtein_distance
-  levenshtein(
-    [list: "k", "i", "t", "t", "e", "n"],
-    [list: "s", "i", "t", "t", "i", "n", "g"])
-    is 3
-  levenshtein(
-    [list: "k", "i", "t", "t", "e", "n"],
-    [list: "k", "i", "t", "t", "e", "n"])
-    is 0
-  # http://en.wikipedia.org/wiki/Levenshtein_distance
-  levenshtein(
-    [list: "S", "u", "n", "d", "a", "y"],
-    [list: "S", "a", "t", "u", "r", "d", "a", "y"])
-    is 3
-  # http://www.merriampark.com/ld.htm
-  levenshtein(
-    [list: "g", "u", "m", "b", "o"],
-    [list: "g", "a", "m", "b", "o", "l"])
-    is 2
-  # http://www.csse.monash.edu.au/~lloyd/tildeStrings/Alignment/92.IPL.html
-  levenshtein(
-    [list: "a", "c", "g", "t", "a", "c", "g", "t", "a", "c", "g", "t"],
-    [list: "a", "c", "a", "t", "a", "c", "t", "t", "g", "t", "a", "c", "t"])
-    is 4
-  levenshtein(
-    [list: "s", "u", "p", "e", "r", "c", "a", "l", "i",
-      "f", "r", "a", "g", "i", "l", "i", "s", "t" ],
-    [list: "s", "u", "p", "e", "r", "c", "a", "l", "y",
-      "f", "r", "a", "g", "i", "l", "e", "s", "t" ])
-    is 2
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(levenshtein(empty, empty), 0);
+    assertEquals(levenshtein(["x"], ["x"]), 0);
+    assertEquals(levenshtein(["x"], ["y"]), 1);
+    // one of about 600
+    assertEquals(levenshtein(["b", "r", "i", "t", "n", "e", "y"], ["b", "r", "i", "t", "t", "a", "n", "y"]), 3);
+    // http://en.wikipedia.org/wiki/Levenshtein_distance
+    assertEquals(levenshtein(["k", "i", "t", "t", "e", "n"], ["s", "i", "t", "t", "i", "n", "g"]), 3);
+    assertEquals(levenshtein(["k", "i", "t", "t", "e", "n"], ["k", "i", "t", "t", "e", "n"]), 0);
+    // http://en.wikipedia.org/wiki/Levenshtein_distance
+    assertEquals(levenshtein(["S", "u", "n", "d", "a", "y"], ["S", "a", "t", "u", "r", "d", "a", "y"]), 3);
+    // http://www.merriampark.com/ld.htm
+    assertEquals(levenshtein(["g", "u", "m", "b", "o"], ["g", "a", "m", "b", "o", "l"]), 2);
+    // http://www.csse.monash.edu.au/~lloyd/tildeStrings/Alignment/92.IPL.html
+    assertEquals(levenshtein(["a", "c", "g", "t", "a", "c", "g", "t", "a", "c", "g", "t"], ["a", "c", "a", "t", "a", "c", "t", "t", "g", "t", "a", "c", "t"]), 4);
+    assertEquals(levenshtein(["s", "u", "p", "e", "r", "c", "a", "l", "i", "f", "r", "a", "g", "i", "l", "i", "s", "t"], ["s", "u", "p", "e", "r", "c", "a", "l", "y", "f", "r", "a", "g", "i", "l", "e", "s", "t"]), 2);
+}</code></pre></div></div>
 <p>The basic algorithm is in fact very simple: <levenshtein> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">rec levenshtein :: (List&lt;String&gt;, List&lt;String&gt; -&gt; Number) =
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+rec levenshtein :: (List&lt;String&gt;, List&lt;String&gt; -&gt; Number) =
   &lt;levenshtein-body&gt;</code></pre></div></div>
 <p>where, because there are two list inputs, there are four cases, of
 which two are symmetric: <levenshtein-body> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">lam(s, t):
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+lam(s, t):
   &lt;levenshtein-both-empty&gt;
   &lt;levenshtein-one-empty&gt;
   &lt;levenshtein-neither-empty&gt;
 end</code></pre></div></div>
 <p>If both inputs are empty, the answer is simple:
 <levenshtein-both-empty> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">if is-empty(s) and is-empty(t): 0</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+if is-empty(s) and is-empty(t): 0</code></pre></div></div>
 <p>When one is empty, then the edit distance corresponds to the length
 of the other, which needs to inserted (or deleted) in its entirety (so
 we charge a cost of one per character): <levenshtein-one-empty> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">else if is-empty(s): t.length()
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+else if is-empty(s): t.length()
 else if is-empty(t): s.length()</code></pre></div></div>
 <p>If neither is empty, then each has a first character. If they are the
 same, then there is no edit cost associated with this character (which
 we reflect by recurring on the rest of the words without adding to the
 edit cost). If they are not the same, however, we consider each of the
 possible edits: <levenshtein-neither-empty> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">else:
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+else:
   if s.first == t.first:
     levenshtein(s.rest, t.rest)
   else:
@@ -528,18 +500,18 @@ possible edits: <levenshtein-neither-empty> ::=</p>
   end
 end</code></pre></div></div>
 <p>In the first case, we assume
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s</code></span>
 has one too many characters, so we compute the cost as if we’re deleting
 it and finding the lowest cost for the rest of the strings (but charging
 one for this deletion); in the second case, we symmetrically assume
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">t</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">t</code></span>
 has one too many; and in the third case, we assume one character got
 replaced by another, so we charge one but consider the rest of both
 words (e.g., assume “s” was typed for “k” and continue with “itten” and
 “itting”). This uses the following helper function:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun min3(a :: Number, b :: Number, c :: Number):
-  num-min(a, num-min(b, c))
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object min3(int a, int b, int c) {
+    return num-min(a, num-min(b, c));
+}</code></pre></div></div>
 <p>This algorithm will indeed pass all the tests we have written above,
 but with a problem: the running time grows exponentially. That is
 because, each time we find a mismatch, we recur on three subproblems. In
@@ -557,58 +529,49 @@ matching “itten” against “itting”. Thus, again, we want the computation
 tree to turn into a DAG of expressions that are actually evaluated.</p>
 <p>The solution, therefore, is naturally to memoize. First, we need a
 memoizer that works over two arguments rather than one:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data MemoryCell2&lt;T, U, V&gt;:
-  | mem(in-1 :: T, in-2 :: U, out :: V)
-end
-
-fun memoize-2&lt;T, U, V&gt;(f :: (T, U -&gt; V)) -&gt; (T, U -&gt; V):
-
-  var memory :: List&lt;MemoryCell2&lt;T, U, V&gt;&gt; = empty
-
-  lam(p, q):
-    answer = find(
-      lam(elt): (elt.in-1 == p) and (elt.in-2 == q) end,
-      memory)
-    cases (Option) answer block:
-      | none =&gt;
-        result = f(p, q)
-        memory :=
-        link(mem(p, q, result), memory)
-        result
-      | some(v) =&gt; v.out
-    end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data MemoryCell2 {
+    Mem(T in-1, U in-2, V out);
+}
+/* arrow-ann */ Object memoize-2(/* arrow-ann */ Object f) {
+    var memory = empty;
+    return (p, q) -&gt; {
+        answer = find((elt) -&gt; (elt.in-1 == p) &amp;&amp; (elt.in-2 == q), memory);
+        return switch (answer) {
+            case None: yield block {
+                result = f(p, q);
+                memory = link(mem(p, q, result), memory);
+                return result;
+            };
+            case Some(v): yield v.out;
+        }
+    }
+}</code></pre></div></div>
 <p>Most of the code is unchanged, except that we store two arguments
 rather than one, and correspondingly look up both.</p>
 <p>With this, we can redefine
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">levenshtein</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">levenshtein</code></span>
 to use memoization: <levenshtein-memo> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">rec levenshtein :: (List&lt;String&gt;, List&lt;String&gt; -&gt; Number) =
-  memoize-2(
-    lam(s, t):
-      if is-empty(s) and is-empty(t): 0
-      else if is-empty(s): t.length()
-      else if is-empty(t): s.length()
-      else:
-        if s.first == t.first:
-          levenshtein(s.rest, t.rest)
-        else:
-          min3(
-            1 + levenshtein(s.rest, t),
-            1 + levenshtein(s, t.rest),
-            1 + levenshtein(s.rest, t.rest))
-        end
-      end
-    end)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">rec levenshtein = memoize-2((s, t) -&gt; if (is-empty(s) &amp;&amp; is-empty(t)) {
+    return 0;
+} else if (is-empty(s)) {
+    return t.length();
+} else if (is-empty(t)) {
+    return s.length();
+} else {
+    return if (s.first == t.first) {
+        return levenshtein(s.rest, t.rest);
+    } else {
+        return min3(1 + levenshtein(s.rest, t), 1 + levenshtein(s, t.rest), 1 + levenshtein(s.rest, t.rest));
+    }
+});</code></pre></div></div>
 <p>where the argument to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">memoize-2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">memoize-2</code></span>
 is precisely what we saw earlier as <a
 href="avoid-recomp.html#%28elem._levenshtein-body%29"><levenshtein-body></a>
 (and now you know why we defined
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">levenshtein</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">levenshtein</code></span>
 slightly oddly, not using
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fun</code></span>).</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fun</code></span>).</p>
 <p>The complexity of this algorithm is still non-trivial. First, let’s
 introduce the term suffix: the suffix of a string is the rest of the
 string starting from any point in the string. (Thus “kitten”, “itten”,
@@ -678,50 +641,43 @@ with Dynamic Programming</h4>
 Following convention, we will use an
 array.<span class="refelem"><span class="refcolumn"><span class="refcontent">What happens when we run out of space? We can use the doubling technique
 we studied for <a href="amortized-analysis.html">Halloween Analysis</a>.</span></span></span></p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">MAX-CAT = 11
-
-answers :: Array&lt;Option&lt;Number&gt;&gt; = array-of(none, MAX-CAT + 1)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">MAX-CAT = 11;
+answers = array-of(none, MAX-CAT + 1);</code></pre></div></div>
 <p>Then, the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
 function simply looks up the answer in this array:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun catalan(n):
-  cases (Option) array-get-now(answers, n):
-    | none =&gt; raise("looking at uninitialized value")
-    | some(v) =&gt; v
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object catalan(n) {
+    return switch (array-get-now(answers, n)) {
+        case None: yield raise("looking at uninitialized value");
+        case Some(v): yield v;
+    }
+}</code></pre></div></div>
 <p>But how do we fill the array? We initialize the one known value, and
 use the formula to compute the rest in incremental order. Because we
 have multiple things to do in the body, we use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">block</code></span>:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun fill-catalan(upper) block:
-  array-set-now(answers, 0, some(1))
-  when upper &gt; 0:
-    for each(n from range(1, upper + 1)):
-      block:
-        cat-at-n =
-          for fold(acc from 0, k from range(0, n)):
-            acc + (catalan(k) * catalan(n - 1 - k))
-          end
-        array-set-now(answers, n, some(cat-at-n))
-      end
-    end
-  end
-end
-
-fill-catalan(MAX-CAT)</code></pre></div></div>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">block</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object fill-catalan(upper) {
+    array-set-now(answers, 0, some(1));
+    when (upper &gt; 0) {
+        for (n : range(1, upper + 1)) {
+            block: cat-at-n = [for fold(acc : 0, k : range(0, n)) { yield acc + (catalan(k) * catalan(n - 1 - k)); }];
+            array-set-now(answers, n, some(cat-at-n));
+        }
+    }
+}
+fill-catalan(MAX-CAT);</code></pre></div></div>
 <p>The resulting program obeys the tests in <a
 href="avoid-recomp.html#%28elem._catalan-tests%29"><catalan-tests></a>.</p>
 <p>Notice that we have had to undo the natural recursive
 definition—which proceeds from bigger values to smaller ones—to instead
 use a loop that goes from smaller values to larger ones. In principle,
 the program has the danger that when we apply
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">catalan</code></span>
 to some value, that index of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">answers</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">answers</code></span>
 will have not yet been initialized, resultingin an error. In fact,
 however, we know that because we fill all smaller indices in
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">answers</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">answers</code></span>
 before computing the next larger one, we will never actually encounter
 this error. Note that this requires careful reasoning about our program,
 which we did not need to perform when using memoization because there we
@@ -731,67 +687,70 @@ value or computed it afresh.</p>
 Distance and Dynamic Programming</h4>
 <p>Now let’s take on rewriting the Levenshtein distance computation:
 <levenshtein-dp> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun levenshtein(s1 :: List&lt;String&gt;, s2 :: List&lt;String&gt;) block:
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+fun levenshtein(s1 :: List&lt;String&gt;, s2 :: List&lt;String&gt;) block:
   &lt;levenshtein-dp/1&gt;
 end</code></pre></div></div>
 <p>We will use a table representing the edit distance for each prefix of
 each word. That is, we will have a two-dimensional table with as many
 rows as the length of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s1</code></span>
 and as many columns as the length of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s2</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s2</code></span>.
 At each position, we will record the edit distance for the prefixes of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s1</code></span>
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s2</code></span>
 up to the indices represented by that position in the table.</p>
 <p>Note that index arithmetic will be a constant burden: if a word is of
 length <span class="math inline">\(n\)</span>, we have to record the
 edit distance to its <span class="math inline">\(n + 1\)</span>
 positions, the extra one corresponding to the empty word. This will hold
 for both words: &lt;levenshtein-dp/1&gt; ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">s1-len = s1.length()
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+s1-len = s1.length()
 s2-len = s2.length()
 answers = array2d(s1-len + 1, s2-len + 1, none)
 &lt;levenshtein-dp/2&gt;</code></pre></div></div>
 <p>Observe that by creating
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">answers</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">answers</code></span>
 inside
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">levenshtein</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">levenshtein</code></span>,
 we can determine the exact size it needs to be based on the inputs,
 rather than having to over-allocate or dynamically grow the array.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Define the functions</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">array2d :: Number, Number, A -&gt; Array&lt;A&gt;
-set-answer :: Array&lt;A&gt;, Number, Number, A -&gt; Nothing
-get-answer :: Array&lt;A&gt;, Number, Number -&gt; A</code></pre></div></div></blockquote></blockquote>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: array2d :: Object */;
+/* contract: set-answer :: Object */;
+/* contract: get-answer :: Object */;</code></pre></div></div></blockquote></blockquote>
 <p>We have initialized the table with
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>,
 so we will get an error if we accidentally try to use an uninitialized
 entry.<span class="refelem"><span class="refcolumn"><span class="refcontent">Which proved to be necessary when writing and debugging this code!</span></span></span>
 It will therefore be convenient to create helper functions that let us
 pretend the table contains only numbers: &lt;levenshtein-dp/2&gt;
 ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun put(s1-idx :: Number, s2-idx :: Number, n :: Number):
-  set-answer(answers, s1-idx, s2-idx, some(n))
-end
-fun lookup(s1-idx :: Number, s2-idx :: Number) -&gt; Number block:
-  a = get-answer(answers, s1-idx, s2-idx)
-  cases (Option) a:
-    | none =&gt; raise("looking at uninitialized value")
-    | some(v) =&gt; v
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object put(int s1-idx, int s2-idx, int n) {
+    return set-answer(answers, s1-idx, s2-idx, some(n));
+}
+int lookup(int s1-idx, int s2-idx) {
+    a = get-answer(answers, s1-idx, s2-idx);
+    return switch (a) {
+        case None: yield raise("looking at uninitialized value");
+        case Some(v): yield v;
+    }
+}</code></pre></div></div>
 <p>Now we have to populate the array. First, we initialize the row
 representing the edit distances when
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s2</code></span>
 is empty, and the column where
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s1</code></span>
 is empty. At <span class="math inline">\((0, 0)\)</span>, the edit
 distance is zero; at every position thereafter, it is the distance of
 that position from zero, because that many characters must be added to
 one or deleted from the other word for the two to coincide:
 &lt;levenshtein-dp/3&gt; ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">for each(s1i from range(0, s1-len + 1)):
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+for each(s1i from range(0, s1-len + 1)):
   put(s1i, 0, s1i)
 end
 for each(s2i from range(0, s2-len + 1)):
@@ -801,17 +760,18 @@ end
 <p>Now we finally get to the heart of the computation. We need to
 iterate over every character in each word. these characters are at
 indices
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>
 to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s1-len - 1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s1-len - 1</code></span>
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s2-len - 1</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s2-len - 1</code></span>,
 which are precisely the ranges of values produced by
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">range(0, s1-len)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">range(0, s1-len)</code></span>
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">range(0, s2-len)</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">range(0, s2-len)</code></span>.
 &lt;levenshtein-dp/4&gt; ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">for each(s1i from range(0, s1-len)):
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+for each(s1i from range(0, s1-len)):
   for each(s2i from range(0, s2-len)):
   &lt;levenshtein-dp/compute-dist&gt;
   end
@@ -834,27 +794,23 @@ the characters at the pair of positions are identical. If they are, then
 the distance is the same as it was for the previous pair of prefixes;
 otherwise we have to try the three different kinds of edits:
 <levenshtein-dp/compute-dist> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">dist =
-  if get(s1, s1i) == get(s2, s2i):
-    lookup(s1i, s2i)
-  else:
-    min3(
-      1 + lookup(s1i, s2i + 1),
-      1 + lookup(s1i + 1, s2i),
-      1 + lookup(s1i, s2i))
-  end
-put(s1i + 1, s2i + 1, dist)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">dist = if (get(s1, s1i) == get(s2, s2i)) {
+    return lookup(s1i, s2i);
+} else {
+    return min3(1 + lookup(s1i, s2i + 1), 1 + lookup(s1i + 1, s2i), 1 + lookup(s1i, s2i));
+}
+put(s1i + 1, s2i + 1, dist);</code></pre></div></div>
 <p>As an aside, this sort of “off-by-one” coordinate arithmetic is
 traditional when using tabular representations, because we write code in
 terms of elements that are not inherently present, and therefore have to
 create a padded table to hold values for the boundary conditions. The
 alternative would be to allow the table to begin its addressing from
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">-1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">-1</code></span>
 so that the main computation looks traditional.</p>
 <p>At any rate, when this computation is done, the entire table has been
 filled with values. We still have to read out the answer, with lies at
 the end of the table: <levenshtein-dp/get-result> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">lookup(s1-len, s2-len)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">lookup(s1-len, s2-len);</code></pre></div></div>
 <p>Even putting aside the helper functions we wrote to satiate our
 paranoia about using undefined values, we end up
 with:<span class="refelem"><span class="refcolumn"><span class="refcontent">As of this writing, the <a
@@ -871,46 +827,38 @@ indistinguishable from a legitimate entry with edit distance of zero.
 The page also shows the <a
 href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;oldid=581406185#Recursive">recursive</a>
 solution and alludes to memoization, but does not show it in code.</span></span></span></p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun levenshtein(s1 :: List&lt;String&gt;, s2 :: List&lt;String&gt;) block:
-  s1-len = s1.length()
-  s2-len = s2.length()
-  answers = array2d(s1-len + 1, s2-len + 1, none)
-
-  fun put(s1-idx :: Number, s2-idx :: Number, n :: Number):
-    set-answer(answers, s1-idx, s2-idx, some(n))
-  end
-  fun lookup(s1-idx :: Number, s2-idx :: Number) -&gt; Number block:
-    a = get-answer(answers, s1-idx, s2-idx)
-    cases (Option) a:
-      | none =&gt; raise("looking at uninitialized value")
-      | some(v) =&gt; v
-    end
-  end
-
-  for each(s1i from range(0, s1-len + 1)):
-    put(s1i, 0, s1i)
-  end
-  for each(s2i from range(0, s2-len + 1)):
-    put(0, s2i, s2i)
-  end
-
-  for each(s1i from range(0, s1-len)):
-    for each(s2i from range(0, s2-len)):
-      dist =
-        if get(s1, s1i) == get(s2, s2i):
-          lookup(s1i, s2i)
-        else:
-          min3(
-            1 + lookup(s1i, s2i + 1),
-            1 + lookup(s1i + 1, s2i),
-            1 + lookup(s1i, s2i))
-        end
-      put(s1i + 1, s2i + 1, dist)
-    end
-  end
-
-  lookup(s1-len, s2-len)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object levenshtein(List&lt;Object&gt; s1, List&lt;Object&gt; s2) {
+    s1-len = s1.length();
+    s2-len = s2.length();
+    answers = array2d(s1-len + 1, s2-len + 1, none);
+    Object put(int s1-idx, int s2-idx, int n) {
+        return set-answer(answers, s1-idx, s2-idx, some(n));
+    }
+    int lookup(int s1-idx, int s2-idx) {
+        a = get-answer(answers, s1-idx, s2-idx);
+        return switch (a) {
+            case None: yield raise("looking at uninitialized value");
+            case Some(v): yield v;
+        }
+    }
+    for (s1i : range(0, s1-len + 1)) {
+        put(s1i, 0, s1i);
+    }
+    for (s2i : range(0, s2-len + 1)) {
+        put(0, s2i, s2i);
+    }
+    for (s1i : range(0, s1-len)) {
+        for (s2i : range(0, s2-len)) {
+            dist = if (get(s1, s1i) == get(s2, s2i)) {
+                return lookup(s1i, s2i);
+            } else {
+                return min3(1 + lookup(s1i, s2i + 1), 1 + lookup(s1i + 1, s2i), 1 + lookup(s1i, s2i));
+            }
+            put(s1i + 1, s2i + 1, dist);
+        }
+    }
+    return lookup(s1-len, s2-len);
+}</code></pre></div></div>
 <p>which is worth contrasting with the memoized version (<a
 href="avoid-recomp.html#%28elem._levenshtein-memo%29"><levenshtein-memo></a>).<span class="refelem"><span class="refcolumn"><span class="refcontent">For more examples of canonical dynamic programming problems, see <a
 href="http://people.csail.mit.edu/bdean/6.046/dp/">this page</a> and

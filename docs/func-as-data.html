@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -148,23 +148,27 @@ class="math inline">\(x\)</span> is an unbound identifier.</p>
 the function that squares its input, just as <span
 class="math inline">\(2x\)</span> is meant to be the function that
 doubles its input. We have nicer ways of writing those:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun sq(x :: Number) -&gt; Number: x * x end
-fun dbl(x :: Number) -&gt; Number: 2 * x end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int sq(int x) {
+    return x * x;
+}
+int dbl(int x) {
+    return 2 * x;
+}</code></pre></div></div>
 <p>and what we’re really trying to say is that the <span
 class="math inline">\(d/dx\)</span> (whatever that is) of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sq</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sq</code></span>
 is
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">dbl</code></span>.<span class="refelem"><span class="refcolumn"><span class="refcontent">We’re assuming functions of arity one in the variable that is changing.</span></span></span></p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">dbl</code></span>.<span class="refelem"><span class="refcolumn"><span class="refcontent">We’re assuming functions of arity one in the variable that is changing.</span></span></span></p>
 <p>So now let’s unpack <span class="math inline">\(d/dx\)</span>,
 starting with its type. As the above example illustrates, <span
 class="math inline">\(d/dx\)</span> is really a function from functions
 to functions. That is, we can write its type as follows:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">d-dx :: ((Number -&gt; Number) -&gt; (Number -&gt; Number))</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: d-dx :: Object */;</code></pre></div></div>
 <p>(This type might explain why your calculus course never explained
 this operation this way—though it’s not clear that obscuring its true
 meaning is any better for your understanding.)</p>
 <p>Let us now implement
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d-dx</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d-dx</code></span>.
 We’ll implement numerical differentiation, though in principle we could
 also implement symbolic differentiation—using rules you learned, e.g.,
 given a polynomial, multiply by the exponent and reduce the exponent by
@@ -180,21 +184,20 @@ class="math inline">\(\epsilon\)</span> goes to zero in the limit. For
 now we’ll give the infinitesimal a small but fixed value, and later [<a
 href="func-as-data.html##d-dx-streams">Combining Forces: Streams of
 Derivatives</a>] see how we can improve on this.</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">epsilon = 0.00001</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">epsilon = 0.00001;</code></pre></div></div>
 <p>We can now translate the above formula into a function:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">d-dx-at :: (Number -&gt; Number), Number -&gt; Number
-
-fun d-dx-at(f, x):
-  (f(x + epsilon) - f(x)) / epsilon
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: d-dx-at :: Object */;
+Object d-dx-at(f, x) {
+    return (f(x + epsilon) - f(x)) / epsilon;
+}</code></pre></div></div>
 <p>And sure enough, we can check and make sure it works as expected:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  d-dx-at(sq, 10) is-roughly dbl(10)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertRoughlyEquals(d-dx-at(sq, 10), dbl(10));
+}</code></pre></div></div>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">Confession: We chose the value of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>
 so that the default tolerance
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-roughly</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-roughly</code></span>
 works for this example.</span></span></span></p>
 <p>However, there is something unsatisfying about this. The function
 we’ve written clearly does not have the type we described earlier! What
@@ -202,59 +205,49 @@ we wanted was an operation that takes just a function, and represents
 the platonic notion of differentiation; but we’ve been forced, by the
 nature of numeric differentiation, to describe the derivative at a
 point. We might instead like to write something like this:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun d-dx(f):
-  (f(x + epsilon) - f(x)) / epsilon
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object d-dx(f) {
+    return (f(x + epsilon) - f(x)) / epsilon;
+}</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What’s the problem with the above definition?</p></blockquote></blockquote>
-<p>If you didn’t notice, Pyret will soon tell you:
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x</code></span>
+<p>If you didn’t notice, Jayret will soon tell you:
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x</code></span>
 isn’t bound. Indeed, what is
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x</code></span>?
 It’s the point at which we’re trying to compute the numeric derivative.
 That is,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d-dx</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d-dx</code></span>
 needs to return not a number but a function (as the type indicates) that
 will consume this
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x</code></span>:<span class="refelem"><span class="refcolumn"><span class="refcontent">“Lambdas are relegated to relative obscurity until Java makes them
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x</code></span>:<span class="refelem"><span class="refcolumn"><span class="refcontent">“Lambdas are relegated to relative obscurity until Java makes them
 popular by not having them.”—James Iry, <a
 href="https://james-iry.blogspot.com/2009/05/brief-incomplete-and-mostly-wrong.html">A
 Brief, Incomplete, and Mostly Wrong History of Programming Languages</a></span></span></span></p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun d-dx(f):
-  lam(x):
-    (f(x + epsilon) - f(x)) / epsilon
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object d-dx(f) {
+    return (x) -&gt; (f(x + epsilon) - f(x)) / epsilon;
+}</code></pre></div></div>
 <p>If we want to be a little more explicit we can annotate the inner
 function:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun d-dx(f):
-  lam(x :: Number) -&gt; Number:
-    (f(x + epsilon) - f(x)) / epsilon
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object d-dx(f) {
+    return (int x) -&gt; (f(x + epsilon) - f(x)) / epsilon;
+}</code></pre></div></div>
 <p>This is a special case of a concept useful in many programming
 contexts, which we explore in more detail elsewhere: <a
 href="staging.html">Staging</a>.</p>
 <p>Sure enough, this definition now works. We can, for instance, test it
 as follows (note the use of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-floor</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-floor</code></span>
 to avoid numeric precision issues from making our tests appear to
 fail):</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">d-dx-sq = d-dx(sq)
-
-check:
-  ins = [list: 0, 1, 10, 100]
-  for map(n from ins):
-    num-floor(d-dx-sq(n))
-  end
-  is
-  for map(n from ins):
-    num-floor(dbl(n))
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">d-dx-sq = d-dx(sq);
+@Check void test() {
+    ins = [0, 1, 10, 100];
+    assertEquals([for map(n : ins) { yield num-floor(d-dx-sq(n)); }], [for map(n : ins) { yield num-floor(dbl(n)); }]);
+}</code></pre></div></div>
 <p>Now we can return to the original example that launched this
 investigation: what the sloppy and mysterious notation of math is really
 trying to say is,</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">d-dx(lam(x): x * x end) = lam(x): 2 * x end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+d-dx(lam(x): x * x end) = lam(x): 2 * x end</code></pre></div></div>
 <p>or, in the notation of <a
 href="predicting-growth.html##math-anon-functions">A Notation for
 Functions</a>, <span
@@ -263,34 +256,34 @@ x^2] = [x \rightarrow 2x]\end{equation*}\]</span>Pity math textbooks for
 not wanting to tell us the truth!</p>
 <h4 id="lam-shorthand">8.1.2 A Helpful Shorthand for Anonymous
 Functions</h4>
-<p>Pyret offers a shorter syntax for writing anonymous functions.
+<p>Jayret offers a shorter syntax for writing anonymous functions.
 Though, stylistically, we generally avoid it so that our programs don’t
 become a jumble of special characters, sometimes it’s particularly
 convenient, as we will see below. This syntax is</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">{(a): b}</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">(a) -&gt; b;</code></pre></div></div>
 <p>where
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a</code></span>
 is zero or more arguments and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">b</code></span>
 is the body. For instance, we can write
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam(x): x * x end</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">(x) -&gt; x * x</code></span>
 as</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">{(x): x * x}</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">(x) -&gt; x * x;</code></pre></div></div>
 <p>where we can see the benefit of brevity. In particular, note that
 there is no need for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">end</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">end</code></span>,
 because the braces take the place of showing where the expression begins
 and ends. Similarly, we could have written
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d-dx</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d-dx</code></span>
 as</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun d-dx-short(f):
-  {(x): (f(x + epsilon) - f(x)) / epsilon}
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object d-dx-short(f) {
+    return (x) -&gt; (f(x + epsilon) - f(x)) / epsilon;
+}</code></pre></div></div>
 <p>but many readers would say this makes the function harder to read,
 because the prominent
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>
 makes clear that
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d-dx</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d-dx</code></span>
 returns an (anonymous) function, whereas this syntax obscures it.
 Therefore, we will usually only use this shorthand syntax for
 “one-liners”.</p>
@@ -313,14 +306,14 @@ than try to squeeze these unbounded lists into bounded ones, let’s look
 at how we might represent and program over these unbounded lists.</p>
 <p>First, let’s write a program to compute the sequence of natural
 numbers:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun nats-from(n):
-  link(n, nats-from(n + 1))
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object nats-from(n) {
+    return link(n, nats-from(n + 1));
+}</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Does this program have a problem?</p></blockquote></blockquote>
 <p>While this represents our intent, it doesn’t work: running it—e.g.,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats-from(0)</code></span>—creates
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats-from(0)</code></span>—creates
 an infinite loop evaluating
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats-from</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats-from</code></span>
 for every subsequent natural number. In other words, we want to write
 something very like the above, but that doesn’t recur until we want it
 to, i.e., on demand. In other words, we want the rest of the list to be
@@ -328,100 +321,100 @@ lazy.</p>
 <p>This is where our insight into functions comes in. A function, as we
 have just noted, delays evaluation of its body until it is applied.
 Therefore, a function would, in principle, defer the invocation of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats-from(n + 1)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats-from(n + 1)</code></span>
 until it’s needed.</p>
 <p>Except, this creates a type problem: the second argument to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
 needs to be a list, and cannot be a function. Indeed, because it must be
 a list, and every value that has been constructed must be finite, every
 list is finite and eventually terminates in
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>.
 Therefore, we need a new data structure to represent the links in these
 lazy lists (also known as streams): <stream-type-def> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Stream&lt;T&gt;:
-  | lz-link(h :: T, t :: ( -&gt; Stream&lt;T&gt;))
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Stream {
+    Lz-link(T h, /* arrow-ann */ Object t);
+}</code></pre></div></div>
 <p>where the annotation
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">( -&gt; Stream&lt;T&gt;)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">( -&gt; Stream&lt;T&gt;)</code></span>
 means a function from no arguments (hence the lack of anything before
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">-&gt;</code></span>),
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">-&gt;</code></span>),
 also known as a thunk. Note that the way we have defined streams they
 must be infinite, since we have provided no way to terminate them.</p>
 <p>Let’s construct the simplest example we can, a stream of constant
 values:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">ones = lz-link(1, lam(): ones end)</code></pre></div></div>
-<p>Pyret will actually complain about this definition. Note that the
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">ones = lz-link(1, () -&gt; ones);</code></pre></div></div>
+<p>Jayret will actually complain about this definition. Note that the
 list equivalent of this also will not work:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">ones = link(1, ones)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">ones = link(1, ones);</code></pre></div></div>
 <p>because
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
-is not defined at the point of definition, so when Pyret evaluates
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link(1, ones)</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
+is not defined at the point of definition, so when Jayret evaluates
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link(1, ones)</code></span>,
 it complains that
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
 is not defined. However, it is being overly conservative with our former
 definition: the use of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
 is “under a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>”,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>”,
 and hence won’t be needed until after the definition of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
 is done, at which point
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
-will be defined. We can indicate this to Pyret by using the keyword
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">rec ones = lz-link(1, lam(): ones end)</code></pre></div></div>
-<p>Note that in Pyret, every
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fun</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
+will be defined. We can indicate this to Jayret by using the keyword
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">rec ones = lz-link(1, () -&gt; ones);</code></pre></div></div>
+<p>Note that in Jayret, every
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fun</code></span>
 implicitly has a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>
 beneath it, which is why we can create recursive functions with
 aplomb.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Earlier we said that we can’t write</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">ones = link(1, ones)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">ones = link(1, ones);</code></pre></div></div>
 <p>What if we tried to write</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">rec ones = link(1, ones)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">rec ones = link(1, ones);</code></pre></div></div>
 <p>instead? Does this work and, if so, what value is
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
 bound to? If it doesn’t work, does it fail to work for the same reason
 as the definition without the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>?</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>?</p></blockquote></blockquote>
 <p>Henceforth, we will use the shorthand [<a
 href="func-as-data.html##lam-shorthand">A Helpful Shorthand for
 Anonymous Functions</a>] instead. Therefore, we can rewrite the above
 definition as:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">rec ones = lz-link(1, {(): ones})</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">rec ones = lz-link(1, () -&gt; ones);</code></pre></div></div>
 <p>Notice that
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">{(): …}</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">{(): …}</code></span>
 defines an anonymous function of no arguments. You can’t leave out the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">()</code></span>!
-If you do, Pyret will get confused about what your program means.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">()</code></span>!
+If you do, Jayret will get confused about what your program means.</p>
 <p>Because functions are automatically recursive, when we write a
 function to create a stream, we don’t need to use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>.
 Consider this example:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun nats-from(n :: Number):
-  lz-link(n, {(): nats-from(n + 1)})
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object nats-from(int n) {
+    return lz-link(n, () -&gt; nats-from(n + 1));
+}</code></pre></div></div>
 <p>with which we can define the natural numbers:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">nats = nats-from(0)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">nats = nats-from(0);</code></pre></div></div>
 <p>Note that the definition of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats</code></span>
 is not recursive itself—the recursion is inside
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats-from</code></span>—so
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats-from</code></span>—so
 we don’t need to use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>
 to define
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats</code></span>.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Earlier, we said that every list is finite and hence eventually
 terminates. How does this remark apply to streams, such as the
 definition of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
 or
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats</code></span>
 above?</p></blockquote></blockquote>
 <p>The description of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ones</code></span>
 is still a finite one; it simply represents the potential for an
 infinite number of values. Note that:</p>
 <ol type="1">
@@ -437,23 +430,27 @@ less or more, as needed.</li>
 <p>Now we’ve created multiple streams, but we still don’t have an easy
 way to “see” one. First we’ll define the traditional list-like
 selectors. Getting the first element works exactly as with lists:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun lz-first&lt;T&gt;(s :: Stream&lt;T&gt;) -&gt; T: s.h end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">T lz-first(Stream&lt;Object&gt; s) {
+    return s.h;
+}</code></pre></div></div>
 <p>In contrast, when trying to access the rest of the stream, all we get
 out of the data structure is a thunk. To access the actual rest, we need
 to force the thunk, which of course means applying it to no
 arguments:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun lz-rest&lt;T&gt;(s :: Stream&lt;T&gt;) -&gt; Stream&lt;T&gt;: s.t() end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Stream&lt;Object&gt; lz-rest(Stream&lt;Object&gt; s) {
+    return s.t();
+}</code></pre></div></div>
 <p>This is useful for examining individual values of the stream. It is
 also useful to extract a finite prefix of it (of a given size) as a
 (regular) list, which would be especially handy for testing. Let’s write
 that function:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun take&lt;T&gt;(n :: Number, s :: Stream&lt;T&gt;) -&gt; List&lt;T&gt;:
-  if n == 0:
-    empty
-  else:
-    link(lz-first(s), take(n - 1, lz-rest(s)))
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">List&lt;Object&gt; take(int n, Stream&lt;Object&gt; s) {
+    return if (n == 0) {
+        return empty;
+    } else {
+        return link(lz-first(s), take(n - 1, lz-rest(s)));
+    }
+}</code></pre></div></div>
 <p>If you pay close attention, you’ll find that this body is not defined
 by cases over the structure of the (stream) input—instead, it’s defined
 by the cases of the definition of a natural number (zero or a
@@ -462,39 +459,34 @@ href="func-as-data.html#%28elem._lz-map2-def%29"><lz-map2-def></a>).</p>
 <p>Now that we have this, we can use it for testing. Note that usually
 we use our data to test our functions; here, we’re using this function
 to test our data:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  take(10, ones) is map(lam(_): 1 end, range(0, 10))
-  take(10, nats) is range(0, 10)
-  take(10, nats-from(1)) is map((_ + 1), range(0, 10))
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(take(10, ones), map((_) -&gt; 1, range(0, 10)));
+    assertEquals(take(10, nats), range(0, 10));
+    assertEquals(take(10, nats-from(1)), map((_ + 1), range(0, 10)));
+}</code></pre></div></div>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">The notation
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">(_ + 1)</code></span>
-defines a Pyret function of one argument that adds
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">(_ + 1)</code></span>
+defines a Jayret function of one argument that adds
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>
 to the given argument.</span></span></span></p>
 <p>Let’s define one more function: the equivalent of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>
 over streams. For reasons that will soon become obvious, we’ll define a
 version that takes two lists and applies the first argument to them
 pointwise: <lz-map2-def> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun lz-map2&lt;A, B, C&gt;(
-    f :: (A, B -&gt; C),
-    s1 :: Stream&lt;A&gt;,
-    s2 :: Stream&lt;B&gt;) -&gt; Stream&lt;C&gt;:
-  lz-link(
-    f(lz-first(s1), lz-first(s2)),
-    {(): lz-map2(f, lz-rest(s1), lz-rest(s2))})
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Stream&lt;Object&gt; lz-map2(/* arrow-ann */ Object f, Stream&lt;Object&gt; s1, Stream&lt;Object&gt; s2) {
+    return lz-link(f(lz-first(s1), lz-first(s2)), () -&gt; lz-map2(f, lz-rest(s1), lz-rest(s2)));
+}</code></pre></div></div>
 <p>Now we can see our earlier remark about the structure of the function
 driven home especially clearly. Whereas a traditional
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>
 over lists would have two cases, here we have only one case because the
 data definition (<a
 href="func-as-data.html#%28elem._stream-type-def%29"><stream-type-def></a>)
 has only one case! What is the consequence of this? In a traditional
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>,
 one case looks like the above, but the other case corresponds to the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
 input, for which it produces the same output. Here, because the stream
 never terminates, mapping over it doesn’t either, and the structure of
 the function reflects
@@ -503,25 +495,21 @@ base- and inductive-cases, how can we perform an inductive proof over
 it? The short answer is we can’t: we must instead use <a
 href="glossary.html#%28elem._glossary-coinduction%29">☛ coinduction</a>.</span></span></span></p>
 <p>Why did we define
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lz-map2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lz-map2</code></span>
 instead of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lz-map</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lz-map</code></span>?
 Because it enables us to write the following:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">rec fibs =
-  lz-link(0,
-    {(): lz-link(1,
-          {(): lz-map2({(a :: Number, b :: Number): a + b},
-                fibs,
-            lz-rest(fibs))})})</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">rec fibs = lz-link(0, () -&gt; lz-link(1, () -&gt; lz-map2((int a, int b) -&gt; a + b, fibs, lz-rest(fibs))));</code></pre></div></div>
 <p>from which, of course, we can extract as many Fibonacci numbers as we
 want!</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+check:
   take(10, fibs) is [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 end</code></pre></div></div>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Define the equivalent of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>
 for streams.</p></blockquote></blockquote>
 <p>Streams and, more generally, infinite data structures that unfold on
 demand are extremely valuable in programming. Consider, for instance,
@@ -540,80 +528,73 @@ learn about in a programming-languages class.</p>
 <h4 id="d-dx-streams">8.1.4 Combining Forces: Streams of
 Derivatives</h4>
 <p>When we defined
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d-dx</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d-dx</code></span>,
 we set
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>
 to an arbitrary, high value. We could instead think of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>
 as itself a stream that produces successively finer values; then, for
 instance, when the difference in the value of the derivative becomes
 small enough, we can decide we have a sufficient approximation to the
 derivative.</p>
 <p>The first step is, therefore, to make
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>
 some kind of parameter rather than a global constant. That leaves open
 what kind of parameter it should be (number or stream?) as well as when
 it should be supplied.</p>
 <p>It makes most sense to consume this parameter after we have decided
 what function we want to differentiate and at what value we want its
 derivative; after all, the stream of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>
 values may depend on both. Thus, we get:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun d-dx(f :: (Number -&gt; Number)) -&gt;
-    (Number -&gt; (Number -&gt; Number)):
-  lam(x :: Number) -&gt; (Number -&gt; Number):
-    lam(epsilon :: Number) -&gt; Number:
-      (f(x + epsilon) - f(x)) / epsilon
-    end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* arrow-ann */ Object d-dx(/* arrow-ann */ Object f) {
+    return (int x) -&gt; (int epsilon) -&gt; (f(x + epsilon) - f(x)) / epsilon;
+}</code></pre></div></div>
 <p>with which we can return to our
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">square</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">square</code></span>
 example:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">d-dx-square = d-dx(square)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">d-dx-square = d-dx(square);</code></pre></div></div>
 <p>Note that at this point we have simply redefined
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d-dx</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d-dx</code></span>
 without any reference to streams: we have merely made a constant into a
 parameter.</p>
 <p>Now let’s define the stream of negative powers of ten:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">tenths = block:
-  fun by-ten(d):
-    new-denom = d / 10
-    lz-link(new-denom, lam(): by-ten(new-denom) end)
-  end
-  by-ten(1)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">tenths = block: Object by-ten(d) {
+    new-denom = d / 10;
+    return lz-link(new-denom, () -&gt; by-ten(new-denom));
+}
+by-ten(1);</code></pre></div></div>
 <p>so that</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  take(3, tenths) is [list: 1/10, 1/100, 1/1000]
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(take(3, tenths), [1/10, 1/100, 1/1000]);
+}</code></pre></div></div>
 <p>For concreteness, let’s pick an abscissa at which to compute the
 numeric derivative of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">square</code></span>—say
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">d-dx-square-at-10 = d-dx-square(10)</code></pre></div></div>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">square</code></span>—say
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">d-dx-square-at-10 = d-dx-square(10);</code></pre></div></div>
 <p>Recall, from the types, that this is now a function of type
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">(Number -&gt; Number)</code></span>:
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">(Number -&gt; Number)</code></span>:
 given a value for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>,
 it computes the derivative using that value. We know, analytically, that
 the value of this derivative should be
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">20</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">20</code></span>.
 We can now (lazily) map
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">tenths</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">tenths</code></span>
 to provide increasingly better approximations for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>
 and see what happens:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">lz-map(d-dx-square-at-10, tenths)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">lz-map(d-dx-square-at-10, tenths);</code></pre></div></div>
 <p>Sure enough, the values we obtain are
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">20.1</code></span>,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">20.01</code></span>,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">20.001</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">20.1</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">20.01</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">20.001</code></span>,
 and so on: progressively better numerical approximations to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">20</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">20</code></span>.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Extend the above program to take a tolerance, and draw as many values
 from the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">epsilon</code></span>
 stream as necessary until the difference between successive
 approximations of the derivative fall within this tolerance.</p></blockquote></blockquote>
 <div class="navsetbottom">

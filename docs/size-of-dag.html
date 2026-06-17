@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -123,49 +123,45 @@ MathJax.Hub.Config({
 <h3 id="size-of-dag">16.2 The Size of a DAG</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_1%29">16.2.1<span class="hspace"> </span>Stage 1</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_2%29">16.2.2<span class="hspace"> </span>Stage 2</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_3%29">16.2.3<span class="hspace"> </span>Stage 3</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_4%29">16.2.4<span class="hspace"> </span>Stage 4</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_5%29">16.2.5<span class="hspace"> </span>Stage 5</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.What_.We~e2~80~99ve_.Learned%29">16.2.6<span class="hspace"> </span>What We’ve Learned</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.More_on_.Value_.Printing__.An_.Aside_from_.Racket%29">16.2.7<span class="hspace"> </span>More on Value Printing: An Aside from Racket</a></p></td></tr></table>
 <p>Let’s start by defining a function to compute the size of a tree:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data BT:
-  | mt
-  | nd(v :: Number, l :: BT, r :: BT)
-end
-
-fun size-1(b :: BT) -&gt; Number:
-  cases (BT) b:
-    | mt =&gt; 0
-    | nd(v, l, r) =&gt; 1 + size-1(l) + size-1(r)
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data BT {
+    Mt;
+    Nd(int v, BT l, BT r);
+}
+int size-1(BT b) {
+    return switch (b) {
+        case Mt: yield 0;
+        case Nd(v, l, r): yield 1 + size-1(l) + size-1(r);
+    }
+}</code></pre></div></div>
 <p>This is straightforward enough.</p>
 <p>But let’s say that our input isn’t actually a tree, but rather a DAG.
 For instance:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">#|
-     4
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* 4
     / \
    2   3
     \ /
-     1
-|#
-
-n1 = nd(1, mt, mt)
-n2 = nd(2, mt, n1)
-n3 = nd(3, n1, mt)
-n4 = nd(4, n2, n3)</code></pre></div></div>
+     1 */
+n1 = nd(1, mt, mt);
+n2 = nd(2, mt, n1);
+n3 = nd(3, n1, mt);
+n4 = nd(4, n2, n3);</code></pre></div></div>
 <p>where
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">n4</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">n4</code></span>
 is the DAG. There are two notions of size here. One is like a “print
 size”: how much space will it occupy when printed. The current size
 function computes that well. But another is the “allocation” size: how
 many nodes did we allocate. How do we fare?</p>
 <h4 id="Stage-1">16.2.1 Stage 1</h4>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  size-1(n1) is 1
-  size-1(n2) is 2
-  size-1(n3) is 2
-  size-1(n4) is 4
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(size-1(n1), 1);
+    assertEquals(size-1(n2), 2);
+    assertEquals(size-1(n3), 2);
+    assertEquals(size-1(n4), 4);
+}</code></pre></div></div>
 <p>Clearly the answer should be
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>:
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>:
 we can just read off how many
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nd</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nd</code></span>
 calls there are. And clearly the function is wrong.</p>
 <p>The problem, of course, is that a DAG involves repeating nodes, and
 we aren’t doing anything to track the repetition. So we need a stronger
@@ -174,202 +170,205 @@ function that takes just the DAG and returns a number, and a richer
 helper function, which also takes a memory of the nodes already
 seen.</p>
 <h4 id="Stage-2">16.2.2 Stage 2</h4>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun size-2-h(b :: BT, seen :: List&lt;BT&gt;) -&gt; Number:
-  if member-identical(seen, b):
-    0
-  else:
-    cases (BT) b:
-      | mt =&gt; 0
-      | nd(v, l, r) =&gt;
-        new-seen = link(b, seen)
-        1 + size-2-h(l, new-seen) + size-2-h(r, new-seen)
-    end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int size-2-h(BT b, List&lt;Object&gt; seen) {
+    return if (member-identical(seen, b)) {
+        return 0;
+    } else {
+        return switch (b) {
+            case Mt: yield 0;
+            case Nd(v, l, r): yield block {
+                new-seen = link(b, seen);
+                return 1 + size-2-h(l, new-seen) + size-2-h(r, new-seen);
+            };
+        }
+    }
+}</code></pre></div></div>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Why does this code use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member-identical</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member-identical</code></span>
 rather than
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member</code></span>?</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member</code></span>?</p>
 <p>Observe that if we replace every
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member-identical</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member-identical</code></span>
 with
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member</code></span>
 in this chapter, the code still behaves the same. Why?</p>
 <p>Make changes to demonstrate the need for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member-identical</code></span>.</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member-identical</code></span>.</p></blockquote></blockquote>
 <p>Is it odd that we return
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>?
 Not if we reinterpret what the function does: it doesn’t count the size,
 it counts the additional contribution to the size (relative to what has
 already been seen) of the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">BT</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">BT</code></span>
 it is given. A node already in
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">seen</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">seen</code></span>
 makes no marginal contribution; it was already counted earlier.</p>
 <p>Finally, we should not export such a function to the user, who has to
 deal with an unwieldy extra parameter and may send something
 poorly-formed, thereby causing our function to break. Instead, we should
 write a wrapper for it:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun size-2(b :: BT): size-2-h(b, empty) end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object size-2(BT b) {
+    return size-2-h(b, empty);
+}</code></pre></div></div>
 <p>This also enables us to use our old tests (renamed):</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  size-2(n1) is 1
-  size-2(n2) is 2
-  size-2(n3) is 2
-  size-2(n4) is 4
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(size-2(n1), 1);
+    assertEquals(size-2(n2), 2);
+    assertEquals(size-2(n3), 2);
+    assertEquals(size-2(n4), 4);
+}</code></pre></div></div>
 <p>Unfortunately, this still doesn’t work!</p>
-<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Use Pyret’s
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">spy</code></span>
+<blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Use Jayret’s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">spy</code></span>
 construct in
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size-2-h</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size-2-h</code></span>
 to figure out why.</p></blockquote></blockquote>
 <h4 id="Stage-3">16.2.3 Stage 3</h4>
 <p>Did you remember to use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">spy</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">spy</code></span>?
 Otherwise you may very well miss the problem! Be sure to use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">spy</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">spy</code></span>
 (feel free to elide the first few tests for now) to get a feel for the
 issue.</p>
 <p>As you may have noted, the problem is that we want
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">seen</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">seen</code></span>
 to be all the nodes ever seen. However, every time we return from one
 sub-computation, we also lose track of whatever was seen during its
 work. Instead, we have to also return everything that was seen, so as to
 properly preserve the idea that we’re computing the marginal
 contribution of each node.</p>
 <p>We can do this with the following data structure:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data Ret: ret(sz :: Number, sn :: List&lt;BT&gt;) end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Ret {
+}</code></pre></div></div>
 <p>which is returned by the helper function:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun size-3-h(b :: BT, seen :: List&lt;BT&gt;) -&gt; Ret:
-  if member-identical(seen, b):
-    ret(0, seen)
-  else:
-    cases (BT) b:
-      | mt =&gt; ret(0, seen)
-      | nd(v, l, r) =&gt;
-        new-seen = link(b, seen)
-        rl = size-3-h(l, new-seen)
-        rr = size-3-h(r, rl.sn)
-        ret(1 + rl.sz + rr.sz, rr.sn)
-    end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Ret size-3-h(BT b, List&lt;Object&gt; seen) {
+    return if (member-identical(seen, b)) {
+        return ret(0, seen);
+    } else {
+        return switch (b) {
+            case Mt: yield ret(0, seen);
+            case Nd(v, l, r): yield block {
+                new-seen = link(b, seen);
+                rl = size-3-h(l, new-seen);
+                rr = size-3-h(r, rl.sn);
+                return ret(1 + rl.sz + rr.sz, rr.sn);
+            };
+        }
+    }
+}</code></pre></div></div>
 <p>Note, crucially, how the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">seen</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">seen</code></span>
 argument for the right branch is
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rl.sn</code></span>:
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rl.sn</code></span>:
 i.e., everything that was already seen in the left branch. This is the
 crucial step that avoids the bug.</p>
 <p>Because of this richer return type, we have to extract the actual
 answer for the purpose of testing:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun size-3(b :: BT): size-3-h(b, empty).sz end
-
-check:
-  size-3(n1) is 1
-  size-3(n2) is 2
-  size-3(n3) is 2
-  size-3(n4) is 4
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object size-3(BT b) {
+    return size-3-h(b, empty).sz;
+}
+@Check void test() {
+    assertEquals(size-3(n1), 1);
+    assertEquals(size-3(n2), 2);
+    assertEquals(size-3(n3), 2);
+    assertEquals(size-3(n4), 4);
+}</code></pre></div></div>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Must
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">seen</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">seen</code></span>
 be a list? What else can it be?</p></blockquote></blockquote>
 <h4 id="Stage-4">16.2.4 Stage 4</h4>
 <p>Observe that the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Ret</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Ret</code></span>
 data structure is only of local interest. It’s purely internal to the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size-3-h</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size-3-h</code></span>
 function; even
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size-3</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size-3</code></span>
 ignores one half, and it will never be seen by the rest of the program.
 That is a good use of tuples, as we have seen before: <a
 href="queues-from-lists.html##qfl-tuples">Using Tuples</a>!</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun size-4-h(b :: BT, seen :: List&lt;BT&gt;) -&gt; {Number; List&lt;BT&gt;}:
-  if member-identical(seen, b):
-    {0; seen}
-  else:
-    cases (BT) b:
-      | mt =&gt; {0; seen}
-      | nd(v, l, r) =&gt;
-        new-seen = link(b, seen)
-        {lsz; lsn} = size-4-h(l, new-seen)
-        {rsz; rsn} = size-4-h(r, lsn)
-        {1 + lsz + rsz; rsn}
-    end
-  end
-end
-
-fun size-4(b :: BT): size-4-h(b, empty).{0} end
-
-check:
-  size-4(n1) is 1
-  size-4(n2) is 2
-  size-4(n3) is 2
-  size-4(n4) is 4
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* tuple-ann (deferred) */ Object size-4-h(BT b, List&lt;Object&gt; seen) {
+    return if (member-identical(seen, b)) {
+        return /* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;seen}
+    } else {
+        return switch (b) {
+            case Mt: yield /* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;seen};
+            case Nd(v, l, r): yield block {
+                new-seen = link(b, seen);
+                /* TODO(pyret2jayret): tuple-binding deferred in Jayret v0.1 */ size-4-h(l, new-seen);
+                /* TODO(pyret2jayret): tuple-binding deferred in Jayret v0.1 */ size-4-h(r, lsn);
+                return /* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {1 + lsz + rsz ;rsn}
+            };
+        }
+    }
+}
+Object size-4(BT b) {
+    return size-4-h(b, empty) .{0 }
+}
+@Check void test() {
+    assertEquals(size-4(n1), 1);
+    assertEquals(size-4(n2), 2);
+    assertEquals(size-4(n3), 2);
+    assertEquals(size-4(n4), 4);
+}</code></pre></div></div>
 <p>The notation
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">{0; seen}</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;seen}</code></span>
 makes an actual tuple;
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">{Number; List&lt;BT&gt;}</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {Number ;List &lt; BT &gt;}</code></span>
 declares the contract of a tuple. Also,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.{0}</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.{0}</code></span>
 extracts the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>th
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>th
 element (the leftmost one) of a tuple.</p>
 <h4 id="Stage-5">16.2.5 Stage 5</h4>
 <p>Notice that we have the two instances of the code
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">{0; seen}</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;seen}</code></span>.
 Do they have to be that? What if we were to return
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">{0; empty}</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;empty}</code></span>
 instead in both places? Does anything break?</p>
 <p>We might expect it to break in the case where
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member-identical</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member-identical</code></span>
 returns
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>,
 but perhaps not in the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">mt</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">mt</code></span>
 case.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Make each of these changes. Does the outcome match your
 expectations?</p></blockquote></blockquote>
 <p>Curiously, no! Making the change in the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">mt</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">mt</code></span>
 case has an effect but making it in the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member-identical</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member-identical</code></span>
 case doesn’t! This almost seems counter-intuitive. How can we diagnose
 this?</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">spy</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">spy</code></span>
 to determine what is going on!</p></blockquote></blockquote>
 <p>Okay, so it seems like returning
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
 when we revisit a node doesn’t seem to do any harm. Does that mean it’s
 okay to make that change?</p>
 <p>Observe that nothing has actually depended on that seen-list being
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>.
 That’s why it appears to not matter. How can we make it matter? By
 making it “hurt” the computation by visiting a previously seen, but now
 forgotten, node yet again. So we need to visit a node at least three
 times: the first time to remember it; the second time to forget it; and
 a third time to incorrectly visit it again. Here’s a DAG that will do
 that:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">#|
-    10
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* 10
     / \
    11 12
   / \ /
- 13&lt;--
-|#
-
-n13 = nd(13, mt, mt)
-n11 = nd(11, n13, n13)
-n12 = nd(12, n13, mt)
-n10 = nd(10, n11, n12)
-
-check:
-  size-4(n10) is 4
-end</code></pre></div></div>
+ 13&lt;-- */
+n13 = nd(13, mt, mt);
+n11 = nd(11, n13, n13);
+n12 = nd(12, n13, mt);
+n10 = nd(10, n11, n12);
+@Check void test() {
+    assertEquals(size-4(n10), 4);
+}</code></pre></div></div>
 <p>Sure enough, if either tuple now returns
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>,
 this test fails. Otherwise it succeeds.</p>
 <h4 id="What-We-e2-80-99ve-Learned">16.2.6 What We’ve Learned</h4>
 <p>We have learned three important principles here:</p>
@@ -394,9 +393,9 @@ suite to catch the error in your program, or convince yourself the
 change didn’t matter.</p>
 <p>There are mutation testing tools that will randomly try to alter your
 program using “mutant” strategies—e.g., replacing a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">+</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">+</code></span>
 with a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">-</code></span>—and
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">-</code></span>—and
 re-run your suites, and then report back on how many potential mutants
 the suites actually caught. But we can’t and shouldn’t only rely on
 tools; we can also apply the principle of mutation testing by hand, as
@@ -432,7 +431,7 @@ output. It’s just that most programming languages choose to not do that,
 even optionally.</p>
 <p>Remember the “almost” above? What was that about?</p>
 <p>In Racket, we’ve made a new instance of mt over and over. We can more
-accurately reflect what is happening in Pyret by instantiating it only
+accurately reflect what is happening in Jayret by instantiating it only
 once:</p>
 <table cellpadding="0" cellspacing="0" class="SVerbatim"><tr><td><p><span class="stt">(struct mt () #:transparent)</span></p></td></tr><tr><td><p><span class="stt">(define the-mt (mt))</span></p></td></tr><tr><td><p><span class="stt">(struct nd (v l r) #:transparent)</span></p></td></tr></table>
 <p>We then rewrite the earlier example to use that one instance

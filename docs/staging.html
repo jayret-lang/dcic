@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -129,60 +129,52 @@ ancestry [<a href="trees.html##ancestor-tree">Creating a Datatype for
 Ancestor Trees</a>]. In what follows we don’t need a lot of detail, so
 we will give ourselves a simplified version of essentially the same data
 definition:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data ABT:
-  | unknown
-  | person(name :: String, bm :: ABT, bf :: ABT)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data ABT {
+    Unknown;
+    Person(String name, ABT bm, ABT bf);
+}</code></pre></div></div>
 <p>We can then write functions over such as this:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun abt-size(p :: ABT):
-  doc: "Compute the number of known people in the ancestor tree"
-  cases (ABT) p:
-    | unknown =&gt; 0
-    | person(n, p1, p2) =&gt; 1 + abt-size(p1) + abt-size(p2)
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object abt-size(ABT p) {
+    // Compute the number of known people in the ancestor tree
+    return switch (p) {
+        case Unknown: yield 0;
+        case Person(n, p1, p2): yield 1 + abt-size(p1) + abt-size(p2);
+    }
+}</code></pre></div></div>
 <p>Now let’s think about a slightly different function:
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>,
 which tells us how many people in a family have a particular name. Not
 only can more than one person have the same name, in some cultures it’s
 not uncommon to use the same name across generations, either in
 successive generations or skipping one.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What is the contract for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>?
 The contract for this function will be crucial, so make sure you do this
 step!</p></blockquote></blockquote>
 <p>Here is one meaningful contract:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">how-many-named :: ABT, String -&gt; Number</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: how-many-named :: Object */;</code></pre></div></div>
 <p>It takes a tree in which to search, a name to search for, and returns
 a count.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Define
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>.</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>.</p></blockquote></blockquote>
 <h3 id="Initial-Solution">24.2 Initial Solution</h3>
 <p>Presumably you ended up with something like this:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun how-many-named(p, looking-for):
-  cases (ABT) p:
-    | unknown =&gt; 0
-    | person(n, p1, p2) =&gt;
-      if n == looking-for:
-        1 + how-many-named(p1, looking-for) + how-many-named(p2, looking-for)
-      else:
-        how-many-named(p1, looking-for) + how-many-named(p2, looking-for)
-      end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object how-many-named(p, looking-for) {
+    return switch (p) {
+        case Unknown: yield 0;
+        case Person(n, p1, p2): yield if (n == looking-for) {
+            return 1 + how-many-named(p1, looking-for) + how-many-named(p2, looking-for);
+        } else {
+            return how-many-named(p1, looking-for) + how-many-named(p2, looking-for);
+        };
+    }
+}</code></pre></div></div>
 <p>Let’s say you have defined this person:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">p =
-  person("A",
-    person("B",
-      person("A", unknown, unknown),
-      person("C",
-        person("A", unknown, unknown),
-        person("B", unknown, unknown))),
-    person("C", unknown, unknown))</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">p = person("A", person("B", person("A", unknown, unknown), person("C", person("A", unknown, unknown), person("B", unknown, unknown))), person("C", unknown, unknown));</code></pre></div></div>
 <p>With that, we can write a test like</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  how-many-named(p, "A") is 3
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(how-many-named(p, "A"), 3);
+}</code></pre></div></div>
 <h3 id="Refactoring">24.3 Refactoring</h3>
 <p>Now let’s apply some transformations, sometimes called code
 refactorings, to this function.</p>
@@ -192,71 +184,70 @@ contributing to the overall count; the rest of the count stays the same
 regardless.</p>
 <p>One way to make this more explicit is to (perhaps surprisingly)
 rewrite the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else</code></span>
 to make explicit that a person with a different name contributes
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>
 to the count:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun how-many-named(p, looking-for):
-  cases (ABT) p:
-    | unknown =&gt; 0
-    | person(n, p1, p2) =&gt;
-      if n == looking-for:
-        1 + how-many-named(p1, looking-for) + how-many-named(p2, looking-for)
-      else:
-        0 + how-many-named(p1, looking-for) + how-many-named(p2, looking-for)
-      end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object how-many-named(p, looking-for) {
+    return switch (p) {
+        case Unknown: yield 0;
+        case Person(n, p1, p2): yield if (n == looking-for) {
+            return 1 + how-many-named(p1, looking-for) + how-many-named(p2, looking-for);
+        } else {
+            return 0 + how-many-named(p1, looking-for) + how-many-named(p2, looking-for);
+        };
+    }
+}</code></pre></div></div>
 <p>The reason for this somewhat odd rewrite is that it makes clear what
 is common and what is different. What is common is looking in the two
 parents. What changes is how much this person contributes, and only that
 depends on the conditional. We can therefore express this more concisely
 (and, if we know how to read such code, more meaningfully) as the
 following instead:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun how-many-named(p, looking-for):
-  cases (ABT) p:
-    | unknown =&gt; 0
-    | person(n, p1, p2) =&gt;
-      (if n == looking-for: 1 else: 0 end)
-      +
-      how-many-named(p1, looking-for) +
-      how-many-named(p2, looking-for)
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object how-many-named(p, looking-for) {
+    return switch (p) {
+        case Unknown: yield 0;
+        case Person(n, p1, p2): yield (if (n == looking-for) {
+            return 1;
+        } else {
+            return 0;
+        }) + how-many-named(p1, looking-for) + how-many-named(p2, looking-for);
+    }
+}</code></pre></div></div>
 <p>If you have prior programming experience, this may look a bit odd to
 you, but
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
 is in fact an expression, which has a value; in this case the value is
 either
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>
 or
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>.
 This value can then be used in an addition.</p>
 <p>Now let’s look at this code even more closely. Notice something
 interesting. We keep passing two parameters to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>;
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>;
 however, only one of those parameters
-(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">p</code></span>)
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">p</code></span>)
 is actually changing. The name we are looking for does not change, as we
 would expect: we are looking for the same name in the entire tree. How
 can we reflect this in the code?</p>
 <p>First, we’ll do something that looks a little useless, but it’s also
 an innocent change, so it shouldn’t irk us too much: we’ll change the
 order of the arguments. That is, our contract changes from</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">how-many-named :: ABT, String -&gt; Number</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: how-many-named :: Object */;</code></pre></div></div>
 <p>to</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">how-many-named :: String, ABT -&gt; Number</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: how-many-named :: Object */;</code></pre></div></div>
 <p>so the function correspondingly changes to</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun how-many-named(looking-for, p):
-  cases (ABT) p:
-    | unknown =&gt; 0
-    | person(n, p1, p2) =&gt;
-      (if n == looking-for: 1 else: 0 end)
-      +
-      how-many-named(p1, looking-for) +
-      how-many-named(p2, looking-for)
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object how-many-named(looking-for, p) {
+    return switch (p) {
+        case Unknown: yield 0;
+        case Person(n, p1, p2): yield (if (n == looking-for) {
+            return 1;
+        } else {
+            return 0;
+        }) + how-many-named(p1, looking-for) + how-many-named(p2, looking-for);
+    }
+}</code></pre></div></div>
 <p>What we have now done is put the “constant” argument first, and the
 “varying” argument second.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Try this and make sure it works!</p></blockquote></blockquote>
@@ -264,18 +255,18 @@ end</code></pre></div></div>
 have to also change how it’s called. Keep in mind it’s called twice
 within the function body itself, and also from the examples. Therefore,
 the function as a whole reads:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun how-many-named(looking-for, p):
-  cases (ABT) p:
-    | unknown =&gt; 0
-    | person(n, p1, p2) =&gt;
-      (if n == looking-for: 1 else: 0 end)
-      +
-      how-many-named(looking-for, p1) +
-      how-many-named(looking-for, p2)
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object how-many-named(looking-for, p) {
+    return switch (p) {
+        case Unknown: yield 0;
+        case Person(n, p1, p2): yield (if (n == looking-for) {
+            return 1;
+        } else {
+            return 0;
+        }) + how-many-named(looking-for, p1) + how-many-named(looking-for, p2);
+    }
+}</code></pre></div></div>
 <p>and the example reads
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named("A", p)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named("A", p)</code></span>
 instead.</p>
 <h3 id="Separating-Parameters">24.4 Separating Parameters</h3>
 <p>This sets us up for the next stage. The parameters of functions are
@@ -284,95 +275,92 @@ looking for is a constant once we initially have it, we’d like the
 actual search function to take only one argument: where in the tree
 we’re searching.</p>
 <p>That is, we want the search function’s contract to be
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">(ABT -&gt; Number)</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">(ABT -&gt; Number)</code></span>.
 To achieve that, we need another function that will take the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>
 part. Thus, the contract has to become</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">how-many-named :: String -&gt; (ABT -&gt; Number)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: how-many-named :: Object */;</code></pre></div></div>
 <p>where
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>
 consumes a name and returns a function that will consume the actual tree
 to check.</p>
 <p>This suggests the following function body:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun how-many-named(looking-for):
-  lam(p :: ABT) -&gt; Number:
-    cases (ABT) p:
-      | unknown =&gt; 0
-      | person(n, p1, p2) =&gt;
-        (if n == looking-for: 1 else: 0 end)
-        +
-        how-many-named(looking-for, p1) +
-        how-many-named(looking-for, p2)
-    end
-  end
-end</code></pre></div></div>
-<p>However, this function body is not okay: the Pyret type-checker will
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object how-many-named(looking-for) {
+    return (ABT p) -&gt; switch (p) {
+        case Unknown: yield 0;
+        case Person(n, p1, p2): yield (if (n == looking-for) {
+            return 1;
+        } else {
+            return 0;
+        }) + how-many-named(looking-for, p1) + how-many-named(looking-for, p2);
+    }
+}</code></pre></div></div>
+<p>However, this function body is not okay: the Jayret type-checker will
 give us type errors. That’s because
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>
 takes one parameter, not two, as in the two recursive calls.</p>
 <p>How do we fix this? Remember, the whole point of this change is we
 don’t want to change the name, only the tree. That means we want to
 recur on the inner function. We currently can’t do this because it
 doesn’t have a name! So we have to give it a name and recur on it:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun how-many-named(looking-for):
-  fun search-in(p :: ABT) -&gt; Number:
-    cases (ABT) p:
-      | unknown =&gt; 0
-      | person(n, p1, p2) =&gt;
-        (if n == looking-for: 1 else: 0 end)
-        +
-        search-in(p1) +
-        search-in(p2)
-    end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object how-many-named(looking-for) {
+    int search-in(ABT p) {
+        return switch (p) {
+            case Unknown: yield 0;
+            case Person(n, p1, p2): yield (if (n == looking-for) {
+                return 1;
+            } else {
+                return 0;
+            }) + search-in(p1) + search-in(p2);
+        }
+    }
+}</code></pre></div></div>
 <p>This now lets us recur on just the part that should vary, leaving the
 name we’re looking for unchanged (and hence, fixed for the duration of
 the search).</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Try the above and make sure it works.</p></blockquote></blockquote>
 <p>It still doesn’t: the above body has a syntax error! This is because
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>
 does not actually return any kind of value.</p>
 <p>What should it return? Once we provide the function with a name, we
 should get back a function that searches for that name in a tree. But we
 already have exactly such a function:
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">search-in</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">search-in</code></span>.
 Therefore,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>
 should return just …
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">search-in</code></span>.</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun how-many-named(looking-for):
-  fun search-in(p :: ABT) -&gt; Number:
-    cases (ABT) p:
-      | unknown =&gt; 0
-      | person(n, p1, p2) =&gt;
-        (if n == looking-for: 1 else: 0 end)
-        +
-        search-in(p1) +
-        search-in(p2)
-    end
-  end
-
-  search-in
-end</code></pre></div></div>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">search-in</code></span>.</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object how-many-named(looking-for) {
+    int search-in(ABT p) {
+        return switch (p) {
+            case Unknown: yield 0;
+            case Person(n, p1, p2): yield (if (n == looking-for) {
+                return 1;
+            } else {
+                return 0;
+            }) + search-in(p1) + search-in(p2);
+        }
+    }
+    return search-in;
+}</code></pre></div></div>
 <p>This still won’t work, because we haven’t changed the example. Let’s
 update that: how do we use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>?
 We have to call it with a name (like
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"A"</code></span>);
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"A"</code></span>);
 this returns a function—the one bound to
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">search-in</code></span>—which
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">search-in</code></span>—which
 expects a ancestor tree. Doing so should return a count. Thus, the
 example should be rewritten as</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">how-many-As = how-many-named("A")
-how-many-As(p) is 3</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">how-many-As = how-many-named("A");
+assertEquals(how-many-As(p), 3);</code></pre></div></div>
 <p>This is an instructive way to write the example. We can, however,
 also write it more concisely. Notice that
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named("A")</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named("A")</code></span>
 returns a function, and the way we apply a function to arguments is
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">(…)</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">(…)</code></span>.
 Thus, we can also write this as:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">how-many-named("A")(p) is 3</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(how-many-named("A")(p), 3);</code></pre></div></div>
 <h3 id="Context">24.5 Context</h3>
 <p>The transformation we just applied is generally called currying, in
 honor of Haskell Curry, who was one of the early people to describe it,
@@ -385,8 +373,8 @@ to produce more time-efficient programs.</p>
 <p>Even more subtly but importantly, the staged computation tells a
 different story than the unstaged one, and we can read this off just
 from the contract:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">how-many-named :: String, ABT -&gt; Number
-how-many-named :: String -&gt; (ABT -&gt; Number)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: how-many-named :: Object */;
+/* contract: how-many-named :: Object */;</code></pre></div></div>
 <p>The first one says the string could co-vary with the person. The
 second one rules out that interpretation.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Is the former useful? When might we have the name also changing?</p></blockquote></blockquote>
@@ -408,7 +396,7 @@ href="func-as-data.html##fd-calculus">A Little Calculus</a>.</p>
 OCaml, do this transformation automatically. In fact, they don’t even
 have multiple-parameter functions: what look like multiple arguments are
 actually a sequence of staged functions. This can, in extremis, lead to
-a very elegant and powerful programming style. Pyret chose to not do
+a very elegant and powerful programming style. Jayret chose to not do
 this because, while this is a powerful tool in the hands of advanced
 programmers, for less experienced programmers, finding out about a
 mismatch in the number of parameters and arguments is very useful.</p>

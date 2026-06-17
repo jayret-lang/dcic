@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -177,22 +177,21 @@ Values</a>.</p>
 <p>Clearly, a list representation does not let us eliminate half the
 elements with a constant amount of work; instead, we need a tree. Thus
 we define a binary tree of (for simplicity) numbers:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data BT:
-  | leaf
-  | node(v :: Number, l :: BT, r :: BT)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data BT {
+    Leaf;
+    Node(int v, BT l, BT r);
+}</code></pre></div></div>
 <p>Given this definition, let’s define the membership checker:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun is-in-bt(e :: Number, s :: BT) -&gt; Boolean:
-  cases (BT) s:
-    | leaf =&gt; false
-    | node(v, l, r) =&gt;
-      if e == v:
-        true
-      else:
-        is-in-bt(e, l) or is-in-bt(e, r)
-      end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">boolean is-in-bt(int e, BT s) {
+    return switch (s) {
+        case Leaf: yield false;
+        case Node(v, l, r): yield if (e == v) {
+            return true;
+        } else {
+            return is-in-bt(e, l) || is-in-bt(e, r);
+        };
+    }
+}</code></pre></div></div>
 <p>Oh, wait. If the element we’re looking for isn’t the root, what do we
 do? It could be in the left child or it could be in the right; we won’t
 know for sure until we’ve examined both. Thus, we can’t throw away half
@@ -211,24 +210,20 @@ bigger ones to the right. This refines our binary tree definition to
 give us a binary search tree (BST).</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Here is a candiate predicate for recognizing when a binary tree is in
 fact a binary search tree:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun is-a-bst-buggy(b :: BT) -&gt; Boolean:
-  cases (BT) b:
-    | leaf =&gt; true
-    | node(v, l, r) =&gt;
-      (is-leaf(l) or (l.v &lt;= v)) and
-      (is-leaf(r) or (v &lt;= r.v)) and
-      is-a-bst-buggy(l) and
-      is-a-bst-buggy(r)
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">boolean is-a-bst-buggy(BT b) {
+    return switch (b) {
+        case Leaf: yield true;
+        case Node(v, l, r): yield (is-leaf(l) || (l.v &lt;= v)) &amp;&amp; (is-leaf(r) || (v &lt;= r.v)) &amp;&amp; is-a-bst-buggy(l) &amp;&amp; is-a-bst-buggy(r);
+    }
+}</code></pre></div></div>
 <p>Is this definition correct?</p></blockquote></blockquote>
 <p>It’s not. To actually throw away half the tree, we need to be sure
 that everything in the left sub-tree is less than the value in the root
 and similarly, everything in the right sub-tree is greater than the
 root.<span class="refelem"><span class="refcolumn"><span class="refcontent">We have used
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;=</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;=</code></span>
 instead of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;</code></span>
 above because even though we don’t want to permit duplicates when
 representing sets, in other cases we might not want to be so stringent;
 this way we can reuse the above implementation for other purposes.</span></span></span>
@@ -237,79 +232,82 @@ could have a root a with a right child, b, such that b &gt; a; and the b
 node could have a left child c such that c &lt; b; but this does not
 guarantee that c &gt; a. In fact, it is easy to construct a
 counter-example that passes this check:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  node(5, node(3, leaf, node(6, leaf, leaf)), leaf)
-    satisfies is-a-bst-buggy # FALSE!
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertSatisfies(node(5, node(3, leaf, node(6, leaf, leaf)), leaf), is-a-bst-buggy);
+}
+// FALSE!</code></pre></div></div>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Fix the BST checker.</p></blockquote></blockquote>
 <p>With a corrected definition, we can now define a refined version of
 binary trees that are search trees:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">type BST = BT%(is-a-bst)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">type BST = BT % (is-a-bst );</code></pre></div></div>
 <p>We can also remind ourselves that the purpose of this exercise was to
 define sets, and define
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">TSet</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">TSet</code></span>s
 to be tree sets:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">type TSet = BST
-mt-set = leaf</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">type TSet = BST;
+mt-set = leaf;</code></pre></div></div>
 <p>Now let’s implement our operations on the BST representation. First
 we’ll write a template:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun is-in(e :: Number, s :: BST) -&gt; Bool:
-  cases (BST) s:
-    | leaf =&gt; ...
-    | node(v, l :: BST, r :: BST) =&gt; ...
-      ... is-in(l) ...
-      ... is-in(r) ...
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Bool is-in(int e, BST s) {
+    return switch (s) {
+        case Leaf: yield ...;
+        case Node(v, BST l, BST r): yield block {
+            ...;
+            ...;
+            is-in(l);
+            ...;
+            ...;
+            is-in(r);
+            return ...;
+        };
+    }
+}</code></pre></div></div>
 <p>Observe that the data definition of a BST gives us rich information
 about the two children: they are each a BST, so we know their elements
 obey the ordering property. We can use this to define the actual
 operations:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun is-in(e :: Number, s :: BST) -&gt; Boolean:
-  cases (BST) s:
-    | leaf =&gt; false
-    | node(v, l, r) =&gt;
-      if e == v:
-        true
-      else if e &lt; v:
-        is-in(e, l)
-      else if e &gt; v:
-        is-in(e, r)
-      end
-  end
-end
-
-fun insert(e :: Number, s :: BST) -&gt; BST:
-  cases (BST) s:
-    | leaf =&gt; node(e, leaf, leaf)
-    | node(v, l, r) =&gt;
-      if e == v:
-        s
-      else if e &lt; v:
-        node(v, insert(e, l), r)
-      else if e &gt; v:
-        node(v, l, insert(e, r))
-      end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">boolean is-in(int e, BST s) {
+    return switch (s) {
+        case Leaf: yield false;
+        case Node(v, l, r): yield if (e == v) {
+            return true;
+        } else if (e &lt; v) {
+            return is-in(e, l);
+        } else if (e &gt; v) {
+            return is-in(e, r);
+        };
+    }
+}
+BST insert(int e, BST s) {
+    return switch (s) {
+        case Leaf: yield node(e, leaf, leaf);
+        case Node(v, l, r): yield if (e == v) {
+            return s;
+        } else if (e &lt; v) {
+            return node(v, insert(e, l), r);
+        } else if (e &gt; v) {
+            return node(v, l, insert(e, r));
+        };
+    }
+}</code></pre></div></div>
 <p>In both functions we are strictly assuming the invariant of the BST,
 and in the latter case also ensuring it. Make sure you identify where,
 why, and how.</p>
 <p>You should now be able to define the remaining operations. Of these,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
 clearly requires linear time (since it has to count all the elements),
 but because
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
 both throw away one of two children each time they recur, they take
 logarithmic time.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Suppose we frequently needed to compute the size of a set. We ought
 to be able to reduce the time complexity of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
 by having each tree <a href="glossary.html#%28elem._glossary-cache%29">☛
 cache</a> its size, so that
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
 could complete in constant time (note that the size of the tree clearly
 fits the criterion of a cache, since it can always be reconstructed).
 Update the data definition and all affected functions to keep track of
@@ -318,29 +316,25 @@ this information correctly.</p></blockquote></blockquote>
 <p>But wait a minute. Are we actually done? Our recurrence takes the
 form <span class="math inline">\(T(k) = T(k/2) + c\)</span>, but what in
 our data definition guaranteed that the size of the child traversed by
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
 will be half the size?</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Construct an example—consisting of a sequence of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>s
 to the empty tree—such that the resulting tree is not balanced. Show
 that searching for certain elements in this tree will take linear, not
 logarithmic, time in its size.</p></blockquote></blockquote>
 <p>Imagine starting with the empty tree and inserting the values
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">2</code></span>,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">2</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>,
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>,
 in order. The resulting tree would be</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  insert(4, insert(3, insert(2, insert(1, mt-set)))) is
-  node(1, leaf,
-    node(2, leaf,
-      node(3, leaf,
-        node(4, leaf, leaf))))
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(insert(4, insert(3, insert(2, insert(1, mt-set)))), node(1, leaf, node(2, leaf, node(3, leaf, node(4, leaf, leaf)))));
+}</code></pre></div></div>
 <p>Searching for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
 in this tree would have to examine all the set elements in the tree. In
 other words, this binary search tree is degenerate—it is effectively a
 list, and we are back to having the same complexity we had earlier.</p>
@@ -350,7 +344,7 @@ the right order. However, we cannot assume any input ordering; instead,
 we would like an implementation that works in all cases. Thus, we must
 find a way to ensure that the tree is always balanced, so each recursive
 call in
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
 really does throw away half the elements.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Observe that we have not talked about computing the size of the set.
 Even if we could assume that the binary tree is balanced, how do we
@@ -364,9 +358,9 @@ sides to be of equal size because this demands that the tree (and hence
 the set) have an even number of elements and, even more stringently, to
 have a size that is a power of two.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Define a predicate for a BBST that consumes a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">BT</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">BT</code></span>
 and returns a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>
 indicating whether or not it a balanced search tree.</p></blockquote></blockquote>
 <p>Therefore, we relax the notion of balance to one that is both
 accommodating and sufficient. We use the term balance factor for a node
@@ -393,17 +387,17 @@ be applied to a BBST without any loss of correctness.</p>
 <p>So far, so easy. All that leaves is a means of creating a BBST,
 because it’s responsible for ensuring balance. It’s easy to see that the
 constant
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty-set</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty-set</code></span>
 is a BBST value. So that leaves only
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>.</p>
 <p>Here is our situation with
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>.
 Assuming we start with a BBST, we can determine in logarithmic time
 whether the element is already in the tree and, if so, ignore
 it.<span class="refelem"><span class="refcolumn"><span class="refcontent">To implement a bag we count how many of each element are in it, which
 does not affect the tree’s height.</span></span></span> When inserting
 an element, given balanced trees, the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
 for a BST takes only a logarithmic amount of time to perform the
 insertion. Thus, if performing the insertion does not affect the tree’s
 balance, we’re done. Therefore, we only need to consider cases where
@@ -432,7 +426,7 @@ dictate what to do in each case.</p></blockquote></blockquote>
 <p>The number of cases is actually quite overwhelming (if you didn’t
 think so, you missed a few…). Therefore, we instead attack the problem
 after it has occurred: allow the existing BST
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
 to insert the element, assume that we have an imbalanced tree, and show
 how to restore its
 balance.<span class="refelem"><span class="refcolumn"><span class="refcontent">The insight that a tree can be made “self-balancing” is quite
@@ -442,7 +436,7 @@ E.M. Landis. In honor of their initials it is called an AVL Tree, though
 the tree itself is quite evident; their genius is in defining
 re-balancing.</span></span></span></p>
 <p>Thus, in what follows, we begin with a tree that is balanced;
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
 causes it to become imbalanced; we have assumed that the insertion
 happened in the left sub-tree. In particular, suppose a (sub-)tree has a
 balance factor of <span class="math inline">\(2\)</span> (positive
@@ -453,11 +447,11 @@ property:</p>
 at every node is <span class="math inline">−1</span>, <span
 class="math inline">0</span>, or <span class="math inline">1</span>,
 then
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
 can at worst make the balance factor <span
 class="math inline">±2</span>.</p></blockquote></blockquote>
 <p>The algorithm that follows is applied as
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
 returns from its recursion, i.e., on the path from the inserted value
 back to the root. Since this path is of logarithmic length in the set’s
 size (due to the balancing property), and (as we shall see) performs

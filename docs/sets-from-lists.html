@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -134,35 +134,35 @@ duplicates.<span class="refelem"><span class="refcolumn"><span class="refcontent
 href="Collections_of_Structured_Data.html##sets-as-collections">Sets as
 Collective Data</a>, since they will be important when discussing the
 representation of sets.</span></span></span> At that time we relied on
-Pyret’s built-in representation of sets. Now we will discuss how to
+Jayret’s built-in representation of sets. Now we will discuss how to
 build sets for ourselves. In what follows, we will focus only on sets of
 numbers.</p>
 <p>We will start by discussing how to represent sets using lists.
 Intuitively, using lists to represent sets of data seems problematic,
 because lists respect both order and duplication. For instance,</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  [list: 1, 2, 3] is [list: 3, 2, 1, 1]
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals([1, 2, 3], [3, 2, 1, 1]);
+}</code></pre></div></div>
 <p>fails, but the corresponding sets are equal.</p>
 <p>In principle, we want sets to obey the following
 interface:<span class="refelem"><span class="refcolumn"><span class="refcontent">Note that a type called
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Set</code></span>
-is already built into Pyret, so below we will use the name
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">LSet</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Set</code></span>
+is already built into Jayret, so below we will use the name
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">LSet</code></span>
 for a set represented as a list.</span></span></span> <set-operations>
 ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">mt-set :: Set
-is-in :: (T, Set&lt;T&gt; -&gt; Bool)
-insert :: (T, Set&lt;T&gt; -&gt; Set&lt;T&gt;)
-union :: (Set&lt;T&gt;, Set&lt;T&gt; -&gt; Set&lt;T&gt;)
-size :: (Set&lt;T&gt; -&gt; Number)
-to-list :: (Set&lt;T&gt; -&gt; List&lt;T&gt;)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: mt-set :: Object */;
+/* contract: is-in :: Object */;
+/* contract: insert :: Object */;
+/* contract: union :: Object */;
+/* contract: size :: Object */;
+/* contract: to-list :: Object */;</code></pre></div></div>
 <p>We may also find it also useful to have functions such as</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">insert-many :: (List&lt;T&gt;, Set&lt;T&gt; -&gt; Set&lt;T&gt;)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: insert-many :: Object */;</code></pre></div></div>
 <p>which, combined with
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">mt-set</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">mt-set</code></span>,
 easily gives us a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">to-set</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">to-set</code></span>
 function.</p>
 <p>Sets can contain many kinds of values, but not necessarily any kind:
 we need to be able to check for two values being equal (which is a
@@ -173,27 +173,27 @@ now, we can ignore these issues by focusing on sets of
 (non-rough)numbers.</p>
 <h4 id="Representation-Choices">18.1.1 Representation Choices</h4>
 <p>The empty list can stand in for the empty set—</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">type LSet = List
-mt-set = empty</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">type LSet = List;
+mt-set = empty;</code></pre></div></div>
 <p>—and we can presumably define
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
 as</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun size&lt;T&gt;(s :: LSet&lt;T&gt;) -&gt; Number:
-  s.length()
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int size(LSet&lt;Object&gt; s) {
+    return s.length();
+}</code></pre></div></div>
 <p>However, this <a
 href="glossary.html#%28elem._glossary-reduction%29">☛ reduction</a> (of
 sets to lists) can be dangerous:</p>
 <ol type="1">
 <li>There is a subtle difference between lists and sets. The list</li>
 </ol>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">[list: 1, 1]</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">[1, 1];</code></pre></div></div>
 <p>is not the same as</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">[list: 1]</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">[1];</code></pre></div></div>
 <p>because the first list has length two whereas the second has length
 one. Treated as a set, however, the two are the same: they both have
 size one. Thus, our implementation of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
 above is incorrect if we don’t take into account duplicates (either
 during insertion or while computing the size). 2. We might falsely make
 assumptions about the order in which elements are retrieved from the set
@@ -210,27 +210,27 @@ we’ll soon see [<a
 href="sets-from-lists.html##choosing-set-reps">Choosing Between
 Representations</a>]) is what to do about duplicates. One possibility is
 for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
 to check whether an element is already in the set and, if so, leave the
 representation unchanged; this incurs a cost during insertion but avoids
 unnecessary duplication and lets us use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">length</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">length</code></span>
 to implement
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>.
 The other option is to define
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
 as
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>—literally,</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">insert = link</code></pre></div></div>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>—literally,</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">insert = link;</code></pre></div></div>
 <p>—and have some other procedure perform the filtering of
 duplicates.</p>
 <h4 id="Time-Complexity">18.1.2 Time Complexity</h4>
 <p>What is the complexity of this representation of sets? Let’s consider
 just
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>,
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>.
 Suppose the size of the set is <span class="math inline">\(k\)</span>
 (where, to avoid ambiguity, we let <span
 class="math inline">\(k\)</span> represent the number of distinct
@@ -238,68 +238,67 @@ elements). The complexity of these operations depends on whether or not
 we store duplicates:</p>
 <ul>
 <li>If we don’t store duplicates, then
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
 is simply
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">length</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">length</code></span>,
 which takes time linear in <span class="math inline">\(k\)</span>.
 Similarly,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
 only needs to traverse the list once to determine whether or not an
 element is present, which also takes time linear in <span
 class="math inline">\(k\)</span>. But
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
 needs to check whether an element is already present, which takes time
 linear in <span class="math inline">\(k\)</span>, followed by at most a
 constant-time operation
-(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>).</li>
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>).</li>
 <li>If we do store duplicates, then
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
 is constant time: it simply
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>s
 on the new element without regard to whether it already is in the set
 representation.
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
 traverses the list once, but the number of elements it needs to visit
 could be significantly greater than <span
 class="math inline">\(k\)</span>, depending on how many duplicates have
 been added. Finally,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
 needs to check whether or not each element is duplicated before counting
 it.</li>
 </ul>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What is the time complexity of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
 if the list has duplicates?</p></blockquote></blockquote>
 <p>One implementation of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
 is</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun size&lt;T&gt;(s :: LSet&lt;T&gt;) -&gt; Number:
-  cases (List) s:
-    | empty =&gt; 0
-    | link(f, r) =&gt;
-      if r.member(f):
-        size(r)
-      else:
-        1 + size(r)
-      end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int size(LSet&lt;Object&gt; s) {
+    return switch (s) {
+        case Empty: yield 0;
+        case Link(f, r): yield if (r.member(f)) {
+            return size(r);
+        } else {
+            return 1 + size(r);
+        };
+    }
+}</code></pre></div></div>
 <p>Let’s now compute the complexity of the body of the function,
 assuming the number of distinct elements in
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s</code></span>
 is <span class="math inline">\(k\)</span> but the actual number of
 elements in
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s</code></span>
 is <span class="math inline">\(d\)</span>, where <span
 class="math inline">\(d \geq k\)</span>. To compute the time to run
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
 on <span class="math inline">\(d\)</span> elements, <span
 class="math inline">\(T(d)\)</span>, we should determine the number of
 operations in each question and answer. The first question has a
 constant number of operations, and the first answer also a constant. The
 second question also has a constant number of operations. Its answer is
 a conditional, whose first question
-(<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">r.member(f)</code></span>
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">r.member(f)</code></span>
 needs to traverse the entire list, and hence has <span
 class="math inline">\(O([k \rightarrow d])\)</span> operations. If it
 succeeds, we recur on something of size <span
@@ -319,7 +318,7 @@ interface (the set) and the implementation (the list), because—owing to
 duplicates in the representation—these two may not be the same. In the
 table we’ll consider just two of the most common operations, insertion
 and membership checking:</p>
-<table cellpadding="0" cellspacing="0"><tr><td><p> </p></td><td><p><span class="hspace">  </span></p></td><td colspan="3"><p><span style="font-weight: bold">With Duplicates</span></p></td><td><p><span class="hspace">  </span></p></td><td colspan="3"><p><span style="font-weight: bold">Without Duplicates</span></p></td></tr><tr><td><p> </p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">insert</code></span></p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">is-in</code></span></p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">insert</code></span></p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Pyret"><code class="sourceCode" data-lang="pyret">is-in</code></span></p></td></tr><tr><td><p><span style="font-weight: bold">Size of Set</span></p></td><td><p><span class="hspace">  </span></p></td><td><p>constant</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td></tr><tr><td><p><span style="font-weight: bold">Size of List</span></p></td><td><p><span class="hspace">  </span></p></td><td><p>constant</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td></tr></table>
+<table cellpadding="0" cellspacing="0"><tr><td><p> </p></td><td><p><span class="hspace">  </span></p></td><td colspan="3"><p><span style="font-weight: bold">With Duplicates</span></p></td><td><p><span class="hspace">  </span></p></td><td colspan="3"><p><span style="font-weight: bold">Without Duplicates</span></p></td></tr><tr><td><p> </p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">insert</code></span></p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">is-in</code></span></p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">insert</code></span></p></td><td><p><span class="hspace">  </span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">is-in</code></span></p></td></tr><tr><td><p><span style="font-weight: bold">Size of Set</span></p></td><td><p><span class="hspace">  </span></p></td><td><p>constant</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td></tr><tr><td><p><span style="font-weight: bold">Size of List</span></p></td><td><p><span class="hspace">  </span></p></td><td><p>constant</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td><td><p><span class="hspace">  </span></p></td><td><p>linear</p></td></tr></table>
 <p>A naive reading of this would suggest that the representation with
 duplicates is better because it’s sometimes constant and sometimes
 linear, whereas the version without duplicates is always linear.
@@ -372,70 +371,70 @@ representations—and can do so as many times as needed.</p>
 href="sets-from-lists.html#%28elem._set-operations%29"><set-operations></a>)
 under each list representation.</p></blockquote></blockquote>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Implement the operation</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">remove :: (Set&lt;T&gt;, T -&gt; Set&lt;T&gt;)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: remove :: Object */;</code></pre></div></div>
 <p>under each list representation (renaming
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Set</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Set</code></span>
 appropriately. What difference do you see?</p></blockquote></blockquote>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Suppose you’re asked to extend sets with these operations, as the set
 analog of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">first</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">first</code></span>
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rest</code></span>:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">one :: (Set&lt;T&gt; -&gt; T)
-others :: (Set&lt;T&gt; -&gt; T)</code></pre></div></div>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rest</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: one :: Object */;
+/* contract: others :: Object */;</code></pre></div></div>
 <p>You should refuse to do so! Do you see why?</p></blockquote></blockquote>
 <p>With lists the “first” element is well-defined, whereas sets are
 defined to have no ordering. Indeed, just to make sure users of your
 sets don’t accidentally assume anything about your implementation (e.g.,
 if you implement
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one</code></span>
 using
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">first</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">first</code></span>,
 they may notice that
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one</code></span>
 always returns the element most recently added to the list), you really
 ought to return a random element of the set on each invocation.</p>
 <p>Unfortunately, returning a random element means the above interface
 is unusable. Suppose
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s</code></span>
 is bound to a set containing
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">2</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">2</code></span>,
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>.
 Say the first time
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one(s)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one(s)</code></span>
 is invoked it returns
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">2</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">2</code></span>,
 and the second time
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>.
 (This already means
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one</code></span>
 is not a function.) The third time it may again return
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">2</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">2</code></span>.
 Thus
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">others</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">others</code></span>
 has to remember which element was returned the last time
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one</code></span>
 was called, and return the set sans that element. Suppose we now invoke
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one</code></span>
 on the result of calling
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">others</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">others</code></span>.
 That means we might have a situation where
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one(s)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one(s)</code></span>
 produces the same result as
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one(others(s))</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one(others(s))</code></span>.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Why is it unreasonable for
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one(s)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one(s)</code></span>
 to produce the same result as
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one(others(s))</code></span>?</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">one(others(s))</code></span>?</p></blockquote></blockquote>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Suppose you wanted to extend sets with a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">subset</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">subset</code></span>
 operation that partitioned the set according to some condition. What
 would its type be?</p></blockquote></blockquote>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>The types we have written above are not as crisp as they could be.
 Define a
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">has-no-duplicates</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">has-no-duplicates</code></span>
 predicate, refine the relevant types with it, and check that the
 functions really do satisfy this criterion.</p></blockquote></blockquote>
 <div class="navsetbottom">

@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9658;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">A Data-&#8203;Centric Introduction to Computing</a></td></tr></table></div><div class="tocviewsublisttop" style="display: none;" id="tocview_0"><table cellspacing="0" cellpadding="0">
 <tr><td align="right">I&nbsp;</td><td><a href="booklet_intro.html" class="tocviewlink" data-pltdoc="x">Introduction</a></td></tr>
 <tr><td align="right">II&nbsp;</td><td><a href="booklet_intro-to-programming.html" class="tocviewlink" data-pltdoc="x">Introduction to Programming</a></td></tr>
-<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Pyret to Python</a></td></tr>
+<tr><td align="right">III&nbsp;</td><td><a href="booklet_pyret-to-python.html" class="tocviewlink" data-pltdoc="x">From Jayret to Python</a></td></tr>
 <tr><td align="right">IV&nbsp;</td><td><a href="booklet_programming-with-state.html" class="tocviewlink" data-pltdoc="x">Programming With State</a></td></tr>
 <tr><td align="right">V&nbsp;</td><td><a href="booklet_algo-analysis.html" class="tocviewlink" data-pltdoc="x">Algorithm Analysis</a></td></tr>
 <tr><td align="right">VI&nbsp;</td><td><a href="booklet_data-with-analysis.html" class="tocviewlink" data-pltdoc="x">Data Structures with Analysis</a></td></tr>
@@ -145,7 +145,7 @@ into numbers, which we will rely on here. Therefore, we could write this
 material around numbers alone. To make the examples more interesting,
 and to better illustrate some real-world issues, we will instead use
 strings. To hash them, we will use
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hash-of</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hash-of</code></span>,
 defined there, which simply adds up a string’s code points.</p>
 <p>We use this function for multiple reasons. First, it is sufficient to
 illustrate some of the consequences of hashing. Second, in practice,
@@ -159,7 +159,7 @@ is a member of the set; every other number is not a member of this
 set.</p>
 <p>Therefore, a simple representation is to just store this list of
 numbers. For instance, we can store the list
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[list: "Hello", "World!", "🏴‍☠️"] as [list: 500, 553, 195692]</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[list: "Hello", "World!", "🏴‍☠️"] as [list: 500, 553, 195692]</code></span>.</p>
 <p>Unfortunately, this does not help very much. Insertion can be done in
 constant time, but checking membership requires us to traverse the
 entire list, which takes linear time in the worst case. Alternatively,
@@ -192,7 +192,7 @@ array in constant time. This is in contrast to lists where, to get to
 the <span class="math inline">\(n\)</span>th element, we have to first
 traverse the previous <span class="math inline">\(n-1\)</span> elements
 (using successive
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rest</code></span>s).</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rest</code></span>s).</p>
 <p>However, this benefit comes at a cost. The reason arrays can support
 constant-time access is because the size of an array is fixed at
 creation time. Thus, while we can keep extending a list using link, we
@@ -201,8 +201,8 @@ array and copy the entire array’s content into the new array, which
 takes linear time. (We can do a better job of this by using <a
 href="amortized-analysis.html">Halloween Analysis</a>, but there is no
 real free ride.)</p>
-<p>The arrays in Pyret are <a
-href="https://www.pyret.org/docs/latest/arrays.html">documented
+<p>The arrays in Jayret are <a
+href="https://jayret-lang.github.io/docs/latest/arrays.html">documented
 here</a>. While not necessary in principle, it is conventional to think
 of arrays as data structures that support mutation, and that is how we
 will use them here.</p>
@@ -214,19 +214,16 @@ membership, we similarly compute its hash and see whether the
 corresponding location has been set. Traditionally, each location in the
 array is called a bucket, and this data structure is called a
 hashtable.</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">BUCKET-COUNT = 1000
-
-buckets = array-of(false, BUCKET-COUNT)
-
-fun insert(s :: String):
-  h = hash-of(s)
-  buckets.set-now(h, true)
-end
-
-fun is-in(s :: String):
-  h = hash-of(s)
-  buckets.get-now(h)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">BUCKET-COUNT = 1000;
+buckets = array-of(false, BUCKET-COUNT);
+Object insert(String s) {
+    h = hash-of(s);
+    return buckets.set-now(h, true);
+}
+Object is-in(String s) {
+    h = hash-of(s);
+    return buckets.get-now(h);
+}</code></pre></div></div>
 <p>Observe that if this were to work, we would have constant time
 insertion and membership checking. Unfortunately, two things make this
 plan untenable in general.</p>
@@ -236,28 +233,28 @@ different strings have to map to two different locations.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Is the above hash function invertible?</p></blockquote></blockquote>
 <p>We just need to find two strings that have the same hash. Given the
 definition of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hash-of</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hash-of</code></span>,
 it’s easy to see that any rearrangement of the letters produces the same
 hash:</p>
-<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">hash-of("Hello")</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">500</code></pre></div></div></p></td></tr></table>
-<table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="PyretReplInteraction"><tr><td><blockquote class="PyretRepl"><p class="PyretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">hash-of("olleH")</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">500</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">hash-of("Hello");</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">500</code></pre></div></div></p></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">hash-of("olleH");</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">500</code></pre></div></div></p></td></tr></table>
 <p>Similarly, this test suite passes:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  hash-of("Hello") is hash-of("olleH")
-  hash-of("Where") is hash-of("Weird")
-  hash-of("Where") is hash-of("Wired")
-  hash-of("Where") is hash-of("Whine")
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(hash-of("Hello"), hash-of("olleH"));
+    assertEquals(hash-of("Where"), hash-of("Weird"));
+    assertEquals(hash-of("Where"), hash-of("Wired"));
+    assertEquals(hash-of("Where"), hash-of("Whine"));
+}</code></pre></div></div>
 <p>When multiple values hash to the same location, we call this a hash
 collision.</p>
 <p>Hash-collisions are problematic! With the above hash function, we
 get:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  insert("Hello")
-  is-in("Hello") is true
-  is-in("Where") is false
-  is-in("elloH") is true
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    insert("Hello");
+    assertEquals(is-in("Hello"), true);
+    assertEquals(is-in("Where"), false);
+    assertEquals(is-in("elloH"), true);
+}</code></pre></div></div>
 <p>where two of these tests are desirable but the third is definitely
 not.</p>
 <p>Note that collisions are virtually inevitable. If we have uniformly
@@ -284,7 +281,7 @@ multiples of 4, using a prime like 31 is often a fairly good bet.</span></span><
 function, we have an even more fundamental and unavoidable reason for
 collisions. We have to store an array of the largest possible hash size.
 However, not only can hash values be very large (try to run
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert("🏴‍☠️")</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert("🏴‍☠️")</code></span>
 and see what happens), there isn’t even an a priori limit to the size of
 a hash. This fundamentally flies in the face of arrays, which must have
 a fixed size.</p>
@@ -296,22 +293,21 @@ constraints</li>
 the bucket</li>
 </ul>
 <p>That is:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun insert(s :: String):
-  h = hash-of(s)
-  buckets.set-now(num-remainder(h, BUCKET-COUNT), true)
-end
-
-fun is-in(s :: String):
-  h = hash-of(s)
-  buckets.get-now(num-remainder(h, BUCKET-COUNT))
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object insert(String s) {
+    h = hash-of(s);
+    return buckets.set-now(num-remainder(h, BUCKET-COUNT), true);
+}
+Object is-in(String s) {
+    h = hash-of(s);
+    return buckets.get-now(num-remainder(h, BUCKET-COUNT));
+}</code></pre></div></div>
 <p>This addresses the second problem: we can also store the pirate
 flag:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  is-in("🏴‍☠️") is false
-  insert("🏴‍☠️")
-  is-in("🏴‍☠️") is true
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(is-in("🏴‍☠️"), false);
+    insert("🏴‍☠️");
+    assertEquals(is-in("🏴‍☠️"), true);
+}</code></pre></div></div>
 <p>Observe, however, we have simply created yet another source of
 collisions: the remainder computation. If we have 10 buckets, then the
 hashes 5, 15, 25, 35, … all refer to the same bucket. Thus, there are
@@ -322,37 +318,37 @@ the collision problems. Each bucket is not a single Boolean value, but
 rather a list of the actual values that hashed to that bucket. Then, we
 just check for membership in that list.</p>
 <p>First, we will abstract over finding the bucket number in
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
 and
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun index-of(s :: String):
-  num-remainder(hash-of(s), BUCKET-COUNT)
-end</code></pre></div></div>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>:</p>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object index-of(String s) {
+    return num-remainder(hash-of(s), BUCKET-COUNT);
+}</code></pre></div></div>
 <p>Next, we change what is held in each bucket: not a Boolean, but
 rather a list of the actual strings:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">buckets = array-of(empty, BUCKET-COUNT)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">buckets = array-of(empty, BUCKET-COUNT);</code></pre></div></div>
 <p>Now we can write the more nuanced membership checker:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun is-in(s :: String):
-  b = index-of(s)
-  member(buckets.get-now(b), s)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object is-in(String s) {
+    b = index-of(s);
+    return member(buckets.get-now(b), s);
+}</code></pre></div></div>
 <p>Similarly, when inserting, we first make sure the element isn’t
 already there (to avoid the complexity problems caused by having
 duplicates), and only then insert it:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun insert(s :: String):
-  b = index-of(s)
-  l = buckets.get-now(b)
-  when not(member(l, s)):
-    buckets.set-now(b, link(s, l))
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object insert(String s) {
+    b = index-of(s);
+    l = buckets.get-now(b);
+    when (not(member(l, s))) {
+        buckets.set-now(b, link(s, l));
+    }
+}</code></pre></div></div>
 <p>Now our tests pass as intended:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">check:
-  insert("Hello")
-  is-in("Hello") is true
-  is-in("Where") is false
-  is-in("elloH") is false
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    insert("Hello");
+    assertEquals(is-in("Hello"), true);
+    assertEquals(is-in("Where"), false);
+    assertEquals(is-in("elloH"), false);
+}</code></pre></div></div>
 <h4 id="hash-comp">18.4.7 Complexity</h4>
 <p>Now we have yet another working implementation for (some primitives
 of) sets. The use of arrays supposedly enables us to get constant-time
@@ -376,10 +372,10 @@ could be arbitrarily larger relative to the number of distinct
 elements). And even if we check for duplicates, we run the risk that
 most or even all the elements could end up in the same bucket (e.g.,
 suppose the elements are
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Where"</code></span>,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Weird"</code></span>,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Wired"</code></span>,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Whine"</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Where"</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Weird"</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Wired"</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Whine"</code></span>).
 In that case, our sophisticated implementation reduces to the list-based
 representation and its complexity!</p>
 <p>There’s an additional subtlety here. When we check membership of the
@@ -400,7 +396,7 @@ to be very popular in practice.</p>
 <p>Another way to improve the space and time complexity is to relax the
 properties we expect of the operations. Right now, set membership gives
 perfect answers, in that it answers
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
 exactly when the element being checked was previously inserted into the
 set. But suppose we’re in a setting where we can accept a more relaxed
 notion of correctness, where membership tests can “lie” slightly in one
@@ -506,23 +502,24 @@ Boolean.</p>
 <p>To extend our set representation to handle a dictionary or key-value
 store, we need to make a few changes. First, we introduce the key-value
 representation:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">data KV&lt;T&gt;: kv(key :: String, value :: T) end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data KV {
+}</code></pre></div></div>
 <p>Each bucket is still an empty list, but we understand it to be a list
 of key-value pairs.</p>
 <p>Previously, we only had
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
 to check whether an element was present in a set or not. That element is
 now the key, and we could have a similar function to check whether the
 key is present. However, we rarely want to know just that; in fact,
 because we already know the key, we usually want the associated
 value.</p>
 <p>Therefore, we can just have this one
-function:<span class="refelem"><span class="refcolumn"><span class="refcontent">We use Pyret’s naming convention of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">-now</code></span>
+function:<span class="refelem"><span class="refcolumn"><span class="refcontent">We use Jayret’s naming convention of
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">-now</code></span>
 to indicate that this result might change later.</span></span></span></p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">getkv-now :: &lt;T&gt; String -&gt; T</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: getkv-now :: Object */;</code></pre></div></div>
 <p>Of course,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">getkv-now</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">getkv-now</code></span>
 may fail: the key may not be present. That is, it has become a partial
 function [<a href="partial-domains.html">Partial Domains</a>]. We
 therefore have all the usual strategies for dealing with partial
@@ -530,11 +527,11 @@ functions. Here, for simplicity we choose to return an error if the key
 is not present, but all the other strategies we discuss for handling
 partiality are valid (and often better in a robust implementation).</p>
 <p>Similarly, we have:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">setkv-now :: &lt;T&gt; String, T -&gt; Nothing</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: setkv-now :: Object */;</code></pre></div></div>
 <p>This is the generalization of
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>.
 However,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
 had no reason to return an error: inserting an element twice was
 harmless. However, because keys must now be associated with only one
 value, insertion has to check whether the key is already present, and
@@ -543,28 +540,28 @@ partial.<span class="refelem"><span class="refcolumn"><span class="refcontent">T
 state: the same key may have been inserted previously.</span></span></span></p>
 <p>Once we have agreed on this interface, getting a value is a natural
 extension of checking for membership:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun getkv-now(k):
-  b = index-of(k)
-  r = find({(kvp): kvp.key == k}, buckets.get-now(b))
-  cases (Option) r:
-    | none =&gt; raise("getkv-now can't find " + k)
-    | some(v) =&gt; v.value
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object getkv-now(k) {
+    b = index-of(k);
+    r = find((kvp) -&gt; kvp.key == k, buckets.get-now(b));
+    return switch (r) {
+        case None: yield raise("getkv-now can't find " + k);
+        case Some(v): yield v.value;
+    }
+}</code></pre></div></div>
 <p>Having found the index, we look in the bucket for whether any
 key-value pair has the desired key. If it does, then we return the
 corresponding value. Otherwise, we error.</p>
 <p>Inserting a key-value pair similarly generalizes adding an element to
 the set:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret">fun setkv-now(k, v):
-  b = index-of(k)
-  keys = map(_.key, buckets.get-now(b))
-  if member(keys, k):
-    raise("setkv-now already has a value for key " + k)
-  else:
-    buckets.set-now(b, link(kv(k, v), buckets.get-now(b)))
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object setkv-now(k, v) {
+    b = index-of(k);
+    keys = map(_.key, buckets.get-now(b));
+    return if (member(keys, k)) {
+        return raise("setkv-now already has a value for key " + k);
+    } else {
+        return buckets.set-now(b, link(kv(k, v), buckets.get-now(b)));
+    }
+}</code></pre></div></div>
 <p>Once again, we check the bucket for whether the key is already
 present. If it is, we choose to halt with an error. Otherwise, we make
 the key-value pair and link it to the existing bucket contents, and
@@ -572,19 +569,20 @@ modify the array to refer to the new list.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Do the above pair of functions do all the necessary
 error-checking?</p></blockquote></blockquote>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Above,
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">setkv-now</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">setkv-now</code></span>
 raises an error if a key already has a name associated with it. A
 natural variation is to instead override the associated value, so that
 the new value is now associated with that key. Modify the implementation
 to do that instead, and make sure you test it thoroughly! Note that you
 may need to modify the
-<span title="Pyret" class="sourceCode"><code class="sourceCode" data-lang="pyret">KV</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">KV</code></span>
 datatype also.</p></blockquote></blockquote>
 <p>This concludes our brief tour of sets (yet again!) and key-value
 stores or dictionaries. We have chosen to implement both using arrays,
 which required us to employ hashes. For more on string dictionaries, see
-the <a href="https://www.pyret.org/docs/latest/string-dict.html">Pyret
-documentation</a>. Observe that Pyret offers two kinds of dictionaries:
+the <a
+href="https://jayret-lang.github.io/docs/latest/string-dict.html">Jayret
+documentation</a>. Observe that Jayret offers two kinds of dictionaries:
 one mutable (like we have shown here) and one (the default)
 functional.</p>
 <div class="navsetbottom">
