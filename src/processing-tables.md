@@ -54,6 +54,15 @@ for them.
 
 ##### 4.2.1.1 Loading Data Tables {#loading-tables}
 
+::: {.note}
+**Jayret note:** Loading tables from external sources (CSV files or Google
+Sheets via `load-table`) is not yet supported in the Jayret playground.
+Examples in this section that use `load-table` won't run; use a
+literal `table { ... }` value as a workaround. See
+[Deferred from Pyret](https://jayret-lang.github.io/docs/Deferred_from_Pyret.html)
+for status.
+:::
+
 The first step to working with an outside data source is to load it
 into your programming and analysis environment. Which source you use
 depends on the programming environment that you are using for Jayret:
@@ -370,22 +379,21 @@ second one involves the upper-case conversion functions from the
 We can capture these together in a function that takes in and produces
 a string:
 
-```pyret
-# TODO(pyret2jayret): Unexpected token '`', "```upperca"... is not valid JSON
-fun cell-to-discount-code(str :: String) -> String:
-  doc: ```uppercase all strings other than none,
-       convert blank cells to contain none```
-  if (str == "") or (str == "none"):
-    "none"
-  else:
-    string-to-upper(str)
-  end
-where:
-  cell-to-discount-code("") is "none"
-  cell-to-discount-code("none") is "none"
-  cell-to-discount-code("birthday") is "BIRTHDAY"
-  cell-to-discount-code("Birthday") is "BIRTHDAY"
-end
+```jayret
+String cell-to-discount-code(String str) {
+    /* uppercase all strings other than none,
+       convert blank cells to contain none */
+    return if ((str == "") || (str == "none")) {
+        return "none";
+    } else {
+        return string-to-upper(str);
+    }
+} where {
+    assertEquals(cell-to-discount-code(""), "none");
+    assertEquals(cell-to-discount-code("none"), "none");
+    assertEquals(cell-to-discount-code("birthday"), "BIRTHDAY");
+    assertEquals(cell-to-discount-code("Birthday"), "BIRTHDAY");
+}
 ```
 
 ::: {.do-now}
@@ -402,7 +410,7 @@ capitalizations of `"none"`{.pyret}, we should include that as well:
 ```jayret
 assertEquals(cell-to-discount-code("NoNe"), "none");
 ```
-Oops! If we add this example to our `where`{.pyret} block and run the
+Oops! If we add this example to our `where { }`{.jayret} block and run the
  code, Jayret reports that this example fails.
 
 ::: {.do-now}
@@ -415,23 +423,22 @@ expression, we need to normalize the input to match what our `if`{.pyret}
 expression expects. Here’s the modified code, on which all the
 examples pass.
 
-```pyret
-# TODO(pyret2jayret): Unexpected token '`', "```upperca"... is not valid JSON
-fun cell-to-discount-code(str :: String) -> String:
-  doc: ```uppercase all strings other than none,
-       convert blank cells to contain none```
-  if (str == "") or (string-to-lower(str) == "none"):
-    "none"
-  else:
-    string-to-upper(str)
-  end
-where:
-  cell-to-discount-code("") is "none"
-  cell-to-discount-code("none") is "none"
-  cell-to-discount-code("NoNe") is "none"
-  cell-to-discount-code("birthday") is "BIRTHDAY"
-  cell-to-discount-code("Birthday") is "BIRTHDAY"
-end
+```jayret
+String cell-to-discount-code(String str) {
+    /* uppercase all strings other than none,
+       convert blank cells to contain none */
+    return if ((str == "") || (string-to-lower(str) == "none")) {
+        return "none";
+    } else {
+        return string-to-upper(str);
+    }
+} where {
+    assertEquals(cell-to-discount-code(""), "none");
+    assertEquals(cell-to-discount-code("none"), "none");
+    assertEquals(cell-to-discount-code("NoNe"), "none");
+    assertEquals(cell-to-discount-code("birthday"), "BIRTHDAY");
+    assertEquals(cell-to-discount-code("Birthday"), "BIRTHDAY");
+}
 ```
 
 Using this function with `transform-column`{.pyret} yields a table with a

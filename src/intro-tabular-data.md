@@ -572,22 +572,14 @@ bit more work for us. The `wage`{.pyret} and `hours`{.pyret} values are in
 cells within the same row. So if we could instead get the current row
 as an input, we could write:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-fun compute-wages(r :: Row) -> Number:
-  r["hourly-wage"] * r["hours-worked"]
-end
-
-employees =
-  table: name, hourly-wage, hours-worked, total-wage
-    row: "Harley", 15, 40, compute-wages(<row0>)
-    row: "Obi",    20, 45, compute-wages(<row1>)
-    row: "Anjali", 18, 39, compute-wages(<row2>)
-    row: "Miyako", 18, 40, compute-wages(<row3>)
-  end
+```jayret
+int compute-wages(Row r) {
+    // compute total wages based on wage and hours worked
+    return r["hourly-wage"] * r["hours-worked"];
+}
 ```
 
-But now, we are writing calls to `compute-wages`{.pyret} over and over!
+But now, if we tried to use `compute-wages`{.pyret} inline for every row, we would be writing the same call over and over!
 Adding computed columns is a sufficiently common operation that Jayret
 provides a table function called `build-column`{.pyret} for this
 purpose. We use it by providing the function to use to populate values
@@ -620,7 +612,9 @@ int new-rate(int rate) {
         return rate;
     }
 } where {
-    
+    assertEquals(new-rate(15), 15 * 1.1);
+    assertEquals(new-rate(20), 20);
+    assertEquals(new-rate(18), 18 * 1.1);
 }
 Table give-raises(Table t) {
     // Give a 10% raise to anyone making under 20
@@ -656,7 +650,7 @@ work than simply writing the output of a function that produces
 numbers or strings. What can we do to manage that complexity?
 
 ::: {.do-now}
-How might you write the `where`{.pyret} block for `give-raises`{.pyret}?
+How might you write the `where { }`{.jayret} block for `give-raises`{.pyret}?
 :::
 
 Here are some ideas for writing the examples practically:
@@ -680,19 +674,12 @@ wages-test = table: hourly-wage row: 15 row: 20 row: 18 row: 18;
 - Remember that you can write computations in the code to
   construct tables. This saves you from doing calculations by hand.
   
-  ```pyret
-  # TODO(pyret2jayret): parse failed (no shifts)
-  where:
-    give-raises(wages-test) is
-    table: hourly-wage
-      row: 15 * 1.1
-      row: 20
-      row: 18 * 1.1
-      row: 18 * 1.1
-    end
+  ```jayret
+  assertEquals(give-raises(wages-test),
+      table: hourly-wage row: 15 * 1.1 row: 20 row: 18 * 1.1 row: 18 * 1.1);
   ```
   This example shows that you can write an output table directly in the
-  `where:`{.pyret} block – the table doesn’t need to be named outside the
+  `where { }`{.jayret} block – the table doesn’t need to be named outside the
   function.
 - Create a new table by taking rows from an existing table.
   If you were instead writing examples for a function that involves filtering out rows
@@ -767,38 +754,36 @@ notation achieves this:
 filter-with(shuttle, (r) -> r["riders"] < 1000);
 ```
 
-We have added `lam(r)`{.pyret} and `end`{.pyret} around the expression that
-we want to use in the `filter-with`{.pyret}. The `lam(r)`{.pyret} says "make a
-temporary function that takes `r`{.pyret} as an input". The `end`{.pyret}
-serves to end the function definition, as when we use
-`fun`{.pyret}. `lam`{.pyret} is short for `lambda`{.pyret}, a form of function
-definition that exists in many, though not all, languages.
+We have written the expression as an arrow function `(r) -> ...`{.jayret}.
+The parameter list `(r)`{.jayret} introduces the input `r`, and the arrow
+`->`{.jayret} separates the parameters from the body expression. Such
+anonymous functions are commonly called *lambdas*; they exist in many
+languages but with different syntaxes.
 
 The main difference between our original expression (using the
-`below-1K`{.pyret} helper) and this new one (using `lam`{.pyret}) can be
+`below-1K`{.pyret} helper) and this new one (using arrow syntax) can be
 seen through the program directory. To explain this, a little detail
 about how `filter-with`{.pyret} is defined under the hood. In part, it looks
 like:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-fun filter-with(tbl :: Table, keep :: (Row -> Boolean)) -> Table:
-  if keep(<row-from-table>):
-    ...
-  else:
-    ...
-  end
-end
+```jayret
+Table filter-with(Table tbl, (Row -> boolean) keep) {
+    return if (keep(<row-from-table>)) {
+        return ...;
+    } else {
+        return ...;
+    }
+}
 ```
 
-Whether we pass `below-1K`{.pyret} or the `lam`{.pyret} version to
+Whether we pass `below-1K`{.pyret} or the arrow-function version to
 `filter-with`{.pyret}, the `keep`{.pyret} parameter ends up referring to a
 function with the same parameter and body. Since the function is only
 actually called through the `keep`{.pyret} name, it doesn’t matter
 whether or not a name is associated with it when it is initially
 defined.
 
-In practice, we use `lam`{.pyret} when we have to pass simple (single line)
+In practice, we use arrow functions when we have to pass simple (single line)
 functions to operations like `filter-with`{.pyret} (or `transform-column`{.pyret},
 `build-column`{.pyret}, etc). Of course, you can continue to write out names for
 helper functions as we did with `below-1K`{.pyret} if that makes more sense to
@@ -806,5 +791,5 @@ you.
 
 ::: {.exercise}
 Write the program to add 10 riders to each row in the `shuttle`{.pyret}
-table above, using `lam`{.pyret} rather than a named helper-function.
+table above, using arrow syntax rather than a named helper-function.
 :::

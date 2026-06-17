@@ -526,28 +526,11 @@ Come back to this problem after you finish the next section.
 
 #### 5.1.5 Lambda: Anonymous Functions {#Lambda-Anonymous-Functions}
 
-NOTE: if you already saw
-
-`lam`{.pyret}
-
-in
-
-[Lambda: Anonymous Functions](intro-tabular-data.html##sec-lambda-tables)
-
-, feel
-free to skip this section, or just do the exercises at the end. Here we present
-
-`lam`{.pyret}
-
-using lists and
-
-`filter`{.pyret}
-
-, rather than tables and
-
-`filter-with`{.pyret}
-
-.
+NOTE: if you already saw lambda (arrow-function) syntax in
+[Lambda: Anonymous Functions](intro-tabular-data.html##sec-lambda-tables),
+feel free to skip this section, or just do the exercises at the end. Here we
+present the same concept using lists and `filter`{.pyret}, rather than tables
+and `filter-with`{.pyret}.
 
 Let’s revisit the program we wrote earlier in this chapter for
 finding all of the discount codes that were used in the events table:
@@ -591,38 +574,35 @@ notation achieves this:
 L.filter((c) -> not(c == "none"), codes);
 ```
 
-We have added `lam(c)`{.pyret} and `end`{.pyret} around the expression that
-we want to use in the `filter`{.pyret}. The `lam(c)`{.pyret} says "make a
-temporary function that takes `c`{.pyret} as an input". The `end`{.pyret}
-serves to end the function definition, as when we use
-`fun`{.pyret}. `lam`{.pyret} is short for `lambda`{.pyret}, a form of function
-definition that exists in many, though not all, languages.
+We have written the expression as an arrow function `(c) -> ...`{.jayret}.
+The `(c)`{.jayret} introduces the parameter `c`, and the arrow `->` separates
+the parameters from the body expression. Such anonymous functions are commonly
+called *lambdas*; they exist in many languages but with different syntaxes.
 
 The main difference between our original expression (using the
-`real-code`{.pyret} helper) and this new one (using `lam`{.pyret}) can be
+`real-code`{.pyret} helper) and this new one (using arrow syntax) can be
 seen through the program directory. To explain this, a little detail
 about how `filter`{.pyret} is defined under the hood. In part, it looks
 like:
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-fun filter(keep :: (A -> Boolean), lst :: List<A>) -> List<A>:
-  if keep(<elt-from-list>):
-    ...
-  else:
-    ...
-  end
-end
+```jayret
+List<A> filter((A -> boolean) keep, List<A> lst) {
+    return if (keep(<elt-from-list>)) {
+        return ...;
+    } else {
+        return ...;
+    }
+}
 ```
 
-Whether we pass `real-code`{.pyret} or the `lam`{.pyret} version to
+Whether we pass `real-code`{.pyret} or the arrow-function version to
 `filter`{.pyret}, the `keep`{.pyret} parameter ends up referring to a
 function with the same parameter and body. Since the function is only
 actually called through the `keep`{.pyret} name, it doesn’t matter
 whether or not a name is associated with it when it is initially
 defined.
 
-In practice, we use `lam`{.pyret} when we have to pass simple (single
+In practice, we use arrow functions when we have to pass simple (single
 line) functions to operations like `filter`{.pyret} (or `map`{.pyret}). We
 could have just as easily used them when we were working with tables
 (`build-column`{.pyret}, `filter-with`{.pyret}, etc). Of course, you can
@@ -631,7 +611,7 @@ continue to write out names for helper functions as we did with
 
 ::: {.exercise}
 Write the program to extract the list of usernames from a list of
-email addresses using `lam`{.pyret} rather than a named helper-function.
+email addresses using arrow syntax rather than a named helper-function.
 :::
 
 ::: {.exercise}
