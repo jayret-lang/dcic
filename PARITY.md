@@ -38,17 +38,18 @@ outputs, which are numerically identical for arithmetic but may differ in
 **Fix**: Run `python3 tools/verify-repl-outputs.py --all --in-place`
 once the Jayret CLI is confirmed stable on this machine.
 
-### Untranslated code blocks (72 remaining ```` ```pyret ```` blocks)
+### Untranslated code blocks (chapters 1–6 now cleared; others remain)
 
-Translation failures — marked with `# TODO(pyret2jayret): <reason>`:
+All `# TODO(pyret2jayret)` markers in chapters 1–6 and testing.md have been
+resolved in the authenticity pass (commits fa41d0f–4ef3559):
 
-- **Evaluation trace snippets** (Conditionals_and_Booleans.md, etc.):
-  blocks showing intermediate evaluation steps like `=> 45 * 10` are
-  not valid Pyret programs and were correctly skipped.
-- **Triple-backtick doc strings**: `fun f(): doc: \`\`\`...\`\`\` end`
-  syntax causes a JSON parse error in the tokenizer; ~6 blocks in
-  Conditionals_and_Booleans.md.
-- **Other parse failures**: see `grep -rn 'TODO(pyret2jayret)' src/`.
+- Evaluation trace snippets converted to plain code blocks with Jayret `{}` syntax
+- Triple-backtick docstrings converted to `/* ... */` block comments
+- Pyret pseudo-code skeletons (fun/end/cases) rewritten in Jayret switch/brace form
+
+Remaining in other chapters: `grep -rn 'TODO(pyret2jayret)' src/` — use same
+fix-or-defer judgment (re-tag evaluation traces as `pyret-deferred`; convert
+teachable blocks to Jayret by hand).
 
 ### Chapter 27 — Reactor syntax deferred
 
@@ -72,3 +73,14 @@ at `jayret-lang.github.io/docs/Deferred_from_Pyret.html`.
 - 643 prose mentions of "Pyret" → "Jayret" (2 anchor-ID exceptions)
 - Booklet III retitled "From Jayret to Python"
 - 718 / 792 (91%) code blocks translated to Jayret
+- **Authenticity pass (chapters 1–6 + testing.md)**:
+  - `fun`/`end`/`::`/`where:` prose → Jayret equivalents (ch3.3, 3.4)
+  - `lam(r)...end` prose → arrow function `(r) -> ...` (ch4.1, 5.1)
+  - `load-table:` deferred callout added to ch4.2
+  - All TODO(pyret2jayret) blocks in ch1–6 resolved
+  - `is`/`satisfies`/`raises` prose → `assertEquals`/`assertSatisfies`/`assertRaises`
+  - `where:`/`check:` prose → `where { }`/`@Check void` in testing.md
+  - `%(around)` approximate-test pattern → `assertRoughlyEquals`
+  - `empty`/`link` variant names → `Empty`/`Link` in ch5.2, 5.3
+  - `cases` → `switch` in ch5.2, 5.3, 6.1, 6.2
+  - `pick-none`/`pick-some` → `Pick-none`/`Pick-some` in ch6.2
