@@ -599,22 +599,15 @@ and
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hours</code></span>
 values are in cells within the same row. So if we could instead get the
 current row as an input, we could write:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-fun compute-wages(r :: Row) -&gt; Number:
-  r["hourly-wage"] * r["hours-worked"]
-end
-
-employees =
-  table: name, hourly-wage, hours-worked, total-wage
-    row: "Harley", 15, 40, compute-wages(&lt;row0&gt;)
-    row: "Obi",    20, 45, compute-wages(&lt;row1&gt;)
-    row: "Anjali", 18, 39, compute-wages(&lt;row2&gt;)
-    row: "Miyako", 18, 40, compute-wages(&lt;row3&gt;)
-  end</code></pre></div></div>
-<p>But now, we are writing calls to
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int compute-wages(Row r) {
+    // compute total wages based on wage and hours worked
+    return r["hourly-wage"] * r["hours-worked"];
+}</code></pre></div></div>
+<p>But now, if we tried to use
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">compute-wages</code></span>
-over and over! Adding computed columns is a sufficiently common
-operation that Jayret provides a table function called
+inline for every row, we would be writing the same call over and over!
+Adding computed columns is a sufficiently common operation that Jayret
+provides a table function called
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">build-column</code></span>
 for this purpose. We use it by providing the function to use to populate
 values in the new column as an input:</p>
@@ -644,7 +637,9 @@ an hour. We could write:</p>
         return rate;
     }
 } where {
-    
+    assertEquals(new-rate(15), 15 * 1.1);
+    assertEquals(new-rate(20), 20);
+    assertEquals(new-rate(18), 18 * 1.1);
 }
 Table give-raises(Table t) {
     // Give a 10% raise to anyone making under 20
@@ -686,7 +681,7 @@ seems more painful because writing out an expected output tables is more
 work than simply writing the output of a function that produces numbers
 or strings. What can we do to manage that complexity?</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>How might you write the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where { }</code></span>
 block for
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">give-raises</code></span>?</p></blockquote></blockquote>
 <p>Here are some ideas for writing the examples practically:</p>
@@ -702,17 +697,10 @@ constraints on the rows or columns of the table?</p></blockquote></blockquote>
 names used in your function.</p></li>
 <li><p>Remember that you can write computations in the code to construct
 tables. This saves you from doing calculations by hand.</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-where:
-  give-raises(wages-test) is
-  table: hourly-wage
-    row: 15 * 1.1
-    row: 20
-    row: 18 * 1.1
-    row: 18 * 1.1
-  end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(give-raises(wages-test),
+    table: hourly-wage row: 15 * 1.1 row: 20 row: 18 * 1.1 row: 18 * 1.1);</code></pre></div></div>
 <p>This example shows that you can write an output table directly in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where:</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where { }</code></span>
 block – the table doesn’t need to be named outside the
 function.</p></li>
 <li><p>Create a new table by taking rows from an existing table. If you
@@ -792,46 +780,31 @@ temporary function that will get its inputs once
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter-with</code></span>
 is running. The following notation achieves this:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">filter-with(shuttle, (r) -&gt; r["riders"] &lt; 1000);</code></pre></div></div>
-<p>We have added
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam(r)</code></span>
-and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">end</code></span>
-around the expression that we want to use in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter-with</code></span>.
-The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam(r)</code></span>
-says “make a temporary function that takes
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">r</code></span>
-as an input”. The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">end</code></span>
-serves to end the function definition, as when we use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fun</code></span>.
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>
-is short for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lambda</code></span>,
-a form of function definition that exists in many, though not all,
-languages.</p>
+<p>We have written the expression as an arrow function
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">(r) -&gt; ...</code></span>.
+The parameter list
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">(r)</code></span>
+introduces the input <code>r</code>, and the arrow
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">-&gt;</code></span>
+separates the parameters from the body expression. Such anonymous
+functions are commonly called <em>lambdas</em>; they exist in many
+languages but with different syntaxes.</p>
 <p>The main difference between our original expression (using the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">below-1K</code></span>
-helper) and this new one (using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>)
-can be seen through the program directory. To explain this, a little
-detail about how
+helper) and this new one (using arrow syntax) can be seen through the
+program directory. To explain this, a little detail about how
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter-with</code></span>
 is defined under the hood. In part, it looks like:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-fun filter-with(tbl :: Table, keep :: (Row -&gt; Boolean)) -&gt; Table:
-  if keep(&lt;row-from-table&gt;):
-    ...
-  else:
-    ...
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Table filter-with(Table tbl, (Row -&gt; boolean) keep) {
+    return if (keep(&lt;row-from-table&gt;)) {
+        return ...;
+    } else {
+        return ...;
+    }
+}</code></pre></div></div>
 <p>Whether we pass
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">below-1K</code></span>
-or the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>
-version to
+or the arrow-function version to
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter-with</code></span>,
 the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">keep</code></span>
@@ -840,9 +813,8 @@ body. Since the function is only actually called through the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">keep</code></span>
 name, it doesn’t matter whether or not a name is associated with it when
 it is initially defined.</p>
-<p>In practice, we use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>
-when we have to pass simple (single line) functions to operations like
+<p>In practice, we use arrow functions when we have to pass simple
+(single line) functions to operations like
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter-with</code></span>
 (or
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">transform-column</code></span>,
@@ -853,9 +825,7 @@ functions as we did with
 if that makes more sense to you.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write the program to add 10 riders to each row in the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">shuttle</code></span>
-table above, using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>
-rather than a named helper-function.</p></blockquote></blockquote>
+table above, using arrow syntax rather than a named helper-function.</p></blockquote></blockquote>
 <div class="navsetbottom">
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="part_tabular-data.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_tabular-data.html">up</a>&nbsp;&nbsp;<a href="processing-tables.html" rel="next">next &rarr;</a></span>&nbsp;

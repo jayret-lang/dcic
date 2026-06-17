@@ -175,7 +175,7 @@ and the rest is
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[]</code></span>,
 i.e., the empty list. In Jayret, we have another way of writing the
 empty list:
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>.</p>
 <p>Lists are an instance of structured data: data with component parts
 and a well-defined format for the shape of the parts. Lists are
 formatted by the first element and the rest of the elements. Tables are
@@ -227,17 +227,17 @@ element and a
 that is itself a list. Operators for building structured data are called
 constructors.</p>
 <p>The constructor for lists is called
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>.
 It takes two arguments: a
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">first</code></span>
 element, and the list to build on (the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rest</code></span>
 part). Here’s an example of using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>
 to create a three-element list.</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">link(1, link(2, link(3, empty)));</code></pre></div></div>
 <p>The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>
 form creates the same underlying list datum as our previous
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[...]</code></span>
 operation, as confirmed by the following check:</p>
@@ -247,7 +247,7 @@ operation, as confirmed by the following check:</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Look at these two forms of writing lists: what differences do you
 notice?</p></blockquote></blockquote>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Use the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>
 form to write a four-element list of fruits containing
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"lychee"</code></span>,
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"dates"</code></span>,
@@ -255,22 +255,22 @@ form to write a four-element list of fruits containing
 and
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"durian"</code></span>.</p></blockquote></blockquote>
 <p>After doing this exercise, you might wonder why anyone would use the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>
 form: it’s more verbose, and makes the individual elements harder to
 discern. This form is not very convenient to humans. But it will prove
 very valuable to programs!</p>
 <p>In particular, the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>
 form highlights that we really have two different structures of lists.
 Some lists are empty. All other lists are non-empty lists, meaning they
 have at least one
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>.
 There may be more interesting structure to some lists (as we will see
 later), but all lists have this much in common. Specifically, a list is
 either</p>
 <ul>
 <li>empty (written
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>
 or
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[]</code></span>),
 or</li>
@@ -311,9 +311,9 @@ Problems with Scalar Answers</h4>
 <p>Let’s write out examples for a few of the functions described above.
 We’ll approach writing examples in a very specific, stylized way. First
 of all, we should always construct at least two examples: one with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>
 and the other with at least one
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>,
 so that we’ve covered the two very broad kinds of lists. Then, we should
 have more examples specific to the kind of list stated in the problem.
 Finally, we should have even more examples to illustrate how we think
@@ -322,7 +322,7 @@ about solving the problem.</p>
 <p>We have’t precisely defined what it means to be “the length” of a
 list. We confront this right away when trying to write an example. What
 is the length of the list
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>?</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>?</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What do you think?</p></blockquote></blockquote>
 <p>Two common examples are
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>
@@ -333,7 +333,7 @@ The latter,
 certainly looks reasonable. However, if you write the list as
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[]</code></span>,
 now it doesn’t look so right: this is clearly (as the name
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>
 also suggests) an empty list, and an empty list has zero elements in it.
 Therefore, it’s conventional to declare that</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(my-len(empty), 0);</code></pre></div></div>
@@ -381,7 +381,7 @@ is. And using the same reasoning as before, we can say</p>
 length we have already decided is
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>.</p>
 <p>Putting together these examples, and writing out
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>
 in its other form, here’s what we get:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(my-len([7, 8, 9]), 3);
 assertEquals(my-len([8, 9]), 2);
@@ -490,7 +490,7 @@ assertEquals(my-len([]), 0);</code></pre></div></div>
 identify the common parts of these examples. We start by noticing that
 most of the examples have a lot in common, except for the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[]</code></span>
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>)
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>)
 case. So let’s separate this into two sets of examples:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(my-len([7, 8, 9]), 1 + my-len([7, 8, 9].rest));
 assertEquals(my-len([8, 9]), 1 + my-len([8, 9].rest));
@@ -510,16 +510,15 @@ using this expression with
 in the non-empty case. How do we indicate different code based on the
 structure of the list?</p>
 <p>Jayret has a construct called
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>
 which is used to distinguish different forms within a structured
 datatype. When working with lists, the general shape of a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>
 expression is:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-cases (List) e:
-  | empty      =&gt; …
-  | link(f, r) =&gt; … f … r …
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">switch (e) {
+    case Empty: yield …;
+    case Link(f, r): yield … f … r …;
+}</code></pre></div></div>
 <p>where most parts are fixed, but a few you’re free to change:</p>
 <ul>
 <li><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">e</code></span>
@@ -544,35 +543,29 @@ which has a problem-specific meaning (such as
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">price</code></span>
 in a list of prices, and so on).</span></span></span></li>
 </ul>
-<p>The right-hand side of every
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=&gt;</code></span>
-is an expression.</p>
+<p>The yield expression in each <code>case</code> is the result for that
+branch.</p>
 <p>Here’s how
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>
 works in this instance. Jayret first evaluates
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">e</code></span>.
 It then checks that the resulting value truly is a list; otherwise it
 halts with an error. If it is a list, Jayret examines what kind of list
-it is. If it’s an empty list, it runs the expression after the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=&gt;</code></span>
-in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
-clause. Otherwise, the list is not empty, which means it has a first and
+it is. If it’s an empty list, it runs the
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>
+case. Otherwise, the list is not empty, which means it has a first and
 rest; Jayret binds
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
 and
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">r</code></span>
-to the two parts, respectively, and then evaluates the expression after
-the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=&gt;</code></span>
-in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
-clause.</p>
+to the two parts, respectively, and then evaluates the
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>
+case.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Try using a non-list—e.g., a number—in the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">e</code></span>
 position and see what happens!</p></blockquote></blockquote>
 <p>Now let’s use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>
 to define
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-len</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object my-len(l) {
@@ -593,7 +586,7 @@ when it is not empty, we add one to the length of the rest of the list
 examples explicitly said
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.rest</code></span>,
 when using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>
 we instead use just the name
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">r</code></span>,
 which Jayret has already defined (under the hood) to be
@@ -630,9 +623,8 @@ and
 values represented explicitly in the answer.</li>
 <li>Look for a pattern across the answers in the examples. Use these to
 develop the code: write a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
-expression, filling in the right side of each
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=&gt;</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>
+expression, filling in the <code>yield</code> expression of each case
 based on your examples.</li>
 </ul>
 <p>This strategy applies to structured data in general, leveraging
@@ -653,7 +645,7 @@ list). Here’s a reasonable example with three numbers:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(my-doubles([3, 5, 2]), [6, 10, 4]);</code></pre></div></div>
 <p>As before, let’s write out the answers for each suffix of our example
 list as well, including for the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>
 list:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(my-doubles([5, 2]), [10, 4]);
 assertEquals(my-doubles([2]), [4]);
@@ -698,7 +690,7 @@ values, but we’re clearly not quite there yet.</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">link(3 * 2, [10, 4]);</code></pre></div></div></blockquote></blockquote>
 <p>Notice the difference between the two expressions in these last two
 exercises: the latter used
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>
 to put the value involving
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">first</code></span>
 into the conversion of the
@@ -711,13 +703,13 @@ following expressions?</p>
 [25, [16, 32]];
 link(25, [16, 32]);</code></pre></div></div></blockquote></blockquote>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Summarize the difference between how
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>
 and
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">list:</code></span>
 combine an element and a list. Try additional examples at the
 interactions prompt if needed to explore these ideas.</p></blockquote></blockquote>
 <p>The takeaway here is that we use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>
 to insert an element into an existing list, whereas we use
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">list:</code></span>
 to make a new list that contains the old list as an element. Going back
@@ -769,7 +761,7 @@ assertEquals(my-str-len(["mateys"]), [6]);</code></pre></div></div>
 assertEquals(my-str-len(["there", "mateys"]), link(5, [6]));
 assertEquals(my-str-len(["mateys"]), link(6, []));</code></pre></div></div>
 <p>which tells us that the response for the empty list should be
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(my-str-len(empty), empty);</code></pre></div></div>
 <p>The next step is to rework the answers in the examples to make the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">first</code></span>
@@ -849,7 +841,7 @@ assertEquals(my-pos-nums([-4]), my-pos-nums([]));
 assertEquals(my-pos-nums([]), []);</code></pre></div></div>
 <p>Unlike in the example sequences for functions that transform lists,
 here we see that the answers have different shapes: some involve a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>,
 while others simply process the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rest</code></span>
 of the list. Whenever we need different shapes of outputs across a set
@@ -864,7 +856,7 @@ assertEquals(my-pos-nums([3, -4]), link(3, my-pos-nums([-4])));
 assertEquals(my-pos-nums([-2, 3, -4]), my-pos-nums([3, -4]));
 assertEquals(my-pos-nums([-4]), my-pos-nums([]));</code></pre></div></div>
 <p>Re-organized, we can see that the examples that use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>
 have a positive number in the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">first</code></span>
 position, while the ones that don’t simply process the
@@ -924,15 +916,14 @@ the list before using
 again, not just one. We will have to figure out how to handle that in
 our code.</p>
 <p>Let’s start with our usual function pattern with a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>
 expression:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-fun my-alternating(l):
-  cases (List) l:
-    | empty =&gt; [list:]
-    | link(f, r) =&gt; link(f, … r …)
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object my-alternating(l) {
+    return switch (l) {
+        case Empty: yield empty;
+        case Link(f, r): yield link(f, … r …);
+    }
+}</code></pre></div></div>
 <p>Note that we cannot simply call
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-alternating</code></span>
 on
@@ -947,29 +938,26 @@ as well, in order to get to the
 of the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rest</code></span>
 of the original list. To do this, we use another
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>
 expression, nested within the first
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>
 expression:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-fun my-alternating(l):
-  cases (List) l:
-    | empty =&gt; [list:]
-    | link(f, r) =&gt;
-      cases (List) r:  # note: deconstructing r, not l
-        | empty =&gt; ??? # note the ???
-        | link(fr, rr) =&gt;
-          # fr = first of rest, rr = rest of rest
-          link(f, my-alternating(rr))
-      end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object my-alternating(l) {
+    return switch (l) {
+        case Empty: yield empty;
+        case Link(f, r): yield switch (r) {  // note: deconstructing r, not l
+            case Empty: yield ???;  // note the ???
+            case Link(fr, rr): yield  // fr = first of rest, rr = rest of rest
+                link(f, my-alternating(rr));
+        };
+    }
+}</code></pre></div></div>
 <p>This code is consistent with the example that we just worked out. But
 note that we still have a bit of unfinished work to do: we need to
 decide what to do in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>
 case of the inner
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>
 expression (marked by
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">???</code></span>
 in the code).</p>
@@ -980,7 +968,7 @@ with
 After all, haven’t we always returned
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[]</code></span>
 in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>
 cases?</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Replace
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">???</code></span>
@@ -996,9 +984,9 @@ assertEquals(my-alternating([4, 5, 6]), [4, 6]);</code></pre></div></div>
 even number of elements, but not on lists with an odd number of
 elements. How did that happen? The only part of this code that we
 guessed at was how to fill in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>
 case of the inner
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>,
 so the issue must be there. Rather than focus on the code, however,
 focus on the examples. We need a simple example that would land on that
 part of the code. We get to that spot when the list
@@ -1009,8 +997,7 @@ is not empty, but
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">l</code></span>)
 is empty. In other words, we need an example with only one element.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Finish the following example:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-my-alternating([list: 5]) is ???</code></pre></div></div></blockquote></blockquote>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(my-alternating([5]), ???);</code></pre></div></div></blockquote></blockquote>
 <p>Given a list with one element, that element should be included in a
 list of alternating elements. Thus, we should finish this example as</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(my-alternating([5]), [5]);</code></pre></div></div>
@@ -1019,7 +1006,7 @@ list of alternating elements. Thus, we should finish this example as</p>
 when
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">r</code></span>
 is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>
 in our code.</p></blockquote></blockquote>
 <p>Leveraging this new example, the final version of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-alternating</code></span>
@@ -1040,12 +1027,12 @@ is as follows:</p>
 <ul>
 <li>Don’t skip the small examples: the result of a list-processing
 function on the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>
 case won’t always be
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>.</li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>.</li>
 <li>If a problem asks you to work with multiple elements from the front
 of a list, you can nest
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>
 expressions to access later elements.</li>
 </ul>
 <p>These takeaways will matter again in future examples: keep an eye out
@@ -1098,7 +1085,7 @@ assertEquals(my-max([2, 3]), 3);
 assertEquals(my-max([3]), 3);</code></pre></div></div>
 <p>Hmm. That didn’t really teach us anything, did it? Maybe, we can’t be
 sure. And we still don’t know what to do with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>.</p>
 <p>Let’s try the second example input:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(my-max([3, 2, 1]), 3);
 assertEquals(my-max([2, 1]), 2);
@@ -1113,15 +1100,13 @@ assertEquals(my-max([2]), 2);</code></pre></div></div>
 <p>Observe how the maximum of the rest of the list gives us a candidate
 answer, but comparing it to the first element gives us a definitive
 one:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-my-max([list: 2, 1, 4, 3, 2]) is num-max(2, 4)
-my-max([list:    1, 4, 3, 2]) is num-max(1, 4)
-my-max([list:       4, 3, 2]) is num-max(4, 3)
-my-max([list:          3, 2]) is num-max(3, 2)
-my-max([list:             2]) is …</code></pre></div></div>
+<pre><code>assertEquals(my-max([2, 1, 4, 3, 2]), num-max(2, my-max([1, 4, 3, 2])));
+assertEquals(my-max([   1, 4, 3, 2]), num-max(1, my-max([   4, 3, 2])));
+assertEquals(my-max([      4, 3, 2]), num-max(4, my-max([      3, 2])));
+assertEquals(my-max([         3, 2]), num-max(3, my-max([         2])));
+assertEquals(my-max([            2]), …);</code></pre>
 <p>The last one is a little awkward: we’d like to write</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-my-max([list:             2]) is num-max(2, …)</code></pre></div></div>
+<pre><code>assertEquals(my-max([2]), num-max(2, …));</code></pre>
 <p>but we don’t really know what the maximum (or minimum, or any other
 element) of the empty list is, but we can only provide numbers to
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-max</code></span>.
@@ -1136,7 +1121,7 @@ list, which in turn is the rest of some other list, and so on. If you go
 back and look at the other example lists we wrote above, you’ll see the
 pattern holds there too.</p>
 <p>However, it’s time we now confront the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Empty</code></span>
 case. The real problem is that we don’t have a maximum for the empty
 list: for any number we might provide, there is always a number bigger
 than it (assuming our computer is large enough) that could have been the
@@ -1175,34 +1160,30 @@ is check whether the rest of the list is empty. If it is, we do not want
 to call
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-max</code></span>
 at all. That is:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-fun my-max(l):
-  cases (List) l:
-    | empty      =&gt; raise("not defined for empty lists")
-    | link(f, r) =&gt;
-      cases (List) r:
-        | empty =&gt; …
-        | …
-      end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object my-max(l) {
+    return switch (l) {
+        case Empty: yield raise("not defined for empty lists");
+        case Link(f, r): yield switch (r) {
+            case Empty: yield …;
+            // …
+        };
+    }
+}</code></pre></div></div>
 <p>We’ll return to what to do when the rest is not empty in a
 moment.</p>
 <p>If the rest of the list
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">l</code></span>
 is empty, our examples above tell us that the maximum is the first
 element in the list. Therefore, we can fill this in:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-fun my-max(l):
-  cases (List) l:
-    | empty      =&gt; raise("not defined for empty lists")
-    | link(f, r) =&gt;
-      cases (List) r:
-        | empty =&gt; f
-        | …
-      end
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object my-max(l) {
+    return switch (l) {
+        case Empty: yield raise("not defined for empty lists");
+        case Link(f, r): yield switch (r) {
+            case Empty: yield f;
+            // …
+        };
+    }
+}</code></pre></div></div>
 <p>Note in particular the absence of a call to
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-max</code></span>.
 If the list is not empty, however, our examples above tell us that
@@ -1338,7 +1319,7 @@ assertEquals(my-running-sum([2, 3, 4, 5]), [2, 5, 9, 14]);
 assertEquals(my-running-sum([3, 4, 5]), [3, 7, 12]);</code></pre></div></div>
 <p>and observe that we’re computing the answer for the rest of the list,
 then adding the first element to each element in the answer, and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>ing
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>ing
 the first element to the front. In principle, we can compute this
 solution directly, but for now that may be more work than finding a
 simpler way to answer it.)</p>
@@ -1448,7 +1429,7 @@ an element, we have to consult the accumulator whether to keep it or
 not. If its value is
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
 we
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>
 it to the answer; otherwise we ignore it. As we process the rest of the
 list, however, we have to remember to update the accumulator: if we kept
 an element we don’t wish to keep the next one, and vice versa.</p>
@@ -1536,7 +1517,7 @@ certain to be in the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">uniq</code></span>
 of the rest of the list. If, however, it is not in the rest of the list,
 it’s critical that we
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Link</code></span>
 it to the answer.</p>
 <p>This translates into the following program. For the empty list, we
 return the empty list. If the list is non-empty, we check whether the
@@ -1769,8 +1750,7 @@ list. Given that type,
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-max</code></span>
 will return an element of that type. We write this syntactically as
 follows:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-fun my-max&lt;T&gt;(l :: List&lt;T&gt;) -&gt; T: … end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">&lt;T&gt; T my-max(List&lt;T&gt; l) { … }</code></pre></div></div>
 <p>The notation
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;T&gt;</code></span>
 says that
@@ -1780,8 +1760,7 @@ function (both the header and the body).</p>
 <p>Using this notation, we can also revisit
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-len</code></span>.
 Its header now becomes:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-fun my-len&lt;T&gt;(l :: List&lt;T&gt;) -&gt; Number: … end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">&lt;T&gt; int my-len(List&lt;T&gt; l) { … }</code></pre></div></div>
 <p>Note that
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-len</code></span>
 did not actually “care” that whether all the values were of the same

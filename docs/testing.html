@@ -151,12 +151,12 @@ our understanding.</li>
 </ul>
 <h4 id="from-examples-to-tests">8.3.1 From Examples to Tests</h4>
 <p>Until now, we have written examples in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where:</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where { }</code></span>
 blocks for two purposes: to help us figure out what a function needs to
 do, and to provide guidance to someone reading our code as to what
 behavior they can expect when using our function. For the smaller
 programs that we have written until now,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>-based
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where { }</code></span>-based
 examples have been sufficient. As our programs get more complicated,
 however, a small set of related illustrative examples won’t suffice. We
 need to think about being much more thorough in the sets of inputs that
@@ -184,10 +184,10 @@ realistic situations. Once we start considering situations like these,
 we are shifting from examples to illustrate our code to tests to
 thoroughly test our code.</p>
 <p>In Jayret, we use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where { }</code></span>
 blocks inside function definitions for examples. We use a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check</code></span>
-block outside the function definition for tests. For example:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">@Check void</code></span>
+function outside the function definition for tests. For example:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int count-uses(String of-string, List&lt;Object&gt; in-list) {
     return ...;
 } where {
@@ -201,16 +201,16 @@ block outside the function definition for tests. For example:</p>
 }</code></pre></div></div>
 <p>As a guiding rule, we put illustrative cases that would help someone
 else reading our code into the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where { }</code></span>
 block, while we put the nitty-gritty checks that our code handles the
 wider range of usage scenarios (including error cases) into the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check</code></span>.
-Sometimes, the line between these two isn’t clear: for example, one
-could easily argue that the second test (the function handles different
-capitalization) belongs in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">@Check void</code></span>
+function. Sometimes, the line between these two isn’t clear: for
+example, one could easily argue that the second test (the function
+handles different capitalization) belongs in
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where { }</code></span>
 instead. The third test about using a really long list would remain in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">@Check void</code></span>,
 however, as longer inputs are generally not instructive to a reader of
 your code.</p>
 <p>Putting tests in a block that lives outside the function has another
@@ -219,9 +219,9 @@ to live in a separate file from your code. This has two key benefits.
 First, it makes it easier for someone to read the essential parts of
 your code (if they are building on your work). Second, it makes it
 easier to control when tests are run. When your
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check</code></span>
-blocks are in the same file as your code, all the tests will be checked
-when you run your code. When they are in a different file, an
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">@Check void</code></span>
+functions are in the same file as your code, all the tests will be
+checked when you run your code. When they are in a different file, an
 organization can choose when to run the tests. During development, tests
 are run frequently to make sure no errors have been introduced. Once
 code is tested and ready to be deployed or used, tests are not run along
@@ -231,9 +231,9 @@ software projects.</p>
 <p>It is also worth noting that the collection of tests grows throughout
 the development process, moreso than do the collection of examples. As
 you are developing code, every time you find a bug in your code, add a
-test for it in your</p>
-<p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check</code></span></p>
-<p>block so you don’t accidentally introduce that same error again
+test for it in your
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">@Check void</code></span>
+function so you don’t accidentally introduce that same error again
 later. Whereas we develop examples up front as we figure out what we
 want our program to do, we augment our tests as we discover what our
 program actually does (and perhaps should not do). In practice,
@@ -252,20 +252,19 @@ programming because we find them extremely useful both professionally
 and pedagogically.</p>
 <h4 id="s-refined">8.3.2 More Refined Comparisons</h4>
 <p>Sometimes, a direct comparison via
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">assertEquals</code></span>
 isn’t enough for testing. We have already seen this in the case of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raises</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">assertRaises</code></span>
 tests (<a href="trees.html##compute-parents-table">Computing Genetic
 Parents from an Ancestry Table</a>). As another example, when doing some
 computations, especially involving math with approximations, the exact
 match of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">assertEquals</code></span>
 isn’t feasible. For example, consider these tests for
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">distance-to-origin</code></span>:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-check:
-  distance-to-origin(point(1, 1)) is ???
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
+    assertEquals(distance-to-origin(point(1, 1)), ???);
+}</code></pre></div></div>
 <p>What can we check here? Typing this into the REPL, we can find that
 the answer prints as
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1.4142135623730951</code></span>.
@@ -291,36 +290,23 @@ precise ways we can, a function:</p>
     // Return whether actual is within 0.01 of expected
     return num-abs(actual - expected) &lt; 0.01;
 } where {
-    
+    assertEquals(around(5, 5.005), true);
+    assertEquals(around(5, 5.02), false);
 }</code></pre></div></div>
-<p>The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
-form now helps us out. There is special syntax for supplying a
-user-defined function to use to compare the two values, instead of just
-checking if they are equal:</p>
+<p>Jayret provides
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">assertRoughlyEquals</code></span>
+for approximate comparisons: it takes the actual value, the expected
+value, and an allowed tolerance.</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
-    assertEquals(5, 5.01);
-    assertEquals(num-sqrt(2), 1.41);
-    assertEquals(distance-to-origin(point(1, 1)), 1.41);
+    assertRoughlyEquals(5, 5.01, 0.01);
+    assertRoughlyEquals(num-sqrt(2), 1.41, 0.01);
+    assertRoughlyEquals(distance-to-origin(point(1, 1)), 1.41, 0.01);
 }</code></pre></div></div>
-<p>Adding
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">%(something)</code></span>
-after
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
-changes the behavior of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>.
-Normally, it would compare the left and right values for equality. If
-something is provided with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">%</code></span>,
-however, it instead passes the left and right values to the provided
-function (in this example
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">around</code></span>).
-If the provided function produces
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>,
-the test passes, if it produces
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>,
-the test fails. This gives us the control we need to test functions with
-predictable approximate results.</p>
+<p>The third argument to
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">assertRoughlyEquals</code></span>
+sets the tolerance: the test passes when the actual and expected values
+are within that amount of each other. This gives us the control we need
+to test functions with predictable approximate results.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Extend the definition of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">distance-to-origin</code></span>
 to include
@@ -439,11 +425,11 @@ returns) is not
 useless.</p>
 <p>Fortunately, Jayret has a better way of expressing the same check.
 Instead of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>,
-we can write
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">satisfies</code></span>,
-and then the value on the left must satisfy the predicate on the right.
-Concretely, this looks like:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">assertEquals</code></span>,
+we can use
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">assertSatisfies</code></span>:
+the first argument must satisfy the predicate given as the second
+argument. Concretely, this looks like:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object check-sqrt(n) {
     return (n-root) -&gt; n == (n-root * n-root);
 }</code></pre></div></div>

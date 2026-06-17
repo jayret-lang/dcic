@@ -262,9 +262,8 @@ Therefore, we should write</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What happens if we instead write this?</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">lver = song("La Vie en Rose", "Édith Piaf", 1945);</code></pre></div></div>
 <p>What error do we get? How about if instead we write these?</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-lver :: song = song("La Vie en Rose", "Édith Piaf", 1945)
-lver :: 1 = song("La Vie en Rose", "Édith Piaf", 1945)</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">song lver = song("La Vie en Rose", "Édith Piaf", 1945);
+Number lver = song("La Vie en Rose", "Édith Piaf", 1945);</code></pre></div></div>
 <p>Make sure you familiarize yourself with the error messages that you
 get.</p></blockquote></blockquote>
 <h5 id="Defining-and-Creating-Conditional-Data">6.1.2.3 Defining and
@@ -285,10 +284,8 @@ make them look different from ordinary variables: i.e.,
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Red</code></span>
 rather than
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">red</code></span>.</span></span></span>
-Each
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">|</code></span>
-(pronounced “stick”) introduces another option. You would make instances
-of traffic light colors as</p>
+Each variant name on its own line introduces another option. You would
+make instances of traffic light colors as</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Red;
 Green;
 Yellow;</code></pre></div></div>
@@ -341,14 +338,12 @@ think about what the function consumes (an
 and produces (a
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>).
 This gives us a rough skeleton for the function: <song-age> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-fun song-age(s :: ITunesSong) -&gt; Number:
-  &lt;song-age-body&gt;
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int song-age(ITunesSong s) {
+    &lt;song-age-body&gt;
+}</code></pre></div></div>
 <p>We know that the form of the body must be roughly: <song-age-body>
 ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-2016 - &lt;get the song year&gt;</code></pre></div></div>
+<pre><code>2016 - &lt;get the song year&gt;</code></pre>
 <p>We can get the song year by using Jayret’s field access, which is a
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.</code></span>
 followed by a field’s name—in this case,
@@ -376,7 +371,7 @@ giving us a comprehensive definition of the function:</p>
 <h5 id="telling-apart-variants">6.1.3.2 Telling Apart Variants of
 Conditional Data</h5>
 <p>Now let’s see how we tell apart variants. For this, we again use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>,
 as we saw for lists. We create one branch for each of the variants.
 Thus, if we wanted to compute advice for a driver based on a traffic
 light’s state, we might write:</p>
@@ -405,14 +400,13 @@ use the
 to get the field values.</p>
 <p>To illustrate this, assume we want to get the name of any animal:
 <animal-name> ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-fun animal-name(a :: Animal) -&gt; String:
-  &lt;animal-name-body&gt;
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">String animal-name(Animal a) {
+    &lt;animal-name-body&gt;
+}</code></pre></div></div>
 <p>Because an
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Animal</code></span>
 is conditionally defined, we know that we are likely to want a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>
 to pull it apart; furthermore, we should give names to each of the
 fields:<span class="refelem"><span class="refcolumn"><span class="refcontent">Note that the names of the variables do not have to match the names of
 fields. Conventionally, we give longer, descriptive names to the field

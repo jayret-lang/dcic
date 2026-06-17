@@ -144,9 +144,9 @@ $10 ships for $8. As usual, we will start by writing examples of the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
 computation.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Use the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">assertEquals</code></span>
 notation from
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where { }</code></span>
 blocks to write several examples of add-shipping. How are you choosing
 which inputs to use in your examples? Are you picking random inputs?
 Being strategic in some way? If so, what’s your strategy?</p></blockquote></blockquote>
@@ -217,7 +217,10 @@ called an if expression. Here’s the full definition of
         return order-amt + 8;
     }
 } where {
-    
+    assertEquals(add-shipping(10), 10 + 4);
+    assertEquals(add-shipping(3.95), 3.95 + 4);
+    assertEquals(add-shipping(20), 20 + 8);
+    assertEquals(add-shipping(10.01), 10.01 + 8);
 }</code></pre></div></div>
 <p>In an
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
@@ -233,9 +236,7 @@ and another for when the result is false
 The
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">else</code></span>
 in the program marks the answer in the false case; we call this the else
-clause. We also need
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">end</code></span>
-to tell Jayret we’re done with the question and answers.</p>
+clause.</p>
 <h4 id="booleans">3.4.3 Booleans</h4>
 <p>Every expression in Jayret evaluates in a value. So far, we have seen
 three types of values:
@@ -411,10 +412,12 @@ allows you to ask multiple questions:</p>
         return order-amt + 12;
     }
 } where {
-    
+    assertEquals(add-shipping(10), 10 + 4);
+    assertEquals(add-shipping(20), 20 + 8);
+    assertEquals(add-shipping(31), 31 + 12);
 }</code></pre></div></div>
 <p>At this point, you should also add
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where { }</code></span>
 examples that use the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">12</code></span>
 charge.</p>
@@ -424,16 +427,15 @@ question expression in order, starting from the one that follows
 It continues through the questions, returning the value of the answer of
 the first question that returns true. Here’s a summary of the
 if-expression syntax and how it evaluates.</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-if QUESTION1:
-  &lt;result in case first question true&gt;
-else if QUESTION2:
-  &lt;result in case QUESTION1 false and QUESTION2 true&gt;
-else:
-  &lt;result in case both QUESTIONs false&gt;
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">if (QUESTION1) {
+    return &lt;result in case first question true&gt;;
+} else if (QUESTION2) {
+    return &lt;result in case QUESTION1 false and QUESTION2 true&gt;;
+} else {
+    return &lt;result in case both QUESTIONs false&gt;;
+}</code></pre></div></div>
 <p>A program can have multiple
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">else if</code></span>
 cases, thus accommodating an arbitrary number of questions within a
 program.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>The problem description for
@@ -485,7 +487,9 @@ included:</p>
         return order-amt + 12;
     }
 } where {
-    
+    assertEquals(add-shipping(10), 10 + 4);
+    assertEquals(add-shipping(20), 20 + 8);
+    assertEquals(add-shipping(31), 31 + 12);
 }</code></pre></div></div>
 <p>Both versions of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
@@ -578,35 +582,30 @@ with
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
 expression is evaluated, which in this case is
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.</span></span></span></p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-=&gt;  if false:
-      45 * 10
-    else if 45 &gt; 40:
-      (40 * 10) + ((45 - 40) * 15)
-    end</code></pre></div></div>
+<pre><code>=&gt; if (false) {
+       return 45 * 10;
+   } else if (45 &gt; 40) {
+       return (40 * 10) + ((45 - 40) * 15);
+   }</code></pre>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">Since the condition is
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>,
 the next branch is tried.</span></span></span></p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-=&gt;  if 45 &gt; 40:
-      (40 * 10) + ((45 - 40) * 15)
-    end</code></pre></div></div>
+<pre><code>=&gt; if (45 &gt; 40) {
+       return (40 * 10) + ((45 - 40) * 15);
+   }</code></pre>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">Jayret evaluates the question in the conditional, which in this case
 produces
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>.</span></span></span></p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-=&gt;  if true:
-      (40 * 10) + ((45 - 40) * 15)
-    end</code></pre></div></div>
+<pre><code>=&gt; if (true) {
+       return (40 * 10) + ((45 - 40) * 15);
+   }</code></pre>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">Since the condition is
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>,
 the expression reduces to the body of that branch. After that, it’s just
 arithmetic.</span></span></span></p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-=&gt;  (40 * 10) + ((45 - 40) * 15)</code></pre></div></div>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-=&gt;  400 + (5 * 15)
-=&gt;  475</code></pre></div></div>
+<pre><code>=&gt; (40 * 10) + ((45 - 40) * 15)</code></pre>
+<pre><code>=&gt; 400 + (5 * 15)
+=&gt; 475</code></pre>
 <p>This style of reduction is the best way to think about the evaluation
 of Jayret expressions. The whole expression takes steps that simplify
 it, proceeding by simple rules. You can use this style yourself if you
@@ -728,16 +727,15 @@ the intermediate result of
 made you wish that we had used intermediate names to make the body of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
 more readable. For example, we could have written it as:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
-fun pen-cost(num-pens :: Number, message :: String)
-  -&gt; Number:
-  doc: ```total cost for pens, each 25 cents
-       plus 2 cents per message character```
-  message-cost = (string-length(message) * 0.02)
-  num-pens * (0.25 + message-cost)
-where:
-  ...
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int pen-cost(int num-pens, String message) {
+    /* total cost for pens, each 25 cents
+       plus 2 cents per message character */
+    message-cost = string-length(message) * 0.02;
+    return num-pens * (0.25 + message-cost);
+} where {
+    assertEquals(pen-cost(3, "wow"), 3 * (0.25 + (string-length("wow") * 0.02)));
+    assertEquals(pen-cost(10, "smile"), 10 * (0.25 + (string-length("smile") * 0.02)));
+}</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Write out the high level steps for how Jayret will evaluate the
 following program using this new version of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>:</p>
@@ -817,30 +815,29 @@ apiece.</p>
     // Compute the price of tickets at $10 each
     return count * 10;
 } where {
-    
+    assertEquals(buy-tickets1(0), 0);
+    assertEquals(buy-tickets1(5), 5 * 10);
 }</code></pre></div></div>
 <p>Now, let’s augment the function with an extra parameter to indicate
 whether the purchaser is a senior citizen who is entitled to a discount.
 In such cases, we will reduce the overall price by
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">15%</code></span>.</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
-fun buy-tickets2(count :: Number, is-senior :: Boolean)
-  -&gt; Number:
-  doc: ```Compute the price of tickets at $10 each with
-       senior discount of 15%```
-  if is-senior == true:
-    count * 10 * 0.85
-  else:
-    count * 10
-  end
-where:
-  buy-tickets2(0, false) is 0
-  buy-tickets2(0, true) is 0
-  buy-tickets2(2, false) is 2 * 10
-  buy-tickets2(2, true) is 2 * 10 * 0.85
-  buy-tickets2(6, false) is 6 * 10
-  buy-tickets2(6, true) is 6 * 10 * 0.85
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int buy-tickets2(int count, boolean is-senior) {
+    /* Compute the price of tickets at $10 each with
+       senior discount of 15% */
+    return if (is-senior == true) {
+        return count * 10 * 0.85;
+    } else {
+        return count * 10;
+    }
+} where {
+    assertEquals(buy-tickets2(0, false), 0);
+    assertEquals(buy-tickets2(0, true), 0);
+    assertEquals(buy-tickets2(2, false), 2 * 10);
+    assertEquals(buy-tickets2(2, true), 2 * 10 * 0.85);
+    assertEquals(buy-tickets2(6, false), 6 * 10);
+    assertEquals(buy-tickets2(6, true), 6 * 10 * 0.85);
+}</code></pre></div></div>
 <p>There are a couple of things to notice here:</p>
 <ul>
 <li>The function now has an additional parameter of type
@@ -857,29 +854,27 @@ discount if the purchaser is not a senior but has bought more than 5
 tickets. Where should we modify the code to do this? One option is to
 first check whether the senior discount applies. If not, we check
 whether the number of tickets qualifies for a discount:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
-fun buy-tickets3(count :: Number, is-senior :: Boolean)
-  -&gt; Number:
-  doc: ```Compute the price of tickets at $10 each with
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int buy-tickets3(int count, boolean is-senior) {
+    /* Compute the price of tickets at $10 each with
        discount of 15% for more than 5 tickets
-       or being a senior```
-  if is-senior == true:
-    count * 10 * 0.85
-  else:
-    if count &gt; 5:
-      count * 10 * 0.85
-    else:
-      count * 10
-    end
-  end
-where:
-  buy-tickets3(0, false) is 0
-  buy-tickets3(0, true) is 0
-  buy-tickets3(2, false) is 2 * 10
-  buy-tickets3(2, true) is 2 * 10 * 0.85
-  buy-tickets3(6, false) is 6 * 10 * 0.85
-  buy-tickets3(6, true) is 6 * 10 * 0.85
-end</code></pre></div></div>
+       or being a senior */
+    return if (is-senior == true) {
+        return count * 10 * 0.85;
+    } else {
+        return if (count &gt; 5) {
+            return count * 10 * 0.85;
+        } else {
+            return count * 10;
+        }
+    }
+} where {
+    assertEquals(buy-tickets3(0, false), 0);
+    assertEquals(buy-tickets3(0, true), 0);
+    assertEquals(buy-tickets3(2, false), 2 * 10);
+    assertEquals(buy-tickets3(2, true), 2 * 10 * 0.85);
+    assertEquals(buy-tickets3(6, false), 6 * 10 * 0.85);
+    assertEquals(buy-tickets3(6, true), 6 * 10 * 0.85);
+}</code></pre></div></div>
 <p>Notice here that we have put a second
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
 expression within the
@@ -909,18 +904,16 @@ simplify the code by using
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">||</code></span>
 as follows (we’ve left out the examples because they haven’t changed
 from the previous version):</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
-fun buy-tickets4(count :: Number, is-senior :: Boolean)
-  -&gt; Number:
-  doc: ```Compute the price of tickets at $10 each with
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int buy-tickets4(int count, boolean is-senior) {
+    /* Compute the price of tickets at $10 each with
        discount of 15% for more than 5 tickets
-       or being a senior```
-  if (is-senior == true) or (count &gt; 5):
-    count * 10 * 0.85
-  else:
-    count * 10
-  end
-end</code></pre></div></div>
+       or being a senior */
+    return if ((is-senior == true) || (count &gt; 5)) {
+        return count * 10 * 0.85;
+    } else {
+        return count * 10;
+    }
+}</code></pre></div></div>
 <p>This code is much tighter, and all of the cases where the discount
 applies are described together in one place. There are still two small
 changes we want to make to really clean this up though.</p>
@@ -941,20 +934,18 @@ part is redundant. Since
 is already a boolean, we can check its value without using the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
 operator. Here’s the revised code:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
-fun buy-tickets5(count :: Number, is-senior :: Boolean)
-  -&gt; Number:
-  doc: ```Compute the price of tickets at $10 each with
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int buy-tickets5(int count, boolean is-senior) {
+    /* Compute the price of tickets at $10 each with
        discount of 15% for more than 5 tickets
-       or being a senior```
-  if is-senior or (count &gt; 5):
-    count * 10 * 0.85
-  else:
-    count * 10
-  end
-end</code></pre></div></div>
+       or being a senior */
+    return if (is-senior || (count &gt; 5)) {
+        return count * 10 * 0.85;
+    } else {
+        return count * 10;
+    }
+}</code></pre></div></div>
 <p>Notice the revised question in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 expression. As a general rule, your code should never include
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">== true</code></span>.
 You can always take that out and just use the expression you were
@@ -970,19 +961,17 @@ cost of the tickets
 if the ticket price changes, it would be better to have only one place
 to update that price. We can clean that up by first computing the base
 price, then applying the discount when appropriate:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
-fun buy-tickets6(count :: Number, is-senior :: Boolean)
-  -&gt; Number:
-  doc: ```Compute the price of tickets at $10 each with
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int buy-tickets6(int count, boolean is-senior) {
+    /* Compute the price of tickets at $10 each with
        discount of 15% for more than 5 tickets
-       or being a senior```
-  base = count * 10
-  if is-senior or (count &gt; 5):
-    base * 0.85
-  else:
-    base
-  end
-end</code></pre></div></div>
+       or being a senior */
+    base = count * 10;
+    return if (is-senior || (count &gt; 5)) {
+        return base * 0.85;
+    } else {
+        return base;
+    }
+}</code></pre></div></div>
 <h4 id="Recap-Booleans-and-Conditionals">3.4.8 Recap: Booleans and
 Conditionals</h4>
 <p>With this chapter, our computations can produce different results in

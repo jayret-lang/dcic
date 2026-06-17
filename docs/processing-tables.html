@@ -165,6 +165,13 @@ This chapter looks at both steps, and the programming techniques that
 are helpful for them.</p>
 <h4 id="cleaning-tables">4.2.1 Cleaning Data Tables</h4>
 <h5 id="loading-tables">4.2.1.1 Loading Data Tables</h5>
+<blockquote class="Note"><p><strong>Jayret note:</strong> Loading tables from external sources
+(CSV files or Google Sheets via <code>load-table</code>) is not yet
+supported in the Jayret playground. Examples in this section that use
+<code>load-table</code> won’t run; use a literal
+<code>table { ... }</code> value as a workaround. See <a
+href="https://jayret-lang.github.io/docs/Deferred_from_Pyret.html">Deferred
+from Pyret</a> for status.</p></blockquote>
 <p>The first step to working with an outside data source is to load it
 into your programming and analysis environment. Which source you use
 depends on the programming environment that you are using for
@@ -496,21 +503,20 @@ second one involves the upper-case conversion functions from the
 library.</p>
 <p>We can capture these together in a function that takes in and
 produces a string:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): Unexpected token '`', "```upperca"... is not valid JSON
-fun cell-to-discount-code(str :: String) -&gt; String:
-  doc: ```uppercase all strings other than none,
-       convert blank cells to contain none```
-  if (str == "") or (str == "none"):
-    "none"
-  else:
-    string-to-upper(str)
-  end
-where:
-  cell-to-discount-code("") is "none"
-  cell-to-discount-code("none") is "none"
-  cell-to-discount-code("birthday") is "BIRTHDAY"
-  cell-to-discount-code("Birthday") is "BIRTHDAY"
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">String cell-to-discount-code(String str) {
+    /* uppercase all strings other than none,
+       convert blank cells to contain none */
+    return if ((str == "") || (str == "none")) {
+        return "none";
+    } else {
+        return string-to-upper(str);
+    }
+} where {
+    assertEquals(cell-to-discount-code(""), "none");
+    assertEquals(cell-to-discount-code("none"), "none");
+    assertEquals(cell-to-discount-code("birthday"), "BIRTHDAY");
+    assertEquals(cell-to-discount-code("Birthday"), "BIRTHDAY");
+}</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Assess the examples included with
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cell-to-discount-code</code></span>.
 Is this a good set of examples, or are any key ones missing?</p></blockquote></blockquote>
@@ -524,7 +530,7 @@ different capitalizations of
 we should include that as well:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(cell-to-discount-code("NoNe"), "none");</code></pre></div></div>
 <p>Oops! If we add this example to our
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where { }</code></span>
 block and run the code, Jayret reports that this example fails.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Why did the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"NoNe"</code></span>
@@ -537,22 +543,21 @@ expression, we need to normalize the input to match what our
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
 expression expects. Here’s the modified code, on which all the examples
 pass.</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): Unexpected token '`', "```upperca"... is not valid JSON
-fun cell-to-discount-code(str :: String) -&gt; String:
-  doc: ```uppercase all strings other than none,
-       convert blank cells to contain none```
-  if (str == "") or (string-to-lower(str) == "none"):
-    "none"
-  else:
-    string-to-upper(str)
-  end
-where:
-  cell-to-discount-code("") is "none"
-  cell-to-discount-code("none") is "none"
-  cell-to-discount-code("NoNe") is "none"
-  cell-to-discount-code("birthday") is "BIRTHDAY"
-  cell-to-discount-code("Birthday") is "BIRTHDAY"
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">String cell-to-discount-code(String str) {
+    /* uppercase all strings other than none,
+       convert blank cells to contain none */
+    return if ((str == "") || (string-to-lower(str) == "none")) {
+        return "none";
+    } else {
+        return string-to-upper(str);
+    }
+} where {
+    assertEquals(cell-to-discount-code(""), "none");
+    assertEquals(cell-to-discount-code("none"), "none");
+    assertEquals(cell-to-discount-code("NoNe"), "none");
+    assertEquals(cell-to-discount-code("birthday"), "BIRTHDAY");
+    assertEquals(cell-to-discount-code("Birthday"), "BIRTHDAY");
+}</code></pre></div></div>
 <p>Using this function with
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">transform-column</code></span>
 yields a table with a standardized formatting for discount codes

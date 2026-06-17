@@ -208,11 +208,10 @@ write, instead of writing out the full data for the songs, we’ll refer
 to them just by their variable names. Clearly, the oldest song in our
 list is bound to
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lvar</code></span>.</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-oldest-song([list: lver, so, wnkkhs]) is lvar
-oldest-song([list:       so, wnkkhs]) is wnkkhs
-oldest-song([list:           wnkkhs]) is wnkkhs
-oldest-song([list:                 ]) is ???</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(oldest-song([lver, so, wnkkhs]), lvar);
+assertEquals(oldest-song([so, wnkkhs]), wnkkhs);
+assertEquals(oldest-song([wnkkhs]), wnkkhs);
+assertEquals(oldest-song([]), ???);</code></pre></div></div>
 <p>What do we write in the last case? Recall that we saw this problem
 earlier [<a
 href="processing-lists.html##my-max"><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-max</code></span>:
@@ -317,12 +316,12 @@ method returns a random element of a set. It produces a value of type
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">include pick</code></span>).
 When we pick an element, there are two possibilities. One is that the
 set is empty (analogous to a list being empty), which gives us a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pick-none</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Pick-none</code></span>
 value. The other option is called
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pick-some</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Pick-some</code></span>,
 which gives us an actual member of the set.</p>
 <p>The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pick-some</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Pick-some</code></span>
 variant of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Pick</code></span>
 has two fields, not one. To understand why takes a moment’s work. Let’s
@@ -336,7 +335,7 @@ explore it by choosing an element of a set:</p>
 <p>(Notice that we aren’t using the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">r</code></span>
 field in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pick-some</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Pick-some</code></span>
 case.)</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Can you guess why we didn’t write examples for
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">an-elt</code></span>?</p></blockquote></blockquote>
@@ -366,12 +365,12 @@ particularly surprising.</p>
 <p>Once we have picked an element from a set, it’s often useful to
 obtain the set consisting of the remaining elements. We have already
 seen that choosing the first field of a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pick-some</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Pick-some</code></span>
 is similar to taking the “first” of a set. We therefore want a way to
 get the “rest” of the set. However, we want the rest to what we obtain
 after excluding this particular “first”. That’s what the second field of
 a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pick-some</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Pick-some</code></span>
 is: what’s left of the set.</p>
 <p>Given this, we can write functions over sets that look roughly
 analogous to functions over lists. For instance, suppose we want to
@@ -435,13 +434,12 @@ would expect the student to answer
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">7</code></span>.
 What would capture this? A piece of structured data with two fields like
 the following:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-data Question:
-  basic-ques(text :: String, expect :: ???)
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Question {
+    Basic-ques(String text, Object expect);
+}</code></pre></div></div>
 <p>What’s a good type for the expected answer? This specific problem has
 a numeric answer, but other questions might have other types of answers.
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Any</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Object</code></span>
 is therefore an appropriate type for the answer.</p>
 <p>We would also need a list of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Question</code></span>

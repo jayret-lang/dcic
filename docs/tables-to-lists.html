@@ -580,19 +580,13 @@ both lists. What issue(s) or limitations do you run into?</p>
 <p>Come back to this problem after you finish the next section.</p></blockquote></blockquote>
 <h4 id="Lambda-Anonymous-Functions">5.1.5 Lambda: Anonymous
 Functions</h4>
-<p>NOTE: if you already saw</p>
-<p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span></p>
-<p>in</p>
-<p><a href="intro-tabular-data.html##sec-lambda-tables">Lambda:
-Anonymous Functions</a></p>
-<p>, feel free to skip this section, or just do the exercises at the
-end. Here we present</p>
-<p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span></p>
-<p>using lists and</p>
-<p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span></p>
-<p>, rather than tables and</p>
-<p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter-with</code></span></p>
-<p>.</p>
+<p>NOTE: if you already saw lambda (arrow-function) syntax in <a
+href="intro-tabular-data.html##sec-lambda-tables">Lambda: Anonymous
+Functions</a>, feel free to skip this section, or just do the exercises
+at the end. Here we present the same concept using lists and
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>,
+rather than tables and
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter-with</code></span>.</p>
 <p>Let’s revisit the program we wrote earlier in this chapter for
 finding all of the discount codes that were used in the events
 table:</p>
@@ -636,46 +630,30 @@ temporary function that will get its inputs once
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>
 is running. The following notation achieves this:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">L.filter((c) -&gt; not(c == "none"), codes);</code></pre></div></div>
-<p>We have added
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam(c)</code></span>
-and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">end</code></span>
-around the expression that we want to use in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>.
+<p>We have written the expression as an arrow function
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">(c) -&gt; ...</code></span>.
 The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam(c)</code></span>
-says “make a temporary function that takes
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">c</code></span>
-as an input”. The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">end</code></span>
-serves to end the function definition, as when we use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fun</code></span>.
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>
-is short for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lambda</code></span>,
-a form of function definition that exists in many, though not all,
-languages.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">(c)</code></span>
+introduces the parameter <code>c</code>, and the arrow
+<code>-&gt;</code> separates the parameters from the body expression.
+Such anonymous functions are commonly called <em>lambdas</em>; they
+exist in many languages but with different syntaxes.</p>
 <p>The main difference between our original expression (using the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">real-code</code></span>
-helper) and this new one (using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>)
-can be seen through the program directory. To explain this, a little
-detail about how
+helper) and this new one (using arrow syntax) can be seen through the
+program directory. To explain this, a little detail about how
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>
 is defined under the hood. In part, it looks like:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
-fun filter(keep :: (A -&gt; Boolean), lst :: List&lt;A&gt;) -&gt; List&lt;A&gt;:
-  if keep(&lt;elt-from-list&gt;):
-    ...
-  else:
-    ...
-  end
-end</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">List&lt;A&gt; filter((A -&gt; boolean) keep, List&lt;A&gt; lst) {
+    return if (keep(&lt;elt-from-list&gt;)) {
+        return ...;
+    } else {
+        return ...;
+    }
+}</code></pre></div></div>
 <p>Whether we pass
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">real-code</code></span>
-or the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>
-version to
+or the arrow-function version to
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>,
 the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">keep</code></span>
@@ -684,9 +662,8 @@ body. Since the function is only actually called through the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">keep</code></span>
 name, it doesn’t matter whether or not a name is associated with it when
 it is initially defined.</p>
-<p>In practice, we use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>
-when we have to pass simple (single line) functions to operations like
+<p>In practice, we use arrow functions when we have to pass simple
+(single line) functions to operations like
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>
 (or
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>).
@@ -698,9 +675,8 @@ functions as we did with
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">real-code</code></span>
 if that makes more sense to you.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write the program to extract the list of usernames from a list of
-email addresses using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>
-rather than a named helper-function.</p></blockquote></blockquote>
+email addresses using arrow syntax rather than a named
+helper-function.</p></blockquote></blockquote>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Try again to tackle the problem from the end of the previous section:
 write a function that takes two ingredient lists and returns all of the
 ingredients that are common to both lists.</p></blockquote></blockquote>
