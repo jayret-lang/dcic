@@ -27,7 +27,7 @@ $8. As usual, we will start by writing examples of the `add-shipping`{.pyret}
 computation.
 
 ::: {.do-now}
-Use the `is`{.pyret} notation from `where`{.pyret} blocks to write several
+Use the `assertEquals`{.jayret} notation from `where { }`{.jayret} blocks to write several
 examples of add-shipping. How are you choosing which inputs to
 use in your examples? Are you picking random inputs? Being strategic
 in some way? If so, what’s your strategy?
@@ -95,7 +95,10 @@ int add-shipping(int order-amt) {
         return order-amt + 8;
     }
 } where {
-    
+    assertEquals(add-shipping(10), 10 + 4);
+    assertEquals(add-shipping(3.95), 3.95 + 4);
+    assertEquals(add-shipping(20), 20 + 8);
+    assertEquals(add-shipping(10.01), 10.01 + 8);
 }
 ```
 
@@ -107,7 +110,6 @@ when the answer to the question is true (`order-amt + 4`{.pyret}), and
 another for when the result is false (`order-amt +
 8`{.pyret}). The `else`{.jayret} in the program marks the answer in the false case; we call
 this the else clause.
-We also need `end`{.pyret} to tell Jayret we’re done with the question and answers.
 
 #### 3.4.3 Booleans {#booleans}
 
@@ -456,10 +458,12 @@ int add-shipping(int order-amt) {
         return order-amt + 12;
     }
 } where {
-    
+    assertEquals(add-shipping(10), 10 + 4);
+    assertEquals(add-shipping(20), 20 + 8);
+    assertEquals(add-shipping(31), 31 + 12);
 }
 ```
-At this point, you should also add `where`{.pyret} examples that use the
+At this point, you should also add `where { }`{.jayret} examples that use the
 `12`{.pyret} charge.
 
 How does Jayret determine which answer to return? It evaluates each
@@ -468,17 +472,16 @@ question expression in order, starting from the one that follows
 the answer of the first question that returns true. Here’s a summary
 of the if-expression syntax and how it evaluates.
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-if QUESTION1:
-  <result in case first question true>
-else if QUESTION2:
-  <result in case QUESTION1 false and QUESTION2 true>
-else:
-  <result in case both QUESTIONs false>
-end
+```jayret
+if (QUESTION1) {
+    return <result in case first question true>;
+} else if (QUESTION2) {
+    return <result in case QUESTION1 false and QUESTION2 true>;
+} else {
+    return <result in case both QUESTIONs false>;
+}
 ```
-A program can have multiple `else if`{.pyret} cases, thus accommodating
+A program can have multiple `else if`{.jayret} cases, thus accommodating
 an arbitrary number of questions within a program.
 
 ::: {.do-now}
@@ -525,7 +528,9 @@ int add-shipping(int order-amt) {
         return order-amt + 12;
     }
 } where {
-    
+    assertEquals(add-shipping(10), 10 + 4);
+    assertEquals(add-shipping(20), 20 + 8);
+    assertEquals(add-shipping(31), 31 + 12);
 }
 ```
 
@@ -625,45 +630,40 @@ if (45 <= 40) {
 [Next, the conditional part of the `if`{.pyret} expression is evaluated,
 which in this case is `false`{.pyret}.]{.margin-note}
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-=>  if false:
-      45 * 10
-    else if 45 > 40:
-      (40 * 10) + ((45 - 40) * 15)
-    end
+```
+=> if (false) {
+       return 45 * 10;
+   } else if (45 > 40) {
+       return (40 * 10) + ((45 - 40) * 15);
+   }
 ```
 
 [Since the condition is `false`{.pyret}, the next branch is tried.]{.margin-note}
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-=>  if 45 > 40:
-      (40 * 10) + ((45 - 40) * 15)
-    end
+```
+=> if (45 > 40) {
+       return (40 * 10) + ((45 - 40) * 15);
+   }
 ```
 
 [Jayret evaluates the question in the conditional, which in this case produces `true`{.pyret}.]{.margin-note}
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-=>  if true:
-      (40 * 10) + ((45 - 40) * 15)
-    end
+```
+=> if (true) {
+       return (40 * 10) + ((45 - 40) * 15);
+   }
 ```
 
 [Since the condition is `true`{.pyret}, the expression reduces to the body
 of that branch. After that, it’s just arithmetic.]{.margin-note}
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-=>  (40 * 10) + ((45 - 40) * 15)
+```
+=> (40 * 10) + ((45 - 40) * 15)
 ```
 
-```pyret
-# TODO(pyret2jayret): parse failed (no shifts)
-=>  400 + (5 * 15)
-=>  475
+```
+=> 400 + (5 * 15)
+=> 475
 ```
 
 This style of reduction is the best way to think about the evaluation
@@ -772,17 +772,16 @@ the intermediate result of `pen-cost`{.pyret} made you wish that we had
 used intermediate names to make the body of `pen-cost`{.pyret} more
 readable. For example, we could have written it as:
 
-```pyret
-# TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
-fun pen-cost(num-pens :: Number, message :: String)
-  -> Number:
-  doc: ```total cost for pens, each 25 cents
-       plus 2 cents per message character```
-  message-cost = (string-length(message) * 0.02)
-  num-pens * (0.25 + message-cost)
-where:
-  ...
-end
+```jayret
+int pen-cost(int num-pens, String message) {
+    /* total cost for pens, each 25 cents
+       plus 2 cents per message character */
+    message-cost = string-length(message) * 0.02;
+    return num-pens * (0.25 + message-cost);
+} where {
+    assertEquals(pen-cost(3, "wow"), 3 * (0.25 + (string-length("wow") * 0.02)));
+    assertEquals(pen-cost(10, "smile"), 10 * (0.25 + (string-length("smile") * 0.02)));
+}
 ```
 
 ::: {.do-now}
@@ -865,7 +864,8 @@ int buy-tickets1(int count) {
     // Compute the price of tickets at $10 each
     return count * 10;
 } where {
-    
+    assertEquals(buy-tickets1(0), 0);
+    assertEquals(buy-tickets1(5), 5 * 10);
 }
 ```
 
@@ -873,25 +873,23 @@ Now, let’s augment the function with an extra parameter to indicate
 whether the purchaser is a senior citizen who is entitled to a discount. In such cases, we will reduce the overall price by
 `15%`{.pyret}.
 
-```pyret
-# TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
-fun buy-tickets2(count :: Number, is-senior :: Boolean)
-  -> Number:
-  doc: ```Compute the price of tickets at $10 each with
-       senior discount of 15%```
-  if is-senior == true:
-    count * 10 * 0.85
-  else:
-    count * 10
-  end
-where:
-  buy-tickets2(0, false) is 0
-  buy-tickets2(0, true) is 0
-  buy-tickets2(2, false) is 2 * 10
-  buy-tickets2(2, true) is 2 * 10 * 0.85
-  buy-tickets2(6, false) is 6 * 10
-  buy-tickets2(6, true) is 6 * 10 * 0.85
-end
+```jayret
+int buy-tickets2(int count, boolean is-senior) {
+    /* Compute the price of tickets at $10 each with
+       senior discount of 15% */
+    return if (is-senior == true) {
+        return count * 10 * 0.85;
+    } else {
+        return count * 10;
+    }
+} where {
+    assertEquals(buy-tickets2(0, false), 0);
+    assertEquals(buy-tickets2(0, true), 0);
+    assertEquals(buy-tickets2(2, false), 2 * 10);
+    assertEquals(buy-tickets2(2, true), 2 * 10 * 0.85);
+    assertEquals(buy-tickets2(6, false), 6 * 10);
+    assertEquals(buy-tickets2(6, true), 6 * 10 * 0.85);
+}
 ```
 There are a couple of things to notice here:
 
@@ -909,30 +907,28 @@ we modify the code to do this? One option is to first check whether
 the senior discount applies. If not, we check whether the number of
 tickets qualifies for a discount:
 
-```pyret
-# TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
-fun buy-tickets3(count :: Number, is-senior :: Boolean)
-  -> Number:
-  doc: ```Compute the price of tickets at $10 each with
+```jayret
+int buy-tickets3(int count, boolean is-senior) {
+    /* Compute the price of tickets at $10 each with
        discount of 15% for more than 5 tickets
-       or being a senior```
-  if is-senior == true:
-    count * 10 * 0.85
-  else:
-    if count > 5:
-      count * 10 * 0.85
-    else:
-      count * 10
-    end
-  end
-where:
-  buy-tickets3(0, false) is 0
-  buy-tickets3(0, true) is 0
-  buy-tickets3(2, false) is 2 * 10
-  buy-tickets3(2, true) is 2 * 10 * 0.85
-  buy-tickets3(6, false) is 6 * 10 * 0.85
-  buy-tickets3(6, true) is 6 * 10 * 0.85
-end
+       or being a senior */
+    return if (is-senior == true) {
+        return count * 10 * 0.85;
+    } else {
+        return if (count > 5) {
+            return count * 10 * 0.85;
+        } else {
+            return count * 10;
+        }
+    }
+} where {
+    assertEquals(buy-tickets3(0, false), 0);
+    assertEquals(buy-tickets3(0, true), 0);
+    assertEquals(buy-tickets3(2, false), 2 * 10);
+    assertEquals(buy-tickets3(2, true), 2 * 10 * 0.85);
+    assertEquals(buy-tickets3(6, false), 6 * 10 * 0.85);
+    assertEquals(buy-tickets3(6, true), 6 * 10 * 0.85);
+}
 ```
 Notice here that we have put a second `if`{.pyret} expression within the
 `else`{.pyret} case. This is valid code. (We could have also made an
@@ -968,19 +964,17 @@ senior or more than 5 tickets have been bought. We can therefore
 simplify the code by using `||`{.pyret} as follows (we’ve left out the
 examples because they haven’t changed from the previous version):
 
-```pyret
-# TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
-fun buy-tickets4(count :: Number, is-senior :: Boolean)
-  -> Number:
-  doc: ```Compute the price of tickets at $10 each with
+```jayret
+int buy-tickets4(int count, boolean is-senior) {
+    /* Compute the price of tickets at $10 each with
        discount of 15% for more than 5 tickets
-       or being a senior```
-  if (is-senior == true) or (count > 5):
-    count * 10 * 0.85
-  else:
-    count * 10
-  end
-end
+       or being a senior */
+    return if ((is-senior == true) || (count > 5)) {
+        return count * 10 * 0.85;
+    } else {
+        return count * 10;
+    }
+}
 ```
 This code is much tighter, and all of the cases where the discount
 applies are described together in one place. There are still two small
@@ -997,21 +991,19 @@ Notice that the `== true`{.pyret} part is redundant. Since
 `is-senior`{.pyret} is already a boolean, we can check its value without
 using the `==`{.pyret} operator. Here’s the revised code:
 
-```pyret
-# TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
-fun buy-tickets5(count :: Number, is-senior :: Boolean)
-  -> Number:
-  doc: ```Compute the price of tickets at $10 each with
+```jayret
+int buy-tickets5(int count, boolean is-senior) {
+    /* Compute the price of tickets at $10 each with
        discount of 15% for more than 5 tickets
-       or being a senior```
-  if is-senior or (count > 5):
-    count * 10 * 0.85
-  else:
-    count * 10
-  end
-end
+       or being a senior */
+    return if (is-senior || (count > 5)) {
+        return count * 10 * 0.85;
+    } else {
+        return count * 10;
+    }
+}
 ```
-Notice the revised question in the `if`{.pyret} expression. As a general
+Notice the revised question in the `if`{.jayret} expression. As a general
 rule, your code should never include `== true`{.pyret}. You can always
 take that out and just use the expression you were comparing to
 `true`{.pyret}.
@@ -1027,20 +1019,18 @@ it would be better to have only one place to update that price. We can
 clean that up by first computing the base price, then applying the
 discount when appropriate:
 
-```pyret
-# TODO(pyret2jayret): Unexpected token '`', "```Compute"... is not valid JSON
-fun buy-tickets6(count :: Number, is-senior :: Boolean)
-  -> Number:
-  doc: ```Compute the price of tickets at $10 each with
+```jayret
+int buy-tickets6(int count, boolean is-senior) {
+    /* Compute the price of tickets at $10 each with
        discount of 15% for more than 5 tickets
-       or being a senior```
-  base = count * 10
-  if is-senior or (count > 5):
-    base * 0.85
-  else:
-    base
-  end
-end
+       or being a senior */
+    base = count * 10;
+    return if (is-senior || (count > 5)) {
+        return base * 0.85;
+    } else {
+        return base;
+    }
+}
 ```
 
 #### 3.4.8 Recap: Booleans and Conditionals {#Recap-Booleans-and-Conditionals}

@@ -76,13 +76,12 @@ code as follows:
 frame(above(rectangle(120, 30, "solid", top), above(rectangle(120, 30, "solid", middle), rectangle(120, 30, "solid", bottom))));
   ```
 - Name the function something suggestive: e.g., `three-stripe-flag`{.pyret}.
-- Write the syntax for functions around the expression:
+- Write the function declaration syntax around the expression:
   
-  ```pyret
-  # TODO(pyret2jayret): parse failed (no shifts)
-  fun <function name>(<parameters>):
-    <the expression goes here>
-  end
+  ```jayret
+  Object <function-name>(<parameters>) {
+      return <the expression goes here>;
+  }
   ```
   where the expression is called the body of the
   function. (Programmers often use angle brackets to say “replace with
@@ -148,9 +147,8 @@ So far, we have learned three rules for how Jayret processes your program:
   Jayret substitutes the name with the corresponding value.
 
 Now that we can define our own functions, we have to consider two more
-cases: what does Jayret do when you define a function (using
-`fun`{.pyret}), and what does Jayret do when you call a function
-(with values for the parameters)?
+cases: what does Jayret do when you define a function, and what does
+Jayret do when you call a function (with values for the parameters)?
 
 - When Jayret encounters a function definition in your file, it makes an
   entry in the directory to associate the name of the function with its
@@ -228,8 +226,8 @@ Object three-stripe-flag(String top, String middle, String bottom) {
 ```
 
 Notice that the notation here is similar to what we saw in contracts
-within the documentation: the parameter name is followed by a
-double-colon (`:`{.pyret}) and a type name (so far, one of
+within the documentation: the type name is written before each parameter
+name, separated by a space (so far, one of
 `Number`{.pyret}, `String`{.pyret}, or `Image`{.pyret}).[Putting each parameter
 on its own line is not required, but it sometimes helps with readability.]{.margin-note}
 
@@ -362,7 +360,7 @@ alerted if the function deviates from the examples it was supposed to
 generalize.
 
 Jayret makes this easy to do. Every function can be accompanied by a
-`where`{.pyret} clause that records the examples. For instance, our
+`where { }`{.jayret} block that records the examples. For instance, our
 `moon-weight`{.pyret} function can be modified to read:
 
 ```jayret
@@ -370,7 +368,9 @@ int moon-weight(int earth-weight) {
     // Compute weight on moon from weight on earth
     return earth-weight * 1/6;
 } where {
-    
+    assertEquals(moon-weight(100), 100 * 1/6);
+    assertEquals(moon-weight(150), 150 * 1/6);
+    assertEquals(moon-weight(90), 90 * 1/6);
 }
 ```
 When written this way, Jayret will actually check the answers every
@@ -463,45 +463,39 @@ int pen-cost(int num-pens, String message) {
     return num-pens * (0.25 + (string-length(message) * 0.02));
 }
 ```
-If you want to write a multi-line docstring, you need to use `````{.jayret} rather
-than `"`{.pyret} to begin and end it, like so:
+If you want to write a multi-line docstring, use `/* ... */`{.jayret}
+block-comment syntax:
 
-```pyret
-# TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
-fun pen-cost(num-pens :: Number, message :: String)
-  -> Number:
-  doc: ```total cost for pens, each 25 cents
-       plus 2 cents per message character```
-  num-pens * (0.25 + (string-length(message) * 0.02))
-end
+```jayret
+int pen-cost(int num-pens, String message) {
+    /* total cost for pens, each 25 cents
+       plus 2 cents per message character */
+    return num-pens * (0.25 + (string-length(message) * 0.02));
+}
 ```
 We should also document the examples that we used when creating the
 function:
 
-```pyret
-# TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
-fun pen-cost(num-pens :: Number, message :: String)
-  -> Number:
-  doc: ```total cost for pens, each 25 cents
-       plus 2 cents per message character```
-  num-pens * (0.25 + (string-length(message) * 0.02))
-where:
-  pen-cost(3, "wow")
-    is 3 * (0.25 + (string-length("wow") * 0.02))
-  pen-cost(10, "smile")
-    is 10 * (0.25 + (string-length("smile") * 0.02))
-end
+```jayret
+int pen-cost(int num-pens, String message) {
+    /* total cost for pens, each 25 cents
+       plus 2 cents per message character */
+    return num-pens * (0.25 + (string-length(message) * 0.02));
+} where {
+    assertEquals(pen-cost(3, "wow"), 3 * (0.25 + (string-length("wow") * 0.02)));
+    assertEquals(pen-cost(10, "smile"), 10 * (0.25 + (string-length("smile") * 0.02)));
+}
 ```
 
-When writing `where`{.pyret} examples, we also want to include special
+When writing `where { }`{.jayret} examples, we also want to include special
 yet valid cases that the function might have to handle, such as an empty
 message.
 
 ```jayret
 assertEquals(pen-cost(5, ""), 5 * 0.25);
 ```
-Note that our empty-message example has a simpler expression on the
-right side of `is`{.pyret}. The expression for what the function returns
+Note that our empty-message example has a simpler expression as the
+second argument to `assertEquals`{.jayret}. The expression for what the function returns
 doesn’t have to match the body expression; it simply has to evaluate
 to the same value as you expect the example to produce. Sometimes,
 we’ll find it easier to just write the expected value directly. For
@@ -511,12 +505,12 @@ the case of someone ordering no pens, for example, we’d include:
 assertEquals(pen-cost(0, "bears"), 0);
 ```
 The point of the examples is to document how a function behaves on a
-variety of inputs. What goes to the right of the `is`{.pyret} should
+variety of inputs. What goes in the second argument to `assertEquals`{.jayret} should
 summarize the computation or the answer in some meaningful way. Most
 important? Do not write the function, run it to determine the answer,
-then put that answer on the right side of the
+then use that answer as the second argument to
 
-`is`{.pyret}
+`assertEquals`{.jayret}
 
 ! Why not?
 Because the examples are meant to give some redundancy to the design
@@ -553,14 +547,14 @@ values each time we use it.
 
 We’ve covered several specific ideas about functions:
 
-- We showed the `fun`{.pyret} notation for writing functions. You learned
+- We showed the function declaration syntax for writing functions. You learned
   that a function has a name (that we can use to refer to it),
   one or more parameters (names for the values we want to configure), as
   well as a body, which is the computation that we want to
   perform once we have concrete values for the parameters.
 - We showed that we should include examples with our functions,
   to illustrate what the function computes on various specific
-  values. Examples go in a `where`{.pyret} block within the function.
+  values. Examples go in a `where { }`{.jayret} block after the function body.
 - We showed that we can use a function by providing concrete
   values to configure its parameters. To do this, we write the name of
   the function we want to use, followed by a pair of parenthesis around
