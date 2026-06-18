@@ -414,7 +414,8 @@ overlay(circle(25, "solid", "yellow"),
 Can you describe in prose what `overlay`{.jayret} does?
 
 ```jayret
-above(circle(25, "solid", "red"), rectangle(30, 50, "solid", "blue"));
+above(circle(25, "solid", "red"),
+  rectangle(30, 50, "solid", "blue"));
 ```
 
 What kind of value do you get from using the `rotate`{.jayret} or
@@ -436,7 +437,9 @@ smaller images. We could take that image and rotate it using the
 following expression.
 
 ```jayret
-rotate(45, above(circle(25, "solid", "red"), rectangle(30, 50, "solid", "blue")));
+rotate(45,
+  above(circle(25, "solid", "red"),
+    rectangle(30, 50, "solid", "blue")));
 ```
 
 This idea of using the output of one function as input to another is
