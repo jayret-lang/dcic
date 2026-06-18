@@ -1,0 +1,25 @@
+A Data-Centric Introduction to Computing — Jayret Edition
+Copyright 2025 Jayret contributors
+
+This product is a derivative of the original "A Data-Centric Introduction to Computing"
+(https://dcic-world.org/), originally developed by:
+  - Kathi Fisler
+  - Shriram Krishnamurthi
+  - Benjamin S. Lerner
+  - Joe Gibbs Politz
+at Brown University, licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+
+The original textbook has been converted from its original Scribble/HTML format
+to Pandoc Markdown and rebuilt to create the Jayret-edition version served at
+https://jayret-lang.github.io/dcic/.
+
+Modifications and additions:
+Copyright 2025 Jayret contributors.
+
+------------------------------------------------------------
+Non-affiliation disclaimer
+------------------------------------------------------------
+This project (Jayret) is an independent derivative work. It is
+NOT affiliated with, endorsed by, or sponsored by Brown University,
+the Pyret project, or the original DCIC authors, except as required
+to describe the origin of this material (as permitted by the CC BY-NC-SA 4.0 license).
