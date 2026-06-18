@@ -61,9 +61,9 @@ Notice the kinds of operations that we are talking about: computing
 the maximum, minimum, average, median, and other basic
 statistics.[Jayret has several built-in
 statistics functions in the
-[math](http://jayret-lang.github.io/docs/latest/math.html)
+[math](https://jayret-lang.github.io/docs/math.html)
 and
-[statistics](http://jayret-lang.github.io/docs/latest/statistics.html)
+[statistics](https://jayret-lang.github.io/docs/statistics.html)
 packages.]{.margin-note}
 
 ::: {.do-now}
@@ -240,7 +240,7 @@ necessary, but it’s a useful visual reminder of the void).
 Jayret handily provides a useful set of operations we can already
 perform on lists. [The
 [lists
-documentation](https://jayret-lang.github.io/docs/latest/lists.html) describes these operations.]{.margin-note} As you might have
+documentation](https://jayret-lang.github.io/docs/lists.html) describes these operations.]{.margin-note} As you might have
 guessed, we can already compute most of the answers we’ve asked for
 at the start of the chapter. First we need to include some libraries that contain useful
 functions:

@@ -221,7 +221,7 @@ Use the design recipe to write `x-component`{.jayret} and
 of the point (which you would need, for example, if you were plotting them on a graph).
 Read about `num-sin`{.jayret} and other functions you’ll need at
 [the Jayret number
-documentation](http://jayret-lang.github.io/docs/latest/numbers.html).
+documentation](https://jayret-lang.github.io/docs/numbers.html).
 :::
 
 ::: {.exercise}

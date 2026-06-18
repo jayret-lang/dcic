@@ -159,7 +159,7 @@ people = table: name ,age row: "Alicia" ,30 row: "Meihui" ,40 row: "Jamal" ,25;
 
 We call these literal tables when we create them with `table`{.jayret}.
 Jayret provides other ways to get tabular data, too! In
-particular, you can [import tabular data from a spreadsheet](https://jayret-lang.github.io/docs/latest/gdrive-sheets.html), so
+particular, you can [import tabular data from a spreadsheet](https://jayret-lang.github.io/docs/gdrive-sheets.html), so
 any mechanism that lets you create such a sheet can also be used. You
 might:
 

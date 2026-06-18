@@ -110,7 +110,7 @@ we would leave out the `names=[...]`{.python} part. If the CSV had no
 header row, we would write `header=None`{.python} instead of
 `header=0`{.python}. (There are many more configuration options in the
 [Pandas
-documentation](https://Pandas.pydata.org/docs/reference/api/Pandas.read_csv.html), but you won’t need them for the examples in this book.)
+documentation](https://Pandas.pydata.org/docs/reference/api/pandas.read_csv.html), but you won’t need them for the examples in this book.)
 
 Conceptually, the loaded DataFrame is as follows, with the labels shown in
 blue and the indicies (positions) show in yellow:

@@ -61,5 +61,6 @@ jobs:
             --max-concurrency 4
             --exclude 'papl\.cs\.brown\.edu'
             --exclude 'world\.cs\.brown\.edu'
+            --exclude 'greatachievements\.org'
             'docs/**/*.html'
           fail: true

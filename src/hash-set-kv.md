@@ -113,7 +113,7 @@ which takes linear time. (We can do a better job of this by using
 [Halloween Analysis](amortized-analysis.html), but there is no real free ride.)
 
 The arrays in Jayret are
-[documented here](https://jayret-lang.github.io/docs/latest/arrays.html).
+[documented here](https://jayret-lang.github.io/docs/arrays.html).
 While not necessary in principle, it is conventional to think of
 arrays as data structures that support mutation, and that is how we
 will use them here.
@@ -607,6 +607,6 @@ stores or dictionaries. We have chosen to implement both using arrays,
 which required us to employ hashes. For more on string dictionaries,
 see the
 [Jayret
-documentation](https://jayret-lang.github.io/docs/latest/string-dict.html). Observe that Jayret offers two kinds of dictionaries:
+documentation](https://jayret-lang.github.io/docs/string-dict.html). Observe that Jayret offers two kinds of dictionaries:
 one mutable (like we have shown here) and one (the default)
 functional.

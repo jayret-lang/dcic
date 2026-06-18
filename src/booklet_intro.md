@@ -516,7 +516,7 @@ between Jayret and Python, while also helping with content on using
 Jayret with VSCode.
 
 This book is completely dependent on Jayret, and thus on the
-[many people](https://jayret-lang.github.io/crew/) who have
+[many people](https://pyret.org/crew/) who have
 created and sustained it.
 
 We thank

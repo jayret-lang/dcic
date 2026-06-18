@@ -191,7 +191,7 @@ This is useful for documenting the purpose of a testing block.
 Just as in Racket, there are many testing operators in Jayret (in
 addition to `is`{.jayret}). See
 [the
-documentation](https://jayret-lang.github.io/docs/latest/testing.html).
+documentation](https://jayret-lang.github.io/docs/testing.html).
 
 ```{=html}
 <a name="(part._Variable-Names)"></a>
@@ -417,7 +417,7 @@ languages, is not legal in Jayret: lists are not privileged with
 their own syntax. Rather, we must use an explicit constructor:
 just as `[1, 2, 3]`{.jayret} constructs a list, `[set: 1, 2,
 3]`{.jayret} constructs a set instead of a list.[In fact, we can
-[create our own constructors](https://jayret-lang.github.io/docs/latest/Expressions.html##s-construct-expr)
+[create our own constructors](https://jayret-lang.github.io/docs/Expressions.html#s-construct-expr)
 and use them with this syntax.]{.margin-note}
 
 ::: {.exercise}

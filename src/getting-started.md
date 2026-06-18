@@ -689,7 +689,7 @@ because it contains a lot of detail that you don’t even know that you
 need just yet. Let’s take a look at how you can use the documentation
 as a beginner.
 
-Open the [Jayret Image Documentation](https://jayret-lang.github.io/docs/latest/image.html). Focus on the
+Open the [Jayret Image Documentation](https://jayret-lang.github.io/docs/image.html). Focus on the
 sidebar on the left. At the top, you’ll see a list of all the
 different topics covered in the documentation. Scroll down until you
 see “rectangle” in the sidebar: surrounding that, you’ll see
