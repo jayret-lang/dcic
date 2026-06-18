@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -244,11 +245,11 @@ columns when we loaded
 <h4 id="Filtering-Rows">10.1.2 Filtering Rows</h4>
 <p>Back in Jayret, we filtered rows from a table by writing a function
 from
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Row</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Row</code></span>
 to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Boolean</code></span>.
 The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter-with</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">filter-with</code></span>
 function applied that function to every row in the table, returning a
 new table with those rows for which the predicate were true.</p>
 <p>In Pandas, we select rows by providing an array of Booleans that has
@@ -398,9 +399,9 @@ operation (in the collection of operations defined on strings).</p>
 series with the series on the right side of the
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">=</code></span>.
 It is similar to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">transform-column</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">transform-column</code></span>
 from Jayret, but with a fundamental difference: in Jayret,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">transform-column</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">transform-column</code></span>
 left the old table intact and produced a new table with the new column
 values. Instead, in Pandas the old column gets replaced, thus destroying
 the original table. There are many nuances to having operations destroy
@@ -550,9 +551,9 @@ events.loc[bday_mask,'total'] = events['total'] * 0.90</code></pre></div></div>
 <p>Notice that the notation for computing new columns and updating
 existing ones is the same (unlike in Jayret, where we had different
 operations
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">build-column</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">build-column</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">transform-column</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">transform-column</code></span>).
 In Pandas, a new column is created if the given column name doesn’t
 already exist in the DataFrame; otherwise, the existing column with the
 given name gets updated.</p>

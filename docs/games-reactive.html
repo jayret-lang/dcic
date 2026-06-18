@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -185,13 +186,13 @@ import reactors as R
 </code></pre></div></div>
 <p>This tells Jayret to load these two libraries and bind the results to
 the corresponding names,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">I</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">I</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">R</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">R</code></span>.
 Thus, all image operations are obtained from
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">I</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">I</code></span>
 and animation operations from
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">R</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">R</code></span>.</p>
 <a name="(part._Version-Airplane-Moving-Across-the-Screen)"></a>
 <h3 id="Version-Airplane-Moving-Across-the-Screen">27.3 Version:
 Airplane Moving Across the Screen</h3>
@@ -209,7 +210,7 @@ follows:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">AIRPLANE-URL = "http://world.cs.brown.edu/1/clipart/airplane-small.png";
 AIRPLANE = I.image-url(AIRPLANE-URL);</code></pre></div></div>
 <p>Henceforth, when we refer to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AIRPLANE</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">AIRPLANE</code></span>,
 it will always refer to this image. (Try it out in the interactions
 area!)</p>
 <p>Now look at the video again. Watch what happens at different points
@@ -283,10 +284,10 @@ LAND = I.rectangle(WIDTH - WATER-WIDTH, BASE-HEIGHT, "solid", "brown");
 BASE = I.beside(WATER, LAND);
 BACKGROUND = I.place-image(BASE, WIDTH / 2, HEIGHT - (BASE-HEIGHT / 2), BLANK-SCENE);</code></pre></div></div>
 <p>Examine the value of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">BACKGROUND</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">BACKGROUND</code></span>
 in the interactions area to confirm that it looks right.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>The reason we divide by two when placing
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">BASE</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">BASE</code></span>
 is because Jayret puts the middle of the image at the given location.
 Remove the division and see what happens to the resulting image.</p></blockquote></blockquote>
 <p>Now that we know how to get our background, we’re ready to place the
@@ -306,7 +307,7 @@ State represents! So we create a function out of this expression:</p>
 creates animations. We’ll start by creating a fairly simple kind of
 reactor, then grow it as the program gets more sophisticated.</p>
 <p>The following code creates a reactor named
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">anim</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">anim</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Pyret (deferred in Jayret)"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret-deferred"><code class="sourceCode" data-lang="pyret-deferred">anim = reactor:
   init: 0,
   on-tick: move-airplane-x-on-tick,
@@ -314,10 +315,10 @@ reactor, then grow it as the program gets more sophisticated.</p>
 end</code></pre></div></div>
 <p>A reactor needs to be given an initial World State as well as
 handlers that tell it how to react. Specifying
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">on-tick</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">on-tick</code></span>
 tells Jayret to run a clock and, every time the clock ticks (roughly
 thirty times a second), invoke the associated handler. The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">to-draw</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">to-draw</code></span>
 handler is used by Jayret to refresh the visual display.</p>
 <p>Having defined this reactor, we can run it in several ways that are
 useful for finding errors, running scientific experiments, and so on.
@@ -351,9 +352,9 @@ the task of how to draw the airplane doesn’t need to change at all!
 Similarly, the definition of the World State does not need to change,
 either.</p>
 <p>Therefore, we only need to modify
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">move-airplane-x-on-tick</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">move-airplane-x-on-tick</code></span>.
 The function
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-modulo</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">num-modulo</code></span>
 does exactly what we need. That is, we want the x-location to always be
 modulo the width of the scene:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object move-airplane-wrapping-x-on-tick(x) {
@@ -372,12 +373,12 @@ thoroughly: it’s tricker than you might think! Have you thought about
 all the cases? For instance, what happens if the airplane is half-way
 off the right edge of the screen?</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Define quality tests for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">move-airplane-wrapping-x-on-tick</code></span>.</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">move-airplane-wrapping-x-on-tick</code></span>.</p></blockquote></blockquote>
 <p>Note</p>
 <blockquote class="Note"><p>It is possible to leave
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">move-airplane-x-on-tick</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">move-airplane-x-on-tick</code></span>
 unchanged and perform the modular arithmetic in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">place-airplane-x</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">place-airplane-x</code></span>
 instead. We choose not to do that for the following reason. In this
 version, we really do think of the airplane as circling around and
 starting again from the left edge (imagine the world is a cylinder…).
@@ -410,13 +411,13 @@ modified.</p>
 <p>Given this, we can revise our definition:</p>
 <p>World Definition</p>
 <blockquote class="WorldDef"><p>The World State is a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">posn</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">posn</code></span>,
 representing the x-position and y-position of the airplane on the
 screen.</p></blockquote>
 <a name="(part._Moving-the-Airplane)"></a>
 <h4 id="Moving-the-Airplane">27.5.1 Moving the Airplane</h4>
 <p>First, let’s consider
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">move-airplane-wrapping-x-on-tick</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">move-airplane-wrapping-x-on-tick</code></span>.
 Previously our airplane moved only in the x-direction; now we want it to
 descend as well, which means we must add something to the current y
 value:</p>
@@ -456,7 +457,7 @@ Have you, for instance, tested what should happen when the airplane is
 near the edge of the screen in either or both dimensions? We thought
 not—go back and write more tests before you proceed!</p></blockquote></blockquote>
 <p>Using the design recipe, now define
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">move-airplane-xy-on-tick</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">move-airplane-xy-on-tick</code></span>.
 You should end up with something like this:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object move-airplane-xy-on-tick(w) {
     return posn(move-airplane-wrapping-x-on-tick(w.x), move-airplane-y-on-tick(w.y));
@@ -473,7 +474,7 @@ code relatively readable.</p>
 <a name="(part._Drawing-the-Scene)"></a>
 <h4 id="Drawing-the-Scene">27.5.2 Drawing the Scene</h4>
 <p>We have to also examine and update
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">place-airplane-x</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">place-airplane-x</code></span>.
 Our earlier definition placed the airplane at an arbitrary y-coordinate;
 now we have to take the y-coordinate from the World State:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object place-airplane-xy(w) {
@@ -500,13 +501,13 @@ end
 R.interact(anim)</code></pre></div></div>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>It’s a little unsatisfactory to have the airplane truncated by the
 screen. You can use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">I.image-width</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">I.image-width</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">I.image-height</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">I.image-height</code></span>
 to obtain the dimensions of an image, such as the airplane. Use these to
 ensure the airplane fits entirely within the screen for the initial
 scene, and similarly in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">move-airplane-xy-on-tick</code></span>.</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">move-airplane-xy-on-tick</code></span>.</p></blockquote></blockquote>
 <a name="(part._Version-Responding-to-Keystrokes)"></a>
 <h3 id="Version-Responding-to-Keystrokes">27.6 Version: Responding to
 Keystrokes</h3>
@@ -518,13 +519,13 @@ a video.</a></p>
 up-key will make it move up, while the down-key will make it descend
 even faster. This is easy to support using what we already know: we just
 need to provide one more handler using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">on-key</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">on-key</code></span>.
 This handler takes two arguments: the first is the current value of the
 world, while the second is a representation of which key was pressed.
 For the purposes of this program, the only key values we care about are
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"up"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"up"</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"down"</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"down"</code></span>.</p>
 <p>This gives us a fairly comprehensive view of the core capabilities of
 reactors:</p>
 <p><img src="world-automaton.jpg" /></p>
@@ -542,7 +543,7 @@ that distance depending on which key is pressed:</p>
     return ask key == "up" then: posn(w.x, w.y - KEY-DISTANCE);key == "down" then: posn(w.x, w.y + KEY-DISTANCE);otherwise: w;
 }</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Why does this function definition contain</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): parse failed (no shifts)
 | otherwise: w</code></pre></div></div>
 <p>as its last condition?</p></blockquote></blockquote>
 <p>Notice that if we receive any key other than the two we expect, we
@@ -572,9 +573,9 @@ the animation</a>.</p>
 <p>First, let’s try to characterize when the animation should halt. This
 means writing a function that consumes the current World State and
 produces a boolean value:
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>
 if the animation should halt,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">false</code></span>
 otherwise. This requires a little arithmetic based on the airplane’s
 size:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object is-on-land-or-water(w) {
@@ -601,7 +602,7 @@ airbase. The actual landing strip is actually below ground level, and
 opens up only when the airplane comes in to land. That means, after
 landing, only the parts of the airplane that stick above ground level
 would be visible. Implement this. As a hint, consider modifying
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">place-airplane-xy</code></span>.</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">place-airplane-xy</code></span>.</p></blockquote></blockquote>
 <a name="(part._Version-A-Fixed-Balloon)"></a>
 <h3 id="Version-A-Fixed-Balloon">27.8 Version: A Fixed Balloon</h3>
 <p>Now let’s add a balloon to the scene. <a
@@ -619,7 +620,7 @@ The former remains unchanged from what it was before, so we can focus on
 the latter.</p>
 <p>Where is the balloon, and how do we represent where it is? The latter
 is easy to answer: that’s what
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">posn</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">posn</code></span>s
 are good for. As for the former, we can decide where it is:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">BALLOON-LOC = posn(600, 300);</code></pre></div></div>
 <p>or we can let Jayret pick a random position:</p>
@@ -633,15 +634,15 @@ airplane and the balloon is within some threshold:</p>
     return distance(airplane-posn, balloon-posn) &lt; COLLISION-THRESHOLD;
 }</code></pre></div></div>
 <p>where
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">COLLISION-THRESHOLD</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">COLLISION-THRESHOLD</code></span>
 is some suitable constant computed based on the sizes of the airplane
 and balloon images. (For these particular images,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">75</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">75</code></span>
 works pretty well.)</p>
 <p>What is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">distance</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">distance</code></span>?
 It consumes two
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">posn</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">posn</code></span>s
 and determines the Euclidean distance between them:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object distance(p1, p2) {
     Object square(n) {
@@ -672,7 +673,7 @@ BALLOON = I.image-url(BALLOON-URL);</code></pre></div></div>
 <p>and also update the drawing function:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">BACKGROUND = I.place-image(BASE, WIDTH / 2, HEIGHT - (BASE-HEIGHT / 2), I.place-image(BALLOON, BALLOON-LOC.x, BALLOON-LOC.y, BLANK-SCENE));</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Do you see how to write
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">game-ends</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">game-ends</code></span>
 more concisely?</p></blockquote></blockquote>
 <p>Here’s another version:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object game-ends(w) {
@@ -714,7 +715,7 @@ above?</p></blockquote></blockquote>
 <p>We can again look at each of the parts of the program to determine
 what can stay the same and what changes. Concretely, we must focus on
 the functions that consume and produce
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">World</code></span>s.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">World</code></span>s.</p>
 <p>On each tick, we consume a world and compute one. The passage of time
 does not consume any fuel, so this code can remain unchanged, other than
 having to create a structure containing the current amount of fuel.

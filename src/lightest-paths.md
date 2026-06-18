@@ -57,8 +57,8 @@ use an option type:
 ```jayret
 /* contract: w :: Object */;
 ```
-When there is `some`{.pyret} value it will be the weight; otherwise the
-weight will be `none`{.pyret}.
+When there is `some`{.jayret} value it will be the weight; otherwise the
+weight will be `none`{.jayret}.
 
 Now let’s think about this inductively. What do we know initially?
 Well, certainly that the source node is at a distance of zero from

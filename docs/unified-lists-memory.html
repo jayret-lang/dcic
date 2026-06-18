@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -140,32 +141,32 @@ implementation is array-based, not a linked list.</span></span></span>
 So at 1001 there’s an indication of how many entries follow, and the
 next memory locations have those values. There are no directory entries
 for the individual elements, but they can be reached by referring to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sl</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sl</code></span>
 followed by an offset: for instance,</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">sl[2]</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">sl.get-now(2)</code></pre></div></div></p></td></tr></table>
 <p>Internally, this turns into: “obtain the address of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sl</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sl</code></span>,
 then add 1 and the offset
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">2</code></span>
 to it”. This produces the address 1001 + 1 + 2 = 1004. Looking up the
 value stored at address 1004, in both languages, produces
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">'eggs'</code></span>.<span class="refelem"><span class="refcolumn"><span class="refcontent">You may find it odd that the offsets begin at 0. While it is indeed
 confusing—the “first” value is at offset
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">0</code></span>,
 the “third” value at offset
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">2</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">2</code></span>,
 and so on—this is a convention both Python and Jayret chose to be
 consistent with most other programming languages.</span></span></span></p>
 <p>Similarly, suppose we try to change the shopping list’s content to
 replace the second value with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">'tea'</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">'tea'</code></span>.
 Recall that the second value is at offset
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1</code></span>:</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">sl[1] = 'tea'</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">sl.set-now(1, 'tea')</code></pre></div></div></p></td></tr></table>
 <p>Again, we obtain the address of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sl</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sl</code></span>,
 which is 1001; add 1 and the offset
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>)
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1</code></span>)
 to it; this gives us the address 1003. Now, we modify the value at 1003
 to be the new value:</p>
 <div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">sl</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1001</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">(length:3)</code></span></p></li><li><p><span class="heapref source">1002</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"bread"</code></span></p></li><li><p><span class="heapref source">1003</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"tea"</code></span></p></li><li><p><span class="heapref source">1004</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"eggs"</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
@@ -176,30 +177,30 @@ change: in Python,</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">sl;</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">[array: "bread", "tea", "eggs"]</code></pre></div></div></p></td></tr></table>
 <p>Observe that what we have learned about aliasing applies here, too.
 Suppose Shaunae and Jonella share a shopping list, where
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sl</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sl</code></span>
 is Shaunae’s and Jonella writes:</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jl = sl</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">jl = sl</code></pre></div></div></p></td></tr></table>
 <p>Now
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">jl</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">jl</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sl</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sl</code></span>
 are aliases for the same data in the heap:</p>
 <div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">sl</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jl</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1001</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">(length:3)</code></span></p></li><li><p><span class="heapref source">1002</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"bread"</code></span></p></li><li><p><span class="heapref source">1003</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"tea"</code></span></p></li><li><p><span class="heapref source">1004</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"eggs"</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
 <p>Thus, modifying the list
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">jl</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">jl</code></span>
 has the same impact as modifying it via
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sl</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sl</code></span>:</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jl[0] = 'butter'</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">jl.set-now(0, 'butter')</code></pre></div></div></p></td></tr></table>
 <p>means the memory looks like</p>
 <div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">sl</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jl</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1001</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">(length:3)</code></span></p></li><li><p><span class="heapref source">1002</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"butter"</code></span></p></li><li><p><span class="heapref source">1003</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"tea"</code></span></p></li><li><p><span class="heapref source">1004</span>:<span class="hspace"> </span><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">"eggs"</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
 <p>Thus, if we ask for the value of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sl</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sl</code></span>,
 we will see in Python:</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">sl;</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">['butter', 'tea', 'eggs']</code></pre></div></div></p></td></tr></table>
 <p>and in Jayret:</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">sl;</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">[array: "butter", "tea", "eggs"]</code></pre></div></div></p></td></tr></table>
 <p>even though we did not make a modification through the name
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sl</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sl</code></span>.</p>
 <div class="navsetbottom">
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="unified-equality.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_state.html">up</a>&nbsp;&nbsp;<a href="unified-cyclic-data.html" rel="next">next &rarr;</a></span>&nbsp;

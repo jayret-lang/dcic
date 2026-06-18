@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -134,16 +135,16 @@ Costs</h4>
 <p>In <a
 href="From_Repeated_Expressions_to_Functions.html##pen-cost-pyret">Functions
 Practice: Cost of pens</a>, we wrote a program
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>)
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pen-cost</code></span>)
 to compute the cost of ordering pens. Continuing the example, we now
 want to account for shipping costs. We’ll determine shipping charges
 based on the cost of the order.</p>
 <p>Specifically, we will write a function
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>
 to compute the total cost of an order including shipping. Assume an
 order valued at $10 or less ships for $4, while an order valued above
 $10 ships for $8. As usual, we will start by writing examples of the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>
 computation.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Use the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">assertEquals</code></span>
@@ -153,7 +154,7 @@ blocks to write several examples of add-shipping. How are you choosing
 which inputs to use in your examples? Are you picking random inputs?
 Being strategic in some way? If so, what’s your strategy?</p></blockquote></blockquote>
 <p>Here is a proposed collection of examples for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>.</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(add-shipping(10), 10 + 4);
 assertEquals(add-shipping(3.95), 3.95 + 4);
 assertEquals(add-shipping(20), 20 + 8);
@@ -163,47 +164,47 @@ across our choices?</p></blockquote></blockquote>
 <p>Our proposed examples feature several strategic decisions:</p>
 <ul>
 <li><p>Including
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">10</code></span>,
 which is at the boundary of charges based on the text</p></li>
 <li><p>Including
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10.01</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">10.01</code></span>,
 which is just over the boundary</p></li>
 <li><p>Including both natural and real (decimal) numbers</p></li>
 <li><p>Including examples that should result in each shipping charge
 mentioned in the problem
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">4</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>)</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">8</code></span>)</p></li>
 </ul>
 <p>So far, we have used a simple rule for creating a function body from
 examples: locate the parts that are changing, replace them with names,
 then make the names the parameters to the function.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What is changing across our
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>
 examples? Do you notice anything different about these changes compared
 to the examples for our previous functions?</p></blockquote></blockquote>
 <p>Two things are new in this set of examples:</p>
 <ul>
 <li><p>The values of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">4</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">8</code></span>
 differ across the examples, but they each occur in multiple
 examples.</p></li>
 <li><p>The values of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">4</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">8</code></span>
 appear only in the computed answers—not as an input. Which one we use
 seems to depend on the input value.</p></li>
 </ul>
 <p>These two observations suggest that something new is going on with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>.
 In particular, we have clusters of examples that share a fixed value
 (the shipping charge), but different clusters (a) use different values
 and (b) have a pattern to their inputs (whether the input value is less
 than or equal to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">10</code></span>).
 This calls for being able to ask questions about inputs within our
 programs.</p>
 <a name="(part._cond-boolean-intro)"></a>
@@ -211,7 +212,7 @@ programs.</p>
 Decisions</h4>
 <p>To ask a question about our inputs, we use a new kind of expression
 called an if expression. Here’s the full definition of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int add-shipping(int order-amt) {
     // add shipping costs to order total
     return if (order-amt &lt;= 10) {
@@ -226,16 +227,16 @@ called an if expression. Here’s the full definition of
     assertEquals(add-shipping(10.01), 10.01 + 8);
 }</code></pre></div></div>
 <p>In an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 expression, we ask a question that can produce an answer that is true or
 false (here
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 10</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt &lt;= 10</code></span>,
 which we’ll explain below in <a
 href="Conditionals_and_Booleans.html##booleans">Booleans</a>), provide
 one expression for when the answer to the question is true
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt + 4</code></span>),
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt + 4</code></span>),
 and another for when the result is false
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt + 8</code></span>).
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt + 8</code></span>).
 The
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">else</code></span>
 in the program marks the answer in the false case; we call this the else
@@ -244,10 +245,10 @@ clause.</p>
 <h4 id="booleans">3.4.3 Booleans</h4>
 <p>Every expression in Jayret evaluates in a value. So far, we have seen
 three types of values:
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Number</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">String</code></span>,
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Image</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Image</code></span>.
 What type of value does a question like
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt &lt;= 10</code></span>
 produce? We can use the interactions prompt to experiment and find
@@ -258,27 +259,27 @@ so far?</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">3.95 &lt;= 10;
 20 &lt;= 10;</code></pre></div></div></blockquote></blockquote>
 <p>The values
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">false</code></span>
 belong to a new type in Jayret, called
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>.<span class="refelem"><span class="refcolumn"><span class="refcontent">Named for <a href="https://en.wikipedia.org/wiki/George_Boole">George
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Boolean</code></span>.<span class="refelem"><span class="refcolumn"><span class="refcontent">Named for <a href="https://en.wikipedia.org/wiki/George_Boole">George
 Boole</a>.</span></span></span> While there are an infinitely many
 values of type
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Number</code></span>,
 there are only two of type
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>:
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Boolean</code></span>:
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">false</code></span>.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>What would happen if we entered
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 10</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt &lt;= 10</code></span>
 at the interactions prompt to explore booleans? Why does that
 happen?</p></blockquote></blockquote>
 <a name="(part._bool-comparisons)"></a>
 <h5 id="bool-comparisons">3.4.3.1 Other Boolean Operations</h5>
 <p>There are many other built-in operations that return
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Boolean</code></span>
 values. Comparing values for equality is a common one:
 <span class="refelem"><span class="refcolumn"><span class="refcontent">There is much more we can and should say about equality, which we will
 do later [<a href="Sharing_and_Equality.html##identical-eq">Re-Examining
@@ -288,10 +289,10 @@ Equality</a>].</span></span></span></p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">"cat" == "dog";</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">false</code></pre></div></div></p></td></tr></table>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">"cat" == "CAT";</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">false</code></pre></div></div></p></td></tr></table>
 <p>In general,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">==</code></span>
 checks whether two values are equal. Note this is different from the
 single
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">=</code></span>
 used to associate names with values in the directory.</p>
 <p>The last example is the most interesting: it illustrates that strings
 are case-sensitive, meaning individual letters must match in their case
@@ -311,24 +312,24 @@ explaining:</p>
 <a
 href="https://en.wikipedia.org/wiki/ASCII">ASCII</a>.<span class="refelem"><span class="refcolumn"><span class="refcontent">Things get far more complicated with non-ASCII letters: e.g., Jayret
 thinks
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Ł"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Ł"</code></span>
 is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&gt;</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&gt;</code></span>
 than
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Z"</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Z"</code></span>,
 but in Polish, this should be
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">false</code></span>.
 Worse, the ordering <a
 href="https://en.wikipedia.org/wiki/Alphabetical_order">depends on
 location</a> (e.g., Denmark/Norway vs. Finland/Sweden).</span></span></span></p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Can you compare
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">false</code></span>?
 Try comparing them for equality
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>),
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">==</code></span>),
 then for inequality (such as
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;</code></span>).</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&lt;</code></span>).</p></blockquote></blockquote>
 <p>In general, you can compare any two values for equality (well,
 almost, we’ll come back to this later); for instance:</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">"a" == 1;</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">false</code></pre></div></div></p></td></tr></table>
@@ -339,20 +340,20 @@ specific operators:</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">string-equal("a", "a");</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">true</code></pre></div></div></p></td></tr></table>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">string-equal("a", "b");</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">false</code></pre></div></div></p></td></tr></table>
 <p>Why use these operators instead of the more generic
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>?</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">==</code></span>?</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Try</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">num-equal("a", 1);
 string-equal("a", 1);</code></pre></div></div></blockquote></blockquote>
 <p>Therefore, it’s wise to use the type-specific operators where you’re
 expecting the two arguments to be of the same type. Then, Jayret will
 signal an error if you go wrong, instead of blindly returning an answer
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>)
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">false</code></span>)
 which lets your program continue to compute a nonsensical value.</p>
 <p>There are even more Boolean-producing operators, such as:</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">wm = "will.i.am";</code></pre></div></div></p></blockquote></td></tr></table>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">string-contains(wm, "will");</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">true</code></pre></div></div></p></td></tr></table>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">Note the capital
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">W</code></span>.</span></span></span></p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">W</code></span>.</span></span></span></p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">string-contains(wm, "Will");</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">false</code></pre></div></div></p></td></tr></table>
 <p>In fact, just about every kind of data will have some Boolean-valued
 operators to enable comparisons.</p>
@@ -367,10 +368,10 @@ have good eyesight and—either pass a test or have a temporary license.
 Also, you’re allowed to drive if you are not inebriated.</p>
 <p>Corresponding to these forms of combinations, Jayret offers three
 main operations:
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&amp;&amp;</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">||</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&amp;&amp;</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">||</code></span>,
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">!</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">!</code></span>.
 Here are some examples of their use:</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">(1 &lt; 2) &amp;&amp; (2 &lt; 3);</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">true</code></pre></div></div></p></td></tr></table>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">(1 &lt; 2) &amp;&amp; (3 &lt; 2);</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">false</code></pre></div></div></p></td></tr></table>
@@ -382,32 +383,32 @@ answer to a true/false question.</p></blockquote></blockquote>
 <a name="(part._else-if)"></a>
 <h4 id="else-if">3.4.4 Asking Multiple Questions</h4>
 <p>Shipping costs are rising, so we want to modify the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>
 program to include a third shipping level: orders between $10 and $30
 ship for $8, but orders over $30 ship for $12. This calls for two
 modifications to our program:</p>
 <ul>
 <li><p>We have to be able to ask another question to distinguish
 situations in which the shipping charge is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">8</code></span>
 from those in which the shipping charge is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">12</code></span>.</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">12</code></span>.</p></li>
 <li><p>The question for when the shipping charge is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">8</code></span>
 will need to check whether the input is between two values.</p></li>
 </ul>
 <p>We’ll handle these in order.</p>
 <p>The current body of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>
 asks one question:
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 10</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt &lt;= 10</code></span>.
 We need to add another one for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 30</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt &lt;= 30</code></span>,
 using a charge of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">12</code></span>
 if that question fails. Where do we put that additional question?</p>
 <p>An expanded version of the if-expression, using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else if</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">else if</code></span>,
 allows you to ask multiple questions:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int add-shipping(int order-amt) {
     // add shipping costs to order total
@@ -426,11 +427,11 @@ allows you to ask multiple questions:</p>
 <p>At this point, you should also add
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where { }</code></span>
 examples that use the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">12</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">12</code></span>
 charge.</p>
 <p>How does Jayret determine which answer to return? It evaluates each
 question expression in order, starting from the one that follows
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>.
 It continues through the questions, returning the value of the answer of
 the first question that returns true. Here’s a summary of the
 if-expression syntax and how it evaluates.</p>
@@ -446,43 +447,43 @@ if-expression syntax and how it evaluates.</p>
 cases, thus accommodating an arbitrary number of questions within a
 program.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>The problem description for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>
 said that orders between
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">10</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">30</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">30</code></span>
 should incur an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">8</code></span>
 charge. How does the above code capture “between”?</p></blockquote></blockquote>
 <p>This is currently entirely implicit. It depends on us understanding
 the way an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 evaluates. The first question is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 10</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt &lt;= 10</code></span>,
 so if we continue to the second question, it means
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &gt; 10</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt &gt; 10</code></span>.
 In this context, the second question asks whether
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 30</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt &lt;= 30</code></span>.
 That’s how we’re capturing “between”-ness.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>How might you modify the above code to build the “between 10 and 30”
 requirement explicitly into the question for the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">8</code></span>
 case?</p></blockquote></blockquote>
 <p>Remember the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&amp;&amp;</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&amp;&amp;</code></span>
 operator on booleans? We can use that to capture “between”
 relationships, as follows:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">(order-amt &gt; 10) &amp;&amp; (order-amt &lt;= 30);</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Why are there parentheses around the two comparisons? If you replace
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt</code></span>
 with a concrete value (such as
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">20</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">20</code></span>)
 and leave off the parenthesis, what happens when you evaluate this
 expression in the interactions pane?</p></blockquote></blockquote>
 <p>Here is what
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>
 look like with the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&amp;&amp;</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&amp;&amp;</code></span>
 included:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int add-shipping(int order-amt) {
     // add shipping costs to order total
@@ -499,10 +500,10 @@ included:</p>
     assertEquals(add-shipping(31), 31 + 12);
 }</code></pre></div></div>
 <p>Both versions of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>
 support the same examples. Are both correct? Yes. And while the first
 part of the second question
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &gt; 10</code></span>)
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt &gt; 10</code></span>)
 is redundant, it can be helpful to include such conditions for three
 reasons:</p>
 <ol type="1">
@@ -516,16 +517,16 @@ later one.</p></li>
 </ol>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>An online-advertising firm needs to determine whether to show an ad
 for a skateboarding park to website users. Write a function
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">show-ad</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">show-ad</code></span>
 that takes the age and haircolor of an individual user and returns
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>
 if the user is between the ages of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">9</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">9</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">18</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">18</code></span>
 and has either pink or purple hair.</p>
 <p>Try writing this two ways: once with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 expressions and once using just boolean operations.</p></blockquote></blockquote>
 <blockquote class="RespCS"><p class="RespCSHeader">Responsible Computing</p><blockquote class="RespCSBody"><p>Assumptions about users get encoded in even the simplest functions.
 The advertising exercise shows an example in which a decision gets made
@@ -564,9 +565,9 @@ and function calls to values. Let’s revisit this process, this time
 expanding to consider if-expressions. Suppose we want to compute the
 wages of a worker. The worker is paid $10 for every hour up to the first
 40 hours, and is paid $15 for every extra hour. Let’s say
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hours</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">hours</code></span>
 contains the number of hours they work, and suppose it’s
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">45</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">45</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">hours = 45;</code></pre></div></div>
 <p>Suppose the formula for computing the wage is</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">if (hours &lt;= 40) {
@@ -578,37 +579,37 @@ contains the number of hours they work, and suppose it’s
 process that should match what you’ve seen in algebra classes (the steps
 are described in the margin notes to the right):
 <span class="refelem"><span class="refcolumn"><span class="refcontent">The first step is to substitute the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hours</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">hours</code></span>
 with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">45</code></span>.</span></span></span></p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">45</code></span>.</span></span></span></p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">if (45 &lt;= 40) {
     return 45 * 10;
 } else if (45 &gt; 40) {
     return (40 * 10) + ((45 - 40) * 15);
 }</code></pre></div></div>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">Next, the conditional part of the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 expression is evaluated, which in this case is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.</span></span></span></p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">false</code></span>.</span></span></span></p>
 <pre><code>=&gt; if (false) {
        return 45 * 10;
    } else if (45 &gt; 40) {
        return (40 * 10) + ((45 - 40) * 15);
    }</code></pre>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">Since the condition is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">false</code></span>,
 the next branch is tried.</span></span></span></p>
 <pre><code>=&gt; if (45 &gt; 40) {
        return (40 * 10) + ((45 - 40) * 15);
    }</code></pre>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">Jayret evaluates the question in the conditional, which in this case
 produces
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>.</span></span></span></p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>.</span></span></span></p>
 <pre><code>=&gt; if (true) {
        return (40 * 10) + ((45 - 40) * 15);
    }</code></pre>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">Since the condition is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>,
 the expression reduces to the body of that branch. After that, it’s just
 arithmetic.</span></span></span></p>
 <pre><code>=&gt; (40 * 10) + ((45 - 40) * 15)</code></pre>
@@ -624,30 +625,30 @@ want to try and work through the evaluation of a Jayret program by hand
 <p>We started this chapter wanting to account for shipping costs on an
 order of pens. So far, we have written two functions:</p>
 <ul>
-<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pen-cost</code></span>
 for computing the cost of the pens</p></li>
-<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>
 for adding shipping costs to a total amount</p></li>
 </ul>
 <p>What if we now wanted to compute the price of an order of pens
 including shipping? We would have to use both of these functions
 together, sending the output of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pen-cost</code></span>
 to the input of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Write an expression that computes the total cost, with shipping, of
 an order of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">10</code></span>
 pens that say
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"bravo"</code></span>.</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"bravo"</code></span>.</p></blockquote></blockquote>
 <p>There are two ways to structure this computation. We could pass the
 result of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pen-cost</code></span>
 directly to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">add-shipping(pen-cost(10, "bravo"));</code></pre></div></div>
 <p>Alternatively, you might have named the result of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pen-cost</code></span>
 as an intermediate step:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">pens = pen-cost(10, "bravo");
 add-shipping(pens);</code></pre></div></div>
@@ -658,38 +659,38 @@ Compositions Evaluate</h5>
 <p>Let’s review how these programs evaluate in the context of
 substitution and the directory. We’ll start with the second version, in
 which we explicitly name the result of calling
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pen-cost</code></span>.</p>
 <p>Evaluating the second version: At a high level, Jayret goes through
 the following steps:</p>
 <ul>
 <li><p>Substitute
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">10</code></span>
 for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-pens</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">num-pens</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"bravo"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"bravo"</code></span>
 for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">message</code></span>
 in the body of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pen-cost</code></span>,
 then evaluate the substituted body</p></li>
 <li><p>Store
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pens</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pens</code></span>
 in the directory, with a value of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3.5</code></span></p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">3.5</code></span></p></li>
 <li><p>As a first step in evaluating
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping(pens)</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping(pens)</code></span>,
 look up the value of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pens</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pens</code></span>
 in the directory</p></li>
 <li><p>Substitute
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3.5</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">3.5</code></span>
 for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt</code></span>
 in the body of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>
 then evaluate the resulting expression, which results in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">7.5</code></span></p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">7.5</code></span></p></li>
 </ul>
 <p>Evaluating the first version: As a reminder, the first version
 consisted of a single expression:</p>
@@ -697,29 +698,29 @@ consisted of a single expression:</p>
 <ul>
 <li><p>Since arguments are evaluated before functions get called, start
 by evaluating
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost(10, "bravo")</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pen-cost(10, "bravo")</code></span>
 (again using substitution), which reduces to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3.5</code></span></p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">3.5</code></span></p></li>
 <li><p>Substitute
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3.5</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">3.5</code></span>
 for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt</code></span>
 in the body of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>
 then evaluate the resulting expression, which results in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">7.5</code></span></p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">7.5</code></span></p></li>
 </ul>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Contrast these two summaries. Where do they differ? What aspects of
 the code led to those differences?</p></blockquote></blockquote>
 <p>The difference lies in the use of the directory: the version that
 explicitly named
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pens</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pens</code></span>
 uses the directory. The other version doesn’t use the directory at all.
 Yet both approaches lead to the same result, since the same value (the
 result of calling
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pen-cost</code></span>)
 gets substituted into the body of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">add-shipping</code></span>.</p>
 <p>This analysis might suggest that the version that uses the directory
 is somehow wasteful: it seems to take more steps just to end up at the
 same result. Yet one might argue that the version that uses the
@@ -734,9 +735,9 @@ that the two versions aren’t as different as they appear right now.</p>
 Directory</h5>
 <p>Let’s try one more variation on this problem. Perhaps seeing us name
 the intermediate result of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pen-cost</code></span>
 made you wish that we had used intermediate names to make the body of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pen-cost</code></span>
 more readable. For example, we could have written it as:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int pen-cost(int num-pens, String message) {
     /* total cost for pens, each 25 cents
@@ -749,15 +750,15 @@ more readable. For example, we could have written it as:</p>
 }</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Write out the high level steps for how Jayret will evaluate the
 following program using this new version of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pen-cost</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">pens = pen-cost(10, "bravo");
 add-shipping(pens);</code></pre></div></div></blockquote></blockquote>
 <p>Hopefully, you made two entries into the directory, one for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message-cost</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">message-cost</code></span>
 inside the body of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pen-cost</code></span>
 and one for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pens</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pens</code></span>
 as we did earlier.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Consider the following program. What result do you think Jayret
 should produce?</p>
@@ -767,25 +768,25 @@ add-shipping(pens);</code></pre></div></div>
 <p>Using the directory you envisioned for the previous activity, what
 answer do you think you will get?</p></blockquote></blockquote>
 <p>Something odd is happening here. The new program tries to use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message-cost</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">message-cost</code></span>
 to define
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cheap-message</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">cheap-message</code></span>.
 But the name
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message-cost</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">message-cost</code></span>
 doesn’t appear anywhere in the program, unless we peek inside the
 function bodies. But letting code peek inside function bodies doesn’t
 make sense: you might not be able to see inside the functions (if they
 are defined in libraries, for example), so this program should report an
 error that
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message-cost</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">message-cost</code></span>
 is undefined.</p>
 <p>Okay, so that’s what should happen. But our discussion of the
 directory suggests that both
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pens</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pens</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message-cost</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">message-cost</code></span>
 will be in the directory, meaning Jayret would be able to use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message-cost</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">message-cost</code></span>.
 What’s going on?</p>
 <p>This example prompts us to explain one more nuance about the
 directory. Precisely to avoid problems like the one illustrated here
@@ -794,9 +795,9 @@ function are local (private) to the function body. When you call a
 function, Jayret sets up a local directory that other functions can’t
 see. A function body can add or refer to names in either its local,
 private directory (as with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message-cost</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">message-cost</code></span>)
 or the overall (global) directory (as with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pens</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pens</code></span>).
 But in no case can one function call peek inside the local directory for
 another function call. Once a function call completes, its local
 directory disappears (because nothing else would be able to use it
@@ -804,9 +805,9 @@ anyway).</p>
 <a name="(part._Nested-Conditionals)"></a>
 <h4 id="Nested-Conditionals">3.4.7 Nested Conditionals</h4>
 <p>We showed that the results in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>-expressions
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>-expressions
 are themselves expressions (such as
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt + 4</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">order-amt + 4</code></span>
 in the following function):</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int add-shipping(int order-amt) {
     // add shipping costs to order total
@@ -821,7 +822,7 @@ be entire if-expressions!. To see an example of this, let’s develop
 another function. This time, we want a function that will compute the
 cost of movie tickets. Let’s start with a simple version in which
 tickets are
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">$10</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">$10</code></span>
 apiece.</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int buy-tickets1(int count) {
     // Compute the price of tickets at $10 each
@@ -833,7 +834,7 @@ apiece.</p>
 <p>Now, let’s augment the function with an extra parameter to indicate
 whether the purchaser is a senior citizen who is entitled to a discount.
 In such cases, we will reduce the overall price by
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">15%</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">15%</code></span>.</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int buy-tickets2(int count, boolean is-senior) {
     /* Compute the price of tickets at $10 each with
        senior discount of 15% */
@@ -853,10 +854,10 @@ In such cases, we will reduce the overall price by
 <p>There are a couple of things to notice here:</p>
 <ul>
 <li><p>The function now has an additional parameter of type
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Boolean</code></span>
 to indicate whether the purchaser is a senior citizen.</p></li>
 <li><p>We have added an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 expression to check whether to apply the discount.</p></li>
 <li><p>We have more examples, because we have to vary both the number of
 tickets and whether a discount applies.</p></li>
@@ -888,11 +889,11 @@ whether the number of tickets qualifies for a discount:</p>
     assertEquals(buy-tickets3(6, true), 6 * 10 * 0.85);
 }</code></pre></div></div>
 <p>Notice here that we have put a second
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 expression within the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">else</code></span>
 case. This is valid code. (We could have also made an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">else if</code></span>
 here, but we didn’t so that we could show that nested conditionals are
 also valid).</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Show the steps through which this function would evaluate in a
@@ -903,17 +904,17 @@ might end up having to modify later?</p></blockquote></blockquote>
 <p>Part of good code style is making sure that our programs would be
 easy to maintain later. If the theater changes its discount policy, for
 example, the current code would require us to change the discount
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0.85</code></span>)
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">0.85</code></span>)
 in two places. It would be much better to have that computation written
 only one time. We can achieve that by asking which conditions lead to
 the discount applying, and writing them as the check within just one
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 expression.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Under what conditions should the discount apply?</p></blockquote></blockquote>
 <p>Here, we see that the discount applies if either the purchaser is a
 senior or more than 5 tickets have been bought. We can therefore
 simplify the code by using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">||</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">||</code></span>
 as follows (we’ve left out the examples because they haven’t changed
 from the previous version):</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int buy-tickets4(int count, boolean is-senior) {
@@ -930,21 +931,21 @@ from the previous version):</p>
 applies are described together in one place. There are still two small
 changes we want to make to really clean this up though.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Take a look at the expression
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-senior == true</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-senior == true</code></span>.
 What will this evaluate to when the value of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-senior</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-senior</code></span>
 is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>?
 What will it evaluate to when the value of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-senior</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-senior</code></span>
 is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>?</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">false</code></span>?</p></blockquote></blockquote>
 <p>Notice that the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">== true</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">== true</code></span>
 part is redundant. Since
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-senior</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-senior</code></span>
 is already a boolean, we can check its value without using the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">==</code></span>
 operator. Here’s the revised code:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int buy-tickets5(int count, boolean is-senior) {
     /* Compute the price of tickets at $10 each with
@@ -959,17 +960,17 @@ operator. Here’s the revised code:</p>
 <p>Notice the revised question in the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 expression. As a general rule, your code should never include
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">== true</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">== true</code></span>.
 You can always take that out and just use the expression you were
 comparing to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What do you write to eliminate
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">== false</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">== false</code></span>?
 For example, what might you write instead of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-senior == false</code></span>?</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-senior == false</code></span>?</p></blockquote></blockquote>
 <p>Finally, notice that we still have one repeated computation: the base
 cost of the tickets
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">count * 10</code></span>):
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">count * 10</code></span>):
 if the ticket price changes, it would be better to have only one place
 to update that price. We can clean that up by first computing the base
 price, then applying the discount when appropriate:</p>
@@ -992,37 +993,37 @@ different situations. We ask questions using if-expressions, in which
 each question or check uses an operator that produces a boolean.</p>
 <ul>
 <li><p>There are two Boolean values:
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">false</code></span>.</p></li>
 <li><p>A simple kind of check (that produces a boolean) compares values
 for equality
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>)
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">==</code></span>)
 or
-inequality(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;&gt;</code></span>).
+inequality(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&lt;&gt;</code></span>).
 Other operations that you know from math, like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&lt;</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&gt;=</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&gt;=</code></span>,
 also produce booleans.</p></li>
 <li><p>We can build larger expressions that produce booleans from
 smaller ones using the operators
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&amp;&amp;</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">||</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">!</code></span>.</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&amp;&amp;</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">||</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">!</code></span>.</p></li>
 <li><p>We can use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 expressions to ask true/false questions within a computation, producing
 different results in each case.</p></li>
 <li><p>We can nest conditionals inside one another if needed.</p></li>
 <li><p>You never need to use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">==</code></span>
 to compare a value to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>
 or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>:
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">false</code></span>:
 you can just write the value or expression on its own (perhaps with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">!</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">!</code></span>
 to get the same computation).</p></li>
 </ul>
 <div class="navsetbottom">

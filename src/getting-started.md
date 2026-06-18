@@ -104,7 +104,7 @@ For now, we will work only in the right-hand side (the
 interactions pane).
 
 The ››› is called the “prompt”—that’s where we tell CPO to run a
-program. Let’s tell it to add `3`{.pyret} and `5`{.pyret}. Here’s what we write:
+program. Let’s tell it to add `3`{.jayret} and `5`{.jayret}. Here’s what we write:
 
 ::: {.pyret-repl}
 ```jayret
@@ -135,9 +135,9 @@ Not surprisingly, we can do other arithmetic computations
 ```
 :::
 
-(Note: `*`{.pyret} is how we write the multiplication sign.)
+(Note: `*`{.jayret} is how we write the multiplication sign.)
 
-What if we try `3 + 4 * 5`{.pyret}?
+What if we try `3 + 4 * 5`{.jayret}?
 
 ::: {.do-now}
 Try it! See what Jayret says.
@@ -208,8 +208,8 @@ we want the minimum of two numbers. We’d write this as
 num-min(2, 8);
 ```
 :::
-[Why `num-`{.pyret}? It’s because “minimum” is a concept that makes sense
-on data other than numbers; Jayret calls the min operator `num-min`{.pyret} to
+[Why `num-`{.jayret}? It’s because “minimum” is a concept that makes sense
+on data other than numbers; Jayret calls the min operator `num-min`{.jayret} to
 avoid ambiguity.]{.margin-note}
 
 ```{=html}
@@ -218,9 +218,9 @@ avoid ambiguity.]{.margin-note}
 
 #### 3.1.3 Expressions {#expressions}
 
-Note that when we run `num-min`{.pyret}, we get a number in return (as we did
-for `+`{.pyret}, `*`{.pyret}, …). This means we should be able to use the result of
-`num-min`{.pyret} in other computations where a number is expected:
+Note that when we run `num-min`{.jayret}, we get a number in return (as we did
+for `+`{.jayret}, `*`{.jayret}, …). This means we should be able to use the result of
+`num-min`{.jayret} in other computations where a number is expected:
 
 ::: {.pyret-repl}
 ```jayret
@@ -266,7 +266,7 @@ What if you get a fraction as a response?
 
 If you’re not sure how to get a fraction, there are two ways: you can either
 write an expression that produces a fractional answer, or you can type
-one in directly (e.g., `1/3`{.pyret}).
+one in directly (e.g., `1/3`{.jayret}).
 
 Either way, you can click on the result
 in the interactions pane to change how the number is presented. Try it!
@@ -295,7 +295,7 @@ and we should give them names:
 - Expression: a computation written in the formal notation
   of a programming language
   
-  Examples here include `4`{.pyret}, `5 + 1`{.pyret}, and `(3 + 4) * (5 + 1)`{.pyret}
+  Examples here include `4`{.jayret}, `5 + 1`{.jayret}, and `(3 + 4) * (5 + 1)`{.jayret}
 
 - Value: an expression that can’t be computed further (it is
   its own result)
@@ -323,7 +323,7 @@ we use what are called strings. Here are some examples:
 
 What do we notice? Strings can contain spaces, punctuation, and
 numbers. We use them to capture textual data. For our flags
-example, we’ll use strings to name colors: `"red"`{.pyret}, `"blue"`{.pyret}, etc.
+example, we’ll use strings to name colors: `"red"`{.jayret}, `"blue"`{.jayret}, etc.
 
 Note that strings are case-sensitive, meaning that
 capitalization matters (we’ll see where it matters shortly).
@@ -352,11 +352,11 @@ these Jayret expressions at the interactions prompt to see
 what they produce:
 
 
-- `circle(30, "solid", "red")`{.pyret}
+- `circle(30, "solid", "red")`{.jayret}
 
-- `circle(30, "outline", "blue")`{.pyret}
+- `circle(30, "outline", "blue")`{.jayret}
 
-- `rectangle(20, 10, "solid", "purple")`{.pyret}
+- `rectangle(20, 10, "solid", "purple")`{.jayret}
 :::
 
 Each of these expressions names the shape to draw, then configures the
@@ -376,8 +376,8 @@ like this in the documentation shortly.
 
 ##### 3.1.6.1 Combining Images {#expressions-combine-images}
 
-Earlier, we saw that we could use operations like `+`{.pyret} and
-`*`{.pyret} to combine numbers through expressions. Any time you get a
+Earlier, we saw that we could use operations like `+`{.jayret} and
+`*`{.jayret} to combine numbers through expressions. Any time you get a
 new kind of datum in programming, you should ask what operations the
 language gives you for working with that data. In the case of images
 in Jayret, the collection includes the ability to:
@@ -403,35 +403,35 @@ Type the following expressions into Jayret:
 rotate(45, rectangle(20, 30, "solid", "red"));
 ```
 
-What does the `45`{.pyret} represent? Try some different numbers in place of the
-`45`{.pyret} to confirm or refine your hypothesis.
+What does the `45`{.jayret} represent? Try some different numbers in place of the
+`45`{.jayret} to confirm or refine your hypothesis.
 
 ```jayret
 overlay(circle(25, "solid", "yellow"),
   rectangle(50, 50, "solid", "blue"));
 ```
 
-Can you describe in prose what `overlay`{.pyret} does?
+Can you describe in prose what `overlay`{.jayret} does?
 
 ```jayret
 above(circle(25, "solid", "red"), rectangle(30, 50, "solid", "blue"));
 ```
 
-What kind of value do you get from using the `rotate`{.pyret} or
-`above`{.pyret} operations? (hint: your answer should be one of
+What kind of value do you get from using the `rotate`{.jayret} or
+`above`{.jayret} operations? (hint: your answer should be one of
 number, string, or image)
 :::
 
 These examples let us think a bit deeper about expressions. We have
 simple values like numbers and strings. We have operations or
-functions that combine values, like `+`{.pyret} or
-`rotate`{.pyret} (“functions” is the term more commonly used in
+functions that combine values, like `+`{.jayret} or
+`rotate`{.jayret} (“functions” is the term more commonly used in
 computing, whereas your math classes likely used “operations”). Every
 function produces a value, which can be used as input to another
 function. We build up expressions by using values and the outputs of
 functions as inputs to other functions.
 
-For example, we used `above`{.pyret} to create an image out of two
+For example, we used `above`{.jayret} to create an image out of two
 smaller images. We could take that image and rotate it using the
 following expression.
 
@@ -449,8 +449,8 @@ learning to program.
 Try to create the following images:
 
 
-- a blue triangle (you pick the size). As with `circle`{.pyret},
-  there is a `triangle`{.pyret} function that takes a side length, fill
+- a blue triangle (you pick the size). As with `circle`{.jayret},
+  there is a `triangle`{.jayret} function that takes a side length, fill
   style, and color and produces an image of an equilateral triangle.
 
 - a blue triangle inside a yellow rectangle
@@ -462,7 +462,7 @@ Try to create the following images:
 
 - whatever you want—play around and have fun!
 
-The bullseye might be a bit challenging. The `overlay`{.pyret}
+The bullseye might be a bit challenging. The `overlay`{.jayret}
 function only takes two images, so you’ll need to think about how to
 use composition to layer three circles.
 :::
@@ -524,10 +524,10 @@ information that the error message is giving you about what went wrong
 
 The bottom of the error message says:
 
-_The `*`{.pyret} operator expects to be given two Numbers_
+_The `*`{.jayret} operator expects to be given two Numbers_
 
 Notice the word “Numbers”. Jayret is telling you what kind of
-information works with the `*`{.pyret} operation. In programming, values
+information works with the `*`{.jayret} operation. In programming, values
 are organized into types (e.g., number, string, image). These
 types are used in turn to describe what kind of inputs and results (a.k.a.,
 outputs) a function works with. For example, * expects to be given two
@@ -540,7 +540,7 @@ of inputs and promised types of outputs when using a specific
 function. Here are several examples of Jayret contracts (written in the
 notation you will see in the documentation):
 
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 * :: (x1 :: Number, x2 :: Number) -> Number
 
@@ -560,32 +560,32 @@ Look at the notation pattern across these contracts. Can you label the
 various parts and what information they appear to be giving you?
 :::
 
-Let’s look closely at the `overlay`{.pyret} contract to make sure you
+Let’s look closely at the `overlay`{.jayret} contract to make sure you
 understand how to read it. It gives us several pieces of information:
 
-- There is a function called `overlay`{.pyret}
+- There is a function called `overlay`{.jayret}
 
-- It takes two inputs (the parts within the parentheses), both of which have the type `Image`{.pyret}
+- It takes two inputs (the parts within the parentheses), both of which have the type `Image`{.jayret}
 
 - The first input is the image that will appear on top
 
 - The second input is the image that will appear on the bottom
 
-- The output from calling the function (which follows `->`{.pyret}) will have type `Image`{.pyret}
+- The output from calling the function (which follows `->`{.jayret}) will have type `Image`{.jayret}
 
-In general, we read the double-colon (`:`{.pyret}) as “has the type”. We
-read the arrow (`->`{.pyret}) as “returns”.
+In general, we read the double-colon (`:`{.jayret}) as “has the type”. We
+read the arrow (`->`{.jayret}) as “returns”.
 
 Whenever you compose smaller expressions into more complex
 expressions, the types produced by the smaller expressions have to
 match the types required by the function you are using to compose
-them. In the case of our erroneous `*`{.pyret} expression, the contract
-for `*`{.pyret} expects two numbers as inputs, but we gave an image for
+them. In the case of our erroneous `*`{.jayret} expression, the contract
+for `*`{.jayret} expects two numbers as inputs, but we gave an image for
 the second input. This resulted in an error message when we tried to
 run the expression.
 
 A contract also summarizes how many inputs a function
-expects. Look at the contract for the `circle`{.pyret} function. It
+expects. Look at the contract for the `circle`{.jayret} function. It
 expects three inputs: a number (for the radius), a string (for the
 style), and a string (for the color). What if we forgot the style
 string, and only provided the radius and color, as in:
@@ -622,15 +622,15 @@ likely also run into one additional kind of error, such as when you
 make a mistake with the punctuation of programming. For example, you
 might have typed an example such as these:
 
-- `3+7`{.pyret}
+- `3+7`{.jayret}
 
-- `circle(50 "solid" "red")`{.pyret}
+- `circle(50 "solid" "red")`{.jayret}
 
-- `circle(50, "solid,  "red")`{.pyret}
+- `circle(50, "solid,  "red")`{.jayret}
 
-- `circle(50, "solid," "red")`{.pyret}
+- `circle(50, "solid," "red")`{.jayret}
 
-- `circle 50, "solid," "red")`{.pyret}
+- `circle 50, "solid," "red")`{.jayret}
 
 ::: {.do-now}
 Make sure you can spot the error in each of these! Evaluate these in

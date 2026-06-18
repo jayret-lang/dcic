@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -225,7 +226,7 @@ for structural equality, independent of addresses:</p>
 called
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">is</code></span>
 (not to be confused with Jayret’s
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is</code></span>,
 which is used for writing tests):</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(a1, a2);</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">False</code></pre></div></div></p></td></tr></table>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(a2, a4);</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">True</code></pre></div></div></p></td></tr></table>
@@ -260,7 +261,7 @@ a2 ! {balance 800 }
 <p>In Python, we saw that
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">a1 == a2</code></span>
 before the mutation. However, in Jayret, this produces
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>!
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">false</code></span>!
 Why?</p>
 <p>The reason is because structural equality is actually complicated;
 there are two different questions we could be asking:</p>
@@ -271,33 +272,33 @@ there are two different questions we could be asking:</p>
 <p>Jayret makes a distinction between these two.</p>
 <p>By default, Jayret tends towards safer programming practices.
 Therefore, the standard (structural) equality predicate,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">==</code></span>,
 will only return
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>
 if the two values will always be equal. Thus:</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">a2 == a4;</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">true</code></pre></div></div></p></td></tr></table>
 <p>Because the two values are actually aliases, no matter how one
 changes, the “other” will always change in the same way. Therefore, they
 will always “print the same”. We can confirm that they are aliases by
 using Jayret’s reference equality operator,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;=&gt;</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&lt;=&gt;</code></span>:</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">a1 &lt;=&gt; a2;</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">false</code></pre></div></div></p></td></tr></table>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">a2 &lt;=&gt; a4;</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">true</code></pre></div></div></p></td></tr></table>
 <p>In contrast, that guarantee does not apply to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">a1</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a2</code></span>;
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">a2</code></span>;
 and indeed, at checkpoint 2, we see that they are no longer equal.
 Hence</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">a1 == a2;</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">false</code></pre></div></div></p></td></tr></table>
 <p>However, there is a time when
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">a1</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">a2</code></span>
 do print the same, namely before checkpoint 1. Therefore, Jayret
 provides another equality operator that checks whether values are equal
 at the moment,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=~</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">=~</code></span>.
 If we ask this before checkpoint 1, we get:</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">a1 =~ a2;</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">true</code></pre></div></div></p></td></tr></table>
 <p>But if we ask the same question at checkpoint 2, we get:</p>
@@ -317,65 +318,65 @@ but that may change after future mutations.</p></td></tr><tr><td><p><span class=
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">identical(a1, a2);</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">false</code></pre></div></div></p></td></tr></table>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">identical(a2, a4);</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">true</code></pre></div></div></p></td></tr></table>
 <p>After checkpoint 2, we no longer need to check any of the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">equal-always</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">equal-always</code></span>
 or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">identical</code></span>
 relationships again, because by definition they cannot change. But we
 should check
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">equal-now</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">equal-now</code></span>
 again. Sure enough:</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">equal-now(a1, a2);</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">false</code></pre></div></div></p></td></tr></table>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">equal-now(a2, a4);</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">true</code></pre></div></div></p></td></tr></table>
 <p>Therefore, in Jayret, the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">==</code></span>
 operator is the same as
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">equal-always</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">equal-always</code></span>.
 When data contain mutable fields, this will always produce
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">false</code></span>,
 because even if the values are structurally equal now, it’s possible
 that a future mutation will change that. This is to remind you to be
 careful in the presence of mutation. In situations where we really care
 only about equality at that instant, we can use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=~</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">=~</code></span>,
 i.e.,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">equal-now</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">equal-now</code></span>.</p>
 <p>The examples above might suggest that only aliased values are
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">equal-always</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">equal-always</code></span>.
 This is not true! If our data are immutable (which is the default in the
 language), then if two values are structurally equal now, they must
 remain structurally equal forever. For such data,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">equal-always</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">equal-always</code></span>
 will return
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>
 even when they are not aliases. This is a reminder that we get stronger
 guarantees about immutable data.</p>
 <p>It is worth noting that upto this point we have used
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">equal-always</code></span>—in
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">equal-always</code></span>—in
 the form of both
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">==</code></span>
 and Jayret’s
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is</code></span>
 in testing—without really bothering to understand very much about how it
 works, and yet have always gotten predictable answers. This suggests
 that there is something natural about working with immutable data. In
 contrast, with mutable data, something has to give. Jayret made a
 conscious design choice to reflect this in the distinction between
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">equal-always</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">equal-always</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">equal-now</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">equal-now</code></span>.
 Python made a different choice, which results in “equality” having a
 perhaps surprising meaning. (Python has no notion of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">equal-always</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">equal-always</code></span>,
 only
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">equal-now</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">equal-now</code></span>
 or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=~</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">=~</code></span>,
 which is written as
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">==</code></span>,
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">identical</code></span>
 or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;=&gt;</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&lt;=&gt;</code></span>,
 which is written as
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">is</code></span>.)</p>
 <div class="navsetbottom">

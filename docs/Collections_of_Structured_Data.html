@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -199,7 +200,7 @@ Structured Data</a>], we can make a list of songs:</p>
 <p>Thus, what we have seen earlier about building functions over lists
 [<a href="processing-lists.html">Processing Lists</a>] applies here too.
 To illustrate, suppose we wish to write the function
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">oldest-song-age</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">oldest-song-age</code></span>,
 which consumes a list of songs and produces the oldest song in the list.
 (There may be more than one song from the same year; the age—by our
 measure—of all those songs will be the same. If this happens, we just
@@ -209,21 +210,21 @@ be more accurate to say “an” rather than “the” oldest song.)</p>
 write, instead of writing out the full data for the songs, we’ll refer
 to them just by their variable names. Clearly, the oldest song in our
 list is bound to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lvar</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">lvar</code></span>.</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(oldest-song([lver, so, wnkkhs]), lvar);
 assertEquals(oldest-song([so, wnkkhs]), wnkkhs);
 assertEquals(oldest-song([wnkkhs]), wnkkhs);
 assertEquals(oldest-song([]), ???);</code></pre></div></div>
 <p>What do we write in the last case? Recall that we saw this problem
 earlier [<a
-href="processing-lists.html##my-max"><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-max</code></span>:
+href="processing-lists.html##my-max"><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">my-max</code></span>:
 Examples</a>]: there is no answer in the empty case. In fact, the
 computation here is remarkably similar to that of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-max</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">my-max</code></span>,
 because it is essentially the same computation, just asking for the
 minimum year (which would make the song the oldest).</p>
 <p>From our examples, we can see a solution structure echoing that of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-max</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">my-max</code></span>.
 For the empty list, we signal an error. Otherwise, we compute the oldest
 song in the rest of the list, and compare its year against that of the
 first. Whichever has the older year is the answer.</p>
@@ -245,13 +246,13 @@ first. Whichever has the older year is the answer.</p>
 }</code></pre></div></div>
 <p>Note that there is no guarantee there will be only oldest song, and
 this is reflected in the possibility that
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">osr.year</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">osr.year</code></span>
 may equal
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f.year</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f.year</code></span>.
 However, our problem statement allowed us to pick just one such song,
 which is what we’ve done.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Modify the solution above to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">oldest-song-age</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">oldest-song-age</code></span>,
 which computes the age of the oldest song(s).</p></blockquote></blockquote>
 <p>Haha, just kidding! You shouldn’t modify the previous solution at
 all! Instead, you should leave it alone—it may come in handy for other
@@ -308,14 +309,14 @@ that sets ignore them.</p>
 was meaningful to talk about the “first” and corresponding “rest”. By
 definition, with sets there is not “first” element. In fact, Jayret does
 not even offer fields similar to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">first</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">first</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rest</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">rest</code></span>.
 In its place is something a little more accurate but complex.</p>
 <p>The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.pick</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">.pick</code></span>
 method returns a random element of a set. It produces a value of type
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Pick</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Pick</code></span>
 (which we get with
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">include pick</code></span>).
 When we pick an element, there are two possibilities. One is that the
@@ -327,7 +328,7 @@ which gives us an actual member of the set.</p>
 <p>The
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Pick-some</code></span>
 variant of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Pick</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Pick</code></span>
 has two fields, not one. To understand why takes a moment’s work. Let’s
 explore it by choosing an element of a set:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object an-elt(Object s) {
@@ -337,14 +338,14 @@ explore it by choosing an element of a set:</p>
     }
 }</code></pre></div></div>
 <p>(Notice that we aren’t using the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">r</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">r</code></span>
 field in the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Pick-some</code></span>
 case.)</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Can you guess why we didn’t write examples for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">an-elt</code></span>?</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">an-elt</code></span>?</p></blockquote></blockquote>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Run
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">an-elt(song-set)</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">an-elt(song-set)</code></span>.
 What element do you get?</p>
 <p>Run it again. Run it five more times.</p>
 <p>Do you get the same element every time?</p></blockquote></blockquote>
@@ -356,11 +357,11 @@ when picking from a set. This is on purpose: it’s to drive home the
 random nature of choosing from a set, and to prevent your program from
 accidentally depending on a particular order that Jayret might use.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Given that
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">an-elt</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">an-elt</code></span>
 does not return a predictable element, what (if any) tests can we write
 for it?</p></blockquote></blockquote>
 <p>Observe that though we can’t predict which element
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">an-elt</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">an-elt</code></span>
 will produce, we do know it will produce an element of the set.
 Therefore, what we can write are tests that ensure the resulting element
 is a member of the set—though in this case, that would not be
@@ -380,7 +381,7 @@ is: what’s left of the set.</p>
 <p>Given this, we can write functions over sets that look roughly
 analogous to functions over lists. For instance, suppose we want to
 compute the size of a set. The function looks similar to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-len</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">my-len</code></span>
 [<a href="processing-lists.html##my-len">Some Example
 Exercises</a>]:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int my-set-size(Object s) {
@@ -390,7 +391,7 @@ Exercises</a>]:</p>
     }
 }</code></pre></div></div>
 <p>Though the process of deriving this is similar to that we used for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-len</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">my-len</code></span>,
 the random nature of picking elements makes it harder to write examples
 that the actual function’s behavior will match.</p>
 <a name="(part._Combining-Structured-and-Collective-Data)"></a>
@@ -438,7 +439,7 @@ responses.</p>
 the pieces you might need and trying to write some sample questions.</p></blockquote></blockquote>
 <p>We might imagine asking a quiz question like “what is 3 + 4?“. We
 would expect the student to answer
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">7</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">7</code></span>.
 What would capture this? A piece of structured data with two fields like
 the following:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Question {
@@ -449,7 +450,7 @@ a numeric answer, but other questions might have other types of answers.
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Object</code></span>
 is therefore an appropriate type for the answer.</p>
 <p>We would also need a list of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Question</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Question</code></span>
 to form an entire quiz.</p>
 <p>Sometimes, quiz software allows students to ask for hints.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Assume we wanted to have some (but not all) questions with hints,
@@ -457,7 +458,7 @@ which would be text that a student could request for help with a
 problem. Modify the current data definition to capture quizzes in which
 some questions have hints and some do not.</p></blockquote></blockquote>
 <p>A quiz should still be a list of questions, but the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Question</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Question</code></span>
 data definition needs another variant in order to handle questions with
 hints. The following would work:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Question {

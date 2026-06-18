@@ -54,7 +54,7 @@ sufficient. As our programs get more complicated, however, a small set
 of related illustrative examples won’t suffice. We need to think about being
 much more thorough in the sets of inputs that we consider.
 
-Consider for example a function `count-uses`{.pyret} that counts how many
+Consider for example a function `count-uses`{.jayret} that counts how many
 times a specific string appears in a list (this could be used to tally
 votes, to compute the frequency of using a discount code, and so
 on). What input scenarios might we need to check before using our
@@ -154,7 +154,7 @@ Sometimes, a direct comparison via `assertEquals`{.jayret} isn’t enough for
 testing. We have already seen this in the case of `assertRaises`{.jayret}
 tests ([Computing Genetic Parents from an Ancestry Table](trees.html##compute-parents-table)). As another example, when doing
 some computations, especially involving math with approximations, the
-exact match of `assertEquals`{.jayret} isn’t feasible. For example, consider these tests for `distance-to-origin`{.pyret}:
+exact match of `assertEquals`{.jayret} isn’t feasible. For example, consider these tests for `distance-to-origin`{.jayret}:
 
 ```jayret
 @Check void test() {
@@ -163,7 +163,7 @@ exact match of `assertEquals`{.jayret} isn’t feasible. For example, consider t
 ```
 
 What can we check here? Typing this into the REPL, we can find that the answer
-prints as `1.4142135623730951`{.pyret}. That’s an approximation of the real
+prints as `1.4142135623730951`{.jayret}. That’s an approximation of the real
 answer, which Jayret cannot represent exactly. But it’s hard to know that this
 precise answer, to this decimal place, and no more, is the one we should expect
 up front, and thinking through the answers is supposed to be the first thing we
@@ -171,8 +171,8 @@ do!
 
 Since we know we’re getting an approximation, we can really only check that the
 answer is roughly correct, not exactly correct. If we can check that
-the answer to `distance-to-origin(point(1, 1))`{.pyret} is around, say,
-`1.41`{.pyret}, and can do the same for some similar cases, that’s probably good
+the answer to `distance-to-origin(point(1, 1))`{.jayret} is around, say,
+`1.41`{.jayret}, and can do the same for some similar cases, that’s probably good
 enough for many applications, and for our purposes here. If we were
 calculating orbital dynamics, we might demand higher precision, but note that
 we’d still need to pick a cutoff! Testing for inexact results is a necessary
@@ -208,28 +208,28 @@ other. This gives us the control we need to test functions with predictable
 approximate results.
 
 ::: {.exercise}
-Extend the definition of `distance-to-origin`{.pyret} to include
-`polar`{.pyret} points.
+Extend the definition of `distance-to-origin`{.jayret} to include
+`polar`{.jayret} points.
 :::
 
 ::: {.exercise}
 [This might save you a Google search:
 [polar
 conversions](http://en.wikipedia.org/wiki/Polar_coordinate_system#Converting_between_polar_and_Cartesian_coordinates).]{.margin-note}
-Use the design recipe to write `x-component`{.pyret} and
-`y-component`{.pyret}, which return the `x`{.pyret} and `y`{.pyret} Cartesian parts
+Use the design recipe to write `x-component`{.jayret} and
+`y-component`{.jayret}, which return the `x`{.jayret} and `y`{.jayret} Cartesian parts
 of the point (which you would need, for example, if you were plotting them on a graph).
-Read about `num-sin`{.pyret} and other functions you’ll need at
+Read about `num-sin`{.jayret} and other functions you’ll need at
 [the Jayret number
 documentation](http://jayret-lang.github.io/docs/latest/numbers.html).
 :::
 
 ::: {.exercise}
-Write a data definition called `Pay`{.pyret} for pay types that includes
+Write a data definition called `Pay`{.jayret} for pay types that includes
 both hourly employees, whose pay type includes an hourly rate, and salaried
 employees, whose pay type includes a total salary for the year. Use the design
-recipe to write a function called `expected-weekly-wages`{.pyret} that takes a
-`Pay`{.pyret}, and returns the expected weekly salary: the expected weekly salary
+recipe to write a function called `expected-weekly-wages`{.jayret} that takes a
+`Pay`{.jayret}, and returns the expected weekly salary: the expected weekly salary
 for an hourly employee assumes they work 40 hours, and the expected weekly
 salary for a salaried employee is 1/52 of their salary.
 :::
@@ -240,7 +240,7 @@ salary for a salaried employee is 1/52 of their salary.
 
 #### 8.3.3 When Tests Fail {#When-Tests-Fail}
 
-Suppose we’ve written the function `sqrt`{.pyret}, which computes the
+Suppose we’ve written the function `sqrt`{.jayret}, which computes the
 square root of a given number. We’ve written some tests for this
 function. We run the program, and find that a test fails. There are
 two obvious reasons why this can happen.
@@ -263,7 +263,7 @@ clearly not \(4\)). On the other hand, if it fails the test
 assertEquals(sqrt(4), 2);
 ```
 then the odds are that we’ve made an error in the definition of
-`sqrt`{.pyret} instead, and that’s what we need to fix.
+`sqrt`{.jayret} instead, and that’s what we need to fix.
 
 Note that there is no way for the computer to tell what went
 wrong. When it reports a test failure, all it’s saying is that there
@@ -282,15 +282,15 @@ fail. Return to this test:
 assertEquals(sqrt(4), 2);
 ```
 Clearly the inputs and outputs are correct, but it could be that the
-definition of `sqrt`{.pyret} is also correct, and yet the test
+definition of `sqrt`{.jayret} is also correct, and yet the test
 fails.
 
 ::: {.do-now}
 Do you see why?
 :::
 
-Depending on how we’ve programmed `sqrt`{.pyret}, it might return the
-root `-2`{.pyret} instead of `2`{.pyret}. Now `-2`{.pyret} is a perfectly good
+Depending on how we’ve programmed `sqrt`{.jayret}, it might return the
+root `-2`{.jayret} instead of `2`{.jayret}. Now `-2`{.jayret} is a perfectly good
 answer, too. That is, neither the function nor the particular set of
 test values we specified is inherently wrong; it’s just that the
 function happens to be a relation, i.e., it maps one input to
@@ -306,9 +306,9 @@ how to write the test properly.
 In other words, sometimes what we want to express is not a concrete
 input-output pair, but rather check that the output has the right
 relationship to the input. Concretely, what might this be in
-the case of `sqrt`{.pyret}? We hinted at this earlier when we said that
-`1.75`{.pyret} clearly can’t be right, because squaring it does not yield
-`4`{.pyret}. That gives us the general insight: that a number is a valid
+the case of `sqrt`{.jayret}? We hinted at this earlier when we said that
+`1.75`{.jayret} clearly can’t be right, because squaring it does not yield
+`4`{.jayret}. That gives us the general insight: that a number is a valid
 root (note the use of “a” instead of “the”) if squaring it yields
 the original number. That is, we might write a function like this:
 
@@ -325,11 +325,11 @@ and then our test looks like
     assertEquals(is-sqrt(4), true);
 }
 ```
-Unfortunately, this has an awkward failure case. If `sqrt`{.pyret} does
+Unfortunately, this has an awkward failure case. If `sqrt`{.jayret} does
 not produce a number that is in fact a root, we aren’t told what the
-actual value is; instead, `is-sqrt`{.pyret} returns false, and the test
-failure just says that `false`{.pyret} (what `is-sqrt`{.pyret} returns) is
-not `true`{.pyret} (what the test expects)—which is both absolutely
+actual value is; instead, `is-sqrt`{.jayret} returns false, and the test
+failure just says that `false`{.jayret} (what `is-sqrt`{.jayret} returns) is
+not `true`{.jayret} (what the test expects)—which is both absolutely
 true and utterly useless.
 
 Fortunately, Jayret has a better way of expressing the same
@@ -349,4 +349,4 @@ which lets us write:
 }
 ```
 Now, if there’s a failure, we learn of the actual value produced by
-`sqrt(4)`{.pyret} that failed to satisfy the predicate.
+`sqrt(4)`{.jayret} that failed to satisfy the predicate.

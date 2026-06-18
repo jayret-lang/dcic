@@ -25,11 +25,11 @@ form of conditional data, just one that is built into Jayret. Indeed,
 this is the case.
 
 To understand lists as conditional data, let’s create a data
-definition for a new type `NumList`{.pyret} which contains a list of
+definition for a new type `NumList`{.jayret} which contains a list of
 numbers (this differs from built-in lists, which work with any type of
 element). To avoid conflicts with Jayret’s built-in `Empty`{.jayret} value
-and `Link`{.jayret} constructor, we’ll have `NumList`{.pyret} use
-`nl-empty`{.pyret} as its empty value and `nl-link`{.pyret} as the operator
+and `Link`{.jayret} constructor, we’ll have `NumList`{.jayret} use
+`nl-empty`{.jayret} as its empty value and `nl-link`{.jayret} as the operator
 that builds new lists. Here’s a partial definition:
 
 ```jayret
@@ -40,7 +40,7 @@ data NumList {
 ```
 
 ::: {.do-now}
-Fill in the blank in the `nl-link`{.pyret} condition with the
+Fill in the blank in the `nl-link`{.jayret} condition with the
 corresponding field(s) and corresponding types. The blank could
 contain anywhere from 0 through multiple fields.
 :::
@@ -58,12 +58,12 @@ data NumList {
 ```
 
 ::: {.do-now}
-Fill in the types for `first`{.pyret} and `rest`{.pyret} if you haven’t already.
+Fill in the types for `first`{.jayret} and `rest`{.jayret} if you haven’t already.
 :::
 
-Since we’re making a list of numbers, the `first`{.pyret} field should
-contain type `Number`{.pyret}. What about the `rest`{.pyret} field? It needs
-to be a list of numbers, so its type should be `NumList`{.pyret}.
+Since we’re making a list of numbers, the `first`{.jayret} field should
+contain type `Number`{.jayret}. What about the `rest`{.jayret} field? It needs
+to be a list of numbers, so its type should be `NumList`{.jayret}.
 
 ```jayret
 data NumList {
@@ -73,7 +73,7 @@ data NumList {
 ```
 
 Notice something interesting (and new) here: the type of the
-`rest`{.pyret} field is the same type (`NumList`{.pyret}) as the conditional
+`rest`{.jayret} field is the same type (`NumList`{.jayret}) as the conditional
 data that we are defining. We can, quite literally, draw the arrows that show the self-referential part of
 the definition:
 
@@ -81,8 +81,8 @@ the definition:
 
 Does that actually work? Yes. Think about
 how we might build up a list with the numbers 2, 7, and 3 (in that
-order). We start with `nl-empty`{.pyret}, which is a valid
-`NumList`{.pyret}. We then use `nl-link`{.pyret} to add the numbers onto
+order). We start with `nl-empty`{.jayret}, which is a valid
+`NumList`{.jayret}. We then use `nl-link`{.jayret} to add the numbers onto
 that list, as follows:
 
 ```jayret
@@ -92,17 +92,17 @@ nl-link(7, nl-link(3, nl-empty));
 nl-link(2, nl-link(7, nl-link(3, nl-empty)));
 ```
 
-In each case, the `rest`{.pyret} argument is itself a valid
-`NumList`{.pyret}. While defining data in terms of itself might seem
+In each case, the `rest`{.jayret} argument is itself a valid
+`NumList`{.jayret}. While defining data in terms of itself might seem
 problematic, it works fine because in order to build actual data, we had to start
-with the `nl-empty`{.pyret} condition, which does not refer to
-`NumList`{.pyret}.
+with the `nl-empty`{.jayret} condition, which does not refer to
+`NumList`{.jayret}.
 
 Data definitions that build on fields of the same type are called
 recursive data. Recursive data definitions are powerful because
 they permit us to create data that are
-unbounded or arbitrarily-sized. Given a `NumList`{.pyret}, there
-is an easy way to make a new, larger one: just use `nl-link`{.pyret}. So, we
+unbounded or arbitrarily-sized. Given a `NumList`{.jayret}, there
+is an easy way to make a new, larger one: just use `nl-link`{.jayret}. So, we
 need to consider larger lists:
 
 ```jayret
@@ -123,8 +123,8 @@ nl-link(1,
 
 #### 5.3.1 Functions to Process Recursive Data {#Functions-to-Process-Recursive-Data}
 
-Let’s try to write a function `contains-3`{.pyret}, which returns `true`{.pyret} if
-the `NumList`{.pyret} contains the value `3`{.pyret}, and `false`{.pyret} otherwise.
+Let’s try to write a function `contains-3`{.jayret}, which returns `true`{.jayret} if
+the `NumList`{.jayret} contains the value `3`{.jayret}, and `false`{.jayret} otherwise.
 
 First, our header:
 
@@ -146,7 +146,7 @@ boolean contains-3(NumList nl) {
 
 As we did in [Processing Fields of Variants](intro-struct-data.html##process-fields-variants), we will use `switch`{.jayret} to
 distinguish the variants. In addition, since we are going to have to
-use the fields of `nl-link`{.pyret} to compute a result in that case, we
+use the fields of `nl-link`{.jayret} to compute a result in that case, we
 will list those in the initial code outline:
 
 ```jayret
@@ -167,10 +167,10 @@ boolean contains-3(NumList nl) {
 ```
 
 Following our examples, the answer must be false in the
-`nl-empty`{.pyret} case. In the `nl-link`{.pyret} case, if the `first`{.pyret}
-element is `3`{.pyret}, we’ve successfully answered the question. That
-only leaves the case where the argument is an `nl-link`{.pyret} and the
-first element does not equal `3`{.pyret}:
+`nl-empty`{.jayret} case. In the `nl-link`{.jayret} case, if the `first`{.jayret}
+element is `3`{.jayret}, we’ve successfully answered the question. That
+only leaves the case where the argument is an `nl-link`{.jayret} and the
+first element does not equal `3`{.jayret}:
 
 ```jayret
 boolean contains-3(NumList nl) {
@@ -185,7 +185,7 @@ boolean contains-3(NumList nl) {
 // handle rest here
 ```
 
-Since we know `rest`{.pyret} is a `NumList`{.pyret} (based on the data definition),
+Since we know `rest`{.jayret} is a `NumList`{.jayret} (based on the data definition),
 we can use a `switch`{.jayret} expression to work with it. This is sort of like
 filling in a part of the template again:
 
@@ -212,10 +212,10 @@ boolean contains-3(NumList nl) {
 }
 ```
 
-If the `rest`{.pyret} was empty, then we haven’t found `3`{.pyret} (just like when
-we checked the original argument, `nl`{.pyret}). If the `rest`{.pyret} was a
-`nl-link`{.pyret}, then we need to check if the first thing in the rest of the
-list is `3`{.pyret} or not:
+If the `rest`{.jayret} was empty, then we haven’t found `3`{.jayret} (just like when
+we checked the original argument, `nl`{.jayret}). If the `rest`{.jayret} was a
+`nl-link`{.jayret}, then we need to check if the first thing in the rest of the
+list is `3`{.jayret} or not:
 
 ```jayret
 boolean contains-3(NumList nl) {
@@ -237,7 +237,7 @@ boolean contains-3(NumList nl) {
 // fill in here ...
 ```
 
-Since `rest-of-rest`{.pyret} is a `NumList`{.pyret}, we can fill in a `switch`{.jayret}
+Since `rest-of-rest`{.jayret} is a `NumList`{.jayret}, we can fill in a `switch`{.jayret}
 for it again:
 
 ```jayret
@@ -275,12 +275,12 @@ expression as many times as we want, but we can never answer the question for a
 list that is just one element longer than the number of times we copy the code.
 
 So what to do? We tried this approach of using another copy of `switch`{.jayret}
-based on the observation that `rest`{.pyret} is a `NumList`{.pyret}, and
-`switch`{.jayret} provides a meaningful way to break apart a `NumList`{.pyret}; in
+based on the observation that `rest`{.jayret} is a `NumList`{.jayret}, and
+`switch`{.jayret} provides a meaningful way to break apart a `NumList`{.jayret}; in
 fact, it’s what the recipe seems to lead to naturally.
 
 Let’s go back to the step where the problem began, after filling in the
-template with the first check for `3`{.pyret}:
+template with the first check for `3`{.jayret}:
 
 ```jayret
 boolean contains-3(NumList nl) {
@@ -295,12 +295,12 @@ boolean contains-3(NumList nl) {
 // what to do with rest?
 ```
 
-We need a way to compute whether or not the value `3`{.pyret} is contained in
-`rest`{.pyret}. Looking back at the data definition, we see that `rest`{.pyret} is
-a perfectly valid `NumList`{.pyret}, simply by the definition of `nl-link`{.pyret}.
+We need a way to compute whether or not the value `3`{.jayret} is contained in
+`rest`{.jayret}. Looking back at the data definition, we see that `rest`{.jayret} is
+a perfectly valid `NumList`{.jayret}, simply by the definition of `nl-link`{.jayret}.
 And we have a function (or, most of one) whose job is to figure out if a
-`NumList`{.pyret} contains `3`{.pyret} or not: `contains-3`{.pyret}. That ought to
-be something we can call with `rest`{.pyret} as an argument, and get back the
+`NumList`{.jayret} contains `3`{.jayret} or not: `contains-3`{.jayret}. That ought to
+be something we can call with `rest`{.jayret} as an argument, and get back the
 value we want:
 
 ```jayret
@@ -324,7 +324,7 @@ example:
 contains-3(nl-link(1, nl-link(3, nl-empty)));
 ```
 
-First, we substitute the argument value in place of `nl`{.pyret} everywhere
+First, we substitute the argument value in place of `nl`{.jayret} everywhere
 it appears; that’s just the usual rule for function calls.
 
 ```
@@ -336,18 +336,18 @@ it appears; that’s just the usual rule for function calls.
    }
 ```
 
-Next, we find the case that matches the constructor `nl-link`{.pyret}, and
-substitute the corresponding pieces of the `nl-link`{.pyret} value for the
-`first`{.pyret} and `rest`{.pyret} identifiers.
+Next, we find the case that matches the constructor `nl-link`{.jayret}, and
+substitute the corresponding pieces of the `nl-link`{.jayret} value for the
+`first`{.jayret} and `rest`{.jayret} identifiers.
 
 ```
 => if (1 == 3) { return true; }
    else { return contains-3(nl-link(3, nl-empty)); }
 ```
 
-Since `1`{.pyret} isn’t `3`{.pyret}, the comparison evaluates to
-`false`{.pyret}, and this whole expression evaluates to the contents of the
-`else`{.pyret} branch.
+Since `1`{.jayret} isn’t `3`{.jayret}, the comparison evaluates to
+`false`{.jayret}, and this whole expression evaluates to the contents of the
+`else`{.jayret} branch.
 
 ```
 => if (false) { return true; }
@@ -357,8 +357,8 @@ Since `1`{.pyret} isn’t `3`{.pyret}, the comparison evaluates to
 ```
 
 This is another function call, so we substitute the value
-`nl-link(3, nl-empty)`{.pyret}, which was the `rest`{.pyret} field of the original
-input, into the body of `contains-3`{.pyret} this time.
+`nl-link(3, nl-empty)`{.jayret}, which was the `rest`{.jayret} field of the original
+input, into the body of `contains-3`{.jayret} this time.
 
 ```
 => switch (nl-link(3, nl-empty)) {
@@ -369,15 +369,15 @@ input, into the body of `contains-3`{.pyret} this time.
    }
 ```
 
-Again, we substitute into the `nl-link`{.pyret} branch.
+Again, we substitute into the `nl-link`{.jayret} branch.
 
 ```
 => if (3 == 3) { return true; }
    else { return contains-3(nl-empty); }
 ```
 
-This time, since `3`{.pyret} is `3`{.pyret}, we take the first branch of the
-`if`{.pyret} expression, and the whole original call evaluates to `true`{.pyret}.
+This time, since `3`{.jayret} is `3`{.jayret}, we take the first branch of the
+`if`{.jayret} expression, and the whole original call evaluates to `true`{.jayret}.
 
 ```
 => if (true) { return true; }
@@ -387,11 +387,11 @@ This time, since `3`{.pyret} is `3`{.pyret}, we take the first branch of the
 ```
 
 An interesting feature of this trace through the evaluation is that we reached
-the expression `contains-3(nl-link(3, nl-empty))`{.pyret}, which is a normal call
-to `contains-3`{.pyret}; it could even be a test case on its own. The
-implementation works by doing something (checking for equality with `3`{.pyret})
+the expression `contains-3(nl-link(3, nl-empty))`{.jayret}, which is a normal call
+to `contains-3`{.jayret}; it could even be a test case on its own. The
+implementation works by doing something (checking for equality with `3`{.jayret})
 with the non-recursive parts of the datum, and combining that result with the
-result of the same operation (`contains-3`{.pyret}) on the recursive part of the
+result of the same operation (`contains-3`{.jayret}) on the recursive part of the
 datum. This idea of doing recursion with the same function on self-recursive
 parts of the datatype lets us extend our template to handle recursive
 fields.
@@ -413,7 +413,7 @@ In particular, we can develop a function over recursive data by
 breaking a datum into its variants (using `switch`{.jayret}), pulling out
 the fields of each variant (by listing the field names), then calling
 the function itself on any recursive fields (fields of the same
-type). For `NumList`{.pyret}, these steps yield the following code outline:
+type). For `NumList`{.jayret}, these steps yield the following code outline:
 
 ```jayret
 /* fun num-list-fun(nl :: NumList) -> ???:
@@ -426,11 +426,11 @@ type). For `NumList`{.pyret}, these steps yield the following code outline:
 end */
 
 ```
-Here, we are using a generic function name, `num-list-fun`{.pyret}, to
+Here, we are using a generic function name, `num-list-fun`{.jayret}, to
 illustrate that this is the outline for any function that
-processes a `NumList`{.pyret}.
+processes a `NumList`{.jayret}.
 
-We refer to this code outline as a template. Every `data`{.pyret}
+We refer to this code outline as a template. Every `data`{.jayret}
 definition has a corresponding template which captures how to break
 a value of that definition into cases, pull out the fields, and use
 the same function to process any recursive fields.
@@ -452,8 +452,8 @@ the (reusable) template for that definition:
 :::
 
 The power of the template lies in its universality. If you are asked
-to write a specific function (such as `contains-3`{.pyret}) over
-recursive data (`NumList`{.pyret}), you can reproduce or copy (if you
+to write a specific function (such as `contains-3`{.jayret}) over
+recursive data (`NumList`{.jayret}), you can reproduce or copy (if you
 already wrote it down) the template, replace the generic function name
 in the template with the one for your specific function, then fill in
 the ellipses to finish the function.
@@ -520,32 +520,32 @@ Given a programming problem over recursive data:
 :::
 
 ::: {.exercise}
-Use the design recipe to write a function `contains-n`{.pyret} that takes a
-`NumList`{.pyret} and a `Number`{.pyret}, and returns whether that number is in the
-`NumList`{.pyret}.
+Use the design recipe to write a function `contains-n`{.jayret} that takes a
+`NumList`{.jayret} and a `Number`{.jayret}, and returns whether that number is in the
+`NumList`{.jayret}.
 :::
 
 ::: {.exercise}
-Use the design recipe to write a function `sum`{.pyret} that takes a
-`NumList`{.pyret}, and returns the sum of all the numbers in it. The sum of the
-empty list is `0`{.pyret}.
+Use the design recipe to write a function `sum`{.jayret} that takes a
+`NumList`{.jayret}, and returns the sum of all the numbers in it. The sum of the
+empty list is `0`{.jayret}.
 :::
 
 ::: {.exercise}
-Use the design recipe to write a function `remove-3`{.pyret} that takes a
-`NumList`{.pyret}, and returns a new `NumList`{.pyret} with any `3`{.pyret}’s
+Use the design recipe to write a function `remove-3`{.jayret} that takes a
+`NumList`{.jayret}, and returns a new `NumList`{.jayret} with any `3`{.jayret}’s
 removed. The remaining elements should all be in the list in the same order
 they were in the input.
 :::
 
 ::: {.exercise}
-Write a data definition called `NumListList`{.pyret} that represents a list
-of `NumList`{.pyret}s, and use the design recipe to write a function
-`sum-of-lists`{.pyret} that takes a `NumListList`{.pyret} and produces a
-`NumList`{.pyret} containing the sums of the sub-lists.
+Write a data definition called `NumListList`{.jayret} that represents a list
+of `NumList`{.jayret}s, and use the design recipe to write a function
+`sum-of-lists`{.jayret} that takes a `NumListList`{.jayret} and produces a
+`NumList`{.jayret} containing the sums of the sub-lists.
 :::
 
 ::: {.exercise}
 Write a data definition and corresponding template for
-`StrList`{.pyret}, which captures lists of strings.
+`StrList`{.jayret}, which captures lists of strings.
 :::

@@ -64,11 +64,11 @@ time it takes for packets to go between the nodes.
 
 A metasyntactic variable is
 one that lives outside the language, and ranges over a fragment of
-syntax. For instance, if we write “for expressions `e1`{.pyret} and
-`e2`{.pyret}, the sum `e1 + e2`{.pyret}”, we do not mean the programmer
-literally wrote “`e1`{.pyret}” in the program; rather we are using
-`e1`{.pyret} to refer to whatever the programmer might write on the left
-of the addition sign. Therefore, `e1`{.pyret} is metasyntax.
+syntax. For instance, if we write “for expressions `e1`{.jayret} and
+`e2`{.jayret}, the sum `e1 + e2`{.jayret}”, we do not mean the programmer
+literally wrote “`e1`{.jayret}” in the program; rather we are using
+`e1`{.jayret} to refer to whatever the programmer might write on the left
+of the addition sign. Therefore, `e1`{.jayret} is metasyntax.
 
 ☞ packed representation
 

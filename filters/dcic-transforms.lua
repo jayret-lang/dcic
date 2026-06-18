@@ -142,7 +142,7 @@ local function handle_repl(div)
   local blocks = {}
   for _, blk in ipairs(div.content) do
     if blk.t == "CodeBlock" then
-      local lang = blk.attr.classes[1] or "pyret"
+      local lang = blk.attr.classes[1] or "jayret"
       table.insert(blocks, { lang = lang, code = blk.text })
     end
   end

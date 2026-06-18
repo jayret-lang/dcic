@@ -174,7 +174,7 @@ True
 :::
 
 If we instead want to check for aliasing, we instead use an operation
-called `is`{.python} (not to be confused with Jayret’s `is`{.pyret}, which
+called `is`{.python} (not to be confused with Jayret’s `is`{.jayret}, which
 is used for writing tests):
 
 ::: {.pyret-repl}
@@ -229,7 +229,7 @@ a2 ! {balance 800 }
 ```
 
 In Python, we saw that `a1 == a2`{.python} before the
-mutation. However, in Jayret, this produces `false`{.pyret}! Why?
+mutation. However, in Jayret, this produces `false`{.jayret}! Why?
 
 The reason is because structural equality is actually complicated;
 there are two different questions we could be asking:
@@ -243,7 +243,7 @@ Jayret makes a distinction between these two.
 
 By default, Jayret tends towards safer programming
 practices. Therefore, the standard (structural) equality predicate,
-`==`{.pyret}, will only return `true`{.pyret} if the two values will
+`==`{.jayret}, will only return `true`{.jayret} if the two values will
 always be equal. Thus:
 
 ::: {.pyret-repl}
@@ -258,7 +258,7 @@ true
 Because the two values are actually aliases, no matter how one
 changes, the “other” will always change in the same way. Therefore,
 they will always “print the same”. We can confirm that they are
-aliases by using Jayret’s reference equality operator, `<=>`{.pyret}:
+aliases by using Jayret’s reference equality operator, `<=>`{.jayret}:
 
 ::: {.pyret-repl}
 ```jayret
@@ -278,8 +278,8 @@ true
 ```
 :::
 
-In contrast, that guarantee does not apply to `a1`{.pyret} and
-`a2`{.pyret}; and indeed, at checkpoint 2, we see that they are no
+In contrast, that guarantee does not apply to `a1`{.jayret} and
+`a2`{.jayret}; and indeed, at checkpoint 2, we see that they are no
 longer equal. Hence
 
 ::: {.pyret-repl}
@@ -291,10 +291,10 @@ false
 ```
 :::
 
-However, there is a time when `a1`{.pyret} and `a2`{.pyret} do print
+However, there is a time when `a1`{.jayret} and `a2`{.jayret} do print
 the same, namely before checkpoint 1. Therefore, Jayret provides
 another equality operator that checks whether values are equal
-at the moment, `=~`{.pyret}. If we ask this before checkpoint 1,
+at the moment, `=~`{.jayret}. If we ask this before checkpoint 1,
 we get:
 
 ::: {.pyret-repl}
@@ -384,8 +384,8 @@ true
 :::
 
 After checkpoint 2, we no longer need to check any of the
-`equal-always`{.pyret} or `identical`{.pyret} relationships again, because
-by definition they cannot change. But we should check `equal-now`{.pyret}
+`equal-always`{.jayret} or `identical`{.jayret} relationships again, because
+by definition they cannot change. But we should check `equal-now`{.jayret}
 again. Sure enough:
 
 ::: {.pyret-repl}
@@ -406,32 +406,32 @@ true
 ```
 :::
 
-Therefore, in Jayret, the `==`{.pyret} operator is the same as
-`equal-always`{.pyret}. When data contain mutable fields, this will
-always produce `false`{.pyret}, because even if the values are
+Therefore, in Jayret, the `==`{.jayret} operator is the same as
+`equal-always`{.jayret}. When data contain mutable fields, this will
+always produce `false`{.jayret}, because even if the values are
 structurally equal now, it’s possible that a future
 mutation will change that. This is to remind you to be careful in the
 presence of mutation. In situations where we really care only about
-equality at that instant, we can use `=~`{.pyret}, i.e., `equal-now`{.pyret}.
+equality at that instant, we can use `=~`{.jayret}, i.e., `equal-now`{.jayret}.
 
 The examples above might suggest that only aliased values are
-`equal-always`{.pyret}. This is not true! If our data are immutable
+`equal-always`{.jayret}. This is not true! If our data are immutable
 (which is the default in the language), then if two values are
 structurally equal now, they must remain structurally equal
-forever. For such data, `equal-always`{.pyret} will return `true`{.pyret}
+forever. For such data, `equal-always`{.jayret} will return `true`{.jayret}
 even when they are not aliases. This is a reminder that we get
 stronger guarantees about immutable data.
 
 It is worth noting that upto this point we have used
-`equal-always`{.pyret}—in the form of both `==`{.pyret} and Jayret’s
-`is`{.pyret} in testing—without really bothering to understand very
+`equal-always`{.jayret}—in the form of both `==`{.jayret} and Jayret’s
+`is`{.jayret} in testing—without really bothering to understand very
 much about how it works, and yet have always gotten predictable
 answers. This suggests that there is something natural about working
 with immutable data. In contrast, with mutable data, something has to
 give. Jayret made a conscious design choice to reflect this in the
-distinction between `equal-always`{.pyret} and `equal-now`{.pyret}. Python
+distinction between `equal-always`{.jayret} and `equal-now`{.jayret}. Python
 made a different choice, which results in “equality” having a
 perhaps surprising meaning. (Python has no notion of
-`equal-always`{.pyret}, only `equal-now`{.pyret} or `=~`{.pyret}, which is
-written as `==`{.python}, and `identical`{.pyret} or `<=>`{.pyret}, which is
+`equal-always`{.jayret}, only `equal-now`{.jayret} or `=~`{.jayret}, which is
+written as `==`{.python}, and `identical`{.jayret} or `<=>`{.jayret}, which is
 written as `is`{.python}.)

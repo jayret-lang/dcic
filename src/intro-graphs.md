@@ -59,12 +59,12 @@ both these aspects of graphs below.
 Consider again the binary trees we saw earlier
 [[Re-Examining Equality](Sharing_and_Equality.html##identical-eq)]. Let’s now try to distort the definition of
 a “tree” by creating ones with cycles, i.e., trees with nodes
-that point back to themselves (in the sense of `identical`{.pyret}). As
+that point back to themselves (in the sense of `identical`{.jayret}). As
 we saw earlier [[From Acyclicity to Cycles](Sharing_and_Equality.html##acyc-to-cyc)], it is not completely
 straightforward to create such a structure, but what we saw earlier
 [[Streams From Functions](func-as-data.html##streams-from-funs)] can help us here, by letting us
 suspend the evaluation of the cyclic link. That is, we have to
-not only use `rec`{.pyret}, we must also use a function to delay
+not only use `rec`{.jayret}, we must also use a function to delay
 evaluation. In turn, we have to update the annotations on the
 fields. Since these are not going to be “trees” any more, we’ll use
 a name that is suggestive but not outright incorrect:
@@ -84,7 +84,7 @@ t0 = node(0, () -> leaf, () -> leaf);
 t1 = node(1, () -> t0, () -> t0);
 t2 = node(2, () -> t1, () -> t1);
 ```
-Now let’s try to compute the size of a `BinT`{.pyret}. Here’s the obvious
+Now let’s try to compute the size of a `BinT`{.jayret}. Here’s the obvious
 program:
 
 ```jayret
@@ -99,13 +99,13 @@ int sizeinf(BinT t) {
     }
 }
 ```
-(We’ll see why we call it `sizeinf`{.pyret} in a moment.)
+(We’ll see why we call it `sizeinf`{.jayret} in a moment.)
 
 ::: {.do-now}
-What happens when we call `sizeinf(tr)`{.pyret}?
+What happens when we call `sizeinf(tr)`{.jayret}?
 :::
 
-It goes into an infinite loop: hence the `inf`{.pyret} in its name.
+It goes into an infinite loop: hence the `inf`{.jayret} in its name.
 
 There are two very different meanings for “size”. One is, “How many
 times can we traverse an edge?” The other is, “How many distinct
@@ -113,9 +113,9 @@ nodes were constructed as part of the data structure?” With trees,
 by definition, these two are the same. With a DAG the former
 exceeds the latter but only by a finite amount. With a general graph,
 the former can exceed the latter by an infinite amount. In the case of
-a datum like `tr`{.pyret}, we can in fact traverse edges an infinite
+a datum like `tr`{.jayret}, we can in fact traverse edges an infinite
 number of times. But the total number of constructed nodes is only
-one! Let’s write this as test cases in terms of a `size`{.pyret}
+one! Let’s write this as test cases in terms of a `size`{.jayret}
 function, to be defined:
 
 ```jayret
@@ -155,7 +155,7 @@ int sizect(BinT t) {
 }
 ```
 
-The extra parameter, `seen`{.pyret}, is called an accumulator,
+The extra parameter, `seen`{.jayret}, is called an accumulator,
 because it “accumulates” the list of seen nodes.[Note
 that this could just as well be a set; it doesn’t have to be a list.]{.margin-note}
 The support function it needs checks whether a given node has already
@@ -174,8 +174,8 @@ Object has-id(List<Object> seen, A t) {
 }
 ```
 
-How does this do? Well, `sizect(tr)`{.pyret} is indeed `1`{.pyret}, but
-`sizect(t1)`{.pyret} is `3`{.pyret} and `sizect(t2)`{.pyret} is `7`{.pyret}!
+How does this do? Well, `sizect(tr)`{.jayret} is indeed `1`{.jayret}, but
+`sizect(t1)`{.jayret} is `3`{.jayret} and `sizect(t2)`{.jayret} is `7`{.jayret}!
 
 ::: {.do-now}
 Explain why these answers came out as they did.
@@ -190,7 +190,7 @@ rs = szacc(r(), ns);
 ```
 The nodes seen while traversing the left branch are effectively
 forgotten, because the only nodes we remember when traversing the
-right branch are those in `ns`{.pyret}: namely, the current node and
+right branch are those in `ns`{.jayret}: namely, the current node and
 those visited “higher up”. As a result, any nodes that “cross
 sides” are counted twice.
 
@@ -233,8 +233,8 @@ Sure enough, this function satisfies the above tests.
 
 The representation we’ve seen above for graphs is certainly a start
 towards creating cyclic data, but it’s not very elegant. It’s both
-error-prone and inelegant to have to write `lam`{.pyret} everywhere, and
-remember to apply functions to `()`{.pyret} to obtain the actual
+error-prone and inelegant to have to write `lam`{.jayret} everywhere, and
+remember to apply functions to `()`{.jayret} to obtain the actual
 values. Therefore, here we explore other representations of graphs
 that are more conventional and also much simpler to manipulate.
 
@@ -305,7 +305,7 @@ type Graph = KNGraph;
 (Here we’re assuming our keys are strings.)
 
 Here’s a concrete instance of such a graph:[The prefix
-`kn-`{.pyret} stands for “keyed node”.]{.margin-note}
+`kn-`{.jayret} stands for “keyed node”.]{.margin-note}
 
 ```jayret
 kn-cities = block: knWAS = keyed-node("was", "Washington", ["chi", "den", "saf", "hou", "pvd"]);
@@ -370,7 +370,7 @@ does not provide constant-time access to arbitrary elements—to
 illustrate this concept. Most of this will look very similar to what
 we had before; we’ll comment on a key difference at the end.
 
-First, the datatype:[The prefix `ix-`{.pyret} stands for
+First, the datatype:[The prefix `ix-`{.jayret} stands for
 “indexed”.]{.margin-note}
 
 ```jayret
@@ -393,7 +393,7 @@ inSFO = idxed-node("San Francisco", [0, 4, 3]);
 inPVD = idxed-node("Providence", [0, 1]);
 [inWAS, inORD, inBLM, inHOU, inDEN, inSFO, inPVD];
 ```
-where we’re assuming indices begin at `0`{.pyret}. To find a node:
+where we’re assuming indices begin at `0`{.jayret}. To find a node:
 
 ```jayret
 Node find-ix(Key idx, Graph graph) {
@@ -425,7 +425,7 @@ represent extrinsic keys: the keys are determined outside the
 datum, and in particular by the position in some other data
 structure. Given a node and not the entire graph, we cannot know for
 what its key is. Even given the entire graph, we can only determine
-its key by using `identical`{.pyret}, which is a rather unsatisfactory
+its key by using `identical`{.jayret}, which is a rather unsatisfactory
 approach to recovering fundamental information. This highlights a
 weakness of using extrinsically keyed representations of
 information. (In return, extrinsically keyed representations are
@@ -442,7 +442,7 @@ The representations we have seen until now have given priority
 to nodes, making edges simply a part of the information in a node. We
 could, instead, use a representation that makes edges primary, and
 nodes simply be the entities that lie at their
-ends:[The prefix `le-`{.pyret} stands for “list of edges”.]{.margin-note}
+ends:[The prefix `le-`{.jayret} stands for “list of edges”.]{.margin-note}
 
 ```jayret
 data Edge {
@@ -491,8 +491,8 @@ structure from which we can retrieve rich information about nodes.
 
 We would like a general representation that lets us abstract over the
 specific implementations. We will assume that broadly we have
-available a notion of `Node`{.pyret} that has `content`{.pyret}, a notion of
-`Key`{.pyret}s (whether or not intrinsic), and a way to obtain the
+available a notion of `Node`{.jayret} that has `content`{.jayret}, a notion of
+`Key`{.jayret}s (whether or not intrinsic), and a way to obtain the
 neighbors—a list of keys—given a key and a graph. This is
 sufficient for what follows. However, we still need to choose concrete
 keys to write examples and tests. For simplicity, we’ll use

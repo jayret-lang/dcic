@@ -46,7 +46,7 @@ This version has several small but potentially significant changes:
   run only in VSCode (specifically, if they import CSV files), a border
   and VSCode logo will surround the code.
 
-- A section on `for each`{.pyret} iterators in Jayret has been added
+- A section on `for each`{.jayret} iterators in Jayret has been added
   to the end of [From Jayret to Python](intro-python.html). This placement supports courses
   that wish to make the transition to Python after learning how to
   process lists in Jayret, without disrupting the flow for those who
@@ -54,7 +54,7 @@ This version has several small but potentially significant changes:
   flow).
   
   Courses that make the switch to Python after trees will likely want to
-  skip the Jayret `for each`{.pyret} material.
+  skip the Jayret `for each`{.jayret} material.
 
 - There is a new chapter on [File Input and Output in Python](python-fileio.html) at the end of
   the [From Jayret to Python](part_pyret-to-python.html) section of the book.
@@ -82,7 +82,7 @@ This version has several small but potentially significant changes:
 
 ### 31.2 Version 2025-02-09 {#Version-2025-02-09}
 
-This version introduces a new context, `dcic2024`{.pyret}, that contains
+This version introduces a new context, `dcic2024`{.jayret}, that contains
 all of the table-processing functions that used to be in a shared
 drive file. Instructions on how to select the context are in the
 chapter that introduces tables.
@@ -95,13 +95,13 @@ Error corrections:
   previous text had referred to shadowing, rather than a conflicting value.
 
 - In [Dealing with Missing Entries](processing-tables.html##missing-data), corrected an erroneous description
-  of `num-sanitizer`{.pyret} that previously claimed that it defaulted
+  of `num-sanitizer`{.jayret} that previously claimed that it defaulted
   missing values to 0. Added a discussion of why having a default like
   this would be a bad idea.
 
 In addition, the challenge problem on computing the intersection of
 two lists that is posed at the end of [Recap: Summary of List Operations](tables-to-lists.html##lists-recap) has been
-refined, then revisited after introducing `lam`{.pyret} in the next section.
+refined, then revisited after introducing `lam`{.jayret} in the next section.
 
 ```{=html}
 <a name="(part._Version-2024-09-03)"></a>

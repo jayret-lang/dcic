@@ -154,14 +154,14 @@ Note that multiple tests can be put into a single block:
 end</code></pre></div></div></p></td></tr></table>
 ```
 
-The second way is this: as an alias for `check`{.pyret} we can also write
-`examples`{.pyret}. The two are functionally identical, but they capture
+The second way is this: as an alias for `check`{.jayret} we can also write
+`examples`{.jayret}. The two are functionally identical, but they capture
 the human difference between examples (which explore the
 problem, and are written before attempting a solution) and
 tests (which try to find bugs in the solution, and are written
 to probe its design).
 
-The third way is to write a `where`{.pyret} block to accompany a function
+The third way is to write a `where`{.jayret} block to accompany a function
 definition. For instance:
 
 ```jayret
@@ -189,7 +189,7 @@ successes and failures. For instance, try to run and see what you get:
 This is useful for documenting the purpose of a testing block.
 
 Just as in Racket, there are many testing operators in Jayret (in
-addition to `is`{.pyret}). See
+addition to `is`{.jayret}). See
 [the
 documentation](https://jayret-lang.github.io/docs/latest/testing.html).
 
@@ -210,8 +210,8 @@ to at least be called “shish kebab case”.]{.margin-note} Thus:
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><span class="RktSym">this-is-a-name</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">this-is-a-name</code></span></p></td></tr></table>
 ```
 Even though Jayret has infix subtraction, the language can
-unambiguously tell apart `this-name`{.pyret} (a variable) from
-`this - name`{.pyret} (a subtraction expression) because the `-`{.pyret} in
+unambiguously tell apart `this-name`{.jayret} (a variable) from
+`this - name`{.jayret} (a subtraction expression) because the `-`{.jayret} in
 the latter must be surrounded by spaces.
 
 Despite this spacing convention, Jayret does not permit some of the
@@ -242,14 +242,14 @@ This might seem like a fair bit of overkill, but we’ll see in a moment
 why it’s useful. Meanwhile, it’s worth observing that when you have
 only a single kind of datum in a data definition, it feels unwieldy to
 take up so many lines. Writing it on one line is valid, but now it
-feels ugly to have the `|`{.pyret} in the middle:
+feels ugly to have the `|`{.jayret} in the middle:
 
 ```jayret
 data Point {
     Pt(x, y);
 }
 ```
-Therefore, Jayret permits you to drop the initial `|`{.pyret}, resulting
+Therefore, Jayret permits you to drop the initial `|`{.jayret}, resulting
 in the more readable
 
 ```jayret
@@ -290,7 +290,7 @@ Predicates are also functions with a particular naming scheme:
 and they behave the same way (returning true if the argument
 was constructed by that constructor, and false otherwise). In
 contrast, selection is different in the two languages (and we will see
-more about selection below, with `cases`{.pyret}):
+more about selection below, with `cases`{.jayret}):
 
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">pt-x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">v</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">v.x</code></span></p></td></tr></table>
@@ -299,11 +299,11 @@ Note that in the Racket case, pt-x checks that the parameter
 was constructed by pt before extracting the value of the
 x field. Thus, pt-x and pt3d-x are two different
 functions and neither one can be used in place of the other. In
-contast, in Jayret, `.x`{.pyret} extracts an `x`{.pyret} field of any value
+contast, in Jayret, `.x`{.jayret} extracts an `x`{.jayret} field of any value
 that has such a field, without attention to how it was
-constructed. Thus, we can use `.x`{.pyret} on a value whether it was
-constructed by `pt`{.pyret} or `pt3d`{.pyret} (or indeed anything else with
-that field). In contrast, `cases`{.pyret} does pay attention to this
+constructed. Thus, we can use `.x`{.jayret} on a value whether it was
+constructed by `pt`{.jayret} or `pt3d`{.jayret} (or indeed anything else with
+that field). In contrast, `cases`{.jayret} does pay attention to this
 distinction.
 
 ```{=html}
@@ -315,8 +315,8 @@ distinction.
 There are several kinds of conditionals in Jayret, one more than in the
 Racket student languages.
 
-General conditionals can be written using `if`{.pyret}, corresponding to
-Racket’s `if`{.pyret} but with more syntax.
+General conditionals can be written using `if`{.jayret}, corresponding to
+Racket’s `if`{.jayret} but with more syntax.
 
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym">if</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">full-moon</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">    </span><span class="RktMeta"></span><span class="RktVal">"howl"</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">    </span><span class="RktMeta"></span><span class="RktVal">"meow"</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr></table></blockquote></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">if full-moon:
@@ -336,7 +336,7 @@ else:
 end</code></pre></div></div></p></td></tr></table>
 ```
 
-Note that `if`{.pyret} includes `else if`{.pyret}, which makes it possible
+Note that `if`{.jayret} includes `else if`{.jayret}, which makes it possible
 to list a collection of questions at the same level of indentation,
 which if in Racket does not have. The corresponding code in
 Racket would be written
@@ -345,13 +345,13 @@ Racket would be written
 <blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym">cond</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">  </span><span class="RktMeta"></span><span class="RktPn">[</span><span class="RktSym">full-moon</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">"howl"</span><span class="RktPn">]</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">  </span><span class="RktMeta"></span><span class="RktPn">[</span><span class="RktSym">new-moon</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">"bark"</span><span class="RktPn">]</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">  </span><span class="RktMeta"></span><span class="RktPn">[</span><span class="RktSym">else</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">"meow"</span><span class="RktPn">]</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr></table></blockquote>
 ```
 to restore the indentation. There is a similar construct in Jayret
-called `ask`{.pyret}, designed to parallel `cond`{.pyret}:
+called `ask`{.jayret}, designed to parallel `cond`{.jayret}:
 
 ```jayret
 ask full-moon then: "howl";new-moon then: "bark";otherwise: "meow";
 ```
 
-In Racket, we also use `cond`{.pyret} to dispatch on a datatype:
+In Racket, we also use `cond`{.jayret} to dispatch on a datatype:
 
 ```{=html}
 <blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym">cond</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">  </span><span class="RktMeta"></span><span class="RktPn">[</span><span class="RktPn">(</span><span class="RktSym">pt?</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">v</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace">   </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">+</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">pt-x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">v</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">pt-y</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">v</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktPn">]</span><span class="RktMeta"></span></td></tr><tr><td><span class="RktMeta"></span><span class="hspace">  </span><span class="RktMeta"></span><span class="RktPn">[</span><span class="RktPn">(</span><span class="RktSym">pt3d?</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">v</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">+</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">pt-x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">v</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">pt-z</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">v</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktPn">]</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr></table></blockquote>
@@ -382,11 +382,11 @@ switch (v) {
     case Pt3d(x, y, z): yield x + z;
 }
 ```
-This checks that `v`{.pyret} is a `Point`{.pyret}, provides a clean
+This checks that `v`{.jayret} is a `Point`{.jayret}, provides a clean
 syntactic way of identifying the different branches, and makes
 it possible to give a concise local name to each field position
-instead of having to use selectors like `.x`{.pyret}. In general, in
-Jayret we prefer to use `cases`{.pyret} to process data
+instead of having to use selectors like `.x`{.jayret}. In general, in
+Jayret we prefer to use `cases`{.jayret} to process data
 definitions. However, there are times when, for instance, there many
 variants of data but a function processes only very few of them. In
 such situations, it makes more sense to explicitly use predicates and
@@ -400,8 +400,8 @@ selectors.
 
 In Racket, depending on the language level, lists are created using
 either cons or list, with empty for the empty
-list. The corresponding notions in Jayret are called `link`{.pyret},
-`list`{.pyret}, and `empty`{.pyret}, respectively. `link`{.pyret} is a
+list. The corresponding notions in Jayret are called `link`{.jayret},
+`list`{.jayret}, and `empty`{.jayret}, respectively. `link`{.jayret} is a
 two-argument function, just as in Racket:
 
 ```{=html}
@@ -412,20 +412,20 @@ two-argument function, just as in Racket:
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">list</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">1</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">2</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">3</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">[list: 1, 2, 3]</code></span></p></td></tr></table>
 ```
 
-Note that the syntax `[1, 2, 3]`{.pyret}, which represents lists in many
+Note that the syntax `[1, 2, 3]`{.jayret}, which represents lists in many
 languages, is not legal in Jayret: lists are not privileged with
 their own syntax. Rather, we must use an explicit constructor:
-just as `[1, 2, 3]`{.pyret} constructs a list, `[set: 1, 2,
+just as `[1, 2, 3]`{.jayret} constructs a list, `[set: 1, 2,
 3]`{.jayret} constructs a set instead of a list.[In fact, we can
 [create our own constructors](https://jayret-lang.github.io/docs/latest/Expressions.html##s-construct-expr)
 and use them with this syntax.]{.margin-note}
 
 ::: {.exercise}
-Try typing `[1, 2, 3]`{.pyret} and see the error message.
+Try typing `[1, 2, 3]`{.jayret} and see the error message.
 :::
 
 This shows us how to construct lists. To take them apart, we use
-`cases`{.pyret}. There are two variants, `empty`{.pyret} and `link`{.pyret}
+`cases`{.jayret}. There are two variants, `empty`{.jayret} and `link`{.jayret}
 (which we used to construct the lists):
 
 ```{=html}
@@ -434,11 +434,11 @@ This shows us how to construct lists. To take them apart, we use
   | link(f, r) =&gt; f + g(r)
 end</code></pre></div></div></p></td></tr></table>
 ```
-It is conventional to call the fields `f`{.pyret} and `r`{.pyret} (for
+It is conventional to call the fields `f`{.jayret} and `r`{.jayret} (for
 “first” and “rest”). Of course, this convention does not work if
 there are other things by the same name; in particular, when writing a
-nested destructuring of a list, we conventionally write `fr`{.pyret} and
-`rr`{.pyret} (for “first of the rest” and “rest of the rest”).
+nested destructuring of a list, we conventionally write `fr`{.jayret} and
+`rr`{.jayret} (for “first of the rest” and “rest of the rest”).
 
 ```{=html}
 <a name="(part._First-Class-Functions)"></a>
@@ -446,7 +446,7 @@ nested destructuring of a list, we conventionally write `fr`{.pyret} and
 
 ### 28.9 First-Class Functions {#First-Class-Functions}
 
-The equivalent of Racket’s lambda is Jayret’s `lam`{.pyret}:
+The equivalent of Racket’s lambda is Jayret’s `lam`{.jayret}:
 
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">lambda</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">y</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">+</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">y</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">lam(x, y): x + y end</code></span></p></td></tr></table>
@@ -468,7 +468,7 @@ return values. Jayret will check them to a limited extent dynamically,
 and can check them statically with its type checker. The corresponding
 annotations to those above would be written as
 
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 fun square(n :: Number) -> Number: ...
 

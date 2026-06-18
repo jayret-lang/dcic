@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -314,20 +315,20 @@ applicable in several other applications as well.</p>
 <p>The setup is as follows. For arbitrary values, we want the ability to
 think of them as elements in a set. We are interested in two operations.
 One is obviously
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">union</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">union</code></span>,
 which merges two sets into one. The other would seem to be something
 like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in-same-set</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-in-same-set</code></span>
 that takes two elements and determines whether they’re in the same set.
 Over time, however, it has proven useful to instead define the operator
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">find</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">find</code></span>
 that, given an element, “names” the set (more on this in a moment) that
 the element belongs to. To check whether two elements are in the same
 set, we then have to get the “set name” for each element, and check
 whether these names are the same. This certainly sounds more roundabout,
 but this means we have a primitive that may be useful in other contexts,
 and from which we can easily implement
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in-same-set</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-in-same-set</code></span>.</p>
 <p>Now the question is, how do we name sets? The real question we should
 ask is, what operations do we care to perform on these names? All we
 care about is, given two names, they represent the same set precisely
@@ -336,9 +337,9 @@ or number, or something else, but we have another option: simply pick
 some element of the set to represent it, i.e., to serve as its name.
 Thus we will associate each set element with an indicator of the “set
 name” for that element; if there isn’t one, then its name is itself (the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">none</code></span>
 case of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>):</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">parent</code></span>):</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Element {
     Elt(T val, Option&lt;Object&gt; parent);
 }</code></pre></div></div>
@@ -353,32 +354,32 @@ ignoring their parent values:</p>
 representative element. (Otherwise, equality will fail even though we
 have the same set.)
 Thus:<span class="refelem"><span class="refcolumn"><span class="refcontent">We’ve used the name
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">fynd</code></span>
 because
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">find</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">find</code></span>
 is already defined to mean something else in Jayret. If you don’t like
 the misspelling, you’re welcome to use a longer name like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">find-root</code></span>.</span></span></span></p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">find-root</code></span>.</span></span></span></p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">boolean is-in-same-set(Element e1, Element e2, Sets s) {
     s1 = fynd(e1, s);
     s2 = fynd(e2, s);
     return identical(s1, s2);
 }</code></pre></div></div>
 <p>where
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Sets</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Sets</code></span>
 is the list of all elements:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">type Sets = List &lt; Element &gt;;</code></pre></div></div>
 <p>How do we find the representative element for a set? We first find it
 using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-same-element</code></span>;
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-same-element</code></span>;
 when we do, we check the element’s
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">parent</code></span>
 field. If it is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">none</code></span>,
 that means this very element names its set; this can happen either
 because the element is a singleton set (we’ll initialize all elements
 with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>),
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">none</code></span>),
 or it’s the name for some larger set. Either way, we’re done. Otherwise,
 we have to recursively find the parent:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Element fynd(Element e, Sets s) {
@@ -395,9 +396,9 @@ we have to recursively find the parent:</p>
     }
 }</code></pre></div></div>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Why is there a recursive call in the nested
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>?</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">cases</code></span>?</p></blockquote></blockquote>
 <p>What’s left is to implement
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">union</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">union</code></span>.
 For this, we find the representative elements of the two sets we’re
 trying to union; if they are the same, then the two sets are already in
 a union; otherwise, we have to update the data structure:</p>
@@ -441,14 +442,14 @@ problems:</p>
 <ul>
 <li><p>First, because we are performing functional updates, the value of
 the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">parent</code></span>
 reference keeps “changing”, but these changes are not visible to older
 copies of the “same” value. An element from different stages of unioning
 has different parent references, even though it is arguably the same
 element throughout. This is a place where functional programming
 hurts.</p></li>
 <li><p>Relatedly, the performance of this implementation is quite bad.
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">fynd</code></span>
 recursively traverses parents to find the set’s name, but the elements
 traversed are not updated to record this new name. We certainly could
 update them by reconstructing the set afresh each time, but that
@@ -457,7 +458,7 @@ better.</p></li>
 </ul>
 <p>Even worse, it may not even be correct!</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Is it? Consider constructing
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">union</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">union</code></span>s
 that are not quite so skewed as above, and see whether you get the
 results you expect.</p></blockquote></blockquote>
 <p>The bottom line is that pure functional programming is not a great

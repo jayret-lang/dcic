@@ -109,9 +109,9 @@ import reactors as R
 
 ```
 This tells Jayret to load these two libraries and bind the results
-to the corresponding names, `I`{.pyret} and `R`{.pyret}. Thus, all image
-operations are obtained from `I`{.pyret} and animation operations from
-`R`{.pyret}.
+to the corresponding names, `I`{.jayret} and `R`{.jayret}. Thus, all image
+operations are obtained from `I`{.jayret} and animation operations from
+`R`{.jayret}.
 
 ```{=html}
 <a name="(part._Version-Airplane-Moving-Across-the-Screen)"></a>
@@ -135,7 +135,7 @@ We can tell Jayret to load this image and give it a name as follows:
 AIRPLANE-URL = "http://world.cs.brown.edu/1/clipart/airplane-small.png";
 AIRPLANE = I.image-url(AIRPLANE-URL);
 ```
-Henceforth, when we refer to `AIRPLANE`{.pyret}, it will always refer to
+Henceforth, when we refer to `AIRPLANE`{.jayret}, it will always refer to
 this image. (Try it out in the interactions area!)
 
 Now look at the video again. Watch what happens at different points in
@@ -260,11 +260,11 @@ LAND = I.rectangle(WIDTH - WATER-WIDTH, BASE-HEIGHT, "solid", "brown");
 BASE = I.beside(WATER, LAND);
 BACKGROUND = I.place-image(BASE, WIDTH / 2, HEIGHT - (BASE-HEIGHT / 2), BLANK-SCENE);
 ```
-Examine the value of `BACKGROUND`{.pyret} in the interactions area
+Examine the value of `BACKGROUND`{.jayret} in the interactions area
 to confirm that it looks right.
 
 ::: {.do-now}
-The reason we divide by two when placing `BASE`{.pyret} is because
+The reason we divide by two when placing `BASE`{.jayret} is because
 Jayret puts the middle of the image at the given
 location. Remove the division and see what happens to the resulting
 image.
@@ -299,7 +299,7 @@ We create a special kind of Jayret value called a reactor, which
 creates animations. We’ll start by creating a fairly simple kind of
 reactor, then grow it as the program gets more sophisticated.
 
-The following code creates a reactor named `anim`{.pyret}:
+The following code creates a reactor named `anim`{.jayret}:
 
 ```pyret-deferred
 anim = reactor:
@@ -310,9 +310,9 @@ end
 ```
 A reactor needs to be given an initial World State
 as well as handlers that tell it how to react. Specifying
-`on-tick`{.pyret} tells Jayret to run a clock and, every time the clock
+`on-tick`{.jayret} tells Jayret to run a clock and, every time the clock
 ticks (roughly thirty times a second), invoke the associated
-handler. The `to-draw`{.pyret} handler is used by Jayret to refresh the
+handler. The `to-draw`{.jayret} handler is used by Jayret to refresh the
 visual display.
 
 Having defined this reactor, we can run it in several ways that are
@@ -360,8 +360,8 @@ reflect our decision to wrap around. But the task of how to draw
 the airplane doesn’t need to change at all! Similarly, the definition of
 the World State does not need to change, either.
 
-Therefore, we only need to modify `move-airplane-x-on-tick`{.pyret}. The
-function `num-modulo`{.pyret} does exactly what we need. That is, we want
+Therefore, we only need to modify `move-airplane-x-on-tick`{.jayret}. The
+function `num-modulo`{.jayret} does exactly what we need. That is, we want
 the x-location to always be modulo the width of the scene:
 
 ```jayret
@@ -387,15 +387,15 @@ thought about all the cases? For instance, what happens if the airplane
 is half-way off the right edge of the screen?
 
 ::: {.exercise}
-Define quality tests for `move-airplane-wrapping-x-on-tick`{.pyret}.
+Define quality tests for `move-airplane-wrapping-x-on-tick`{.jayret}.
 :::
 
 Note
 
 
 ::: {.note}
-It is possible to leave `move-airplane-x-on-tick`{.pyret} unchanged
-and perform the modular arithmetic in `place-airplane-x`{.pyret}
+It is possible to leave `move-airplane-x-on-tick`{.jayret} unchanged
+and perform the modular arithmetic in `place-airplane-x`{.jayret}
 instead. We choose not to do that for the following reason. In this
 version, we really do think of the airplane as circling around and
 starting again from the left edge (imagine the world is a
@@ -446,7 +446,7 @@ World Definition
 
 
 ::: {.world-def}
-The World State is a `posn`{.pyret}, representing the
+The World State is a `posn`{.jayret}, representing the
 x-position and y-position of the airplane on
 the screen.
 :::
@@ -458,7 +458,7 @@ the screen.
 #### 27.5.1 Moving the Airplane {#Moving-the-Airplane}
 
 First, let’s consider
-`move-airplane-wrapping-x-on-tick`{.pyret}. Previously our airplane moved
+`move-airplane-wrapping-x-on-tick`{.jayret}. Previously our airplane moved
 only in the x-direction; now we want it to descend as
 well, which means we must add something to the current y
 value:
@@ -520,7 +520,7 @@ near the edge of the screen in either or both dimensions? We thought
 not—go back and write more tests before you proceed!
 :::
 
-Using the design recipe, now define `move-airplane-xy-on-tick`{.pyret}. You
+Using the design recipe, now define `move-airplane-xy-on-tick`{.jayret}. You
 should end up with something like this:
 
 ```jayret
@@ -548,7 +548,7 @@ the code relatively readable.
 
 #### 27.5.2 Drawing the Scene {#Drawing-the-Scene}
 
-We have to also examine and update `place-airplane-x`{.pyret}. Our
+We have to also examine and update `place-airplane-x`{.jayret}. Our
 earlier definition placed the airplane at an arbitrary
 y-coordinate; now we have to take the
 y-coordinate from the World State:
@@ -588,10 +588,10 @@ R.interact(anim)
 
 ::: {.exercise}
 It’s a little unsatisfactory to have the airplane truncated by the
-screen. You can use `I.image-width`{.pyret} and `I.image-height`{.pyret} to
+screen. You can use `I.image-width`{.jayret} and `I.image-height`{.jayret} to
 obtain the dimensions of an image, such as the airplane. Use these to
 ensure the airplane fits entirely within the screen for the initial scene,
-and similarly in `move-airplane-xy-on-tick`{.pyret}.
+and similarly in `move-airplane-xy-on-tick`{.jayret}.
 :::
 
 ```{=html}
@@ -607,11 +607,11 @@ ascend as well.
 We’ll use the keyboard to control its motion: specifically, the up-key
 will make it move up, while the down-key will make it descend even
 faster. This is easy to support using what we already know: we just
-need to provide one more handler using `on-key`{.pyret}. This handler
+need to provide one more handler using `on-key`{.jayret}. This handler
 takes two arguments: the first is the current value of the
 world, while the second is a representation of which key was
 pressed. For the purposes of this program, the only key values we care
-about are `"up"`{.pyret} and `"down"`{.pyret}.
+about are `"up"`{.jayret} and `"down"`{.jayret}.
 
 This gives us a fairly comprehensive view of the core capabilities of
 reactors:
@@ -643,7 +643,7 @@ Object alter-airplane-y-on-key(w, key) {
 ::: {.do-now}
 Why does this function definition contain
 
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 | otherwise: w
 ```
@@ -687,8 +687,8 @@ animation](https://drive.google.com/file/d/1XbO-FHQIveD0f3KCvVlUZPjVLNpHW9NT/vie
 
 First, let’s try to characterize when the animation should halt. This
 means writing a function that consumes the current World State and
-produces a boolean value: `true`{.pyret} if the animation should halt,
-`false`{.pyret} otherwise. This requires a little arithmetic based on the
+produces a boolean value: `true`{.jayret} if the animation should halt,
+`false`{.jayret} otherwise. This requires a little arithmetic based on the
 airplane’s size:
 
 ```jayret
@@ -728,7 +728,7 @@ airbase. The actual landing strip is actually below ground level, and
 opens up only when the airplane comes in to land. That means, after
 landing, only the parts of the airplane that stick above ground level
 would be visible. Implement this. As a hint, consider modifying
-`place-airplane-xy`{.pyret}.
+`place-airplane-xy`{.jayret}.
 :::
 
 ```{=html}
@@ -753,7 +753,7 @@ balloon. The former remains unchanged from what it was before, so we can
 focus on the latter.
 
 Where is the balloon, and how do we represent where it is? The latter
-is easy to answer: that’s what `posn`{.pyret}s are good for. As for the
+is easy to answer: that’s what `posn`{.jayret}s are good for. As for the
 former, we can decide where it is:
 
 ```jayret
@@ -779,11 +779,11 @@ Object are-overlapping(airplane-posn, balloon-posn) {
     return distance(airplane-posn, balloon-posn) < COLLISION-THRESHOLD;
 }
 ```
-where `COLLISION-THRESHOLD`{.pyret} is some suitable constant computed
+where `COLLISION-THRESHOLD`{.jayret} is some suitable constant computed
 based on the sizes of the airplane and balloon images. (For these
-particular images, `75`{.pyret} works pretty well.)
+particular images, `75`{.jayret} works pretty well.)
 
-What is `distance`{.pyret}? It consumes two `posn`{.pyret}s and determines
+What is `distance`{.jayret}? It consumes two `posn`{.jayret}s and determines
 the Euclidean distance between them:
 
 ```jayret
@@ -835,7 +835,7 @@ BACKGROUND = I.place-image(BASE, WIDTH / 2, HEIGHT - (BASE-HEIGHT / 2), I.place-
 ```
 
 ::: {.do-now}
-Do you see how to write `game-ends`{.pyret} more concisely?
+Do you see how to write `game-ends`{.jayret} more concisely?
 :::
 
 Here’s another version:
@@ -904,7 +904,7 @@ choose to use the representation above?
 
 We can again look at each of the parts of the program to determine
 what can stay the same and what changes. Concretely, we must focus on
-the functions that consume and produce `World`{.pyret}s.
+the functions that consume and produce `World`{.jayret}s.
 
 On each tick, we consume a world and compute one. The passage of time
 does not consume any fuel, so this code can remain unchanged, other

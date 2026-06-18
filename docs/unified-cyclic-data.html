@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -157,25 +158,25 @@ data Customer:
       acct :: Account)
 end</code></pre></div></div></p></td></tr></table>
 <p>If you look closely, you’ll see that
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Account</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Account</code></span>
 refers to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Customer</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Customer</code></span>
 (specifically, a list of them) and in turn
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Customer</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Customer</code></span>
 refers to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Account</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Account</code></span>.
 This could get interesting.</p>
 <p>Previously, we could create an account with one customer as
 follows:</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">elena = Customer("Elena", Account(8404, 500))</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">elena = cust("Elena", account(8404, 500))</code></pre></div></div></p></td></tr></table>
 <p>How do we do that now? Every
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Account</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Account</code></span>
 requires a list of its
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Customer</code></span>s.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Customer</code></span>s.
 We need to write</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">elena = Customer("Elena", Account(8404, 500, [_____]))</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">elena = cust("Elena", account(8404, 500, [list: _____]))</code></pre></div></div></p></td></tr></table>
 <p>But what goes in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">_____</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">_____</code></span>?
 It needs to refer to the very customer account that we are presently
 creating.</p>
 <p>Another way to think about writing this is:</p>
@@ -183,7 +184,7 @@ creating.</p>
 elena = Customer("Elena", acct1)</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct1 = account(8404, 500, [list: _____])
 elena = cust("Elena", acct1)</code></pre></div></div></p></td></tr></table>
 <p>This hasn’t solved our fundamental problem—we still need to fill in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">_____</code></span>—but
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">_____</code></span>—but
 at least we now have names to refer to entities. We would like to be
 able to write</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1 = Account(8404, 500, [elena])
@@ -193,20 +194,20 @@ elena = cust("Elena", acct1)</code></pre></div></div></p></td></tr></table>
 error. That is because they try to evaluate the right-hand-side of the
 first line to create an account, whose heap address will be bound in the
 directory to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">acct1</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">acct1</code></span>.
 To do so, they must evaluate that account-creation expression. In doing
 so, they look up the name
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">elena</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">elena</code></span>.
 However,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">elena</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">elena</code></span>
 has not yet been bound in the directory. Therefore, they produce an
 error.</p>
 <p>Observe that we can’t just reverse the order of these two bindings.
 If we try that, we end up with the same problem: we try to create a
 customer that refers to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">acct1</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">acct1</code></span>.
 But we haven’t yet defined
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">acct1</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">acct1</code></span>,
 producing the same error.</p>
 <p>The problem is we are trying to create cyclic data. The two data
 refer to one another. We could already sense that this might happen from
@@ -219,7 +220,7 @@ Then we create the other, and then modify the first one to have the
 correct contents.</p>
 <p>In our case, the Jayret version makes clear what order to use in
 creating the data. Nothing in a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Customer</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Customer</code></span>
 is mutable (nor needs to be), whereas the list of account owners is (and
 should be, because the set of customers can grow). Therefore, we can
 write:</p>
@@ -237,7 +238,7 @@ owner, which is not yet reflected. So we have to update it to reflect
 that:</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1.owners = [elena]</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct1!{owners: [list: elena]}</code></pre></div></div></p></td></tr></table>
 <p>We can legitimately do this now because
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">elena</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">elena</code></span>
 is bound in the dictionary. Furthermore, it is bound to something
 useful: Elena’s customer information. So now the values are properly set
 up: Elena’s customer information refers to the account, and the account
@@ -249,7 +250,7 @@ on 1001.</p>
 same account, we can update the account to reflect that also:</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jorge = Customer("Jorge", acct1)</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">jorge = cust("Jorge", acct1)</code></pre></div></div></p></td></tr></table>
 <p>Again, the information in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">acct1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">acct1</code></span>
 is inaccurate because it does not reflect the new owner. We can modify
 it in a similar way:</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1.owners = acct1.owners + [jorge]</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct1!{owners: acct1!owners + [list: jorge]}</code></pre></div></div></p></td></tr></table>
@@ -271,7 +272,7 @@ account.</p></blockquote></blockquote>
 <p>When you want to write a test involving circular data, you can’t
 write out the circular data manually. For example, imagine that we
 wanted to write out
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">acct1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">acct1</code></span>
 from earlier:</p>
 <table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">assert(acct1 = Account(8404, 500, [Customer("Elena", Account(8404, 500, …)]))</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">check:
   acct1 is
@@ -279,7 +280,7 @@ from earlier:</p>
 end</code></pre></div></div></p></td></tr></table>
 <p>However, because of the circularity, we can’t finish writing down the
 data. We can’t just leave part of it unspecified with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">…</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">…</code></span>.</p>
 <p>This leaves us with two choices:</p>
 <p>You have two options: write tests in terms of the names of data, or
 write tests on the components of the data.</p>

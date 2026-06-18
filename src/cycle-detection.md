@@ -45,9 +45,9 @@ p6 ! {tl p6 }
 Sketch out the above pairs to make sure you see all the cycles.
 :::
 
-So we have two that participate in no cyclic behavior (`p0`{.pyret} and
-`p1`{.pyret}), two (`p2`{.pyret} and `p3`{.pyret} that are mutually-cyclic, one
-(`p6`{.pyret}) that is a self-cycle, and two (`p4`{.pyret} and `p5`{.pyret})
+So we have two that participate in no cyclic behavior (`p0`{.jayret} and
+`p1`{.jayret}), two (`p2`{.jayret} and `p3`{.jayret} that are mutually-cyclic, one
+(`p6`{.jayret}) that is a self-cycle, and two (`p4`{.jayret} and `p5`{.jayret})
 that lead to a cycle.
 
 ```{=html}
@@ -57,10 +57,10 @@ that lead to a cycle.
 ### 21.2 Types {#Types}
 
 As an aside, imagine we try to type-check this program. We have to
-provide a type for `tl`{.pyret}, but it’s not clear what this can be:
-sometimes it’s a `Number`{.pyret}, and other times it’s a
-`Pair`{.pyret}. However, we might observe that if our goal is to
-create cyclic data, then we want `tl`{.pyret} to refer to a `Pair`{.pyret}
+provide a type for `tl`{.jayret}, but it’s not clear what this can be:
+sometimes it’s a `Number`{.jayret}, and other times it’s a
+`Pair`{.jayret}. However, we might observe that if our goal is to
+create cyclic data, then we want `tl`{.jayret} to refer to a `Pair`{.jayret}
 or to nothing at all. That suggests that a useful type is:
 
 ```jayret
@@ -81,7 +81,7 @@ p5 = p(5, some(p4));
 p6 = p(6, none);
 p6 ! {tl some(p6) }
 ```
-This works, but we have to deal with the `Option`{.pyret}
+This works, but we have to deal with the `Option`{.jayret}
 everywhere. Since our goal is to focus on cycles, and this would
 become unwieldy, we ignore the typed version from now on.
 
@@ -98,7 +98,7 @@ So let’s try to figure out whether, given a Pair, it leads to a cycle. What sh
 ```jayret
 /* contract: cc :: Object */;
 ```
-where `cc`{.pyret} stands for “check cycle”.
+where `cc`{.jayret} stands for “check cycle”.
 
 Critically, it’s important that this be a total function: i.e., it always terminates.
 
@@ -147,8 +147,8 @@ As another aside, observe that we could have written these tests instead like
 }
 ```
 which would be more concise, but that would also be misleading: it
-would suggest that `cc`{.pyret} is a desirable property, so `p2`{.pyret} is
-a “good” instance and `p0`{.pyret} is a “bad” one. However, `cc`{.pyret}
+would suggest that `cc`{.jayret} is a desirable property, so `p2`{.jayret} is
+a “good” instance and `p0`{.jayret} is a “bad” one. However, `cc`{.jayret}
 is not a judgment of quality—its two responses have equal
 weight—so this would be confusing to a later reader.
 
@@ -164,7 +164,7 @@ computing the complexity over. If the sequence is finite, then the
 size is clearly the size of the sequence. But if it’s infinite, we
 don’t want to traverse the “whole thing”: rather, we mean its finite
 part (excluding any repetition). So the meaningful measure in either
-case is the number of `p`{.pyret} nodes, i.e., the finite size. It may
+case is the number of `p`{.jayret} nodes, i.e., the finite size. It may
 just be that some of these lead back to themselves, so that a naïve
 traversal will go on forever.
 
@@ -286,7 +286,7 @@ While it might be tempting to write tests like
     assertEquals(cc(p2), true);
 }
 ```
-(i.e., the same as before, but with `cc`{.pyret} replaced by `ph`{.pyret}), we should instead write them as follows:
+(i.e., the same as before, but with `cc`{.jayret} replaced by `ph`{.jayret}), we should instead write them as follows:
 
 ```jayret
 @Check void test() {
@@ -302,9 +302,9 @@ While it might be tempting to write tests like
 
 This confers two advantages. First, if we change the example, we don’t
 have to update two tests, only one. But the much more important reason
-is that we intend for `pr`{.pyret} to be an optimized version of
-`cc`{.pyret}. That is, we expect the two to produce the same result. We
-can think of `cc`{.pyret} as our clear, reference implementation. That
+is that we intend for `pr`{.jayret} to be an optimized version of
+`cc`{.jayret}. That is, we expect the two to produce the same result. We
+can think of `cc`{.jayret} as our clear, reference implementation. That
 is, this is another instance of model-based testing.
 
 As an aside, this algorithm is not exactly what Jayret does, because we

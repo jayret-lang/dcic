@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -262,20 +263,20 @@ costs one unit of time. Everything else is a compound expression with
 sub-expressions. The cost of a compound expression is one plus that of
 each of its sub-expressions. For instance, the running time cost of the
 expression
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">e1 + e2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">e1 + e2</code></span>
 (for some sub-expressions
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">e1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">e1</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">e2</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">e2</code></span>)
 is the running time for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">e1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">e1</code></span>
 + the running time for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">e2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">e2</code></span>
 + 1. Thus the expression
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">17 + 29</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">17 + 29</code></span>
 has a cost of 3 (one for each sub-expression and one for the addition);
 the expression
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1 + (7 * (2 / 9))</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1 + (7 * (2 / 9))</code></span>
 costs 7.</p>
 <p>As you can see, there are two big approximations here:</p>
 <ul>
@@ -300,13 +301,13 @@ does. If the analytical prediction is accurate, we can reconstruct the
 constant factors hidden in our calculations and thus obtain very precise
 wall-clock time bounds for the program.</p>
 <p>There is one especially tricky kind of expression:
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 (and its fancier cousins, like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">cases</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ask</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">ask</code></span>).
 How do we think about the cost of an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>?
 It always evaluates the condition. After that, it evaluates only one of
 its branches. But we are interested in the worst case time, i.e., what
 is the longest it could take? For a conditional, it’s the cost of the
@@ -325,10 +326,10 @@ Complexity of Numbers</a>].</span></span></span></p>
 <p>It can be subtle to define the size of the argument. Suppose a
 function consumes a list of numbers; it would be natural to define the
 size of its argument to be the length of the list, i.e., the number of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">link</code></span>s
 in the list. We could also define it to be twice as large, to account
 for both the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">link</code></span>s
 and the individual numbers (but as we’ll see [<a
 href="predicting-growth.html##big-oh-def">Comparing Functions</a>],
 constants usually don’t matter). But suppose a function consumes a list
@@ -375,7 +376,7 @@ two)</p></li>
 clause</p></li>
 </ol>
 <p>Finally, the total cost of the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cond</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">cond</code></span>
 expression is obtained by summing the Total column in the individual
 rows.</p>
 <p>In the process of computing these costs, we may come across recursive
@@ -390,11 +391,11 @@ method.</p></blockquote></blockquote>
 are individually accurate (e.g., the use of additions and
 multiplications is appropriate), and (b) sufficient (i.e., combined,
 they account for all operations that will be performed by that
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cond</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">cond</code></span>
 clause).</p></blockquote></blockquote>
 <p>It’s easiest to understand this by applying it to a few examples.
 First, let’s consider the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">len</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">len</code></span>
 function, noting before we proceed that it does meet the criterion of
 having a single recursive call where the argument is structural:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object len(l) {
@@ -404,24 +405,24 @@ having a single recursive call where the argument is structural:</p>
     }
 }</code></pre></div></div>
 <p>Let’s compute the cost of running
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">len</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">len</code></span>
 on a list of length <span class="math inline">\(k\)</span> (where we are
 only counting the number of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">link</code></span>s
 in the list, and ignoring the content of each first element
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>),
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>),
 since
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">len</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">len</code></span>
 ignores them too).</p>
 <p>Because the entire body of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">len</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">len</code></span>
 is given by a conditional, we can proceed directly to building the
 table.</p>
 <p>Let’s consider the first row. The question costs three units (one
 each to evaluate the implicit
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>-ness
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">empty</code></span>-ness
 predicate,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">l</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">l</code></span>,
 and to apply the former to the latter). This is evaluated once per
 element in the list and once more when the list is empty, i.e., <span
 class="math inline">\(k+1\)</span> times. The total cost of the question
@@ -432,13 +433,13 @@ class="math inline">\(3k+4\)</span> units.</p>
 <p>Now for the second row. The question again costs three units, and is
 evaluated <span class="math inline">\(k\)</span> times. The answer
 involves two units to evaluate the rest of the list
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">l.rest</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">l.rest</code></span>,
 which is implicitly hidden by the naming of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">r</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">r</code></span>,
 two more to evaluate and apply
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1 +</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1 +</code></span>,
 one more to evaluate
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">len</code></span>…and
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">len</code></span>…and
 no more, because we are ignoring the time spent in the recursive call
 itself. In short, it takes five units of time (in addition to the
 recursion we’ve chosen to ignore).</p>
@@ -446,30 +447,30 @@ recursion we’ve chosen to ignore).</p>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span style="font-weight: bold">|Q|</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">#Q</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">TotQ</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">|A|</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">#A</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">TotA</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">Total</span></p></td></tr><tr><td><p>\(3\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(k+1\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(3(k+1)\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(1\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(1\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(1\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(3k+4\)</p></td></tr><tr><td><p>\(3\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(k\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(3k\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(5\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(k\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(5k\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(8k\)</p></td></tr></table>
 <p>Adding, we get <span class="math inline">\(11k + 4\)</span>. Thus
 running
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">len</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">len</code></span>
 on a <span class="math inline">\(k\)</span>-element list takes <span
 class="math inline">\(11k+4\)</span> units of time.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>How accurate is this estimate? If you try applying
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">len</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">len</code></span>
 to different sizes of lists, do you obtain a consistent estimate for
 <span class="math inline"><em>k</em></span>?</p></blockquote></blockquote>
 <a name="(part._creating-recurrences)"></a>
 <h3 id="creating-recurrences">14.6 Creating Recurrences</h3>
 <p>We will now see a systematic way of analytically computing the time
 of a program. Suppose we have only one function
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>.
 We will define a function, <span class="math inline">\(T\)</span>, to
 compute an upper-bound of the time of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>.<span class="refelem"><span class="refcolumn"><span class="refcontent">In general, we will have one such cost function for each function in the
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>.<span class="refelem"><span class="refcolumn"><span class="refcontent">In general, we will have one such cost function for each function in the
 program. In such cases, it would be useful to give a different name to
 each function to easily tell them apart. Since we are looking at only
 one function for now, we’ll reduce notational overhead by having only
 one <span class="math inline"><em>T</em></span>.</span></span></span>
 <span class="math inline">\(T\)</span> takes as many parameters as
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>
 does. The parameters to <span class="math inline">\(T\)</span> represent
 the sizes of the corresponding arguments to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>.
 Eventually we will want to arrive at a closed form solution to <span
 class="math inline">\(T\)</span>, i.e., one that does not refer to <span
 class="math inline">\(T\)</span> itself. But the easiest way to get
@@ -491,24 +492,24 @@ case?</p></blockquote></blockquote>
 <p>The process of setting up a recurrence is easy. We simply define the
 right-hand-side of <span class="math inline">\(T\)</span> to add up the
 operations performed in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>’s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>’s
 body. This is straightforward except for conditionals and recursion.
 We’ll elaborate on the treatment of conditionals in a moment. If we get
 to a recursive call to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>
 on the argument
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">a</code></span>,
 in the recurrence we turn this into a (self-)reference to <span
 class="math inline">\(T\)</span> on the size of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">a</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">a</code></span>.</p>
 <p>For conditionals, we use only the |Q| and |A| columns of the
 corresponding table. Rather than multiplying by the size of the input,
 we add up the operations that happen on one invocation of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>
 other than the recursive call, and then add the cost of the recursive
 call in terms of a reference to <span class="math inline">\(T\)</span>.
 Thus, if we were doing this for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">len</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">len</code></span>
 above, we would define <span class="math inline">\(T(k)\)</span>—the
 time needed on an input of length <span
 class="math inline">\(k\)</span>—in two parts: the value of <span
@@ -548,10 +549,10 @@ Recurrences</a>].</p>
 <a name="(part._math-anon-functions)"></a>
 <h3 id="math-anon-functions">14.7 A Notation for Functions</h3>
 <p>We have seen above that we can describe the running time of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">len</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">len</code></span>
 through a function. We don’t have an especially good notation for
 writing such (anonymous) functions. Wait, we
-do—<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">(k) -&gt; (11 * k) + 4</code></span>—but
+do—<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">(k) -&gt; (11 * k) + 4</code></span>—but
 my colleagues would be horrified if you wrote this on their exams.
 Therefore, we’ll introduce the following notation to mean precisely the
 same thing: <span class="math display">\[\begin{equation*}[k \rightarrow
@@ -560,7 +561,7 @@ with the parameters before the arrow and the body after.</p>
 <a name="(part._big-oh-def)"></a>
 <h3 id="big-oh-def">14.8 Comparing Functions</h3>
 <p>Let’s return to the running time of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">len</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">len</code></span>.
 We’ve written down a function of great precision: 11! 4! Is this
 justified?</p>
 <p>At a fine-grained level already, no, it’s not. We’ve lumped many
@@ -699,7 +700,7 @@ To nudge your intuitions, assume that in all cases we’re discussing the
 running time of functions. We’ll consider three cases:</p>
 <ul>
 <li><p>Suppose we have a function
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>
 (whose running time is) in <span class="math inline">\(O(F)\)</span>.
 Let’s say we run it <span class="math inline">\(p\)</span> times, for
 some given constant. The running time of the resulting code is then
@@ -713,25 +714,25 @@ class="math inline">\(O(pF)\)</span> is equivalent to <span
 class="math inline">\(O(F)\)</span>. This is the heart of the intution
 that “multiplicative constants don’t matter”.</p></li>
 <li><p>Suppose we have two functions,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>
 in <span class="math inline">\(O(F)\)</span> and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">g</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">g</code></span>
 in <span class="math inline">\(O(G)\)</span>. If we run
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>
 followed by
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">g</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">g</code></span>,
 we would expect the running time of the combination to be the sum of
 their individual running times, i.e., <span class="math inline">\(O(F) +
 O(G)\)</span>. You should convince yourself that this is simply <span
 class="math inline">\(O(max(F, G))\)</span>.</p></li>
 <li><p>Suppose we have two functions,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>
 in <span class="math inline">\(O(F)\)</span> and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">g</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">g</code></span>
 in <span class="math inline">\(O(G)\)</span>. If
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>
 invokes
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">g</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">g</code></span>
 in each of its steps, we would expect the running time of the
 combination to be the product of their individual running times, i.e.,
 <span class="math inline">\(O(F) \times O(G)\)</span>. You should
@@ -755,7 +756,7 @@ class="math inline">\(k+1\)</span> can become <span
 class="math inline">\(k\)</span>. Adding this gives us <span
 class="math inline">\(O(k) + O(k) = 2 \times O(k) \in O(k)\)</span>.
 This justifies claiming that running
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">len</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">len</code></span>
 on a <span class="math inline">\(k\)</span>-element list takes time in
 <span class="math inline">\(O([k \rightarrow k])\)</span>, which is a
 much simpler way of describing its bound than <span
@@ -777,7 +778,7 @@ how to quickly derive it).</p>
 input and one for all others. In general, we should expect to find one
 case for each non-recursive call and one for each recursive one, i.e.,
 roughly one per
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">cases</code></span>
 clause. In what follows, we will ignore the base cases so long as the
 size of the input is constant (such as zero or one), because in such
 cases the amount of work done will also be a constant, which we can

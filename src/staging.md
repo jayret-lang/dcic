@@ -46,13 +46,13 @@ Object abt-size(ABT p) {
 ```
 
 Now let’s think about a slightly different function:
-`how-many-named`{.pyret}, which tells us how many people in a family have
+`how-many-named`{.jayret}, which tells us how many people in a family have
 a particular name. Not only can more than one person have the same
 name, in some cultures it’s not uncommon to use the same name
 across generations, either in successive generations or skipping one.
 
 ::: {.do-now}
-What is the contract for `how-many-named`{.pyret}? The contract for this function
+What is the contract for `how-many-named`{.jayret}? The contract for this function
 will be crucial, so make sure you do this step!
 :::
 
@@ -64,7 +64,7 @@ Here is one meaningful contract:
 It takes a tree in which to search, a name to search for, and returns a count.
 
 ::: {.do-now}
-Define `how-many-named`{.pyret}.
+Define `how-many-named`{.jayret}.
 :::
 
 ```{=html}
@@ -114,8 +114,8 @@ essentially saying is that we want to know how much this person is contributing
 to the overall count; the rest of the count stays the same regardless.
 
 One way to make this more explicit is to (perhaps surprisingly)
-rewrite the `else`{.pyret} to make explicit that a person with a
-different name contributes `0`{.pyret} to the count:
+rewrite the `else`{.jayret} to make explicit that a person with a
+different name contributes `0`{.jayret} to the count:
 
 ```jayret
 Object how-many-named(p, looking-for) {
@@ -149,12 +149,12 @@ Object how-many-named(p, looking-for) {
 }
 ```
 If you have prior programming experience, this may look a bit odd to you, but
-`if`{.pyret} is in fact an expression, which has a value; in this case the value
-is either `0`{.pyret} or `1`{.pyret}. This value can then be used in an addition.
+`if`{.jayret} is in fact an expression, which has a value; in this case the value
+is either `0`{.jayret} or `1`{.jayret}. This value can then be used in an addition.
 
 Now let’s look at this code even more closely. Notice something interesting. We
-keep passing two parameters to `how-many-named`{.pyret}; however, only one of
-those parameters (`p`{.pyret}) is actually changing. The name we are
+keep passing two parameters to `how-many-named`{.jayret}; however, only one of
+those parameters (`p`{.jayret}) is actually changing. The name we are
 looking for does not change, as we would expect: we are looking for the same
 name in the entire tree. How can we reflect this in the code?
 
@@ -209,7 +209,7 @@ Object how-many-named(looking-for, p) {
     }
 }
 ```
-and the example reads `how-many-named("A", p)`{.pyret}
+and the example reads `how-many-named("A", p)`{.jayret}
 instead.
 
 ```{=html}
@@ -224,14 +224,14 @@ constant once we initially have it, we’d like the actual search function to
 take only one argument: where in the tree we’re searching.
 
 That is, we want the search function’s
-contract to be `(ABT -> Number)`{.pyret}. To achieve that, we need another
-function that will take the `String`{.pyret} part.
+contract to be `(ABT -> Number)`{.jayret}. To achieve that, we need another
+function that will take the `String`{.jayret} part.
 Thus, the contract has to become
 
 ```jayret
 /* contract: how-many-named :: Object */;
 ```
-where `how-many-named`{.pyret} consumes a name and returns a function that will
+where `how-many-named`{.jayret} consumes a name and returns a function that will
 consume the actual tree to check.
 
 This suggests the following function body:
@@ -249,7 +249,7 @@ Object how-many-named(looking-for) {
 }
 ```
 However, this function body is not okay: the Jayret type-checker will give us
-type errors. That’s because `how-many-named`{.pyret} takes one parameter, not two,
+type errors. That’s because `how-many-named`{.jayret} takes one parameter, not two,
 as in the two recursive calls.
 
 How do we fix this? Remember, the whole point of this change is we don’t want
@@ -279,13 +279,13 @@ search).
 Try the above and make sure it works.
 :::
 
-It still doesn’t: the above body has a syntax error! This is because `how-many-named`{.pyret}
+It still doesn’t: the above body has a syntax error! This is because `how-many-named`{.jayret}
 does not actually return any kind of value.
 
 What should it return? Once we provide the function with a name, we should get
 back a function that searches for that name in a tree. But we already
-have exactly such a function: `search-in`{.pyret}. Therefore,
-`how-many-named`{.pyret} should return just … `search-in`{.pyret}.
+have exactly such a function: `search-in`{.jayret}. Therefore,
+`how-many-named`{.jayret} should return just … `search-in`{.jayret}.
 
 ```jayret
 Object how-many-named(looking-for) {
@@ -304,9 +304,9 @@ Object how-many-named(looking-for) {
 ```
 
 This still won’t work, because we haven’t changed the example. Let’s
-update that: how do we use `how-many-named`{.pyret}? We have to call it
-with a name (like `"A"`{.pyret}); this returns a function—the
-one bound to `search-in`{.pyret}—which expects a ancestor tree. Doing
+update that: how do we use `how-many-named`{.jayret}? We have to call it
+with a name (like `"A"`{.jayret}); this returns a function—the
+one bound to `search-in`{.jayret}—which expects a ancestor tree. Doing
 so should return a count. Thus, the example should be rewritten as
 
 ```jayret
@@ -314,9 +314,9 @@ how-many-As = how-many-named("A");
 assertEquals(how-many-As(p), 3);
 ```
 This is an instructive way to write the example. We can, however, also
-write it more concisely. Notice that `how-many-named("A")`{.pyret}
+write it more concisely. Notice that `how-many-named("A")`{.jayret}
 returns a function, and the way we apply a function to arguments is
-`(…)`{.pyret}. Thus, we can also write this as:
+`(…)`{.jayret}. Thus, we can also write this as:
 
 ```jayret
 assertEquals(how-many-named("A")(p), 3);

@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -131,11 +132,11 @@ the earlier example of creating a cyclic list of alternating colors. We
 had tried to write:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">web-colors = link("white", link("grey", web-colors));</code></pre></div></div>
 <p>which, as we noted, does not pass muster because
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">web-colors</code></span>
 is not bound on the right of the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">=</code></span>.
 (Why not? Because otherwise, if we try to substitute
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">web-colors</code></span>
 on the right, we would end up in an infinite regress.)</p>
 <p>Something about this should make you a little suspicious: we have
 been able to write recursive functions all the time, without difficulty.
@@ -153,15 +154,15 @@ it.</p></li>
 </ul>
 <p>Returning to our example above, recall that we can’t make up our list
 using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>s,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">link</code></span>s,
 because we want the list to never terminate. Therefore, let us first
 define a new datatype to hold an cyclic list:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Pair {
 }</code></pre></div></div>
 <p>You should think of this as analogous to a list, where
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hd</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">hd</code></span>
 is the first element and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">tl</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">tl</code></span>
 is the rest.</p>
 <p>Observe that we have carefully avoided writing type definitions for
 the fields; we will instead try to figure them out as we go along. Also,
@@ -198,12 +199,12 @@ grey-pair ! {tl white-pair }</code></pre></div></div>
 with white, this rounds up our definition:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">web-colors = white-pair;</code></pre></div></div>
 <p>If we ask Jayret to inspect the value of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">web-colors</code></span>,
 we notice that it employs an algorithm to prevent traversing infinite
 objects. You can learn more about how that works separately [<a
 href="cycle-detection.html">Detecting Cycles</a>].</p>
 <p>We can define a helper function,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">take</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">take</code></span>,
 a variation of which we saw for streams [<a
 href="func-as-data.html##streams-from-funs">Streams From Functions</a>],
 to inspect a finite prefix of an infinite list:</p>
@@ -236,7 +237,7 @@ very simple example, such as this:</p>
     return 0;
 }</code></pre></div></div>
 <p>but if you enter this, Jayret will complain that
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum</code></span>
 is not bound. We must instead write</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">rec sum = (n) -&gt; if (n &gt; 0) {
     return n + sum(n - 1);
@@ -244,14 +245,14 @@ is not bound. We must instead write</p>
     return 0;
 }</code></pre></div></div>
 <p>What do you think
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">rec</code></span>
 does? It binds
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum</code></span>
 to a box initially containing a dummy value; it then defines the
 function in an environment where the name is bound, unboxing the use of
 the name; and finally, it replaces the box’s content with the defined
 function, following the same pattern we saw earlier for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">web-colors</code></span>.</p>
 <a name="(part._premature-eval)"></a>
 <h3 id="premature-eval">20.3 Premature Evaluation</h3>
 <p>Observe that the above description reveals that there is a time
@@ -266,26 +267,26 @@ is no value already in use that can be used here that might not be
 confusing in some context.</p></li>
 <li><p>The language might create a new type of value just for use here.
 For instance, imagine this definition of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">CList</code></span>:</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">CList</code></span>:</p></li>
 </ol>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data CList {
   Undef;
   Clink(v, ref r);
 }</code></pre></div></div>
-<p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">undef</code></span>
+<p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">undef</code></span>
 appears to be a “base case”, thus making
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">CList</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">CList</code></span>
 very similar to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">List</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">List</code></span>.
 In truth, however, the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">undef</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">undef</code></span>
 is present only until the first mutation happens, after which it will
 never again be present: the intent is that
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">r</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">r</code></span>
 only contain a reference to other
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">clink</code></span>s.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">clink</code></span>s.</p>
 <p>The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">undef</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">undef</code></span>
 value can now be used by the language to check for premature uses of a
 cyclic list. However, while this is technically feasible, it imposes a
 run-time penalty. Therefore, this check is usually only performed by
@@ -307,9 +308,9 @@ programmers do not need to wrestle with mutable fields (as above) or
 thunks (as streams demand). This simplicity, however, comes at a price:
 cyclic lists can only represent strictly repeating data, i.e., you
 cannot define
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nats</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">nats</code></span>
 or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fibs</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">fibs</code></span>
 as cyclic lists. In contrast, the function abstraction in a stream makes
 it generative: each invocation can create a truly novel datum (such as
 the next natural or Fibonacci number). Therefore, it is straightforward

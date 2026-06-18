@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -149,15 +150,15 @@ spreadsheet</a>:</p>
 the data in an analysis? Or for the operations for managing an
 event?</p></blockquote></blockquote>
 <p>Some issues jump out quickly: the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">three</code></span>
 in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Num Tickets"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Num Tickets"</code></span>
 column, differences in capitalization in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Discount Code"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Discount Code"</code></span>
 column, and the use of each of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"none"</code></span>
 and blank spaces in the the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Discount Code"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Discount Code"</code></span>
 column (you may have spotted additional issues). Before we do any
 analysis with this dataset, we need to clean it up so that our analysis
 will be reliable. In addition, sometimes our dataset is clean, but it
@@ -187,12 +188,12 @@ Sheets)</p></li>
 files</p></li>
 </ul>
 <p>Both use the same Jayret operation
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-table</code></span>),
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">load-table</code></span>),
 but in slightly different ways.</p>
 <p>Google Sheets and CSV files treat the types of data in cells
 differently, so there are also differences in how we manage the types of
 Jayret columns after loading. Columns like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Num Tickets"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Num Tickets"</code></span>
 that appear to contain both numbers and strings highlight the
 differences. We discuss these nuances in separate sections for each kind
 of source file.</p>
@@ -203,32 +204,32 @@ Google Sheets in CPO</h5>
 ssid = "1Ks4ll5_8wyYK1zyXMm_21KORhagSMZ59dcr7i3qY6T4";
 event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: load-spreadsheet(ssid).sheet-by-name("Orig Data", true);</code></pre></div></div>
 <ul>
-<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ssid</code></span>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">ssid</code></span>
 is the identifier of the Google Sheet we want to load (the identifier is
 the long sequence of letters and numbers in the Google Sheet
 URL).</p></li>
 <li><p>The sequence of names following
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-table</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">load-table</code></span>
 is used for the column headers in the Jayret version of the table. These
 do NOT have to match the names used in the original Sheet.</p></li>
-<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">source</code></span>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">source</code></span>
 tells Jayret which sheet to load. The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-spreadsheet</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">load-spreadsheet</code></span>
 operation takes the Google Sheet identifier (here,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ssid</code></span>),
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">ssid</code></span>),
 as well as the name of the individual worksheet (or tab) as named within
 the Google Sheet (here,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Orig Data"</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Orig Data"</code></span>).
 The final boolean indicates whether there is a header row in the table
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>
 means there is a header row).</p></li>
 </ul>
 <p>When reading a table from Google Sheets, Jayret treats each column as
 having a type, based on the value in the first row of data. Jayret thus
 reports an error that
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">three</code></span>
 (in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Num Tickets"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Num Tickets"</code></span>
 column) is not a number. We’ll discuss how to handle this in <a
 href="processing-tables.html##cols-multiple-types-data">Dealing with
 Columns with Multiple Types of Data</a>.</p>
@@ -236,7 +237,7 @@ Columns with Multiple Types of Data</a>.</p>
 <h5 id="loading-tables-from-csv">4.2.1.1.2 Loading Tables from CSV files
 in VSCode</h5>
 <p>We configure the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-table</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">load-table</code></span>
 operation differently depending on whether the CSV file is on your
 computer or available through a URL.</p>
 <ul>
@@ -246,18 +247,18 @@ computer or available through a URL.</p>
 url = "https://raw.githubusercontent.com/data-centric-computing/dcic-public/main/materials/datasets/events-orig-f25.csv";
 event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: csv-table-url(url, default-options);</code></pre></div></div></blockquote>
 <ul>
-<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">url</code></span>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">url</code></span>
 is the identifier of the web address (URL) where the CSV data we want to
 load exists.</p></li>
-<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">source</code></span>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">source</code></span>
 tells Jayret where to load the data from. The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">csv-table-url</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">csv-table-url</code></span>
 operation takes the web address (here,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">url</code></span>),
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">url</code></span>),
 as well as options (which indicate, for example, whether we expect there
 to be a header row).</p></li>
 <li><p>The sequence of names following
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-table</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">load-table</code></span>
 is used for the column headers in the Jayret version of the table. These
 do NOT have to match the names used in the first row of the CSV file
 (which is usually a header row).</p></li>
@@ -271,9 +272,9 @@ event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: 
 <p>When reading a table from CSV, Jayret treats every cell as containing
 a string, even if the cell data appears to be numeric. Thus, Jayret does
 not report an error around the combination of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">three</code></span>
 and numbers in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Num Tickets"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Num Tickets"</code></span>
 column. The inconsistency would resurface, however, if we try to use the
 column data assuming that they are all strings of numerals. If we notice
 this problem before loading our data, we should fix it before we
@@ -303,21 +304,21 @@ use in the rest of this chapter.</p>
 <ul>
 <li><p>If you are using the Google Sheet, look for the separate
 worksheet/tab named
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Data"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Data"</code></span>
 in which the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">three</code></span>
 has been replaced with a number. If we use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Data"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Data"</code></span>
 instead of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Orig Data"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Orig Data"</code></span>
 in the above
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-spreadsheet</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">load-spreadsheet</code></span>
 command, the event table loads into Jayret.</p></li>
 <li><p>If you are using the CSV files in VSCode, modify the file path to
 end with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"events-f25.csv"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"events-f25.csv"</code></span>
 instead of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"events-orig-f25.csv"</code></span>.</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"events-orig-f25.csv"</code></span>.</p></li>
 </ul>
 <a name="(part._missing-data)"></a>
 <h5 id="missing-data">4.2.1.2 Dealing with Missing Entries</h5>
@@ -327,7 +328,7 @@ in a spreadsheet program (such as Excel, Google Sheets, or something
 similar), it is possible to leave cells completely empty. What happens
 when we load a table with empty cells into Jayret?</p>
 <p>The original data file has blanks in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">discount</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">discount</code></span>
 column. After we load it into Jayret, we see something interesting in
 that column (though what it is will differ depending on whether you’re
 reading from Google Sheets or CSV files).</p>
@@ -335,49 +336,49 @@ reading from Google Sheets or CSV files).</p>
 <li><p>If you are using Google Sheets and CPO, load the table as
 follows:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">event-data = load-table name ,email ,tickcount ,discount ,delivery source: load-spreadsheet(ssid).sheet-by-name("Data", true);</code></pre></div></div>
-<p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">event-data</code></span>
+<p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">event-data</code></span>
 will be the following table:</p>
 <p><img src="unsanitized-discount-table.png" width="654"
 height="332" /></p>
 <p>Note that those cells that had discount codes in them now have an
 odd-looking notation like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some("student")</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">some("student")</code></span>,
 while some of the cells that were empty contain
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">none</code></span>,
 but
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">none</code></span>
 isn’t a string. What’s going on?</p>
 <p>Jayret supports a special type of data called option. As the name
 suggests, option is for data that may or may not be present.
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">none</code></span>
 is the value that stands for “the data are missing”. If a datum are
 present, it appears wrapped in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">some</code></span>.</p>
 <p>Look also at the last two rows (for Zander and Shweta) – they also
 appear empty when seen in Google Sheets, but Jayret has loaded them as
 strings of spaces (e.g.,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some("       ")</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">some("       ")</code></span>).
 What does that mean? It means that those cells weren’t actually empty in
 the Google Sheet, but instead contained several spaces.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Look at the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">discount</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">discount</code></span>
 value for Ernie’s row: it reads
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some("none")</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">some("none")</code></span>.
 What does this mean? How is this different from
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">none</code></span>
 (as in Sam’s row)?</p></blockquote></blockquote></li>
 <li><p>If you are using CSV files and VSCode, load the table as
 follows:</p>
 <blockquote class="VSCode"><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">url = "https://raw.githubusercontent.com/data-centric-computing/dcic-public/main/materials/datasets/events-f25.csv";
 event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: csv-table-url(url, default-options);</code></pre></div></div></blockquote>
-<p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">event-data</code></span>
+<p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">event-data</code></span>
 will be the following table:</p>
 <p><img src="unsanitized-discount-table-csv.png" width="657"
 height="328" /></p>
 <p>Note that cells that had no data have either empty strings
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">""</code></span>)
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">""</code></span>)
 or strings with spaces
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"    "</code></span>).
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"    "</code></span>).
 What caused the difference? In the cells where the string has spaces,
 the cell in the original CSV appeared to be empty, but it actually
 contained some spaces. When reading in the CSV, Jayret retains the
@@ -388,47 +389,47 @@ cell actually had no data at all.</p></li>
 address missing data (and conversion in general) is to indicate how to
 handle each column. This guarantees that the data will be as you expect
 after you read them in. We do this with an additional aspect of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">load-table</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">load-table</code></span>
 called sanitizers. Here’s how we modify the code:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">import data-source
 // to get the sanitizers
 event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: load-spreadsheet(ssid).sheet-by-name("Data", true) sanitize name using string-sanitizer sanitize email using string-sanitizer sanitize tickcount using num-sanitizer sanitize discount using string-sanitizer sanitize delivery using string-sanitizer sanitize zip using string-sanitizer;</code></pre></div></div>
 <p>Each of the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sanitize</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sanitize</code></span>
 lines tells Jayret what to do in the case of missing data in the
 respective column.
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-sanitizer</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">string-sanitizer</code></span>
 says to load missing data as an empty string
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">""</code></span>).
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">""</code></span>).
 Sanitizers also handle simple data conversions. If the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-sanitizer</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">string-sanitizer</code></span>
 were applied to a column with a number (like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>),
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">3</code></span>),
 the sanitizer would convert that number to a string (like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"3"</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"3"</code></span>).
 Similarly, applying
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-sanitizer</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">num-sanitizer</code></span>
 to a column would convert number-strings (like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"3"</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"3"</code></span>)
 to an actual number
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>).</p>
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">3</code></span>).</p>
 <p>Using sanitizers, the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">event-data</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">event-data</code></span>
 table reads in as follows:</p>
 <p><img src="sanitized-discount-table.png" width="693"
 height="344" /></p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Did you notice that we sanitized the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">zip</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">zip</code></span>
 column with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-sanitizer</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">string-sanitizer</code></span>
 instead of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-sanitizer</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">num-sanitizer</code></span>?
 Aren’t zip codes numbers? Try the above code with each of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-sanitizer</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">string-sanitizer</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-sanitizer</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">num-sanitizer</code></span>
 for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">code</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">code</code></span>
 and see if you can spot the difference.</p></blockquote></blockquote>
 <p>Zip codes are a terrific example of data that are written with
 digits, but aren’t meant to be used numerically. What does that mean? If
@@ -441,17 +442,17 @@ numbers. We’ll return to this point later in this chapter (<a
 href="processing-tables.html##visualizing-tables">Visualizations and
 Plots</a>).</p>
 <p>A note on default values: Unlike
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-sanitizer</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-sanitizer</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">string-sanitizer</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">num-sanitizer</code></span>
 does NOT convert blank cells to a default value (such as 0). There is no
 single default value that would make sense for all the ways in which
 numbers are used: while
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">0</code></span>
 would be a plausible default for missing numbers of tickets, it would
 not be a meaningful default for a missing age. It could create outright
 errors if used as the default for a missing exam grade (which was later
 used to compute a course grade). As a result,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-sanitizer</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">num-sanitizer</code></span>
 reports an error if the data (or lack thereof) in a cell cannot be
 reliably interpreted as a number. Jayret allows you to write your own
 custom sanitizers (e.g., one that would default missing numbers to 0).
@@ -467,7 +468,7 @@ cells.</p>
 <a name="(part._Normalizing-Data)"></a>
 <h5 id="Normalizing-Data">4.2.1.3 Normalizing Data</h5>
 <p>Next, let’s look at the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Discount Code"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Discount Code"</code></span>
 column. Our goal is to be able to accurately answer the question “How
 many orders were placing under each discount code”. We would like to
 have the answer summarized in a table, where one column names the
@@ -488,28 +489,28 @@ sure?</p>
 <p>Start by looking in the documentation for any library functions that
 might help with this task. In the <a
 href="https://hackmd.io/@cs111/table">documentation for Jayret’s
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">dcic2024</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">dcic2024</code></span>
 context</a>, we find:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">// count(tab :: Table, colname :: String) -&gt; Table
 // Produces a table that summarizes how many rows have
 
 // each value in the named column.</code></pre></div></div>
 <p>This sounds useful, as long as every column has a value in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Discount code"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Discount code"</code></span>
 column, and that the only values in the column are those in our desired
 output table. What do we need to do to achieve this?</p>
 <ul>
 <li><p>Get
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"none"</code></span>
 to appear in every cell that currently lacks a value</p></li>
 <li><p>Convert all the codes that aren’t
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"none"</code></span>
 to upper case</p></li>
 </ul>
 <p>Fortunately, these tasks align with functions we’ve already seen how
 to use: each one is an example of a column transformation, where the
 second one involves the upper-case conversion functions from the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">String</code></span>
 library.</p>
 <p>We can capture these together in a function that takes in and
 produces a string:</p>
@@ -528,29 +529,29 @@ produces a string:</p>
     assertEquals(cell-to-discount-code("Birthday"), "BIRTHDAY");
 }</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Assess the examples included with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cell-to-discount-code</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">cell-to-discount-code</code></span>.
 Is this a good set of examples, or are any key ones missing?</p></blockquote></blockquote>
 <p>The current examples consider different capitalizations for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"birthday"</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"birthday"</code></span>,
 but not for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"none"</code></span>.
 Unless you are confident that the data-gathering process can’t produce
 different capitalizations of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"none"</code></span>,
 we should include that as well:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(cell-to-discount-code("NoNe"), "none");</code></pre></div></div>
 <p>Oops! If we add this example to our
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where { }</code></span>
 block and run the code, Jayret reports that this example fails.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Why did the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"NoNe"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"NoNe"</code></span>
 case fail?</p></blockquote></blockquote>
 <p>Since we check for the string
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"none"</code></span>
 in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 expression, we need to normalize the input to match what our
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 expression expects. Here’s the modified code, on which all the examples
 pass.</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">String cell-to-discount-code(String str) {
@@ -569,27 +570,27 @@ pass.</p>
     assertEquals(cell-to-discount-code("Birthday"), "BIRTHDAY");
 }</code></pre></div></div>
 <p>Using this function with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">transform-column</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">transform-column</code></span>
 yields a table with a standardized formatting for discount codes
 (reminder that you need to be working in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">dcic2024</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">dcic2024</code></span>
 context for this to work):</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">discount-fixed = transform-column(event-data, "discount", cell-to-discount-code);</code></pre></div></div>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Try it yourself: normalize the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"delivery"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"delivery"</code></span>
 column so that all
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"yes"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"yes"</code></span>
 values are converted to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"email"</code></span>.</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"email"</code></span>.</p></blockquote></blockquote>
 <p>Now that we’ve cleaned up the codes, we can proceed to using the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"count"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"count"</code></span>
 function to extract our summary table:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">count(discount-fixed, "discount");</code></pre></div></div>
 <p>This produces the following table:</p>
 <p><img src="count-pre-discount-trim.png" width="163"
 height="188" /></p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What’s with that first row, with the discount code
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"    "</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"    "</code></span>?
 Where might that have come from?</p></blockquote></blockquote>
 <p>Maybe you didn’t notice this before (or wouldn’t have noticed it
 within a larger table), but there must have been a cell of the source
@@ -630,7 +631,7 @@ might be able to fix (especially if the program knew all of the valid
 discount codes). Random junk, by definition, is random. There, you’d
 have to talk to the events company to decide how they wanted those
 handled (convert them to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"none"</code></span>,
 reach out to the customer, etc. – these are questions of policy, not of
 programming).</p>
 <p>But really, the moral of this is to just use drop-downs or other
@@ -649,52 +650,52 @@ thinking is a core skill of working in security, but now we’re getting
 ahead of ourselves.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>In spreadsheets, cells that appear empty sometimes have actual
 content, in the form of strings made up of spaces: both
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">""</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">""</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"   "</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"   "</code></span>
 appear the same when we look at a spreadsheet, but they are actually
 different values computationally.</p>
 <p>How would you modify
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cell-to-discount-code</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">cell-to-discount-code</code></span>
 so that strings containing only spaces were also converted to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"none"</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"none"</code></span>?
 (Hint: look for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-replace</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">string-replace</code></span>
 in the strings library.)</p></blockquote></blockquote>
 <a name="(part._Using-Programs-to-Detect-Data-Errors)"></a>
 <h5 id="Using-Programs-to-Detect-Data-Errors">4.2.1.5 Using Programs to
 Detect Data Errors</h5>
 <p>Sometimes, we also look for errors by writing functions to check
 whether a table contains unexpected values. Let’s consider the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"email"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"email"</code></span>
 column: that’s a place where we should be able to write a program to
 flag any rows with invalid email addresses. What makes for a valid email
 address? Let’s consider two rules:</p>
 <ul>
 <li><p>Valid email addresses should contain an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">@</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">@</code></span>
 sign</p></li>
 <li><p>Valid email addresses should end in one of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">".com"</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">".edu"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">".com"</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">".edu"</code></span>
 or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">".org"</code></span></p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">".org"</code></span></p></li>
 </ul>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">This is admittedly an outdated, limited, and US-centric definition of
 email addresses, but expanding the formats does not fundamentally change
 the point of this section.</span></span></span></p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write a function
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-email</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-email</code></span>
 that takes a string and returns a boolean indicating whether the string
 satisfies the above two rules for being valid email addresses. For a bit
 more of a challenge, also include a rule that there must be some
 character between the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">@</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">@</code></span>
 and the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.</code></span>-based
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">.</code></span>-based
 ending.</p></blockquote></blockquote>
 <p>Assuming we had such a function, a routine
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter-with</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">filter-with</code></span>
 could then produce a table identifying all rows that need to have their
 email addresses corrected. The point here is that programs are often
 helpful for finding data that need correcting, even if a program can’t
@@ -737,7 +738,7 @@ believe you could write expressions or functions to perform each step or
 data transformation.</p></li>
 </ol></blockquote></blockquote>
 <p>Here’s a diagram-based task plan for the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">discount-summary</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">discount-summary</code></span>
 program that we just developed. We’ve drawn this on paper to highlight
 that task plans are not written within a programming environment.</p>
 <p><img src="discount-taskplan.png" width="420" height="567" /></p>
@@ -796,7 +797,7 @@ labels explicit.</p>
 <a name="(part._creating-bins)"></a>
 <h5 id="creating-bins">4.2.3.1 Creating bins</h5>
 <p>The act of reducing one set of values (such as the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">tickcounts</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">tickcounts</code></span>
 values) into a smaller set of categories (such as small/medium/large for
 orders, or morning/afternoon/etc. for timestamps) is known as binning.
 The bins are the categories. To put rows into bins, we create a function
@@ -824,29 +825,29 @@ last names, however. Splitting one column into several columns can be a
 useful step in preparing a dataset for analysis or use. Programming
 languages usually provide a variety of operations for splitting apart
 strings: Jayret has operations called
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-split</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">string-split</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-split-all</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">string-split-all</code></span>
 that split one string into several around a given character (like a
 space). You could, for example, write
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-split("Josie Zhao", " ")</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">string-split("Josie Zhao", " ")</code></span>
 to extract
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Josie"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Josie"</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Zhao"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Zhao"</code></span>
 as separate strings.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write a task plan (not the code, just the plan) for a function that
 would replace the current
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">name</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">name</code></span>
 column in the events table with two columns called
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">last-name</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">last-name</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">first-name</code></span>.</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">first-name</code></span>.</p></blockquote></blockquote>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Write down a collection of specific name strings on which you would
 want to test a name-splitting function.</p></blockquote></blockquote>
 <p>Hopefully, you at least looked at the table and noticed that we have
 one individual,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Zander"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Zander"</code></span>
 whose entire name is a single string, rather than having both a first
 name and a last name. How would we handle middle names? Or names from
 cultures where a person’s name has the last names of both of their
@@ -872,15 +873,15 @@ Programmers Believe About Time</a>.</p></blockquote></blockquote>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write a program that filters a table to only include rows in which
 the name is not comprised of two strings separated by a space.</p></blockquote></blockquote>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write a program that takes a table with a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">name</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">name</code></span>
 column in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"first-name last-name"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"first-name last-name"</code></span>
 format and replaces the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">name</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">name</code></span>
 column with two columns called
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">last-name</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">last-name</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">first-name</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">first-name</code></span>.
 To extract the first- and last-names from a single name string, use:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">string-split(name-string, " ").get(0);
 // get first name
@@ -917,11 +918,11 @@ names:</p>
 cleaned-event-data = transform-column(transform-column(event-data, "discount", cell-to-discount-code), "delivery", yes-to-email);
 order-bin-data = build-column(cleaned-event-data, "order-scale", order-scale-label);</code></pre></div></div>
 <p>where
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">yes-to-email</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">yes-to-email</code></span>
 is a function we have not written, but that might have normalized the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"yes"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"yes"</code></span>
 value in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"delivery"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"delivery"</code></span>
 column. Note that we applied each of the normalizations in sequence,
 naming only the final table with all normalizations applied.
 <span class="refelem"><span class="refcolumn"><span class="refcontent">In professional practice, if you were working with a very large dataset,
@@ -977,26 +978,26 @@ in one order and the time of purchase?</p></li>
 </ul></blockquote></blockquote>
 <p>For example, we might use a frequency-bar-chart to answer the third
 question. Based on the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Table</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Table</code></span>
 documentation, we would generate this using the following code (with
 similar style for the other kinds of plots):</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">freq-bar-chart(cleaned-event-data, "delivery");</code></pre></div></div>
 <p>Which yields the following chart (assuming we had not actually
 normalized the contents of the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"delivery"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"delivery"</code></span>
 column):</p>
 <p><img src="bar-chart-bad-col.png" width="475" height="334" /></p>
 <p>Whoa – where did that extra
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"email"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"email"</code></span>
 column come from? If you look closely, you’ll spot the error: in the row
 for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Alvina"</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Alvina"</code></span>,
 there’s a typo
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"emall"</code></span>
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"emall"</code></span>
 with an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">l</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">l</code></span>
 instead of an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">i</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">i</code></span>)
 in the discount column (drop-down menus, anyone?).</p>
 <p>The lesson here is that plots and visualizations are valuable not
 only in the analysis phase, but also early on, when we are trying to
@@ -1017,7 +1018,7 @@ the column, and what kinds of errors might be in that column based on
 what you know about the data collection methods?</p></li>
 <li><p>Check the data for errors, using a combination of manual
 inspection of the table, plots, and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter-with</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">filter-with</code></span>
 expressions that check for unexpected values. Normalize or correct the
 data, either at the source (if you control that) or via small
 programs.</p></li>

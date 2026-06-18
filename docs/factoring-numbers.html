@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -174,7 +175,7 @@ denominator:</p>
 <p>With that, we can define the Pollard-rho implementation. Recall that
 the function may or may not succeed in finding a factor (in particular,
 it must fail when given a prime!), so we use an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Option</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Option</code></span>
 type to reflect the two possibilities:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object pr(n) {
     Object g(x) {
@@ -189,17 +190,17 @@ type to reflect the two possibilities:</p>
     return loop(2, 2, 1);
 }</code></pre></div></div>
 <p>The key step is the computation
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">g(x)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">g(x)</code></span>
 versus
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">g(g(x))</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">g(g(x))</code></span>.
 We can imagine
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">x</code></span>
 is the tortoise, so
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">g(x)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">g(x)</code></span>
 is the tortoise’s update, while
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">y</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">y</code></span>
 is the hare, so
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">g(g(y))</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">g(g(y))</code></span>
 is the hare’s update.</p>
 <p>Try to run the above on the following values and see what it
 produces:</p>

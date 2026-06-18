@@ -46,8 +46,8 @@ Object pr(n) {
     return iter(2, 2, 1);
 }
 ```
-We’ve written both recursively: `gcd`{.pyret} by calling itself and
-`pr`{.pyret} with recursion on its inner function. But if you’ve
+We’ve written both recursively: `gcd`{.jayret} by calling itself and
+`pr`{.jayret} with recursion on its inner function. But if you’ve
 programmed before, you’ve probably written similar programs with
 loops.
 
@@ -60,7 +60,7 @@ But let’s see if we can do something “better”, i.e., get closer to a
 traditional-looking program.
 
 Before we start changing any code, let’s make sure we have some tests
-for `gcd`{.pyret}:
+for `gcd`{.jayret}:
 
 ```jayret
 @Check void test() {
@@ -101,17 +101,17 @@ Object loop-2(f, arg-1, arg-2) {
 }
 ```
 Note that this is completely generic: it has nothing to do with
-`gcd`{.pyret}. (It is generic in the same way that higher-order functions
-like `map`{.pyret} and `filter`{.pyret} are generic.) It just repeats if
-`f`{.pyret} says to repeat, stops if `f`{.pyret} says to stop. This is the
+`gcd`{.jayret}. (It is generic in the same way that higher-order functions
+like `map`{.jayret} and `filter`{.jayret} are generic.) It just repeats if
+`f`{.jayret} says to repeat, stops if `f`{.jayret} says to stop. This is the
 essence of a loop.
 
 ::: {.exercise}
 Observe also that we could, if we wanted, stage [[Staging](staging.html)]
-`loop-2`{.pyret}, because `f`{.pyret} never changes. Rewrite it that way.
+`loop-2`{.jayret}, because `f`{.jayret} never changes. Rewrite it that way.
 :::
 
-With `loop-2`{.pyret}, we can rewrite `gcd`{.pyret}:
+With `loop-2`{.jayret}, we can rewrite `gcd`{.jayret}:
 
 ```jayret
 Object gcd(p, q) {
@@ -126,20 +126,20 @@ Now it might seem to you we haven’t done anything useful at all. In
 fact, this looks like a significant step backward. At least before we
 just had simple, clean recursion, the way Euclid intended it. Now we
 have a higher-order function and we’re passing it the erstwhile
-`gcd`{.pyret} code as a function and there’s this `LoopStatus`{.pyret}
+`gcd`{.jayret} code as a function and there’s this `LoopStatus`{.jayret}
 datatype and…everything’s gotten much more complicated.
 
 But, not really. The reason we put it in this form is because we’re
-about to exploit a feature of Jayret. The `for`{.pyret} construct in Jayret
+about to exploit a feature of Jayret. The `for`{.jayret} construct in Jayret
 actually rewrites as follows:
 
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 for F(a from a_i, b from b_i, …): BODY end
 ```
 gets rewritten to
 
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 F({(a, b, …): BODY}, a_i, b_i, …)
 ```
@@ -154,16 +154,16 @@ this becomes
 map((i) -> i + 1, range(0, 10));
 ```
 
-Now you may see why we rewrote `gcd`{.pyret}.
+Now you may see why we rewrote `gcd`{.jayret}.
 Going in reverse, we can rewrite
 
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 F({(a, b, …): BODY}, a_i, b_i, …)
 ```
 as
 
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 for F(a from a_i, b from b_i, …): BODY end
 ```
@@ -193,14 +193,14 @@ If you know something about language implementation, you may know that
 loops have the property that the iteration does not consume extra
 space (beyond what the program already needs), and the repetition
 takes place very quickly (a “jump instruction”). In principle, our
-`loop-2`{.pyret} function does not have this property: every iteration is
+`loop-2`{.jayret} function does not have this property: every iteration is
 a function call, which is more expensive and builds additional stack
 context. However, one or both of these does not actually occur in
 practice.
 
-In terms of space, the recursive call to `loop-2`{.pyret} is the
-last thing that a call to `loop-2`{.pyret} does. Furthermore,
-nothing in `loop-2`{.pyret} consumes and manipulates the return from that
+In terms of space, the recursive call to `loop-2`{.jayret} is the
+last thing that a call to `loop-2`{.jayret} does. Furthermore,
+nothing in `loop-2`{.jayret} consumes and manipulates the return from that
 recursive call. This is therefore called a tail call.
 Jayret—like some other languages—causes tail calls to not
 take any extra stack space. In principle, Jayret can also turn some
@@ -213,21 +213,21 @@ performance as a traditional loop.
 
 ### 26.4 Re-Examining for {#Re-Examining-struct-traverse-element-procedure-lib-render-cond-rkt-38-12}
 
-The definition of `for`{.pyret} given above should make you suspicious:
-Where’s the loop?!? In fact, Jayret’s `for`{.pyret} does not do any
-looping at all: it’s simply a fancy way of writing `lam`{.pyret}. Any
-“looping” behavior is in the function written after `for`{.pyret}. To
+The definition of `for`{.jayret} given above should make you suspicious:
+Where’s the loop?!? In fact, Jayret’s `for`{.jayret} does not do any
+looping at all: it’s simply a fancy way of writing `lam`{.jayret}. Any
+“looping” behavior is in the function written after `for`{.jayret}. To
 see that, let’s use for with a non-looping function.
 
 Recall that
 
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 for F(a from a_i, b from b_i, …): BODY end
 ```
 gets rewritten to
 
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 F({(a, b, …): BODY}, a_i, b_i, …)
 ```
@@ -256,10 +256,10 @@ Indeed:
     assertEquals([for d-dx-at(n : 10) { yield n * n; }], d-dx-at((n) -> n * n, 10));
 }
 ```
-Since `d-dx-at`{.pyret} has no iterative behavior, no iteration
+Since `d-dx-at`{.jayret} has no iterative behavior, no iteration
 occurs. The looping behavior is given entirely by the function
-specified after `for`{.pyret}, such as `map`{.pyret}, `filter`{.pyret}, or
-`loop-2`{.pyret} above.
+specified after `for`{.jayret}, such as `map`{.jayret}, `filter`{.jayret}, or
+`loop-2`{.jayret} above.
 
 ```{=html}
 <a name="(part._Rewriting-Pollard-Rho)"></a>
@@ -268,13 +268,13 @@ specified after `for`{.pyret}, such as `map`{.pyret}, `filter`{.pyret}, or
 ### 26.5 Rewriting Pollard-Rho {#Rewriting-Pollard-Rho}
 
 Now let’s tackle Pollard-rho. Notice that it’s a three-parameter
-function, so we can’t use the `loop-2`{.pyret} we had before: that’s only
+function, so we can’t use the `loop-2`{.jayret} we had before: that’s only
 a suitable loop when we have two arguments that change on each
 iteration (often the iteration variable and an accumulator). It would
-be easy to design a 3-argument version of loop, say `loop-3`{.pyret}, but
+be easy to design a 3-argument version of loop, say `loop-3`{.jayret}, but
 we could also have a more general solution, using a tuple:
 
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 data LoopStatus:
   | done(v)
@@ -290,11 +290,11 @@ fun loop-n(f, t):
   end
 end
 ```
-where `t`{.pyret} is a tuple.
+where `t`{.jayret} is a tuple.
 
-So now we can rewrite `pr`{.pyret}. Let’s first rename the old `pr`{.pyret}
-function as `pr-old`{.pyret} so we can keep it around for testing. Now we
-can define a “loop”-based `pr`{.pyret}:
+So now we can rewrite `pr`{.jayret}. Let’s first rename the old `pr`{.jayret}
+function as `pr-old`{.jayret} so we can keep it around for testing. Now we
+can define a “loop”-based `pr`{.jayret}:
 
 ```jayret
 Object pr(n) {
@@ -388,9 +388,9 @@ Object sum-a-lolon(List<Object> lolon) {
 }
 ```
 With the annotations, it becomes clear what each function does. In
-`sum-a-lon`{.pyret}, each element is a number, so it “contributes
-itself” to the overall sum. In `sum-a-lolon`{.pyret}, each element is a
-list of numbers, so it “contributes its `sum-a-lon`{.pyret}” to the
+`sum-a-lon`{.jayret}, each element is a number, so it “contributes
+itself” to the overall sum. In `sum-a-lolon`{.jayret}, each element is a
+list of numbers, so it “contributes its `sum-a-lon`{.jayret}” to the
 overall sum.
 
 Finally, to bring this full circle, we can rewrite the above the
@@ -406,9 +406,9 @@ Object sum-a-lolon(List<Object> lolon) {
 ```
 
 Arguably this makes even clearer what each element contributes. In
-`sum-a-lon`{.pyret} each element is a number, so it contributes just that
-number. In `sum-a-lolon`{.pyret}, each element is a list of numbers, so
-it must contribute `sum-a-lon`{.pyret} of that list.
+`sum-a-lon`{.jayret} each element is a number, so it contributes just that
+number. In `sum-a-lolon`{.jayret}, each element is a list of numbers, so
+it must contribute `sum-a-lon`{.jayret} of that list.
 
 ```{=html}
 <a name="(part._Loops-Values-and-Customization)"></a>
@@ -435,12 +435,12 @@ for (i : range(0, 10)) {
   produce values so that we can compose them together.
 2. Many languages have strong opinions on exactly how many looping
   constructs there should be: two? three? four? In Jayret, there are no
-  built-in looping constructs at all; there’s just a syntax (`for`{.pyret})
-  that serves as a proxy for creating a specific `lam`{.pyret}. With it, we
-  can reuse existing iterative functions (like `map`{.pyret} and
-  `filter`{.pyret}), but also define new ones. Some can be very generic,
-  like `loop-2`{.pyret} or `loop-n`{.pyret}, but others can be very specific,
-  like `sum-a-list`{.pyret}. The language designers don’t prevent you from
+  built-in looping constructs at all; there’s just a syntax (`for`{.jayret})
+  that serves as a proxy for creating a specific `lam`{.jayret}. With it, we
+  can reuse existing iterative functions (like `map`{.jayret} and
+  `filter`{.jayret}), but also define new ones. Some can be very generic,
+  like `loop-2`{.jayret} or `loop-n`{.jayret}, but others can be very specific,
+  like `sum-a-list`{.jayret}. The language designers don’t prevent you from
   writing a loop that is useful to your situation, and sometimes the
-  loop can be very expressive, as we see from rewriting `sum-a-lon`{.pyret}
-  and `sum-a-lolon`{.pyret} atop `for`{.pyret} and `sum-a-list`{.pyret}.
+  loop can be very expressive, as we see from rewriting `sum-a-lon`{.jayret}
+  and `sum-a-lolon`{.jayret} atop `for`{.jayret} and `sum-a-list`{.jayret}.

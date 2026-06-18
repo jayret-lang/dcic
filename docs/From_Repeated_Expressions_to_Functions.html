@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -134,7 +135,7 @@ Expressions to Functions</h3>
 <p>Consider the following two expressions to draw the flags of Armenia
 and Austria (respectively). These two countries have the same flag, just
 with different colors. The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">frame</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">frame</code></span>
 operator draws a small black frame around the image.</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">// Lines starting with # are comments for human readers.
 // Jayret ignores everything on a line after #.
@@ -145,14 +146,14 @@ frame(above(rectangle(120, 30, "solid", "red"), above(rectangle(120, 30, "solid"
 <p>Rather than write this program twice, it would be nice to write the
 common expression only once, then just change the colors to generate
 each flag. Concretely, we’d like to have a custom operator such as
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three-stripe-flag</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">three-stripe-flag</code></span>
 that we could use as follows:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">// armenia
 three-stripe-flag("red", "blue", "orange");
 // austria
 three-stripe-flag("red", "white", "red");</code></pre></div></div>
 <p>In this program, we provide
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three-stripe-flag</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">three-stripe-flag</code></span>
 only with the information that customizes the image creation to a
 specific flag. The operation itself would take care of creating and
 aligning the rectangles. We want to end up with the same images for the
@@ -174,24 +175,24 @@ computation (in this case, the expressions that produce the Armenian and
 Austrian flags).</p></li>
 <li><p>Identify which parts are fixed (i.e., the creation of rectangles
 with dimensions
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">120</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">120</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">30</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">30</code></span>,
 the use of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">above</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">above</code></span>
 to stack the rectangles) and which are changing (i.e., the stripe
 colors).</p></li>
 <li><p>For each changing part, give it a name (say
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">top</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">middle</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">top</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">middle</code></span>,
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">bottom</code></span>),
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">bottom</code></span>),
 which will be the parameter that stands for that part.</p></li>
 <li><p>Rewrite the examples to be in terms of these parameters. For
 example:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">frame(above(rectangle(120, 30, "solid", top), above(rectangle(120, 30, "solid", middle), rectangle(120, 30, "solid", bottom))));</code></pre></div></div></li>
 <li><p>Name the function something suggestive: e.g.,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three-stripe-flag</code></span>.</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">three-stripe-flag</code></span>.</p></li>
 <li><p>Write the function declaration syntax around the expression:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object &lt;function-name&gt;(&lt;parameters&gt;) {
     return &lt;the expression goes here&gt;;
@@ -224,14 +225,14 @@ for expressions of this form.</p>
 austria = three-stripe-flag("red", "white", "red");</code></pre></div></div>
 <p>(Side note: Jayret only allows one value per name in the directory.
 If your file already had definitions for the names
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">armenia</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">armenia</code></span>
 or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">austria</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">austria</code></span>,
 Jayret will give you an error at this point. You can use a different
 name (like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">austria2</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">austria2</code></span>)
 or comment out the original definition using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">//</code></span>.)</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">//</code></span>.)</p>
 <a name="(part._function-call-nm)"></a>
 <h5 id="function-call-nm">3.3.2.1 How Functions Evaluate</h5>
 <p>So far, we have learned three rules for how Jayret processes your
@@ -241,7 +242,7 @@ program:</p>
 value.</p></li>
 <li><p>If you write a statement that defines a name, Jayret evaluates
 the expression (right side of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=</code></span>),
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">=</code></span>),
 then makes an entry in the directory to associate the name with the
 value.</p></li>
 <li><p>If you write an expression that uses a name from the directory,
@@ -273,7 +274,7 @@ values.</p></li>
 same expression we started from for the Armenian flag. Substitution
 restores that expression, while still allowing the programmer to write
 the shorthand in terms of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three-stripe-flag</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">three-stripe-flag</code></span>.</p>
 <a name="(part._fun-annotations)"></a>
 <h5 id="fun-annotations">3.3.2.2 Type Annotations</h5>
 <p>What if we made a mistake, and tried to call the function as
@@ -281,30 +282,30 @@ follows:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">three-stripe-flag(50, "blue", "red");</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What do you think Jayret will produce for this expression?</p></blockquote></blockquote>
 <p>The first parameter to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three-stripe-flag</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">three-stripe-flag</code></span>
 is supposed to be the color of the top stripe. The value
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">50</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">50</code></span>
 is not a string (much less a string naming a color). Jayret will
 substitute
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">50</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">50</code></span>
 for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">top</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">top</code></span>
 in the first call to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rectangle</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">rectangle</code></span>,
 yielding the following:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">frame(above(rectangle(120, 30, "solid", 50), above(rectangle(120, 30, "solid", "blue"), rectangle(120, 30, "solid", "red"))));</code></pre></div></div>
 <p>When Jayret tries to evaluate the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rectangle</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">rectangle</code></span>
 expression to create the top stripe, it generates an error that refers
 to that call to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rectangle</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">rectangle</code></span>.</p>
 <p>If someone else were using your function, this error might not make
 sense: they didn’t write an expression about rectangles. Wouldn’t it be
 better to have Jayret report that there was a problem in the use of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three-stripe-flag</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">three-stripe-flag</code></span>
 itself?</p>
 <p>As the author of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three-stripe-flag</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">three-stripe-flag</code></span>,
 you can make that happen by annotating the parameters with information
 about the expected type of value for each parameter. Here’s the function
 definition again, this time requiring the three parameters to be
@@ -315,14 +316,14 @@ strings:</p>
 <p>Notice that the notation here is similar to what we saw in contracts
 within the documentation: the type name is written before each parameter
 name, separated by a space (so far, one of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Number</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">String</code></span>,
 or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Image</code></span>).<span class="refelem"><span class="refcolumn"><span class="refcontent">Putting each parameter on its own line is not required, but it sometimes
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Image</code></span>).<span class="refelem"><span class="refcolumn"><span class="refcontent">Putting each parameter on its own line is not required, but it sometimes
 helps with readability.</span></span></span></p>
 <p>Run your file with this new definition and try the erroneous call
 again. You should get a different error message that is just in terms of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three-stripe-flag</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">three-stripe-flag</code></span>.</p>
 <p>It is also common practice to add a type annotation that captures the
 type of the function’s output. That annotation goes after the list of
 parameters:</p>
@@ -342,7 +343,7 @@ functions.</p>
 <h5 id="doc-strings">3.3.2.3 Documentation</h5>
 <p>Imagine that you opened your program file from this chapter a couple
 of months from now. Would you remember what computation
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three-stripe-flag</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">three-stripe-flag</code></span>
 does? The name is certainly suggestive, but it misses details such as
 that the stripes are stacked vertically (rather than horizontally) and
 that the stripes are equal height. Function names aren’t designed to
@@ -350,7 +351,7 @@ carry this much information.</p>
 <p>Programmers also annotate a function with a docstring, a short,
 human-language description of what the function does. Here’s what the
 Jayret docstring might look like for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">three-stripe-flag</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">three-stripe-flag</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Image three-stripe-flag(String top, String middle, String bottom) {
     // produce image of flag with three equal-height horizontal stripes
     return frame(above(rectangle(120, 30, "solid", top), above(rectangle(120, 30, "solid", middle), rectangle(120, 30, "solid", bottom))));
@@ -387,20 +388,20 @@ principle</a>, where DRY means “don’t repeat yourself”.</span></span></spa
 <li><p>Write down some examples of the desired calculation. We did that
 above.</p></li>
 <li><p>Identify which parts are fixed (above,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">* 1/6</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">* 1/6</code></span>)
 and which are changing (above,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">100</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">150</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">90</code></span>…).</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">100</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">150</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">90</code></span>…).</p></li>
 <li><p>For each changing part, give it a name (say
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">earth-weight</code></span>),
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">earth-weight</code></span>),
 which will be the parameter that stands for it.</p></li>
 <li><p>Rewrite the examples to be in terms of this parameter:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">earth-weight * 1/6;</code></pre></div></div>
 <p>This will be the body, i.e., the expression inside the
 function.</p></li>
 <li><p>Come up with a suggestive name for the function: e.g.,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">moon-weight</code></span>.</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">moon-weight</code></span>.</p></li>
 <li><p>Write the syntax for functions around the body expression:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object moon-weight(earth-weight) {
   return earth-weight * 1/6;
@@ -431,7 +432,7 @@ function deviates from the examples it was supposed to generalize.</p>
 <p>Jayret makes this easy to do. Every function can be accompanied by a
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where { }</code></span>
 block that records the examples. For instance, our
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">moon-weight</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">moon-weight</code></span>
 function can be modified to read:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int moon-weight(int earth-weight) {
     // Compute weight on moon from weight on earth
@@ -486,13 +487,13 @@ writing two concrete expressions that do this computation.</p>
 // ordering 10 pens that say "smile"
 10 * (0.25 + (string-length("smile") * 0.02));</code></pre></div></div>
 <p>These examples introduce a new built-in function called
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">string-length</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">string-length</code></span>.
 It takes a string as input and produces the number of characters
 (including spaces and punctuation) in the string. These examples also
 show an example of working with numbers other than
 integers.<span class="refelem"><span class="refcolumn"><span class="refcontent">Jayret requires a number before the decimal point, so if the “whole
 number” part is zero, you need to write
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">0</code></span>
 before the decimal. Also observe that Jayret uses a decimal point; it
 doesn’t support conventions such as <a
 href="https://en.wikipedia.org/wiki/Decimal_separator">“0,02”</a>.</span></span></span></p>
@@ -567,13 +568,13 @@ as</p>
 key role in programming: they let us configure computations with
 different concrete values at different times. The first time we compute
 the cost of pens, we might be asking about
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">10</code></span>
 pens that say
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Welcome"</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Welcome"</code></span>.
 The next time, we might be asking about
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">100</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">100</code></span>
 pens that say
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Go Bears!"</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Go Bears!"</code></span>.
 The core computation is the same in both cases, so we want to write it
 out once, configuring it with different concrete values each time we use
 it.</p>

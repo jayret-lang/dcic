@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -162,14 +163,14 @@ href="Sharing_and_Equality.html##identical-eq">Re-Examining
 Equality</a>]. Let’s now try to distort the definition of a “tree” by
 creating ones with cycles, i.e., trees with nodes that point back to
 themselves (in the sense of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">identical</code></span>).
 As we saw earlier [<a href="Sharing_and_Equality.html##acyc-to-cyc">From
 Acyclicity to Cycles</a>], it is not completely straightforward to
 create such a structure, but what we saw earlier [<a
 href="func-as-data.html##streams-from-funs">Streams From Functions</a>]
 can help us here, by letting us suspend the evaluation of the cyclic
 link. That is, we have to not only use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rec</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">rec</code></span>,
 we must also use a function to delay evaluation. In turn, we have to
 update the annotations on the fields. Since these are not going to be
 “trees” any more, we’ll use a name that is suggestive but not outright
@@ -185,7 +186,7 @@ t0 = node(0, () -&gt; leaf, () -&gt; leaf);
 t1 = node(1, () -&gt; t0, () -&gt; t0);
 t2 = node(2, () -&gt; t1, () -&gt; t1);</code></pre></div></div>
 <p>Now let’s try to compute the size of a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">BinT</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">BinT</code></span>.
 Here’s the obvious program:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int sizeinf(BinT t) {
     return switch (t) {
@@ -198,12 +199,12 @@ Here’s the obvious program:</p>
     }
 }</code></pre></div></div>
 <p>(We’ll see why we call it
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sizeinf</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sizeinf</code></span>
 in a moment.)</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What happens when we call
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sizeinf(tr)</code></span>?</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sizeinf(tr)</code></span>?</p></blockquote></blockquote>
 <p>It goes into an infinite loop: hence the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">inf</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">inf</code></span>
 in its name.</p>
 <p>There are two very different meanings for “size”. One is, “How many
 times can we traverse an edge?” The other is, “How many distinct nodes
@@ -211,11 +212,11 @@ were constructed as part of the data structure?” With trees, by
 definition, these two are the same. With a DAG the former exceeds the
 latter but only by a finite amount. With a general graph, the former can
 exceed the latter by an infinite amount. In the case of a datum like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">tr</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">tr</code></span>,
 we can in fact traverse edges an infinite number of times. But the total
 number of constructed nodes is only one! Let’s write this as test cases
 in terms of a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">size</code></span>
 function, to be defined:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
     assertEquals(size(tr), 1);
@@ -248,7 +249,7 @@ implementation.</p>
     return szacc(t, empty);
 }</code></pre></div></div>
 <p>The extra parameter,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">seen</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">seen</code></span>,
 is called an accumulator, because it “accumulates” the list of seen
 nodes.<span class="refelem"><span class="refcolumn"><span class="refcontent">Note that this could just as well be a set; it doesn’t have to be a
 list.</span></span></span> The support function it needs checks whether
@@ -264,17 +265,17 @@ a given node has already been seen:</p>
     }
 }</code></pre></div></div>
 <p>How does this do? Well,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sizect(tr)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sizect(tr)</code></span>
 is indeed
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1</code></span>,
 but
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sizect(t1)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sizect(t1)</code></span>
 is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">3</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sizect(t2)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sizect(t2)</code></span>
 is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">7</code></span>!</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">7</code></span>!</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Explain why these answers came out as they did.</p></blockquote></blockquote>
 <p>The fundamental problem is that we’re not doing a very good job of
 remembering! Look at this pair of lines:</p>
@@ -283,7 +284,7 @@ rs = szacc(r(), ns);</code></pre></div></div>
 <p>The nodes seen while traversing the left branch are effectively
 forgotten, because the only nodes we remember when traversing the right
 branch are those in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ns</code></span>:
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">ns</code></span>:
 namely, the current node and those visited “higher up”. As a result, any
 nodes that “cross sides” are counted twice.</p>
 <p>The remedy for this, therefore, is to remember every node we visit.
@@ -317,9 +318,9 @@ one.</p>
 <p>The representation we’ve seen above for graphs is certainly a start
 towards creating cyclic data, but it’s not very elegant. It’s both
 error-prone and inelegant to have to write
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">lam</code></span>
 everywhere, and remember to apply functions to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">()</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">()</code></span>
 to obtain the actual values. Therefore, here we explore other
 representations of graphs that are more conventional and also much
 simpler to manipulate.</p>
@@ -375,7 +376,7 @@ type Graph = KNGraph;</code></pre></div></div>
 <p>(Here we’re assuming our keys are strings.)</p>
 <p>Here’s a concrete instance of such a
 graph:<span class="refelem"><span class="refcolumn"><span class="refcontent">The prefix
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">kn-</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">kn-</code></span>
 stands for “keyed node”.</span></span></span></p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">kn-cities = block: knWAS = keyed-node("was", "Washington", ["chi", "den", "saf", "hou", "pvd"]);
 knORD = keyed-node("chi", "Chicago", ["was", "saf", "pvd"]);
@@ -419,7 +420,7 @@ concept. Most of this will look very similar to what we had before;
 we’ll comment on a key difference at the end.</p>
 <p>First, the
 datatype:<span class="refelem"><span class="refcolumn"><span class="refcontent">The prefix
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ix-</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">ix-</code></span>
 stands for “indexed”.</span></span></span></p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data IndexedNode {
     Idxed-node(content, List&lt;Object&gt; adj);
@@ -437,7 +438,7 @@ inSFO = idxed-node("San Francisco", [0, 4, 3]);
 inPVD = idxed-node("Providence", [0, 1]);
 [inWAS, inORD, inBLM, inHOU, inDEN, inSFO, inPVD];</code></pre></div></div>
 <p>where we’re assuming indices begin at
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">0</code></span>.
 To find a node:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Node find-ix(Key idx, Graph graph) {
     return lists.get(graph, idx);
@@ -460,7 +461,7 @@ extrinsic keys: the keys are determined outside the datum, and in
 particular by the position in some other data structure. Given a node
 and not the entire graph, we cannot know for what its key is. Even given
 the entire graph, we can only determine its key by using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">identical</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">identical</code></span>,
 which is a rather unsatisfactory approach to recovering fundamental
 information. This highlights a weakness of using extrinsically keyed
 representations of information. (In return, extrinsically keyed
@@ -474,7 +475,7 @@ nodes, making edges simply a part of the information in a node. We
 could, instead, use a representation that makes edges primary, and nodes
 simply be the entities that lie at their
 ends:<span class="refelem"><span class="refcolumn"><span class="refcontent">The prefix
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">le-</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">le-</code></span>
 stands for “list of edges”.</span></span></span></p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Edge {
     Edge(String src, String dst);
@@ -508,11 +509,11 @@ Representations</h5>
 <p>We would like a general representation that lets us abstract over the
 specific implementations. We will assume that broadly we have available
 a notion of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Node</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Node</code></span>
 that has
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">content</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">content</code></span>,
 a notion of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Key</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Key</code></span>s
 (whether or not intrinsic), and a way to obtain the neighbors—a list of
 keys—given a key and a graph. This is sufficient for what follows.
 However, we still need to choose concrete keys to write examples and

@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -223,9 +224,9 @@ fact a binary search tree:</p>
 that everything in the left sub-tree is less than the value in the root
 and similarly, everything in the right sub-tree is greater than the
 root.<span class="refelem"><span class="refcolumn"><span class="refcontent">We have used
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;=</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&lt;=</code></span>
 instead of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&lt;</code></span>
 above because even though we don’t want to permit duplicates when
 representing sets, in other cases we might not want to be so stringent;
 this way we can reuse the above implementation for other purposes.</span></span></span>
@@ -244,7 +245,7 @@ binary trees that are search trees:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">type BST = BT % (is-a-bst );</code></pre></div></div>
 <p>We can also remind ourselves that the purpose of this exercise was to
 define sets, and define
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">TSet</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">TSet</code></span>s
 to be tree sets:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">type TSet = BST;
 mt-set = leaf;</code></pre></div></div>
@@ -296,20 +297,20 @@ BST insert(int e, BST s) {
 and in the latter case also ensuring it. Make sure you identify where,
 why, and how.</p>
 <p>You should now be able to define the remaining operations. Of these,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">size</code></span>
 clearly requires linear time (since it has to count all the elements),
 but because
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-in</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">insert</code></span>
 both throw away one of two children each time they recur, they take
 logarithmic time.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Suppose we frequently needed to compute the size of a set. We ought
 to be able to reduce the time complexity of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">size</code></span>
 by having each tree <a href="glossary.html#%28elem._glossary-cache%29">☛
 cache</a> its size, so that
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">size</code></span>
 could complete in constant time (note that the size of the tree clearly
 fits the criterion of a cache, since it can always be reconstructed).
 Update the data definition and all affected functions to keep track of
@@ -319,25 +320,25 @@ this information correctly.</p></blockquote></blockquote>
 <p>But wait a minute. Are we actually done? Our recurrence takes the
 form <span class="math inline">\(T(k) = T(k/2) + c\)</span>, but what in
 our data definition guaranteed that the size of the child traversed by
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-in</code></span>
 will be half the size?</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Construct an example—consisting of a sequence of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>s
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">insert</code></span>s
 to the empty tree—such that the resulting tree is not balanced. Show
 that searching for certain elements in this tree will take linear, not
 logarithmic, time in its size.</p></blockquote></blockquote>
 <p>Imagine starting with the empty tree and inserting the values
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">2</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">2</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">3</code></span>,
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">4</code></span>,
 in order. The resulting tree would be</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
     assertEquals(insert(4, insert(3, insert(2, insert(1, mt-set)))), node(1, leaf, node(2, leaf, node(3, leaf, node(4, leaf, leaf)))));
 }</code></pre></div></div>
 <p>Searching for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">4</code></span>
 in this tree would have to examine all the set elements in the tree. In
 other words, this binary search tree is degenerate—it is effectively a
 list, and we are back to having the same complexity we had earlier.</p>
@@ -347,7 +348,7 @@ the right order. However, we cannot assume any input ordering; instead,
 we would like an implementation that works in all cases. Thus, we must
 find a way to ensure that the tree is always balanced, so each recursive
 call in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-in</code></span>
 really does throw away half the elements.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Observe that we have not talked about computing the size of the set.
 Even if we could assume that the binary tree is balanced, how do we
@@ -362,9 +363,9 @@ sides to be of equal size because this demands that the tree (and hence
 the set) have an even number of elements and, even more stringently, to
 have a size that is a power of two.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Define a predicate for a BBST that consumes a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">BT</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">BT</code></span>
 and returns a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Boolean</code></span>
 indicating whether or not it a balanced search tree.</p></blockquote></blockquote>
 <p>Therefore, we relax the notion of balance to one that is both
 accommodating and sufficient. We use the term balance factor for a node
@@ -389,17 +390,17 @@ applied to a BBST without any loss of correctness.</p>
 <p>So far, so easy. All that leaves is a means of creating a BBST,
 because it’s responsible for ensuring balance. It’s easy to see that the
 constant
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty-set</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">empty-set</code></span>
 is a BBST value. So that leaves only
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">insert</code></span>.</p>
 <p>Here is our situation with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">insert</code></span>.
 Assuming we start with a BBST, we can determine in logarithmic time
 whether the element is already in the tree and, if so, ignore
 it.<span class="refelem"><span class="refcolumn"><span class="refcontent">To implement a bag we count how many of each element are in it, which
 does not affect the tree’s height.</span></span></span> When inserting
 an element, given balanced trees, the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">insert</code></span>
 for a BST takes only a logarithmic amount of time to perform the
 insertion. Thus, if performing the insertion does not affect the tree’s
 balance, we’re done. Therefore, we only need to consider cases where
@@ -428,7 +429,7 @@ dictate what to do in each case.</p></blockquote></blockquote>
 <p>The number of cases is actually quite overwhelming (if you didn’t
 think so, you missed a few…). Therefore, we instead attack the problem
 after it has occurred: allow the existing BST
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">insert</code></span>
 to insert the element, assume that we have an imbalanced tree, and show
 how to restore its
 balance.<span class="refelem"><span class="refcolumn"><span class="refcontent">The insight that a tree can be made “self-balancing” is quite
@@ -438,7 +439,7 @@ E.M. Landis. In honor of their initials it is called an AVL Tree, though
 the tree itself is quite evident; their genius is in defining
 re-balancing.</span></span></span></p>
 <p>Thus, in what follows, we begin with a tree that is balanced;
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">insert</code></span>
 causes it to become imbalanced; we have assumed that the insertion
 happened in the left sub-tree. In particular, suppose a (sub-)tree has a
 balance factor of <span class="math inline">\(2\)</span> (positive
@@ -449,11 +450,11 @@ property:</p>
 at every node is <span class="math inline">−1</span>, <span
 class="math inline">0</span>, or <span class="math inline">1</span>,
 then
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">insert</code></span>
 can at worst make the balance factor <span
 class="math inline">±2</span>.</p></blockquote></blockquote>
 <p>The algorithm that follows is applied as
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">insert</code></span>
 returns from its recursion, i.e., on the path from the inserted value
 back to the root. Since this path is of logarithmic length in the set’s
 size (due to the balancing property), and (as we shall see) performs

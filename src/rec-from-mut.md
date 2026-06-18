@@ -22,9 +22,9 @@ had tried to write:
 ```jayret
 web-colors = link("white", link("grey", web-colors));
 ```
-which, as we noted, does not pass muster because `web-colors`{.pyret} is
-not bound on the right of the `=`{.pyret}. (Why not? Because otherwise,
-if we try to substitute `web-colors`{.pyret} on the right, we would end
+which, as we noted, does not pass muster because `web-colors`{.jayret} is
+not bound on the right of the `=`{.jayret}. (Why not? Because otherwise,
+if we try to substitute `web-colors`{.jayret} on the right, we would end
 up in an infinite regress.)
 
 Something about this should make you a little suspicious: we have been
@@ -43,7 +43,7 @@ difficulty. Why are they different? For two reasons:
   definition can avail of it.
 
 Returning to our example above, recall that we can’t make up our list
-using `link`{.pyret}s, because we want the list to never
+using `link`{.jayret}s, because we want the list to never
 terminate. Therefore, let us first define a new datatype to hold an
 cyclic list:
 
@@ -51,8 +51,8 @@ cyclic list:
 data Pair {
 }
 ```
-You should think of this as analogous to a list, where `hd`{.pyret} is
-the first element and `tl`{.pyret} is the rest.
+You should think of this as analogous to a list, where `hd`{.jayret} is
+the first element and `tl`{.jayret} is the rest.
 
 Observe that we have carefully avoided writing type definitions for
 the fields; we will instead try to figure them out as we go
@@ -108,12 +108,12 @@ white, this rounds up our definition:
 ```jayret
 web-colors = white-pair;
 ```
-If we ask Jayret to inspect the value of `web-colors`{.pyret}, we notice
+If we ask Jayret to inspect the value of `web-colors`{.jayret}, we notice
 that it employs an algorithm to prevent traversing infinite
 objects. You can learn more about how that works separately
 [[Detecting Cycles](cycle-detection.html)].
 
-We can define a helper function, `take`{.pyret}, a variation of
+We can define a helper function, `take`{.jayret}, a variation of
 which we saw for streams [[Streams From Functions](func-as-data.html##streams-from-funs)], to inspect a
 finite prefix of an infinite list:
 
@@ -161,7 +161,7 @@ sum = (n) -> if (n > 0) {
     return 0;
 }
 ```
-but if you enter this, Jayret will complain that `sum`{.pyret} is not
+but if you enter this, Jayret will complain that `sum`{.jayret} is not
 bound. We must instead write
 
 ```jayret
@@ -171,11 +171,11 @@ rec sum = (n) -> if (n > 0) {
     return 0;
 }
 ```
-What do you think `rec`{.pyret} does? It binds `sum`{.pyret} to a box
+What do you think `rec`{.jayret} does? It binds `sum`{.jayret} to a box
 initially containing a dummy value; it then defines the function in
 an environment where the name is bound, unboxing the use of the name;
 and finally, it replaces the box’s content with the defined function,
-following the same pattern we saw earlier for `web-colors`{.pyret}.
+following the same pattern we saw earlier for `web-colors`{.jayret}.
 
 ```{=html}
 <a name="(part._premature-eval)"></a>
@@ -197,7 +197,7 @@ There are generally three solutions to this problem:
   here that might not be confusing in some context.
 
 2. The language might create a new type of value just for use
-  here. For instance, imagine this definition of `CList`{.pyret}:
+  here. For instance, imagine this definition of `CList`{.jayret}:
   
   ```jayret
 data CList {
@@ -205,13 +205,13 @@ data CList {
     Clink(v, ref r);
 }
   ```
-  `undef`{.pyret} appears to be a “base case”, thus
-  making `CList`{.pyret} very similar to `List`{.pyret}. In truth, however,
-  the `undef`{.pyret} is present only until the first mutation happens,
+  `undef`{.jayret} appears to be a “base case”, thus
+  making `CList`{.jayret} very similar to `List`{.jayret}. In truth, however,
+  the `undef`{.jayret} is present only until the first mutation happens,
   after which it will never again be present: the intent is that
-  `r`{.pyret} only contain a reference to other `clink`{.pyret}s.
+  `r`{.jayret} only contain a reference to other `clink`{.jayret}s.
   
-  The `undef`{.pyret} value can now be used by the language to check for
+  The `undef`{.jayret} value can now be used by the language to check for
   premature uses of a cyclic list. However, while this is
   technically feasible, it imposes a run-time penalty. Therefore, this
   check is usually only performed by languages focused on teaching;
@@ -238,7 +238,7 @@ so programmers do not
 need to wrestle with mutable fields (as above) or thunks (as streams
 demand). This simplicity, however, comes at a price: cyclic lists can
 only represent strictly repeating data, i.e., you cannot define
-`nats`{.pyret} or `fibs`{.pyret} as cyclic lists. In contrast, the function
+`nats`{.jayret} or `fibs`{.jayret} as cyclic lists. In contrast, the function
 abstraction in a stream makes it generative: each invocation
 can create a truly novel datum (such as the next natural or Fibonacci
 number). Therefore, it is straightforward to implement cyclic lists as

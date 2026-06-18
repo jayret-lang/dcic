@@ -40,7 +40,7 @@ as we discuss in [Equality and Ordering](orderability.html##eq-ord).
 
 Let us now consider how one can compute hashes. If the input datatype
 is a number, it can serve as its own hash. Comparison simply uses
-numeric comparison (e.g., `<`{.pyret}). Then, transitivity of `<`{.pyret}
+numeric comparison (e.g., `<`{.jayret}). Then, transitivity of `<`{.jayret}
 ensures that if an element \(A\) is less than another element \(B\),
 then \(A\) is also less than all the other elements bigger than
 \(B\).
@@ -66,25 +66,25 @@ Based on that, here are two different hash functions:
 1. Consider a list of primes as long as the string. Raise each
   prime by the corresponding number, and multiply the result. For
   instance, if the string is represented by the character codes
-  `[6, 4, 5]`{.pyret} (the first character has code `6`{.pyret}, the second
-  one `4`{.pyret}, and the third `5`{.pyret}), we get the hash
+  `[6, 4, 5]`{.jayret} (the first character has code `6`{.jayret}, the second
+  one `4`{.jayret}, and the third `5`{.jayret}), we get the hash
   
   ```jayret
 num-expt(2, 6) * num-expt(3, 4) * num-expt(5, 5);
   ```
-  or `16200000`{.pyret}.
+  or `16200000`{.jayret}.
 2. Simply add together all the character codes. For the above
   example, this would correspond to the has
   
   ```jayret
 6 + 4 + 5;
   ```
-  or `15`{.pyret}.
+  or `15`{.jayret}.
 
 The first representation is invertible, using the
 [Fundamental Theorem of Arithmetic](http://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic):
 given the resulting number, we can reconstruct the input unambiguously
-(i.e., `16200000`{.pyret} can only map to the input above, and none other).
+(i.e., `16200000`{.jayret} can only map to the input above, and none other).
 This is also known as the Gödel encoding. This is
 computationally expensive.
 The second encoding is, of course, not invertible (e.g., simply
@@ -114,8 +114,8 @@ a string of numbers, which we have shown how to handle.
 The critical thing to remember is that we don’t actually need a
 meaningful operation.[Observe that Gödel encodings
 are not “meaningful”, either.]{.margin-note} We don’t actually care if a hash
-function concludes that the hash of `4`{.pyret} is less than the hash of
-`3`{.pyret}! All we need is a function that is
+function concludes that the hash of `4`{.jayret} is less than the hash of
+`3`{.jayret}! All we need is a function that is
 
 
 - non-trivial: not everything should be equal; and
@@ -136,7 +136,7 @@ wrong if each one was violated.
 
 In practice, programmers do not want hash functions to do what we have
 described above. While Gödel encoding is extremely expensive, even
-computing `hash-of`{.pyret} takes time linear in the size of a string,
+computing `hash-of`{.jayret} takes time linear in the size of a string,
 which can get quite expensive if strings are large or we compute
 hashes often or both.
 

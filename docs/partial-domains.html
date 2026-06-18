@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -142,7 +143,7 @@ while it is a convenient fiction to write</p>
 on non-empty lists.</p>
 <p>We will now see how to handle this from a software engineering
 perspective. We’ll specifically work through
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">average</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">average</code></span>
 because the function is simple enough that we can focus on the software
 structure without getting lost in the solution details. There are at
 least four solutions, and one non-solution.</p>
@@ -153,7 +154,7 @@ in the past, but that we reject as a non-solution. This strategy is to
 make the above contract absolutely correct by returning a value in the
 erroneous case; this value is often called a sentinel. For instance, the
 sentinel might be
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">0</code></span>.
 Here is the full program:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">type LoN = List &lt; Number &gt;;
 int sum(LoN l) {
@@ -184,9 +185,9 @@ it?</p>
 <p>The question is, should we be happy with this “solution”? There are
 two problems with it.</p>
 <p>First, every single use of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">avg0</code></span>
 needs to check for whether it got back
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">0</code></span>
 or not. If it did not, then the answer is legitimate, and it can proceed
 with the computation. But if it did, then it has to assume that the
 input may have been illegitimate, and cannot use the answer.</p>
@@ -197,18 +198,18 @@ write a few more tests:</p>
     assertEquals(avg0([-5, 4, 1]), 0);
 }</code></pre></div></div>
 <p>So the problem is that when
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">avg0</code></span>
 returns
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">0</code></span>,
 we don’t know whether that’s a legitimate answer or a “fake” answer that
 stands for “this is not a valid input”. So even our strategy of “check
 everywhere” fails!</p>
 <p>Ah, but maybe the problem is the use of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>!
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">0</code></span>!
 Perhaps we could use a different number that would work. How about
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1</code></span>?
 Or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">-1</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">-1</code></span>?
 The question is: Is there any number that reasonably can’t be the
 average of an actual input? (And in general, for all problems, can you
 be sure of this?) Well, of course not.</p>
@@ -221,7 +222,7 @@ invalid.</p></li>
 <li><p>A caller that forgets to check may compute with
 nonsense.</p></li>
 <li><p>Compositionality is ruined: any function passed
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">average</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">average</code></span>
 needs to know to check the output (and there is nothing in the contract
 to warn it!).</p></li>
 </ul>
@@ -240,7 +241,7 @@ out how to continue computing with the data it has. There are more
 sophisticated forms of exceptions in some languages, but here we focus
 simply on using them as a strategy for handling partiality.</p>
 <p>Here is the average program written using an exception (we reuse
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum</code></span>
 from before):</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: avg1 :: Object */;
 Object avg1(l) {
@@ -259,38 +260,38 @@ Object avg1(l) {
     assertEquals(avg1([1, 2, 3, 10]), 4);
 }</code></pre></div></div>
 <p>The way
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">raise</code></span>
 works is that it terminates everything that is waiting to happen. For
 instance, if we were to write</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">1 + avg1(empty);</code></pre></div></div>
 <p>the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1 + …</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1 + …</code></span>
 part never happens: the whole computation ends.
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">raise</code></span>
 creates exceptions.</p>
 <p>Again, we’re missing a test. How do we write it?</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
     assertRaises(() -&gt; { avg1(empty) }, "no average for empty list");
 }</code></pre></div></div>
 <p>The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raises</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">raises</code></span>
 form takes a string that it matches against that provided to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">raise</code></span>.
 In act, for convenience, any sub-string of the original string is
 permitted: we can, for instance, also write
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">check:   avg1(empty) raises "no average"   avg1(empty) raises "empty list" end</code></span></p>
 <p>In many programming languages, the use of exceptions is the standard
 way of dealing with partiality. It is certainly a pragmatic solution.
 Observe that we got to reuse
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum</code></span>
 from earlier; the contract looks clean; and we only needed to use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">raise</code></span>
 at the spot where we didn’t know what to do. What’s not to like?</p>
 <p>There are two main problems with exceptions:</p>
 <ol type="1">
 <li><p>In real systems, exceptions halt a program’s execution in
 unpredictable ways. A caller to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">avg1</code></span>
 may be half-way through doing something else (e.g., it may have opened a
 file that it intends to close), but the exception causes the call to not
 finish cleanly, causing the remaining computation to not run, leaving
@@ -332,7 +333,7 @@ contract, and the impact on program execution.</p>
 <a name="(part._pd-option)"></a>
 <h3 id="pd-option">23.3 The Option Type</h3>
 <p>Let’s revisit
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">avg0</code></span>.
 The problem with it was that it returned a value that was not
 distinguishable from an actual answer. So perhaps another approach is to
 return a value that is guaranteed to be distinguishable! For this, a
@@ -343,11 +344,11 @@ type:</p>
     Some(T value);
 }</code></pre></div></div>
 <p>This is a type we use when we aren’t sure we will have an answer:
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">none</code></span>
 means we don’t have an answer, whereas
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">some</code></span>
 means we do and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">value</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">value</code></span>
 is that answer.</p>
 <p>Here’s how our program now looks:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: avg2 :: Object */;
@@ -372,33 +373,33 @@ Object avg2(l) {
 }</code></pre></div></div>
 <p>The good news is, the contract is now truthful. Just by looking at
 it, we are reminded that
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">avg0</code></span>
 may not always be able to compute an answer.</p>
 <p>Unfortunately, this imposes some cost on every user: they have to use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cases</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">cases</code></span>
 to check return values and only use them if they are legitimate.
 However, this is the same thing we expected in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>—except
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">avg0</code></span>—except
 we lacked a discipline for making sure we didn’t abuse that value! So
 this is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">avg0</code></span>
 done in a principled way.</p>
 <a name="(part._pd-total-dyn)"></a>
 <h3 id="pd-total-dyn">23.4 Total Domains, Dynamically</h3>
 <p>All these problems arise because we said that
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">average</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">average</code></span>
 (like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">median</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">median</code></span>)
 is partial. However, it’s only partial if we give the domain as
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">List &lt; Number &gt;</code></span>;
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">List &lt; Number &gt;</code></span>;
 it’s actually a total function on the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">non-empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">non-empty</code></span>
 list of numbers. But how do we represent that?</p>
 <p>In some languages, like Jayret, we can actually express this
 directly:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">type NeLoND = List &lt; Number &gt; % (is-link );</code></pre></div></div>
 <p>This says that we’re refining numeric lists to always have a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">link</code></span>,
 i.e., to be non-empty. In Jayret, currently, this check is only done at
 run-time; in some other programming languages, this can be done by the
 type-checker itself.</p>
@@ -448,13 +449,13 @@ smallest list has one element in it. Furthermore, our type checker
 enforces this for us.</p>
 <p>Of course, this is an entirely different datatype than a list of
 numbers. We can’t, for instance, use the existing
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum</code></span>
 or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">length</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">length</code></span>
 code on it. However, one option is to convert a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">NeLoN</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">NeLoN</code></span>
 into a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">LoN</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">LoN</code></span>,
 which is always safe, and reuse that code:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object nelon-to-lon(NeLoN nl) {
     return switch (nl) {
@@ -491,7 +492,7 @@ work to reuse existing functions.</p>
 }</code></pre></div></div>
 <p>That is, we’ve lost our convenient way of writing lists. We can
 recover that by writing a helper that creates
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">NeLoN</code></span>s:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">NeLoN</code></span>s:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">NeLoN lon-to-nelon(LoN l) {
     return switch (l) {
         case Empty: yield raise("can't make an empty NeLoN");
@@ -512,22 +513,22 @@ recover that by writing a helper that creates
 }</code></pre></div></div>
 <p>However, it’s very important to understand where the error is coming
 from: the exception is not from
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg4</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">avg4</code></span>,
 it’s coming from
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lon-to-nelon</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">lon-to-nelon</code></span>,
 i.e., from the “interface” function. The bad datum never makes it as far
 as
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg4</code></span>!
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">avg4</code></span>!
 We can verify this:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
     assertRaises(() -&gt; { lon-to-nelon(empty) }, "");
 }</code></pre></div></div>
 <p>Remember, there’s no way to send an empty list to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg4</code></span>!
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">avg4</code></span>!
 Nevertheless, this suggests a trade-off: we can either use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">NeLoN</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">NeLoN</code></span>
 explicitly but with more notational pain, or we can use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">list</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">list</code></span>
 but run the risk of some confusion about exceptions. This is a trade-off
 in general, but there are better options in some languages (<a
 href="partial-domains.html##pd-pyret-list-constr">A Note on
@@ -549,7 +550,7 @@ decades.</li>
 <p>and there are four solutions:</p>
 <ul>
 <li><p>Use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">raise</code></span>.
 This is not very good for software engineering in general because
 exceptions are clunky, semantically complicated, and not
 compositional.</p></li>
@@ -560,11 +561,11 @@ it’s a decent compromise in many settings.</p></li>
 of work. Pretty sophisticated, invaluable in some places, but not always
 worth the effort.</p></li>
 <li><p>Use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Option</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Option</code></span>.
 Often the ideal option, because:</p>
 <ul>
 <li><p>The type tells us to expect funny business.
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">raise</code></span>
 hides that.)</p></li>
 <li><p>We can’t accidentally misuse the value. (Sentinels hide
 that.)</p></li>
@@ -575,11 +576,11 @@ solution.</p></li>
 <li><p>It’s more statically robust than the dynamic totality
 solution.</p></li>
 <li><p>It generalizes: in practice, instead of just
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">none</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">some</code></span>,
 a real program will have
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">some</code></span>
 for the “normal” case, and a bunch of variants describing the different
 kinds of errors that are possible, with extra information in each case.
 For concrete examples of this, see <a
@@ -593,23 +594,23 @@ queues.</p></li>
 <h3 id="pd-pyret-list-constr">23.7 A Note on Notation</h3>
 <p>When we wrote above that we can’t get the convenience of writing,
 say,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[1, 2, 3]</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">[1, 2, 3]</code></span>
 when using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">NeLoN</code></span>s,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">NeLoN</code></span>s,
 we were speaking in general. In some languages, we can actually make
 similar convenient constructors. In Jayret, for instance, there is a
 protocol for defining custom constructors; in fact, seemingly built-in
 constructors like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">list</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">list</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">set</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">set</code></span>
 are built using this protocol. The code for doing this is a bit ungainly
 (in part because it’s optimized to save some space and time by making
 the constructor-writer’s life a little harder), but it only needs to be
 written once. Here’s a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nelon</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">nelon</code></span>
 constructor for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">NeLoN</code></span>s:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">NeLoN</code></span>s:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">NeLoN ra-to-nelon(RawArray&lt;Object&gt; r) {
     len = raw-array-length(r);
     Object make-from-index(int n) {
@@ -625,7 +626,7 @@ constructor for
 nelon = {make0 () -&gt; raise("can't make an empty NeLoN"), make1 (a1) -&gt; one(a1), make2 (a1, a2) -&gt; more(a1, one(a2)), make3 (a1, a2, a3) -&gt; more(a1, more(a2, one(a3))), make4 (a1, a2, a3, a4) -&gt; more(a1, more(a2, more(a3, one(a4)))), make5 (a1, a2, a3, a4, a5) -&gt; more(a1, more(a2, more(a3, more(a4, one(a5))))), make (RawArray&lt;Object&gt; args) -&gt; ra-to-nelon(args)}</code></pre></div></div>
 <p>These tests show that this constructor works very much like the
 built-in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">list</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">list</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
     assertRaises(() -&gt; { [nelon: ] }, "empty");
     assertEquals([nelon: 1], one(1));

@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -144,13 +145,13 @@ definition:</p>
     }
 }</code></pre></div></div>
 <p>Now let’s think about a slightly different function:
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">how-many-named</code></span>,
 which tells us how many people in a family have a particular name. Not
 only can more than one person have the same name, in some cultures it’s
 not uncommon to use the same name across generations, either in
 successive generations or skipping one.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What is the contract for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">how-many-named</code></span>?
 The contract for this function will be crucial, so make sure you do this
 step!</p></blockquote></blockquote>
 <p>Here is one meaningful contract:</p>
@@ -158,7 +159,7 @@ step!</p></blockquote></blockquote>
 <p>It takes a tree in which to search, a name to search for, and returns
 a count.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Define
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>.</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">how-many-named</code></span>.</p></blockquote></blockquote>
 <a name="(part._Initial-Solution)"></a>
 <h3 id="Initial-Solution">24.2 Initial Solution</h3>
 <p>Presumably you ended up with something like this:</p>
@@ -188,9 +189,9 @@ contributing to the overall count; the rest of the count stays the same
 regardless.</p>
 <p>One way to make this more explicit is to (perhaps surprisingly)
 rewrite the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">else</code></span>
 to make explicit that a person with a different name contributes
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">0</code></span>
 to the count:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object how-many-named(p, looking-for) {
     return switch (p) {
@@ -220,18 +221,18 @@ following instead:</p>
 }</code></pre></div></div>
 <p>If you have prior programming experience, this may look a bit odd to
 you, but
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 is in fact an expression, which has a value; in this case the value is
 either
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">0</code></span>
 or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1</code></span>.
 This value can then be used in an addition.</p>
 <p>Now let’s look at this code even more closely. Notice something
 interesting. We keep passing two parameters to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>;
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">how-many-named</code></span>;
 however, only one of those parameters
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">p</code></span>)
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">p</code></span>)
 is actually changing. The name we are looking for does not change, as we
 would expect: we are looking for the same name in the entire tree. How
 can we reflect this in the code?</p>
@@ -270,7 +271,7 @@ the function as a whole reads:</p>
     }
 }</code></pre></div></div>
 <p>and the example reads
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named("A", p)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">how-many-named("A", p)</code></span>
 instead.</p>
 <a name="(part._Separating-Parameters)"></a>
 <h3 id="Separating-Parameters">24.4 Separating Parameters</h3>
@@ -280,13 +281,13 @@ looking for is a constant once we initially have it, we’d like the
 actual search function to take only one argument: where in the tree
 we’re searching.</p>
 <p>That is, we want the search function’s contract to be
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">(ABT -&gt; Number)</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">(ABT -&gt; Number)</code></span>.
 To achieve that, we need another function that will take the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">String</code></span>
 part. Thus, the contract has to become</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: how-many-named :: Object */;</code></pre></div></div>
 <p>where
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">how-many-named</code></span>
 consumes a name and returns a function that will consume the actual tree
 to check.</p>
 <p>This suggests the following function body:</p>
@@ -302,7 +303,7 @@ to check.</p>
 }</code></pre></div></div>
 <p>However, this function body is not okay: the Jayret type-checker will
 give us type errors. That’s because
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">how-many-named</code></span>
 takes one parameter, not two, as in the two recursive calls.</p>
 <p>How do we fix this? Remember, the whole point of this change is we
 don’t want to change the name, only the tree. That means we want to
@@ -325,16 +326,16 @@ name we’re looking for unchanged (and hence, fixed for the duration of
 the search).</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Try the above and make sure it works.</p></blockquote></blockquote>
 <p>It still doesn’t: the above body has a syntax error! This is because
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">how-many-named</code></span>
 does not actually return any kind of value.</p>
 <p>What should it return? Once we provide the function with a name, we
 should get back a function that searches for that name in a tree. But we
 already have exactly such a function:
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">search-in</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">search-in</code></span>.
 Therefore,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">how-many-named</code></span>
 should return just …
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">search-in</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">search-in</code></span>.</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object how-many-named(looking-for) {
     int search-in(ABT p) {
         return switch (p) {
@@ -350,20 +351,20 @@ should return just …
 }</code></pre></div></div>
 <p>This still won’t work, because we haven’t changed the example. Let’s
 update that: how do we use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">how-many-named</code></span>?
 We have to call it with a name (like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"A"</code></span>);
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"A"</code></span>);
 this returns a function—the one bound to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">search-in</code></span>—which
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">search-in</code></span>—which
 expects a ancestor tree. Doing so should return a count. Thus, the
 example should be rewritten as</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">how-many-As = how-many-named("A");
 assertEquals(how-many-As(p), 3);</code></pre></div></div>
 <p>This is an instructive way to write the example. We can, however,
 also write it more concisely. Notice that
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">how-many-named("A")</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">how-many-named("A")</code></span>
 returns a function, and the way we apply a function to arguments is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">(…)</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">(…)</code></span>.
 Thus, we can also write this as:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">assertEquals(how-many-named("A")(p), 3);</code></pre></div></div>
 <a name="(part._Context)"></a>

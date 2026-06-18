@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -157,7 +158,7 @@ those neighbors.</p></li>
 </ul>
 <p>This translates into the following function: <graph-reach-1-main>
 ::=</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): parse failed (no shifts)
 fun reach-1(src :: Key, dst :: Key, g :: Graph) -&gt; Boolean:
   if src == dst:
     true
@@ -167,7 +168,7 @@ fun reach-1(src :: Key, dst :: Key, g :: Graph) -&gt; Boolean:
   end
 end</code></pre></div></div>
 <p>where the loop through the neighbors of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">src</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">src</code></span>
 is: <graph-reach-1-loop> ::=</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object loop(ns) {
     return switch (ns) {
@@ -198,7 +199,7 @@ loop, due to the cyclic nature of graphs!</p>
 <p>Before we continue, let’s try to improve the expression of the loop.
 While the nested function above is a perfectly reasonable definition, we
 can use Jayret’s
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">for</code></span>
 to improve its readability.</p>
 <p>The essence of the above loop is to iterate over a list of boolean
 values; if one of them is true, the entire loop evaluates to true; if
@@ -246,14 +247,14 @@ definition: <graph-reach-2> ::=</p>
 <p>In particular, note the extra new conditional: if the reachability
 check has already visited this node before, there is no point traversing
 further from here, so it returns
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">false</code></span>.
 (There may still be other parts of the graph to explore, which other
 recursive calls will do.)</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Does it matter if the first two conditions were swapped, i.e., the
 beginning of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">reach-2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">reach-2</code></span>
 began with</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): parse failed (no shifts)
 if src == dst:
   true
 else if visited.member(src):
@@ -265,7 +266,7 @@ matter? How?</p></blockquote></blockquote>
 <a name="(part._A-Better-Interface)"></a>
 <h5 id="A-Better-Interface">17.2.1.4 A Better Interface</h5>
 <p>As the process of testing
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">reach-2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">reach-2</code></span>
 shows, we may have a better implementation, but we’ve changed the
 function’s interface; now it has a needless extra argument, which is not
 only a nuisance but might also result in errors if we accidentally
@@ -288,7 +289,7 @@ core code to an internal function:</p>
 implementing reachability.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Does this really gives us a correct implementation? In particular,
 does this address the problem that the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">size</code></span>
 function above addressed? Create a test case that demonstrates the
 problem, and then fix it.</p></blockquote></blockquote>
 <a name="(part._dfs-bfs)"></a>

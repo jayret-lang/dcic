@@ -103,10 +103,10 @@ representations to make an algorithmic point.
 #### 15.3.1 List Representations {#List-Representations}
 
 Consider two natural ways of defining queues using lists. One is that every
-enqueue is implemented with `link`{.pyret}, while every
+enqueue is implemented with `link`{.jayret}, while every
 dequeue requires traversing the whole list until its
 end. Conversely, we could make enqueuing traverse to the end, and
-dequeuing correspond to `.rest`{.pyret}. Either way, one of these
+dequeuing correspond to `.rest`{.jayret}. Either way, one of these
 operations will take constant time while the other will be linear in
 the length of the list representing the queue. (This should be loosely
 reminiscent of trade-offs we ran into when representing sets as lists:
@@ -194,7 +194,7 @@ data Response {
     Elt-and-q(T e, Queue<Object> r);
 }
 ```
-Now for the implementation of `dequeue`{.pyret}:
+Now for the implementation of `dequeue`{.jayret}:
 
 ```jayret
 Response<Object> dequeue(Queue<Object> q) {

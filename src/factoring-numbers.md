@@ -73,7 +73,7 @@ Object gcd(a, b) {
 With that, we can define the Pollard-rho implementation. Recall that
 the function may or may not succeed in finding a factor (in
 particular, it must fail when given a prime!), so we use an
-`Option`{.pyret} type to reflect the two possibilities:
+`Option`{.jayret} type to reflect the two possibilities:
 
 ```jayret
 Object pr(n) {
@@ -89,9 +89,9 @@ Object pr(n) {
     return loop(2, 2, 1);
 }
 ```
-The key step is the computation `g(x)`{.pyret} versus `g(g(x))`{.pyret}. We
-can imagine `x`{.pyret} is the tortoise, so `g(x)`{.pyret} is the tortoise’s
-update, while `y`{.pyret} is the hare, so `g(g(y))`{.pyret} is the hare’s
+The key step is the computation `g(x)`{.jayret} versus `g(g(x))`{.jayret}. We
+can imagine `x`{.jayret} is the tortoise, so `g(x)`{.jayret} is the tortoise’s
+update, while `y`{.jayret} is the hare, so `g(g(y))`{.jayret} is the hare’s
 update.
 
 Try to run the above on the following values and see what it produces:

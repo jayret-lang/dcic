@@ -18,8 +18,8 @@ next: testing.html
 ```
 
 Suppose you have a list. When you take its first element, you get the
-element that was most recently `link`{.pyret}ed to create it. The next element is the
-second most recent one that was `link`{.pyret}ed, and so on. That is, the last one in is
+element that was most recently `link`{.jayret}ed to create it. The next element is the
+second most recent one that was `link`{.jayret}ed, and so on. That is, the last one in is
 the first one out. This is called a LIFO, short for “last-in-first-out”, data
 structure. A list is LIFO; we sometimes also refer to this as a stack.
 
@@ -147,7 +147,7 @@ However, it would be nice if we could obtain both the oldest element and the
 rest of the queue at once, if we want them both. That means the single function
 would need to return two values; since a function can return only one value at
 a time, it would need to use a data structure to hold both of
-them. Furthermore, note that both `qpeek`{.pyret} and `qrest`{.pyret} above have the
+them. Furthermore, note that both `qpeek`{.jayret} and `qrest`{.jayret} above have the
 possibility of not having any more elements! We might as well reflect that too
 in the type. Thus we end up with a type that looks like
 
@@ -176,9 +176,9 @@ Write out the function using this return type.
 
 #### 8.2.3 Using a Picker {#Using-a-Picker}
 
-Does `Dequeued`{.pyret} look familiar? Of course it should! It’s basically the
+Does `Dequeued`{.jayret} look familiar? Of course it should! It’s basically the
 same as the pickers used for sets in Jayret: [Picking Elements from Sets](Collections_of_Structured_Data.html##coll-sd-pick). If we make
-queues provide the same operations, we can reuse the `Pick`{.pyret} library
+queues provide the same operations, we can reuse the `Pick`{.jayret} library
 already built into the language, and reuse any code that is written expecting
 the picker interface.
 
@@ -215,7 +215,7 @@ Object dequeue(q) {
 }
 ```
 In terms of big-O complexity, this is a dreadfully inefficient implementation,
-causing two reversals on every `qrest`{.pyret} or `dequeue`{.pyret}. To see how to do
+causing two reversals on every `qrest`{.jayret} or `dequeue`{.jayret}. To see how to do
 better, and to conduct a more sophisticated analysis, see
 [An Example: Queues from Lists](amortized-analysis.html##queue-data-structure).
 
@@ -236,7 +236,7 @@ parts that you may find interesting.
 
 #### 8.2.4 Using Tuples {#qfl-tuples}
 
-Earlier, we created the `Dequeued`{.pyret} datatype to represent the return value
+Earlier, we created the `Dequeued`{.jayret} datatype to represent the return value
 from the dequeue. Indeed, it is often useful to create datatypes of this sort
 to document functions and make sure the types can be meaningfully interpreted
 even when their values flow around the code some distance from where they were
@@ -251,7 +251,7 @@ fleeting purpose. For such cases, Jayret has a built-in generic datatype called
 the tuple.
 
 Here are some examples of tuples, which illustrate their syntax; note that each
-position (separated by `;`{.pyret}) takes an expression, not only a
+position (separated by `;`{.jayret}) takes an expression, not only a
 constant value:
 
 ```jayret
@@ -266,12 +266,12 @@ We can also pull values out of tuples as follows:
 ```jayret
 /* TODO(pyret2jayret): tuple-binding deferred in Jayret v0.1 */ /* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {1 ;2}
 ```
-Evaluate `a`{.pyret} and `b`{.pyret} and see what they are bound to.
+Evaluate `a`{.jayret} and `b`{.jayret} and see what they are bound to.
 
 ```jayret
 /* TODO(pyret2jayret): tuple-binding deferred in Jayret v0.1 */ /* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {1 + 2 ;6 - 2 ;5}
 ```
-Similarly, see what `c`{.pyret}, `d`{.pyret}, and `e`{.pyret} are bound to.
+Similarly, see what `c`{.jayret}, `d`{.jayret}, and `e`{.jayret} are bound to.
 
 ::: {.exercise}
 What happens if we use too few or too many variables? Try out the following in
@@ -292,10 +292,10 @@ p = /* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {1 ;2}
 ```
 :::
 
-This binds `p`{.pyret} to the entire tuple.
+This binds `p`{.jayret} to the entire tuple.
 
 ::: {.exercise}
-How might we pull apart the constituents of `p`{.pyret}?
+How might we pull apart the constituents of `p`{.jayret}?
 :::
 
 Now that we have tuples, we can write dequeue as:
@@ -344,8 +344,8 @@ them with caution!
 
 #### 8.2.5 A Picker Method {#A-Picker-Method}
 
-Second, and this is truly optional: you may have noticed earlier that `Set`{.pyret}s had a
-built-in `pick`{.pyret} method. We have a function, but not method,
+Second, and this is truly optional: you may have noticed earlier that `Set`{.jayret}s had a
+built-in `pick`{.jayret} method. We have a function, but not method,
 that picks. Now we’ll see how we can write this as a method:
 
 ```jayret
@@ -353,9 +353,9 @@ data Queue {
     Queue(List<Object> l); /* TODO: with: methods */
 }
 ```
-This is a drop-in replacement for our previous definition of `Queue`{.pyret},
+This is a drop-in replacement for our previous definition of `Queue`{.jayret},
 because we’ve added a method but left the general datatype structure intact, so
-all our existing code will still work. In addition, we can rewrite `q2l`{.pyret} in terms
+all our existing code will still work. In addition, we can rewrite `q2l`{.jayret} in terms
 of the picker interface:
 
 ```jayret
@@ -379,7 +379,7 @@ List<Object> pick2l(c) {
     }
 }
 ```
-For instance, it works on both sets and our new `Queue`{.pyret}s:
+For instance, it works on both sets and our new `Queue`{.jayret}s:
 
 ```jayret
 import sets as S
@@ -391,10 +391,10 @@ import sets as S
 ```
 
 ::: {.exercise}
-Do you see why we invoked `sort`{.pyret} in the test above?
+Do you see why we invoked `sort`{.jayret} in the test above?
 :::
 
 The only weakness here is that for this last part (making the function
-generic), we have to transition out of the type-checker, because `pick2l`{.pyret}
+generic), we have to transition out of the type-checker, because `pick2l`{.jayret}
 cannot be typed by the current Jayret type checker. It requires a feature that
 the type checker does not (yet) have.

@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -212,11 +213,11 @@ record. Here’s a simplified version of the information such an app might
 store:</p>
 <ul>
 <li><p>The song’s name, which is a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>.</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">String</code></span>.</p></li>
 <li><p>The song’s singer, which is also a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>.</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">String</code></span>.</p></li>
 <li><p>The song’s year, which is a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>.</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Number</code></span>.</p></li>
 </ul>
 <p>Let’s now introduce the syntax by which we can teach this to
 Jayret:</p>
@@ -224,9 +225,9 @@ Jayret:</p>
 }</code></pre></div></div>
 <p>This tells Jayret to introduce a new type of data, in this case
 called
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ITunesSong</code></span><span class="refelem"><span class="refcolumn"><span class="refcontent">We follow a convention that types always begin with a capital letter.</span></span></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">ITunesSong</code></span><span class="refelem"><span class="refcolumn"><span class="refcontent">We follow a convention that types always begin with a capital letter.</span></span></span>.
 The way we actually make one of these data is by calling
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">song</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">song</code></span>
 with three parameters; for
 instance:<span class="refelem"><span class="refcolumn"><span class="refcontent">It’s worth noting that music managers that are capable of making
 distinctions between, say, Dance, Electronica, and Electronic/Dance,
@@ -263,7 +264,7 @@ data. But what should we write here?</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">lver = song("La Vie en Rose", "Édith Piaf", 1945);</code></pre></div></div>
 <p>Recall that annotations takes names of types, and the new type we’ve
 created is called
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ITunesSong</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">ITunesSong</code></span>.
 Therefore, we should write</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">lver = song("La Vie en Rose", "Édith Piaf", 1945);</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What happens if we instead write this?</p>
@@ -277,7 +278,7 @@ get.</p></blockquote></blockquote>
 <h5 id="Defining-and-Creating-Conditional-Data">6.1.2.3 Defining and
 Creating Conditional Data</h5>
 <p>The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">data</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">data</code></span>
 construct in Jayret also lets us create conditional data, with a
 slightly different syntax. For instance, say we want to define the
 colors of a traffic light:</p>
@@ -289,9 +290,9 @@ colors of a traffic light:</p>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">Conventionally, the names of the options begin in lower-case, but if
 they have no additional structure, we often capitalize the initial to
 make them look different from ordinary variables: i.e.,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Red</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Red</code></span>
 rather than
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">red</code></span>.</span></span></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">red</code></span>.</span></span></span>
 Each variant name on its own line introduces another option. You would
 make instances of traffic light colors as</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Red;
@@ -344,9 +345,9 @@ together.</p>
 Fields from Structured Data</h5>
 <p>Let’s write a function that tells us how old a song is. First, let’s
 think about what the function consumes (an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">ITunesSong</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">ITunesSong</code></span>)
 and produces (a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Number</code></span>).
 This gives us a rough skeleton for the function: <song-age> ::=</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int song-age(ITunesSong s) {
     &lt;song-age-body&gt;
@@ -355,15 +356,15 @@ This gives us a rough skeleton for the function: <song-age> ::=</p>
 ::=</p>
 <pre><code>2016 - &lt;get the song year&gt;</code></pre>
 <p>We can get the song year by using Jayret’s field access, which is a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">.</code></span>
 followed by a field’s name—in this case,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">year</code></span>—following
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">year</code></span>—following
 the variable that holds the structured datum. Thus, we get the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">year</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">year</code></span>
 field of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">s</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">s</code></span>
 (the parameter to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">song-age</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">song-age</code></span>)
 with</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">s.year;</code></pre></div></div>
 <p>So the entire function body is:</p>
@@ -394,13 +395,13 @@ light’s state, we might write:</p>
     }
 }</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What happens if you leave out the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=&gt;</code></span>?</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">=&gt;</code></span>?</p></blockquote></blockquote>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What if you leave out a variant? Leave out the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Red</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Red</code></span>
 variant, then try both
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">advice(Yellow)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">advice(Yellow)</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">advice(Red)</code></span>.</p></blockquote></blockquote>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">advice(Red)</code></span>.</p></blockquote></blockquote>
 <a name="(part._process-fields-variants)"></a>
 <h5 id="process-fields-variants">6.1.3.3 Processing Fields of
 Variants</h5>
@@ -408,7 +409,7 @@ Variants</h5>
 fields, Jayret expects you to list names of variables for those fields,
 and will then automatically bind those variables—so you don’t need to
 use the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.</code></span>-notation
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">.</code></span>-notation
 to get the field values.</p>
 <p>To illustrate this, assume we want to get the name of any animal:
 <animal-name> ::=</p>
@@ -416,7 +417,7 @@ to get the field values.</p>
     &lt;animal-name-body&gt;
 }</code></pre></div></div>
 <p>Because an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Animal</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Animal</code></span>
 is conditionally defined, we know that we are likely to want a
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>
 to pull it apart; furthermore, we should give names to each of the
@@ -429,7 +430,7 @@ definitions and short names to the corresponding variables.</span></span></span>
     case Armadillo(n, l): yield ...;
 }</code></pre></div></div>
 <p>In both cases, we want to return the field
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">n</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">n</code></span>,
 giving us the complete function:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">String animal-name(Animal a) {
     return switch (a) {
@@ -442,7 +443,7 @@ giving us the complete function:</p>
 <p>Let’s look at how Jayret would evaluate a function call like</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">animal-name(boa("Bonito", 8));</code></pre></div></div>
 <p>The argument
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">boa("Bonito", 8)</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">boa("Bonito", 8)</code></span>
 is a value. In the same way as we substitute simple data types like
 strings and numbers for parameters when we evaluate a function, we do
 the same thing here. After substituting, we are left with the following
@@ -453,21 +454,21 @@ expression to evaluate:</p>
 }</code></pre></div></div>
 <p>Next, Jayret determines which case matches the data (the first one,
 for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">boa</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">boa</code></span>,
 in this case). It then substitutes the field names with the
 corresponding components of the datum result expression for the matched
 case. In this case, we will substitute uses of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">n</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">n</code></span>
 with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Bonito"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Bonito"</code></span>
 and uses of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">l</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">l</code></span>
 with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">8</code></span>.
 In this program, the entire result expression is a use of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">n</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">n</code></span>,
 so the result of the program in this case is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Bonito"</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Bonito"</code></span>.</p>
 <div class="navsetbottom">
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="part_structured-data.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_structured-data.html">up</a>&nbsp;&nbsp;<a href="Collections_of_Structured_Data.html" rel="next">next &rarr;</a></span>&nbsp;

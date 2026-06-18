@@ -252,17 +252,17 @@ it applicable in several other applications as well.
 
 The setup is as follows. For arbitrary values, we want the ability to
 think of them as elements in a set.
-We are interested in two operations. One is obviously `union`{.pyret},
+We are interested in two operations. One is obviously `union`{.jayret},
 which merges two sets into one. The other would seem to be something
-like `is-in-same-set`{.pyret} that takes two elements and determines
+like `is-in-same-set`{.jayret} that takes two elements and determines
 whether they’re in the same set. Over time, however, it has proven
-useful to instead define the operator `find`{.pyret} that, given an
+useful to instead define the operator `find`{.jayret} that, given an
 element, “names” the set (more on this in a moment) that the element
 belongs to. To check whether two elements are in the same set, we then
 have to get the “set name” for each element, and check whether these
 names are the same. This certainly sounds more roundabout, but this
 means we have a primitive that may be useful in other contexts, and
-from which we can easily implement `is-in-same-set`{.pyret}.
+from which we can easily implement `is-in-same-set`{.jayret}.
 
 Now the question is, how do we name sets? The real question we should
 ask is, what operations do we care to perform on these names? All we
@@ -272,7 +272,7 @@ string, or number, or something else, but we have another option:
 simply pick some element of the set to represent it, i.e., to serve as
 its name. Thus we will associate each set element with an
 indicator of the “set name” for that element; if there isn’t one,
-then its name is itself (the `none`{.pyret} case of `parent`{.pyret}):
+then its name is itself (the `none`{.jayret} case of `parent`{.jayret}):
 
 ```jayret
 data Element {
@@ -296,9 +296,9 @@ Why do we check only the value parts?
 We will assume that for a given set, we always return the
 same representative element. (Otherwise, equality will fail
 even though we have the same set.) Thus:[We’ve used the
-name `fynd`{.pyret} because `find`{.pyret} is already defined to mean
+name `fynd`{.jayret} because `find`{.jayret} is already defined to mean
 something else in Jayret. If you don’t like the misspelling, you’re
-welcome to use a longer name like `find-root`{.pyret}.]{.margin-note}
+welcome to use a longer name like `find-root`{.jayret}.]{.margin-note}
 
 ```jayret
 boolean is-in-same-set(Element e1, Element e2, Sets s) {
@@ -307,17 +307,17 @@ boolean is-in-same-set(Element e1, Element e2, Sets s) {
     return identical(s1, s2);
 }
 ```
-where `Sets`{.pyret} is the list of all elements:
+where `Sets`{.jayret} is the list of all elements:
 
 ```jayret
 type Sets = List < Element >;
 ```
 
 How do we find the representative element for a set? We first find it
-using `is-same-element`{.pyret}; when we do, we check the
-element’s `parent`{.pyret} field. If it is `none`{.pyret}, that means this
+using `is-same-element`{.jayret}; when we do, we check the
+element’s `parent`{.jayret} field. If it is `none`{.jayret}, that means this
 very element names its set; this can happen either because the element
-is a singleton set (we’ll initialize all elements with `none`{.pyret}),
+is a singleton set (we’ll initialize all elements with `none`{.jayret}),
 or it’s the name for some larger set. Either way, we’re
 done. Otherwise, we have to recursively find the parent:
 
@@ -338,10 +338,10 @@ Element fynd(Element e, Sets s) {
 ```
 
 ::: {.exercise}
-Why is there a recursive call in the nested `cases`{.pyret}?
+Why is there a recursive call in the nested `cases`{.jayret}?
 :::
 
-What’s left is to implement `union`{.pyret}. For this, we find the
+What’s left is to implement `union`{.jayret}. For this, we find the
 representative elements of the two sets we’re trying to union; if they
 are the same, then the two sets are already in a union; otherwise, we
 have to update the data structure:
@@ -394,14 +394,14 @@ Unfortunately, this implementation suffers from two major problems:
 
 
 - First, because we are performing functional updates, the value
-  of the `parent`{.pyret} reference keeps “changing”, but these changes
+  of the `parent`{.jayret} reference keeps “changing”, but these changes
   are not visible to older copies of the “same” value. An element
   from different stages of unioning has different parent references,
   even though it is arguably the same element throughout. This is a
   place where functional programming hurts.
 
 - Relatedly, the performance of this implementation is quite
-  bad. `fynd`{.pyret} recursively traverses parents to find the set’s
+  bad. `fynd`{.jayret} recursively traverses parents to find the set’s
   name, but the elements traversed are not updated to record this new
   name. We certainly could update them by reconstructing the set
   afresh each time, but that complicates the implementation and, as we
@@ -410,7 +410,7 @@ Unfortunately, this implementation suffers from two major problems:
 Even worse, it may not even be correct!
 
 ::: {.exercise}
-Is it? Consider constructing `union`{.pyret}s that are not quite so skewed as
+Is it? Consider constructing `union`{.jayret}s that are not quite so skewed as
 above, and see whether you get the results you expect.
 :::
 

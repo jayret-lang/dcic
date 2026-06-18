@@ -40,8 +40,8 @@ instance,
 fails, but the corresponding sets are equal.
 
 In principle, we want sets to obey the following
-interface:[Note that a type called `Set`{.pyret} is already
-built into Jayret, so below we will use the name `LSet`{.pyret} for a set
+interface:[Note that a type called `Set`{.jayret} is already
+built into Jayret, so below we will use the name `LSet`{.jayret} for a set
 represented as a list.]{.margin-note}
 <set-operations> ::=
 ```jayret
@@ -57,7 +57,7 @@ We may also find it also useful to have functions such as
 ```jayret
 /* contract: insert-many :: Object */;
 ```
-which, combined with `mt-set`{.pyret}, easily gives us a `to-set`{.pyret}
+which, combined with `mt-set`{.jayret}, easily gives us a `to-set`{.jayret}
 function.
 
 Sets can contain many kinds of values, but not necessarily any kind:
@@ -79,7 +79,7 @@ The empty list can stand in for the empty set—
 type LSet = List;
 mt-set = empty;
 ```
-—and we can presumably define `size`{.pyret} as
+—and we can presumably define `size`{.jayret} as
 
 ```jayret
 int size(LSet<Object> s) {
@@ -102,7 +102,7 @@ dangerous:
   ```
   because the first list has length two whereas the second has length
   one. Treated as a set, however, the two are the same: they both have
-  size one. Thus, our implementation of `size`{.pyret} above is incorrect
+  size one. Thus, our implementation of `size`{.jayret} above is incorrect
   if we don’t take into account duplicates (either during insertion or
   while computing the size).
 2. We might falsely make assumptions about the order in which
@@ -118,11 +118,11 @@ dangerous:
 To avoid these perils, we have to be precise about how we’re going to
 use lists to represent sets. One key question (but not the only one,
 as we’ll soon see [[Choosing Between Representations](sets-from-lists.html##choosing-set-reps)]) is what to do about duplicates. One
-possibility is for `insert`{.pyret} to check whether an element is
+possibility is for `insert`{.jayret} to check whether an element is
 already in the set and, if so, leave the representation unchanged;
 this incurs a cost during insertion but avoids unnecessary duplication
-and lets us use `length`{.pyret} to implement `size`{.pyret}. The other
-option is to define `insert`{.pyret} as `link`{.pyret}—literally,
+and lets us use `length`{.jayret} to implement `size`{.jayret}. The other
+option is to define `insert`{.jayret} as `link`{.jayret}—literally,
 
 ```jayret
 insert = link;
@@ -136,34 +136,34 @@ insert = link;
 #### 18.1.2 Time Complexity {#Time-Complexity}
 
 What is the complexity of this representation of sets? Let’s consider
-just `insert`{.pyret}, `is-in`{.pyret}, and `size`{.pyret}.
+just `insert`{.jayret}, `is-in`{.jayret}, and `size`{.jayret}.
 Suppose the size of the set is \(k\) (where, to avoid ambiguity,
 we let \(k\) represent the number of distinct elements).
 The complexity of these operations depends on whether or not we store
 duplicates:
 
 
-- If we don’t store duplicates, then `size`{.pyret} is simply
-  `length`{.pyret}, which takes time linear in \(k\). Similarly,
-  `is-in`{.pyret} only needs to traverse the list once to determine whether
+- If we don’t store duplicates, then `size`{.jayret} is simply
+  `length`{.jayret}, which takes time linear in \(k\). Similarly,
+  `is-in`{.jayret} only needs to traverse the list once to determine whether
   or not an element is present, which also takes time linear in
-  \(k\). But `insert`{.pyret} needs to check whether an element is
+  \(k\). But `insert`{.jayret} needs to check whether an element is
   already present, which takes time linear in \(k\), followed by
-  at most a constant-time operation (`link`{.pyret}).
+  at most a constant-time operation (`link`{.jayret}).
 
-- If we do store duplicates, then `insert`{.pyret} is constant
-  time: it simply `link`{.pyret}s on the new element without regard to
-  whether it already is in the set representation. `is-in`{.pyret}
+- If we do store duplicates, then `insert`{.jayret} is constant
+  time: it simply `link`{.jayret}s on the new element without regard to
+  whether it already is in the set representation. `is-in`{.jayret}
   traverses the list once, but the number of elements it needs to visit
   could be significantly greater than \(k\), depending on how many
-  duplicates have been added. Finally, `size`{.pyret} needs to check
+  duplicates have been added. Finally, `size`{.jayret} needs to check
   whether or not each element is duplicated before counting it.
 
 ::: {.do-now}
-What is the time complexity of `size`{.pyret} if the list has duplicates?
+What is the time complexity of `size`{.jayret} if the list has duplicates?
 :::
 
-One implementation of `size`{.pyret} is
+One implementation of `size`{.jayret} is
 
 ```jayret
 int size(LSet<Object> s) {
@@ -179,16 +179,16 @@ int size(LSet<Object> s) {
 ```
 
 Let’s now compute the complexity of the body of the function, assuming
-the number of distinct elements in `s`{.pyret} is \(k\) but the
-actual number of elements in `s`{.pyret} is \(d\), where
-\(d \geq k\). To compute the time to run `size`{.pyret} on \(d\)
+the number of distinct elements in `s`{.jayret} is \(k\) but the
+actual number of elements in `s`{.jayret} is \(d\), where
+\(d \geq k\). To compute the time to run `size`{.jayret} on \(d\)
 elements, \(T(d)\), we should determine the number of operations in
 each question and answer. The first question has a constant number of
 operations,
 and the first answer also a constant. The second question also has
 a constant number of
 operations. Its answer is a conditional, whose first question
-(`r.member(f)`{.pyret} needs to traverse the entire list, and hence has
+(`r.member(f)`{.jayret} needs to traverse the entire list, and hence has
 \(O([k \rightarrow d])\) operations. If it succeeds, we recur on something of size
 \(T(d-1)\); else we do the same but perform a constant more operations.
 Thus \(T(0)\) is a constant, while the recurrence (in big-Oh terms) is
@@ -285,13 +285,13 @@ Implement the operation
 ```jayret
 /* contract: remove :: Object */;
 ```
-under each list representation (renaming `Set`{.pyret} appropriately.
+under each list representation (renaming `Set`{.jayret} appropriately.
 What difference do you see?
 :::
 
 ::: {.do-now}
 Suppose you’re asked to extend sets with these operations, as the set
-analog of `first`{.pyret} and `rest`{.pyret}:
+analog of `first`{.jayret} and `rest`{.jayret}:
 
 ```jayret
 /* contract: one :: Object */;
@@ -303,37 +303,37 @@ You should refuse to do so! Do you see why?
 With lists the “first” element is well-defined, whereas sets are
 defined to have no ordering. Indeed, just to make sure users of your
 sets don’t accidentally assume anything about your implementation
-(e.g., if you implement `one`{.pyret} using `first`{.pyret}, they may notice
-that `one`{.pyret} always returns the element most recently added to the
+(e.g., if you implement `one`{.jayret} using `first`{.jayret}, they may notice
+that `one`{.jayret} always returns the element most recently added to the
 list), you really ought to return a random element of the set on each
 invocation.
 
 Unfortunately, returning a random element means the above interface is
-unusable. Suppose `s`{.pyret} is bound to a set containing `1`{.pyret},
-`2`{.pyret}, and `3`{.pyret}. Say the first time `one(s)`{.pyret} is invoked
-it returns `2`{.pyret}, and the second time `1`{.pyret}. (This already
-means `one`{.pyret} is not a function.)
-The third time it may again return `2`{.pyret}. Thus
-`others`{.pyret} has to remember which element was returned the last time
-`one`{.pyret} was called, and return the set sans that element. Suppose
-we now invoke `one`{.pyret} on the result of calling `others`{.pyret}. That
-means we might have a situation where `one(s)`{.pyret} produces the same
-result as `one(others(s))`{.pyret}.
+unusable. Suppose `s`{.jayret} is bound to a set containing `1`{.jayret},
+`2`{.jayret}, and `3`{.jayret}. Say the first time `one(s)`{.jayret} is invoked
+it returns `2`{.jayret}, and the second time `1`{.jayret}. (This already
+means `one`{.jayret} is not a function.)
+The third time it may again return `2`{.jayret}. Thus
+`others`{.jayret} has to remember which element was returned the last time
+`one`{.jayret} was called, and return the set sans that element. Suppose
+we now invoke `one`{.jayret} on the result of calling `others`{.jayret}. That
+means we might have a situation where `one(s)`{.jayret} produces the same
+result as `one(others(s))`{.jayret}.
 
 ::: {.exercise}
-Why is it unreasonable for `one(s)`{.pyret} to produce the same
-result as `one(others(s))`{.pyret}?
+Why is it unreasonable for `one(s)`{.jayret} to produce the same
+result as `one(others(s))`{.jayret}?
 :::
 
 ::: {.exercise}
-Suppose you wanted to extend sets with a `subset`{.pyret} operation that
+Suppose you wanted to extend sets with a `subset`{.jayret} operation that
 partitioned the set according to some condition. What would its type
 be?
 :::
 
 ::: {.exercise}
 The types we have written above are not as crisp as they could
-be. Define a `has-no-duplicates`{.pyret} predicate, refine the relevant
+be. Define a `has-no-duplicates`{.jayret} predicate, refine the relevant
 types with it, and check that the functions really do satisfy this
 criterion.
 :::

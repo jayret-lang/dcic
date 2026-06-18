@@ -91,7 +91,7 @@ We will now learn how to program with tables and to how to
 decompose tasks that process them. To access the functions that we’ll
 use to do this, you need to set the context (at the top of the
 definitions window) to dcic2024. [Earlier editions of the
-book had you use `shared-gdrive`{.pyret} to load a file to access these
+book had you use `shared-gdrive`{.jayret} to load a file to access these
 functions. This is no longer necessary when using the dcic2024
 context.]{.margin-note} In
 CPO, click on the down arrow at the top left of the screen (left of
@@ -121,8 +121,8 @@ simplest is to define the datum in a program as follows:
 ```jayret
 table: name ,age row: "Alicia" ,30 row: "Meihui" ,40 row: "Jamal" ,25;
 ```
-That is, a `table`{.pyret} is followed by the names of the columns in
-their desired order, followed by a sequence of `row`{.pyret}s. Each row
+That is, a `table`{.jayret} is followed by the names of the columns in
+their desired order, followed by a sequence of `row`{.jayret}s. Each row
 must contain as many data as the column declares, and in the same
 order.
 
@@ -142,12 +142,12 @@ considered equal.
     assertNotEquals(table: name ,age row: "Alicia" ,30 row: "Meihui" ,40 row: "Jamal" ,25, table: age ,name row: 30 ,"Alicia" row: 40 ,"Meihui" row: 25 ,"Jamal");
 }
 ```
-Observe that the example above uses `is-not`{.pyret}, i.e., the test
+Observe that the example above uses `is-not`{.jayret}, i.e., the test
 passes, meaning that the tables are not equal.
 
-The `check:`{.pyret} annotation here is a way of writing `is`{.pyret}
+The `check:`{.jayret} annotation here is a way of writing `is`{.jayret}
 assertions about expressions outside of the context of a function (and
-its `where`{.pyret} block). We’ll learn more about `check`{.pyret} in
+its `where`{.jayret} block). We’ll learn more about `check`{.jayret} in
 [From Examples to Tests](testing.html##from-examples-to-tests).
 
 Table expressions create table values. These can be stored in variables just
@@ -157,7 +157,7 @@ like numbers, strings, and images:
 people = table: name ,age row: "Alicia" ,30 row: "Meihui" ,40 row: "Jamal" ,25;
 ```
 
-We call these literal tables when we create them with `table`{.pyret}.
+We call these literal tables when we create them with `table`{.jayret}.
 Jayret provides other ways to get tabular data, too! In
 particular, you can [import tabular data from a spreadsheet](https://jayret-lang.github.io/docs/latest/gdrive-sheets.html), so
 any mechanism that lets you create such a sheet can also be used. You
@@ -204,11 +204,11 @@ Would the column names be listed in the directory?
 :::
 
 As a reminder, the directory contains only those names that we assign
-values to using the form `name = `{.pyret}. The directory here would
-contain `shuttle`{.pyret}, which would be bound to the table (yes, the
+values to using the form `name = `{.jayret}. The directory here would
+contain `shuttle`{.jayret}, which would be bound to the table (yes, the
 entire table would be in the directory!). The column names would not
 have their own entries in the directory. At the low level, this is because we
-never wrote anything of the form `colname = ...`{.pyret}. At the high
+never wrote anything of the form `colname = ...`{.jayret}. At the high
 level, we don’t usually build tables by creating individual columns
 and putting them together side by side. (If anything, it is more common
 to create individual rows, since rows correspond to individual
@@ -217,7 +217,7 @@ example, however).
 
 Starting from the name associated with a table, we can lookup the
 value in a given cell (row and column) in the table. Concretely,
-assume we want to extract the number of riders in March (`1087`{.pyret})
+assume we want to extract the number of riders in March (`1087`{.jayret})
 so we can use it in another computation. How do we do that?
 
 Jayret (and most other programming languages designed for data
@@ -235,22 +235,22 @@ for March, we need to isolate row 2. We write:
 shuttle.row-n(2);
 ```
 We use the period notation to dig into a piece of structured data. Here,
-we are saying "dig into the `shuttle`{.pyret} table, extracting row
-number `2`{.pyret}" (which is really the third row since Jayret counts
+we are saying "dig into the `shuttle`{.jayret} table, extracting row
+number `2`{.jayret}" (which is really the third row since Jayret counts
 positions from 0).
 
 If we run this expression at the prompt, we get
 
 ![](shuttle-row.png){width="347" height="70"}
 
-This is a new type of data called a `Row`{.pyret}. When Jayret displays a
-`Row`{.pyret} value, it shows you the column names and the corresponding
+This is a new type of data called a `Row`{.jayret}. When Jayret displays a
+`Row`{.jayret} value, it shows you the column names and the corresponding
 values within the row.
 
 To extract the value of a specific column within a row, we write the
 row followed by the name of the column (as a string) in square
 brackets. Here are two equivalent ways of getting the value of the
-`riders`{.pyret} column from the row for March:
+`riders`{.jayret} column from the row for March:
 
 ```jayret
 shuttle.row-n(2)["riders"];
@@ -266,13 +266,13 @@ What names would be in the Jayret directory when using each of these
 approaches?
 :::
 
-Once we have the cell value (here a `Number`{.pyret}), we can use it in
+Once we have the cell value (here a `Number`{.jayret}), we can use it in
 any other computation, such as
 
 ```jayret
 shuttle.row-n(2)["riders"] >= 1000;
 ```
-(which checks whether there were at least `1000`{.pyret} riders in March).
+(which checks whether there were at least `1000`{.jayret} riders in March).
 
 ::: {.do-now}
 What do you expect would happen if you forgot the quotation marks and
@@ -295,7 +295,7 @@ functions that ask questions about individual rows. We just saw an
 example of doing a computation over row data, when we checked whether
 the row for March had more than 1000 riders. What if we wanted to do
 this comparison for an arbitrary row of this table? Let’s write a
-function! We’ll call it `cleared-1K`{.pyret}.
+function! We’ll call it `cleared-1K`{.jayret}.
 
 Let’s start with a function header and some examples:
 
@@ -307,11 +307,11 @@ boolean cleared-1K(Row r) {
     
 }
 ```
-This shows you what examples for `Row`{.pyret} functions look like, as
-well as how we use `Row`{.pyret} as an input type.
+This shows you what examples for `Row`{.jayret} functions look like, as
+well as how we use `Row`{.jayret} as an input type.
 
 To fill in the body of the function, we extract the content of the
-`"riders"`{.pyret} cell and compare it to `1000`{.pyret}:
+`"riders"`{.jayret} cell and compare it to `1000`{.jayret}:
 
 ```jayret
 boolean cleared-1K(Row r) {
@@ -323,8 +323,8 @@ boolean cleared-1K(Row r) {
 ```
 
 ::: {.do-now}
-Looking at the examples, both of them share the `shuttle.row-n`{.pyret}
-portion. Would it have been better to instead make `cleared-1K`{.pyret} a
+Looking at the examples, both of them share the `shuttle.row-n`{.jayret}
+portion. Would it have been better to instead make `cleared-1K`{.jayret} a
 function that takes just the row position as input, such as:
 
 ```jayret
@@ -337,32 +337,32 @@ boolean cleared-1K(int row-pos) {
 What are the benefits and limitations to doing this?
 :::
 
-In general, the version that takes the `Row`{.pyret} input is more
+In general, the version that takes the `Row`{.jayret} input is more
 flexible because it can work with a row from any table that has
-a column named `"riders"`{.pyret}. We might have another table with more
+a column named `"riders"`{.jayret}. We might have another table with more
 columns of information or different data tables for different
-years. If we modify `cleared-1K`{.pyret} to only take the row position as
+years. If we modify `cleared-1K`{.jayret} to only take the row position as
 input, that function will have to fix which table it works with. In
 contrast, our original version leaves the specific table
-(`shuttle`{.pyret}) outside the function, which leads to flexibility.
+(`shuttle`{.jayret}) outside the function, which leads to flexibility.
 
 ::: {.exercise}
-Write a function `is-winter`{.pyret} that takes a `Row`{.pyret} with a
-`"month"`{.pyret} column as input and produces a `Boolean`{.pyret}
-indicating whether the month in that row is one of `"Jan"`{.pyret},
-`"Feb"`{.pyret}, or `"Mar"`{.pyret}.
+Write a function `is-winter`{.jayret} that takes a `Row`{.jayret} with a
+`"month"`{.jayret} column as input and produces a `Boolean`{.jayret}
+indicating whether the month in that row is one of `"Jan"`{.jayret},
+`"Feb"`{.jayret}, or `"Mar"`{.jayret}.
 :::
 
 ::: {.exercise}
-Write a function `low-winter`{.pyret} that takes in `Row`{.pyret} with both
-`"month"`{.pyret} and `"riders"`{.pyret} columns and produces a
-`Boolean`{.pyret} indicating whether the row is a winter row with fewer
+Write a function `low-winter`{.jayret} that takes in `Row`{.jayret} with both
+`"month"`{.jayret} and `"riders"`{.jayret} columns and produces a
+`Boolean`{.jayret} indicating whether the row is a winter row with fewer
 than 1050 riders.
 :::
 
 ::: {.exercise}
-Practice with the program directory! Take a `Row`{.pyret} function and
-one of its `where`{.pyret} examples, and show how the program directory
+Practice with the program directory! Take a `Row`{.jayret} function and
+one of its `where`{.jayret} examples, and show how the program directory
 evolves as you evaluate the example.
 :::
 
@@ -396,7 +396,7 @@ notations for working with tables.
 ##### 4.1.4.1 Finding Rows {#subsec-finding-rows}
 
 Imagine that we wanted to write a program to locate a row that has
-fewer than `1000`{.pyret} riders from our `shuttle`{.pyret} table. With what
+fewer than `1000`{.jayret} riders from our `shuttle`{.jayret} table. With what
 we’ve studied so far, how might we try to write this? We could imagine
 using a conditional, like follows:
 
@@ -440,8 +440,8 @@ each one.
 We just need to tell Jayret what criterion we want to use.
 
 As before, we can express our criterion as a function that takes a
-`Row`{.pyret} and produces a `Boolean`{.pyret} (a Boolean because our
-criterion was used as the question part of an `if`{.pyret} expression in
+`Row`{.jayret} and produces a `Boolean`{.jayret} (a Boolean because our
+criterion was used as the question part of an `if`{.jayret} expression in
 our code sketch). In this case, we want:
 
 ```jayret
@@ -455,19 +455,19 @@ boolean below-1K(Row r) {
 
 Now, we just need a way to tell Jayret to use this criterion as it
 searches through the rows. We do this with a function called
-`filter-with`{.pyret} which takes two inputs: the table to process and the
+`filter-with`{.jayret} which takes two inputs: the table to process and the
 criterion to check on each row of the table.
 
 ```jayret
 filter-with(shuttle, below-1K);
 ```
 
-Under the hood, `filter-with`{.pyret} works roughly like the `if`{.pyret}
+Under the hood, `filter-with`{.jayret} works roughly like the `if`{.jayret}
 statement we outlined above: it takes each row one at a time and calls
 the given criterion function on it. But what does it do with the
 results?
 
-If you run the above expression, you’ll see that `filter-with`{.pyret}
+If you run the above expression, you’ll see that `filter-with`{.jayret}
 produces a table containing the matching row, not the row by
 itself. This behavior is handy if multiple rows match the
 criterion. For example, try:
@@ -475,7 +475,7 @@ criterion. For example, try:
 ```jayret
 filter-with(shuttle, is-winter);
 ```
-(using the `is-winter`{.pyret} function from an exercise earlier in this
+(using the `is-winter`{.jayret} function from an exercise earlier in this
 chapter). Now we get a table with the three rows corresponding to winter
 months. If we want to be able to name this table for use in future
 computations, we can do so with our usual notation for naming values:
@@ -492,34 +492,34 @@ winter = filter-with(shuttle, is-winter);
 
 Let’s ask a new question: which winter month had the fewest number
 of riders?. This question requires us to identify a specific row,
-namely, the winter row with the smallest value in the `"riders"`{.pyret}
+namely, the winter row with the smallest value in the `"riders"`{.jayret}
 column.
 
 ::: {.do-now}
-Can we do this with `filter-with`{.pyret}? Why or why not?
+Can we do this with `filter-with`{.jayret}? Why or why not?
 :::
 
-Think back to the `if`{.pyret} expression that motivated
-`filter-with`{.pyret}: each row is evaluated independently of the
+Think back to the `if`{.jayret} expression that motivated
+`filter-with`{.jayret}: each row is evaluated independently of the
 others. Our current question, however, requires comparing across
 rows. That’s a different operation, so we will need more than
-`filter-with`{.pyret}.
+`filter-with`{.jayret}.
 
 Tools for analyzing data (whether programming languages or
 spreadsheets) provide ways for users to sort rows of a table
 based on the values in a single column. That would help us here: we
 could sort the winter rows from smallest to largest value in the
-`"riders"`{.pyret} column, then extract the `"riders"`{.pyret} value from
+`"riders"`{.jayret} column, then extract the `"riders"`{.jayret} value from
 the first row. First, let’s sort the rows:
 
 ```jayret
 order-by(winter, "riders", true);
 ```
 
-The `order-by`{.pyret} function takes three inputs: the table to sort
-(`winter`{.pyret}), the column to sort on (`"riders"`{.pyret}), and a
-`Boolean`{.pyret} to indicate whether we want to sort in increasing
-order. (Had the third argument been `false`{.pyret}, the rows would be
+The `order-by`{.jayret} function takes three inputs: the table to sort
+(`winter`{.jayret}), the column to sort on (`"riders"`{.jayret}), and a
+`Boolean`{.jayret} to indicate whether we want to sort in increasing
+order. (Had the third argument been `false`{.jayret}, the rows would be
 sorted in decreasing order of the values in the named column.)
 
 ![](sorted-winter.png){width="178" height="151"}
@@ -556,8 +556,8 @@ directory?
 
 Note that this problem asked us to combine several actions that we’ve
 already seen on rows: we identify rows from within a table
-(`filter-with`{.pyret}), order the rows (`order-by`{.pyret}), extract a
-specific row (`row-n`{.pyret}), then extract a cell (with square brackets
+(`filter-with`{.jayret}), order the rows (`order-by`{.jayret}), extract a
+specific row (`row-n`{.jayret}), then extract a cell (with square brackets
 and a column name). This is typical of how we will operate on tables,
 combining multiple operations to compute a result (much as we did with
 programs that manipulate images).
@@ -570,8 +570,8 @@ programs that manipulate images).
 
 Sometimes, we want to create a new column whose value is based on
 those of existing columns. For instance, our table might reflect
-employee records, and have columns named `hourly-wage`{.pyret} and
-`hours-worked`{.pyret}, representing the corresponding quantities. We
+employee records, and have columns named `hourly-wage`{.jayret} and
+`hours-worked`{.jayret}, representing the corresponding quantities. We
 would now like to extend this table with a new column to reflect each
 employee’s total wage. Assume we started with the following table:
 
@@ -584,7 +584,7 @@ The table we want to end up with is:
 ```jayret
 employees = table: name ,hourly-wage ,hours-worked ,total-wage row: "Harley" ,15 ,40 ,15 * 40 row: "Obi" ,20 ,45 ,20 * 45 row: "Anjali" ,18 ,39 ,18 * 39 row: "Miyako" ,18 ,40 ,18 * 40;
 ```
-(with the expressions in the `total-wage`{.pyret} column computed to
+(with the expressions in the `total-wage`{.jayret} column computed to
 their numeric equivalents: we used the expressions here to illustrate
 what we are trying to do).
 
@@ -610,7 +610,7 @@ employees = table: name ,hourly-wage ,hours-worked ,total-wage row: "Harley" ,15
 ```
 
 This is the right idea, but we can actually have this function do a
-bit more work for us. The `wage`{.pyret} and `hours`{.pyret} values are in
+bit more work for us. The `wage`{.jayret} and `hours`{.jayret} values are in
 cells within the same row. So if we could instead get the current row
 as an input, we could write:
 
@@ -621,9 +621,9 @@ int compute-wages(Row r) {
 }
 ```
 
-But now, if we tried to use `compute-wages`{.pyret} inline for every row, we would be writing the same call over and over!
+But now, if we tried to use `compute-wages`{.jayret} inline for every row, we would be writing the same call over and over!
 Adding computed columns is a sufficiently common operation that Jayret
-provides a table function called `build-column`{.pyret} for this
+provides a table function called `build-column`{.jayret} for this
 purpose. We use it by providing the function to use to populate values
 in the new column as an input:
 
@@ -634,7 +634,7 @@ int compute-wages(Row r) {
 }
 build-column(employees, "total-wage", compute-wages);
 ```
-This creates a new column, `total-wage`{.pyret}, whose value in each row
+This creates a new column, `total-wage`{.jayret}, whose value in each row
 is the product of the two named columns in that row. Jayret will put
 the new column at the right end.
 
@@ -646,8 +646,8 @@ the new column at the right end.
 
 Sometimes, we just want to calculate new values for an existing
 column, rather than create an entirely new column. Giving raises to
-employees is one such example. Assume we wanted to give a `10%`{.pyret} raise to
-all employees making less than `20`{.pyret} an hour. We could write:
+employees is one such example. Assume we wanted to give a `10%`{.jayret} raise to
+all employees making less than `20`{.jayret} an hour. We could write:
 
 ```jayret
 int new-rate(int rate) {
@@ -667,18 +667,18 @@ Table give-raises(Table t) {
     return transform-column(t, "hourly-wage", new-rate);
 }
 ```
-Here, `transform-column`{.pyret} takes a table, the name of an existing
+Here, `transform-column`{.jayret} takes a table, the name of an existing
 column in the table, and a function to update the value. The updating
 function takes the current value in the column as input and produces
 the new value for the column as output.
 
 ::: {.do-now}
-Run `give-raises`{.pyret} on the `employees`{.pyret} table. What wage will
-show for `"Miyako"`{.pyret} in the `employees`{.pyret} table after
-`give-raises`{.pyret} completes. Why?
+Run `give-raises`{.jayret} on the `employees`{.jayret} table. What wage will
+show for `"Miyako"`{.jayret} in the `employees`{.jayret} table after
+`give-raises`{.jayret} completes. Why?
 :::
 
-Like all other Jayret `Table`{.pyret} operations, `transform-column`{.pyret}
+Like all other Jayret `Table`{.jayret} operations, `transform-column`{.jayret}
 produces a new table, leaving the original intact. Editing the
 original table could be problematic–what if you made a mistake? How
 would you recover the original table in that case? In general,
@@ -700,7 +700,7 @@ work than simply writing the output of a function that produces
 numbers or strings. What can we do to manage that complexity?
 
 ::: {.do-now}
-How might you write the `where { }`{.jayret} block for `give-raises`{.pyret}?
+How might you write the `where { }`{.jayret} block for `give-raises`{.jayret}?
 :::
 
 Here are some ideas for writing the examples practically:
@@ -738,19 +738,19 @@ wages-test = table: hourly-wage row: 15 row: 20 row: 18 row: 18;
   an existing one. For example, if we were writing a function to find
   all rows in which employees were working exactly 40 hours, we’d like
   to make sure that the resulting table had the first and fourth rows of
-  the `employees`{.pyret} table. Rather than write a new `table`{.pyret}
+  the `employees`{.jayret} table. Rather than write a new `table`{.jayret}
   expression to create that table, we could write it as follows:
   
   ```jayret
 emps-at-40 = add-row(add-row(employees.empty(), employees.row-n(0)), employees.row-n(3));
   ```
-  Here, `employees.empty()`{.pyret} creates a new, empty table with the
-  same column headers as `employees`{.pyret}. We’ve already seen how
-  `row-n`{.pyret} extracts a row from a table. The `add-row`{.pyret} function
+  Here, `employees.empty()`{.jayret} creates a new, empty table with the
+  same column headers as `employees`{.jayret}. We’ve already seen how
+  `row-n`{.jayret} extracts a row from a table. The `add-row`{.jayret} function
   places the given row at the end of the given table.
 
 Another tip to keep in mind: when the only thing your function does is call
-a built-in function like `transform-column`{.pyret} it usually suffices
+a built-in function like `transform-column`{.jayret} it usually suffices
 to write examples for the function you wrote to compute the new column
 value. It is only when your code is combining table operations, or
 doing more complex processing than a single call to a built-in table
@@ -779,7 +779,7 @@ filter-with(shuttle, below-1K);
 
 This program might feel a bit verbose: do we really need to write a
 helper function just to perform something as simple as a
-`filter-with`{.pyret}? Wouldn’t it be easier to just write something like:
+`filter-with`{.jayret}? Wouldn’t it be easier to just write something like:
 
 ```jayret
 filter-with(shuttle, r["riders"] < 1000);
@@ -791,18 +791,18 @@ What will Jayret produce if you run this expression?
 
 Jayret will produce an `unbound;
 identifier`{.jayret} error around the use
-of `r`{.pyret} in this expression. What is `r`{.pyret}? We mean for `r`{.pyret}
-to be the elements from `shuttle`{.pyret} in turn. Conceptually, that’s
-what `filter-with`{.pyret} does, but we don’t have the mechanics right. When
+of `r`{.jayret} in this expression. What is `r`{.jayret}? We mean for `r`{.jayret}
+to be the elements from `shuttle`{.jayret} in turn. Conceptually, that’s
+what `filter-with`{.jayret} does, but we don’t have the mechanics right. When
 we call a function, we evaluate the arguments before the body
-of the function. Hence, the error regarding `r`{.pyret} being unbound.
-The whole point of the `below-1K`{.pyret} helper function is to make
-`r`{.pyret} a parameter to a function whose body is only evaluated once
-a value for `r`{.pyret} is available.
+of the function. Hence, the error regarding `r`{.jayret} being unbound.
+The whole point of the `below-1K`{.jayret} helper function is to make
+`r`{.jayret} a parameter to a function whose body is only evaluated once
+a value for `r`{.jayret} is available.
 
-To tighten the notation as in the one-line `filter-with`{.pyret} expression,
+To tighten the notation as in the one-line `filter-with`{.jayret} expression,
 then, we have to find a way to tell Jayret to make a temporary function
-that will get its inputs once `filter-with`{.pyret} is running. The following
+that will get its inputs once `filter-with`{.jayret} is running. The following
 notation achieves this:
 
 ```jayret
@@ -816,9 +816,9 @@ anonymous functions are commonly called *lambdas*; they exist in many
 languages but with different syntaxes.
 
 The main difference between our original expression (using the
-`below-1K`{.pyret} helper) and this new one (using arrow syntax) can be
+`below-1K`{.jayret} helper) and this new one (using arrow syntax) can be
 seen through the program directory. To explain this, a little detail
-about how `filter-with`{.pyret} is defined under the hood. In part, it looks
+about how `filter-with`{.jayret} is defined under the hood. In part, it looks
 like:
 
 ```jayret
@@ -831,20 +831,20 @@ Table filter-with(Table tbl, (Row -> boolean) keep) {
 }
 ```
 
-Whether we pass `below-1K`{.pyret} or the arrow-function version to
-`filter-with`{.pyret}, the `keep`{.pyret} parameter ends up referring to a
+Whether we pass `below-1K`{.jayret} or the arrow-function version to
+`filter-with`{.jayret}, the `keep`{.jayret} parameter ends up referring to a
 function with the same parameter and body. Since the function is only
-actually called through the `keep`{.pyret} name, it doesn’t matter
+actually called through the `keep`{.jayret} name, it doesn’t matter
 whether or not a name is associated with it when it is initially
 defined.
 
 In practice, we use arrow functions when we have to pass simple (single line)
-functions to operations like `filter-with`{.pyret} (or `transform-column`{.pyret},
-`build-column`{.pyret}, etc). Of course, you can continue to write out names for
-helper functions as we did with `below-1K`{.pyret} if that makes more sense to
+functions to operations like `filter-with`{.jayret} (or `transform-column`{.jayret},
+`build-column`{.jayret}, etc). Of course, you can continue to write out names for
+helper functions as we did with `below-1K`{.jayret} if that makes more sense to
 you.
 
 ::: {.exercise}
-Write the program to add 10 riders to each row in the `shuttle`{.pyret}
+Write the program to add 10 riders to each row in the `shuttle`{.jayret}
 table above, using arrow syntax rather than a named helper-function.
 :::

@@ -106,7 +106,7 @@ This is a three-element list where each element is a song:
 
 Thus, what we have seen earlier about building functions over lists
 [[Processing Lists](processing-lists.html)] applies here too. To illustrate, suppose
-we wish to write the function `oldest-song-age`{.pyret}, which consumes a
+we wish to write the function `oldest-song-age`{.jayret}, which consumes a
 list of songs and produces the oldest song in the list. (There may be
 more than one song from the same year; the age—by our measure—of
 all those songs will be the same. If this happens, we just pick one of
@@ -116,7 +116,7 @@ accurate to say “an” rather than “the” oldest song.)
 Let’s work through this with examples. To keep our examples easy to
 write, instead of writing out the full data for the songs, we’ll refer
 to them just by their variable names. Clearly, the oldest song in our
-list is bound to `lvar`{.pyret}.
+list is bound to `lvar`{.jayret}.
 
 ```jayret
 assertEquals(oldest-song([lver, so, wnkkhs]), lvar);
@@ -126,14 +126,14 @@ assertEquals(oldest-song([]), ???);
 ```
 
 What do we write in the last case? Recall that we saw this problem
-earlier [[`my-max`{.pyret}: Examples](processing-lists.html##my-max)]: there is no answer in the empty case. In
+earlier [[`my-max`{.jayret}: Examples](processing-lists.html##my-max)]: there is no answer in the empty case. In
 fact, the computation here is remarkably similar to that of
-`my-max`{.pyret}, because it is essentially the same computation, just
+`my-max`{.jayret}, because it is essentially the same computation, just
 asking for the minimum year (which would make the song the
 oldest).
 
 From our examples, we can see a solution structure echoing that of
-`my-max`{.pyret}. For the empty list, we signal an error. Otherwise, we
+`my-max`{.jayret}. For the empty list, we signal an error. Otherwise, we
 compute the oldest song in the rest of the list, and compare its year
 against that of the first. Whichever has the older year is the answer.
 
@@ -157,12 +157,12 @@ ITunesSong oldest-song(List<Object> sl) {
 ```
 
 Note that there is no guarantee there will be only oldest song, and
-this is reflected in the possibility that `osr.year`{.pyret} may
-equal `f.year`{.pyret}. However, our problem statement allowed us
+this is reflected in the possibility that `osr.year`{.jayret} may
+equal `f.year`{.jayret}. However, our problem statement allowed us
 to pick just one such song, which is what we’ve done.
 
 ::: {.do-now}
-Modify the solution above to `oldest-song-age`{.pyret}, which computes
+Modify the solution above to `oldest-song-age`{.jayret}, which computes
 the age of the oldest song(s).
 :::
 
@@ -254,17 +254,17 @@ that sets ignore them.
 This lack of an ordering, however, poses a problem. With lists, it was
 meaningful to talk about the “first” and corresponding “rest”. By
 definition, with sets there is not “first” element. In fact, Jayret
-does not even offer fields similar to `first`{.pyret} and `rest`{.pyret}. In
+does not even offer fields similar to `first`{.jayret} and `rest`{.jayret}. In
 its place is something a little more accurate but complex.
 
-The `.pick`{.pyret} method returns a random element of a set. It
-produces a value of type `Pick`{.pyret} (which we get with `include
+The `.pick`{.jayret} method returns a random element of a set. It
+produces a value of type `Pick`{.jayret} (which we get with `include
 pick`{.jayret}). When we pick an element, there are two
 possibilities. One is that the set is empty (analogous to a list being
 empty), which gives us a `Pick-none`{.jayret} value. The other option is
 called `Pick-some`{.jayret}, which gives us an actual member of the set.
 
-The `Pick-some`{.jayret} variant of `Pick`{.pyret} has two fields, not
+The `Pick-some`{.jayret} variant of `Pick`{.jayret} has two fields, not
 one. To understand why takes a moment’s work. Let’s explore it by
 choosing an element of a set:
 
@@ -276,15 +276,15 @@ Object an-elt(Object s) {
     }
 }
 ```
-(Notice that we aren’t using the `r`{.pyret} field in the
+(Notice that we aren’t using the `r`{.jayret} field in the
 `Pick-some`{.jayret} case.)
 
 ::: {.do-now}
-Can you guess why we didn’t write examples for `an-elt`{.pyret}?
+Can you guess why we didn’t write examples for `an-elt`{.jayret}?
 :::
 
 ::: {.do-now}
-Run `an-elt(song-set)`{.pyret}. What element do you get?
+Run `an-elt(song-set)`{.jayret}. What element do you get?
 
 Run it again. Run it five more times.
 
@@ -302,12 +302,12 @@ random nature of choosing from a set, and to prevent your program from
 accidentally depending on a particular order that Jayret might use.
 
 ::: {.do-now}
-Given that `an-elt`{.pyret} does not return a predictable element, what
+Given that `an-elt`{.jayret} does not return a predictable element, what
 (if any) tests can we write for it?
 :::
 
 
-Observe that though we can’t predict which element `an-elt`{.pyret} will
+Observe that though we can’t predict which element `an-elt`{.jayret} will
 produce, we do know it will produce an element of the set. Therefore,
 what we can write are tests that ensure the resulting element is a
 member of the set—though in this case, that would not be
@@ -330,7 +330,7 @@ field of a `Pick-some`{.jayret} is: what’s left of the set.
 Given this, we can write functions over sets that look roughly
 analogous to functions over lists. For instance, suppose we want to
 compute the size of a set. The function looks similar to
-`my-len`{.pyret} [[Some Example Exercises](processing-lists.html##my-len)]:
+`my-len`{.jayret} [[Some Example Exercises](processing-lists.html##my-len)]:
 
 ```jayret
 int my-set-size(Object s) {
@@ -341,7 +341,7 @@ int my-set-size(Object s) {
 }
 ```
 Though the process of deriving this is similar to that we used for
-`my-len`{.pyret}, the random nature of picking elements makes it harder to
+`my-len`{.jayret}, the random nature of picking elements makes it harder to
 write examples that the actual function’s behavior will match.
 
 ```{=html}
@@ -412,7 +412,7 @@ the pieces you might need and trying to write some sample questions.
 :::
 
 We might imagine asking a quiz question like “what is 3 + 4?“. We
-would expect the student to answer `7`{.pyret}. What would capture this?
+would expect the student to answer `7`{.jayret}. What would capture this?
 A piece of structured data with two fields like the following:
 
 ```jayret
@@ -425,7 +425,7 @@ What’s a good type for the expected answer? This specific problem has
 a numeric answer, but other questions might have other types of
 answers. `Object`{.jayret} is therefore an appropriate type for the answer.
 
-We would also need a list of `Question`{.pyret} to form an entire quiz.
+We would also need a list of `Question`{.jayret} to form an entire quiz.
 
 Sometimes, quiz software allows students to ask for hints.
 
@@ -436,7 +436,7 @@ problem. Modify the current data definition to capture quizzes in
 which some questions have hints and some do not.
 :::
 
-A quiz should still be a list of questions, but the `Question`{.pyret}
+A quiz should still be a list of questions, but the `Question`{.jayret}
 data definition needs another variant in order to handle questions
 with hints. The following would work:
 

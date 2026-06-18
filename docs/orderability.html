@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -146,9 +147,9 @@ href="orderability.html##eq-ord">Equality and Ordering</a>.</p>
 <p>Let us now consider how one can compute hashes. If the input datatype
 is a number, it can serve as its own hash. Comparison simply uses
 numeric comparison (e.g.,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&lt;</code></span>).
 Then, transitivity of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">&lt;</code></span>
 ensures that if an element <span class="math inline">\(A\)</span> is
 less than another element <span class="math inline">\(B\)</span>, then
 <span class="math inline">\(A\)</span> is also less than all the other
@@ -169,28 +170,28 @@ that, here are two different hash functions:</p>
 <li>Consider a list of primes as long as the string. Raise each prime by
 the corresponding number, and multiply the result. For instance, if the
 string is represented by the character codes
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[6, 4, 5]</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">[6, 4, 5]</code></span>
 (the first character has code
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">6</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">6</code></span>,
 the second one
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">4</code></span>,
 and the third
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">5</code></span>),
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">5</code></span>),
 we get the hash</li>
 </ol>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">num-expt(2, 6) * num-expt(3, 4) * num-expt(5, 5);</code></pre></div></div>
 <p>or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">16200000</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">16200000</code></span>.
 2. Simply add together all the character codes. For the above example,
 this would correspond to the has</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">6 + 4 + 5;</code></pre></div></div>
 <p>or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">15</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">15</code></span>.</p>
 <p>The first representation is invertible, using the <a
 href="http://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic">Fundamental
 Theorem of Arithmetic</a>: given the resulting number, we can
 reconstruct the input unambiguously (i.e.,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">16200000</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">16200000</code></span>
 can only map to the input above, and none other). This is also known as
 the Gödel encoding. This is computationally expensive. The second
 encoding is, of course, not invertible (e.g., simply permute the
@@ -216,9 +217,9 @@ numbers, which we have shown how to handle.</p>
 meaningful
 operation.<span class="refelem"><span class="refcolumn"><span class="refcontent">Observe that Gödel encodings are not “meaningful”, either.</span></span></span>
 We don’t actually care if a hash function concludes that the hash of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">4</code></span>
 is less than the hash of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>!
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">3</code></span>!
 All we need is a function that is</p>
 <ul>
 <li><p>non-trivial: not everything should be equal; and</p></li>
@@ -232,7 +233,7 @@ could go wrong if each one was violated.</p></blockquote></blockquote>
 <p>In practice, programmers do not want hash functions to do what we
 have described above. While Gödel encoding is extremely expensive, even
 computing
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hash-of</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">hash-of</code></span>
 takes time linear in the size of a string, which can get quite expensive
 if strings are large or we compute hashes often or both.</p>
 <p>Instead, many programming languages do something very pragmatic. They

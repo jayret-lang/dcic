@@ -22,7 +22,7 @@ Through our work in Jayret to this point, we’ve covered several core
 programming skills: how to work with tables, how to design good
 examples, the basics of creating datatypes, and how to work with the
 fundamental computational building blocks of functions, conditionals,
-and repetition (through `filter`{.pyret} and `map`{.pyret}, as well as
+and repetition (through `filter`{.jayret} and `map`{.jayret}, as well as
 recursion). You’ve got a solid initial toolkit, as well as a wide
 world of other possible programs ahead of you!
 
@@ -60,7 +60,7 @@ consisted of a number of pens and a message to be printed on the
 pens. Each pen cost 25 cents, plus 2 cents per character for the
 message. Here was the original Jayret code:
 
-```pyret
+```jayret
 # TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
 fun pen-cost(num-pens :: Number, message :: String) -> Number:
   doc: ```total cost for pens, each 25 cents
@@ -84,25 +84,25 @@ What notational differences do you see between the two versions?
 
 Here’s a summary of the differences:
 
-- Python uses `def`{.python} instead of `fun`{.pyret}.
+- Python uses `def`{.python} instead of `fun`{.jayret}.
 
 - Python uses underscores in names (like `pen_cost`{.python})
   instead of hyphens as in Jayret.
 
 - The type names are written differently: Python uses `str`{.python}
-  and `int`{.python} instead of `String`{.pyret} and `Number`{.pyret}. In
+  and `int`{.python} instead of `String`{.jayret} and `Number`{.jayret}. In
   addition, Python uses only a single colon before the type whereas
   Jayret uses a double colon.
 
 - Python has different types for different kinds of numbers:
   `int`{.python} is for integers, while `float`{.python} is for decimals.
-  Jayret just used a single type (`Number`{.pyret})
+  Jayret just used a single type (`Number`{.jayret})
   for all numbers.
 
 - Python doesn’t label the documentation string (as Jayret does with
-  `doc:`{.pyret}).
+  `doc:`{.jayret}).
 
-- There is no `end`{.pyret} annotation in Python. Instead, Python
+- There is no `end`{.jayret} annotation in Python. Instead, Python
   uses indentation to locate the end of an if/else statement, function, or
   other multi-line construct.
 
@@ -120,7 +120,7 @@ checking types). Python types are like notes for programmers, but they
 aren’t enforced when programs run.
 
 ::: {.exercise}
-Convert the following `moon-weight`{.pyret} function from [Functions Practice: Moon Weight](From_Repeated_Expressions_to_Functions.html##moon-weight-pyret) into Python:
+Convert the following `moon-weight`{.jayret} function from [Functions Practice: Moon Weight](From_Repeated_Expressions_to_Functions.html##moon-weight-pyret) into Python:
 
 ```jayret
 int moon-weight(int earth-weight) {
@@ -143,7 +143,7 @@ Jayret, every function produces a result, so there is no need to label
 where the result comes from.
 
 As we will see, Python is different: not all “functions” return
-results (note the name change from `fun`{.pyret} to
+results (note the name change from `fun`{.jayret} to
 `def`{.python}).[In mathematics, functions have results by
 definition. Programmers sometimes distinguish between the terms “function”
 and “procedure”: both refer to parameterized computations, but only
@@ -193,12 +193,12 @@ of a function within another expression. So what use is
 
 #### 9.1.3 Examples and Test Cases {#testing-python}
 
-In Jayret, we included examples with every function using `where:`{.pyret}
-blocks. We also had the ability to write `check:`{.pyret} blocks for more
-extensive tests. As a reminder, here was the `pen-cost`{.pyret} code
-including a `where:`{.pyret} block:
+In Jayret, we included examples with every function using `where:`{.jayret}
+blocks. We also had the ability to write `check:`{.jayret} blocks for more
+extensive tests. As a reminder, here was the `pen-cost`{.jayret} code
+including a `where:`{.jayret} block:
 
-```pyret
+```jayret
 # TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
 fun pen-cost(num-pens :: Number, message :: String) -> Number:
   doc: ```total cost for pens, each 25 cents
@@ -210,7 +210,7 @@ where:
 end
 ```
 
-Python does not have a notion of `where:`{.pyret} blocks, or a
+Python does not have a notion of `where:`{.jayret} blocks, or a
 distinction between examples and tests. There are a couple of
 different testing packages for Python; here we will use `pytest`{.python},
 a standard lightweight framework that resembles the form of testing
@@ -249,7 +249,7 @@ Things to note about this code:
   ```python
   assert EXPRESSION == EXPECTED_ANS
   ```
-  rather than the `is`{.pyret} form from Jayret.
+  rather than the `is`{.jayret} form from Jayret.
 
 ::: {.do-now}
 Add one more test to the Python code, corresponding to the Jayret test
@@ -278,8 +278,8 @@ It turns out that different programming languages make different
 decisions about how to represent and manage real (non-integer)
 numbers. Sometimes, differences in these representations lead to
 subtle quantitative differences in computed values. As a simple
-example, let’s look at two seemingly simple real numbers `1/2`{.pyret} and
-`1/3`{.pyret}. Here’s what we get when we type these two numbers at a
+example, let’s look at two seemingly simple real numbers `1/2`{.jayret} and
+`1/3`{.jayret}. Here’s what we get when we type these two numbers at a
 Jayret prompt:
 
 ::: {.pyret-repl}
@@ -320,14 +320,14 @@ If we type these same two numbers in a Python console, we instead get:
 ```
 :::
 
-Notice that the answers look different for `1/3`{.pyret}. As you may (or
-may not!) recall from an earlier math class, `1/3`{.pyret} is an example of a
+Notice that the answers look different for `1/3`{.jayret}. As you may (or
+may not!) recall from an earlier math class, `1/3`{.jayret} is an example of a
 non-terminating, repeating decimal. In plain terms, if we tried to
-write out the exact value of `1/3`{.pyret} in decimal form, we would need
-to write an infinite sequence of `3`{.pyret}. Mathematicians denote this
-by putting a horizontal bar over the `3`{.pyret}. This is the notation we
+write out the exact value of `1/3`{.jayret} in decimal form, we would need
+to write an infinite sequence of `3`{.jayret}. Mathematicians denote this
+by putting a horizontal bar over the `3`{.jayret}. This is the notation we
 see in Jayret. Python, in contrast, writes out a partial sequence of
-`3`{.pyret}s.
+`3`{.jayret}s.
 
 Underneath this distinction lies some interesting details about
 representing numbers in computers. Computers don’t have infinite space
@@ -359,7 +359,7 @@ assert pen_cost(3, "wow") == pytest.approx(0.93)
 We wrapped the exact answer we wanted in `pytest.approx`{.python}, to
 indicate that we’ll accept any answer that is nearly the value we
 specified. You can control the number of decimal points of precision
-if you want to, but the default of `± 2.3e-06`{.pyret} often suffices.
+if you want to, but the default of `± 2.3e-06`{.jayret} often suffices.
 
 ```{=html}
 <a name="(part._conditionals-python)"></a>
@@ -384,14 +384,14 @@ def add_shipping(order_amt: float) -> float:
       return order_amt + 12
 ```
 
-The main difference to notice here is that `else if`{.pyret} is written
+The main difference to notice here is that `else if`{.jayret} is written
 as the single-word `elif`{.python} in Python. We use `return`{.python} to
 mark the function’s results in each branch of the conditional.
 Otherwise, the conditional constructs are quite similar across the
 two languages.
 
 You may have noticed that Python does not require an explicit
-`end`{.pyret} annotation on `if`{.pyret}-expressions or functions. Instead,
+`end`{.jayret} annotation on `if`{.jayret}-expressions or functions. Instead,
 Python looks at the indentation of your code to determine when a
 construct has ended. For example, in the code sample for
 `pen_cost`{.python} and `test_pens`{.python}, Python determines that the
@@ -422,7 +422,7 @@ In Python, this definition would look like:
 words = ["banana", "bean", "falafel", "leaf"]
 ```
 
-The only difference here is that Python does not use the `list:`{.pyret}
+The only difference here is that Python does not use the `list:`{.jayret}
 label that is needed in Jayret.
 
 ```{=html}
@@ -432,10 +432,10 @@ label that is needed in Jayret.
 ##### 9.1.6.1 Filters, Maps, and Friends {#Filters-Maps-and-Friends}
 
 When we first learned about lists in Jayret, we started with common
-built-in functions such as `filter`{.pyret}, `map`{.pyret}, `member`{.pyret}
-and `length`{.pyret}. We also saw the use of `lambda`{.pyret} to help us use
+built-in functions such as `filter`{.jayret}, `map`{.jayret}, `member`{.jayret}
+and `length`{.jayret}. We also saw the use of `lambda`{.jayret} to help us use
 some of these functions concisely. These same functions, including
-`lambda`{.pyret}, also exist in Python. Here are some samples (`#`{.python} is the comment character in Python):
+`lambda`{.jayret}, also exist in Python. Here are some samples (`#`{.python} is the comment character in Python):
 
 ```python
 words = ["banana", "bean", "falafel", "leaf"]
@@ -504,7 +504,7 @@ dataclasses generate a lot of boilerplate code that makes them much
 lighterweight than raw classes.]{.margin-note} Here’s an example of a todo-list
 datatype in Jayret and its corresponding Python code:
 
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 # a todo item in Jayret
 data ToDoItemData:
@@ -566,7 +566,7 @@ In Jayret, we extracted a field from structured data by using a dot
 notation works in Python:
 
 ::: {.pyret-repl}
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 travel = ToDoItem("buy tickets", date(2020, 7, 30), ["vacation"])
 ```
@@ -650,7 +650,7 @@ so we need to rephrase this. Here’s an alternative:
 ```
 Note that this framing refers not to the “rest of the computation”,
 but rather to the computation that has happened so far (the “running
-total”). If you happened to work through the chapter on [`my-running-sum`{.pyret}: Examples and Code](processing-lists.html##running-sum-eg-code), this framing might be familiar.
+total”). If you happened to work through the chapter on [`my-running-sum`{.jayret}: Examples and Code](processing-lists.html##running-sum-eg-code), this framing might be familiar.
 
 Let’s convert this prose sketch to code by replacing each line of the
 sketch with concrete code. We do this by setting up a variable named
@@ -714,9 +714,9 @@ Here are some things to notice about the two pieces of code:
   (working through) the list.
 
 - The initial value of that variable is the answer we returned in
-  the `empty`{.pyret} case in Jayret.
+  the `empty`{.jayret} case in Jayret.
 
-- The computation in the `link`{.pyret} case of the Jayret function is
+- The computation in the `link`{.jayret} case of the Jayret function is
   used to update that variable in the body of the `for`{.python}.
 
 - After the `for`{.python} has finished processing all items in the
@@ -755,12 +755,12 @@ sum_list([5, 1, 7, 3]);
 5 + 11;
 16;
 ```
-As a reminder, the Jayret version did this because the `+`{.pyret} in the
-`link`{.pyret} case can only reduce to an answer once the sum of the rest
+As a reminder, the Jayret version did this because the `+`{.jayret} in the
+`link`{.jayret} case can only reduce to an answer once the sum of the rest
 of the list has been computed. Even though we as humans see the chain
-of `+`{.pyret} operations in each line of the Jayret unrolling, Jayret sees
-only the expression `fst + sum-list(rst)`{.pyret}, which requires the
-function call to finish before the `+`{.pyret} executes.
+of `+`{.jayret} operations in each line of the Jayret unrolling, Jayret sees
+only the expression `fst + sum-list(rst)`{.jayret}, which requires the
+function call to finish before the `+`{.jayret} executes.
 
 In the case of summing a list, we don’t notice the difference between
 the two versions because the sum is the same whether we compute it
@@ -875,12 +875,12 @@ following several sections.
 
 ##### 9.1.8.5.1 Variables that can change {#Variables-that-can-change}
 
-First, note that we introduce the variable `result`{.pyret} with `var result`{.pyret}
+First, note that we introduce the variable `result`{.jayret} with `var result`{.jayret}
 – this means that it can vary, which is important for the use with
-`for each`{.pyret}.
+`for each`{.jayret}.
 
 By default, all variables in the program directory can never be changed. i.e.,
-if I define a variable `x`{.pyret}, I can not redefine it later:
+if I define a variable `x`{.jayret}, I can not redefine it later:
 
 ```jayret
 x = 10;
@@ -891,8 +891,8 @@ x = 20;
 
 If we do want to change (or mutate) a variable in the directory later, we can, but we must
 declare the variable can change – as in, when we define it, rather than writing
-`x = 10`{.pyret}, we must write `var x = 10`{.pyret}. Then, when we want to
-update it, we can do so with the `=`{.pyret} operator, as is done in the template above.
+`x = 10`{.jayret}, we must write `var x = 10`{.jayret}. Then, when we want to
+update it, we can do so with the `=`{.jayret} operator, as is done in the template above.
 
 ```jayret
 var x = 10;
@@ -901,9 +901,9 @@ x = 20;
 // ... x now points to 20 in directory
 ```
 
-Note that trying to use `=`{.pyret} on a variable that was not declared using
-`var`{.pyret} will produce an error, and variables can still only ever be declared
-once (whether with `var x = ...`{.pyret} or `x = ...`{.pyret}).
+Note that trying to use `=`{.jayret} on a variable that was not declared using
+`var`{.jayret} will produce an error, and variables can still only ever be declared
+once (whether with `var x = ...`{.jayret} or `x = ...`{.jayret}).
 
 ```{=html}
 <a name="(part._block-notation)"></a>
@@ -913,7 +913,7 @@ once (whether with `var x = ...`{.pyret} or `x = ...`{.pyret}).
 
 Another new language feature shown in these examples is that since Jayret
 functions by default expect only a single (non-definition) expression, we have
-to add the `block`{.pyret} annotation at the top, indicating that the body of the
+to add the `block`{.jayret} annotation at the top, indicating that the body of the
 function is multiple expressions, with the final one being what the function
 evaluates to.
 
@@ -927,7 +927,7 @@ Object my-function() {
 ```
 
 Jayret would (rightly) error – since the function returns the last expression in
-its body, the `1`{.pyret} will be ignored – and is most likely a mistake! Perhaps
+its body, the `1`{.jayret} will be ignored – and is most likely a mistake! Perhaps
 the goal was to write:
 
 ```jayret
@@ -936,11 +936,11 @@ Object my-function() {
 }
 ```
 
-However, since a `for each`{.pyret} expression exists only to modify a variable,
+However, since a `for each`{.jayret} expression exists only to modify a variable,
 functions that contain them will always have multiple expressions, and so
-we need to communicate to Jayret that this is not a mistake. Adding `block`{.pyret}
-before the `:`{.pyret} that begins the function (or, in general, wrapping any
-expressions in `block:`{.pyret} and `end`{.pyret}) communicates to Jayret that we
+we need to communicate to Jayret that this is not a mistake. Adding `block`{.jayret}
+before the `:`{.jayret} that begins the function (or, in general, wrapping any
+expressions in `block:`{.jayret} and `end`{.jayret}) communicates to Jayret that we
 understand that there are multiple expressions, and just want to evaluate to the
 last one. So, if we truly wanted to write a function as our first example, we
 could do that with:
@@ -958,7 +958,7 @@ Object my-function() {
 
 ##### 9.1.8.5.3 How for each works {#How-struct-traverse-element-procedure-lib-render-cond-rkt-38-12-works}
 
-A `for each`{.pyret} expression runs its body once for each element in the input
+A `for each`{.jayret} expression runs its body once for each element in the input
 list, adding an entry to the program directory for each element as it goes. It
 does not produce any value directly, so much instead rely on modifying variables
 (described above) to produce a computation.
@@ -978,12 +978,12 @@ Object sum-list(List lst) {
 }
 ```
 
-On the concrete test input `[5, 1, 7, 3]`{.pyret}, the loop runs four times,
-once with `item`{.pyret} set to `5`{.pyret}, then with `item`{.pyret} set to `1`{.pyret},
-then with `item`{.pyret} set to `7`{.pyret}, and finally with `item`{.pyret} set to
-`3`{.pyret}.
+On the concrete test input `[5, 1, 7, 3]`{.jayret}, the loop runs four times,
+once with `item`{.jayret} set to `5`{.jayret}, then with `item`{.jayret} set to `1`{.jayret},
+then with `item`{.jayret} set to `7`{.jayret}, and finally with `item`{.jayret} set to
+`3`{.jayret}.
 
-The `for each`{.pyret} construct saves us from writing the common code
+The `for each`{.jayret} construct saves us from writing the common code
 multiple times, and also handles the fact that the lists we are
 processing can be of arbitrary length (so we can’t predict how many
 times to write the common code). Thus, what happens is:
@@ -1011,7 +1011,7 @@ that uses them in other ways.
 In particular, note that the pattern means that we never define a variables that
 can change outside a function, which means it can never be used by
 different functions, or multiple function calls. Each time the function runs, a
-new variable is created, it is modified in the `for each`{.pyret} loop, and then
+new variable is created, it is modified in the `for each`{.jayret} loop, and then
 the value is returned, and the entry in the program directory is removed.
 
 Consider what happens if we don’t follow our pattern. Let’s say we had the
@@ -1038,9 +1038,9 @@ List prefix-under-100(List l) {
 }
 ```
 
-Now, this might seem reasonable – we’ve used a new construct, `when`{.pyret},
-which is an `if`{.pyret} expression that has no `else`{.pyret} – this only makes
-sense to do inside of a `for each`{.pyret} block, where we don’t need a value as a
+Now, this might seem reasonable – we’ve used a new construct, `when`{.jayret},
+which is an `if`{.jayret} expression that has no `else`{.jayret} – this only makes
+sense to do inside of a `for each`{.jayret} block, where we don’t need a value as a
 result. It is equivalent to:
 
 ```jayret
@@ -1051,7 +1051,7 @@ if ((count < 100)) {
 }
 ```
 
-Where `nothing`{.pyret} is a value that is used in Jayret to indicate that there is
+Where `nothing`{.jayret} is a value that is used in Jayret to indicate that there is
 no particular value of importance.
 
 But what happens when we use this function?
@@ -1066,7 +1066,7 @@ But what happens when we use this function?
 
 The first two tests pass, but the last one doesn’t. Why? If we run the first one
 again, things are even more confusing, i.e., if instead of the above, we ran
-this `check`{.pyret} block:
+this `check`{.jayret} block:
 
 ```jayret
 @Check void test() {
@@ -1081,14 +1081,14 @@ Now the test that passed at first no longer passes!
 
 What we are seeing is that since the variable is outside the function, it is
 shared across different calls to the function. It is added to the program
-directory once, and each time we call `prefix-under-100`{.pyret}, the program
+directory once, and each time we call `prefix-under-100`{.jayret}, the program
 directory entry is changed, but it is never reset.
 
 Intentionally, all other uses of mutation have been on directory entries that
 were created only for the body of the function, which meant that when the
 function exited, they were removed. But now, we are always modifying the single
-`count`{.pyret} variable. This means that every time we call
-`prefix-under-100`{.pyret}, it behaves differently, because it not only do we have
+`count`{.jayret} variable. This means that every time we call
+`prefix-under-100`{.jayret}, it behaves differently, because it not only do we have
 to understand the code in the body of the function, we have to know the current
 value of the count variable, which is not something we can figure out by just
 looking at the code!

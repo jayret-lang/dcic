@@ -132,11 +132,11 @@ record. Here’s a simplified version of the information such an app
 might store:
 
 
-- The song’s name, which is a `String`{.pyret}.
+- The song’s name, which is a `String`{.jayret}.
 
-- The song’s singer, which is also a `String`{.pyret}.
+- The song’s singer, which is also a `String`{.jayret}.
 
-- The song’s year, which is a `Number`{.pyret}.
+- The song’s year, which is a `Number`{.jayret}.
 
 Let’s now introduce the syntax by which we can teach this to Jayret:
 
@@ -145,9 +145,9 @@ data ITunesSong {
 }
 ```
 This tells Jayret to introduce a new type of data, in this case
-called `ITunesSong`{.pyret}[We follow a convention that types
+called `ITunesSong`{.jayret}[We follow a convention that types
 always begin with a capital letter.]{.margin-note}. The way we actually make one of
-these data is by calling `song`{.pyret} with three parameters; for
+these data is by calling `song`{.jayret} with three parameters; for
 instance:[It’s worth noting that music managers that are
 capable of making distinctions between, say, Dance, Electronica, and
 Electronic/Dance, classify two of these three songs by a single genre:
@@ -200,7 +200,7 @@ data. But what should we write here?
 lver = song("La Vie en Rose", "Édith Piaf", 1945);
 ```
 Recall that annotations takes names of types, and the new type we’ve
-created is called `ITunesSong`{.pyret}. Therefore, we should write
+created is called `ITunesSong`{.jayret}. Therefore, we should write
 
 ```jayret
 lver = song("La Vie en Rose", "Édith Piaf", 1945);
@@ -228,7 +228,7 @@ get.
 
 ##### 6.1.2.3 Defining and Creating Conditional Data {#Defining-and-Creating-Conditional-Data}
 
-The `data`{.pyret} construct in Jayret also lets us create conditional
+The `data`{.jayret} construct in Jayret also lets us create conditional
 data, with a slightly different syntax. For instance, say we want to
 define the colors of a traffic light:
 
@@ -242,7 +242,7 @@ data TLColor {
 [Conventionally, the names of the options begin in
 lower-case, but if they have no additional structure, we often
 capitalize the initial to make them look different from ordinary
-variables: i.e., `Red`{.pyret} rather than `red`{.pyret}.]{.margin-note}
+variables: i.e., `Red`{.jayret} rather than `red`{.jayret}.]{.margin-note}
 Each variant name on its own line introduces another option. You
 would make instances of traffic light colors as
 
@@ -328,8 +328,8 @@ together.
 ##### 6.1.3.1 Extracting Fields from Structured Data {#Extracting-Fields-from-Structured-Data}
 
 Let’s write a function that tells us how old a song is. First, let’s
-think about what the function consumes (an `ITunesSong`{.pyret}) and
-produces (a `Number`{.pyret}). This gives us a rough skeleton for the
+think about what the function consumes (an `ITunesSong`{.jayret}) and
+produces (a `Number`{.jayret}). This gives us a rough skeleton for the
 function:
 <song-age> ::=
 ```jayret
@@ -343,10 +343,10 @@ We know that the form of the body must be roughly:
 2016 - <get the song year>
 ```
 We can get the song year by using Jayret’s field access, which is
-a `.`{.pyret} followed by a field’s name—in this case,
-`year`{.pyret}—following the variable that holds the structured
-datum. Thus, we get the `year`{.pyret} field of `s`{.pyret} (the parameter
-to `song-age`{.pyret}) with
+a `.`{.jayret} followed by a field’s name—in this case,
+`year`{.jayret}—following the variable that holds the structured
+datum. Thus, we get the `year`{.jayret} field of `s`{.jayret} (the parameter
+to `song-age`{.jayret}) with
 
 ```jayret
 s.year;
@@ -392,12 +392,12 @@ String advice(TLColor c) {
 ```
 
 ::: {.do-now}
-What happens if you leave out the `=>`{.pyret}?
+What happens if you leave out the `=>`{.jayret}?
 :::
 
 ::: {.do-now}
-What if you leave out a variant? Leave out the `Red`{.pyret} variant,
-then try both `advice(Yellow)`{.pyret} and `advice(Red)`{.pyret}.
+What if you leave out a variant? Leave out the `Red`{.jayret} variant,
+then try both `advice(Yellow)`{.jayret} and `advice(Red)`{.jayret}.
 :::
 
 ```{=html}
@@ -409,7 +409,7 @@ then try both `advice(Yellow)`{.pyret} and `advice(Red)`{.pyret}.
 In this example, the variants had no fields. But if the variant has
 fields, Jayret expects you to list names of variables for those fields,
 and will then automatically bind those variables—so you don’t need
-to use the `.`{.pyret}-notation to get the field values.
+to use the `.`{.jayret}-notation to get the field values.
 
 To illustrate this, assume we want to get the name of any animal:
 <animal-name> ::=
@@ -418,7 +418,7 @@ String animal-name(Animal a) {
     <animal-name-body>
 }
 ```
-Because an `Animal`{.pyret} is conditionally defined, we know that we are
+Because an `Animal`{.jayret} is conditionally defined, we know that we are
 likely to want a `switch`{.jayret} to pull it apart; furthermore, we should
 give names to each of the fields:[Note that the names of the
 variables do not have to match the names of
@@ -433,7 +433,7 @@ switch (a) {
 }
 ```
 
-In both cases, we want to return the field `n`{.pyret}, giving us the
+In both cases, we want to return the field `n`{.jayret}, giving us the
 complete function:
 
 ```jayret
@@ -452,7 +452,7 @@ Let’s look at how Jayret would evaluate a function call like
 ```jayret
 animal-name(boa("Bonito", 8));
 ```
-The argument `boa("Bonito", 8)`{.pyret} is a value. In the same way as we
+The argument `boa("Bonito", 8)`{.jayret} is a value. In the same way as we
 substitute simple data types like strings and numbers for parameters
 when we evaluate a function, we do the same thing here. After
 substituting, we are left with the following expression to evaluate:
@@ -465,9 +465,9 @@ switch (boa("Bonito", 8)) {
 ```
 
 Next, Jayret determines which case matches the data (the first one, for
-`boa`{.pyret}, in this case). It then substitutes the field names with the
+`boa`{.jayret}, in this case). It then substitutes the field names with the
 corresponding components of the datum result expression for the
-matched case. In this case, we will substitute uses of `n`{.pyret} with
-`"Bonito"`{.pyret} and uses of `l`{.pyret} with `8`{.pyret}. In this program,
-the entire result expression is a use of `n`{.pyret}, so the result of
-the program in this case is `"Bonito"`{.pyret}.
+matched case. In this case, we will substitute uses of `n`{.jayret} with
+`"Bonito"`{.jayret} and uses of `l`{.jayret} with `8`{.jayret}. In this program,
+the entire result expression is a use of `n`{.jayret}, so the result of
+the program in this case is `"Bonito"`{.jayret}.

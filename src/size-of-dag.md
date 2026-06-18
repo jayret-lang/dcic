@@ -47,7 +47,7 @@ n2 = nd(2, mt, n1);
 n3 = nd(3, n1, mt);
 n4 = nd(4, n2, n3);
 ```
-where `n4`{.pyret} is the DAG. There are two notions of size here. One is like
+where `n4`{.jayret} is the DAG. There are two notions of size here. One is like
 a “print size”: how much space will it occupy when printed. The current size
 function computes that well. But another is the “allocation” size: how many
 nodes did we allocate. How do we fare?
@@ -67,7 +67,7 @@ nodes did we allocate. How do we fare?
 }
 ```
 
-Clearly the answer should be `4`{.pyret}: we can just read off how many `nd`{.pyret}
+Clearly the answer should be `4`{.jayret}: we can just read off how many `nd`{.jayret}
 calls there are. And clearly the function is wrong.
 
 The problem, of course, is that a DAG involves repeating nodes, and we
@@ -99,18 +99,18 @@ int size-2-h(BT b, List<Object> seen) {
 ```
 
 ::: {.exercise}
-Why does this code use `member-identical`{.pyret} rather than `member`{.pyret}?
+Why does this code use `member-identical`{.jayret} rather than `member`{.jayret}?
 
-Observe that if we replace every `member-identical`{.pyret} with `member`{.pyret} in
+Observe that if we replace every `member-identical`{.jayret} with `member`{.jayret} in
 this chapter, the code still behaves the same. Why?
 
-Make changes to demonstrate the need for `member-identical`{.pyret}.
+Make changes to demonstrate the need for `member-identical`{.jayret}.
 :::
 
-Is it odd that we return `0`{.pyret}? Not if we reinterpret what the function
+Is it odd that we return `0`{.jayret}? Not if we reinterpret what the function
 does: it doesn’t count the size, it counts the additional
 contribution to the size (relative to what has already been seen) of the
-`BT`{.pyret} it is given. A node already in `seen`{.pyret} makes no marginal
+`BT`{.jayret} it is given. A node already in `seen`{.jayret} makes no marginal
 contribution; it was already counted earlier.
 
 Finally, we should not export such a function to the user, who has to deal with
@@ -135,7 +135,7 @@ This also enables us to use our old tests (renamed):
 Unfortunately, this still doesn’t work!
 
 ::: {.do-now}
-Use Jayret’s `spy`{.pyret} construct in `size-2-h`{.pyret} to figure out why.
+Use Jayret’s `spy`{.jayret} construct in `size-2-h`{.jayret} to figure out why.
 :::
 
 ```{=html}
@@ -144,11 +144,11 @@ Use Jayret’s `spy`{.pyret} construct in `size-2-h`{.pyret} to figure out why.
 
 #### 16.2.3 Stage 3 {#Stage-3}
 
-Did you remember to use `spy`{.pyret}? Otherwise you may very well miss the
-problem! Be sure to use `spy`{.pyret} (feel free to elide the first few tests for
+Did you remember to use `spy`{.jayret}? Otherwise you may very well miss the
+problem! Be sure to use `spy`{.jayret} (feel free to elide the first few tests for
 now) to get a feel for the issue.
 
-As you may have noted, the problem is that we want `seen`{.pyret} to be all the
+As you may have noted, the problem is that we want `seen`{.jayret} to be all the
 nodes ever seen. However, every time we return from one sub-computation,
 we also lose track of whatever was seen during its work. Instead, we have to
 also return everything that was seen, so as to properly preserve the idea that
@@ -179,8 +179,8 @@ Ret size-3-h(BT b, List<Object> seen) {
     }
 }
 ```
-Note, crucially, how the `seen`{.pyret} argument for the right branch is
-`rl.sn`{.pyret}: i.e., everything that was already seen in the left branch. This
+Note, crucially, how the `seen`{.jayret} argument for the right branch is
+`rl.sn`{.jayret}: i.e., everything that was already seen in the left branch. This
 is the crucial step that avoids the bug.
 
 Because of this richer return type, we have to extract the actual answer for
@@ -199,7 +199,7 @@ Object size-3(BT b) {
 ```
 
 ::: {.exercise}
-Must `seen`{.pyret} be a list? What else can it be?
+Must `seen`{.jayret} be a list? What else can it be?
 :::
 
 ```{=html}
@@ -208,8 +208,8 @@ Must `seen`{.pyret} be a list? What else can it be?
 
 #### 16.2.4 Stage 4 {#Stage-4}
 
-Observe that the `Ret`{.pyret} data structure is only of local interest. It’s
-purely internal to the `size-3-h`{.pyret} function; even `size-3`{.pyret} ignores one
+Observe that the `Ret`{.jayret} data structure is only of local interest. It’s
+purely internal to the `size-3-h`{.jayret} function; even `size-3`{.jayret} ignores one
 half, and it will never be seen by the rest of the program. That is a good use
 of tuples, as we have seen before: [Using Tuples](queues-from-lists.html##qfl-tuples)!
 
@@ -240,9 +240,9 @@ Object size-4(BT b) {
 }
 ```
 
-The notation `/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;seen}`{.pyret} makes an actual tuple; `/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {Number ;List < BT >}`{.pyret}
-declares the contract of a tuple. Also, `.{0}`{.pyret} extracts the
-`0`{.pyret}th element (the leftmost one) of a tuple.
+The notation `/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;seen}`{.jayret} makes an actual tuple; `/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {Number ;List < BT >}`{.jayret}
+declares the contract of a tuple. Also, `.{0}`{.jayret} extracts the
+`0`{.jayret}th element (the leftmost one) of a tuple.
 
 ```{=html}
 <a name="(part._Stage-5)"></a>
@@ -250,30 +250,30 @@ declares the contract of a tuple. Also, `.{0}`{.pyret} extracts the
 
 #### 16.2.5 Stage 5 {#Stage-5}
 
-Notice that we have the two instances of the code `/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;seen}`{.pyret}. Do they
-have to be that? What if we were to return `/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;empty}`{.pyret} instead in both
+Notice that we have the two instances of the code `/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;seen}`{.jayret}. Do they
+have to be that? What if we were to return `/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;empty}`{.jayret} instead in both
 places? Does anything break?
 
-We might expect it to break in the case where `member-identical`{.pyret} returns
-`true`{.pyret}, but perhaps not in the `mt`{.pyret} case.
+We might expect it to break in the case where `member-identical`{.jayret} returns
+`true`{.jayret}, but perhaps not in the `mt`{.jayret} case.
 
 ::: {.do-now}
 Make each of these changes. Does the outcome match your expectations?
 :::
 
-Curiously, no! Making the change in the `mt`{.pyret} case has an effect but making
-it in the `member-identical`{.pyret} case doesn’t! This almost seems
+Curiously, no! Making the change in the `mt`{.jayret} case has an effect but making
+it in the `member-identical`{.jayret} case doesn’t! This almost seems
 counter-intuitive. How can we diagnose this?
 
 ::: {.do-now}
-Use `spy`{.pyret} to determine what is going on!
+Use `spy`{.jayret} to determine what is going on!
 :::
 
-Okay, so it seems like returning `empty`{.pyret} when we revisit a node doesn’t
+Okay, so it seems like returning `empty`{.jayret} when we revisit a node doesn’t
 seem to do any harm. Does that mean it’s okay to make that change?
 
 Observe that nothing has actually depended on that seen-list being
-`empty`{.pyret}. That’s why it appears to not matter. How can we make it matter?
+`empty`{.jayret}. That’s why it appears to not matter. How can we make it matter?
 By making it “hurt” the computation by visiting a previously seen, but now
 forgotten, node yet again. So we need to visit a node at least three times: the
 first time to remember it; the second time to forget it; and a third time to
@@ -293,7 +293,7 @@ n10 = nd(10, n11, n12);
     assertEquals(size-4(n10), 4);
 }
 ```
-Sure enough, if either tuple now returns `empty`{.pyret}, this test
+Sure enough, if either tuple now returns `empty`{.jayret}, this test
 fails. Otherwise it succeeds.
 
 ```{=html}
@@ -326,7 +326,7 @@ We have learned three important principles here:
   catch the error in your program, or convince yourself the change didn’t matter.
   
   There are mutation testing tools that will randomly try to alter your program
-  using “mutant” strategies—e.g., replacing a `+`{.pyret} with a `-`{.pyret}—and
+  using “mutant” strategies—e.g., replacing a `+`{.jayret} with a `-`{.jayret}—and
   re-run your suites, and then report back on how many potential mutants the
   suites actually caught. But we can’t and shouldn’t only rely on tools; we can
   also apply the principle of mutation testing by hand, as we have above. At the

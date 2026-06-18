@@ -188,11 +188,11 @@ look up a variable or to allocate a constant. Applying primitive
 functions also costs one unit of time. Everything else is a compound
 expression with sub-expressions. The cost of a compound expression is
 one plus that of each of its sub-expressions. For instance, the
-running time cost of the expression `e1 + e2`{.pyret} (for some
-sub-expressions `e1`{.pyret} and `e2`{.pyret}) is the running time for
-`e1`{.pyret} + the running time for `e2`{.pyret} + 1. Thus the expression
-`17 + 29`{.pyret} has a cost of 3 (one for each sub-expression and one
-for the addition); the expression `1 + (7 * (2 / 9))`{.pyret} costs 7.
+running time cost of the expression `e1 + e2`{.jayret} (for some
+sub-expressions `e1`{.jayret} and `e2`{.jayret}) is the running time for
+`e1`{.jayret} + the running time for `e2`{.jayret} + 1. Thus the expression
+`17 + 29`{.jayret} has a cost of 3 (one for each sub-expression and one
+for the addition); the expression `1 + (7 * (2 / 9))`{.jayret} costs 7.
 
 As you can see, there are two big approximations here:
 
@@ -219,9 +219,9 @@ does. If the analytical prediction is accurate, we can reconstruct
 the constant factors hidden in our calculations and thus obtain very
 precise wall-clock time bounds for the program.
 
-There is one especially tricky kind of expression: `if`{.pyret} (and its fancier
-cousins, like `cases`{.pyret} and `ask`{.pyret}). How do we think about the cost of
-an `if`{.pyret}? It always evaluates the condition. After that, it evaluates only
+There is one especially tricky kind of expression: `if`{.jayret} (and its fancier
+cousins, like `cases`{.jayret} and `ask`{.jayret}). How do we think about the cost of
+an `if`{.jayret}? It always evaluates the condition. After that, it evaluates only
 one of its branches. But we are interested in the worst case time,
 i.e., what is the longest it could take? For a conditional, it’s the cost of
 the condition added to the cost of the maximum of the two
@@ -245,8 +245,8 @@ this briefly later [[The Complexity of Numbers](avoid-recomp.html##numbers-not-c
 It can be subtle to define the size of the argument. Suppose a
 function consumes a list of numbers; it would be natural to define the
 size of its argument to be the length of the list, i.e., the number of
-`link`{.pyret}s in the list. We could also define it to be twice as
-large, to account for both the `link`{.pyret}s and the individual
+`link`{.jayret}s in the list. We could also define it to be twice as
+large, to account for both the `link`{.jayret}s and the individual
 numbers (but as we’ll see [[Comparing Functions](predicting-growth.html##big-oh-def)], constants usually don’t matter).
 But suppose a function consumes a list of music albums, and each music
 album is itself a list of songs, each of which has information about
@@ -299,7 +299,7 @@ For each row, fill in the columns as follows:
 
 7. Total: add the two totals to obtain an answer for the clause
 
-Finally, the total cost of the `cond`{.pyret} expression is obtained by
+Finally, the total cost of the `cond`{.jayret} expression is obtained by
 summing the Total column in the individual rows.
 
 In the process of computing these costs, we may come across recursive
@@ -317,11 +317,11 @@ Excluding the treatment of recursion, justify (a) that these columns
 are individually accurate (e.g., the use of additions and
 multiplications is appropriate), and (b) sufficient (i.e., combined,
 they account for all operations that will be performed by that
-`cond`{.pyret} clause).
+`cond`{.jayret} clause).
 :::
 
 It’s easiest to understand this by applying it to a few examples.
-First, let’s consider the `len`{.pyret} function, noting before we
+First, let’s consider the `len`{.jayret} function, noting before we
 proceed that it does meet the criterion of having a single recursive
 call where the argument is structural:
 
@@ -333,16 +333,16 @@ Object len(l) {
     }
 }
 ```
-Let’s compute the cost of running `len`{.pyret} on a list of length
-\(k\) (where we are only counting the number of `link`{.pyret}s in the
-list, and ignoring the content of each first element (`f`{.pyret}), since
-`len`{.pyret} ignores them too).
+Let’s compute the cost of running `len`{.jayret} on a list of length
+\(k\) (where we are only counting the number of `link`{.jayret}s in the
+list, and ignoring the content of each first element (`f`{.jayret}), since
+`len`{.jayret} ignores them too).
 
-Because the entire body of `len`{.pyret} is given by a conditional, we
+Because the entire body of `len`{.jayret} is given by a conditional, we
 can proceed directly to building the table.
 
 Let’s consider the first row. The question costs three units (one
-each to evaluate the implicit `empty`{.pyret}-ness predicate, `l`{.pyret},
+each to evaluate the implicit `empty`{.jayret}-ness predicate, `l`{.jayret},
 and to apply the former to the latter).
 This is evaluated once per element in the list and once
 more when the list is empty, i.e., \(k+1\) times. The total cost of
@@ -352,9 +352,9 @@ takes a total of one unit, for a total of \(3k+4\) units.
 
 Now for the second row. The question again costs three units, and is
 evaluated \(k\) times. The answer involves two units to evaluate
-the rest of the list `l.rest`{.pyret}, which is implicitly hidden by the
-naming of `r`{.pyret}, two more to evaluate and apply `1 +`{.pyret}, one
-more to evaluate `len`{.pyret}...and no more, because we are
+the rest of the list `l.rest`{.jayret}, which is implicitly hidden by the
+naming of `r`{.jayret}, two more to evaluate and apply `1 +`{.jayret}, one
+more to evaluate `len`{.jayret}...and no more, because we are
 ignoring the time spent in the recursive call itself.
 In short, it takes five units of time (in addition to the recursion
 we’ve chosen to ignore).
@@ -364,12 +364,12 @@ In tabular form:
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span style="font-weight: bold">|Q|</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">#Q</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">TotQ</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">|A|</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">#A</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">TotA</span></p></td><td><p><span class="hspace">    </span></p></td><td><p><span style="font-weight: bold">Total</span></p></td></tr><tr><td><p>\(3\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(k+1\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(3(k+1)\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(1\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(1\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(1\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(3k+4\)</p></td></tr><tr><td><p>\(3\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(k\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(3k\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(5\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(k\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(5k\)</p></td><td><p><span class="hspace">    </span></p></td><td><p>\(8k\)</p></td></tr></table>
 ```
-Adding, we get \(11k + 4\). Thus running `len`{.pyret} on a
+Adding, we get \(11k + 4\). Thus running `len`{.jayret} on a
 \(k\)-element list takes \(11k+4\) units of time.
 
 ::: {.exercise}
 How accurate is this estimate? If you try applying
-`len`{.pyret} to different sizes of lists, do you obtain a consistent
+`len`{.jayret} to different sizes of lists, do you obtain a consistent
 estimate for \(k\)?
 :::
 
@@ -380,16 +380,16 @@ estimate for \(k\)?
 ### 14.6 Creating Recurrences {#creating-recurrences}
 
 We will now see a systematic way of analytically computing the time of
-a program. Suppose we have only one function `f`{.pyret}. We will
+a program. Suppose we have only one function `f`{.jayret}. We will
 define a function, \(T\), to compute an upper-bound of the time of
-`f`{.pyret}.[In general, we will have one such cost function for
+`f`{.jayret}.[In general, we will have one such cost function for
 each function in the program. In such cases, it would be useful to
 give a different name to each function to easily tell them apart.
 Since we are looking at only one function for now, we’ll reduce
 notational overhead by having only one \(T\).]{.margin-note}
-\(T\) takes as many parameters as `f`{.pyret} does. The
+\(T\) takes as many parameters as `f`{.jayret} does. The
 parameters to \(T\) represent the sizes of the corresponding arguments
-to `f`{.pyret}. Eventually we will want to arrive at a closed form
+to `f`{.jayret}. Eventually we will want to arrive at a closed form
 solution to \(T\), i.e., one that does not refer to \(T\) itself. But
 the easiest way to get there is to write a solution that is permitted
 to refer to \(T\), called a recurrence relation, and then see
@@ -411,18 +411,18 @@ case?
 
 The process of setting up a recurrence is easy. We simply define the
 right-hand-side of \(T\) to add up the operations performed in
-`f`{.pyret}’s body. This is straightforward except for conditionals and
+`f`{.jayret}’s body. This is straightforward except for conditionals and
 recursion. We’ll elaborate on the treatment of conditionals in a
-moment. If we get to a recursive call to `f`{.pyret} on the argument
-`a`{.pyret}, in the recurrence we turn this into a (self-)reference to
-\(T\) on the size of `a`{.pyret}.
+moment. If we get to a recursive call to `f`{.jayret} on the argument
+`a`{.jayret}, in the recurrence we turn this into a (self-)reference to
+\(T\) on the size of `a`{.jayret}.
 
 For conditionals, we use only the |Q| and |A| columns of
 the corresponding table. Rather than multiplying by the size of the
 input, we add up the operations that happen on one invocation of
-`f`{.pyret} other than the recursive call, and then add the cost of the
+`f`{.jayret} other than the recursive call, and then add the cost of the
 recursive call in terms of a reference to \(T\). Thus, if we were
-doing this for `len`{.pyret} above, we would define \(T(k)\)—the time
+doing this for `len`{.jayret} above, we would define \(T(k)\)—the time
 needed on an input of length \(k\)—in two parts: the value of
 \(T(0)\) (when the list is empty) and the value for non-zero values of
 \(k\). We know that \(T(0) = 4\) (the cost of the first conditional
@@ -459,10 +459,10 @@ in general. That’s where we’re going next
 
 ### 14.7 A Notation for Functions {#math-anon-functions}
 
-We have seen above that we can describe the running time of `len`{.pyret}
+We have seen above that we can describe the running time of `len`{.jayret}
 through a function. We don’t have an especially good notation for
 writing such (anonymous) functions. Wait, we
-do—`(k) -> (11 * k) + 4`{.pyret}—but my colleagues would be
+do—`(k) -> (11 * k) + 4`{.jayret}—but my colleagues would be
 horrified if you wrote this on their exams. Therefore, we’ll
 introduce the following notation to mean precisely the same thing:
 \begin{equation*}[k \rightarrow 11k + 4]\end{equation*}The brackets denote anonymous functions, with the parameters before
@@ -474,7 +474,7 @@ the arrow and the body after.
 
 ### 14.8 Comparing Functions {#big-oh-def}
 
-Let’s return to the running time of `len`{.pyret}. We’ve written down a
+Let’s return to the running time of `len`{.jayret}. We’ve written down a
 function of great precision: 11! 4! Is this justified?
 
 At a fine-grained level already, no, it’s not. We’ve lumped many
@@ -606,7 +606,7 @@ discussing the running time of functions. We’ll consider three
 cases:
 
 
-- Suppose we have a function `f`{.pyret} (whose running time is)
+- Suppose we have a function `f`{.jayret} (whose running time is)
   in \(O(F)\). Let’s say we run it \(p\) times, for some given
   constant. The running time of the resulting code is then
   \(p \times O(F)\). However, observe that this is really no different
@@ -616,14 +616,14 @@ cases:
   the heart of the intution that “multiplicative constants don’t
   matter”.
 
-- Suppose we have two functions, `f`{.pyret} in \(O(F)\) and `g`{.pyret}
-  in \(O(G)\). If we run `f`{.pyret} followed by `g`{.pyret}, we would expect
+- Suppose we have two functions, `f`{.jayret} in \(O(F)\) and `g`{.jayret}
+  in \(O(G)\). If we run `f`{.jayret} followed by `g`{.jayret}, we would expect
   the running time of the combination to be the sum of their individual
   running times, i.e., \(O(F) + O(G)\). You should convince yourself
   that this is simply \(O(max(F, G))\).
 
-- Suppose we have two functions, `f`{.pyret} in \(O(F)\) and `g`{.pyret}
-  in \(O(G)\). If `f`{.pyret} invokes `g`{.pyret} in each of its steps, we
+- Suppose we have two functions, `f`{.jayret} in \(O(F)\) and `g`{.jayret}
+  in \(O(G)\). If `f`{.jayret} invokes `g`{.jayret} in each of its steps, we
   would expect the running time of the combination to be the product of
   their individual running times, i.e., \(O(F) \times O(G)\). You should
   convince yourself that this is simply \(O(F \times G)\).
@@ -644,7 +644,7 @@ Because multiplication by constants doesn’t matter, we can replace the
 \(3\) with \(1\). Because addition of a constant doesn’t matter (run
 the addition rule in reverse), \(k+1\) can become \(k\). Adding this
 gives us \(O(k) + O(k) = 2 \times O(k) \in O(k)\). This justifies
-claiming that running `len`{.pyret} on a \(k\)-element list takes time in
+claiming that running `len`{.jayret} on a \(k\)-element list takes time in
 \(O([k \rightarrow k])\), which is a much simpler way of describing
 its bound than \(O([k \rightarrow 11k + 4])\). In particular, it
 provides us with the essential information and nothing else: as the
@@ -669,7 +669,7 @@ complexity they describe (or know how to quickly derive it).
 Earlier we saw a recurrence that had two cases: one for the
 empty input and one for all others. In general, we should expect to
 find one case for each non-recursive call and one for each recursive
-one, i.e., roughly one per `cases`{.pyret} clause. In what follows, we
+one, i.e., roughly one per `cases`{.jayret} clause. In what follows, we
 will ignore the base cases so long as the size of the input is
 constant (such as zero or one), because in such cases the amount of
 work done will also be a constant, which we can generally ignore

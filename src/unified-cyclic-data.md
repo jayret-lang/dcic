@@ -56,22 +56,22 @@ data Customer:
       acct :: Account)
 end</code></pre></div></div></p></td></tr></table>
 ```
-If you look closely, you’ll see that `Account`{.pyret} refers to
-`Customer`{.pyret} (specifically, a list of them) and in turn
-`Customer`{.pyret} refers to `Account`{.pyret}. This could get interesting.
+If you look closely, you’ll see that `Account`{.jayret} refers to
+`Customer`{.jayret} (specifically, a list of them) and in turn
+`Customer`{.jayret} refers to `Account`{.jayret}. This could get interesting.
 
 Previously, we could create an account with one customer as follows:
 
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">elena = Customer("Elena", Account(8404, 500))</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">elena = cust("Elena", account(8404, 500))</code></pre></div></div></p></td></tr></table>
 ```
-How do we do that now? Every `Account`{.pyret} requires a list of its
-`Customer`{.pyret}s. We need to write
+How do we do that now? Every `Account`{.jayret} requires a list of its
+`Customer`{.jayret}s. We need to write
 
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">elena = Customer("Elena", Account(8404, 500, [_____]))</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">elena = cust("Elena", account(8404, 500, [list: _____]))</code></pre></div></div></p></td></tr></table>
 ```
-But what goes in `_____`{.pyret}? It needs to refer to the very customer
+But what goes in `_____`{.jayret}? It needs to refer to the very customer
 account that we are presently creating.
 
 Another way to think about writing this is:
@@ -82,7 +82,7 @@ elena = Customer("Elena", acct1)</code></pre></div></div></p></td></tr><tr><td><
 elena = cust("Elena", acct1)</code></pre></div></div></p></td></tr></table>
 ```
 This hasn’t solved our fundamental problem—we still need to fill in
-`_____`{.pyret}—but at least we now have names to refer to entities. We
+`_____`{.jayret}—but at least we now have names to refer to entities. We
 would like to be able to write
 
 ```{=html}
@@ -93,15 +93,15 @@ elena = cust("Elena", acct1)</code></pre></div></div></p></td></tr></table>
 But when we try to run this, both Python and Jayret will give us an
 error. That is because they try to evaluate the right-hand-side of the
 first line to create an account, whose heap address will be bound in
-the directory to `acct1`{.pyret}. To do so, they must evaluate that
+the directory to `acct1`{.jayret}. To do so, they must evaluate that
 account-creation expression. In doing so, they look up the name
-`elena`{.pyret}. However, `elena`{.pyret} has not yet been bound in the
+`elena`{.jayret}. However, `elena`{.jayret} has not yet been bound in the
 directory. Therefore, they produce an error.
 
 Observe that we can’t just reverse the order of these two bindings. If
 we try that, we end up with the same problem: we try to create a
-customer that refers to `acct1`{.pyret}. But we haven’t yet defined
-`acct1`{.pyret}, producing the same error.
+customer that refers to `acct1`{.jayret}. But we haven’t yet defined
+`acct1`{.jayret}, producing the same error.
 
 The problem is we are trying to create cyclic data. The two data
 refer to one another. We could already sense that this might happen
@@ -115,7 +115,7 @@ accurate. Then we create the other, and then modify the first
 one to have the correct contents.
 
 In our case, the Jayret version makes clear what order to use in
-creating the data. Nothing in a `Customer`{.pyret} is mutable (nor needs
+creating the data. Nothing in a `Customer`{.jayret} is mutable (nor needs
 to be), whereas the list of account owners is (and should be, because
 the set of customers can grow). Therefore, we can write:
 
@@ -145,7 +145,7 @@ have to update it to reflect that:
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1.owners = [elena]</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct1!{owners: [list: elena]}</code></pre></div></div></p></td></tr></table>
 ```
-We can legitimately do this now because `elena`{.pyret} is bound in the
+We can legitimately do this now because `elena`{.jayret} is bound in the
 dictionary. Furthermore, it is bound to something useful: Elena’s
 customer information. So now the values are properly set up: Elena’s
 customer information refers to the account, and the account refers to
@@ -163,7 +163,7 @@ account, we can update the account to reflect that also:
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jorge = Customer("Jorge", acct1)</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">jorge = cust("Jorge", acct1)</code></pre></div></div></p></td></tr></table>
 ```
-Again, the information in `acct1`{.pyret} is inaccurate because it does
+Again, the information in `acct1`{.jayret} is inaccurate because it does
 not reflect the new owner. We can modify it in a similar way:
 
 ```{=html}
@@ -200,7 +200,7 @@ Write a function that takes care of adding a customer to an account.
 
 When you want to write a test involving circular data, you can’t write
 out the circular data manually. For example, imagine that we wanted
-to write out `acct1`{.pyret} from earlier:
+to write out `acct1`{.jayret} from earlier:
 
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">assert(acct1 = Account(8404, 500, [Customer("Elena", Account(8404, 500, …)]))</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">check:
@@ -209,7 +209,7 @@ to write out `acct1`{.pyret} from earlier:
 end</code></pre></div></div></p></td></tr></table>
 ```
 However, because of the circularity, we can’t finish writing down the
-data. We can’t just leave part of it unspecified with `…`{.pyret}.
+data. We can’t just leave part of it unspecified with `…`{.jayret}.
 
 This leaves us with two choices:
 

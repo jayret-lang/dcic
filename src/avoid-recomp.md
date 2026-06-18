@@ -83,7 +83,7 @@ This function’s tests look as follows—
 ```
 but beware! When we time the function’s execution, we find that the
 first few tests run very quickly, but somewhere between a value of
-`10`{.pyret} and `20`{.pyret}—depending on your machine and programming
+`10`{.jayret} and `20`{.jayret}—depending on your machine and programming
 language implementation—you ought to see things start to slow down,
 first a little, then with extreme effect.
 
@@ -100,13 +100,13 @@ computation in turn needs the numbers of all of its smaller levels;
 and so on down the road.
 
 ::: {.exercise}
-Map the subcomputations of `catalan`{.pyret} to see why the computation
+Map the subcomputations of `catalan`{.jayret} to see why the computation
 time explodes as it does. What is the worst-case time complexity of
 this function?
 :::
 
 Here is a graphical representation of all the sub-computations the
-Catalan function does for input `3`{.pyret}:
+Catalan function does for input `3`{.jayret}:
 
 ![](cat-no-memo.png){width="644" height="223"}
 
@@ -145,10 +145,10 @@ data MemoryCell {
 }
 var memory = empty;
 ```
-Now how does `catalan`{.pyret} need to change? We have to first look for
-whether the value is already in `memory`{.pyret}; if it is, we return it
+Now how does `catalan`{.jayret} need to change? We have to first look for
+whether the value is already in `memory`{.jayret}; if it is, we return it
 without any further computation, but if it isn’t, then we compute the
-result, store it in `memory`{.pyret}, and then return it:
+result, store it in `memory`{.jayret}, and then return it:
 
 ```jayret
 int catalan(int n) {
@@ -169,14 +169,14 @@ int catalan(int n) {
 ```
 And that’s it! Now running our previous tests will reveal that the
 answer computes much quicker, but in addition we can dare to run
-bigger computations such as `catalan(50)`{.pyret}.
+bigger computations such as `catalan(50)`{.jayret}.
 
 ::: {.do-now}
 Trace through a call of this revised function and see how many calls
 it makes.
 :::
 
-Here is a revised visualization of computing for input `3`{.pyret}:
+Here is a revised visualization of computing for input `3`{.jayret}:
 
 ![](cat-memo.png){width="644" height="294"}
 
@@ -204,9 +204,9 @@ to a DAG of calls.
 This has an important complexity benefit. Whereas previously we were
 performing a super-exponential number of calls, now we perform only
 one call per input and share all previous calls—thereby reducing
-`catalan(n)`{.pyret} to take a number of fresh calls proportional to
-`n`{.pyret}. Looking up the result of a previous call takes time
-proportional to the size of `memory`{.pyret} (because we’ve represented
+`catalan(n)`{.jayret} to take a number of fresh calls proportional to
+`n`{.jayret}. Looking up the result of a previous call takes time
+proportional to the size of `memory`{.jayret} (because we’ve represented
 it as a list; better representations would improve on that), but that
 only contributes another linear multiplicative factor, reducing the
 overall complexity to quadratic in the size of the input. This is a
@@ -223,8 +223,8 @@ use of this technique into a true engineering trade-off.
 As we start to run larger computations, however, we may start to
 notice that our computations are starting to take longer than linear
 growth. This is because our numbers are growing arbitrarily
-large—for instance, `catalan(100)`{.pyret} is
-`896519947090131496687170070074100632420837521538745909320`{.pyret}—and
+large—for instance, `catalan(100)`{.jayret} is
+`896519947090131496687170070074100632420837521538745909320`{.jayret}—and
 computations on numbers can no longer be constant time, contrary to
 what we said earlier
 [[The Size of the Input](predicting-growth.html##size-of-input)]. Indeed, when working on cryptographic
@@ -241,13 +241,13 @@ for instance, the presumed unbreakability of contemporary cryptography).
 
 Now we’ve achieved the desired complexity improvement, but there is
 still something unsatisfactory about the structure of our revised
-definition of `catalan`{.pyret}: the act of memoization is deeply
+definition of `catalan`{.jayret}: the act of memoization is deeply
 intertwined with the definition of a Catalan number, even though these
 should be intellectually distinct. Let’s do that next.
 
 In effect, we want to separate our program into two parts. One part
 defines a general notion of memoization, while the other defines
-`catalan`{.pyret} in terms of this general notion.
+`catalan`{.jayret} in terms of this general notion.
 
 What does the former mean? We want to encapsulate the idea of
 “memory” (since we presumably don’t want this stored in a variable
@@ -276,13 +276,13 @@ data MemoryCell {
     }
 }
 ```
-We use the name `memoize-1`{.pyret} to indicate that this is a
+We use the name `memoize-1`{.jayret} to indicate that this is a
 memoizer for single-argument functions. Observe that the code
 above is virtually identical to what we had before, except where we
 had the logic of Catalan number computation, we now have the parameter
-`f`{.pyret} determining what to do.
+`f`{.jayret} determining what to do.
 
-With this, we can now define `catalan`{.pyret} as follows:
+With this, we can now define `catalan`{.jayret} as follows:
 
 ```jayret
 rec catalan = memoize-1((n) -> if (n == 0) {
@@ -294,19 +294,19 @@ rec catalan = memoize-1((n) -> if (n == 0) {
 Note several things about this definition:
 
 
-1. We don’t write `fun catalan(...): ...;`{.pyret} because the
-  procedure bound to `catalan`{.pyret} is produced by `memoize-1`{.pyret}.
+1. We don’t write `fun catalan(...): ...;`{.jayret} because the
+  procedure bound to `catalan`{.jayret} is produced by `memoize-1`{.jayret}.
 
-2. Note carefully that the recursive calls to `catalan`{.pyret} have
+2. Note carefully that the recursive calls to `catalan`{.jayret} have
   to be to the function bound to the result of memoization, thereby
   behaving like an object. Failing to
   refer to this same shared procedure means the recursive calls will
   not be memoized, thereby losing the benefit of this process.
 
-3. We need to use `rec`{.pyret} for reasons we saw earlier
+3. We need to use `rec`{.jayret} for reasons we saw earlier
   [[Streams From Functions](func-as-data.html##streams-from-funs)].
 
-4. Each invocation of `memoize-1`{.pyret} creates a new table of
+4. Each invocation of `memoize-1`{.jayret} creates a new table of
   stored results. Therefore the memoization of different functions
   will each get their own tables rather than sharing tables, which is
   a bad idea!
@@ -429,7 +429,7 @@ replacements and delete “g”). Here are more examples:
 ```
 The basic algorithm is in fact very simple:
 <levenshtein> ::=
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 rec levenshtein :: (List<String>, List<String> -> Number) =
   <levenshtein-body>
@@ -437,7 +437,7 @@ rec levenshtein :: (List<String>, List<String> -> Number) =
 where, because there are two list inputs, there are four cases, of
 which two are symmetric:
 <levenshtein-body> ::=
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 lam(s, t):
   <levenshtein-both-empty>
@@ -447,7 +447,7 @@ end
 ```
 If both inputs are empty, the answer is simple:
 <levenshtein-both-empty> ::=
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 if is-empty(s) and is-empty(t): 0
 ```
@@ -455,7 +455,7 @@ When one is empty, then the edit distance corresponds to the length of
 the other, which needs to inserted (or deleted) in its entirety (so we
 charge a cost of one per character):
 <levenshtein-one-empty> ::=
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 else if is-empty(s): t.length()
 else if is-empty(t): s.length()
@@ -466,7 +466,7 @@ we reflect by recurring on the rest of the words without adding to the
 edit cost). If they are not the same, however, we consider each of the
 possible edits:
 <levenshtein-neither-empty> ::=
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 else:
   if s.first == t.first:
@@ -479,10 +479,10 @@ else:
   end
 end
 ```
-In the first case, we assume `s`{.pyret} has one too many characters, so
+In the first case, we assume `s`{.jayret} has one too many characters, so
 we compute the cost as if we’re deleting it and finding the lowest
 cost for the rest of the strings (but charging one for this deletion);
-in the second case, we symmetrically assume `t`{.pyret} has one too many;
+in the second case, we symmetrically assume `t`{.jayret} has one too many;
 and in the third case, we assume one character got replaced by
 another, so we charge one but consider the rest of both words (e.g.,
 assume “s” was typed for “k” and continue with “itten” and
@@ -538,7 +538,7 @@ data MemoryCell2 {
 Most of the code is unchanged, except that we store two arguments
 rather than one, and correspondingly look up both.
 
-With this, we can redefine `levenshtein`{.pyret} to use memoization:
+With this, we can redefine `levenshtein`{.jayret} to use memoization:
 <levenshtein-memo> ::=
 ```jayret
 rec levenshtein = memoize-2((s, t) -> if (is-empty(s) && is-empty(t)) {
@@ -555,9 +555,9 @@ rec levenshtein = memoize-2((s, t) -> if (is-empty(s) && is-empty(t)) {
     }
 });
 ```
-where the argument to `memoize-2`{.pyret} is precisely what we saw
+where the argument to `memoize-2`{.jayret} is precisely what we saw
 earlier as [<levenshtein-body>](avoid-recomp.html#%28elem._levenshtein-body%29) (and now you know why we
-defined `levenshtein`{.pyret} slightly oddly, not using `fun`{.pyret}).
+defined `levenshtein`{.jayret} slightly oddly, not using `fun`{.jayret}).
 
 The complexity of this algorithm is still non-trivial. First, let’s
 introduce the term suffix: the suffix of a string is the rest of
@@ -656,7 +656,7 @@ studied for [Halloween Analysis](amortized-analysis.html).]{.margin-note}
 MAX-CAT = 11;
 answers = array-of(none, MAX-CAT + 1);
 ```
-Then, the `catalan`{.pyret} function simply looks up the answer in this
+Then, the `catalan`{.jayret} function simply looks up the answer in this
 array:
 
 ```jayret
@@ -669,7 +669,7 @@ Object catalan(n) {
 ```
 But how do we fill the array? We initialize the one known value, and
 use the formula to compute the rest in incremental order. Because we have
-multiple things to do in the body, we use `block`{.pyret}:
+multiple things to do in the body, we use `block`{.jayret}:
 
 ```jayret
 Object fill-catalan(upper) {
@@ -689,9 +689,9 @@ Notice that we have had to undo the natural recursive
 definition—which proceeds from bigger values to smaller ones—to
 instead use a loop that goes from smaller values to larger
 ones. In principle, the program has the danger that when we apply
-`catalan`{.pyret} to some value, that index of `answers`{.pyret} will have
+`catalan`{.jayret} to some value, that index of `answers`{.jayret} will have
 not yet been initialized, resultingin an error. In fact, however, we
-know that because we fill all smaller indices in `answers`{.pyret} before
+know that because we fill all smaller indices in `answers`{.jayret} before
 computing the next larger one, we will never actually encounter this
 error. Note that this requires careful reasoning about our program,
 which we did not need to perform when using memoization because
@@ -706,7 +706,7 @@ looked up the value or computed it afresh.
 
 Now let’s take on rewriting the Levenshtein distance computation:
 <levenshtein-dp> ::=
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 fun levenshtein(s1 :: List<String>, s2 :: List<String>) block:
   <levenshtein-dp/1>
@@ -714,9 +714,9 @@ end
 ```
 We will use a table representing the edit distance for each prefix of
 each word. That is, we will have a two-dimensional table with as many
-rows as the length of `s1`{.pyret} and as many columns as the length of
-`s2`{.pyret}. At each position, we will record the edit distance for the
-prefixes of `s1`{.pyret} and `s2`{.pyret} up to the indices represented by
+rows as the length of `s1`{.jayret} and as many columns as the length of
+`s2`{.jayret}. At each position, we will record the edit distance for the
+prefixes of `s1`{.jayret} and `s2`{.jayret} up to the indices represented by
 that position in the table.
 
 Note that index arithmetic will be a constant burden: if a word is of
@@ -724,14 +724,14 @@ length \(n\), we have to record the edit distance to its \(n + 1\)
 positions, the extra one corresponding to the empty word. This will
 hold for both words:
 <levenshtein-dp/1> ::=
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 s1-len = s1.length()
 s2-len = s2.length()
 answers = array2d(s1-len + 1, s2-len + 1, none)
 <levenshtein-dp/2>
 ```
-Observe that by creating `answers`{.pyret} inside `levenshtein`{.pyret}, we
+Observe that by creating `answers`{.jayret} inside `levenshtein`{.jayret}, we
 can determine the exact size it needs to be based on the inputs,
 rather than having to over-allocate or dynamically grow the array.
 
@@ -745,7 +745,7 @@ Define the functions
 ```
 :::
 
-We have initialized the table with `none`{.pyret}, so we will get an
+We have initialized the table with `none`{.jayret}, so we will get an
  error if we accidentally try to use an uninitialized
  entry.[Which proved to be necessary when
 writing and debugging this code!]{.margin-note} It will
@@ -766,13 +766,13 @@ int lookup(int s1-idx, int s2-idx) {
 ```
 
 Now we have to populate the array. First, we initialize the row
-representing the edit distances when `s2`{.pyret} is empty, and the
-column where `s1`{.pyret} is empty. At \((0, 0)\), the edit distance is
+representing the edit distances when `s2`{.jayret} is empty, and the
+column where `s1`{.jayret} is empty. At \((0, 0)\), the edit distance is
 zero; at every position thereafter, it is the distance of that
 position from zero, because that many characters must be added to one
 or deleted from the other word for the two to coincide:
 <levenshtein-dp/3> ::=
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 for each(s1i from range(0, s1-len + 1)):
   put(s1i, 0, s1i)
@@ -785,11 +785,11 @@ end
 
 Now we finally get to the heart of the computation. We need to iterate
 over every character in each word. these characters are at indices
-`0`{.pyret} to `s1-len - 1`{.pyret} and `s2-len - 1`{.pyret}, which are
-precisely the ranges of values produced by `range(0, s1-len)`{.pyret} and
-`range(0, s2-len)`{.pyret}.
+`0`{.jayret} to `s1-len - 1`{.jayret} and `s2-len - 1`{.jayret}, which are
+precisely the ranges of values produced by `range(0, s1-len)`{.jayret} and
+`range(0, s2-len)`{.jayret}.
 <levenshtein-dp/4> ::=
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 for each(s1i from range(0, s1-len)):
   for each(s2i from range(0, s2-len)):
@@ -833,7 +833,7 @@ traditional when using tabular representations, because we write code
 in terms of elements that are not inherently present, and therefore
 have to create a padded table to hold values for the boundary
 conditions. The alternative would be to allow the table to begin its
-addressing from `-1`{.pyret} so that the main computation looks
+addressing from `-1`{.jayret} so that the main computation looks
 traditional.
 
 At any rate, when this computation is done, the entire table has been

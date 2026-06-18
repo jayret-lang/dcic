@@ -25,7 +25,7 @@ next: Conditionals_and_Booleans.html
 
 Consider the following two expressions to draw the flags of Armenia
 and Austria (respectively). These two countries have the same flag,
-just with different colors. The `frame`{.pyret} operator draws a small
+just with different colors. The `frame`{.jayret} operator draws a small
 black frame around the image.
 
 ```jayret
@@ -40,7 +40,7 @@ frame(above(rectangle(120, 30, "solid", "red"), above(rectangle(120, 30, "solid"
 Rather than write this program twice, it would be nice to write the
 common expression only once, then just change the colors to generate each
 flag. Concretely, we’d like to have a custom operator such as
-`three-stripe-flag`{.pyret} that we could use as follows:
+`three-stripe-flag`{.jayret} that we could use as follows:
 
 ```jayret
 // armenia
@@ -49,7 +49,7 @@ three-stripe-flag("red", "blue", "orange");
 three-stripe-flag("red", "white", "red");
 ```
 
-In this program, we provide `three-stripe-flag`{.pyret} only with the
+In this program, we provide `three-stripe-flag`{.jayret} only with the
 information that customizes the image creation to a specific flag. The
 operation itself would take care of creating and aligning the
 rectangles. We want to end up with the same images for the Armenian
@@ -77,12 +77,12 @@ code as follows:
   case, the expressions that produce the Armenian and Austrian flags).
 
 - Identify which parts are fixed (i.e., the creation of rectangles
-  with dimensions `120`{.pyret} and `30`{.pyret}, the use of `above`{.pyret} to stack the
+  with dimensions `120`{.jayret} and `30`{.jayret}, the use of `above`{.jayret} to stack the
   rectangles) and which
   are changing (i.e., the stripe colors).
 
 - For each changing part, give it a name (say
-  `top`{.pyret}, `middle`{.pyret}, and `bottom`{.pyret}), which will be the
+  `top`{.jayret}, `middle`{.jayret}, and `bottom`{.jayret}), which will be the
   parameter that stands for that part.
 
 - Rewrite the examples to be in terms of these parameters. For example:
@@ -90,7 +90,7 @@ code as follows:
   ```jayret
 frame(above(rectangle(120, 30, "solid", top), above(rectangle(120, 30, "solid", middle), rectangle(120, 30, "solid", bottom))));
   ```
-- Name the function something suggestive: e.g., `three-stripe-flag`{.pyret}.
+- Name the function something suggestive: e.g., `three-stripe-flag`{.jayret}.
 
 - Write the function declaration syntax around the expression:
   
@@ -145,10 +145,10 @@ austria = three-stripe-flag("red", "white", "red");
 ```
 
 (Side note: Jayret only allows one value per name in the directory. If
-your file already had definitions for the names `armenia`{.pyret} or
-`austria`{.pyret}, Jayret will give you an error at this point. You can
-use a different name (like `austria2`{.pyret}) or comment out the
-original definition using `//`{.pyret}.)
+your file already had definitions for the names `armenia`{.jayret} or
+`austria`{.jayret}, Jayret will give you an error at this point. You can
+use a different name (like `austria2`{.jayret}) or comment out the
+original definition using `//`{.jayret}.)
 
 ```{=html}
 <a name="(part._function-call-nm)"></a>
@@ -162,7 +162,7 @@ So far, we have learned three rules for how Jayret processes your program:
   its value.
 
 - If you write a statement that defines a name, Jayret evaluates
-  the expression (right side of `=`{.pyret}), then makes an entry in the
+  the expression (right side of `=`{.jayret}), then makes an entry in the
   directory to associate the name with the value.
 
 - If you write an expression that uses a name from the directory,
@@ -205,7 +205,7 @@ then evaluates the expression, producing the flag image.
 Note that the second expression (with the substituted values) is the
 same expression we started from for the Armenian flag. Substitution
 restores that expression, while still allowing the programmer to write
-the shorthand in terms of `three-stripe-flag`{.pyret}.
+the shorthand in terms of `three-stripe-flag`{.jayret}.
 
 ```{=html}
 <a name="(part._fun-annotations)"></a>
@@ -223,25 +223,25 @@ three-stripe-flag(50, "blue", "red");
 What do you think Jayret will produce for this expression?
 :::
 
-The first parameter to `three-stripe-flag`{.pyret} is supposed to be the
-color of the top stripe. The value `50`{.pyret} is not a string (much less a string naming a
-color). Jayret will substitute `50`{.pyret} for `top`{.pyret} in the first call to
-`rectangle`{.pyret}, yielding the following:
+The first parameter to `three-stripe-flag`{.jayret} is supposed to be the
+color of the top stripe. The value `50`{.jayret} is not a string (much less a string naming a
+color). Jayret will substitute `50`{.jayret} for `top`{.jayret} in the first call to
+`rectangle`{.jayret}, yielding the following:
 
 ```jayret
 frame(above(rectangle(120, 30, "solid", 50), above(rectangle(120, 30, "solid", "blue"), rectangle(120, 30, "solid", "red"))));
 ```
 
-When Jayret tries to evaluate the `rectangle`{.pyret} expression to create
+When Jayret tries to evaluate the `rectangle`{.jayret} expression to create
 the top stripe, it generates an error that refers to that call to
-`rectangle`{.pyret}.
+`rectangle`{.jayret}.
 
 If someone else were using your function, this error might not make
 sense: they didn’t write an expression about rectangles. Wouldn’t it
 be better to have Jayret report that there was a problem in the use of
-`three-stripe-flag`{.pyret} itself?
+`three-stripe-flag`{.jayret} itself?
 
-As the author of `three-stripe-flag`{.pyret}, you can make that happen by
+As the author of `three-stripe-flag`{.jayret}, you can make that happen by
 annotating the parameters with information about the expected type of
 value for each parameter. Here’s the function definition again, this
 time requiring the three parameters to be strings:
@@ -255,12 +255,12 @@ Object three-stripe-flag(String top, String middle, String bottom) {
 Notice that the notation here is similar to what we saw in contracts
 within the documentation: the type name is written before each parameter
 name, separated by a space (so far, one of
-`Number`{.pyret}, `String`{.pyret}, or `Image`{.pyret}).[Putting each parameter
+`Number`{.jayret}, `String`{.jayret}, or `Image`{.jayret}).[Putting each parameter
 on its own line is not required, but it sometimes helps with readability.]{.margin-note}
 
 Run your file with this new definition and try the erroneous call
 again. You should get a different error message that is just in terms
-of `three-stripe-flag`{.pyret}.
+of `three-stripe-flag`{.jayret}.
 
 It is also common practice to add a type annotation that captures the
 type of the function’s output. That annotation goes after the list of
@@ -290,14 +290,14 @@ human readers of programs as to the proper use of user-defined functions.
 
 Imagine that you opened your program file from this chapter a couple
 of months from now. Would you remember what computation
-`three-stripe-flag`{.pyret} does? The name is certainly suggestive, but
+`three-stripe-flag`{.jayret} does? The name is certainly suggestive, but
 it misses details such as that the stripes are stacked vertically
 (rather than horizontally) and that the stripes are equal
 height. Function names aren’t designed to carry this much information.
 
 Programmers also annotate a function with a docstring, a short,
 human-language description of what the function does. Here’s what the
-Jayret docstring might look like for `three-stripe-flag`{.pyret}:
+Jayret docstring might look like for `three-stripe-flag`{.jayret}:
 
 ```jayret
 Image three-stripe-flag(String top, String middle, String bottom) {
@@ -347,11 +347,11 @@ Let’s remind ourselves of the steps for creating a function:
 - Write down some examples of the desired calculation. We did that
   above.
 
-- Identify which parts are fixed (above, `* 1/6`{.pyret}) and which
-  are changing (above, `100`{.pyret}, `150`{.pyret}, `90`{.pyret}...).
+- Identify which parts are fixed (above, `* 1/6`{.jayret}) and which
+  are changing (above, `100`{.jayret}, `150`{.jayret}, `90`{.jayret}...).
 
 - For each changing part, give it a name (say
-  `earth-weight`{.pyret}), which will be the parameter that stands for it.
+  `earth-weight`{.jayret}), which will be the parameter that stands for it.
 
 - Rewrite the examples to be in terms of this parameter:
   
@@ -360,7 +360,7 @@ earth-weight * 1/6;
   ```
   This will be the body, i.e., the expression inside
   the function.
-- Come up with a suggestive name for the function: e.g., `moon-weight`{.pyret}.
+- Come up with a suggestive name for the function: e.g., `moon-weight`{.jayret}.
 
 - Write the syntax for functions around the body expression:
   
@@ -404,7 +404,7 @@ generalize.
 
 Jayret makes this easy to do. Every function can be accompanied by a
 `where { }`{.jayret} block that records the examples. For instance, our
-`moon-weight`{.pyret} function can be modified to read:
+`moon-weight`{.jayret} function can be modified to read:
 
 ```jayret
 int moon-weight(int earth-weight) {
@@ -484,12 +484,12 @@ computation.
 ```
 
 These examples introduce a new built-in function called
-`string-length`{.pyret}. It takes a string as input and produces the
+`string-length`{.jayret}. It takes a string as input and produces the
 number of characters (including spaces and punctuation) in the string.
 These examples also show an example of working with
 numbers other than integers.[Jayret requires a number before the
 decimal point, so if the “whole number” part is zero, you need to write
-`0`{.pyret} before the decimal. Also observe that Jayret uses a decimal
+`0`{.jayret} before the decimal. Also observe that Jayret uses a decimal
 point; it doesn’t support conventions such as
 [“0,02”](https://en.wikipedia.org/wiki/Decimal_separator).]{.margin-note}
 
@@ -587,9 +587,9 @@ Does doing this seem like a good idea? Why or why not?
 This chapter has introduced the idea of a function. Functions play a
 key role in programming: they let us configure computations with
 different concrete values at different times. The first time we
-compute the cost of pens, we might be asking about `10`{.pyret} pens that say
-`"Welcome"`{.pyret}. The next time, we might be asking about `100`{.pyret} pens that say
-`"Go Bears!"`{.pyret}. The core computation is the same in both cases, so we
+compute the cost of pens, we might be asking about `10`{.jayret} pens that say
+`"Welcome"`{.jayret}. The next time, we might be asking about `100`{.jayret} pens that say
+`"Go Bears!"`{.jayret}. The core computation is the same in both cases, so we
 want to write it out once, configuring it with different concrete
 values each time we use it.
 

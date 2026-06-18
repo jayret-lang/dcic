@@ -5,29 +5,6 @@ and this Jayret-flavored fork. Items are grouped by severity and effort.
 
 ## Active gaps (require follow-up work)
 
-### CodeMirror highlighting is Pyret-keyword-aware, not Jayret
-
-The loaded `static/pyret.js` CodeMirror mode tokenizes Pyret keywords
-(`fun`, `end`, `where:`, `check:`, etc.).  After translation, code blocks
-use Jayret syntax (`Object`, `void`, `switch`, `assertEquals`) that the
-Pyret mode does not recognize, so blocks render unstyled or mis-styled.
-
-**Fix**: Port `pyret.js` to a `jayret.js` CodeMirror mode (or extend the
-Pyret mode), then rename the CSS class `{.pyret}` → `{.jayret}` throughout.
-Coordinate with the `jayret-parley-vscode` TextMate grammar at
-`jayret-parley-vscode/syntaxes/jayret.tmLanguage.json`.
-
-**Deferred because**: touching `pyret.js` and all `{.pyret}` inline spans
-is a large coordinated change; it blocks on having a Jayret grammar file.
-
-### Inline `{.pyret}` attribute kept on translated code spans
-
-Inline code spans like `` `expr`{.pyret} `` had their bodies translated
-but kept the `{.pyret}` CSS class.  This class hooks into both the
-CodeMirror highlighter (see above) and the Lua filter's `lang_label` lookup.
-
-Renaming to `{.jayret}` is deferred until the CodeMirror mode is ready.
-
 ### REPL outputs not yet reverified
 
 The 70 `:::{.pyret-repl}` output blocks were not regenerated in this
@@ -60,12 +37,17 @@ at `jayret-lang.github.io/docs/Deferred_from_Pyret.html`.
 
 ## Intentionally kept as Pyret
 
-- `static/pyret.js` — CodeMirror mode (see above, deferred rename)
-- `{.pyret}` CSS class on inline spans (deferred rename)
+- `static/pyret.js` — original CodeMirror mode, still loaded for `pyret-deferred` blocks (Chapter 27)
 - `{#anchor-id-in-Pyret}` heading anchors — kept for URL stability
 
 ## Already fixed
 
+- **Jayret CodeMirror syntax highlighting**: new `static/jayret.js` mode
+  (`switch`, `void`, `Object`, `@Check`, `assertEquals`, `->`, `//`, `/* */`, etc.);
+  loaded alongside `pyret.js` in template; `pyret-repl` default lang updated to `"jayret"`
+- **Inline `{.pyret}` → `{.jayret}` rename**: 2270 occurrences across 46 src/*.md files
+  (29 fenced block openers + 2241 inline code-span attributes); applied via
+  `tools/rebrand-pyret-class-md.py`
 - `PyretReplInteraction` / `PyretRepl` CSS classes → renamed to
   `JayretReplInteraction` / `JayretRepl` in Lua filter + CSS
 - `lang_label("pyret")` → `"Jayret"` in Lua filter

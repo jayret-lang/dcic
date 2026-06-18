@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -148,9 +149,9 @@ Object pr(n) {
     return iter(2, 2, 1);
 }</code></pre></div></div>
 <p>We’ve written both recursively:
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">gcd</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">gcd</code></span>
 by calling itself and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pr</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pr</code></span>
 with recursion on its inner function. But if you’ve programmed before,
 you’ve probably written similar programs with loops.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Because we don’t have loops in Jayret, the best we can do is to use a
@@ -159,7 +160,7 @@ higher-order function; which ones would you use?</p></blockquote></blockquote>
 traditional-looking program.</p>
 <p>Before we start changing any code, let’s make sure we have some tests
 for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">gcd</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">gcd</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
     assertEquals(gcd(4, 5), 1);
     assertEquals(gcd(5, 7), 1);
@@ -186,26 +187,26 @@ continuing:</p>
     }
 }</code></pre></div></div>
 <p>Note that this is completely generic: it has nothing to do with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">gcd</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">gcd</code></span>.
 (It is generic in the same way that higher-order functions like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">map</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">filter</code></span>
 are generic.) It just repeats if
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>
 says to repeat, stops if
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>
 says to stop. This is the essence of a loop.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Observe also that we could, if we wanted, stage [<a
 href="staging.html">Staging</a>]
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">loop-2</code></span>,
 because
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">f</code></span>
 never changes. Rewrite it that way.</p></blockquote></blockquote>
 <p>With
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">loop-2</code></span>,
 we can rewrite
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">gcd</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">gcd</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object gcd(p, q) {
     return loop-2((a, b) -&gt; if (b == 0) {
         return done(a);
@@ -217,30 +218,30 @@ we can rewrite
 fact, this looks like a significant step backward. At least before we
 just had simple, clean recursion, the way Euclid intended it. Now we
 have a higher-order function and we’re passing it the erstwhile
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">gcd</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">gcd</code></span>
 code as a function and there’s this
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">LoopStatus</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">LoopStatus</code></span>
 datatype and…everything’s gotten much more complicated.</p>
 <p>But, not really. The reason we put it in this form is because we’re
 about to exploit a feature of Jayret. The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">for</code></span>
 construct in Jayret actually rewrites as follows:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): parse failed (no shifts)
 for F(a from a_i, b from b_i, …): BODY end</code></pre></div></div>
 <p>gets rewritten to</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): parse failed (no shifts)
 F({(a, b, …): BODY}, a_i, b_i, …)</code></pre></div></div>
 <p>For example, if we write</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">[for map(i : range(0, 10)) { yield i + 1; }];</code></pre></div></div>
 <p>this becomes</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">map((i) -&gt; i + 1, range(0, 10));</code></pre></div></div>
 <p>Now you may see why we rewrote
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">gcd</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">gcd</code></span>.
 Going in reverse, we can rewrite</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): parse failed (no shifts)
 F({(a, b, …): BODY}, a_i, b_i, …)</code></pre></div></div>
 <p>as</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): parse failed (no shifts)
 for F(a from a_i, b from b_i, …): BODY end</code></pre></div></div>
 <p>so the function becomes just</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object gcd(p, q) {
@@ -259,16 +260,16 @@ advanced computing knowledge.</p>
 that loops have the property that the iteration does not consume extra
 space (beyond what the program already needs), and the repetition takes
 place very quickly (a “jump instruction”). In principle, our
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">loop-2</code></span>
 function does not have this property: every iteration is a function
 call, which is more expensive and builds additional stack context.
 However, one or both of these does not actually occur in practice.</p>
 <p>In terms of space, the recursive call to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">loop-2</code></span>
 is the last thing that a call to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">loop-2</code></span>
 does. Furthermore, nothing in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">loop-2</code></span>
 consumes and manipulates the return from that recursive call. This is
 therefore called a tail call. Jayret—like some other languages—causes
 tail calls to not take any extra stack space. In principle, Jayret can
@@ -279,20 +280,20 @@ to the same performance as a traditional loop.</p>
 id="Re-Examining-struct-traverse-element-procedure-lib-render-cond-rkt-38-12">26.4
 Re-Examining for</h3>
 <p>The definition of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">for</code></span>
 given above should make you suspicious: Where’s the loop?!? In fact,
 Jayret’s
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">for</code></span>
 does not do any looping at all: it’s simply a fancy way of writing
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">lam</code></span>.
 Any “looping” behavior is in the function written after
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">for</code></span>.
 To see that, let’s use for with a non-looping function.</p>
 <p>Recall that</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): parse failed (no shifts)
 for F(a from a_i, b from b_i, …): BODY end</code></pre></div></div>
 <p>gets rewritten to</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): parse failed (no shifts)
 F({(a, b, …): BODY}, a_i, b_i, …)</code></pre></div></div>
 <p>Thus, suppose we have this function (from <a
 href="func-as-data.html">Functions as Data</a>):</p>
@@ -309,28 +310,28 @@ Object d-dx-at(f, x) {
     assertEquals([for d-dx-at(n : 10) { yield n * n; }], d-dx-at((n) -&gt; n * n, 10));
 }</code></pre></div></div>
 <p>Since
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">d-dx-at</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">d-dx-at</code></span>
 has no iterative behavior, no iteration occurs. The looping behavior is
 given entirely by the function specified after
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">for</code></span>,
 such as
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">map</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">filter</code></span>,
 or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">loop-2</code></span>
 above.</p>
 <a name="(part._Rewriting-Pollard-Rho)"></a>
 <h3 id="Rewriting-Pollard-Rho">26.5 Rewriting Pollard-Rho</h3>
 <p>Now let’s tackle Pollard-rho. Notice that it’s a three-parameter
 function, so we can’t use the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">loop-2</code></span>
 we had before: that’s only a suitable loop when we have two arguments
 that change on each iteration (often the iteration variable and an
 accumulator). It would be easy to design a 3-argument version of loop,
 say
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-3</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">loop-3</code></span>,
 but we could also have a more general solution, using a tuple:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): parse failed (no shifts)
 data LoopStatus:
   | done(v)
   | next–2(new-x, new-y)
@@ -345,16 +346,16 @@ fun loop-n(f, t):
   end
 end</code></pre></div></div>
 <p>where
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">t</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">t</code></span>
 is a tuple.</p>
 <p>So now we can rewrite
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pr</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pr</code></span>.
 Let’s first rename the old
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pr</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pr</code></span>
 function as
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pr-old</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pr-old</code></span>
 so we can keep it around for testing. Now we can define a “loop”-based
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pr</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pr</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object pr(n) {
     Object g(x) {
         return num-modulo((x * x) + 1, n);
@@ -424,12 +425,12 @@ Object sum-a-lolon(List&lt;Object&gt; lolon) {
     assertEquals(sum-a-lolon(lol), 21);
 }</code></pre></div></div>
 <p>With the annotations, it becomes clear what each function does. In
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lon</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum-a-lon</code></span>,
 each element is a number, so it “contributes itself” to the overall sum.
 In
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lolon</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum-a-lolon</code></span>,
 each element is a list of numbers, so it “contributes its
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lon</code></span>”
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum-a-lon</code></span>”
 to the overall sum.</p>
 <p>Finally, to bring this full circle, we can rewrite the above the
 functions as follows:</p>
@@ -440,11 +441,11 @@ Object sum-a-lolon(List&lt;Object&gt; lolon) {
     return [for sum-a-list(List&lt;Object&gt; l : lolon) { yield sum-a-lon(l); }];
 }</code></pre></div></div>
 <p>Arguably this makes even clearer what each element contributes. In
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lon</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum-a-lon</code></span>
 each element is a number, so it contributes just that number. In
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lolon</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum-a-lolon</code></span>,
 each element is a list of numbers, so it must contribute
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lon</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum-a-lon</code></span>
 of that list.</p>
 <a name="(part._Loops-Values-and-Customization)"></a>
 <h3 id="Loops-Values-and-Customization">26.7 Loops, Values, and
@@ -466,29 +467,29 @@ produce values so that we can compose them together. 2. Many languages
 have strong opinions on exactly how many looping constructs there should
 be: two? three? four? In Jayret, there are no built-in looping
 constructs at all; there’s just a syntax
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>)
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">for</code></span>)
 that serves as a proxy for creating a specific
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lam</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">lam</code></span>.
 With it, we can reuse existing iterative functions (like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">map</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>),
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">filter</code></span>),
 but also define new ones. Some can be very generic, like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">loop-2</code></span>
 or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-n</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">loop-n</code></span>,
 but others can be very specific, like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-list</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum-a-list</code></span>.
 The language designers don’t prevent you from writing a loop that is
 useful to your situation, and sometimes the loop can be very expressive,
 as we see from rewriting
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lon</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum-a-lon</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lolon</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum-a-lolon</code></span>
 atop
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">for</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-list</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">sum-a-list</code></span>.</p>
 <div class="navsetbottom">
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="factoring-numbers.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_advanced.html">up</a>&nbsp;&nbsp;<a href="booklet_interaction.html" rel="next">next &rarr;</a></span>&nbsp;

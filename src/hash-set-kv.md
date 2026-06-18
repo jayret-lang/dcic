@@ -40,7 +40,7 @@ strategies for converting arbitrary values into numbers, which we will
 rely on here. Therefore, we could write this material around numbers
 alone. To make the examples more interesting, and to better illustrate
 some real-world issues, we will instead use strings. To hash them, we
-will use `hash-of`{.pyret}, defined there, which simply adds up a
+will use `hash-of`{.jayret}, defined there, which simply adds up a
 string’s code points.
 
 We use this function for multiple reasons. First, it is sufficient to
@@ -61,7 +61,7 @@ is a member of the set; every other number is not a member of this
 set.
 
 Therefore, a simple representation is to just store this list of numbers. For instance, we can store the list
-`[list: "Hello", "World!", "🏴‍☠️"] as [list: 500, 553, 195692]`{.pyret}.
+`[list: "Hello", "World!", "🏴‍☠️"] as [list: 500, 553, 195692]`{.jayret}.
 
 Unfortunately, this does not help very much. Insertion can be done in
 constant time, but checking membership requires us to traverse the
@@ -102,7 +102,7 @@ strength and weakness.
 The main benefit to arrays is that we can access any element in the
 array in constant time. This is in contrast to lists where, to
 get to the \(n\)th element, we have to first traverse the previous
-\(n-1\) elements (using successive `rest`{.pyret}s).
+\(n-1\) elements (using successive `rest`{.jayret}s).
 
 However, this benefit comes at a cost. The reason arrays can support
 constant-time access is because the size of an array is fixed
@@ -163,7 +163,7 @@ Is the above hash function invertible?
 :::
 
 We just need to find two strings that have the same hash. Given the
-definition of `hash-of`{.pyret}, it’s easy to see that any rearrangement of the
+definition of `hash-of`{.jayret}, it’s easy to see that any rearrangement of the
 letters produces the same hash:
 
 ::: {.pyret-repl}
@@ -237,7 +237,7 @@ While collisions are probabilistic, and depend on the choice of hash
 function, we have an even more fundamental and unavoidable reason for
 collisions. We have to store an array of the largest possible hash
 size. However, not only can hash values be very large (try to run
-`insert("🏴‍☠️")`{.pyret} and see what happens), there isn’t even an a priori
+`insert("🏴‍☠️")`{.jayret} and see what happens), there isn’t even an a priori
 limit to the size of a hash. This fundamentally flies in the face of
 arrays, which must have a fixed size.
 
@@ -288,7 +288,7 @@ rather a list of the actual values that hashed to that bucket. Then,
 we just check for membership in that list.
 
 First, we will abstract over finding the bucket number in
-`insert`{.pyret} and `is-in`{.pyret}:
+`insert`{.jayret} and `is-in`{.jayret}:
 
 ```jayret
 Object index-of(String s) {
@@ -359,8 +359,8 @@ size of the bucket (which, with duplicates, could be arbitrarily
 larger relative to the number of distinct elements). And even if we
 check for duplicates, we run the risk that most or even all the
 elements could end up in the same bucket (e.g., suppose the elements
-are `"Where"`{.pyret}, `"Weird"`{.pyret}, `"Wired"`{.pyret},
-`"Whine"`{.pyret}). In that case, our sophisticated implementation
+are `"Where"`{.jayret}, `"Weird"`{.jayret}, `"Wired"`{.jayret},
+`"Whine"`{.jayret}). In that case, our sophisticated implementation
 reduces to the list-based representation and its complexity!
 
 There’s an additional subtlety here. When we check membership of the
@@ -388,7 +388,7 @@ tend to be very popular in practice.
 
 Another way to improve the space and time complexity is to relax the
 properties we expect of the operations. Right now, set membership
-gives perfect answers, in that it answers `true`{.pyret} exactly when the
+gives perfect answers, in that it answers `true`{.jayret} exactly when the
 element being checked was previously inserted into the set. But
 suppose we’re in a setting where we can accept a more relaxed notion
 of correctness, where membership tests can “lie” slightly in one
@@ -520,18 +520,18 @@ data KV {
 ```
 Each bucket is still an empty list, but we understand it to be a list of key-value pairs.
 
-Previously, we only had `is-in`{.pyret} to check whether an element was
+Previously, we only had `is-in`{.jayret} to check whether an element was
 present in a set or not. That element is now the key, and we could
 have a similar function to check whether the key is present. However,
 we rarely want to know just that; in fact, because we already know the
 key, we usually want the associated value.
 
-Therefore, we can just have this one function:[We use Jayret’s naming convention of `-now`{.pyret} to indicate that this result might change later.]{.margin-note}
+Therefore, we can just have this one function:[We use Jayret’s naming convention of `-now`{.jayret} to indicate that this result might change later.]{.margin-note}
 
 ```jayret
 /* contract: getkv-now :: Object */;
 ```
-Of course, `getkv-now`{.pyret} may fail: the key may not be present. That is,
+Of course, `getkv-now`{.jayret} may fail: the key may not be present. That is,
 it has become a partial function [[Partial Domains](partial-domains.html)]. We
 therefore have all the usual strategies for dealing with partial
 functions. Here, for simplicity we choose to return an error if the
@@ -544,7 +544,7 @@ Similarly, we have:
 ```jayret
 /* contract: setkv-now :: Object */;
 ```
-This is the generalization of `insert`{.pyret}. However, `insert`{.pyret}
+This is the generalization of `insert`{.jayret}. However, `insert`{.jayret}
 had no reason to return an error: inserting an element twice was
 harmless. However, because keys must now be associated with only one
 value, insertion has to check whether the key is already present, and
@@ -593,11 +593,11 @@ Do the above pair of functions do all the necessary error-checking?
 :::
 
 ::: {.exercise}
-Above, `setkv-now`{.pyret} raises an error if a key already has a name associated with it.
+Above, `setkv-now`{.jayret} raises an error if a key already has a name associated with it.
 A natural variation is to instead override the associated value, so that
 the new value is now associated with that key. Modify the implementation to do that
 instead, and make sure you test it thoroughly! Note that you may need to modify the
-`KV`{.pyret} datatype also.
+`KV`{.jayret} datatype also.
 :::
 
 This concludes our brief tour of sets (yet again!) and key-value

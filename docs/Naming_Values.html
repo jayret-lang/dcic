@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -149,32 +150,32 @@ pane.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Put the following in the definitions pane:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">red-circ = circle(30, "solid", "red");</code></pre></div></div>
 <p>Hit run, then enter
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">red-circ</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">red-circ</code></span>
 in the interactions pane. You should see the red circle.</p></blockquote></blockquote>
 <p>More generally, if you write code in the form:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">NAME = EXPRESSION;</code></pre></div></div>
 <p>Jayret will associate the value of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">EXPRESSION</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">EXPRESSION</code></span>
 with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">NAME</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">NAME</code></span>.
 Anytime you write the (shorthand)
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">NAME</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">NAME</code></span>,
 Jayret will automatically (behind the scenes) replace it with the value
 of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">EXPRESSION</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">EXPRESSION</code></span>.
 For example, if you write
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x = 5 + 4</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">x = 5 + 4</code></span>
 at the prompt, then write
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">x</code></span>,
 CPO will give you the value
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">9</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">9</code></span>
 (not the original
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">5 + 4</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">5 + 4</code></span>
 expression).</p>
 <p>What if you enter a name at the prompt that you haven’t associated
 with a value?</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Try typing
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">puppy</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">puppy</code></span>
 at the interactions pane prompt (›››). Are there any terms in the error
 message that are unfamiliar to you?</p></blockquote></blockquote>
 <p>CPO (and indeed many programming tools) use the phrase “unbound
@@ -190,29 +191,29 @@ worth reviewing them.</p>
 <li><p>Syntactically (another way of saying “in terms of how we write
 it”), we distinguish strings and names by the presence of double
 quotation marks. Note the difference between
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">puppy</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">puppy</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"puppy"</code></span>.</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"puppy"</code></span>.</p></li>
 <li><p>Strings can contain spaces, but names cannot. For example,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"hot pink"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"hot pink"</code></span>
 is a valid piece of data, but
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">hot; pink</code></span>
 is not a single name. When you want to combine multiple words into a
 name (like we did above with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">red-circ</code></span>),
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">red-circ</code></span>),
 use a hyphen to separate the words while still having a single name (as
 a sequence of characters). Different programming languages allow
 different separators; for Jayret, we’ll use hyphens.</p></li>
 <li><p>Entering a word as a name versus as a string at the interactions
 prompt changes the computation that you are asking Jayret to perform. If
 you enter
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">puppy</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">puppy</code></span>
 (the name, without double quotes), you are asking Jayret to lookup the
 value that you previously stored under that name. If you enter
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"puppy"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"puppy"</code></span>
 (the string, with double quotes) you are simply writing down a piece of
 data (akin to typing a number like
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>):
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">3</code></span>):
 Jayret returns the value you entered as the result of the
 computation.</p></li>
 <li><p>If you enter a name that you have not previously associated with
@@ -224,7 +225,7 @@ we’ll set that aside for now).</p></li>
 </ul>
 <p>Novice programmers frequently confuse names and strings at first. For
 now, remember that the names you associate with values using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">=</code></span>
 cannot contain quotation marks, while word- or text-based data must be
 wrapped in double quotes.</p>
 <a name="(part._naming-expr-statements)"></a>
@@ -236,10 +237,10 @@ values. Expressions tell Jayret to perform a computation and return the
 result.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Enter each of the following at the interactions prompt:</p>
 <ul>
-<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">5 + 8</code></span></p></li>
-<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x = 14 + 16</code></span></p></li>
-<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">triangle(20, "solid", "purple")</code></span></p></li>
-<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">blue-circ = circle(x, "solid", "blue")</code></span></p></li>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">5 + 8</code></span></p></li>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">x = 14 + 16</code></span></p></li>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">triangle(20, "solid", "purple")</code></span></p></li>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">blue-circ = circle(x, "solid", "blue")</code></span></p></li>
 </ul>
 <p>The first and third are expressions, while the second and fourth are
 definitions. What do you observe about the results of entering
@@ -251,16 +252,16 @@ statements, which don’t yield values but instead give some other kind of
 instruction to the language. So far, definitions are the only kinds of
 statements we’ve seen.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Assuming you still have the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">blue-circ</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">blue-circ</code></span>
 definition from above in your interactions pane, enter
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">blue-circ</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">blue-circ</code></span>
 at the prompt (you can re-enter that definition if it is no longer
 there).</p>
 <p>Based on what Jayret does in response, is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">blue-circ</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">blue-circ</code></span>
 an expression or a definition?</p></blockquote></blockquote>
 <p>Since
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">blue-circ</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">blue-circ</code></span>
 yielded a result, we infer that a name by itself is also an expression.
 This exercise highlights the difference between making a definition and
 using a defined name. One produces a value while the other does not. But
@@ -270,9 +271,9 @@ Otherwise, how could you use that name later?</p>
 <h4 id="program-directory">3.2.3 The Program Directory</h4>
 <p>Programming tools do work behind the scenes as they run programs.
 Given the program
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">2 + 3</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">2 + 3</code></span>,
 for example, a calculation takes place to produce
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">5</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">5</code></span>,
 which in turn displays in the interactions pane.</p>
 <p>When you write a definition, Jayret makes an entry in an internal
 directory in which it associates names with values. You can’t see the
@@ -280,36 +281,36 @@ directory, but Jayret uses it to manage the values that you’ve
 associated with names. If you write:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">width = 30;</code></pre></div></div>
 <p>Jayret makes a new directory entry for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">width</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">width</code></span>
 and records that
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">width</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">width</code></span>
 has value
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">30</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">30</code></span>.
 If you then write</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">height = width * 3;</code></pre></div></div>
 <p>Jayret evaluates the expression on the right side
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">width * 3</code></span>),
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">width * 3</code></span>),
 then stores the resulting value (here,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">90</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">90</code></span>)
 alongside
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">height</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">height</code></span>
 in the directory.</p>
 <p>How does Jayret evaluate
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">width * 3</code></span>)?
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">width * 3</code></span>)?
 Since
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">width</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">width</code></span>
 is a word (not a string), Jayret looks up its value in the directory.
 Jayret substitutes that value for the name in the expression, resulting
 in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">30 * 3</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">30 * 3</code></span>,
 which then evaluates to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">90</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">90</code></span>.
 After running these two expressions, the directory looks like:</p>
 <div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">width</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">30</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">height</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">90</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
 <p>Note that the entry for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">height</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">height</code></span>
 in the directory has the result of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">width * 3</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">width * 3</code></span>,
 not the expression. This will become important as we use named values to
 prevent us from doing the same computation more than once.</p>
 <p>The program directory is an essential part of how programs evaluate.
@@ -324,7 +325,7 @@ you press the Run button:</p>
 interact with the program directory?</p></blockquote></blockquote>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What happens if you enter a subsequent definition for the same name,
 such as
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">width = 50</code></span>?
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">width = 50</code></span>?
 How does Jayret respond? What if you then ask to see the value
 associated with this same name at the prompt? What does this tell you
 about the directory?</p></blockquote></blockquote>
@@ -335,7 +336,7 @@ warning you that the name is already in the directory. If you ask for
 the value associated with the name again, you’ll see that it still has
 the original value. Jayret doesn’t let you change the value associated
 with an existing name with the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">name = value</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">name = value</code></span>
 notation. While there is a notation that will let you reassign values,
 we won’t work with this concept until <a
 href="mutating-variables.html">Mutating Variables</a>.</p>
@@ -351,7 +352,7 @@ blue-rect = rectangle(width, height, "solid", "blue");</code></pre></div></div>
 <p>When you press Run, Jayret first clears out the program directory. It
 then processes your file line by line, starting at the top. If you have
 an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">include</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">include</code></span>
 statement, Jayret adds the definitions from the included library to the
 directory. After processing all of the lines for this program, the
 directory will look like:</p>
@@ -362,7 +363,7 @@ Jayret consulting the directory.</p>
 <p>If you now type</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">beside(blue-rect, rectangle(20, 20, "solid", "purple"));</code></pre></div></div>
 <p>Jayret will look up the image associated with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">blue-rect</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">blue-rect</code></span>.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Is the purple rectangle in the directory? What about the image with
 the two rectangles?</p></blockquote></blockquote>
 <p>Neither of these shapes is in the directory. Why? We didn’t ask
@@ -371,13 +372,13 @@ instead wrote the following (at the interactions prompt)?</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">two-rects = beside(blue-rect, rectangle(20, 20, "solid", "purple"));</code></pre></div></div>
 <p>Now, the two-shape image would be in the directory, associated with
 the name
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">two-rects</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">two-rects</code></span>.
 The purple rectangle by itself, however, still would not be stored in
 the directory. We could, however, reference the two-shape image by name,
 as shown below:</p>
 <p><img src="run-demo.png" width="982" height="239" /></p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Imagine that we now hit the Run button again, then typed
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">two-rects</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">two-rects</code></span>
 at the interactions prompt. How would Jayret respond and why?</p></blockquote></blockquote>
 <a name="(part._naming-for-images)"></a>
 <h4 id="naming-for-images">3.2.4 Using Names to Streamline Building
@@ -393,7 +394,7 @@ image:</p>
 green-sqr = rectangle(60, 60, "solid", "green");
 overlay(rotate(45, purple-tri), green-sqr);</code></pre></div></div>
 <p>In this version, the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">overlay</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">overlay</code></span>
 expression is quicker to read because we gave descriptive names to the
 initial shapes.</p>
 <p>Go one step further: let’s add another purple-triangle on top of the
@@ -402,15 +403,15 @@ existing image:</p>
 green-sqr = rectangle(60, 60, "solid", "green");
 above(purple-tri, overlay(rotate(45, purple-tri), green-sqr));</code></pre></div></div>
 <p>Here, we see a new benefit to leveraging names: we can use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">purple-tri</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">purple-tri</code></span>
 twice in the same expression without having to write out the longer
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">triangle</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">triangle</code></span>
 expression more than once.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Assume that your definitions pane contained only this most recent
 code example (including the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">purple-tri</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">purple-tri</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">green-sqr</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">green-sqr</code></span>
 definitions). How many separate images would appear in the interactions
 pane if you pressed Run? Do you see the purple triangle and green square
 on their own, or only combined? Why or why not?</p></blockquote></blockquote>

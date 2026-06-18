@@ -61,7 +61,7 @@ Our task plan has two key steps: find the names of the genetic
 parents of the named person, then find the names of the parents of
 each of those people. Both steps share the need to compute the known
 parents from a name, so we should create a helper function for that
-(we’ll call it `parents-of`{.pyret}). Since this sounds like a routine
+(we’ll call it `parents-of`{.jayret}). Since this sounds like a routine
 table program, we can use it for a bit of review:
 
 ```{=html}
@@ -101,7 +101,7 @@ List<Object> parents-of(Table anc-table, String who) {
 
 ::: {.do-now}
 Are you satisfied with this program? With the examples included in the
-`where`{.pyret} block? Write down any critiques you have.
+`where`{.jayret} block? Write down any critiques you have.
 :::
 
 There are arguably some issues here. How many of these did you catch?
@@ -115,14 +115,14 @@ There are arguably some issues here. How many of these did you catch?
   computation (such as to compute the names of someone’s grandparents).
 
 - If empty strings are not part of the output list, then we’d get
-  the same result from asking for the parents of `"Robert"`{.pyret} (who is
-  in the table) as for `"Kathi"`{.pyret} (who is not). These are
+  the same result from asking for the parents of `"Robert"`{.jayret} (who is
+  in the table) as for `"Kathi"`{.jayret} (who is not). These are
   fundamentally different cases, which arguably demand different
   outputs so we can tell them apart.
 
 To fix these problems, we need to remove the empty strings from the
 produced list of parents and return something other than the
-`empty`{.pyret} list when a name is not in the table. Since the output of
+`empty`{.jayret} list when a name is not in the table. Since the output of
 this function is a list of strings, it’s hard to see what to return
 that couldn’t be confused for a valid list of names. Our solution for
 now is to have Jayret throw an error (like the ones you get when Jayret
@@ -145,15 +145,15 @@ List<Object> parents-of(Table anc-table, String who) {
 }
 ```
 
-The `raise`{.pyret} construct tells Jayret to halt the program and produce
+The `raise`{.jayret} construct tells Jayret to halt the program and produce
 an error message. The error message does not have to match the
 expected output type of the program. If you run this function with a
 name that is not in the table, you’ll see an error appear in the
 interactions pane, with no result returned.
 
-Within the `where`{.pyret} block, we see how to check whether an
-expression will yield an error: instead of using `is`{.pyret} to check
-the equality of values, we use `raises`{.pyret} to check whether the
+Within the `where`{.jayret} block, we see how to check whether an
+expression will yield an error: instead of using `is`{.jayret} to check
+the equality of values, we use `raises`{.jayret} to check whether the
 provided string is a sub-string of the actual error produced by the
 program.
 
@@ -163,7 +163,7 @@ program.
 
 ##### 7.1.1.2 Computing Grandparents from an Ancestry Table {#Computing-Grandparents-from-an-Ancestry-Table}
 
-Once we have the `parents-of`{.pyret} function, we should be able to
+Once we have the `parents-of`{.jayret} function, we should be able to
 compute the grandparents by computing parents of parents, as follows:
 
 ```jayret
@@ -185,8 +185,8 @@ correctly compute the list of grandparents?
 
 This grandparents-of code works fine for someone who has both
 parents in the table. For someone without two parents, however, the
-`plist`{.pyret} will have fewer than two names, so the expression
-`plist.rest.first`{.pyret} (if not `plist.first`{.pyret}) will yield an
+`plist`{.jayret} will have fewer than two names, so the expression
+`plist.rest.first`{.jayret} (if not `plist.first`{.jayret}) will yield an
 error.
 
 Here’s a version that checks the number of parents before computing
@@ -214,7 +214,7 @@ What if we now wanted to gather up all of someone’s ancestors? Since
 we don’t know how many generations there are, we’d need to use
 recursion. This approach would also be expensive, since we’d end up
 filtering over the table over and over, which checks every row of the
-table in each use of `filter`{.pyret}.
+table in each use of `filter`{.jayret}.
 
 Look back at the ancestry tree picture. We don’t do any complicated
 filtering there – we just follow the line in the picture immediately
@@ -242,7 +242,7 @@ data AncTree {
 
 For example, anna’s row might look like:
 
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 anna-row = person("Anna", 1997, "blue", ???, ???)
 ```
@@ -251,21 +251,21 @@ What type do we put in the blanks? A quick brainstorm yields
 several ideas:
 
 
-- `person`{.pyret}
+- `person`{.jayret}
 
-- `List < person >`{.pyret}
+- `List < person >`{.jayret}
 
 - some new datatype
 
-- `AncTree`{.pyret}
+- `AncTree`{.jayret}
 
-- `String`{.pyret}
+- `String`{.jayret}
 
 Which should it be?
 
-If we use a `String`{.pyret}, we’re back to the table row, and we don’t
+If we use a `String`{.jayret}, we’re back to the table row, and we don’t
 end up with a way to easily get from one person to another. We should
-therefore make this an `AncTree`{.pyret}.
+therefore make this an `AncTree`{.jayret}.
 
 ```jayret
 data AncTree {
@@ -274,11 +274,11 @@ data AncTree {
 ```
 
 ::: {.do-now}
-Write the `AncTree`{.pyret} starting from `Anna`{.pyret} using this definition.
+Write the `AncTree`{.jayret} starting from `Anna`{.jayret} using this definition.
 :::
 
 Did you get stuck? What do we do when we run out of known people? To
-handle that, we must add an option in the `AncTree`{.pyret} definition to
+handle that, we must add an option in the `AncTree`{.jayret} definition to
 capture people for whom we don’t know anything.
 
 ```jayret
@@ -310,10 +310,10 @@ anna-tree2 = person("Anna", 1997, "blue", susan-tree, charlie-tree);
 The latter gives you pieces of the tree to use as other examples, but
 loses the structure that is visible in the indentation of the first
 version. You could get to pieces of the first version by digging into
-the data, such as writing `anna-tree.mother.mother`{.pyret} to get to the
+the data, such as writing `anna-tree.mother.mother`{.jayret} to get to the
 tree starting from "Ellen".
 
-Here’s the `parents-of`{.pyret} function written against `AncTree`{.pyret}:
+Here’s the `parents-of`{.jayret} function written against `AncTree`{.jayret}:
 
 ```jayret
 List<Object> parents-of-tree(AncTree tr) {
@@ -335,7 +335,7 @@ How would we write a function to determine whether anyone in the tree
 had a particular name? To be clear, we are trying to fill in the
 following code:
 
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 fun in-tree(at :: AncTree, name :: String) -> Boolean:
   doc: "determine whether name is in the tree"
@@ -343,7 +343,7 @@ fun in-tree(at :: AncTree, name :: String) -> Boolean:
 ```
 
 How do we get started? Add some examples, remembering to check both
-cases of the `AncTree`{.pyret} definition:
+cases of the `AncTree`{.jayret} definition:
 
 ```jayret
 boolean in-tree(AncTree at, String name) {
@@ -358,7 +358,7 @@ What next? When we were working on lists, we talked about
 the template, a skeleton of code that we knew we could write
 based on the structure of the data. The template names the pieces of
 each kind of data, and makes recursive calls on pieces that have the
-same type. Here’s the template over the `AncTree`{.pyret} filled in:
+same type. Here’s the template over the `AncTree`{.jayret} filled in:
 
 ```jayret
 boolean in-tree(AncTree at, String name) {
@@ -381,7 +381,7 @@ boolean in-tree(AncTree at, String name) {
 To finish the code, we need to think about how to fill in the
 ellipses.
 
-- When the tree is `noInfo`{.pyret}, it has no more people, so the answer
+- When the tree is `noInfo`{.jayret}, it has no more people, so the answer
   should be false (as worked out in the examples).
 
 - When the tree is a person, there are three possibilities: we
@@ -393,7 +393,7 @@ ellipses.
   we are looking for. The recursive calls already ask about the name
   being in the mother’s tree or father’s tree. We just need to combine
   those pieces into one Boolean answer. Since there are three
-  possibilities, we should combine them with `||`{.pyret}
+  possibilities, we should combine them with `||`{.jayret}
 
 Here’s the final code:
 
@@ -426,10 +426,10 @@ on lists:
 
 - Write examples of your trees for use in testing
 
-- Write the function name, parameters, and types (the `fun`{.pyret}
+- Write the function name, parameters, and types (the `fun`{.jayret}
   line)
 
-- Write `where`{.pyret} checks for your code
+- Write `where`{.jayret} checks for your code
 
 - Write the template, including the cases and recursive
   calls. Here’s the template again for an ancestor tree, for an

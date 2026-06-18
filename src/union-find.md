@@ -34,7 +34,7 @@ enhance comparison.
 #### 18.3.1 Implementing with State {#Implementing-with-State}
 
 First, we have to update the definition of an element, making the
-`parent`{.pyret} field be mutable:
+`parent`{.jayret} field be mutable:
 
 ```jayret
 data Element {
@@ -42,10 +42,10 @@ data Element {
 }
 ```
 To determine whether two elements are in the same set, we will still
-rely on `fynd`{.pyret}. However, as we will soon see, `fynd`{.pyret} no
+rely on `fynd`{.jayret}. However, as we will soon see, `fynd`{.jayret} no
 longer needs to be given the entire set of elements. Because the only
-reason `is-in-same-set`{.pyret} consumed that set was to pass it on to
-`fynd`{.pyret}, we can remove it from here. Nothing else changes:
+reason `is-in-same-set`{.jayret} consumed that set was to pass it on to
+`fynd`{.jayret}, we can remove it from here. Nothing else changes:
 
 ```jayret
 boolean is-in-same-set(Element e1, Element e2) {
@@ -62,13 +62,13 @@ Object update-set-with(Element child, Element parent) {
     return child ! {parent some(parent) }
 }
 ```
-In `parent: some(parent)`{.pyret}, the first `parent`{.pyret} is the name of
+In `parent: some(parent)`{.jayret}, the first `parent`{.jayret} is the name of
 the field, while the second one is the parameter name. In addition, we
-must use `some`{.pyret} to satisfy the option type. Naturally, it is not
-`none`{.pyret} because the entire point of this mutation is to change the
+must use `some`{.jayret} to satisfy the option type. Naturally, it is not
+`none`{.jayret} because the entire point of this mutation is to change the
 parent to be the other element, irrespective of what was there before.
 
-Given this definition, `union`{.pyret} also stays largely unchanged,
+Given this definition, `union`{.jayret} also stays largely unchanged,
 other than the change to the return type. Previously, it needed to
 return the updated set of elements; now, because the update is
 performed by mutation, there is no longer any need to return anything:
@@ -84,7 +84,7 @@ Object union(Element e1, Element e2) {
     }
 }
 ```
-Finally, `fynd`{.pyret}. Its implementation is now remarkably
+Finally, `fynd`{.jayret}. Its implementation is now remarkably
 simple. There is no longer any need to search through the
 set. Previously, we had to search because after union operations have
 occurred, the parent reference might have no longer been valid. Now,
@@ -105,9 +105,9 @@ Element fynd(Element e) {
 
 #### 18.3.2 Optimizations {#Optimizations}
 
-Look again at `fynd`{.pyret}. In the `some`{.pyret} case, the element bound
-to `e`{.pyret} is not the set name; that is obtained by recursively
-traversing `parent`{.pyret} references. As this value returns, however,
+Look again at `fynd`{.jayret}. In the `some`{.jayret} case, the element bound
+to `e`{.jayret} is not the set name; that is obtained by recursively
+traversing `parent`{.jayret} references. As this value returns, however,
 we don’t do anything to reflect this new knowledge! Instead, the next
 time we try to find the parent of this element, we’re going to perform
 this same recursive traversal all over again.
@@ -128,7 +128,7 @@ Element fynd(Element e) {
 }
 ```
 Note that this update will apply to every element in the recursive
-chain to find the set name. Therefore, applying `fynd`{.pyret} to
+chain to find the set name. Therefore, applying `fynd`{.jayret} to
 any of those elements the next time around will benefit from
 this update. This idea is called path compression.
 

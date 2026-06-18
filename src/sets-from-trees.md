@@ -134,7 +134,7 @@ Is this definition correct?
 It’s not. To actually throw away half the tree, we need to be sure
 that everything in the left sub-tree is less than the value in
 the root and similarly, everything in the right sub-tree is greater
-than the root.[We have used `<=`{.pyret} instead of `<`{.pyret} above
+than the root.[We have used `<=`{.jayret} instead of `<`{.jayret} above
 because even though we don’t want to permit duplicates when
 representing sets, in other cases we might not want to be so
 stringent; this way we can reuse the above implementation for other
@@ -163,7 +163,7 @@ binary trees that are search trees:
 type BST = BT % (is-a-bst );
 ```
 We can also remind ourselves that the purpose of this exercise was to
-define sets, and define `TSet`{.pyret}s to be tree sets:
+define sets, and define `TSet`{.jayret}s to be tree sets:
 
 ```jayret
 type TSet = BST;
@@ -225,15 +225,15 @@ the BST, and in the latter case also ensuring it. Make sure you
 identify where, why, and how.
 
 You should now be able to define the remaining operations. Of these,
-`size`{.pyret} clearly requires linear time (since it has to count all
-the elements), but because `is-in`{.pyret} and `insert`{.pyret} both throw
+`size`{.jayret} clearly requires linear time (since it has to count all
+the elements), but because `is-in`{.jayret} and `insert`{.jayret} both throw
 away one of two children each time they recur, they take logarithmic
 time.
 
 ::: {.exercise}
 Suppose we frequently needed to compute the size of a set. We ought
-to be able to reduce the time complexity of `size`{.pyret} by having each
-tree [☛ cache](glossary.html#%28elem._glossary-cache%29) its size, so that `size`{.pyret} could
+to be able to reduce the time complexity of `size`{.jayret} by having each
+tree [☛ cache](glossary.html#%28elem._glossary-cache%29) its size, so that `size`{.jayret} could
 complete in constant time (note that the size of the tree clearly fits
 the criterion of a cache, since it can always be reconstructed).
 Update the data definition and all affected functions to keep track of
@@ -248,18 +248,18 @@ this information correctly.
 
 But wait a minute. Are we actually done? Our recurrence takes the
 form \(T(k) = T(k/2) + c\), but what in our data definition guaranteed
-that the size of the child traversed by `is-in`{.pyret} will be half the
+that the size of the child traversed by `is-in`{.jayret} will be half the
 size?
 
 ::: {.do-now}
 Construct an example—consisting of a sequence of
-`insert`{.pyret}s to the empty tree—such that the resulting tree is not
+`insert`{.jayret}s to the empty tree—such that the resulting tree is not
 balanced. Show that searching for certain elements in this tree will
 take linear, not logarithmic, time in its size.
 :::
 
 Imagine starting with the empty tree and inserting the values
-`1`{.pyret}, `2`{.pyret}, `3`{.pyret}, and `4`{.pyret}, in order. The
+`1`{.jayret}, `2`{.jayret}, `3`{.jayret}, and `4`{.jayret}, in order. The
 resulting tree would be
 
 ```jayret
@@ -267,7 +267,7 @@ resulting tree would be
     assertEquals(insert(4, insert(3, insert(2, insert(1, mt-set)))), node(1, leaf, node(2, leaf, node(3, leaf, node(4, leaf, leaf)))));
 }
 ```
-Searching for `4`{.pyret} in this tree would have to examine all the set
+Searching for `4`{.jayret} in this tree would have to examine all the set
 elements in the tree. In other words, this binary search tree is
 degenerate—it is effectively a list, and we are back to having
 the same complexity we had earlier.
@@ -277,7 +277,7 @@ the complexity we want: it does only if our inputs have arrived in
 just the right order. However, we cannot assume any input ordering;
 instead, we would like an implementation that works in all cases.
 Thus, we must find a way to ensure that the tree is always
-balanced, so each recursive call in `is-in`{.pyret}
+balanced, so each recursive call in `is-in`{.jayret}
 really does throw away half the elements.
 
 ::: {.exercise}
@@ -300,8 +300,8 @@ tree (and hence the set) have an even number of elements and, even
 more stringently, to have a size that is a power of two.
 
 ::: {.exercise}
-Define a predicate for a BBST that consumes a `BT`{.pyret} and returns a
-`Boolean`{.pyret} indicating whether or not it a balanced search tree.
+Define a predicate for a BBST that consumes a `BT`{.jayret} and returns a
+`Boolean`{.jayret} indicating whether or not it a balanced search tree.
 :::
 
 Therefore, we relax the notion of balance to one that is both
@@ -329,16 +329,16 @@ just as well be applied to a BBST without any loss of correctness.
 
 So far, so easy. All that leaves is a means of creating a
 BBST, because it’s responsible for ensuring balance. It’s easy to
-see that the constant `empty-set`{.pyret} is a BBST value. So that
-leaves only `insert`{.pyret}.
+see that the constant `empty-set`{.jayret} is a BBST value. So that
+leaves only `insert`{.jayret}.
 
-Here is our situation with `insert`{.pyret}. Assuming we start with a
+Here is our situation with `insert`{.jayret}. Assuming we start with a
 BBST, we can determine in logarithmic time whether the element is
 already in the tree and, if so, ignore it.[To implement a
 bag we count how many of each element are in it, which does not
 affect the tree’s height.]{.margin-note}
 When inserting an element, given balanced trees, the
-`insert`{.pyret} for a BST takes only a logarithmic amount of time to
+`insert`{.jayret} for a BST takes only a logarithmic amount of time to
 perform the insertion. Thus, if performing the insertion does not
 affect the tree’s balance, we’re done. Therefore, we only need to
 consider cases where performing the insertion throws off the balance.
@@ -366,7 +366,7 @@ dictate what to do in each case.
 
 The number of cases is actually quite overwhelming (if you didn’t
 think so, you missed a few...). Therefore, we instead attack the
-problem after it has occurred: allow the existing BST `insert`{.pyret}
+problem after it has occurred: allow the existing BST `insert`{.jayret}
 to insert the element, assume that we have an imbalanced tree,
 and show how to restore its balance.[The insight that a tree can
 be made “self-balancing” is quite remarkable, and there are now many
@@ -376,7 +376,7 @@ initials it is called an AVL Tree, though the tree itself is quite
 evident; their genius is in defining re-balancing.]{.margin-note}
 
 Thus, in what follows, we begin with a tree that is balanced;
-`insert`{.pyret} causes it to become imbalanced; we have assumed that the
+`insert`{.jayret} causes it to become imbalanced; we have assumed that the
 insertion happened in the left sub-tree. In particular, suppose a
 (sub-)tree has a balance factor of \(2\) (positive because we’re
 assuming the left is imbalanced by insertion). The procedure for
@@ -384,11 +384,11 @@ restoring balance depends critically on the following property:
 
 ::: {.exercise}
 Show that if a tree is currently balanced, i.e., the balance factor at every
-node is \(-1\), \(0\), or \(1\), then `insert`{.pyret} can at worst make
+node is \(-1\), \(0\), or \(1\), then `insert`{.jayret} can at worst make
 the balance factor \(\pm 2\).
 :::
 
-The algorithm that follows is applied as `insert`{.pyret} returns from
+The algorithm that follows is applied as `insert`{.jayret} returns from
 its recursion, i.e., on the path from the inserted value back to the
 root. Since this path is of logarithmic length in the set’s size (due
 to the balancing property), and (as we shall see) performs only a

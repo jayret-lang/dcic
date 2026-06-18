@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -156,7 +157,7 @@ parents of the named person, then find the names of the parents of each
 of those people. Both steps share the need to compute the known parents
 from a name, so we should create a helper function for that (we’ll call
 it
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parents-of</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">parents-of</code></span>).
 Since this sounds like a routine table program, we can use it for a bit
 of review:</p>
 <a name="(part._compute-parents-table)"></a>
@@ -186,7 +187,7 @@ directly into code:</p>
 }</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Are you satisfied with this program? With the examples included in
 the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where</code></span>
 block? Write down any critiques you have.</p></blockquote></blockquote>
 <p>There are arguably some issues here. How many of these did you
 catch?</p>
@@ -199,15 +200,15 @@ problems if we use this list of names in a subsequent computation (such
 as to compute the names of someone’s grandparents).</p></li>
 <li><p>If empty strings are not part of the output list, then we’d get
 the same result from asking for the parents of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Robert"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Robert"</code></span>
 (who is in the table) as for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Kathi"</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Kathi"</code></span>
 (who is not). These are fundamentally different cases, which arguably
 demand different outputs so we can tell them apart.</p></li>
 </ul>
 <p>To fix these problems, we need to remove the empty strings from the
 produced list of parents and return something other than the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">empty</code></span>
 list when a name is not in the table. Since the output of this function
 is a list of strings, it’s hard to see what to return that couldn’t be
 confused for a valid list of names. Our solution for now is to have
@@ -228,26 +229,26 @@ problems:</p>
     
 }</code></pre></div></div>
 <p>The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">raise</code></span>
 construct tells Jayret to halt the program and produce an error message.
 The error message does not have to match the expected output type of the
 program. If you run this function with a name that is not in the table,
 you’ll see an error appear in the interactions pane, with no result
 returned.</p>
 <p>Within the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where</code></span>
 block, we see how to check whether an expression will yield an error:
 instead of using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is</code></span>
 to check the equality of values, we use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raises</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">raises</code></span>
 to check whether the provided string is a sub-string of the actual error
 produced by the program.</p>
 <a name="(part._Computing-Grandparents-from-an-Ancestry-Table)"></a>
 <h5 id="Computing-Grandparents-from-an-Ancestry-Table">7.1.1.2 Computing
 Grandparents from an Ancestry Table</h5>
 <p>Once we have the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parents-of</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">parents-of</code></span>
 function, we should be able to compute the grandparents by computing
 parents of parents, as follows:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">List&lt;Object&gt; grandparents-of(Table anc-table, String who) {
@@ -263,11 +264,11 @@ parents of parents, as follows:</p>
 correctly compute the list of grandparents?</p></blockquote></blockquote>
 <p>This grandparents-of code works fine for someone who has both parents
 in the table. For someone without two parents, however, the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">plist</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">plist</code></span>
 will have fewer than two names, so the expression
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">plist.rest.first</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">plist.rest.first</code></span>
 (if not
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">plist.first</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">plist.first</code></span>)
 will yield an error.</p>
 <p>Here’s a version that checks the number of parents before computing
 the set of grandparents:</p>
@@ -291,7 +292,7 @@ we don’t know how many generations there are, we’d need to use
 recursion. This approach would also be expensive, since we’d end up
 filtering over the table over and over, which checks every row of the
 table in each use of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">filter</code></span>.</p>
 <p>Look back at the ancestry tree picture. We don’t do any complicated
 filtering there – we just follow the line in the picture immediately
 from a person to their mother or father. Can we get that idea in code
@@ -309,34 +310,34 @@ which basically turns a row into a person value:</p>
     Person(String name, int birthyear, String eye, ________ mother, ________ father);
 }</code></pre></div></div>
 <p>For example, anna’s row might look like:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): parse failed (no shifts)
 anna-row = person("Anna", 1997, "blue", ???, ???)</code></pre></div></div>
 <p>What type do we put in the blanks? A quick brainstorm yields several
 ideas:</p>
 <ul>
-<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">person</code></span></p></li>
-<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">List &lt; person &gt;</code></span></p></li>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">person</code></span></p></li>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">List &lt; person &gt;</code></span></p></li>
 <li><p>some new datatype</p></li>
-<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span></p></li>
-<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span></p></li>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">AncTree</code></span></p></li>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">String</code></span></p></li>
 </ul>
 <p>Which should it be?</p>
 <p>If we use a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">String</code></span>,
 we’re back to the table row, and we don’t end up with a way to easily
 get from one person to another. We should therefore make this an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">AncTree</code></span>.</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data AncTree {
     Person(String name, int birthyear, String eye, AncTree mother, AncTree father);
 }</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Write the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">AncTree</code></span>
 starting from
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Anna</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Anna</code></span>
 using this definition.</p></blockquote></blockquote>
 <p>Did you get stuck? What do we do when we run out of known people? To
 handle that, we must add an option in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">AncTree</code></span>
 definition to capture people for whom we don’t know anything.</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data AncTree {
     NoInfo;
@@ -357,12 +358,12 @@ anna-tree2 = person("Anna", 1997, "blue", susan-tree, charlie-tree);</code></pre
 loses the structure that is visible in the indentation of the first
 version. You could get to pieces of the first version by digging into
 the data, such as writing
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">anna-tree.mother.mother</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">anna-tree.mother.mother</code></span>
 to get to the tree starting from “Ellen”.</p>
 <p>Here’s the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parents-of</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">parents-of</code></span>
 function written against
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">AncTree</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">List&lt;Object&gt; parents-of-tree(AncTree tr) {
     return switch (tr) {
         case NoInfo: yield empty;
@@ -376,13 +377,13 @@ Ancestor Trees</h4>
 <p>How would we write a function to determine whether anyone in the tree
 had a particular name? To be clear, we are trying to fill in the
 following code:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): parse failed (no shifts)
 fun in-tree(at :: AncTree, name :: String) -&gt; Boolean:
   doc: "determine whether name is in the tree"
   ...</code></pre></div></div>
 <p>How do we get started? Add some examples, remembering to check both
 cases of the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">AncTree</code></span>
 definition:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">boolean in-tree(AncTree at, String name) {
     // determine whether name is in the tree
@@ -395,7 +396,7 @@ template, a skeleton of code that we knew we could write based on the
 structure of the data. The template names the pieces of each kind of
 data, and makes recursive calls on pieces that have the same type.
 Here’s the template over the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">AncTree</code></span>
 filled in:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">boolean in-tree(AncTree at, String name) {
     // determine whether name is in the tree
@@ -416,7 +417,7 @@ filled in:</p>
 ellipses.</p>
 <ul>
 <li><p>When the tree is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">noInfo</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">noInfo</code></span>,
 it has no more people, so the answer should be false (as worked out in
 the examples).</p></li>
 <li><p>When the tree is a person, there are three possibilities: we
@@ -427,7 +428,7 @@ looking for. The recursive calls already ask about the name being in the
 mother’s tree or father’s tree. We just need to combine those pieces
 into one Boolean answer. Since there are three possibilities, we should
 combine them with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">||</code></span></p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">||</code></span></p></li>
 </ul>
 <p>Here’s the final code:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">boolean in-tree(AncTree at, String name) {
@@ -452,10 +453,10 @@ on lists:</p>
 case</p></li>
 <li><p>Write examples of your trees for use in testing</p></li>
 <li><p>Write the function name, parameters, and types (the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fun</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">fun</code></span>
 line)</p></li>
 <li><p>Write
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where</code></span>
 checks for your code</p></li>
 <li><p>Write the template, including the cases and recursive calls.
 Here’s the template again for an ancestor tree, for an arbitrary

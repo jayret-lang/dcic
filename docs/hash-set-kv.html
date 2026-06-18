@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -147,7 +148,7 @@ into numbers, which we will rely on here. Therefore, we could write this
 material around numbers alone. To make the examples more interesting,
 and to better illustrate some real-world issues, we will instead use
 strings. To hash them, we will use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hash-of</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">hash-of</code></span>,
 defined there, which simply adds up a string’s code points.</p>
 <p>We use this function for multiple reasons. First, it is sufficient to
 illustrate some of the consequences of hashing. Second, in practice,
@@ -162,7 +163,7 @@ is a member of the set; every other number is not a member of this
 set.</p>
 <p>Therefore, a simple representation is to just store this list of
 numbers. For instance, we can store the list
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[list: "Hello", "World!", "🏴‍☠️"] as [list: 500, 553, 195692]</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">[list: "Hello", "World!", "🏴‍☠️"] as [list: 500, 553, 195692]</code></span>.</p>
 <p>Unfortunately, this does not help very much. Insertion can be done in
 constant time, but checking membership requires us to traverse the
 entire list, which takes linear time in the worst case. Alternatively,
@@ -196,7 +197,7 @@ array in constant time. This is in contrast to lists where, to get to
 the <span class="math inline">\(n\)</span>th element, we have to first
 traverse the previous <span class="math inline">\(n-1\)</span> elements
 (using successive
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">rest</code></span>s).</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">rest</code></span>s).</p>
 <p>However, this benefit comes at a cost. The reason arrays can support
 constant-time access is because the size of an array is fixed at
 creation time. Thus, while we can keep extending a list using link, we
@@ -239,7 +240,7 @@ different strings have to map to two different locations.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Is the above hash function invertible?</p></blockquote></blockquote>
 <p>We just need to find two strings that have the same hash. Given the
 definition of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">hash-of</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">hash-of</code></span>,
 it’s easy to see that any rearrangement of the letters produces the same
 hash:</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">hash-of("Hello");</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">500</code></pre></div></div></p></td></tr></table>
@@ -287,7 +288,7 @@ multiples of 4, using a prime like 31 is often a fairly good bet.</span></span><
 function, we have an even more fundamental and unavoidable reason for
 collisions. We have to store an array of the largest possible hash size.
 However, not only can hash values be very large (try to run
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert("🏴‍☠️")</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">insert("🏴‍☠️")</code></span>
 and see what happens), there isn’t even an a priori limit to the size of
 a hash. This fundamentally flies in the face of arrays, which must have
 a fixed size.</p>
@@ -325,9 +326,9 @@ the collision problems. Each bucket is not a single Boolean value, but
 rather a list of the actual values that hashed to that bucket. Then, we
 just check for membership in that list.</p>
 <p>First, we will abstract over finding the bucket number in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">insert</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-in</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object index-of(String s) {
     return num-remainder(hash-of(s), BUCKET-COUNT);
 }</code></pre></div></div>
@@ -380,10 +381,10 @@ could be arbitrarily larger relative to the number of distinct
 elements). And even if we check for duplicates, we run the risk that
 most or even all the elements could end up in the same bucket (e.g.,
 suppose the elements are
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Where"</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Weird"</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Wired"</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Whine"</code></span>).
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Where"</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Weird"</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Wired"</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">"Whine"</code></span>).
 In that case, our sophisticated implementation reduces to the list-based
 representation and its complexity!</p>
 <p>There’s an additional subtlety here. When we check membership of the
@@ -405,7 +406,7 @@ to be very popular in practice.</p>
 <p>Another way to improve the space and time complexity is to relax the
 properties we expect of the operations. Right now, set membership gives
 perfect answers, in that it answers
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">true</code></span>
 exactly when the element being checked was previously inserted into the
 set. But suppose we’re in a setting where we can accept a more relaxed
 notion of correctness, where membership tests can “lie” slightly in one
@@ -517,7 +518,7 @@ representation:</p>
 <p>Each bucket is still an empty list, but we understand it to be a list
 of key-value pairs.</p>
 <p>Previously, we only had
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-in</code></span>
 to check whether an element was present in a set or not. That element is
 now the key, and we could have a similar function to check whether the
 key is present. However, we rarely want to know just that; in fact,
@@ -525,11 +526,11 @@ because we already know the key, we usually want the associated
 value.</p>
 <p>Therefore, we can just have this one
 function:<span class="refelem"><span class="refcolumn"><span class="refcontent">We use Jayret’s naming convention of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">-now</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">-now</code></span>
 to indicate that this result might change later.</span></span></span></p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: getkv-now :: Object */;</code></pre></div></div>
 <p>Of course,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">getkv-now</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">getkv-now</code></span>
 may fail: the key may not be present. That is, it has become a partial
 function [<a href="partial-domains.html">Partial Domains</a>]. We
 therefore have all the usual strategies for dealing with partial
@@ -539,9 +540,9 @@ partiality are valid (and often better in a robust implementation).</p>
 <p>Similarly, we have:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">/* contract: setkv-now :: Object */;</code></pre></div></div>
 <p>This is the generalization of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">insert</code></span>.
 However,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">insert</code></span>
 had no reason to return an error: inserting an element twice was
 harmless. However, because keys must now be associated with only one
 value, insertion has to check whether the key is already present, and
@@ -579,13 +580,13 @@ modify the array to refer to the new list.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Do the above pair of functions do all the necessary
 error-checking?</p></blockquote></blockquote>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Above,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">setkv-now</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">setkv-now</code></span>
 raises an error if a key already has a name associated with it. A
 natural variation is to instead override the associated value, so that
 the new value is now associated with that key. Modify the implementation
 to do that instead, and make sure you test it thoroughly! Note that you
 may need to modify the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">KV</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">KV</code></span>
 datatype also.</p></blockquote></blockquote>
 <p>This concludes our brief tour of sets (yet again!) and key-value
 stores or dictionaries. We have chosen to implement both using arrays,

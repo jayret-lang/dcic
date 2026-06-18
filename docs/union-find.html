@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -139,21 +140,21 @@ comparison.</p>
 <a name="(part._Implementing-with-State)"></a>
 <h4 id="Implementing-with-State">18.3.1 Implementing with State</h4>
 <p>First, we have to update the definition of an element, making the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">parent</code></span>
 field be mutable:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data Element {
     Elt(val, ref Option&lt;Object&gt; parent);
 }</code></pre></div></div>
 <p>To determine whether two elements are in the same set, we will still
 rely on
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">fynd</code></span>.
 However, as we will soon see,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">fynd</code></span>
 no longer needs to be given the entire set of elements. Because the only
 reason
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is-in-same-set</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is-in-same-set</code></span>
 consumed that set was to pass it on to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">fynd</code></span>,
 we can remove it from here. Nothing else changes:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">boolean is-in-same-set(Element e1, Element e2) {
     s1 = fynd(e1);
@@ -166,18 +167,18 @@ value of the parent:</p>
     return child ! {parent some(parent) }
 }</code></pre></div></div>
 <p>In
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent: some(parent)</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">parent: some(parent)</code></span>,
 the first
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">parent</code></span>
 is the name of the field, while the second one is the parameter name. In
 addition, we must use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">some</code></span>
 to satisfy the option type. Naturally, it is not
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">none</code></span>
 because the entire point of this mutation is to change the parent to be
 the other element, irrespective of what was there before.</p>
 <p>Given this definition,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">union</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">union</code></span>
 also stays largely unchanged, other than the change to the return type.
 Previously, it needed to return the updated set of elements; now,
 because the update is performed by mutation, there is no longer any need
@@ -192,7 +193,7 @@ to return anything:</p>
     }
 }</code></pre></div></div>
 <p>Finally,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">fynd</code></span>.
 Its implementation is now remarkably simple. There is no longer any need
 to search through the set. Previously, we had to search because after
 union operations have occurred, the parent reference might have no
@@ -207,13 +208,13 @@ mutation. Hence:</p>
 <a name="(part._Optimizations)"></a>
 <h4 id="Optimizations">18.3.2 Optimizations</h4>
 <p>Look again at
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">fynd</code></span>.
 In the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">some</code></span>
 case, the element bound to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">e</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">e</code></span>
 is not the set name; that is obtained by recursively traversing
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">parent</code></span>
 references. As this value returns, however, we don’t do anything to
 reflect this new knowledge! Instead, the next time we try to find the
 parent of this element, we’re going to perform this same recursive
@@ -232,7 +233,7 @@ can be: compute the value of the parent, and update it.</p>
 }</code></pre></div></div>
 <p>Note that this update will apply to every element in the recursive
 chain to find the set name. Therefore, applying
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">fynd</code></span>
 to any of those elements the next time around will benefit from this
 update. This idea is called path compression.</p>
 <p>There is one more interesting idea we can apply. This is to maintain

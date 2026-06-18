@@ -59,7 +59,7 @@ source and destintion nodes are the same, or they’re not.
 
 This translates into the following function:
 <graph-reach-1-main> ::=
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 fun reach-1(src :: Key, dst :: Key, g :: Graph) -> Boolean:
   if src == dst:
@@ -70,7 +70,7 @@ fun reach-1(src :: Key, dst :: Key, g :: Graph) -> Boolean:
   end
 end
 ```
-where the loop through the neighbors of `src`{.pyret} is:
+where the loop through the neighbors of `src`{.jayret} is:
 <graph-reach-1-loop> ::=
 ```jayret
 Object loop(ns) {
@@ -113,7 +113,7 @@ Which of the above examples leads to a cycle? Why?
 
 Before we continue, let’s try to improve the expression of the
 loop. While the nested function above is a perfectly reasonable
-definition, we can use Jayret’s `for`{.pyret} to improve its readability.
+definition, we can use Jayret’s `for`{.jayret} to improve its readability.
 
 The essence of the above loop is to iterate over a list of boolean
 values; if one of them is true, the entire loop evaluates to true; if
@@ -175,14 +175,14 @@ boolean reach-2(Key src, Key dst, Graph g, List<Object> visited) {
 In particular, note the extra new conditional: if the reachability
 check has already visited this node before, there is no point
 traversing further from here, so it returns
-`false`{.pyret}. (There may still be other parts of the graph to explore,
+`false`{.jayret}. (There may still be other parts of the graph to explore,
 which other recursive calls will do.)
 
 ::: {.exercise}
 Does it matter if the first two conditions were swapped, i.e., the
-beginning of `reach-2`{.pyret} began with
+beginning of `reach-2`{.jayret} began with
 
-```pyret
+```jayret
 # TODO(pyret2jayret): parse failed (no shifts)
 if src == dst:
   true
@@ -204,7 +204,7 @@ visiting. Does this distinction matter? How?
 
 ##### 17.2.1.4 A Better Interface {#A-Better-Interface}
 
-As the process of testing `reach-2`{.pyret} shows, we may have a better
+As the process of testing `reach-2`{.jayret} shows, we may have a better
 implementation, but we’ve changed the function’s interface; now it has
 a needless extra argument, which is not only a nuisance but might also
 result in errors if we accidentally misuse it. Therefore, we should
@@ -231,7 +231,7 @@ implementing reachability.
 
 ::: {.exercise}
 Does this really gives us a correct implementation? In particular,
-does this address the problem that the `size`{.pyret} function above
+does this address the problem that the `size`{.jayret} function above
 addressed? Create a test case that demonstrates the problem, and then
 fix it.
 :::

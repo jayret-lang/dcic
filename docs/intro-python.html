@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -130,9 +131,9 @@ programming skills: how to work with tables, how to design good
 examples, the basics of creating datatypes, and how to work with the
 fundamental computational building blocks of functions, conditionals,
 and repetition (through
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">filter</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">map</code></span>,
 as well as recursion). You’ve got a solid initial toolkit, as well as a
 wide world of other possible programs ahead of you!</p>
 <p>But we’re going to shift gears for a little while and show you how to
@@ -165,7 +166,7 @@ types using an example of computing the cost of an order of pens. An
 order consisted of a number of pens and a message to be printed on the
 pens. Each pen cost 25 cents, plus 2 cents per character for the
 message. Here was the original Jayret code:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
 fun pen-cost(num-pens :: Number, message :: String) -&gt; Number:
   doc: ```total cost for pens, each 25 cents
           plus 2 cents per message character```
@@ -182,7 +183,7 @@ end</code></pre></div></div>
 <li><p>Python uses
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">def</code></span>
 instead of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fun</code></span>.</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">fun</code></span>.</p></li>
 <li><p>Python uses underscores in names (like
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">pen_cost</code></span>)
 instead of hyphens as in Jayret.</p></li>
@@ -191,9 +192,9 @@ instead of hyphens as in Jayret.</p></li>
 and
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">int</code></span>
 instead of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">String</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Number</code></span>.
 In addition, Python uses only a single colon before the type whereas
 Jayret uses a double colon.</p></li>
 <li><p>Python has different types for different kinds of numbers:
@@ -201,13 +202,13 @@ Jayret uses a double colon.</p></li>
 is for integers, while
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">float</code></span>
 is for decimals. Jayret just used a single type
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>)
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">Number</code></span>)
 for all numbers.</p></li>
 <li><p>Python doesn’t label the documentation string (as Jayret does
 with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">doc:</code></span>).</p></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">doc:</code></span>).</p></li>
 <li><p>There is no
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">end</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">end</code></span>
 annotation in Python. Instead, Python uses indentation to locate the end
 of an if/else statement, function, or other multi-line
 construct.</p></li>
@@ -224,7 +225,7 @@ type annotations (unless you bring in additional tools for checking
 types). Python types are like notes for programmers, but they aren’t
 enforced when programs run.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Convert the following
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">moon-weight</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">moon-weight</code></span>
 function from <a
 href="From_Repeated_Expressions_to_Functions.html##moon-weight-pyret">Functions
 Practice: Moon Weight</a> into Python:</p>
@@ -242,7 +243,7 @@ every function produces a result, so there is no need to label where the
 result comes from.</p>
 <p>As we will see, Python is different: not all “functions” return
 results (note the name change from
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fun</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">fun</code></span>
 to
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">def</code></span>).<span class="refelem"><span class="refcolumn"><span class="refcontent">In mathematics, functions have results by definition. Programmers
 sometimes distinguish between the terms “function” and “procedure”: both
@@ -284,15 +285,15 @@ href="mutating-variables.html">Mutating Variables</a>.</p>
 <a name="(part._testing-python)"></a>
 <h4 id="testing-python">9.1.3 Examples and Test Cases</h4>
 <p>In Jayret, we included examples with every function using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where:</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where:</code></span>
 blocks. We also had the ability to write
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check:</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">check:</code></span>
 blocks for more extensive tests. As a reminder, here was the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">pen-cost</code></span>
 code including a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where:</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where:</code></span>
 block:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): Unexpected token '`', "```total c"... is not valid JSON
 fun pen-cost(num-pens :: Number, message :: String) -&gt; Number:
   doc: ```total cost for pens, each 25 cents
        plus 2 cents per message character```
@@ -302,7 +303,7 @@ where:
   pen-cost(10, "smile") is 3.50
 end</code></pre></div></div>
 <p>Python does not have a notion of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">where:</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where:</code></span>
 blocks, or a distinction between examples and tests. There are a couple
 of different testing packages for Python; here we will use
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">pytest</code></span>,
@@ -343,7 +344,7 @@ to find them.</p></li>
 <li><p>In Python, individual tests have the form</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">assert EXPRESSION == EXPECTED_ANS</code></pre></div></div>
 <p>rather than the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">is</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">is</code></span>
 form from Jayret.</p></li>
 </ul>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Add one more test to the Python code, corresponding to the Jayret
@@ -361,9 +362,9 @@ decisions about how to represent and manage real (non-integer) numbers.
 Sometimes, differences in these representations lead to subtle
 quantitative differences in computed values. As a simple example, let’s
 look at two seemingly simple real numbers
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1/2</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1/2</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1/3</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1/3</code></span>.
 Here’s what we get when we type these two numbers at a Jayret
 prompt:</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">1/2;</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">0.5</code></pre></div></div></p></td></tr></table>
@@ -373,19 +374,19 @@ get:</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">1/2;</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">0.5</code></pre></div></div></p></td></tr></table>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">1/3;</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">0.3333333333333333</code></pre></div></div></p></td></tr></table>
 <p>Notice that the answers look different for
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1/3</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1/3</code></span>.
 As you may (or may not!) recall from an earlier math class,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1/3</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1/3</code></span>
 is an example of a non-terminating, repeating decimal. In plain terms,
 if we tried to write out the exact value of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1/3</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1/3</code></span>
 in decimal form, we would need to write an infinite sequence of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">3</code></span>.
 Mathematicians denote this by putting a horizontal bar over the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">3</code></span>.
 This is the notation we see in Jayret. Python, in contrast, writes out a
 partial sequence of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>s.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">3</code></span>s.</p>
 <p>Underneath this distinction lies some interesting details about
 representing numbers in computers. Computers don’t have infinite space
 to store numbers (or anything else, for that matter): when a program
@@ -420,7 +421,7 @@ like:</p>
 to indicate that we’ll accept any answer that is nearly the value we
 specified. You can control the number of decimal points of precision if
 you want to, but the default of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">± 2.3e-06</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">± 2.3e-06</code></span>
 often suffices.</p>
 <a name="(part._conditionals-python)"></a>
 <h4 id="conditionals-python">9.1.5 Conditionals</h4>
@@ -439,7 +440,7 @@ shipping costs on an order:</p>
     else:
       return order_amt + 12</code></pre></div></div>
 <p>The main difference to notice here is that
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">else if</code></span>
 is written as the single-word
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">elif</code></span>
 in Python. We use
@@ -448,9 +449,9 @@ to mark the function’s results in each branch of the conditional.
 Otherwise, the conditional constructs are quite similar across the two
 languages.</p>
 <p>You may have noticed that Python does not require an explicit
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">end</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">end</code></span>
 annotation on
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>-expressions
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>-expressions
 or functions. Instead, Python looks at the indentation of your code to
 determine when a construct has ended. For example, in the code sample
 for
@@ -475,23 +476,23 @@ could have written a sample word list as follows:</p>
 <p>In Python, this definition would look like:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="python"><code class="sourceCode" data-lang="python">words = ["banana", "bean", "falafel", "leaf"]</code></pre></div></div>
 <p>The only difference here is that Python does not use the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">list:</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">list:</code></span>
 label that is needed in Jayret.</p>
 <a name="(part._Filters-Maps-and-Friends)"></a>
 <h5 id="Filters-Maps-and-Friends">9.1.6.1 Filters, Maps, and
 Friends</h5>
 <p>When we first learned about lists in Jayret, we started with common
 built-in functions such as
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">filter</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">map</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">member</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">filter</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">map</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">member</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">length</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">length</code></span>.
 We also saw the use of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lambda</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">lambda</code></span>
 to help us use some of these functions concisely. These same functions,
 including
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">lambda</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">lambda</code></span>,
 also exist in Python. Here are some samples
 (<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">#</code></span>
 is the comment character in Python):</p>
@@ -560,7 +561,7 @@ fixed collection of fields. Compared to raw classes, dataclasses
 generate a lot of boilerplate code that makes them much lighterweight
 than raw classes.</span></span></span> Here’s an example of a todo-list
 datatype in Jayret and its corresponding Python code:</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): parse failed (no shifts)
 # a todo item in Jayret
 data ToDoItemData:
   | todoItem(descr :: String,
@@ -609,7 +610,7 @@ within Dataclasses</h5>
 <p>In Jayret, we extracted a field from structured data by using a dot
 (period) to “dig into” the datum and access the field. The same notation
 works in Python:</p>
-<table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="pyret"><code class="sourceCode" data-lang="pyret"># TODO(pyret2jayret): parse failed (no shifts)
+<table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret"># TODO(pyret2jayret): parse failed (no shifts)
 travel = ToDoItem("buy tickets", date(2020, 7, 30), ["vacation"])</code></pre></div></div></p></blockquote></td></tr></table>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">travel.descr;</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">"buy tickets"</code></pre></div></div></p></td></tr></table>
 <a name="(part._python-traverse-lists)"></a>
@@ -671,7 +672,7 @@ alternative:</p>
 <p>Note that this framing refers not to the “rest of the computation”,
 but rather to the computation that has happened so far (the “running
 total”). If you happened to work through the chapter on <a
-href="processing-lists.html##running-sum-eg-code"><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-running-sum</code></span>:
+href="processing-lists.html##running-sum-eg-code"><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">my-running-sum</code></span>:
 Examples and Code</a>, this framing might be familiar.</p>
 <p>Let’s convert this prose sketch to code by replacing each line of the
 sketch with concrete code. We do this by setting up a variable named
@@ -727,10 +728,10 @@ to hold the result of the computation as we build it up while traversing
 (working through) the list.</p></li>
 <li><p>The initial value of that variable is the answer we returned in
 the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">empty</code></span>
 case in Jayret.</p></li>
 <li><p>The computation in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">link</code></span>
 case of the Jayret function is used to update that variable in the body
 of the
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">for</code></span>.</p></li>
@@ -766,17 +767,17 @@ run_total = 13 + 3</code></pre></div></div>
 5 + 11;
 16;</code></pre></div></div>
 <p>As a reminder, the Jayret version did this because the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">+</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">+</code></span>
 in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">link</code></span>
 case can only reduce to an answer once the sum of the rest of the list
 has been computed. Even though we as humans see the chain of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">+</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">+</code></span>
 operations in each line of the Jayret unrolling, Jayret sees only the
 expression
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fst + sum-list(rst)</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">fst + sum-list(rst)</code></span>,
 which requires the function call to finish before the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">+</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">+</code></span>
 executes.</p>
 <p>In the case of summing a list, we don’t notice the difference between
 the two versions because the sum is the same whether we compute it
@@ -873,14 +874,14 @@ introduced in the following several sections.</p>
 <h5 id="Variables-that-can-change">9.1.8.5.1 Variables that can
 change</h5>
 <p>First, note that we introduce the variable
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">result</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">result</code></span>
 with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">var result</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">var result</code></span>
 – this means that it can vary, which is important for the use with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for each</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">for each</code></span>.</p>
 <p>By default, all variables in the program directory can never be
 changed. i.e., if I define a variable
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">x</code></span>,
 I can not redefine it later:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">x = 10;
 // ...
@@ -889,31 +890,31 @@ x = 20;
 <p>If we do want to change (or mutate) a variable in the directory
 later, we can, but we must declare the variable can change – as in, when
 we define it, rather than writing
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x = 10</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">x = 10</code></span>,
 we must write
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">var x = 10</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">var x = 10</code></span>.
 Then, when we want to update it, we can do so with the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">=</code></span>
 operator, as is done in the template above.</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">var x = 10;
 // ... x points to 10 in directory
 x = 20;
 // ... x now points to 20 in directory</code></pre></div></div>
 <p>Note that trying to use
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">=</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">=</code></span>
 on a variable that was not declared using
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">var</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">var</code></span>
 will produce an error, and variables can still only ever be declared
 once (whether with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">var x = ...</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">var x = ...</code></span>
 or
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">x = ...</code></span>).</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">x = ...</code></span>).</p>
 <a name="(part._block-notation)"></a>
 <h5 id="block-notation">9.1.8.5.2 block notation</h5>
 <p>Another new language feature shown in these examples is that since
 Jayret functions by default expect only a single (non-definition)
 expression, we have to add the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">block</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">block</code></span>
 annotation at the top, indicating that the body of the function is
 multiple expressions, with the final one being what the function
 evaluates to.</p>
@@ -924,24 +925,24 @@ evaluates to.</p>
 }</code></pre></div></div>
 <p>Jayret would (rightly) error – since the function returns the last
 expression in its body, the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1</code></span>
 will be ignored – and is most likely a mistake! Perhaps the goal was to
 write:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Object my-function() {
     return 1 + 2;
 }</code></pre></div></div>
 <p>However, since a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for each</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">for each</code></span>
 expression exists only to modify a variable, functions that contain them
 will always have multiple expressions, and so we need to communicate to
 Jayret that this is not a mistake. Adding
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">block</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">block</code></span>
 before the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">:</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">:</code></span>
 that begins the function (or, in general, wrapping any expressions in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">block:</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">block:</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">end</code></span>)
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">end</code></span>)
 communicates to Jayret that we understand that there are multiple
 expressions, and just want to evaluate to the last one. So, if we truly
 wanted to write a function as our first example, we could do that
@@ -955,7 +956,7 @@ with:</p>
 id="How-struct-traverse-element-procedure-lib-render-cond-rkt-38-12-works">9.1.8.5.3
 How for each works</h5>
 <p>A
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for each</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">for each</code></span>
 expression runs its body once for each element in the input list, adding
 an entry to the program directory for each element as it goes. It does
 not produce any value directly, so much instead rely on modifying
@@ -972,25 +973,25 @@ does this, following our pattern, as:</p>
     
 }</code></pre></div></div>
 <p>On the concrete test input
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">[5, 1, 7, 3]</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">[5, 1, 7, 3]</code></span>,
 the loop runs four times, once with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">item</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">item</code></span>
 set to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">5</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">5</code></span>,
 then with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">item</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">item</code></span>
 set to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">1</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">1</code></span>,
 then with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">item</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">item</code></span>
 set to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">7</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">7</code></span>,
 and finally with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">item</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">item</code></span>
 set to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3</code></span>.</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">3</code></span>.</p>
 <p>The
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for each</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">for each</code></span>
 construct saves us from writing the common code multiple times, and also
 handles the fact that the lists we are processing can be of arbitrary
 length (so we can’t predict how many times to write the common code).
@@ -1012,7 +1013,7 @@ correspondingly, understanding, code that uses them in other ways.</p>
 variables that can change outside a function, which means it can never
 be used by different functions, or multiple function calls. Each time
 the function runs, a new variable is created, it is modified in the
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for each</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">for each</code></span>
 loop, and then the value is returned, and the entry in the program
 directory is removed.</p>
 <p>Consider what happens if we don’t follow our pattern. Let’s say we
@@ -1032,13 +1033,13 @@ List prefix-under-100(List l) {
     }
 }</code></pre></div></div>
 <p>Now, this might seem reasonable – we’ve used a new construct,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">when</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">when</code></span>,
 which is an
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">if</code></span>
 expression that has no
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">else</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">else</code></span>
 – this only makes sense to do inside of a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">for each</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">for each</code></span>
 block, where we don’t need a value as a result. It is equivalent to:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">if ((count &lt; 100)) {
     output = output + [elt];
@@ -1046,7 +1047,7 @@ block, where we don’t need a value as a result. It is equivalent to:</p>
     return nothing;
 }</code></pre></div></div>
 <p>Where
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">nothing</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">nothing</code></span>
 is a value that is used in Jayret to indicate that there is no
 particular value of importance.</p>
 <p>But what happens when we use this function?</p>
@@ -1058,7 +1059,7 @@ particular value of importance.</p>
 <p>The first two tests pass, but the last one doesn’t. Why? If we run
 the first one again, things are even more confusing, i.e., if instead of
 the above, we ran this
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">check</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">check</code></span>
 block:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
     assertEquals(prefix-under-100([1, 2, 3]), [1, 2, 3]);
@@ -1070,15 +1071,15 @@ block:</p>
 <p>What we are seeing is that since the variable is outside the
 function, it is shared across different calls to the function. It is
 added to the program directory once, and each time we call
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">prefix-under-100</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">prefix-under-100</code></span>,
 the program directory entry is changed, but it is never reset.</p>
 <p>Intentionally, all other uses of mutation have been on directory
 entries that were created only for the body of the function, which meant
 that when the function exited, they were removed. But now, we are always
 modifying the single
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">count</code></span>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">count</code></span>
 variable. This means that every time we call
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">prefix-under-100</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">prefix-under-100</code></span>,
 it behaves differently, because it not only do we have to understand the
 code in the body of the function, we have to know the current value of
 the count variable, which is not something we can figure out by just

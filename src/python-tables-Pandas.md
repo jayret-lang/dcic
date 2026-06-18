@@ -164,7 +164,7 @@ we had already created labels on the columns when we loaded `events`{.python}.
 #### 10.1.2 Filtering Rows {#Filtering-Rows}
 
 Back in Jayret, we filtered rows from a table by writing a function
-from `Row`{.pyret} to `Boolean`{.pyret}. The `filter-with`{.pyret} function
+from `Row`{.jayret} to `Boolean`{.jayret}. The `filter-with`{.jayret} function
 applied that function to every row in the table, returning a new table
 with those rows for which the predicate were true.
 
@@ -323,8 +323,8 @@ events['discount'] = ...
 
 This tells Pandas to replace the current contents of the
 `'discount'`{.python} series with the series on the right side of the
-`=`{.python}. It is similar to `transform-column`{.pyret} from Jayret, but with a
-fundamental difference: in Jayret, `transform-column`{.pyret} left the old
+`=`{.python}. It is similar to `transform-column`{.jayret} from Jayret, but with a
+fundamental difference: in Jayret, `transform-column`{.jayret} left the old
 table intact and produced a new table with the new column
 values. Instead, in Pandas the old column gets replaced, thus
 destroying the original table. There are many nuances to having
@@ -526,7 +526,7 @@ events.loc[bday_mask,'total'] = events['total'] * 0.90
 
 Notice that the notation for computing new columns and updating
 existing ones is the same (unlike in Jayret, where we had different
-operations `build-column`{.pyret} and `transform-column`{.pyret}). In
+operations `build-column`{.jayret} and `transform-column`{.jayret}). In
 Pandas, a new column is created if the given column name doesn’t
 already exist in the DataFrame; otherwise, the existing column with
 the given name gets updated.

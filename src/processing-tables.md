@@ -43,10 +43,10 @@ Take a look at the table. What do you notice that might affect using
 the data in an analysis? Or for the operations for managing an event?
 :::
 
-Some issues jump out quickly: the `three`{.pyret} in the
-`"Num Tickets"`{.pyret} column, differences in capitalization in the
-`"Discount Code"`{.pyret} column, and the use of each of `"none"`{.pyret} and
-blank spaces in the the `"Discount Code"`{.pyret} column (you may have
+Some issues jump out quickly: the `three`{.jayret} in the
+`"Num Tickets"`{.jayret} column, differences in capitalization in the
+`"Discount Code"`{.jayret} column, and the use of each of `"none"`{.jayret} and
+blank spaces in the the `"Discount Code"`{.jayret} column (you may have
 spotted additional issues). Before we do any analysis with this
 dataset, we need to clean it up so that our analysis will be
 reliable. In addition, sometimes our dataset is clean, but it needs to be
@@ -84,12 +84,12 @@ depends on the programming environment that you are using for Jayret:
 
 - If you are using VSCode, you can load tables directly from CSV files
 
-Both use the same Jayret operation (`load-table`{.pyret}), but in slightly
+Both use the same Jayret operation (`load-table`{.jayret}), but in slightly
 different ways.
 
 Google Sheets and CSV files treat the types of data in cells
 differently, so there are also differences in how we manage the types
-of Jayret columns after loading. Columns like `"Num Tickets"`{.pyret} that
+of Jayret columns after loading. Columns like `"Num Tickets"`{.jayret} that
 appear to contain both numbers and strings highlight the
 differences. We discuss these nuances in separate sections for each
 kind of source file.
@@ -106,24 +106,24 @@ ssid = "1Ks4ll5_8wyYK1zyXMm_21KORhagSMZ59dcr7i3qY6T4";
 event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: load-spreadsheet(ssid).sheet-by-name("Orig Data", true);
 ```
 
-- `ssid`{.pyret} is the identifier of the Google Sheet we want to
+- `ssid`{.jayret} is the identifier of the Google Sheet we want to
   load (the identifier is the long sequence of letters and numbers in
   the Google Sheet URL).
 
-- The sequence of names following `load-table`{.pyret} is used for
+- The sequence of names following `load-table`{.jayret} is used for
   the column headers in the Jayret version of the table. These do NOT
   have to match the names used in the original Sheet.
 
-- `source`{.pyret} tells Jayret which sheet to load. The
-  `load-spreadsheet`{.pyret} operation takes the Google Sheet identifier
-  (here, `ssid`{.pyret}), as well as the name of the individual worksheet
-  (or tab) as named within the Google Sheet (here, `"Orig Data"`{.pyret}).
+- `source`{.jayret} tells Jayret which sheet to load. The
+  `load-spreadsheet`{.jayret} operation takes the Google Sheet identifier
+  (here, `ssid`{.jayret}), as well as the name of the individual worksheet
+  (or tab) as named within the Google Sheet (here, `"Orig Data"`{.jayret}).
   The final boolean indicates whether there is a header row in
-  the table (`true`{.pyret} means there is a header row).
+  the table (`true`{.jayret} means there is a header row).
 
 When reading a table from Google Sheets, Jayret treats each column as
 having a type, based on the value in the first row of data. Jayret thus
-reports an error that `three`{.pyret} (in the `"Num Tickets"`{.pyret}
+reports an error that `three`{.jayret} (in the `"Num Tickets"`{.jayret}
 column) is not a number. We’ll discuss how to handle this in
 [Dealing with Columns
 with Multiple Types of Data](processing-tables.html##cols-multiple-types-data).
@@ -134,7 +134,7 @@ with Multiple Types of Data](processing-tables.html##cols-multiple-types-data).
 
 ##### 4.2.1.1.2 Loading Tables from CSV files in VSCode {#loading-tables-from-csv}
 
-We configure the `load-table`{.pyret} operation differently depending on
+We configure the `load-table`{.jayret} operation differently depending on
 whether the CSV file is on your computer or available through a URL.
 
 - Load from a CSV file via URL:
@@ -148,15 +148,15 @@ event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: 
   ```
   :::
   
-  - `url`{.pyret} is the identifier of the web address (URL) where the CSV data
+  - `url`{.jayret} is the identifier of the web address (URL) where the CSV data
     we want to load exists.
 
-  - `source`{.pyret} tells Jayret where to load the data from. The
-    `csv-table-url`{.pyret} operation takes the web address (here, `url`{.pyret}), as well
+  - `source`{.jayret} tells Jayret where to load the data from. The
+    `csv-table-url`{.jayret} operation takes the web address (here, `url`{.jayret}), as well
     as options (which indicate, for example, whether we expect there to be a header
     row).
 
-  - The sequence of names following `load-table`{.pyret} is used for
+  - The sequence of names following `load-table`{.jayret} is used for
     the column headers in the Jayret version of the table. These do NOT
     have to match the names used in the first row of the CSV file (which
     is usually a header row).
@@ -173,8 +173,8 @@ event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: 
 
 When reading a table from CSV, Jayret treats every cell as containing
 a string, even if the cell data appears to be numeric. Thus, Jayret
-does not report an error around the combination of `three`{.pyret} and
-numbers in the `"Num Tickets"`{.pyret} column. The inconsistency would
+does not report an error around the combination of `three`{.jayret} and
+numbers in the `"Num Tickets"`{.jayret} column. The inconsistency would
 resurface, however, if we try to use the column data assuming that
 they are all strings of numerals. If we notice this problem before
 loading our data, we should fix it before we proceed.
@@ -209,14 +209,14 @@ The source data files for this lesson also contain clean versions to
 use in the rest of this chapter.
 
 - If you are using the Google Sheet,
-  look for the separate worksheet/tab named `"Data"`{.pyret} in which the
-  `three`{.pyret} has been replaced with a number. If we use `"Data"`{.pyret}
-  instead of `"Orig Data"`{.pyret} in the above `load-spreadsheet`{.pyret}
+  look for the separate worksheet/tab named `"Data"`{.jayret} in which the
+  `three`{.jayret} has been replaced with a number. If we use `"Data"`{.jayret}
+  instead of `"Orig Data"`{.jayret} in the above `load-spreadsheet`{.jayret}
   command, the event table loads into Jayret.
 
 - If you are using the CSV files in VSCode, modify the file path
-  to end with `"events-f25.csv"`{.pyret} instead of
-  `"events-orig-f25.csv"`{.pyret}.
+  to end with `"events-f25.csv"`{.jayret} instead of
+  `"events-orig-f25.csv"`{.jayret}.
 
 ```{=html}
 <a name="(part._missing-data)"></a>
@@ -231,7 +231,7 @@ something similar), it is possible to leave cells completely
 empty. What happens when we load a table with empty cells into
 Jayret?
 
-The original data file has blanks in the `discount`{.pyret}
+The original data file has blanks in the `discount`{.jayret}
 column. After we load it into Jayret, we see something
 interesting in that column (though what it is will differ depending on
 whether you’re reading from Google Sheets or CSV files).
@@ -242,31 +242,31 @@ whether you’re reading from Google Sheets or CSV files).
 event-data = load-table name ,email ,tickcount ,discount ,delivery source: load-spreadsheet(ssid).sheet-by-name("Data", true);
   ```
   
-  `event-data`{.pyret} will be the following table:
+  `event-data`{.jayret} will be the following table:
   
   ![](unsanitized-discount-table.png){width="654" height="332"}
   
   Note that those cells that had discount codes in them now have an
-  odd-looking notation like `some("student")`{.pyret}, while some of the cells that
-  were empty contain `none`{.pyret}, but `none`{.pyret} isn’t a string. What’s
+  odd-looking notation like `some("student")`{.jayret}, while some of the cells that
+  were empty contain `none`{.jayret}, but `none`{.jayret} isn’t a string. What’s
   going on?
   
   Jayret supports a special type of data called option. As the name
   suggests, option is for data that may or may not be
-  present. `none`{.pyret} is the value that stands for "the data are
-  missing". If a datum are present, it appears wrapped in `some`{.pyret}.
+  present. `none`{.jayret} is the value that stands for "the data are
+  missing". If a datum are present, it appears wrapped in `some`{.jayret}.
   
   Look also at the last two rows (for Zander and Shweta) – they also
   appear empty when seen in Google
-  Sheets, but Jayret has loaded them as strings of spaces (e.g., `some("       ")`{.pyret}).
+  Sheets, but Jayret has loaded them as strings of spaces (e.g., `some("       ")`{.jayret}).
   What does that mean? It means that those cells
   weren’t actually empty in the Google Sheet, but instead contained
   several spaces.
   
   ::: {.do-now}
-  Look at the `discount`{.pyret} value for Ernie’s row: it reads
-  `some("none")`{.pyret}. What does this mean? How is this different from
-  `none`{.pyret} (as in Sam’s row)?
+  Look at the `discount`{.jayret} value for Ernie’s row: it reads
+  `some("none")`{.jayret}. What does this mean? How is this different from
+  `none`{.jayret} (as in Sam’s row)?
   :::
 - If you are using CSV files and VSCode, load the table as
   follows:
@@ -278,12 +278,12 @@ event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: 
   ```
   :::
   
-  `event-data`{.pyret} will be the following table:
+  `event-data`{.jayret} will be the following table:
   
   ![](unsanitized-discount-table-csv.png){width="657" height="328"}
   
-  Note that cells that had no data have either empty strings (`""`{.pyret})
-  or strings with spaces (`"    "`{.pyret}). What caused
+  Note that cells that had no data have either empty strings (`""`{.jayret})
+  or strings with spaces (`"    "`{.jayret}). What caused
   the difference? In the cells where the string has spaces, the cell in
   the original CSV appeared to be empty, but it actually
   contained some spaces. When reading in the CSV, Jayret retains the
@@ -295,7 +295,7 @@ address missing data (and conversion in
 general) is to indicate how to handle
 each column. This guarantees that the data will be as you expect
 after you read them in. We do this with an additional aspect of
-`load-table`{.pyret} called sanitizers. Here’s how we modify the
+`load-table`{.jayret} called sanitizers. Here’s how we modify the
 code:
 
 ```jayret
@@ -304,26 +304,26 @@ import data-source
 event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: load-spreadsheet(ssid).sheet-by-name("Data", true) sanitize name using string-sanitizer sanitize email using string-sanitizer sanitize tickcount using num-sanitizer sanitize discount using string-sanitizer sanitize delivery using string-sanitizer sanitize zip using string-sanitizer;
 ```
 
-Each of the `sanitize`{.pyret} lines tells Jayret what to do in the case
-of missing data in the respective column. `string-sanitizer`{.pyret} says
-to load missing data as an empty string (`""`{.pyret}).
+Each of the `sanitize`{.jayret} lines tells Jayret what to do in the case
+of missing data in the respective column. `string-sanitizer`{.jayret} says
+to load missing data as an empty string (`""`{.jayret}).
 Sanitizers also handle simple data conversions. If the
-`string-sanitizer`{.pyret} were applied to a column with a number (like
-`3`{.pyret}), the sanitizer would convert that number to a string (like
-`"3"`{.pyret}). Similarly, applying `num-sanitizer`{.pyret} to a column
-would convert number-strings (like `"3"`{.pyret}) to an actual number
-(`3`{.pyret}).
+`string-sanitizer`{.jayret} were applied to a column with a number (like
+`3`{.jayret}), the sanitizer would convert that number to a string (like
+`"3"`{.jayret}). Similarly, applying `num-sanitizer`{.jayret} to a column
+would convert number-strings (like `"3"`{.jayret}) to an actual number
+(`3`{.jayret}).
 
-Using sanitizers, the `event-data`{.pyret} table reads
+Using sanitizers, the `event-data`{.jayret} table reads
 in as follows:
 
 ![](sanitized-discount-table.png){width="693" height="344"}
 
 ::: {.do-now}
-Did you notice that we sanitized the `zip`{.pyret} column with
-`string-sanitizer`{.pyret} instead of `num-sanitizer`{.pyret}? Aren’t zip
-codes numbers? Try the above code with each of `string-sanitizer`{.pyret}
-and `num-sanitizer`{.pyret} for `code`{.pyret} and see if you can spot the
+Did you notice that we sanitized the `zip`{.jayret} column with
+`string-sanitizer`{.jayret} instead of `num-sanitizer`{.jayret}? Aren’t zip
+codes numbers? Try the above code with each of `string-sanitizer`{.jayret}
+and `num-sanitizer`{.jayret} for `code`{.jayret} and see if you can spot the
 difference.
 :::
 
@@ -337,14 +337,14 @@ zip codes as strings treats them as identifiers more than
 numbers. We’ll return to this point later in this chapter ([Visualizations and Plots](processing-tables.html##visualizing-tables)).
 
 A note on default values:
-Unlike `string-sanitizer`{.pyret}, `num-sanitizer`{.pyret} does
+Unlike `string-sanitizer`{.jayret}, `num-sanitizer`{.jayret} does
 NOT convert blank cells to a default value (such as 0). There
 is no single default value that would make sense for all the ways in
-which numbers are used: while `0`{.pyret} would be a plausible default for
+which numbers are used: while `0`{.jayret} would be a plausible default for
 missing numbers of tickets, it would not be a meaningful default for a
 missing age. It could create outright errors if used as the default
 for a missing exam grade (which was later used to compute a course
-grade). As a result, `num-sanitizer`{.pyret} reports an error if the data
+grade). As a result, `num-sanitizer`{.jayret} reports an error if the data
 (or lack thereof) in a cell cannot be reliably interpreted as a
 number. Jayret allows you to write your own custom sanitizers
 (e.g., one that would default missing numbers to 0). If you want to do
@@ -365,7 +365,7 @@ errors in case the original sheet is missing data in some cells.
 
 ##### 4.2.1.3 Normalizing Data {#Normalizing-Data}
 
-Next, let’s look at the `"Discount Code"`{.pyret} column. Our goal is to be
+Next, let’s look at the `"Discount Code"`{.jayret} column. Our goal is to be
 able to accurately answer the question "How many orders were placing
 under each discount code". We would like to have the answer summarized
 in a table, where one column names the discount code and another gives
@@ -391,7 +391,7 @@ sure?
 
 Start by looking in the documentation for any library functions that
 might help with this task. In the
- [documentation for Jayret’s `dcic2024`{.pyret} context](https://hackmd.io/@cs111/table), we find:
+ [documentation for Jayret’s `dcic2024`{.jayret} context](https://hackmd.io/@cs111/table), we find:
 
 ```jayret
 // count(tab :: Table, colname :: String) -> Table
@@ -401,19 +401,19 @@ might help with this task. In the
 ```
 
 This sounds useful, as long as every column has a value in the
-`"Discount code"`{.pyret} column, and that the only values in the column
+`"Discount code"`{.jayret} column, and that the only values in the column
 are those in our desired output table. What do we need to do to
 achieve this?
 
-- Get `"none"`{.pyret} to appear in every cell that currently
+- Get `"none"`{.jayret} to appear in every cell that currently
   lacks a value
 
-- Convert all the codes that aren’t `"none"`{.pyret} to upper case
+- Convert all the codes that aren’t `"none"`{.jayret} to upper case
 
 Fortunately, these tasks align with functions we’ve already seen how to
 use: each one is an example of a column transformation, where the
 second one involves the upper-case conversion functions from the
-`String`{.pyret} library.
+`String`{.jayret} library.
 
 We can capture these together in a function that takes in and produces
 a string:
@@ -436,15 +436,15 @@ String cell-to-discount-code(String str) {
 ```
 
 ::: {.do-now}
-Assess the examples included with `cell-to-discount-code`{.pyret}. Is
+Assess the examples included with `cell-to-discount-code`{.jayret}. Is
 this a good set of examples, or are any key ones missing?
 :::
 
 
 The current examples consider different capitalizations for
-`"birthday"`{.pyret}, but not for `"none"`{.pyret}. Unless you are
+`"birthday"`{.jayret}, but not for `"none"`{.jayret}. Unless you are
 confident that the data-gathering process can’t produce different
-capitalizations of `"none"`{.pyret}, we should include that as well:
+capitalizations of `"none"`{.jayret}, we should include that as well:
 
 ```jayret
 assertEquals(cell-to-discount-code("NoNe"), "none");
@@ -453,12 +453,12 @@ Oops! If we add this example to our `where { }`{.jayret} block and run the
  code, Jayret reports that this example fails.
 
 ::: {.do-now}
-Why did the `"NoNe"`{.pyret} case fail?
+Why did the `"NoNe"`{.jayret} case fail?
 :::
 
 
-Since we check for the string `"none"`{.pyret} in the `if`{.pyret}
-expression, we need to normalize the input to match what our `if`{.pyret}
+Since we check for the string `"none"`{.jayret} in the `if`{.jayret}
+expression, we need to normalize the input to match what our `if`{.jayret}
 expression expects. Here’s the modified code, on which all the
 examples pass.
 
@@ -480,21 +480,21 @@ String cell-to-discount-code(String str) {
 }
 ```
 
-Using this function with `transform-column`{.pyret} yields a table with a
+Using this function with `transform-column`{.jayret} yields a table with a
 standardized formatting for discount codes (reminder that you need to
-be working in the `dcic2024`{.pyret} context for this to work):
+be working in the `dcic2024`{.jayret} context for this to work):
 
 ```jayret
 discount-fixed = transform-column(event-data, "discount", cell-to-discount-code);
 ```
 
 ::: {.exercise}
-Try it yourself: normalize the `"delivery"`{.pyret} column so that all
-`"yes"`{.pyret} values are converted to `"email"`{.pyret}.
+Try it yourself: normalize the `"delivery"`{.jayret} column so that all
+`"yes"`{.jayret} values are converted to `"email"`{.jayret}.
 :::
 
 Now that we’ve cleaned up the codes, we can proceed to using the
-`"count"`{.pyret} function to extract our summary table:
+`"count"`{.jayret} function to extract our summary table:
 
 ```jayret
 count(discount-fixed, "discount");
@@ -505,7 +505,7 @@ This produces the following table:
 ![](count-pre-discount-trim.png){width="163" height="188"}
 
 ::: {.do-now}
-What’s with that first row, with the discount code `"    "`{.pyret}?
+What’s with that first row, with the discount code `"    "`{.jayret}?
 Where might that have come from?
 :::
 
@@ -562,7 +562,7 @@ Swapped and missing letters are the sorts of things a spell-checker
 might be able to fix (especially if the program knew all of the valid
 discount codes). Random junk, by definition, is random. There, you’d
 have to talk to the events company to decide how they wanted those
-handled (convert them to `"none"`{.pyret}, reach out to the customer, etc.
+handled (convert them to `"none"`{.jayret}, reach out to the customer, etc.
 – these are questions of policy, not of programming).
 
 But really, the moral of this is to just use drop-downs or other means
@@ -584,13 +584,13 @@ now we’re getting ahead of ourselves.
 
 ::: {.exercise}
 In spreadsheets, cells that appear empty sometimes have actual
-content, in the form of strings made up of spaces: both `""`{.pyret} and
-`"   "`{.pyret} appear the same when we look at a spreadsheet, but they
+content, in the form of strings made up of spaces: both `""`{.jayret} and
+`"   "`{.jayret} appear the same when we look at a spreadsheet, but they
 are actually different values computationally.
 
-How would you modify `cell-to-discount-code`{.pyret} so that strings
-containing only spaces were also converted to `"none"`{.pyret}? (Hint:
-look for `string-replace`{.pyret} in the strings library.)
+How would you modify `cell-to-discount-code`{.jayret} so that strings
+containing only spaces were also converted to `"none"`{.jayret}? (Hint:
+look for `string-replace`{.jayret} in the strings library.)
 :::
 
 ```{=html}
@@ -601,28 +601,28 @@ look for `string-replace`{.pyret} in the strings library.)
 
 Sometimes, we also look for errors by writing functions to check
 whether a table contains unexpected values. Let’s consider the
-`"email"`{.pyret} column: that’s a place where we should be able to write
+`"email"`{.jayret} column: that’s a place where we should be able to write
 a program to flag any rows with invalid email addresses. What makes
 for a valid email address? Let’s consider two rules:
 
-- Valid email addresses should contain an `@`{.pyret} sign
+- Valid email addresses should contain an `@`{.jayret} sign
 
-- Valid email addresses should end in one of `".com"`{.pyret},
-  `".edu"`{.pyret} or `".org"`{.pyret}
+- Valid email addresses should end in one of `".com"`{.jayret},
+  `".edu"`{.jayret} or `".org"`{.jayret}
 
 [This is admittedly an outdated, limited, and US-centric definition of
 email addresses, but expanding the formats does not fundamentally
 change the point of this section.]{.margin-note}
 
 ::: {.exercise}
-Write a function `is-email`{.pyret} that takes a string and
+Write a function `is-email`{.jayret} that takes a string and
 returns a boolean indicating whether the string satisfies the above
 two rules for being valid email addresses. For a bit more of a
 challenge, also include a rule that there must be some character
-between the `@`{.pyret} and the `.`{.pyret}-based ending.
+between the `@`{.jayret} and the `.`{.jayret}-based ending.
 :::
 
-Assuming we had such a function, a routine `filter-with`{.pyret} could
+Assuming we had such a function, a routine `filter-with`{.jayret} could
 then produce a table identifying all rows that need to have their
 email addresses corrected. The point here is that programs are often
 helpful for finding data that need correcting, even if a program
@@ -675,7 +675,7 @@ help you manage the process.
   step or data transformation.
 :::
 
-Here’s a diagram-based task plan for the `discount-summary`{.pyret} program that we
+Here’s a diagram-based task plan for the `discount-summary`{.jayret} program that we
 just developed. We’ve drawn this on paper to highlight that task plans
 are not written within a programming environment.
 
@@ -753,7 +753,7 @@ need to make those labels explicit.
 
 ##### 4.2.3.1 Creating bins {#creating-bins}
 
-The act of reducing one set of values (such as the `tickcounts`{.pyret} values) into a
+The act of reducing one set of values (such as the `tickcounts`{.jayret} values) into a
 smaller set of categories (such as small/medium/large for orders, or
 morning/afternoon/etc. for timestamps) is known
 as binning. The bins are the categories. To put rows into bins,
@@ -789,15 +789,15 @@ by last names, however. Splitting one column into several columns can
 be a useful step in preparing a dataset for analysis or
 use. Programming languages usually provide a variety of operations for
 splitting apart strings: Jayret has operations called
-`string-split`{.pyret} and `string-split-all`{.pyret} that split one string
+`string-split`{.jayret} and `string-split-all`{.jayret} that split one string
 into several around a given character (like a space). You could, for
-example, write `string-split("Josie Zhao", " ")`{.pyret} to extract
-`"Josie"`{.pyret} and `"Zhao"`{.pyret} as separate strings.
+example, write `string-split("Josie Zhao", " ")`{.jayret} to extract
+`"Josie"`{.jayret} and `"Zhao"`{.jayret} as separate strings.
 
 ::: {.exercise}
 Write a task plan (not the code, just the plan) for a function that
-would replace the current `name`{.pyret} column in the events table with
-two columns called `last-name`{.pyret} and `first-name`{.pyret}.
+would replace the current `name`{.jayret} column in the events table with
+two columns called `last-name`{.jayret} and `first-name`{.jayret}.
 :::
 
 ::: {.do-now}
@@ -806,7 +806,7 @@ want to test a name-splitting function.
 :::
 
 Hopefully, you at least looked at the table and noticed that we have
-one individual, `"Zander"`{.pyret} whose entire name is a single string,
+one individual, `"Zander"`{.jayret} whose entire name is a single string,
 rather than having both a first name and a last name. How would we
 handle middle names? Or names from cultures where a person’s name has
 the last names of both of their parents as part of their name? Or
@@ -837,10 +837,10 @@ name is not comprised of two strings separated by a space.
 :::
 
 ::: {.exercise}
-Write a program that takes a table with a `name`{.pyret} column in
-`"first-name last-name"`{.pyret} format and replaces the `name`{.pyret}
-column with two columns called `last-name`{.pyret} and
-`first-name`{.pyret}. To extract the first- and last-names from a single
+Write a program that takes a table with a `name`{.jayret} column in
+`"first-name last-name"`{.jayret} format and replaces the `name`{.jayret}
+column with two columns called `last-name`{.jayret} and
+`first-name`{.jayret}. To extract the first- and last-names from a single
 name string, use:
 
 ```jayret
@@ -895,8 +895,8 @@ event-data = ...;
 cleaned-event-data = transform-column(transform-column(event-data, "discount", cell-to-discount-code), "delivery", yes-to-email);
 order-bin-data = build-column(cleaned-event-data, "order-scale", order-scale-label);
 ```
-where `yes-to-email`{.pyret} is a function we have not written, but that
-might have normalized the `"yes"`{.pyret} value in the `"delivery"`{.pyret}
+where `yes-to-email`{.jayret} is a function we have not written, but that
+might have normalized the `"yes"`{.jayret} value in the `"delivery"`{.jayret}
 column. Note that we applied each of the normalizations in sequence,
 naming only the final table with all normalizations applied.
 [In professional practice, if you were working with a very large
@@ -968,7 +968,7 @@ on the kinds of variables involved in the question:
 :::
 
 For example, we might use a frequency-bar-chart to answer the third question. Based
-on the `Table`{.pyret} documentation, we would generate this using the
+on the `Table`{.jayret} documentation, we would generate this using the
 following code (with similar style for the other kinds of plots):
 
 ```jayret
@@ -976,14 +976,14 @@ freq-bar-chart(cleaned-event-data, "delivery");
 ```
 
 Which yields the following chart (assuming we had not actually
-normalized the contents of the `"delivery"`{.pyret} column):
+normalized the contents of the `"delivery"`{.jayret} column):
 
 ![](bar-chart-bad-col.png){width="475" height="334"}
 
-Whoa – where did that extra `"email"`{.pyret} column come from? If you
+Whoa – where did that extra `"email"`{.jayret} column come from? If you
 look closely, you’ll spot the error: in the row for
-`"Alvina"`{.pyret}, there’s a typo (`"emall"`{.pyret} with an `l`{.pyret}
-instead of an `i`{.pyret}) in the discount column (drop-down menus,
+`"Alvina"`{.jayret}, there’s a typo (`"emall"`{.jayret} with an `l`{.jayret}
+instead of an `i`{.jayret}) in the discount column (drop-down menus,
 anyone?).
 
 The lesson here is that plots and visualizations are valuable not only
@@ -1009,7 +1009,7 @@ good data practitioner undergoes several steps:
   on what you know about the data collection methods?
 
 2. Check the data for errors, using a combination of manual
-  inspection of the table, plots, and `filter-with`{.pyret} expressions
+  inspection of the table, plots, and `filter-with`{.jayret} expressions
   that check for unexpected values. Normalize or correct the data,
   either at the source (if you control that) or via small programs.
 

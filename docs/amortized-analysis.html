@@ -44,6 +44,7 @@
 <script src="codemirror.js"></script>
 <script src="runmode.js"></script>
 <script src="pyret.js"></script>
+<script src="jayret.js"></script>
 <script src="python.js"></script>
 <script src="hilite.js"></script>
 <script type="text/x-mathjax-config">
@@ -196,11 +197,11 @@ an algorithmic point.</p>
 <h4 id="List-Representations">15.3.1 List Representations</h4>
 <p>Consider two natural ways of defining queues using lists. One is that
 every enqueue is implemented with
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>,
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">link</code></span>,
 while every dequeue requires traversing the whole list until its end.
 Conversely, we could make enqueuing traverse to the end, and dequeuing
 correspond to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">.rest</code></span>.
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">.rest</code></span>.
 Either way, one of these operations will take constant time while the
 other will be linear in the length of the list representing the queue.
 (This should be loosely reminiscent of trade-offs we ran into when
@@ -269,7 +270,7 @@ represent the response from dequeuing:</p>
     Elt-and-q(T e, Queue&lt;Object&gt; r);
 }</code></pre></div></div>
 <p>Now for the implementation of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">dequeue</code></span>:</p>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">dequeue</code></span>:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">Response&lt;Object&gt; dequeue(Queue&lt;Object&gt; q) {
     return switch (q.head) {
         case Empty: yield block {

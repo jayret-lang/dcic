@@ -56,8 +56,8 @@ earned another 200. We could always reflect the resulting account as follows:
 <table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">Account(acct1.id, acct1.balance + 200)</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">account(acct1.id, acct1.balance + 200)</code></pre></div></div></p></td></tr></table>
 ```
 However, this creates a new account; if we look at the current
-`balance`{.pyret} of `acct1`{.pyret}, by writing `acct1.balance`{.pyret}, it is
-still `500`{.pyret}. If this were our account, we would be quite sad!
+`balance`{.jayret} of `acct1`{.jayret}, by writing `acct1.balance`{.jayret}, it is
+still `500`{.jayret}. If this were our account, we would be quite sad!
 
 Rather, we want to change the balance in the existing
 account. This requires a programming feature that we have not
@@ -80,12 +80,12 @@ class Account:
       ref balance :: Number)
 end</code></pre></div></div></p></td></tr></table>
 ```
-This Jayret definition says that `id`{.pyret} cannot be changed,
-while `balance`{.pyret} can. This ensures that no programmer can
+This Jayret definition says that `id`{.jayret} cannot be changed,
+while `balance`{.jayret} can. This ensures that no programmer can
 accidentally change the bank account number. In Python, every
 programmer has to make sure they don’t accidentally change it.
-(If we did want `id`{.pyret} to be mutable in Jayret, we would add a
-`ref`{.pyret} in front of it, too.)
+(If we did want `id`{.jayret} to be mutable in Jayret, we would add a
+`ref`{.jayret} in front of it, too.)
 
 With this definition, making accounts looks the same (unsurprisingly
 in Python, since nothing has changed):
@@ -113,8 +113,8 @@ However, accessing a mutable field looks different in Jayret:
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1.balance</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">acct1!balance</code></pre></div></div></p></td></tr></table>
 ```
-The `!`{.pyret} is there to remind that what you are getting is the
-current value of `balance`{.pyret}, and it may be different later.
+The `!`{.jayret} is there to remind that what you are getting is the
+current value of `balance`{.jayret}, and it may be different later.
 Python does not offer a similar syntactic warning, but then again,
 recall that every field is always mutable.
 
@@ -125,13 +125,13 @@ different syntaxes for it in the two languages:
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><span class="sourceCode" title="Python"><code class="sourceCode" data-lang="text/x-python">acct1.balance = 0</code></span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">acct1!{balance: 0}</code></span></p></td></tr></table>
 ```
-In Jayret, again, we use `!`{.pyret} in the syntax for
+In Jayret, again, we use `!`{.jayret} in the syntax for
 changing the field: read it as “change the value
 now!”
 
 ::: {.do-now}
 You now know all the parts you need to figure out how to set
-`balance`{.pyret} to be `200`{.pyret} more than its previous value.
+`balance`{.jayret} to be `200`{.jayret} more than its previous value.
 Can you figure out how to write that?
 :::
 
@@ -142,8 +142,8 @@ Here’s how we combine the pieces—accessing the value and then setting it:
 ```
 While Jayret’s syntax is a little more onerous for changing the value
 of one field, it proves to be ligher-weight if we want to change
-multiple fields. In Python we’d have to write `acct1.`{.pyret} for
-each of them, whereas in Jayret we need only the one `acct1!`{.pyret}. So
+multiple fields. In Python we’d have to write `acct1.`{.jayret} for
+each of them, whereas in Jayret we need only the one `acct1!`{.jayret}. So
 there is a trade-off between the two syntaxes.
 
 We hadn’t written any tests above. Suppose we had: already we might
@@ -185,7 +185,7 @@ and it passes, but not if we comment out the update.
 In both languages, then, we see a new phenomenon: tests that are only
 sometimes true. This phenomenon is called state. There is
 a “state” (a collection of values for the defined names) in which
-the balance is `500`{.pyret}, and another where it is `700`{.pyret}. This is
+the balance is `500`{.jayret}, and another where it is `700`{.jayret}. This is
 not merely limited to testing! Testing is just a reflection of what is
 going on in the program as it runs. From now on, every programming
 instruction will run in some state, and its actions will depend on the
@@ -202,7 +202,7 @@ have to get used to the subtleties that come along with it.
 
 Our example of adding funds to an account corresponds to making a
 deposit into a bank account. Let’s turn our balance-updating
-expression into a function (named `deposit`{.pyret}) that takes the
+expression into a function (named `deposit`{.jayret}) that takes the
 deposit amount as input. Then, we’ll look at how to write tests for
 that function. First, the function definition:
 
@@ -301,8 +301,8 @@ class Customer:
       acct :: Account)
 end</code></pre></div></div></p></td></tr></table>
 ```
-Specifically, suppose we have two accounts (`acct1`{.pyret} and
-`acct2`{.pyret}), where `acct1`{.pyret} is owned jointly by Elena and Jorge:
+Specifically, suppose we have two accounts (`acct1`{.jayret} and
+`acct2`{.jayret}), where `acct1`{.jayret} is owned jointly by Elena and Jorge:
 
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1 = Account(8404, 500)
@@ -314,9 +314,9 @@ elena = cust("Elena", acct1)
 jorge = cust("Jorge", acct1)</code></pre></div></div></p></td></tr></table>
 ```
 
-Now let’s say Elena earns an additional `150`{.pyret}. We want to update
+Now let’s say Elena earns an additional `150`{.jayret}. We want to update
 the account to reflect this. How might we do it? First we have to
-access the account itself: `elena.acct`{.pyret} (in both languages). Then
+access the account itself: `elena.acct`{.jayret} (in both languages). Then
 we would update it using the syntax above:
 
 ```{=html}
@@ -324,16 +324,16 @@ we would update it using the syntax above:
 a.balance = a.balance + 150</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">a = elena.acct
 a!{balance: a!balance + 150}</code></pre></div></div></p></td></tr></table>
 ```
-Sure enough, Elena’s account will now have the value of `850`{.pyret}
-(the original `500`{.pyret}, the bonus of `200`{.pyret}, and now the extra
-`150`{.pyret}):
+Sure enough, Elena’s account will now have the value of `850`{.jayret}
+(the original `500`{.jayret}, the bonus of `200`{.jayret}, and now the extra
+`150`{.jayret}):
 
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumnAsRows"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">assert elena.acct.balance == 850</code></pre></div></div></p></td></tr><tr><td><p><span style="font-weight: bold">Jayret</span></p></td><td><p></p></td></tr><tr><td><p></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">check:
   elena.acct!balance is 850
 end</code></pre></div></div></p></td></tr></table>
 ```
-Observe that in Jayret we use `.`{.pyret} to get the account but `!`{.pyret}
+Observe that in Jayret we use `.`{.jayret} to get the account but `!`{.jayret}
 to get the balance: a reminder that Elena’s account will never change
 (the way we have defined the data structure), but that account’s
 balance may and, indeed, does. Between the designs of Python and
@@ -358,35 +358,35 @@ is the value of this program?
 There are two very reasonable answers here:
 
 
-1. Going by our prose, Jorge’s account should also have `850`{.pyret},
+1. Going by our prose, Jorge’s account should also have `850`{.jayret},
   because that’s what it means to “share” an account.
 
 2. Going by the visible code, Jorge’s account should still have
-  `700`{.pyret}, because the update was made through `elena.acct`{.pyret},
-  not `jorge.acct`{.pyret}.
+  `700`{.jayret}, because the update was made through `elena.acct`{.jayret},
+  not `jorge.acct`{.jayret}.
 
 ::: {.do-now}
 Run the above code and see what you get.
 :::
 
 What you find is that the above test passes: Jorge’s account also has
-`850`{.pyret}. We say that `elena.acct`{.pyret} and `jorge.acct`{.pyret} are
+`850`{.jayret}. We say that `elena.acct`{.jayret} and `jorge.acct`{.jayret} are
 aliases: they are two different “names” for the exact same
 datum.
 
 This is not the first time we have had shared data. However, until
 now, it hasn’t mattered that the data were aliased. But now
 that we have mutation, aliases matter: the balance in
-`jorge.acct`{.pyret} has changed even though we never made an explicit
-change using that name. It is as if `elena.acct`{.pyret} exhibited
+`jorge.acct`{.jayret} has changed even though we never made an explicit
+change using that name. It is as if `elena.acct`{.jayret} exhibited
 spooky action at a distance.
 
 Again, there is a linguistic difference here. Because all fields are
 mutable in Python, you have to always be on the alert for
-this. Because only `ref`{.pyret} fields are mutable in Jayret, you can be
-sure that fields accessed through `.`{.pyret} will never change in value
+this. Because only `ref`{.jayret} fields are mutable in Jayret, you can be
+sure that fields accessed through `.`{.jayret} will never change in value
 over time or even if there are aliases, but those accessed through
-`!`{.pyret} might change over time (and via aliases).
+`!`{.jayret} might change over time (and via aliases).
 
 ```{=html}
 <a name="(part._structure-mut-dir)"></a>
@@ -398,7 +398,7 @@ Now that we have the ability to mutate the contents of data, we will need to sho
 notion of directories. The directories are essentially the same
 between Jayret and Python, with one exception: we have different naming
 conventions in the two languages. For instance, we write
-`Account(8404, 500)`{.python} in Python versus `account(8404, 500)`{.pyret}
+`Account(8404, 500)`{.python} in Python versus `account(8404, 500)`{.jayret}
 in Jayret. It would be annoying to write every one of these twice, with
 the only difference being the capitalization. Therefore, where the
 only difference is the naming, we will ignore this difference
@@ -424,8 +424,8 @@ the initial definitions. Is this what you expect to see?
 ```
 :::
 
-There’s a problem with this version, namely the use of `acct1`{.pyret} in
-the values associated with `elena`{.pyret} and `jorge`{.pyret}. Remember,
+There’s a problem with this version, namely the use of `acct1`{.jayret} in
+the values associated with `elena`{.jayret} and `jorge`{.jayret}. Remember,
 the values in the directory can’t refer to names in the directory:
 both Jayret and Python replace names with their values when evaluating
 expressions. Here is the corresponding version of the directory that
@@ -456,8 +456,8 @@ changes.
 ```
 
 We know from running the code, however, that the account is aliased,
-so that the balances accessible from each of `acct`{.pyret},
-`elena.acct`{.pyret}, and `jorge.acct`{.pyret} all reflect the update. This
+so that the balances accessible from each of `acct`{.jayret},
+`elena.acct`{.jayret}, and `jorge.acct`{.jayret} all reflect the update. This
 suggests that the actual directory should look something like
 
 ```{=html}
@@ -467,7 +467,7 @@ suggests that the actual directory should look something like
 But this is also weird. The directory represents the information that
 Jayret or Python maintain about your defined names and their
 values. What in the directory indicates that those three balances should
-change, but not the balance of `acct2`{.pyret})? Put differently, what reflects the aliasing? Nothing!
+change, but not the balance of `acct2`{.jayret})? Put differently, what reflects the aliasing? Nothing!
 
 The directory as we have used it up until now works fine for programs
 without mutation. But once we have both mutation and aliasing, this
@@ -482,8 +482,8 @@ connections between names and values that does capture aliasing.
 ##### 12.1.4.1 Introducing the Heap {#heap-intro}
 
 Our original presentation of the directory reflected the aliases that referred to a single
-`Account`{.pyret} through repeated use of the name `acct1`{.pyret}. We only
-lost that sharing when we replaced `acct1`{.pyret} with it’s value while
+`Account`{.jayret} through repeated use of the name `acct1`{.jayret}. We only
+lost that sharing when we replaced `acct1`{.jayret} with it’s value while
 setting up the data for Elena and Jorge. The rule that names can’t
 appear in the values is still important, especially in the presence of
 mutation (we’ll return to this later in [Mutating Variables in Memory](mutating-variables.html##mutating-vars-memory)). But the idea
@@ -532,9 +532,9 @@ addresses in order. Let’s write out the directory and heap
 contents for our initial definitions of accounts in this new format,
 and see how it supports the aliasing that we intended.
 
-First, we create both `acct1`{.pyret} and `acct2`{.pyret} in order as
-follows. Note that the `Account`{.pyret} associated with name
-`acct2`{.pyret} goes in address 1002.
+First, we create both `acct1`{.jayret} and `acct2`{.jayret} in order as
+follows. Note that the `Account`{.jayret} associated with name
+`acct2`{.jayret} goes in address 1002.
 
 ```{=html}
 <div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct2</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1002</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1001</span>:<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">Account(8404, 500)</code></span></p></li><li><p><span class="heapref source">1002</span>:<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">Account(8404, 500)</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
@@ -545,11 +545,11 @@ When we run
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">elena = Customer("Elena", acct1)</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">elena = customer("Elena", acct1)</code></pre></div></div></p></td></tr></table>
 ```
-what happens? As before, we look up what the name `acct1`{.pyret} refers
+what happens? As before, we look up what the name `acct1`{.jayret} refers
 to in the directory and substitute the result for the name in the
-`Customer`{.pyret} data. Now,
-`acct1`{.pyret} evaluates to an address, 1001. Therefore,
-the `Customer`{.pyret} value in the heap contains an address:
+`Customer`{.jayret} data. Now,
+`acct1`{.jayret} evaluates to an address, 1001. Therefore,
+the `Customer`{.jayret} value in the heap contains an address:
 
 ```{=html}
 <div class="HeapExpr"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">acct1</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1001</span></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">elena</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span><span class="heapref sink">1002</span></div></p></li></ul></div><div class="HeapPart"><p>Heap</p><ul><li><p><span class="heapref source">1001</span>:<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">Account(8404, 500)</code></span></p></li><li><p><span class="heapref source">1002</span>:<span class="hspace"> </span><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">Customer("Elena", <span class="heapref sink">1001</span>)</code></span></p></li></ul></div><p></p><div class="clear"></div></div>
@@ -571,16 +571,16 @@ Fun fact in the Web version of the book: Did you try hovering over the addresses
 
 With the heap articulated separately from the directory, we now see
 the relationship between the `acct`{.python} fields
-for the two customers and the name `acct1`{.pyret}: they refer to the same address, which in
+for the two customers and the name `acct1`{.jayret}: they refer to the same address, which in
 turn means they refer to the same value. In contrast, the name
-`acct2`{.pyret}, which was not aliased in the original code, refers to an
+`acct2`{.jayret}, which was not aliased in the original code, refers to an
 address that is not referenced anywhere else. This is the heart of
 aliasing: that’s why changes made through one name also affect values
 viewed through another.
 
 ::: {.do-now}
 Write three distinct expressions each of which uses a different name in the
-directory to return the balance in account `acct1`{.pyret}.
+directory to return the balance in account `acct1`{.jayret}.
 :::
 
 ::: {.do-now}

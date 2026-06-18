@@ -51,14 +51,14 @@ and internalizing this process is the goal of this chapter.
 #### 5.2.1 Making Lists and Taking Them Apart {#Making-Lists-and-Taking-Them-Apart}
 
 So far we’ve seen one way to make a list: by writing
-`[list: …]`{.pyret}. While useful, writing lists this way actually
+`[list: …]`{.jayret}. While useful, writing lists this way actually
 hides their true nature. Every list actually has two parts: a
 first element and the rest of the list. The rest of the
 list is itself a list, so it too has two parts…and so on.
 
-Consider the list `[1, 2, 3]`{.pyret}. Its first element is `1`{.pyret}, and
-the rest of it is `[2, 3]`{.pyret}. For this second list, the first element
-is `2`{.pyret} and the rest is `[3]`{.pyret}.
+Consider the list `[1, 2, 3]`{.jayret}. Its first element is `1`{.jayret}, and
+the rest of it is `[2, 3]`{.jayret}. For this second list, the first element
+is `2`{.jayret} and the rest is `[3]`{.jayret}.
 
 
 ::: {.do-now}
@@ -66,8 +66,8 @@ Take apart this third list.
 :::
 
 
-For the third list, the first element is `3`{.pyret} and the rest is
-`[]`{.pyret}, i.e., the empty list. In Jayret, we have another way
+For the third list, the first element is `3`{.jayret} and the rest is
+`[]`{.jayret}, i.e., the empty list. In Jayret, we have another way
 of writing the empty list: `Empty`{.jayret}.
 
 Lists are an instance of structured data: data with component
@@ -83,9 +83,9 @@ Programming languages can (and do!) provide built-in operators for
 taking apart structured data. These operators are called
 accessors. Accessors are defined on the structure of the
 datatype alone, independent of the contents of the data. In the case
-of lists, there are two accessors: `first`{.pyret} and
-`rest`{.pyret}. We use an accessor by writing an expression, followed by
-a dot (`.`{.pyret}), followed by the accessor’s name. As we saw with
+of lists, there are two accessors: `first`{.jayret} and
+`rest`{.jayret}. We use an accessor by writing an expression, followed by
+a dot (`.`{.jayret}), followed by the accessor’s name. As we saw with
 tables, the dot means "dig into". Thus:
 
 ```jayret
@@ -113,16 +113,16 @@ What are the accessors for tables?
 Accessors give a way to take data apart based on their structure
 (there is another way that we will see shortly). Is there a way to
 also build data based on its structure? So far, we have been
-building lists using the `[...]`{.pyret} form, but that doesn’t
-emphasize the structural constraint that the `rest`{.pyret} is itself a
+building lists using the `[...]`{.jayret} form, but that doesn’t
+emphasize the structural constraint that the `rest`{.jayret} is itself a
 list. A structured operator for building lists would clearly show both
-a `first`{.pyret} element and a `rest`{.pyret} that is itself a
+a `first`{.jayret} element and a `rest`{.jayret} that is itself a
 list. Operators for building structured data are called
 constructors.
 
 The constructor for lists is called `Link`{.jayret}. It takes two
-arguments: a `first`{.pyret} element, and the list to build on (the
-`rest`{.pyret} part). Here’s an example of using `Link`{.jayret} to create a
+arguments: a `first`{.jayret} element, and the list to build on (the
+`rest`{.jayret} part). Here’s an example of using `Link`{.jayret} to create a
 three-element list.
 
 ```jayret
@@ -130,7 +130,7 @@ link(1, link(2, link(3, empty)));
 ```
 
 The `Link`{.jayret} form creates the same underlying list datum as our
-previous `[...]`{.pyret} operation, as confirmed by the following
+previous `[...]`{.jayret} operation, as confirmed by the following
 check:
 
 ```jayret
@@ -145,7 +145,7 @@ Look at these two forms of writing lists: what differences do you notice?
 
 ::: {.do-now}
 Use the `Link`{.jayret} form to write a four-element list of fruits containing
-`"lychee"`{.pyret}, `"dates"`{.pyret}, `"mango"`{.pyret}, and `"durian"`{.pyret}.
+`"lychee"`{.jayret}, `"dates"`{.jayret}, `"mango"`{.jayret}, and `"durian"`{.jayret}.
 :::
 
 After doing this exercise, you might wonder why anyone would use the
@@ -161,9 +161,9 @@ more interesting structure to some lists (as we will see later), but all lists h
 in common. Specifically, a list is either
 
 
-- empty (written `Empty`{.jayret} or `[]`{.pyret}), or
+- empty (written `Empty`{.jayret} or `[]`{.jayret}), or
 
-- non-empty (written `link(…, …)`{.pyret} or `[]`{.pyret} with
+- non-empty (written `link(…, …)`{.jayret} or `[]`{.jayret} with
   at least one value inside the brackets), where the rest is also
   a list (and hence may in turn be empty or non-empty, …).
 
@@ -187,10 +187,10 @@ process lists!
 To illustrate our thinking, let’s work through a few concrete examples
 of list-processing functions. All of these will consume lists; some
 will even produce them. Some will transform their inputs (like
-`map`{.pyret}), some will select from their inputs (like `filter`{.pyret}),
+`map`{.jayret}), some will select from their inputs (like `filter`{.jayret}),
 and some will aggregate their inputs. Since some of these functions already exist in
-Jayret, we’ll name them with the prefix `my-`{.pyret} to avoid
-errors.[Be sure to use the `my-`{.pyret} name consistently,
+Jayret, we’ll name them with the prefix `my-`{.jayret} to avoid
+errors.[Be sure to use the `my-`{.jayret} name consistently,
 including inside the body of the function.]{.margin-note} As we will see, there is a
 standard strategy that we can use to approach writing all of these
 functions: having you learn this strategy is the goal of this chapter.
@@ -224,9 +224,9 @@ example. What is the length of the list `Empty`{.jayret}?
 What do you think?
 :::
 
-Two common examples are `0`{.pyret} and `1`{.pyret}. The latter, `1`{.pyret},
+Two common examples are `0`{.jayret} and `1`{.jayret}. The latter, `1`{.jayret},
 certainly looks reasonable. However, if you write the list as
-`[]`{.pyret}, now it doesn’t look so right: this is clearly (as the
+`[]`{.jayret}, now it doesn’t look so right: this is clearly (as the
 name `Empty`{.jayret} also suggests) an empty list, and an empty
 list has zero elements in it. Therefore, it’s conventional to
 declare that
@@ -234,41 +234,41 @@ declare that
 ```jayret
 assertEquals(my-len(empty), 0);
 ```
-How about a list like `[7]`{.pyret}? Well, it’s clearly got one
-element (`7`{.pyret}) in it, so
+How about a list like `[7]`{.jayret}? Well, it’s clearly got one
+element (`7`{.jayret}) in it, so
 
 ```jayret
 assertEquals(my-len([7]), 1);
 ```
-Similarly, for a list like `[7, 8, 9]`{.pyret}, we would say
+Similarly, for a list like `[7, 8, 9]`{.jayret}, we would say
 
 ```jayret
 assertEquals(my-len([7, 8, 9]), 3);
 ```
 
 Now let’s look at that last example in a different light. Consider
-the argument `[7, 8, 9]`{.pyret}. Its first element is `7`{.pyret} and
-the rest of it is `[8, 9]`{.pyret}. Well, `7`{.pyret} is a number, not
-a list; but `[8, 9]`{.pyret} certainly is a list, so we can ask for
-its length. What is `my-len([8, 9])`{.pyret}? It has two
+the argument `[7, 8, 9]`{.jayret}. Its first element is `7`{.jayret} and
+the rest of it is `[8, 9]`{.jayret}. Well, `7`{.jayret} is a number, not
+a list; but `[8, 9]`{.jayret} certainly is a list, so we can ask for
+its length. What is `my-len([8, 9])`{.jayret}? It has two
 elements, so
 
 ```jayret
 assertEquals(my-len([8, 9]), 2);
 ```
-The first element of that list is `8`{.pyret} while its rest is
-`[9]`{.pyret}. What is its length?
+The first element of that list is `8`{.jayret} while its rest is
+`[9]`{.jayret}. What is its length?
 Note that we asked a very similar question before, for the length of
-the list `[7]`{.pyret}. But `[7]`{.pyret} is not a
-sub-list of `[7, 8, 9]`{.pyret}, which we started with,
-whereas `[9]`{.pyret} is. And using the same reasoning as before,
+the list `[7]`{.jayret}. But `[7]`{.jayret} is not a
+sub-list of `[7, 8, 9]`{.jayret}, which we started with,
+whereas `[9]`{.jayret} is. And using the same reasoning as before,
 we can say
 
 ```jayret
 assertEquals(my-len([9]), 1);
 ```
 The rest of this last list is, of course, the empty list, whose length
-we have already decided is `0`{.pyret}.
+we have already decided is `0`{.jayret}.
 
 Putting together these examples, and writing out `Empty`{.jayret} in its
 other form, here’s what we get:
@@ -287,11 +287,11 @@ assertEquals(my-len([8, 9]), 1 + 1);
 assertEquals(my-len([9]), 1 + 0);
 assertEquals(my-len([]), 0);
 ```
-Where did the `2`{.pyret}, `1`{.pyret}, and `0`{.pyret} on the right sides of
-each `+`{.pyret} operation come from? Those are the lengths of the
-`rest`{.pyret} component of the input list. In the previous example
+Where did the `2`{.jayret}, `1`{.jayret}, and `0`{.jayret} on the right sides of
+each `+`{.jayret} operation come from? Those are the lengths of the
+`rest`{.jayret} component of the input list. In the previous example
 block, we wrote those lengths as explicit examples. Let’s substitute
-the numbers `2`{.pyret}, `1`{.pyret}, and `0`{.pyret} with the `my-len`{.pyret}
+the numbers `2`{.jayret}, `1`{.jayret}, and `0`{.jayret} with the `my-len`{.jayret}
 expressions that produce them:
 
 ```jayret
@@ -301,17 +301,17 @@ assertEquals(my-len([9]), 1 + my-len([]));
 assertEquals(my-len([]), 0);
 ```
 From this, maybe you can start to see a pattern. For an empty list,
-the length is `0`{.pyret}. For a non-empty list, it’s the sum of `1`{.pyret}
+the length is `0`{.jayret}. For a non-empty list, it’s the sum of `1`{.jayret}
 (the first element’s “contribution” to the list’s length) to the
 length of the rest of the list. In other words, we can use the result
-of computing `my-len`{.pyret} on the rest of the list to compute the
+of computing `my-len`{.jayret} on the rest of the list to compute the
 answer for the entire list.
 
 ::: {.do-now}
 Each of our examples in this section has written a different check on
-the expression `my-len([7, 8, 9])`{.pyret}. Here are those examples
+the expression `my-len([7, 8, 9])`{.jayret}. Here are those examples
 presented together, along with one last one that explicitly uses the
-`rest`{.pyret} operation:
+`rest`{.jayret} operation:
 
 ```jayret
 assertEquals(my-len([7, 8, 9]), 3);
@@ -320,7 +320,7 @@ assertEquals(my-len([7, 8, 9]), 1 + my-len([8, 9]));
 assertEquals(my-len([7, 8, 9]), 1 + my-len([7, 8, 9].rest));
 ```
 Check that you agree with each of these assertions. Also check whether
-you understand how the right-hand side of each `is`{.pyret} expression
+you understand how the right-hand side of each `is`{.jayret} expression
 derives from the right-hand-side just above it. The goal of this
 exercise is to make sure that you believe that the last check (which
 we will turn into code) is equivalent to the first (which we wrote
@@ -336,8 +336,8 @@ down when understanding the problem).
 Let’s repeat this process of developing examples on a second function,
 this time one that computes the sum of the elements in a list of numbers.
 What is the
-sum of the list `[7, 8, 9]`{.pyret}? Just adding up the numbers by hand,
-the result should be `24`{.pyret}. Let’s see how that works out through
+sum of the list `[7, 8, 9]`{.jayret}? Just adding up the numbers by hand,
+the result should be `24`{.jayret}. Let’s see how that works out through
 the examples.
 
 Setting aside the empty list for a moment, here are examples that show
@@ -356,7 +356,7 @@ assertEquals(my-sum([8, 9]), 8 + my-sum([9]));
 assertEquals(my-sum([9]), 9 + my-sum([]));
 ```
 From this, we can see that the sum of the empty list must be
-`0`{.pyret}:[Zero is called the additive identity: a
+`0`{.jayret}:[Zero is called the additive identity: a
 fancy way of saying, adding zero to any number N gives you
 N. Therefore, it makes sense that it would be the length of the
 empty list, because the empty list has no items to contribute to a
@@ -366,7 +366,7 @@ sum. Can you figure out what the multiplicative identity is?]{.margin-note}
 assertEquals(my-sum(empty), 0);
 ```
 
-Observe, again, how we can use the result of computing `my-sum`{.pyret}
+Observe, again, how we can use the result of computing `my-sum`{.jayret}
 of the rest of the list to compute its result for the whole list.
 
 ```{=html}
@@ -381,8 +381,8 @@ just the specific ones we used in these examples. As we have done up
 in earlier chapters, we will leverage patterns in the examples to
 figure out how to define the general-purpose function.
 
-Here is one last version of the examples for `my-len`{.pyret}, this time
-making the `rest`{.pyret} explicit on the right-hand sides of `is`{.pyret}:
+Here is one last version of the examples for `my-len`{.jayret}, this time
+making the `rest`{.jayret} explicit on the right-hand sides of `is`{.jayret}:
 
 ```jayret
 assertEquals(my-len([7, 8, 9]), 1 + my-len([7, 8, 9].rest));
@@ -392,7 +392,7 @@ assertEquals(my-len([]), 0);
 ```
 As we did when developing functions over images, let’s try to identify
 the common parts of these examples. We start by noticing that most of
-the examples have a lot in common, except for the `[]`{.pyret}
+the examples have a lot in common, except for the `[]`{.jayret}
 (`Empty`{.jayret}) case. So let’s separate this into two sets of examples:
 
 ```jayret
@@ -403,15 +403,15 @@ assertEquals(my-len([]), 0);
 ```
 With this separation (which follows one of the structural features of
 lists that we mentioned earlier), a clearer pattern emerges: for a
-non-empty list (called `someList`{.pyret}), we compute its length via the
+non-empty list (called `someList`{.jayret}), we compute its length via the
 expression:
 
 ```jayret
 1 + my-len(someList.rest);
 ```
-In general, then, our `my-len`{.pyret} program needs to determine whether
+In general, then, our `my-len`{.jayret} program needs to determine whether
 its input list is empty or non-empty, using this expression with
-`.rest`{.pyret} in the non-empty case. How do we indicate different code
+`.rest`{.jayret} in the non-empty case. How do we indicate different code
 based on the structure of the list?
 
 Jayret has a construct called `switch`{.jayret} which is used to distinguish
@@ -427,35 +427,35 @@ switch (e) {
 where most parts are fixed, but a few you’re free to change:
 
 
-- `e`{.pyret} is an expression whose value needs to be a list; it
+- `e`{.jayret} is an expression whose value needs to be a list; it
   could be a variable bound to a list, or some complex expression that
   evaluates to a list.
 
-- `f`{.pyret} and `r`{.pyret} are names given to the first and rest of
+- `f`{.jayret} and `r`{.jayret} are names given to the first and rest of
   the list. You can choose any names you like, though in Jayret, it’s
-  conventional to use `f`{.pyret} and `r`{.pyret}.[Occasionally
+  conventional to use `f`{.jayret} and `r`{.jayret}.[Occasionally
   using different names can help students recall that they can choose
-  how to label the `first`{.pyret} and `rest`{.pyret} components. This can be
-  particularly useful for `first`{.pyret}, which has a problem-specific
-  meaning (such as `price`{.pyret} in a list of prices, and so on).]{.margin-note}
+  how to label the `first`{.jayret} and `rest`{.jayret} components. This can be
+  particularly useful for `first`{.jayret}, which has a problem-specific
+  meaning (such as `price`{.jayret} in a list of prices, and so on).]{.margin-note}
 
 The yield expression in each `case` is the result for that branch.
 
 Here’s how `switch`{.jayret} works in this instance. Jayret first evaluates
-`e`{.pyret}. It then checks that the resulting value truly is a list;
+`e`{.jayret}. It then checks that the resulting value truly is a list;
 otherwise it halts with an error. If it is a list, Jayret examines what
 kind of list it is. If it’s an empty list, it runs the
 `Empty`{.jayret} case. Otherwise,
 the list is not empty, which means it has a first and rest; Jayret
-binds `f`{.pyret} and `r`{.pyret} to the two parts, respectively, and then
+binds `f`{.jayret} and `r`{.jayret} to the two parts, respectively, and then
 evaluates the `Link`{.jayret} case.
 
 ::: {.exercise}
-Try using a non-list—e.g., a number—in the `e`{.pyret} position and
+Try using a non-list—e.g., a number—in the `e`{.jayret} position and
 see what happens!
 :::
 
-Now let’s use `switch`{.jayret} to define `my-len`{.pyret}:
+Now let’s use `switch`{.jayret} to define `my-len`{.jayret}:
 
 ```jayret
 Object my-len(l) {
@@ -465,16 +465,16 @@ Object my-len(l) {
     }
 }
 ```
-This follows from our examples: when the list is empty `my-len`{.pyret}
-produces `0`{.pyret}; when it is not empty, we add one to the length of
-the rest of the list (here, `r`{.pyret}).
+This follows from our examples: when the list is empty `my-len`{.jayret}
+produces `0`{.jayret}; when it is not empty, we add one to the length of
+the rest of the list (here, `r`{.jayret}).
 
-Note that while our most recent collection of `my-len`{.pyret} examples
-explicitly said `.rest`{.pyret}, when using `switch`{.jayret} we instead use
-just the name `r`{.pyret}, which Jayret has already defined (under the
-hood) to be `l.rest`{.pyret}.
+Note that while our most recent collection of `my-len`{.jayret} examples
+explicitly said `.rest`{.jayret}, when using `switch`{.jayret} we instead use
+just the name `r`{.jayret}, which Jayret has already defined (under the
+hood) to be `l.rest`{.jayret}.
 
-Similarly, let’s define `my-sum`{.pyret}:
+Similarly, let’s define `my-sum`{.jayret}:
 
 ```jayret
 Object my-sum(l) {
@@ -498,18 +498,18 @@ develop list-processing functions.
   the list (including the empty list).
 
 - Rewrite each example to express its expected
-  answer in terms of the `first`{.pyret} and `rest`{.pyret} data of its input
-  list. You don’t have to use the `first`{.pyret} and `rest`{.pyret} operators
-  in the new answers, but you should see the `first`{.pyret} and
-  `rest`{.pyret} values represented explicitly in the answer.
+  answer in terms of the `first`{.jayret} and `rest`{.jayret} data of its input
+  list. You don’t have to use the `first`{.jayret} and `rest`{.jayret} operators
+  in the new answers, but you should see the `first`{.jayret} and
+  `rest`{.jayret} values represented explicitly in the answer.
 
 - Look for a pattern across the answers in the examples. Use these
   to develop the code: write a `switch`{.jayret} expression, filling in the
   `yield` expression of each case based on your examples.
 
 This strategy applies to structured data in general, leveraging
-components of each datum rather than specifically `first`{.pyret} and
-`rest`{.pyret} as presented so far.
+components of each datum rather than specifically `first`{.jayret} and
+`rest`{.jayret} as presented so far.
 :::
 
 ```{=html}
@@ -546,8 +546,8 @@ assertEquals(my-doubles([]), []);
 ```
 
 Now, we rewrite the answer expressions to include the concrete
-`first`{.pyret} and `rest`{.pyret} data for each example. Let’s start with
-just the `first`{.pyret} data, and just on the first example:
+`first`{.jayret} and `rest`{.jayret} data for each example. Let’s start with
+just the `first`{.jayret} data, and just on the first example:
 
 ```jayret
 assertEquals(my-doubles([3, 5, 2]), [3 * 2, 10, 4]);
@@ -556,15 +556,15 @@ assertEquals(my-doubles([2]), [4]);
 assertEquals(my-doubles([]), []);
 ```
 
-Next, let’s include the `rest`{.pyret} data (`[5, 2]`{.pyret}) in the
+Next, let’s include the `rest`{.jayret} data (`[5, 2]`{.jayret}) in the
 first example. The current answer in the first example is
 
 ```jayret
 [3 * 2, 10, 4];
 ```
 
-and that `[10, 4]`{.pyret} is the result of using the function on
-`[5, 2]`{.pyret}. We might therefore be tempted to replace the
+and that `[10, 4]`{.jayret} is the result of using the function on
+`[5, 2]`{.jayret}. We might therefore be tempted to replace the
 right side of the first example with:
 
 ```jayret
@@ -573,7 +573,7 @@ right side of the first example with:
 
 ::: {.do-now}
 What value would this expression produce? You might want to try this
-example that doesn’t use `my-doubles`{.pyret} directly:
+example that doesn’t use `my-doubles`{.jayret} directly:
 
 ```jayret
 [3 * 2, [10, 4]];
@@ -582,7 +582,7 @@ example that doesn’t use `my-doubles`{.pyret} directly:
 
 Oops! We want a single (flat) list, not a list-within-a-list. This
 feels like it is on the right track in terms of reworking the answer
-to use the `first`{.pyret} and `rest`{.pyret} values, but we’re clearly not
+to use the `first`{.jayret} and `rest`{.jayret} values, but we’re clearly not
 quite there yet.
 
 ::: {.do-now}
@@ -595,8 +595,8 @@ link(3 * 2, [10, 4]);
 
 Notice the difference between the two expressions in these last two
 exercises: the latter used `Link`{.jayret} to put the value involving
-`first`{.pyret} into the conversion of the `rest`{.pyret}, while the former
-tried to do this with `list:`{.pyret}.
+`first`{.jayret} into the conversion of the `rest`{.jayret}, while the former
+tried to do this with `list:`{.jayret}.
 
 ::: {.do-now}
 How many elements are in the lists that result from each of the
@@ -610,15 +610,15 @@ link(25, [16, 32]);
 :::
 
 ::: {.do-now}
-Summarize the difference between how `Link`{.jayret} and `list:`{.pyret}
+Summarize the difference between how `Link`{.jayret} and `list:`{.jayret}
 combine an element and a list. Try additional examples at the
 interactions prompt if needed to explore these ideas.
 :::
 
 The takeaway here is that we use `Link`{.jayret} to insert an
-element into an existing list, whereas we use `list:`{.pyret} to make a
+element into an existing list, whereas we use `list:`{.jayret} to make a
 new list that contains the old list as an element. Going back
-to our examples, then, we include `rest`{.pyret} in the first example by
+to our examples, then, we include `rest`{.jayret} in the first example by
 writing it as follows:
 
 ```jayret
@@ -646,8 +646,8 @@ assertEquals(my-doubles([2]), link(2 * 2, my-doubles([])));
 assertEquals(my-doubles([]), []);
 ```
 
-Now that we have examples that explicitly use the `first`{.pyret} and
-`rest`{.pyret} elements, we can produce to write the `my-doubles`{.pyret}
+Now that we have examples that explicitly use the `first`{.jayret} and
+`rest`{.jayret} elements, we can produce to write the `my-doubles`{.jayret}
 function:
 
 ```jayret
@@ -665,7 +665,7 @@ Object my-doubles(l) {
 
 ##### 5.2.4.2 my-str-len : Examples and Code {#str-len-eg-code}
 
-In `my-doubles`{.pyret}, the input and output lists have the same type of
+In `my-doubles`{.jayret}, the input and output lists have the same type of
 element. Functions can also produce lists whose contents have a
 different type from the input list. Let’s work through an example.
 Given a list of strings, we
@@ -698,10 +698,10 @@ assertEquals(my-str-len(empty), empty);
 ```
 
 The next step is to rework the answers in the examples to make the
-`first`{.pyret} and `rest`{.pyret} parts explicit. Hopefully by now you are
+`first`{.jayret} and `rest`{.jayret} parts explicit. Hopefully by now you are
 starting to detect a pattern: The result on the rest of the list
 appears explicitly as another example. Therefore, we’ll start by
-getting the `rest`{.pyret} value of each example input into the answer:
+getting the `rest`{.jayret} value of each example input into the answer:
 
 ```jayret
 assertEquals(my-str-len(["hi", "there", "mateys"]), link(2, my-str-len(["there", "mateys"])));
@@ -710,13 +710,13 @@ assertEquals(my-str-len(["mateys"]), link(6, my-str-len([])));
 assertEquals(my-str-len([]), []);
 ```
 
-All that remains now is to figure out how to work the `first`{.pyret}
+All that remains now is to figure out how to work the `first`{.jayret}
 values into the outputs. In the context of this problem, this means we
-need to convert `"hi"`{.pyret} into `2`{.pyret}, `"there"`{.pyret} into
-`5`{.pyret}, and so on. From the problem statement, we know that `2`{.pyret}
-and `5`{.pyret} are meant to be the lengths (character counts) of the
+need to convert `"hi"`{.jayret} into `2`{.jayret}, `"there"`{.jayret} into
+`5`{.jayret}, and so on. From the problem statement, we know that `2`{.jayret}
+and `5`{.jayret} are meant to be the lengths (character counts) of the
 corresponding strings. The operation that determines the length of a
-string is called `string-length`{.pyret}. Thus, our examples appear as:
+string is called `string-length`{.jayret}. Thus, our examples appear as:
 
 ```jayret
 assertEquals(my-str-len(["hi", "there", "mateys"]), link(string-length("hi"), my-str-len(["there", "mateys"])));
@@ -763,7 +763,7 @@ that contains both positive and non-positive numbers.
 
 ::: {.do-now}
 Construct the sequence of examples that we obtain from the input
-`[1, -2, 3, -4]`{.pyret}.
+`[1, -2, 3, -4]`{.jayret}.
 :::
 
 Here we go:
@@ -795,9 +795,9 @@ assertEquals(my-pos-nums([]), []);
 ```
 Unlike in the example sequences for functions that transform lists,
 here we see that the answers have different shapes: some involve a
-`Link`{.jayret}, while others simply process the `rest`{.pyret} of the
+`Link`{.jayret}, while others simply process the `rest`{.jayret} of the
 list. Whenever we need different shapes of outputs across a set of
-examples, we will need an `if`{.pyret} expression in our code to
+examples, we will need an `if`{.jayret} expression in our code to
 distinguish the conditions that yield each shape.
 
 What determines which shape of output we get? Let’s rearrange the
@@ -810,9 +810,9 @@ assertEquals(my-pos-nums([-2, 3, -4]), my-pos-nums([3, -4]));
 assertEquals(my-pos-nums([-4]), my-pos-nums([]));
 ```
 Re-organized, we can see that the examples that use `Link`{.jayret} have a
-positive number in the `first`{.pyret} position, while the ones that
-don’t simply process the `rest`{.pyret} of the list. That indicates that
-our `if`{.pyret} expression needs to ask whether the `first`{.pyret} element
+positive number in the `first`{.jayret} position, while the ones that
+don’t simply process the `rest`{.jayret} of the list. That indicates that
+our `if`{.jayret} expression needs to ask whether the `first`{.jayret} element
 in the list is positive. This yields the following program:
 
 ```jayret
@@ -833,7 +833,7 @@ Is our set of examples comprehensive?
 :::
 
 Not really. There are many examples we haven’t considered, such
-as lists that end with positive numbers and lists with `0`{.pyret}.
+as lists that end with positive numbers and lists with `0`{.jayret}.
 
 ::: {.exercise}
 Work through these examples and see how they affect the program!
@@ -851,8 +851,8 @@ alternating elements from a list. Once again, we’re going to work from example
 
 
 ::: {.do-now}
-Work out the results for `my-alternating`{.pyret} starting from the list
-`[1, 2, 3, 4, 5, 6]`{.pyret}.
+Work out the results for `my-alternating`{.jayret} starting from the list
+`[1, 2, 3, 4, 5, 6]`{.jayret}.
 :::
 
 Here’s how they work out:
@@ -884,7 +884,7 @@ assertEquals(my-alternating([1, 2, 3, 4, 5, 6]), link(1, my-alternating([3, 4, 5
 ```
 
 Note that in the rewritten version, we are dropping two
-elements from the list before using `my-alternating`{.pyret} again, not
+elements from the list before using `my-alternating`{.jayret} again, not
 just one. We will have to figure out how to handle that in our code.
 
 Let’s start with our usual function pattern with a `switch`{.jayret}
@@ -899,10 +899,10 @@ Object my-alternating(l) {
 }
 ```
 
-Note that we cannot simply call `my-alternating`{.pyret} on `r`{.pyret},
-because `r`{.pyret} excludes only one item from the list, not two as this
-problem requires. We have to break down `r`{.pyret} as well, in order to
-get to the `rest`{.pyret} of the `rest`{.pyret} of the original list. To do
+Note that we cannot simply call `my-alternating`{.jayret} on `r`{.jayret},
+because `r`{.jayret} excludes only one item from the list, not two as this
+problem requires. We have to break down `r`{.jayret} as well, in order to
+get to the `rest`{.jayret} of the `rest`{.jayret} of the original list. To do
 this, we use another `switch`{.jayret} expression, nested within the first
 `switch`{.jayret} expression:
 
@@ -921,14 +921,14 @@ Object my-alternating(l) {
 This code is consistent with the example that we just worked out. But
 note that we still have a bit of unfinished work to do: we need to
 decide what to do in the `Empty`{.jayret} case of the inner `switch`{.jayret}
-expression (marked by `???`{.pyret} in the code).
+expression (marked by `???`{.jayret} in the code).
 
-A common temptation at this point is to replace the `???`{.pyret} with
-`[]`{.pyret}. After all, haven’t we always returned `[]`{.pyret} in
+A common temptation at this point is to replace the `???`{.jayret} with
+`[]`{.jayret}. After all, haven’t we always returned `[]`{.jayret} in
 the `Empty`{.jayret} cases?
 
 ::: {.do-now}
-Replace `???`{.pyret} with `[]`{.pyret} and test the program on our
+Replace `???`{.jayret} with `[]`{.jayret} and test the program on our
 original examples:
 
 ```jayret
@@ -947,7 +947,7 @@ guessed at was how to fill in the `Empty`{.jayret} case of the inner
 `switch`{.jayret}, so the issue must be there. Rather than focus on the
 code, however, focus on the examples. We need a simple example
 that would land on that part of the code. We get to that spot when the
-list `l`{.pyret} is not empty, but `r`{.pyret} (the rest of `l`{.pyret}) is
+list `l`{.jayret} is not empty, but `r`{.jayret} (the rest of `l`{.jayret}) is
 empty. In other words, we need an example with only one element.
 
 ::: {.do-now}
@@ -967,12 +967,12 @@ assertEquals(my-alternating([5]), [5]);
 ```
 
 ::: {.do-now}
-Use this example to update the result of `my-alternating`{.pyret} when
-`r`{.pyret} is `Empty`{.jayret} in our code.
+Use this example to update the result of `my-alternating`{.jayret} when
+`r`{.jayret} is `Empty`{.jayret} in our code.
 :::
 
 Leveraging this new example, the final version of
-`my-alternating`{.pyret} is as follows:
+`my-alternating`{.jayret} is as follows:
 
 ```jayret
 Object my-alternating(l) {
@@ -1017,7 +1017,7 @@ for them!
 Now let’s find the maximum value of a list. Let’s assume for
 simplicity that we’re dealing with just lists of numbers. What kinds
 of lists should we construct? Clearly, we should have empty and
-non-empty lists…but what else? Is a list like `[1, 2, 3]`{.pyret} a
+non-empty lists…but what else? Is a list like `[1, 2, 3]`{.jayret} a
 good example? Well, there’s nothing wrong with it, but we should also
 consider lists where the maximum is at the beginning rather than at the
 end; the maximum might be in the middle; the maximum might be
@@ -1032,19 +1032,19 @@ assertEquals(my-max([2, 3, 1, 3, 2]), 3);
 assertEquals(my-max([2, 1, 4, 3, 2]), 4);
 assertEquals(my-max([-2, -1, -3]), -1);
 ```
-What about `my-max(empty)`{.pyret}?
+What about `my-max(empty)`{.jayret}?
 
 
 ::: {.do-now}
-Could we define `my-max(empty)`{.pyret} to be `0`{.pyret}? Returning
-`0`{.pyret} for the empty list has worked well twice already!
+Could we define `my-max(empty)`{.jayret} to be `0`{.jayret}? Returning
+`0`{.jayret} for the empty list has worked well twice already!
 :::
 
 
 We’ll return to this in a while.
 
 Before we proceed, it’s useful to know that there’s a function called
-`num-max`{.pyret} already defined in Jayret, that compares two numbers:
+`num-max`{.jayret} already defined in Jayret, that compares two numbers:
 
 ```jayret
 assertEquals(num-max(1, 2), 2);
@@ -1053,12 +1053,12 @@ assertEquals(num-max(-1, -2), -1);
 
 
 ::: {.exercise}
-Suppose `num-max`{.pyret} were not already built in. Can you define it?
+Suppose `num-max`{.jayret} were not already built in. Can you define it?
 You will find what you learned about [Booleans](Conditionals_and_Booleans.html##booleans)
 handy. Remember to write some tests!
 :::
 
-Now we can look at `my-max`{.pyret} at work:
+Now we can look at `my-max`{.jayret} at work:
 
 ```jayret
 assertEquals(my-max([1, 2, 3]), 3);
@@ -1103,7 +1103,7 @@ assertEquals(my-max([2]), num-max(2, …));
 ```
 but we don’t really know what the maximum (or minimum, or any other
 element) of the empty list is, but we can only provide numbers
-to `num-max`{.pyret}. Therefore, leaving out that dodgy case, we’re left
+to `num-max`{.jayret}. Therefore, leaving out that dodgy case, we’re left
 with
 
 ```jayret
@@ -1157,7 +1157,7 @@ Object my-max(l) {
 What’s wrong with this?
 :::
 
-Consider the list `[2]`{.pyret}. This turns into
+Consider the list `[2]`{.jayret}. This turns into
 
 ```jayret
 num-max(2, my-max([]));
@@ -1168,8 +1168,8 @@ for any list that has one or more elements!
 That’s because we need to make sure we aren’t trying to compute the
 maximum of the empty list.
 Going back to our examples, we see that what we need to do, before
-calling `my-max`{.pyret}, is check whether the rest of the list is
-empty. If it is, we do not want to call `my-max`{.pyret} at all. That is:
+calling `my-max`{.jayret}, is check whether the rest of the list is
+empty. If it is, we do not want to call `my-max`{.jayret} at all. That is:
 
 ```jayret
 Object my-max(l) {
@@ -1184,7 +1184,7 @@ Object my-max(l) {
 ```
 We’ll return to what to do when the rest is not empty in a moment.
 
-If the rest of the list `l`{.pyret} is empty, our examples above tell us
+If the rest of the list `l`{.jayret} is empty, our examples above tell us
 that the maximum is the first element in the list. Therefore, we can
 fill this in:
 
@@ -1199,10 +1199,10 @@ Object my-max(l) {
     }
 }
 ```
-Note in particular the absence of a call to `my-max`{.pyret}. If the list
-is not empty, however, our examples above tell us that `my-max`{.pyret}
+Note in particular the absence of a call to `my-max`{.jayret}. If the list
+is not empty, however, our examples above tell us that `my-max`{.jayret}
 will give us the maximum of the rest of the list, and we just need to
-compare this answer with the first element (`f`{.pyret}):
+compare this answer with the first element (`f`{.jayret}):
 
 ```jayret
 Object my-max(l) {
@@ -1230,12 +1230,12 @@ And sure enough, this definition does the job!
 ##### 5.2.7.1 my-avg : Examples {#avg-eg}
 
 Let’s now try to compute the average of a list of numbers. Let’s start
-with the example list `[1, 2, 3, 4]`{.pyret} and work out more
+with the example list `[1, 2, 3, 4]`{.jayret} and work out more
 examples from it. The average of numbers in this list is clearly
-`(1 + 2 + 3 + 4)/4`{.pyret}, or `10/4`{.pyret}.
+`(1 + 2 + 3 + 4)/4`{.jayret}, or `10/4`{.jayret}.
 
 Based on the list’s structure, we see that the rest of the list is
-`[2, 3, 4]`{.pyret}, and the rest of that is `[3, 4]`{.pyret},
+`[2, 3, 4]`{.jayret}, and the rest of that is `[3, 4]`{.jayret},
 and so on. The resulting averages are:
 
 ```jayret
@@ -1249,18 +1249,18 @@ the sub-list to the answer for the whole list. That is, given the
 following two bits of information:
 
 
-- The average of the remainder of the list is `9/3`{.pyret}, i.e.,
-  `3`{.pyret}.
+- The average of the remainder of the list is `9/3`{.jayret}, i.e.,
+  `3`{.jayret}.
 
-- The first number in the list is `1`{.pyret}.
+- The first number in the list is `1`{.jayret}.
 
 How do we determine that the average of the whole list must be
-`10/4`{.pyret}? If it’s not clear to you, don’t worry: with just those
+`10/4`{.jayret}? If it’s not clear to you, don’t worry: with just those
 two pieces of information, it’s impossible!
 
 Here’s a simpler example that explains why. Let’s suppose the first
-value in a list is `1`{.pyret}, and the average of the rest of the list
-is `2`{.pyret}. Here are two very different lists that fit this
+value in a list is `1`{.jayret}, and the average of the rest of the list
+is `2`{.jayret}. Here are two very different lists that fit this
 description:
 
 ```jayret
@@ -1269,16 +1269,16 @@ description:
 [1, 4, 0];
 // the rest has two elements with sum 4
 ```
-The average of the entire first list is `3/2`{.pyret}, while the average
-of the entire second list is `5/3`{.pyret}, and the two are not the same.
+The average of the entire first list is `3/2`{.jayret}, while the average
+of the entire second list is `5/3`{.jayret}, and the two are not the same.
 
 That is, to compute the average of a whole list, it’s not even useful to
 know the average of the rest of the list. Rather, we need to
 know the sum and the length of the rest of the
-list. With these two, we can add the first to the sum, and `1`{.pyret} to
+list. With these two, we can add the first to the sum, and `1`{.jayret} to
 the length, and compute the new average.
 
-In principle, we could try to make a `average`{.pyret} function that
+In principle, we could try to make a `average`{.jayret} function that
 returns all this information. Instead, it will be a lot simpler to
 simply decompose the task into two smaller tasks. After all, we
 have already seen how to compute the length and how to compute the
@@ -1304,7 +1304,7 @@ catch this situation and report the error right away, rather than
 hoping some other function will report the error.
 
 ::: {.exercise}
-Alter `my-avg`{.pyret} above to signal an error when given the empty
+Alter `my-avg`{.jayret} above to signal an error when given the empty
 list.
 :::
 
@@ -1315,10 +1315,10 @@ working from examples helps us quickly identify situations
 where this approach does and doesn’t work. Furthermore, if you look
 more closely you’ll notice that the examples above do hint at
 how to solve the problem: in our very first examples, we wrote answers
-like `10/4`{.pyret}, `9/3`{.pyret}, and `7/2`{.pyret}, which correspond to the
+like `10/4`{.jayret}, `9/3`{.jayret}, and `7/2`{.jayret}, which correspond to the
 sum of the numbers divided by the length. Thus, writing the answers in
 this form (as opposed, for instance, to writing the second of those as
-`3`{.pyret}) already reveals a structure for a solution.
+`3`{.jayret}) already reveals a structure for a solution.
 
 ```{=html}
 <a name="(part._accumulators)"></a>
@@ -1335,8 +1335,8 @@ this form (as opposed, for instance, to writing the second of those as
 One more time, we’ll begin with an example.
 
 ::: {.do-now}
-Work out the results for `my-running-sum`{.pyret} starting from the list
-`[1, 2, 3, 4, 5]`{.pyret}.
+Work out the results for `my-running-sum`{.jayret} starting from the list
+`[1, 2, 3, 4, 5]`{.jayret}.
 :::
 
 Here’s what our first few examples look like:
@@ -1371,18 +1371,18 @@ now that may be more work than finding a simpler way to answer it.)
 
 ##### 5.2.8.2 my-running-sum : Examples and Code {#running-sum-eg-code}
 
-Recall how we began in [`my-running-sum`{.pyret}: First Attempt](processing-lists.html##running-sum-1st-attempt). Our
+Recall how we began in [`my-running-sum`{.jayret}: First Attempt](processing-lists.html##running-sum-1st-attempt). Our
 examples [[<running-sum-egs-1>](processing-lists.html#%28elem._running-sum-egs-1%29)] showed the following
 problem. When we process the rest of the list, we have forgotten
 everything about what preceded it. That is, when processing the list
-starting at `2`{.pyret} we forget that we’ve seen a `1`{.pyret} earlier;
-when starting from `3`{.pyret}, we forget that we’ve seen both `1`{.pyret}
-and `2`{.pyret} earlier; and so on. In other words, we keep
+starting at `2`{.jayret} we forget that we’ve seen a `1`{.jayret} earlier;
+when starting from `3`{.jayret}, we forget that we’ve seen both `1`{.jayret}
+and `2`{.jayret} earlier; and so on. In other words, we keep
 forgetting the past. We need some way of avoiding that.
 
 The easiest thing we can do is simply change our function to carry
 along this “memory”, or what we’ll call an accumulator. That
-is, imagine we were defining a new function, called `my-rs`{.pyret}. It
+is, imagine we were defining a new function, called `my-rs`{.jayret}. It
 will consume a list of numbers and produce a list of numbers, but in
 addition it will also take the sum of numbers preceding the
 current list.
@@ -1394,14 +1394,14 @@ What should the initial sum be?
 
 
 Initially there is no “preceding list”, so we will use the additive
-identity: `0`{.pyret}. The type of `my-rs`{.pyret} is
+identity: `0`{.jayret}. The type of `my-rs`{.jayret} is
 
 ```jayret
 /* contract: my-rs :: Object */;
 ```
 
 Let’s now re-work our examples from [<running-sum-egs-1>](processing-lists.html#%28elem._running-sum-egs-1%29) as
-examples of `my-rs`{.pyret} instead. The examples use the `+`{.pyret}
+examples of `my-rs`{.jayret} instead. The examples use the `+`{.jayret}
 operator to append two lists into one (the elements of the first list
 followed by the elements of the second):
 
@@ -1413,7 +1413,7 @@ assertEquals(my-rs(6, [4, 5]), [6 + 4] + my-rs(6 + 4, [5]));
 assertEquals(my-rs(10, [5]), [10 + 5] + my-rs(10 + 5, []));
 assertEquals(my-rs(15, []), empty);
 ```
-That is, `my-rs`{.pyret} translates into the following code:
+That is, `my-rs`{.jayret} translates into the following code:
 
 ```jayret
 Object my-rs(acc, l) {
@@ -1426,7 +1426,7 @@ Object my-rs(acc, l) {
     }
 }
 ```
-All that’s then left is to call it from `my-running-sum`{.pyret}:
+All that’s then left is to call it from `my-running-sum`{.jayret}:
 
 ```jayret
 Object my-running-sum(l) {
@@ -1434,10 +1434,10 @@ Object my-running-sum(l) {
 }
 ```
 
-Observe that we do not change `my-running-sum`{.pyret} itself to take
+Observe that we do not change `my-running-sum`{.jayret} itself to take
 extra arguments. The correctness of our code depends on the initial
-value of `acc`{.pyret} being 0. If we added a parameter for `acc`{.pyret},
-any code that calls `my-running-sum`{.pyret} could supply an unexpected
+value of `acc`{.jayret} being 0. If we added a parameter for `acc`{.jayret},
+any code that calls `my-running-sum`{.jayret} could supply an unexpected
 value, which would distort the result. In addition, since the value is
 fixed, adding the parameter would amount to shifting additional (and
 needless) work onto others who use our code.
@@ -1448,7 +1448,7 @@ needless) work onto others who use our code.
 
 ##### 5.2.8.3 my-alternating : Examples and Code {#alternating-accumulator}
 
-Recall our examples in [`my-alternating`{.pyret}:
+Recall our examples in [`my-alternating`{.jayret}:
 Examples and Code](processing-lists.html##alternating-eg-code). There, we
 noticed that the code built on every-other example. We might have
 chosen our examples differently, so that from one example to the next
@@ -1456,12 +1456,12 @@ we skipped two elements rather than one.
 Here we will see another way to think about the same problem.
 
 Return to the examples we’ve already seen
-[[<alternating-egs-1>](processing-lists.html#%28elem._alternating-egs-1%29)]. We wrote `my-alternating`{.pyret}
+[[<alternating-egs-1>](processing-lists.html#%28elem._alternating-egs-1%29)]. We wrote `my-alternating`{.jayret}
 to traverse the list essentially two elements at a time. Another option is to traverse it just one
 element at a time, but keeping track of whether we’re at an odd
 or even element—i.e., add “memory” to our program. Since we just
 need to track that one piece of information, we can use a
-`Boolean`{.pyret} to do it. Let’s define a new function for this purpose:
+`Boolean`{.jayret} to do it. Let’s define a new function for this purpose:
 
 ```jayret
 /* contract: my-alt :: Object */;
@@ -1471,7 +1471,7 @@ one to discard.
 
 We can reuse the existing template for list functions. When we have an
 element, we have to consult the accumulator whether to keep it or
-not. If its value is `true`{.pyret} we `Link`{.jayret} it to the answer;
+not. If its value is `true`{.jayret} we `Link`{.jayret} it to the answer;
 otherwise we ignore it. As we process the rest of the list, however,
 we have to remember to update the accumulator: if we kept an element
 we don’t wish to keep the next one, and vice versa.
@@ -1490,7 +1490,7 @@ Object my-alt(l, keep) {
 ```
 Finally, we have to determine the initial value of the accumulator. In
 this case, since we want to keep alternating elements starting
-with the first one, its initial value should be `true`{.pyret}:
+with the first one, its initial value should be `true`{.jayret}:
 
 ```jayret
 Object my-alternating(l) {
@@ -1499,7 +1499,7 @@ Object my-alternating(l) {
 ```
 
 ::: {.exercise}
-Define `my-max`{.pyret} using an accumulator. What does the accumulator
+Define `my-max`{.jayret} using an accumulator. What does the accumulator
 represent? Do you encounter any difficulty?
 :::
 
@@ -1520,13 +1520,13 @@ some detail now.
 
 ##### 5.2.9.1 uniq : Problem Setup {#uniq}
 
-Consider the task of writing `uniq`{.pyret}:[uniq is the
+Consider the task of writing `uniq`{.jayret}:[uniq is the
 name of a Unix utility with similar behavior; hence the spelling of
 the name.]{.margin-note} given a list of values, it produces a collection of the
-same elements while avoiding any duplicates (hence `uniq`{.pyret}, short
+same elements while avoiding any duplicates (hence `uniq`{.jayret}, short
 for “unique”).
 
-Consider the following input: `[1, 2, 1, 3, 1, 2, 4, 1]`{.pyret}.
+Consider the following input: `[1, 2, 1, 3, 1, 2, 4, 1]`{.jayret}.
 
 ::: {.do-now}
 What is the sequence of examples this input generates? It’s
@@ -1590,10 +1590,10 @@ and so on. Let’s work with the examples we’ve worked out above.
 
 What is the systematic approach that gets us to this answer?
 When given a non-empty list, we split it into its first element and
-the rest of the list. Suppose we have the answer to `uniq`{.pyret}
+the rest of the list. Suppose we have the answer to `uniq`{.jayret}
 applied to the rest of the list. Now we can ask: is the first element
 in the rest of the list? If it is, then we can ignore it, since it is
-certain to be in the `uniq`{.pyret} of the rest of the list. If, however,
+certain to be in the `uniq`{.jayret} of the rest of the list. If, however,
 it is not in the rest of the list, it’s critical that we `Link`{.jayret}
 it to the answer.
 
@@ -1616,12 +1616,12 @@ List<Object> uniq-rec(List<Object> l) {
     }
 }
 ```
-which we’ve called `uniq-rec`{.pyret} instead of `uniq`{.pyret} to
-differentiate it from other versions of `uniq`{.pyret}.
+which we’ve called `uniq-rec`{.jayret} instead of `uniq`{.jayret} to
+differentiate it from other versions of `uniq`{.jayret}.
 
 ::: {.exercise}
-Note that we’re using `.member`{.pyret} to check whether an element is a
-member of the list. Write a function `member`{.pyret} that consumes an
+Note that we’re using `.member`{.jayret} to check whether an element is a
+member of the list. Write a function `member`{.jayret} that consumes an
 element and a list, and tells us whether the element is a member of
 the list.
 :::
@@ -1632,7 +1632,7 @@ might have a list of names of people who have registered to vote in an
 election. To keep the voting fair, with only one vote allowed per
 person, we should remove duplicate names from the list.
 
-1. Propose a set of examples for a function `rem-duplicate-voters`{.pyret}
+1. Propose a set of examples for a function `rem-duplicate-voters`{.jayret}
   that takes a list of voter names and returns a list in which duplicate
   registrations have been removed. In developing your examples, consider
   real-world scenarios that you can imagine arising when identifying
@@ -1640,7 +1640,7 @@ person, we should remove duplicate names from the list.
   might appear to be the same person, but not be? Cases in which two
   names might appear different but be referring to the same person?
 
-2. What might you need to change about our current `uniq-rec`{.pyret}
+2. What might you need to change about our current `uniq-rec`{.jayret}
   function to handle a situation like removing duplicate voters?
 :::
 
@@ -1689,25 +1689,25 @@ You might think, because we replaced two function calls with one, that
 we’ve reduced the amount of computation the program does. It does not!
 The two function calls are both in the two branches of the same
 conditional; therefore, for any given list element, only one or the
-other call to `uniq`{.pyret} happens. In fact, in both cases, there was
-one call to `uniq`{.pyret} before, and there is one now. So we have
+other call to `uniq`{.jayret} happens. In fact, in both cases, there was
+one call to `uniq`{.jayret} before, and there is one now. So we have
 reduced the number of calls in the source program, but not the number
 that take place when the program runs. In that sense, the name of this
 section was intentionally misleading!
 
 However, there is one useful reduction we can perform, which is
-enabled by the structure of `uniq-rec2`{.pyret}. We currently check
-whether `f`{.pyret} is a member of `r`{.pyret}, which is the list of
+enabled by the structure of `uniq-rec2`{.jayret}. We currently check
+whether `f`{.jayret} is a member of `r`{.jayret}, which is the list of
 all the remaining elements. In our example, this means that in
-the very second turn, we check whether `2`{.pyret} is a member of the list
-`[1, 3, 1, 2, 4, 1]`{.pyret}. This is a list of six elements,
-including three copies of `1`{.pyret}. We compare `2`{.pyret} against
-two copies of `1`{.pyret}. However, we gain nothing from the
-second comparison. Put differently, we can think of `uniq(r)`{.pyret} as
+the very second turn, we check whether `2`{.jayret} is a member of the list
+`[1, 3, 1, 2, 4, 1]`{.jayret}. This is a list of six elements,
+including three copies of `1`{.jayret}. We compare `2`{.jayret} against
+two copies of `1`{.jayret}. However, we gain nothing from the
+second comparison. Put differently, we can think of `uniq(r)`{.jayret} as
 a “summary” of the rest of the list that is exactly as good as
-`r`{.pyret} itself for checking membership, with the advantage that it
+`r`{.jayret} itself for checking membership, with the advantage that it
 might be significantly shorter. This, of course, is exactly what
-`ur`{.pyret} represents. Therefore, we can encode this intuition as
+`ur`{.jayret} represents. Therefore, we can encode this intuition as
 follows:
 
 ```jayret
@@ -1726,7 +1726,7 @@ List<Object> uniq-rec3(List<Object> l) {
 }
 ```
 Note that all that changed is that we check for membership in
-`ur`{.pyret} rather than in `r`{.pyret}.
+`ur`{.jayret} rather than in `r`{.jayret}.
 
 ::: {.exercise}
 Later [[Predicting Growth](predicting-growth.html)] we will study how to formally
@@ -1739,7 +1739,7 @@ the list.
 Observe that if the list never contained duplicates in the first
 place, then it wouldn’t matter which list we check membership in—but
 if we knew the list didn’t contain duplicates, we wouldn’t be
-using `uniq`{.pyret} in the first place! We will return to the issue of
+using `uniq`{.jayret} in the first place! We will return to the issue of
 lists and duplicate elements in [Representing Sets as Lists](sets-from-lists.html).
 
 ```{=html}
@@ -1776,20 +1776,20 @@ and greatly complicates even writing down examples (give it a try!).
 
 ##### 5.2.9.6 uniq : Why Produce a List? {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Why-Produce-a-List}
 
-If you go back to the original statement of the `uniq`{.pyret} problem
-[[`uniq`{.pyret}: Problem Setup](processing-lists.html##uniq)], you’ll notice it said nothing about what order the
+If you go back to the original statement of the `uniq`{.jayret} problem
+[[`uniq`{.jayret}: Problem Setup](processing-lists.html##uniq)], you’ll notice it said nothing about what order the
 output should have; in fact, it didn’t even say the output needs to be
 a list (and hence have an order). In that case, we should think about
 whether a list even makes sense for this problem. In fact, if we don’t
 care about order and don’t want duplicates (by definition of
-`uniq`{.pyret}), then there is a much simpler solution, which is to
+`uniq`{.jayret}), then there is a much simpler solution, which is to
 produce a set. Jayret already has sets built in, and converting
 the list to a set automatically takes care of duplicates. This is of
 course cheating from the perspective of learning how to write
-`uniq`{.pyret}, but it is worth remembering that sometimes the right data
+`uniq`{.jayret}, but it is worth remembering that sometimes the right data
 structure to produce isn’t necessarily the same as the one we were
 given. Also, later [[Representing Sets as Lists](sets-from-lists.html)], we will see how to build sets
-for ourselves (at which point, `uniq`{.pyret} will look familiar, since
+for ourselves (at which point, `uniq`{.jayret} will look familiar, since
 it is at the heart of set-ness).
 
 ```{=html}
@@ -1805,19 +1805,19 @@ Earlier we wrote contracts like:
 /* contract: my-max :: Object */;
 ```
 These are unsatisfying for several reasons. Consider
-`my-max`{.pyret}. The contract suggests that any kind of element can be
+`my-max`{.jayret}. The contract suggests that any kind of element can be
 in the input list, but in fact that isn’t true: the input
-`[1, "two", 3]`{.pyret} is not valid, because we can’t compare
-`1`{.pyret} with `"two"`{.pyret} or `"two"`{.pyret} with `3`{.pyret}.
+`[1, "two", 3]`{.jayret} is not valid, because we can’t compare
+`1`{.jayret} with `"two"`{.jayret} or `"two"`{.jayret} with `3`{.jayret}.
 
 ::: {.exercise}
-What happens if we run `1 > "two"`{.pyret} or `"two" > 3`{.pyret}?
+What happens if we run `1 > "two"`{.jayret} or `"two" > 3`{.jayret}?
 :::
 
 Rather, what we mean is a list where all the elements are of the
 same kind,[Technically, elements that are also comparable.]{.margin-note}
 and the contract has not captured that. Furthermore, we don’t mean
-that `my-max`{.pyret} might return any old type: if we supply it with a
+that `my-max`{.jayret} might return any old type: if we supply it with a
 list of numbers, we will not get a string as the maximum element!
 Rather, it will only return the kind of element that is in the
 provided list.
@@ -1825,35 +1825,35 @@ provided list.
 In short, we mean that all elements of the list are of the same type,
 but they can be of any type. We call the former monomorphic:
 “mono” meaning one, and “morphic” meaning shape, i.e., all values
-have one type. But the function `my-max`{.pyret} itself can operate over
+have one type. But the function `my-max`{.jayret} itself can operate over
 many of these kinds of lists, so we call it polymorphic
 (“poly” meaning many).
 
 Therefore, we need a better way of writing these
 contracts. Essentially, we want to say that there is a
 type variable (as opposed to regular program variable) that represents the
-type of element in the list. Given that type, `my-max`{.pyret} will
+type of element in the list. Given that type, `my-max`{.jayret} will
 return an element of that type. We write this syntactically as
 follows:
 
 ```jayret
 <T> T my-max(List<T> l) { … }
 ```
-The notation `<T>`{.pyret} says that `T`{.pyret} is a type variable
+The notation `<T>`{.jayret} says that `T`{.jayret} is a type variable
 parameter that will be used in the rest of the function (both the
 header and the body).
 
-Using this notation, we can also revisit `my-len`{.pyret}. Its header now
+Using this notation, we can also revisit `my-len`{.jayret}. Its header now
 becomes:
 
 ```jayret
 <T> int my-len(List<T> l) { … }
 ```
-Note that `my-len`{.pyret} did not actually “care” that whether all the
+Note that `my-len`{.jayret} did not actually “care” that whether all the
 values were of the same type or not: it never looks at the individual
 elements, much less at pairs of them. However, as a convention
 we demand that lists always be monomorphic. This is important because
 it enables us to process the elements of the list uniformly: if we
-know how to process elements of type `T`{.pyret}, then we will know how
-to process a `List < T >`{.pyret}. If the list elements can be of truly any
+know how to process elements of type `T`{.jayret}, then we will know how
+to process a `List < T >`{.jayret}. If the list elements can be of truly any
 old type, we can’t know how to process its elements.

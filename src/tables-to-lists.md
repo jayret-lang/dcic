@@ -55,7 +55,7 @@ instance:
   multiple orders).
 
 - Which school lead to the largest number of orders with a
-  `"STUDENT"`{.pyret} discount.
+  `"STUDENT"`{.jayret} discount.
 
 Notice the kinds of operations that we are talking about: computing
 the maximum, minimum, average, median, and other basic
@@ -72,13 +72,13 @@ operations you have already seen.
 :::
 
 In each of these cases, we need to perform a computation on a single
-column of data (even in the last question about the `"STUDENT"`{.pyret}
+column of data (even in the last question about the `"STUDENT"`{.jayret}
 discount, as we would filter the table to those rows, then do a
-computation over the `email`{.pyret} column). In order to capture these
+computation over the `email`{.jayret} column). In order to capture these
 in code, we need to extract a column from the table.
 
 For the rest of this chapter, we will work with a cleaned copy of the
-`event-data`{.pyret} from the previous chapter. The cleaned data, which
+`event-data`{.jayret} from the previous chapter. The cleaned data, which
 applies the transformations at the end of the previous chapter, is in
 a different tab of the same Google Sheet as the other versions of the
 event data.
@@ -97,9 +97,9 @@ cleaned-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source
 #### 5.1.2 Extracting a Column from a Table {#Extracting-a-Column-from-a-Table}
 
 Our collection of table functions includes one that we haven’t yet
-used, called `select-columns`{.pyret}. As the name suggests, this
+used, called `select-columns`{.jayret}. As the name suggests, this
 function produces a new table containing only certain columns from an
-existing table. Let’s extract the `tickcount`{.pyret} column so we can
+existing table. Let’s extract the `tickcount`{.jayret} column so we can
 compute some statistics over it. We use the following expression:
 
 ```jayret
@@ -124,9 +124,9 @@ tables sooner or later. An extracted column is a more basic kind of
 datum called a list, which can be used to represent a sequence
 of data outside of a table.
 
-Just as we have used the notation `.row-n`{.pyret} to pull a single row
+Just as we have used the notation `.row-n`{.jayret} to pull a single row
 from a table, we use a similar dot-based notion to pull out a single
-column. Here’s how we extract the `tickcount`{.pyret} column:
+column. Here’s how we extract the `tickcount`{.jayret} column:
 
 ```jayret
 cleaned-data.get-column("tickcount");
@@ -140,7 +140,7 @@ In response, Jayret produces the following value:
 
 Now, we seem to have only the values that were in the cells in the
 column, without the enclosing table. Yet the numbers are still bundled
-up, this time in the `[...]`{.pyret} notation. What is that?
+up, this time in the `[...]`{.jayret} notation. What is that?
 
 ```{=html}
 <a name="(part._Understanding-Lists)"></a>
@@ -168,12 +168,12 @@ what it represents; this interpretation is done by our program.
 
 This might sound rather abstract—and it is—but this isn’t actually
 a new idea in our programming experience. Consider a value like
-`3`{.pyret} or `-1`{.pyret}: what is it? It’s the same sort of thing: an
+`3`{.jayret} or `-1`{.jayret}: what is it? It’s the same sort of thing: an
 anonymous value that does not describe what it represents; the
-interpretation is done by our program. In one setting `3`{.pyret} may
-represent an age, in another a play count; in one setting `-1`{.pyret}
+interpretation is done by our program. In one setting `3`{.jayret} may
+represent an age, in another a play count; in one setting `-1`{.jayret}
 may be a temperature, in another the average of several
-temperatures. Similarly with a string: Is `"project"`{.pyret} a noun (an
+temperatures. Similarly with a string: Is `"project"`{.jayret} a noun (an
 activity that one or more people perform) or a verb (as when we
 display something on a screen)? Likewise with images and so on. In
 fact, tables have been the exception so far in having description
@@ -201,7 +201,7 @@ strings).
 ##### 5.1.3.2 Creating Literal Lists {#Creating-Literal-Lists}
 
 We have already seen how we can create lists from a table, using
-`get-column`{.pyret}. As you might expect, however, we can also create lists
+`get-column`{.jayret}. As you might expect, however, we can also create lists
 directly:
 
 ```jayret
@@ -222,7 +222,7 @@ Based on these examples, can you figure out how to create an empty
 list?
 :::
 
-As you might have guessed, it’s `[]`{.pyret} (the space isn’t
+As you might have guessed, it’s `[]`{.jayret} (the space isn’t
 necessary, but it’s a useful visual reminder of the void).
 
 ```{=html}
@@ -264,9 +264,9 @@ S.median(tickcounts);
 // median of numbers in a list
 ```
 
-The `M.`{.pyret} notation means "the function inside the library
-`M`{.pyret}. The `import`{.pyret} statement in the above code gave the name
-`M`{.pyret} to the `math`{.pyret} library.
+The `M.`{.jayret} notation means "the function inside the library
+`M`{.jayret}. The `import`{.jayret} statement in the above code gave the name
+`M`{.jayret} to the `math`{.jayret} library.
 
 ```{=html}
 <a name="(part._Built-In-Operations-on-Lists-in-General)"></a>
@@ -275,7 +275,7 @@ The `M.`{.pyret} notation means "the function inside the library
 ##### 5.1.4.2 Built-In Operations on Lists in General {#Built-In-Operations-on-Lists-in-General}
 
 Some of the useful computations in our list at the start of the
-chapter involved the `discount`{.pyret} column, which contains strings
+chapter involved the `discount`{.jayret} column, which contains strings
 rather than numbers. Specifically, let’s consider the following
 question:
 
@@ -295,7 +295,7 @@ codes = cleaned-data.get-column("discount");
 L.distinct(codes);
 ```
 
-The `distinct`{.pyret} function produces a list of the unique values from
+The `distinct`{.jayret} function produces a list of the unique values from
 the input list: every value in the input list appears exactly once in
 the output list. For the above code, Jayret produces:
 
@@ -303,13 +303,13 @@ the output list. For the above code, Jayret produces:
 ["BIRTHDAY", "STUDENT", "none"];
 ```
 
-What if we wanted to exclude `"none"`{.pyret} from that list? After all,
-`"none"`{.pyret} isn’t an actual discount code, but rather one that we
+What if we wanted to exclude `"none"`{.jayret} from that list? After all,
+`"none"`{.jayret} isn’t an actual discount code, but rather one that we
 introduced while cleaning up the table. Is there a way to easily
-remove `"none"`{.pyret} from the list?
+remove `"none"`{.jayret} from the list?
 
 There are two ways we could do it. In the Jayret lists documentation,
-we find a function called `remove`{.pyret}, which removes a specific
+we find a function called `remove`{.jayret}, which removes a specific
 element from a list:
 
 ::: {.pyret-repl}
@@ -322,7 +322,7 @@ L.remove(L.distinct(codes), "none");
 :::
 
 But this operation should also sound familiar: with tables, we
-used `filter-with`{.pyret} to keep only those elements that meet a
+used `filter-with`{.jayret} to keep only those elements that meet a
 specific criterion. The filtering idea is so common that Jayret (and
 most other languages) provide a similar operation on lists. In the
 case of the discount codes, we could also have written:
@@ -334,17 +334,17 @@ boolean real-code(String c) {
 L.filter(real-code, L.distinct(codes));
 ```
 
-The difference between these two approaches is that `filter`{.pyret} is
+The difference between these two approaches is that `filter`{.jayret} is
 more flexible: we can check any characteristic of a list element using
-`filter`{.pyret}, but `remove`{.pyret} only checks whether the entire
+`filter`{.jayret}, but `remove`{.jayret} only checks whether the entire
 element is equal to the value that we provide. If instead of removing
-the specific string `"none"`{.pyret}, we had wanted to remove all strings
-that were in all-lowercase, we would have needed to use `filter`{.pyret}.
+the specific string `"none"`{.jayret}, we had wanted to remove all strings
+that were in all-lowercase, we would have needed to use `filter`{.jayret}.
 
 ::: {.exercise}
 Write a function that takes a list of words and removes those words in
 which all letters are in lowercase. (Hint: combine
-`string-to-lower`{.pyret} and `==`{.pyret}).
+`string-to-lower`{.jayret} and `==`{.jayret}).
 :::
 
 ```{=html}
@@ -353,8 +353,8 @@ which all letters are in lowercase. (Hint: combine
 
 ##### 5.1.4.3 An Aside on Naming Conventions {#An-Aside-on-Naming-Conventions}
 
-Our use of the plural `codes`{.pyret} for the list of values in the
-column named `discount`{.pyret} (singular) is deliberate. A list contains
+Our use of the plural `codes`{.jayret} for the list of values in the
+column named `discount`{.jayret} (singular) is deliberate. A list contains
 multiple values, so a plural is appropriate. In a table, in contrast,
 we think of a column header as naming a single value that appears in
 a specific row. Often, we speak of looking up a value in a specific
@@ -368,9 +368,9 @@ about lookup in an individual row.
 ##### 5.1.4.4 Getting Elements By Position {#Getting-Elements-By-Position}
 
 Let’s look at a new analysis question: the events company recently ran
-an advertising campaign on `web.com`{.pyret}, and they are curious
+an advertising campaign on `web.com`{.jayret}, and they are curious
 whether it paid off. To do this, they need to determine how many sales
-were made to people with `web.com`{.pyret} email addresses.
+were made to people with `web.com`{.jayret} email addresses.
 
 ::: {.do-now}
 Propose a task plan ([Task Plans](processing-tables.html##task-plans)) for this computation.
@@ -378,11 +378,11 @@ Propose a task plan ([Task Plans](processing-tables.html##task-plans)) for this 
 
 Here’s a proposed plan, annotated with how we might implement each part:
 
-1. Get the list of email addresses (use `get-column`{.pyret})
+1. Get the list of email addresses (use `get-column`{.jayret})
 
-2. Extract those that came from `web.com`{.pyret} (use `L.filter`{.pyret})
+2. Extract those that came from `web.com`{.jayret} (use `L.filter`{.jayret})
 
-3. Count how many email addresses remain (using `L.length`{.pyret},
+3. Count how many email addresses remain (using `L.length`{.jayret},
   which we hadn’t discussed yet, but it is in the documentation)
 
 (As a reminder, unless you immediately see how to solve a problem,
@@ -390,11 +390,11 @@ write out a task plan and annotate the parts you know how to do. It
 helps break down a programming problem into more manageable parts.)
 
 Let’s discuss the second task: identifying messages from
-`web.com`{.pyret}. We know that email addresses are strings, so if we
-could determine whether an email string ends in `@web.com`{.pyret},
+`web.com`{.jayret}. We know that email addresses are strings, so if we
+could determine whether an email string ends in `@web.com`{.jayret},
 we’d be set. You could consider doing this by looking at the last 7
 characters of the email string. Another option is to use a string
-operation that we haven’t yet seen called `string-split-all`{.pyret}, which
+operation that we haven’t yet seen called `string-split-all`{.jayret}, which
 splits a string into a list of substrings around a given
 character. For example:
 
@@ -417,12 +417,12 @@ string-split("bonnie@jayret-lang.github.io", "@");
 :::
 
 This seems pretty useful. If we split each email string around the
-`@`{.pyret} sign, then we can check whether the second string in the
-list is `web.com`{.pyret} (since email addresses should have only one
-`@`{.pyret} sign). But how would we get the second element out of
-the list produced by `string-split-all`{.pyret}? Here we dig into the
+`@`{.jayret} sign, then we can check whether the second string in the
+list is `web.com`{.jayret} (since email addresses should have only one
+`@`{.jayret} sign). But how would we get the second element out of
+the list produced by `string-split-all`{.jayret}? Here we dig into the
 list, as we did to extract rows from tables, this time using the
-`get`{.pyret} operation.
+`get`{.jayret} operation.
 
 ::: {.pyret-repl}
 ```jayret
@@ -434,7 +434,7 @@ string-split("bonnie@jayret-lang.github.io", "@").get(1);
 :::
 
 ::: {.do-now}
-Why do we use `1`{.pyret} as the input to `get`{.pyret} if we want the
+Why do we use `1`{.jayret} as the input to `get`{.jayret} if we want the
 second item in the list?
 :::
 
@@ -453,7 +453,7 @@ L.length(L.filter(web-com-address, emails));
 
 ::: {.exercise}
 What happens if there is a malformed email address string that doesn’t
-contain the `@`{.pyret} string? What would happen? What could you do
+contain the `@`{.jayret} string? What would happen? What could you do
 about that?
 :::
 
@@ -481,21 +481,21 @@ and convert it to
 ```
 
 ::: {.do-now}
-Consider the list functions we have seen so far (`distinct`{.pyret},
-`filter`{.pyret}, `length`{.pyret}) – are any of them useful for this task?
+Consider the list functions we have seen so far (`distinct`{.jayret},
+`filter`{.jayret}, `length`{.jayret}) – are any of them useful for this task?
 Can you articulate why?
 :::
 
 One way to articulate a precise answer to this is think in terms of
-the inputs and outputs of the existing functions. Both `filter`{.pyret}
-and `distinct`{.pyret} return a list of elements from the input list, not
-transformed elements. `length`{.pyret} returns a number, not a list. So
+the inputs and outputs of the existing functions. Both `filter`{.jayret}
+and `distinct`{.jayret} return a list of elements from the input list, not
+transformed elements. `length`{.jayret} returns a number, not a list. So
 none of these are appropriate.
 
 This idea of transforming elements is similar to the
-`transform-column`{.pyret} operation that we previously saw on
+`transform-column`{.jayret} operation that we previously saw on
 tables. The corresponding operation on lists is called
-`map`{.pyret}. Here’s an example:
+`map`{.jayret}. Here’s an example:
 
 ```jayret
 String extract-username(String email) {
@@ -516,34 +516,34 @@ L.map(extract-username, ["parrot@web.com", "bonnie@jayret-lang.github.io"]);
 At this point, we have seen several useful built-in functions for
 working with lists:
 
-- `/* contract: filter :: Object */`{.pyret}, which
+- `/* contract: filter :: Object */`{.jayret}, which
   produces a list of elements from the input list on which the given
-  function returns `true`{.pyret}.
+  function returns `true`{.jayret}.
 
-- `/* contract: map :: Object */`{.pyret}, which
+- `/* contract: map :: Object */`{.jayret}, which
   produces a list of the results of calling the given function on each
   element of the input list.
 
-- `/* contract: distinct :: Object */`{.pyret}, which
+- `/* contract: distinct :: Object */`{.jayret}, which
   produces a list of the unique elements that appear in the input list.
 
-- `/* contract: length :: Object */`{.pyret}, which
+- `/* contract: length :: Object */`{.jayret}, which
   produces the number of elements in the input list.
 
-Here, a type such as `List < A >`{.pyret} says that we have a list whose
+Here, a type such as `List < A >`{.jayret} says that we have a list whose
 elements are of some (unspecified) type which we’ll call
-`A`{.pyret}. A type variable such as this is useful when we want to
+`A`{.jayret}. A type variable such as this is useful when we want to
 show relationships between two types in a function
-contract. Here, the type variable `A`{.pyret} captures that the type of
-elements is the same in the input and output to `filter`{.pyret}. In
-`map`{.pyret}, however, the type of element in the output list could
+contract. Here, the type variable `A`{.jayret} captures that the type of
+elements is the same in the input and output to `filter`{.jayret}. In
+`map`{.jayret}, however, the type of element in the output list could
 differ from that in the input list.
 
 One additional built-in function that is quite useful in practice is:
 
-- `/* contract: member :: Object */`{.pyret}, which
+- `/* contract: member :: Object */`{.jayret}, which
   determines whether the given element is in the list. We use the type
-  `Any`{.pyret} when there are no constraints on the type of value provided
+  `Any`{.jayret} when there are no constraints on the type of value provided
   to a function.
 
 Many useful computations can be performed by combining these
@@ -561,16 +561,16 @@ misir-wot = ["lentils", "berbere", "tomato"];
 
 Write the following functions on ingredient lists:
 
-- `recipes-uses`{.pyret}, which takes an ingredient list and an
+- `recipes-uses`{.jayret}, which takes an ingredient list and an
   ingredient and determines whether the recipe uses the ingredient.
 
-- `make-vegetarian`{.pyret}, which takes an ingredient list and replaces
-  all meat ingredients with `"tofu"`{.pyret}. Meat ingredients are
-  `"pork"`{.pyret}, `"chicken"`{.pyret}, and `"beef"`{.pyret}.
+- `make-vegetarian`{.jayret}, which takes an ingredient list and replaces
+  all meat ingredients with `"tofu"`{.jayret}. Meat ingredients are
+  `"pork"`{.jayret}, `"chicken"`{.jayret}, and `"beef"`{.jayret}.
 
-- `protein-veg-count`{.pyret}, which takes an ingredient list and
+- `protein-veg-count`{.jayret}, which takes an ingredient list and
   determines how many ingredients are in the list that aren’t
-  `"rice"`{.pyret} or `"noodles"`{.pyret}.
+  `"rice"`{.jayret} or `"noodles"`{.jayret}.
 :::
 
 ::: {.exercise}
@@ -599,8 +599,8 @@ Come back to this problem after you finish the next section.
 NOTE: if you already saw lambda (arrow-function) syntax in
 [Lambda: Anonymous Functions](intro-tabular-data.html##sec-lambda-tables),
 feel free to skip this section, or just do the exercises at the end. Here we
-present the same concept using lists and `filter`{.pyret}, rather than tables
-and `filter-with`{.pyret}.
+present the same concept using lists and `filter`{.jayret}, rather than tables
+and `filter-with`{.jayret}.
 
 Let’s revisit the program we wrote earlier in this chapter for
 finding all of the discount codes that were used in the events table:
@@ -614,7 +614,7 @@ L.filter(real-code, codes);
 
 This program might feel a bit verbose: do we really need to write a
 helper function just to perform something as simple as a
-`filter`{.pyret}? Wouldn’t it be easier to just write something like:
+`filter`{.jayret}? Wouldn’t it be easier to just write something like:
 
 ```jayret
 L.filter(not(c == "none"), codes);
@@ -626,18 +626,18 @@ What will Jayret produce if you run this expression?
 
 Jayret will produce an `unbound;
 identifier`{.jayret} error around the use
-of `c`{.pyret} in this expression. What is `c`{.pyret}? We mean for `c`{.pyret}
-to be the elements from `codes`{.pyret} in turn. Conceptually, that’s
-what `filter`{.pyret} does, but we don’t have the mechanics right. When
+of `c`{.jayret} in this expression. What is `c`{.jayret}? We mean for `c`{.jayret}
+to be the elements from `codes`{.jayret} in turn. Conceptually, that’s
+what `filter`{.jayret} does, but we don’t have the mechanics right. When
 we call a function, we evaluate the arguments before the body
-of the function. Hence, the error regarding `c`{.pyret} being unbound.
-The whole point of the `real-code`{.pyret} helper function is to make
-`c`{.pyret} a parameter to a function whose body is only evaluated once
-a value for `c`{.pyret} is available.
+of the function. Hence, the error regarding `c`{.jayret} being unbound.
+The whole point of the `real-code`{.jayret} helper function is to make
+`c`{.jayret} a parameter to a function whose body is only evaluated once
+a value for `c`{.jayret} is available.
 
-To tighten the notation as in the one-line `filter`{.pyret} expression,
+To tighten the notation as in the one-line `filter`{.jayret} expression,
 then, we have to find a way to tell Jayret to make a temporary function
-that will get its inputs once `filter`{.pyret} is running. The following
+that will get its inputs once `filter`{.jayret} is running. The following
 notation achieves this:
 
 ```jayret
@@ -650,9 +650,9 @@ the parameters from the body expression. Such anonymous functions are commonly
 called *lambdas*; they exist in many languages but with different syntaxes.
 
 The main difference between our original expression (using the
-`real-code`{.pyret} helper) and this new one (using arrow syntax) can be
+`real-code`{.jayret} helper) and this new one (using arrow syntax) can be
 seen through the program directory. To explain this, a little detail
-about how `filter`{.pyret} is defined under the hood. In part, it looks
+about how `filter`{.jayret} is defined under the hood. In part, it looks
 like:
 
 ```jayret
@@ -665,19 +665,19 @@ List<A> filter((A -> boolean) keep, List<A> lst) {
 }
 ```
 
-Whether we pass `real-code`{.pyret} or the arrow-function version to
-`filter`{.pyret}, the `keep`{.pyret} parameter ends up referring to a
+Whether we pass `real-code`{.jayret} or the arrow-function version to
+`filter`{.jayret}, the `keep`{.jayret} parameter ends up referring to a
 function with the same parameter and body. Since the function is only
-actually called through the `keep`{.pyret} name, it doesn’t matter
+actually called through the `keep`{.jayret} name, it doesn’t matter
 whether or not a name is associated with it when it is initially
 defined.
 
 In practice, we use arrow functions when we have to pass simple (single
-line) functions to operations like `filter`{.pyret} (or `map`{.pyret}). We
+line) functions to operations like `filter`{.jayret} (or `map`{.jayret}). We
 could have just as easily used them when we were working with tables
-(`build-column`{.pyret}, `filter-with`{.pyret}, etc). Of course, you can
+(`build-column`{.jayret}, `filter-with`{.jayret}, etc). Of course, you can
 continue to write out names for helper functions as we did with
-`real-code`{.pyret} if that makes more sense to you.
+`real-code`{.jayret} if that makes more sense to you.
 
 ::: {.exercise}
 Write the program to extract the list of usernames from a list of
@@ -711,13 +711,13 @@ pick up their tickets.
 ::: {.exercise}
 Given the events table, produce the average number of tickets that
 were ordered by people with email addresses that end in
-`".org"`{.pyret}.
+`".org"`{.jayret}.
 :::
 
 Sometimes, there will be more than one way to perform a computation:
 
 ::: {.do-now}
-Consider a question such as "how many people with `".org"`{.pyret} email
+Consider a question such as "how many people with `".org"`{.jayret} email
 addresses bought more than 8 tickets". Propose multiple task plans
 that would solve this problem, including which table and list
 functions would accomplish each task.
@@ -725,20 +725,20 @@ functions would accomplish each task.
 
 There are several options here:
 
-1. Get the `event-data`{.pyret} rows with no more than 8
-  tickets (using `filter-with`{.pyret}), get those rows that have
-  `".org"`{.pyret} addresses (another `filter-with`{.pyret}), then ask for how
-  many rows are in the table (using `<table>.length()`{.pyret}).
+1. Get the `event-data`{.jayret} rows with no more than 8
+  tickets (using `filter-with`{.jayret}), get those rows that have
+  `".org"`{.jayret} addresses (another `filter-with`{.jayret}), then ask for how
+  many rows are in the table (using `<table>.length()`{.jayret}).
 
-2. Get the `event-data`{.pyret} rows with no more than 8
-  tickets and `".org"`{.pyret} address (using `filter-with`{.pyret} with a
+2. Get the `event-data`{.jayret} rows with no more than 8
+  tickets and `".org"`{.jayret} address (using `filter-with`{.jayret} with a
   function that checks both conditions at once), then ask for how
-  many rows are in the table (using `<table>.length()`{.pyret}).
+  many rows are in the table (using `<table>.length()`{.jayret}).
 
-3. Get the `event-data`{.pyret} rows with no more than 8
-  tickets (using `filter-with`{.pyret}), extract the email addresses (using
-  `get-column`{.pyret}), limit those to `".org"`{.pyret} (using `L.filter`{.pyret}),
-  then get the length of the resulting list (using `L.length`{.pyret}).
+3. Get the `event-data`{.jayret} rows with no more than 8
+  tickets (using `filter-with`{.jayret}), extract the email addresses (using
+  `get-column`{.jayret}), limit those to `".org"`{.jayret} (using `L.filter`{.jayret}),
+  then get the length of the resulting list (using `L.length`{.jayret}).
 
 There are others, but you get the idea.
 
