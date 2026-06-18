@@ -407,7 +407,8 @@ What does the `45`{.pyret} represent? Try some different numbers in place of the
 `45`{.pyret} to confirm or refine your hypothesis.
 
 ```jayret
-overlay(circle(25, "solid", "yellow"), rectangle(50, 50, "solid", "blue"));
+overlay(circle(25, "solid", "yellow"),
+  rectangle(50, 50, "solid", "blue"));
 ```
 
 Can you describe in prose what `overlay`{.pyret} does?
@@ -526,11 +527,7 @@ information that the error message is giving you about what went wrong
 
 The bottom of the error message says:
 
-The
-
-`*`{.pyret}
-
-operator expects to be given two Numbers
+_The `*`{.pyret} operator expects to be given two Numbers_
 
 Notice the word “Numbers”. Jayret is telling you what kind of
 information works with the `*`{.pyret} operation. In programming, values
