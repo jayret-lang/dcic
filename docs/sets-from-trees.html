@@ -382,12 +382,10 @@ imbalanced.</p>
 exponential in the height. Thus, always recurring on one branch will
 terminate after a logarithmic (in the number of nodes) number of
 steps.</p></blockquote></blockquote>
-<p>Here is an obvious but useful observation: every</p>
-<p>BBST</p>
-<p>is also a</p>
-<p>BST (this was true by the very definition of a BBST). Why does this
-matter? It means that a function that operates on a BST can just as well
-be applied to a BBST without any loss of correctness.</p>
+<p>Here is an obvious but useful observation: every BBST is also a BST
+(this was true by the very definition of a BBST). Why does this matter?
+It means that a function that operates on a BST can just as well be
+applied to a BBST without any loss of correctness.</p>
 <p>So far, so easy. All that leaves is a means of creating a BBST,
 because it’s responsible for ensuring balance. It’s easy to see that the
 constant

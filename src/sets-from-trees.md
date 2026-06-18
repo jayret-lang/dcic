@@ -322,13 +322,7 @@ terminate after a logarithmic (in the number of nodes) number of
 steps.
 :::
 
-Here is an obvious but useful observation: every
-
-BBST
-
-is also
-a
-
+Here is an obvious but useful observation: every BBST is also a
 BST (this was true by the very definition of a BBST). Why
 does this matter? It means that a function that operates on a BST can
 just as well be applied to a BBST without any loss of correctness.

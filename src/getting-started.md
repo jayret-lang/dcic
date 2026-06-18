@@ -462,10 +462,7 @@ Try to create the following images:
 
 - whatever you want—play around and have fun!
 
-The bullseye might be a bit challenging. The
-
-`overlay`{.pyret}
-
+The bullseye might be a bit challenging. The `overlay`{.pyret}
 function only takes two images, so you’ll need to think about how to
 use composition to layer three circles.
 :::

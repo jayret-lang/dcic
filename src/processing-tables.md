@@ -989,10 +989,7 @@ anyone?).
 The lesson here is that plots and visualizations are valuable not only
 in the analysis phase, but also early on, when we are trying to sanity
 check that our data are clean and ready to use. Good data scientists
-
-never
-
-trust a dataset without first making sure that the values
+**never** trust a dataset without first making sure that the values
 make sense. In larger datasets, manually inspecting all of the data is
 often infeasible. But creating some plots or other summaries of the
 data is also useful for identifying errors.

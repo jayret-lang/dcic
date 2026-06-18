@@ -555,11 +555,8 @@ The point of the examples is to document how a function behaves on a
 variety of inputs. What goes in the second argument to `assertEquals`{.jayret} should
 summarize the computation or the answer in some meaningful way. Most
 important? Do not write the function, run it to determine the answer,
-then use that answer as the second argument to
-
-`assertEquals`{.jayret}
-
-! Why not?
+then use that answer as the second argument to `assertEquals`{.jayret}!
+Why not?
 Because the examples are meant to give some redundancy to the design
 process, so that you catch errors you might have made. If your
 function body is incorrect, and you use the function to generate the
