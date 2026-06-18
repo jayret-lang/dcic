@@ -123,14 +123,17 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="part_structured-data.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_structured-data.html">up</a>&nbsp;&nbsp;<a href="Collections_of_Structured_Data.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._intro-struct-data)"></a>
 <h3 id="intro-struct-data">6.1 Introduction to Structured Data</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Understanding_the_.Kinds_of_.Compound_.Data%29">6.1.1<span class="hspace"> </span>Understanding the Kinds of Compound Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.A_.First_.Peek_at_.Structured_.Data%29">6.1.1.1<span class="hspace"> </span>A First Peek at Structured Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.A_.First_.Peek_at_.Conditional_.Data%29">6.1.1.2<span class="hspace"> </span>A First Peek at Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Defining_and_.Creating_.Structured_and_.Conditional_.Data%29">6.1.2<span class="hspace"> </span>Defining and Creating Structured and Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._struct-data-eg%29">6.1.2.1<span class="hspace"> </span>Defining and Creating Structured Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Annotations_for_.Structured_.Data%29">6.1.2.2<span class="hspace"> </span>Annotations for Structured Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Defining_and_.Creating_.Conditional_.Data%29">6.1.2.3<span class="hspace"> </span>Defining and Creating Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Programming_with_.Structured_and_.Conditional_.Data%29">6.1.3<span class="hspace"> </span>Programming with Structured and Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._.Extracting_.Fields_from_.Structured_.Data%29">6.1.3.1<span class="hspace"> </span>Extracting Fields from Structured Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._telling-apart-variants%29">6.1.3.2<span class="hspace"> </span>Telling Apart Variants of Conditional Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-struct-data.html#%28part._process-fields-variants%29">6.1.3.3<span class="hspace"> </span>Processing Fields of Variants</a></p></td></tr></table>
 <p>Earlier we had our first look at types. Until now, we have only seen
 the types that Jayret provides us, which is an interesting but
 nevertheless quite limited set. Most programs we write will contain many
 more kinds of data.</p>
+<a name="(part._Understanding-the-Kinds-of-Compound-Data)"></a>
 <h4 id="Understanding-the-Kinds-of-Compound-Data">6.1.1 Understanding
 the Kinds of Compound Data</h4>
+<a name="(part._A-First-Peek-at-Structured-Data)"></a>
 <h5 id="A-First-Peek-at-Structured-Data">6.1.1.1 A First Peek at
 Structured Data</h5>
 <p>There are times when a datum has many attributes, or parts. We need
@@ -153,30 +156,31 @@ numbers, some strings, some images, and different types may be mixed
 together in that one datum). Some might even be other structured data:
 for instance, a date usually has at least three parts, the day, month,
 and year. The parts of a structured datum are called its fields.</p>
+<a name="(part._A-First-Peek-at-Conditional-Data)"></a>
 <h5 id="A-First-Peek-at-Conditional-Data">6.1.1.2 A First Peek at
 Conditional Data</h5>
 <p>Then there are times when we want to represent different kinds of
 data under a single, collective umbrella. Here are a few examples:</p>
 <ul>
-<li>A traffic light can be in different states: red, yellow, or
+<li><p>A traffic light can be in different states: red, yellow, or
 green.<span class="refelem"><span class="refcolumn"><span class="refcontent">Yes, in some countries there are different or more colors and
 color-combinations.</span></span></span> Collectively, they represent
-one thing: a new type called a traffic light state.</li>
-<li>A zoo consists of many kinds of animals. Collectively, they
+one thing: a new type called a traffic light state.</p></li>
+<li><p>A zoo consists of many kinds of animals. Collectively, they
 represent one thing: a new type called an animal. Some condition
 determines which particular kind of animal a zookeeper might be dealing
-with.</li>
-<li>A social network consists of different kinds of pages. Some pages
+with.</p></li>
+<li><p>A social network consists of different kinds of pages. Some pages
 represent individual humans, some places, some organizations, some might
 stand for activities, and so on. Collectively, they represent a new
-type: a social media page.</li>
-<li>A notification application may report many kinds of events. Some are
-for email messages (which have many fields, as we’ve discussed), some
-are for reminders (which might have a timestamp and a note), some for
-instant messages (similar to an email message, but without a subject),
-some might even be for the arrival of a package by physical mail (with a
-timestamp, shipper, tracking number, and delivery note). Collectively,
-these all represent a new type: a notification.</li>
+type: a social media page.</p></li>
+<li><p>A notification application may report many kinds of events. Some
+are for email messages (which have many fields, as we’ve discussed),
+some are for reminders (which might have a timestamp and a note), some
+for instant messages (similar to an email message, but without a
+subject), some might even be for the arrival of a package by physical
+mail (with a timestamp, shipper, tracking number, and delivery note).
+Collectively, these all represent a new type: a notification.</p></li>
 </ul>
 <p>We call these “conditional” data because they represent an “or”: a
 traffic light is red or green or yellow; a social medium’s page is for a
@@ -190,6 +194,7 @@ there are times when we ignore the conditional and treat the datum as a
 member of the collective, and other times when we do care about the
 conditional and do different things depending on the individual datum.
 We will make all this concrete as we start to write programs.</p>
+<a name="(part._Defining-and-Creating-Structured-and-Conditional-Data)"></a>
 <h4 id="Defining-and-Creating-Structured-and-Conditional-Data">6.1.2
 Defining and Creating Structured and Conditional Data</h4>
 <p>We have used the word “data” above, but that’s actually been a bit of
@@ -199,18 +204,19 @@ information, not exactly how they are represented. But to write
 programs, we must wrestle concretely with representations. That’s what
 we will do now, i.e., actually show data representations of all this
 information.</p>
+<a name="(part._struct-data-eg)"></a>
 <h5 id="struct-data-eg">6.1.2.1 Defining and Creating Structured
 Data</h5>
 <p>Let’s start with defining structured data, such as an iTunes song
 record. Here’s a simplified version of the information such an app might
 store:</p>
 <ul>
-<li>The song’s name, which is a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>.</li>
-<li>The song’s singer, which is also a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>.</li>
-<li>The song’s year, which is a
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>.</li>
+<li><p>The song’s name, which is a
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>.</p></li>
+<li><p>The song’s singer, which is also a
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span>.</p></li>
+<li><p>The song’s year, which is a
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Number</code></span>.</p></li>
 </ul>
 <p>Let’s now introduce the syntax by which we can teach this to
 Jayret:</p>
@@ -240,6 +246,7 @@ wnkkhs = song("Waqt Ne Kiya Kya Haseen Sitam", "Geeta Dutt", 1959);</code></pre>
 simple data. Each of the three definitions above creates an entry in the
 directory, as follows:</p>
 <div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">lver</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">song("La Vie en Rose", "Édith Piaf", 1945)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">so</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">song("Stressed Out", "twenty one pilots", 2015)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">wnkkhs</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">song("Waqt Ne Kiya Kya Haseen Sitam","Geeta Dutt", 1959)</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
+<a name="(part._Annotations-for-Structured-Data)"></a>
 <h5 id="Annotations-for-Structured-Data">6.1.2.2 Annotations for
 Structured Data</h5>
 <p>Recall that in [<a
@@ -266,6 +273,7 @@ Therefore, we should write</p>
 Number lver = song("La Vie en Rose", "Édith Piaf", 1945);</code></pre></div></div>
 <p>Make sure you familiarize yourself with the error messages that you
 get.</p></blockquote></blockquote>
+<a name="(part._Defining-and-Creating-Conditional-Data)"></a>
 <h5 id="Defining-and-Creating-Conditional-Data">6.1.2.3 Defining and
 Creating Conditional Data</h5>
 <p>The
@@ -319,17 +327,19 @@ realize that our first example</p>
 }</code></pre></div></div>
 <p>i.e., a conditional type with just one condition, where that one
 condition is structured.</p>
+<a name="(part._Programming-with-Structured-and-Conditional-Data)"></a>
 <h4 id="Programming-with-Structured-and-Conditional-Data">6.1.3
 Programming with Structured and Conditional Data</h4>
 <p>So far we’ve learned how to create structured and conditional data,
 but not yet how to take them apart or write any expressions that involve
 them. As you might expect, we need to figure out how to</p>
 <ul>
-<li>take apart the fields of a structured datum, and</li>
-<li>tell apart the variants of a conditional datum.</li>
+<li><p>take apart the fields of a structured datum, and</p></li>
+<li><p>tell apart the variants of a conditional datum.</p></li>
 </ul>
 <p>As we’ll see, Jayret also gives us a convenient way to do both
 together.</p>
+<a name="(part._Extracting-Fields-from-Structured-Data)"></a>
 <h5 id="Extracting-Fields-from-Structured-Data">6.1.3.1 Extracting
 Fields from Structured Data</h5>
 <p>Let’s write a function that tells us how old a song is. First, let’s
@@ -368,6 +378,7 @@ giving us a comprehensive definition of the function:</p>
 } where {
     
 }</code></pre></div></div>
+<a name="(part._telling-apart-variants)"></a>
 <h5 id="telling-apart-variants">6.1.3.2 Telling Apart Variants of
 Conditional Data</h5>
 <p>Now let’s see how we tell apart variants. For this, we again use
@@ -390,6 +401,7 @@ variant, then try both
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">advice(Yellow)</code></span>
 and
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">advice(Red)</code></span>.</p></blockquote></blockquote>
+<a name="(part._process-fields-variants)"></a>
 <h5 id="process-fields-variants">6.1.3.3 Processing Fields of
 Variants</h5>
 <p>In this example, the variants had no fields. But if the variant has

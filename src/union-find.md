@@ -7,6 +7,10 @@ up: part_sets.html
 next: hash-set-kv.html
 ---
 
+```{=html}
+<a name="(part._union-find)"></a>
+```
+
 ### 18.3 Union-Find {#union-find}
 
 ```{=html}
@@ -22,6 +26,10 @@ elements are in the same set.
 We will now see how to do this using state. We will
 try to keep things as similar to the previous version as possible, to
 enhance comparison.
+
+```{=html}
+<a name="(part._Implementing-with-State)"></a>
+```
 
 #### 18.3.1 Implementing with State {#Implementing-with-State}
 
@@ -91,6 +99,10 @@ Element fynd(Element e) {
 }
 ```
 
+```{=html}
+<a name="(part._Optimizations)"></a>
+```
+
 #### 18.3.2 Optimizations {#Optimizations}
 
 Look again at `fynd`{.pyret}. In the `some`{.pyret} case, the element bound
@@ -128,6 +140,10 @@ with the smaller rank. This has the effect of avoiding growing very
 tall paths to set name elements, instead tending towards “bushy”
 trees. This too reduces the number of parents that must be traversed
 to find the representative.
+
+```{=html}
+<a name="(part._Analysis)"></a>
+```
 
 #### 18.3.3 Analysis {#Analysis}
 

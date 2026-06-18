@@ -7,6 +7,10 @@ up: booklet_intro-to-programming.html
 next: func-as-data.html
 ---
 
+```{=html}
+<a name="(part._part-bonus-foundations)"></a>
+```
+
 ## 8 Foundations: Bonus Materials {#part-bonus-foundations}
 
 ```{=html}

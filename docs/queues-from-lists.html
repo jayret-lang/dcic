@@ -124,6 +124,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="func-as-data.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_bonus-foundations.html">up</a>&nbsp;&nbsp;<a href="testing.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._queues-from-lists)"></a>
 <h3 id="queues-from-lists">8.2 Queues from Lists</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._.Using_a_.Wrapper_.Datatype%29">8.2.1<span class="hspace"> </span>Using a Wrapper Datatype</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._qfl-comb-ans%29">8.2.2<span class="hspace"> </span>Combining Answers</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._.Using_a_.Picker%29">8.2.3<span class="hspace"> </span>Using a Picker</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._qfl-tuples%29">8.2.4<span class="hspace"> </span>Using Tuples</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="queues-from-lists.html#%28part._.A_.Picker_.Method%29">8.2.5<span class="hspace"> </span>A Picker Method</a></p></td></tr></table>
 <p>Suppose you have a list. When you take its first element, you get the
@@ -149,6 +150,7 @@ the two were the same. Another option we have when encoding is to create
 a completely new type that does nothing more than wrap a value of the
 encoding type. We’ll use that principle here to illustrate how that
 might work.</p>
+<a name="(part._Using-a-Wrapper-Datatype)"></a>
 <h4 id="Using-a-Wrapper-Datatype">8.2.1 Using a Wrapper Datatype</h4>
 <p>Concretely, here’s how we’ll represent queues. For all the code that
 follows, it’s helpful to use the Jayret type-checker to make sure we’re
@@ -219,6 +221,7 @@ Object qrest(q) {
     }
     return queue(safe-rest(q.l.reverse()).reverse());
 }</code></pre></div></div>
+<a name="(part._qfl-comb-ans)"></a>
 <h4 id="qfl-comb-ans">8.2.2 Combining Answers</h4>
 <p>However, it would be nice if we could obtain both the oldest element
 and the rest of the queue at once, if we want them both. That means the
@@ -242,6 +245,7 @@ href="partial-domains.html##pd-option">The Option Type</a>, and
 especially in <a
 href="partial-domains.html##pd-summary">Summary</a>.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Write out the function using this return type.</p></blockquote></blockquote>
+<a name="(part._Using-a-Picker)"></a>
 <h4 id="Using-a-Picker">8.2.3 Using a Picker</h4>
 <p>Does
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Dequeued</code></span>
@@ -291,6 +295,7 @@ picker in addition to an ordered interface, rather than in place of
 one.</p>
 <p>At this point we’re done with the essential content, but here are two
 more parts that you may find interesting.</p>
+<a name="(part._qfl-tuples)"></a>
 <h4 id="qfl-tuples">8.2.4 Using Tuples</h4>
 <p>Earlier, we created the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Dequeued</code></span>
@@ -374,6 +379,7 @@ follow the rules above for when tuples are applicable. In general,
 tuples can cause a reduction in readability, and increase the likelihood
 of errors (because tuples from one source aren’t distinguishable from
 those from another source). Use them with caution!</p>
+<a name="(part._A-Picker-Method)"></a>
 <h4 id="A-Picker-Method">8.2.5 A Picker Method</h4>
 <p>Second, and this is truly optional: you may have noticed earlier that
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Set</code></span>s

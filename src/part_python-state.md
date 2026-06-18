@@ -7,6 +7,10 @@ up: booklet_programming-with-state.html
 next: mutating-variables.html
 ---
 
+```{=html}
+<a name="(part._part-python-state)"></a>
+```
+
 ## 13 More Programming with State: Python {#part-python-state}
 
 ```{=html}

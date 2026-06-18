@@ -119,8 +119,10 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="part_python-state.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_python-state.html">up</a>&nbsp;&nbsp;<a href="mutable-lists.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._mutating-variables)"></a>
 <h3 id="mutating-variables">13.1 Mutating Variables</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._mutating-vars-memory%29">13.1.1<span class="hspace"> </span>Mutating Variables in Memory</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._var-mut-aliasing%29">13.1.2<span class="hspace"> </span>Variable Mutation and Aliasing</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._.Mutating_.Variables_versus_.Mutating_.Data_.Fields%29">13.1.3<span class="hspace"> </span>Mutating Variables versus Mutating Data Fields</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._.Mutating_.Parameters_in_.Function_.Calls%29">13.1.4<span class="hspace"> </span>Mutating Parameters in Function Calls</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._mut-top-level-vars-in-func%29">13.1.5<span class="hspace"> </span>Mutating Top-Level Variables within Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._.The_.Many_.Roles_of_.Variables%29">13.1.6<span class="hspace"> </span>The Many Roles of Variables</a></p></td></tr></table>
+<a name="(part._mutating-vars-memory)"></a>
 <h4 id="mutating-vars-memory">13.1.1 Mutating Variables in Memory</h4>
 <p>Now that we have introduced the idea of the heap, let’s revisit our
 use of a variable to compute the sum of elements in a list. Here again
@@ -173,15 +175,15 @@ processed. When the for-loop ends, the directory contents are:</p>
 <div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">run_total</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">16</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">num</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">3</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
 <p>There are two takeaways from this example:</p>
 <ul>
-<li>When we use
+<li><p>When we use
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">=</code></span>
 to update the value associated with a variable, the variable’s entry in
-the directory changes to reflect the new value.</li>
-<li><span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">For</code></span>
+the directory changes to reflect the new value.</p></li>
+<li><p><span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">For</code></span>
 loops introduce a name into the directory (the one the programmer chose
 to refer to the individual list elements). As the loop progresses,
 Python updates the value associated with that name to refer to each
-successive element.</li>
+successive element.</p></li>
 </ul>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Draw the sequence of directory contents for the following
 program:</p>
@@ -194,6 +196,7 @@ program:</p>
 for word in ["here", "are", "some", "words"]:
   if len(word) &gt; 4:
     count_long = count_long + 1</code></pre></div></div></blockquote></blockquote>
+<a name="(part._var-mut-aliasing)"></a>
 <h4 id="var-mut-aliasing">13.1.2 Variable Mutation and Aliasing</h4>
 <p>In <a href="mutating-structures.html">Mutating Structures</a>, we saw
 how a statement of the form
@@ -282,6 +285,7 @@ itself, updating the value of
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">savings</code></span>
 on the third line does not affect
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">ac3.balance</code></span>.</p>
+<a name="(part._Mutating-Variables-versus-Mutating-Data-Fields)"></a>
 <h4 id="Mutating-Variables-versus-Mutating-Data-Fields">13.1.3 Mutating
 Variables versus Mutating Data Fields</h4>
 <p>We’ve now seen two different forms of updates in programs: updates to
@@ -306,13 +310,14 @@ impacts each of the directory and the heap.</p>
 <blockquote class="Strategy"><p class="StrategyHeader">Strategy</p><blockquote class="StrategyBody"><p>Summarizing, the rules for how the directory and memory update are as
 follows:</p>
 <ul>
-<li>We add to the heap when a data constructor is used</li>
-<li>We update the heap when a field of existing data is reassigned</li>
-<li>We add to the directory when a name is used for the first time (this
-includes parameters and internal variables when a function is
-called)</li>
-<li>We update the directory when a name that is already in the directory
-is subsequently assigned a new value)</li>
+<li><p>We add to the heap when a data constructor is used</p></li>
+<li><p>We update the heap when a field of existing data is
+reassigned</p></li>
+<li><p>We add to the directory when a name is used for the first time
+(this includes parameters and internal variables when a function is
+called)</p></li>
+<li><p>We update the directory when a name that is already in the
+directory is subsequently assigned a new value)</p></li>
 </ul></blockquote></blockquote>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>After running the following code, what is the value of
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">ac3.balance</code></span>?</p>
@@ -364,6 +369,7 @@ is a variable name or a field reference, and on whether the right side
 is basic data or data with components. We will continue to work with
 these various combinations to build your understanding of when and how
 to use each one.</p>
+<a name="(part._Mutating-Parameters-in-Function-Calls)"></a>
 <h4 id="Mutating-Parameters-in-Function-Calls">13.1.4 Mutating
 Parameters in Function Calls</h4>
 <p>In <a
@@ -458,6 +464,7 @@ when they start writing functions that update variables.</p>
 after the function completes, you must put that value inside a piece of
 data. You cannot have it be basic data associated with a variable
 name.</p></blockquote></blockquote>
+<a name="(part._mut-top-level-vars-in-func)"></a>
 <h4 id="mut-top-level-vars-in-func">13.1.5 Mutating Top-Level Variables
 within Functions</h4>
 <p>Let’s return to our banking example to illustrate a situation where
@@ -586,6 +593,7 @@ otherwise access information.</p>
 value. For now, the pattern we have shown you is fine. If you were
 building a real system, however, you’d want to make that computation a
 bit more sophisticated.</p></blockquote></blockquote>
+<a name="(part._The-Many-Roles-of-Variables)"></a>
 <h4 id="The-Many-Roles-of-Variables">13.1.6 The Many Roles of
 Variables</h4>
 <p>At this point, we have used the single coding construct of a variable
@@ -593,14 +601,14 @@ in the directory for multiple purposes. It’s worth stepping back and
 calling those out explicitly. In general, variables serve one of the
 following purposes:</p>
 <ol type="1">
-<li>Tracking progress of a computation (e.g., the running value of a
+<li><p>Tracking progress of a computation (e.g., the running value of a
 result in a
-<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">for</code></span>-loop)</li>
-<li>Maintaining information across multiple calls to a single function
-(e.g., the
+<span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">for</code></span>-loop)</p></li>
+<li><p>Maintaining information across multiple calls to a single
+function (e.g., the
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">next-id</code></span>
-variable)</li>
-<li>Naming a local or intermediate value in a computation</li>
+variable)</p></li>
+<li><p>Naming a local or intermediate value in a computation</p></li>
 </ol>
 <p>Each of these uses involves a different programming pattern. The
 first creates a variable locally within a function. The second two

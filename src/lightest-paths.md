@@ -7,6 +7,10 @@ up: part_graphs.html
 next: mst.html
 ---
 
+```{=html}
+<a name="(part._lightest-paths)"></a>
+```
+
 ### 17.4 Shortest (or Lightest) Paths {#lightest-paths}
 
 ```{=html}

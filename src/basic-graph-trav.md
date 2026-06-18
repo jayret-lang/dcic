@@ -7,6 +7,10 @@ up: part_graphs.html
 next: weighted-graphs.html
 ---
 
+```{=html}
+<a name="(part._basic-graph-trav)"></a>
+```
+
 ### 17.2 Basic Graph Traversals {#basic-graph-trav}
 
 ```{=html}
@@ -16,6 +20,10 @@ next: weighted-graphs.html
 As with all the data we have seen so far, to process a datum we have
 to traverse it—i.e., visit the constituent data. With graphs, that
 can be quite interesting!
+
+```{=html}
+<a name="(part._Reachability)"></a>
+```
 
 #### 17.2.1 Reachability {#Reachability}
 
@@ -27,6 +35,10 @@ care about whether packets can get from one machine to another. On the
 Web, we care about whether all public pages on a site are reachable
 from the home page. We will study how to compute reachability using
 our travel graph as a running example.
+
+```{=html}
+<a name="(part._Simple-Recursion)"></a>
+```
 
 ##### 17.2.1.1 Simple Recursion {#Simple-Recursion}
 
@@ -40,6 +52,7 @@ source and destintion nodes are the same, or they’re not.
 
 - If they are the same, then clearly reachability is trivially
   satisfied.
+
 - If they are not, we have to iterate through the neighbors
   of the source node and ask whether the destination is reachable from
   each of those neighbors.
@@ -92,6 +105,10 @@ loop, due to the cyclic nature of graphs!
 Which of the above examples leads to a cycle? Why?
 :::
 
+```{=html}
+<a name="(part._Cleaning-up-the-Loop)"></a>
+```
+
 ##### 17.2.1.2 Cleaning up the Loop {#Cleaning-up-the-Loop}
 
 Before we continue, let’s try to improve the expression of the
@@ -119,6 +136,10 @@ With this, we can replace the loop definition and use with:
 
 ```jayret
 [for ormap(n : neighbors(src, g)) { yield reach-1(n, dst, g); }];
+```
+
+```{=html}
+<a name="(part._Traversal-with-Memory)"></a>
 ```
 
 ##### 17.2.1.3 Traversal with Memory {#Traversal-with-Memory}
@@ -177,6 +198,10 @@ begun to visit, not the ones we’ve finished
 visiting. Does this distinction matter? How?
 :::
 
+```{=html}
+<a name="(part._A-Better-Interface)"></a>
+```
+
 ##### 17.2.1.4 A Better Interface {#A-Better-Interface}
 
 As the process of testing `reach-2`{.pyret} shows, we may have a better
@@ -210,6 +235,10 @@ does this address the problem that the `size`{.pyret} function above
 addressed? Create a test case that demonstrates the problem, and then
 fix it.
 :::
+
+```{=html}
+<a name="(part._dfs-bfs)"></a>
+```
 
 #### 17.2.2 Depth- and Breadth-First Traversals {#dfs-bfs}
 

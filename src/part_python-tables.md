@@ -7,6 +7,10 @@ up: booklet_pyret-to-python.html
 next: python-tables-Pandas.html
 ---
 
+```{=html}
+<a name="(part._part-python-tables)"></a>
+```
+
 ## 10 Tables in Python via Pandas {#part-python-tables}
 
 ```{=html}

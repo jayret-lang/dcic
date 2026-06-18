@@ -124,6 +124,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="part_sets.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_sets.html">up</a>&nbsp;&nbsp;<a href="sets-from-trees.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._sets-from-lists)"></a>
 <h3 id="sets-from-lists">18.1 Representing Sets as Lists</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._.Representation_.Choices%29">18.1.1<span class="hspace"> </span>Representation Choices</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._.Time_.Complexity%29">18.1.2<span class="hspace"> </span>Time Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._choosing-set-reps%29">18.1.3<span class="hspace"> </span>Choosing Between Representations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._.Other_.Operations%29">18.1.4<span class="hspace"> </span>Other Operations</a></p></td></tr></table>
 <p>Earlier [<a
@@ -171,6 +172,7 @@ all values (such as functions). We discuss the nuances of this elsewhere
 [<a href="orderability.html##eq-ord">Equality and Ordering</a>]. For
 now, we can ignore these issues by focusing on sets of
 (non-rough)numbers.</p>
+<a name="(part._Representation-Choices)"></a>
 <h4 id="Representation-Choices">18.1.1 Representation Choices</h4>
 <p>The empty list can stand in for the empty set—</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">type LSet = List;
@@ -199,11 +201,14 @@ during insertion or while computing the size). 2. We might falsely make
 assumptions about the order in which elements are retrieved from the set
 due to the ordering guaranteed provided by the underlying list
 representation. This might hide bugs that we don’t discover until we
-change the representation. 3. We might have chosen a set representation
-because we didn’t need to care about order, and expected lots of
-duplicate items. A list representation might store all the duplicates,
-resulting in significantly more memory use (and slower programs) than we
-expected.</p>
+change the representation.</p>
+<ol start="3" type="1">
+<li>We might have chosen a set representation because we didn’t need to
+care about order, and expected lots of duplicate items. A list
+representation might store all the duplicates, resulting in
+significantly more memory use (and slower programs) than we
+expected.</li>
+</ol>
 <p>To avoid these perils, we have to be precise about how we’re going to
 use lists to represent sets. One key question (but not the only one, as
 we’ll soon see [<a
@@ -224,6 +229,7 @@ as
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">insert = link;</code></pre></div></div>
 <p>—and have some other procedure perform the filtering of
 duplicates.</p>
+<a name="(part._Time-Complexity)"></a>
 <h4 id="Time-Complexity">18.1.2 Time Complexity</h4>
 <p>What is the complexity of this representation of sets? Let’s consider
 just
@@ -237,7 +243,7 @@ class="math inline">\(k\)</span> represent the number of distinct
 elements). The complexity of these operations depends on whether or not
 we store duplicates:</p>
 <ul>
-<li>If we don’t store duplicates, then
+<li><p>If we don’t store duplicates, then
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
 is simply
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">length</code></span>,
@@ -251,8 +257,8 @@ class="math inline">\(k\)</span>. But
 needs to check whether an element is already present, which takes time
 linear in <span class="math inline">\(k\)</span>, followed by at most a
 constant-time operation
-(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>).</li>
-<li>If we do store duplicates, then
+(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>).</p></li>
+<li><p>If we do store duplicates, then
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">insert</code></span>
 is constant time: it simply
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">link</code></span>s
@@ -265,7 +271,7 @@ class="math inline">\(k\)</span>, depending on how many duplicates have
 been added. Finally,
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
 needs to check whether or not each element is duplicated before counting
-it.</li>
+it.</p></li>
 </ul>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What is the time complexity of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size</code></span>
@@ -310,6 +316,7 @@ T(d-1)\end{equation*}\]</span>Thus <span class="math inline">\(T \in
 O([d \rightarrow d^2])\)</span>. Note that this is quadratic in the
 number of elements in the list, which may be much bigger than the size
 of the set.</p>
+<a name="(part._choosing-set-reps)"></a>
 <h4 id="choosing-set-reps">18.1.3 Choosing Between Representations</h4>
 <p>Now that we have two representations with different complexities,
 it’s worth thinking about how to choose between them. To do so, let’s
@@ -328,11 +335,11 @@ size of the set. However, with duplicates, the size of the list can be
 arbitrarily larger than that of the set!</p>
 <p>Based on this, we can draw several lessons:</p>
 <ol type="1">
-<li>Which representation we choose is a matter of how much duplication
-we expect. If there won’t be many duplicates, then the version that
-stores duplicates pays a small extra price in return for some faster
-operations.</li>
-<li>Which representation we choose is also a matter of how often we
+<li><p>Which representation we choose is a matter of how much
+duplication we expect. If there won’t be many duplicates, then the
+version that stores duplicates pays a small extra price in return for
+some faster operations.</p></li>
+<li><p>Which representation we choose is also a matter of how often we
 expect each operation to be performed. The representation without
 duplication is “in the middle”: everything is roughly equally expensive
 (in the worst case). With duplicates is “at the extremes”: very cheap
@@ -343,13 +350,13 @@ wait, then permitting duplicates may in fact be the smart choice. (When
 might we ever be in such a situation? Suppose your set represents a
 backup data structure; then we add lots of data but very rarely—indeed,
 only in case of some catastrophe—ever need to look for things in
-it.)</li>
-<li>Another way to cast these insights is that our form of analysis is
-too weak. In situations where the complexity depends so heavily on a
+it.)</p></li>
+<li><p>Another way to cast these insights is that our form of analysis
+is too weak. In situations where the complexity depends so heavily on a
 particular sequence of operations, big-Oh is too loose and we should
 instead study the complexity of specific sequences of operations. We
 will address precisely this question later [<a
-href="amortized-analysis.html">Halloween Analysis</a>].</li>
+href="amortized-analysis.html">Halloween Analysis</a>].</p></li>
 </ol>
 <p>Moreover, there is no reason a program should use only one
 representation. It could well begin with one representation, then switch
@@ -366,6 +373,7 @@ in the list). Thus, a program can make an initial guess about its
 workload and pick a representation accordingly, but maintain statistics
 as it runs and, when it finds its assumption is wrong, switch
 representations—and can do so as many times as needed.</p>
+<a name="(part._Other-Operations)"></a>
 <h4 id="Other-Operations">18.1.4 Other Operations</h4>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Implement the remaining operations catalogued above (<a
 href="sets-from-lists.html#%28elem._set-operations%29"><set-operations></a>)

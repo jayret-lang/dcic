@@ -7,12 +7,24 @@ up: index.html
 next: booklet_intro-to-programming.html
 ---
 
+```{=html}
+<a name="(part._booklet-intro)"></a>
+```
+
 ## I Introduction {#booklet-intro}
+
+```{=html}
+<a name="(part._Overview)"></a>
+```
 
 ## 1 Overview {#Overview}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.What_.This_.Book_is_.About%29">1.1<span class="hspace"> </span>What This Book is About</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.The_.Values_.That_.Drive_.This_.Book%29">1.2<span class="hspace"> </span>The Values That Drive This Book</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Our_.Perspective_on_.Data%29">1.3<span class="hspace"> </span>Our Perspective on Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.What_.Makes_.This_.Book_.Unique%29">1.4<span class="hspace"> </span>What Makes This Book Unique</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Who_.This_.Book_is_.For%29">1.5<span class="hspace"> </span>Who This Book is For</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._book-style%29">1.6<span class="hspace"> </span>The Structure of This Book</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._book-org%29">1.7<span class="hspace"> </span>Organization of the Material</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Our_.Programming_.Language_.Choice%29">1.8<span class="hspace"> </span>Our Programming Language Choice</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Programming_.Tools%29">1.9<span class="hspace"> </span>Programming Tools</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Sending_.Us_.Feedback__.Errors__and_.Comments%29">1.10<span class="hspace"> </span>Sending Us Feedback, Errors, and Comments</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="booklet_intro.html#%28part._.Staying_.Up-.To-.Date%29">1.11<span class="hspace"> </span>Staying Up-To-Date</a></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._What-This-Book-is-About)"></a>
 ```
 
 ### 1.1 What This Book is About {#What-This-Book-is-About}
@@ -31,6 +43,10 @@ scientific methods, such as ways of making sure that programs are reliable and
 do what they claim. Finally, some are social, thinking about the impacts that
 programs have on people.
 
+```{=html}
+<a name="(part._The-Values-That-Drive-This-Book)"></a>
+```
+
 ### 1.2 The Values That Drive This Book {#The-Values-That-Drive-This-Book}
 
 Our perspective is guided by our decades of experience as software developers,
@@ -40,15 +56,21 @@ researchers, and educators. This has instilled in us the following beliefs:
 - Software is not written only to be run. It must also be written to be
   read and maintained by others. Often, that “other” person is you, six months
   later, who has forgotten what they did and why.
+
 - Programmers are responsible for their software
   meeting its desired goals and being reliable. This is
   reflected in a variety of disciplines inside computer science, such as testing
   and verification.
+
 - Programs ought to be be amenable to prediction. We need to know, as much
   as possible, before a program runs, how it will behave. This behavior includes
   not only technical characteristics such as running time, space, power, and so
   on, but also social impacts, benefits, and harms. Programmers have been
   notoriously poor at thinking about the latter.
+
+```{=html}
+<a name="(part._Our-Perspective-on-Data)"></a>
+```
 
 ### 1.3 Our Perspective on Data {#Our-Perspective-on-Data}
 
@@ -83,6 +105,10 @@ structure. These limitations, where data science typically ends, are where
 computer science begins. In particular, the structure of data serve as a point
 of departure for thinking about and achieving some of the values above—performance, reliability, and predictability—using the many tools of computer
 science.
+
+```{=html}
+<a name="(part._What-Makes-This-Book-Unique)"></a>
+```
 
 ### 1.4 What Makes This Book Unique {#What-Makes-This-Book-Unique}
 
@@ -126,6 +152,10 @@ research live in a symbiotic relationship. You can find our papers
 [respective](https://www.ccs.neu.edu/home/blerner/papers.html)
 [pages](https://jpolitz.github.io).
 
+```{=html}
+<a name="(part._Who-This-Book-is-For)"></a>
+```
+
 ### 1.5 Who This Book is For {#Who-This-Book-is-For}
 
 This book is written primarily for students who are in the early stages of
@@ -134,6 +164,10 @@ many—especially the earlier—parts of it are also suitable for secondary
 education (in the USA, for instance, roughly grades 6–12, or ages
 12–18). Indeed, we see a natural continuum between secondary and tertiary
 education, and think this book can serve as a useful bridge between the two.
+
+```{=html}
+<a name="(part._book-style)"></a>
+```
 
 ### 1.6 The Structure of This Book {#book-style}
 
@@ -198,6 +232,10 @@ Here are social pitfalls from using
 material naively.
 :::
 
+```{=html}
+<a name="(part._book-org)"></a>
+```
+
 ### 1.7 Organization of the Material {#book-org}
 
 Because this book covers what would be considered multiple semesters
@@ -215,6 +253,7 @@ further.
   substitution.
   
   Dependencies: None!
+
 2. [From Jayret to Python](booklet_pyret-to-python.html):
   Students learn to transfer their knowledge from Jayret to
   Python, highlighting similarities and differences between the
@@ -223,6 +262,7 @@ further.
   real-world table-processing system.
   
   Dependencies: [Introduction to Programming](booklet_intro-to-programming.html).
+
 3. [Programming With State](booklet_programming-with-state.html):
   Students learn the subtleties of state and aliasing. Much of the
   coverage is in both Python and Jayret. This contrast lets students
@@ -236,12 +276,14 @@ further.
   essential. [From Jayret to Python](booklet_pyret-to-python.html) is helpful to follow
   the Python portions of this booklet, but a student can
   do the Jayret parts without having seen Python.
+
 4. [Algorithm Analysis](booklet_algo-analysis.html):
   Students are introduced to multiple techniques for analyzing
   algorithms.
   
   Dependencies: [Introduction to Programming](booklet_intro-to-programming.html). There is
   no dependency on state.
+
 5. [Data Structures with Analysis](booklet_data-with-analysis.html):
   Students are introduced to more advanced data structures through a
   lens of algorithm analysis, which motivates their revision and
@@ -251,6 +293,7 @@ further.
   [Algorithm Analysis](booklet_algo-analysis.html) are essential
   everywhere. [Programming With State](booklet_programming-with-state.html) is necessary for
   some material.
+
 6. [Advanced Topics](booklet_advanced.html):
   Students cover a grab-bag of interesting computer science
   topics in program design and algorithmic programming. Relative to the
@@ -261,6 +304,7 @@ further.
   [Introduction to Programming](booklet_intro-to-programming.html). Some material depends on
   [Algorithm Analysis](booklet_algo-analysis.html) and/or
   [Programming With State](booklet_programming-with-state.html).
+
 7. [Interactive Programs](booklet_interaction.html):
   Students can write interactive programs with relatively few dependencies!
   
@@ -281,6 +325,7 @@ courses by remixing this material, which others could follow:
   with basic skills in Python. This corresponds to
   [CSCI 0111](https://cs.brown.edu/courses/csci0111/)
   at Brown University.
+
 - A more advanced course can start with
   [Introduction to Programming](booklet_intro-to-programming.html),
   then do
@@ -311,6 +356,10 @@ reason, we recommend going through that material slowly and carefully.
 We of course invite readers to create their own mashups of the
 chapters within the sections. We would love to hear about others’ designs.
 
+```{=html}
+<a name="(part._Our-Programming-Language-Choice)"></a>
+```
+
 ### 1.8 Our Programming Language Choice {#Our-Programming-Language-Choice}
 
 If we wanted to get rich, we’d have written this book entirely in Python. As of
@@ -340,6 +389,10 @@ if you had seen only one programming language. However, we believe this will
 help you understand Python better, too: just like you learn to appreciate your
 own language, country, or culture better once you’ve stepped outside and been
 exposed to other ones.
+
+```{=html}
+<a name="(part._Programming-Tools)"></a>
+```
 
 ### 1.9 Programming Tools {#Programming-Tools}
 
@@ -373,6 +426,10 @@ We do not recommend any
 particular Python environment. Any Python editor that allows you to
 use pytest and load external data files should work fine.
 
+```{=html}
+<a name="(part._Sending-Us-Feedback-Errors-and-Comments)"></a>
+```
+
 ### 1.10 Sending Us Feedback, Errors, and Comments {#Sending-Us-Feedback-Errors-and-Comments}
 
 As you work through the book, you may spot typos, notice points
@@ -380,10 +437,18 @@ where we could have been clearer, or have a suggestion for a future
 release. You can pass these along to us by filing an issue on our
 [public GitHub site](https://github.com/data-centric-computing/dcic-public). Thanks in advance!
 
+```{=html}
+<a name="(part._Staying-Up-To-Date)"></a>
+```
+
 ### 1.11 Staying Up-To-Date {#Staying-Up-To-Date}
 
 You can subscribe to our very-low-volume mailing list,
 [dcic-notifications](https://groups.google.com/g/dcic-notifications).
+
+```{=html}
+<a name="(part._Acknowledgments)"></a>
+```
 
 ## 2 Acknowledgments {#Acknowledgments}
 

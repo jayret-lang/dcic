@@ -124,6 +124,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="processing-lists.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_lists.html">up</a>&nbsp;&nbsp;<a href="part_structured-data.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._recursive-data)"></a>
 <h3 id="recursive-data">5.3 Recursive Data</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._.Functions_to_.Process_.Recursive_.Data%29">5.3.1<span class="hspace"> </span>Functions to Process Recursive Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._.A_.Template_for_.Processing_.Recursive_.Data%29">5.3.2<span class="hspace"> </span>A Template for Processing Recursive Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._.The_.Design_.Recipe%29">5.3.3<span class="hspace"> </span>The Design Recipe</a></p></td></tr></table>
 <p>In <a href="intro-struct-data.html##telling-apart-variants">Telling
@@ -230,6 +231,7 @@ So, we need to consider larger lists:</p>
             nl-link(7,
               nl-link(8,
                 nl-empty))))))));</code></pre></div></div>
+<a name="(part._Functions-to-Process-Recursive-Data)"></a>
 <h4 id="Functions-to-Process-Recursive-Data">5.3.1 Functions to Process
 Recursive Data</h4>
 <p>Let’s try to write a function
@@ -531,6 +533,7 @@ with the result of the same operation
 on the recursive part of the datum. This idea of doing recursion with
 the same function on self-recursive parts of the datatype lets us extend
 our template to handle recursive fields.</p>
+<a name="(part._A-Template-for-Processing-Recursive-Data)"></a>
 <h4 id="A-Template-for-Processing-Recursive-Data">5.3.2 A Template for
 Processing Recursive Data</h4>
 <p>Stepping back, we have actually derived a new way to approach writing
@@ -569,14 +572,14 @@ same function to process any recursive fields.</p>
 <blockquote class="Strategy"><p class="StrategyHeader">Strategy</p><blockquote class="StrategyBody"><p>Given a recursive data definition, use the following steps to create
 the (reusable) template for that definition:</p>
 <ol type="1">
-<li>Create a function header (using a general-purpose placeholder name
-if you aren’t yet writing a specific function).</li>
-<li>Use
+<li><p>Create a function header (using a general-purpose placeholder
+name if you aren’t yet writing a specific function).</p></li>
+<li><p>Use
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">switch</code></span>
-to break the recursive-data input into its variants.</li>
-<li>In each case, list each of its fields in the answer portion of the
-case.</li>
-<li>Call the function itself on any recursive fields.</li>
+to break the recursive-data input into its variants.</p></li>
+<li><p>In each case, list each of its fields in the answer portion of
+the case.</p></li>
+<li><p>Call the function itself on any recursive fields.</p></li>
 </ol></blockquote></blockquote>
 <p>The power of the template lies in its universality. If you are asked
 to write a specific function (such as
@@ -597,6 +600,7 @@ of the template, however, is that it scales to more complicated data
 definitions (where writing examples by hand would prove tedious). We
 will see examples of this as our data get more complex in coming
 chapters.</p>
+<a name="(part._The-Design-Recipe)"></a>
 <h4 id="The-Design-Recipe">5.3.3 The Design Recipe</h4>
 <p>We’ve showed you many techniques to use while designing programs,
 including developing examples, writing tests, and now writing and using
@@ -605,31 +609,32 @@ adapted from that in <a href="https://htdp.org/">How to Design
 Programs</a>, that we can follow for designing recursive functions.</p>
 <blockquote class="Strategy"><p class="StrategyHeader">Strategy</p><blockquote class="StrategyBody"><p>Given a programming problem over recursive data:</p>
 <ol type="1">
-<li>Create a function header, including the function name and contract.
-The name will be necessary to make recursive calls, while the contract
-guides the design of the body.</li>
-<li>Aided by the contract, which tells you what kind of data to consume
-and produce, write several illustrative examples of the function’s input
-and outputs, using concrete data. Include examples in which the input
-data of one extends the input data of another. This will later help you
-fill in the function.</li>
-<li>The function’s contract tells you what kind of data you are
+<li><p>Create a function header, including the function name and
+contract. The name will be necessary to make recursive calls, while the
+contract guides the design of the body.</p></li>
+<li><p>Aided by the contract, which tells you what kind of data to
+consume and produce, write several illustrative examples of the
+function’s input and outputs, using concrete data. Include examples in
+which the input data of one extends the input data of another. This will
+later help you fill in the function.</p></li>
+<li><p>The function’s contract tells you what kind of data you are
 processing. From the definition of the data, write out the template for
-it.</li>
-<li>Adapt this template to the computation required by this specific
+it.</p></li>
+<li><p>Adapt this template to the computation required by this specific
 problem. Use your examples to figure out how to fill in each case. You
 should have written an example for each case of data in the template.
 This is also where writing examples where input extended the other
 helps: the difference in output becomes the function body. See the
 several examples of this in <a href="processing-lists.html">Processing
-Lists</a>.</li>
-<li>Run your examples to make sure your function behaves as you
-expect.</li>
-<li>Now start writing more fine-grained tests to confirm that you should
-be confident in your function. In particular, while the examples (which
-were written before you wrote the body of the function) focus on the
-expected “input-output” behavior, now that you have a concrete
-implementation, you should write tests that focus on its details.</li>
+Lists</a>.</p></li>
+<li><p>Run your examples to make sure your function behaves as you
+expect.</p></li>
+<li><p>Now start writing more fine-grained tests to confirm that you
+should be confident in your function. In particular, while the examples
+(which were written before you wrote the body of the function) focus on
+the expected “input-output” behavior, now that you have a concrete
+implementation, you should write tests that focus on its
+details.</p></li>
 </ol></blockquote></blockquote>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Use the design recipe to write a function
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">contains-n</code></span>

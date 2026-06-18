@@ -121,8 +121,10 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="factoring-numbers.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_advanced.html">up</a>&nbsp;&nbsp;<a href="booklet_interaction.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._deconstructing-loops)"></a>
 <h2 id="deconstructing-loops">26 Deconstructing Loops</h2>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Setup__.Two_.Functions%29">26.1<span class="hspace"> </span>Setup: Two Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Abstracting_a_.Loop%29">26.2<span class="hspace"> </span>Abstracting a Loop</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Is_.It_.Really_a_.Loop_%29">26.3<span class="hspace"> </span>Is It Really a Loop?</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Re-.Examining___struct_traverse-element___procedure____lib_render-cond_rkt_38_12__%29">26.4<span class="hspace"> </span>Re-Examining <span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">for</code></span></a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Rewriting_.Pollard-.Rho%29">26.5<span class="hspace"> </span>Rewriting Pollard-Rho</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Nested_.Loops%29">26.6<span class="hspace"> </span>Nested Loops</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Loops__.Values__and_.Customization%29">26.7<span class="hspace"> </span>Loops, Values, and Customization</a></p></td></tr></table>
+<a name="(part._Setup-Two-Functions)"></a>
 <h3 id="Setup-Two-Functions">26.1 Setup: Two Functions</h3>
 <p>Let’s look at two functions we wrote earlier in <a
 href="factoring-numbers.html">Factoring Numbers</a>:</p>
@@ -165,6 +167,7 @@ for
     assertEquals(gcd(12, 24), 12);
     assertEquals(gcd(12, 9), 3);
 }</code></pre></div></div>
+<a name="(part._Abstracting-a-Loop)"></a>
 <h3 id="Abstracting-a-Loop">26.2 Abstracting a Loop</h3>
 <p>Now let’s think about how we can create a loop. At each iteration, a
 loop has a status: whether it’s done or whether it should continue.
@@ -248,6 +251,7 @@ for F(a from a_i, b from b_i, …): BODY end</code></pre></div></div>
     }; }];
 }</code></pre></div></div>
 <p>and now closely resembles a traditional “loop” program.</p>
+<a name="(part._Is-It-Really-a-Loop)"></a>
 <h3 id="Is-It-Really-a-Loop">26.3 Is It Really a Loop?</h3>
 <p>This whole section should be considered an aside for people with more
 advanced computing knowledge.</p>
@@ -270,6 +274,7 @@ therefore called a tail call. Jayret—like some other languages—causes
 tail calls to not take any extra stack space. In principle, Jayret can
 also turn some tail calls into jumps. Therefore, this version has close
 to the same performance as a traditional loop.</p>
+<a name="(part._Re-Examining-struct-traverse-element-procedure-lib-render-cond-rkt-38-12)"></a>
 <h3
 id="Re-Examining-struct-traverse-element-procedure-lib-render-cond-rkt-38-12">26.4
 Re-Examining for</h3>
@@ -314,6 +319,7 @@ such as
 or
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">loop-2</code></span>
 above.</p>
+<a name="(part._Rewriting-Pollard-Rho)"></a>
 <h3 id="Rewriting-Pollard-Rho">26.5 Rewriting Pollard-Rho</h3>
 <p>Now let’s tackle Pollard-rho. Notice that it’s a three-parameter
 function, so we can’t use the
@@ -366,6 +372,7 @@ so we can keep it around for testing. Now we can define a “loop”-based
     l2 = map(pr, ns);
     assertEquals(l1, l2);
 }</code></pre></div></div>
+<a name="(part._Nested-Loops)"></a>
 <h3 id="Nested-Loops">26.6 Nested Loops</h3>
 <p>We can also write a nested loop this way. Suppose we have a list
 like</p>
@@ -439,6 +446,7 @@ each element is a number, so it contributes just that number. In
 each element is a list of numbers, so it must contribute
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sum-a-lon</code></span>
 of that list.</p>
+<a name="(part._Loops-Values-and-Customization)"></a>
 <h3 id="Loops-Values-and-Customization">26.7 Loops, Values, and
 Customization</h3>
 <p>Observe two important ways in which the loops above differ from

@@ -7,6 +7,10 @@ up: part_tabular-data.html
 next: part_lists.html
 ---
 
+```{=html}
+<a name="(part._processing-tables)"></a>
+```
+
 ### 4.2 Processing Tables {#processing-tables}
 
 ```{=html}
@@ -50,7 +54,15 @@ adjusted or prepared to fit the questions we want to ask. This chapter
 looks at both steps, and the programming techniques that are helpful
 for them.
 
+```{=html}
+<a name="(part._cleaning-tables)"></a>
+```
+
 #### 4.2.1 Cleaning Data Tables {#cleaning-tables}
+
+```{=html}
+<a name="(part._loading-tables)"></a>
+```
 
 ##### 4.2.1.1 Loading Data Tables {#loading-tables}
 
@@ -69,6 +81,7 @@ depends on the programming environment that you are using for Jayret:
 
 - If you are using CPO, you can load tables from Google Sheets
   (if you want to load a CSV, you first need to import it into Google Sheets)
+
 - If you are using VSCode, you can load tables directly from CSV files
 
 Both use the same Jayret operation (`load-table`{.pyret}), but in slightly
@@ -81,6 +94,10 @@ appear to contain both numbers and strings highlight the
 differences. We discuss these nuances in separate sections for each
 kind of source file.
 
+```{=html}
+<a name="(part._loading-tables-from-google-sheets)"></a>
+```
+
 ##### 4.2.1.1.1 Loading Tables from Google Sheets in CPO {#loading-tables-from-google-sheets}
 
 ```jayret
@@ -92,9 +109,11 @@ event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: 
 - `ssid`{.pyret} is the identifier of the Google Sheet we want to
   load (the identifier is the long sequence of letters and numbers in
   the Google Sheet URL).
+
 - The sequence of names following `load-table`{.pyret} is used for
   the column headers in the Jayret version of the table. These do NOT
   have to match the names used in the original Sheet.
+
 - `source`{.pyret} tells Jayret which sheet to load. The
   `load-spreadsheet`{.pyret} operation takes the Google Sheet identifier
   (here, `ssid`{.pyret}), as well as the name of the individual worksheet
@@ -108,6 +127,10 @@ reports an error that `three`{.pyret} (in the `"Num Tickets"`{.pyret}
 column) is not a number. We’ll discuss how to handle this in
 [Dealing with Columns
 with Multiple Types of Data](processing-tables.html##cols-multiple-types-data).
+
+```{=html}
+<a name="(part._loading-tables-from-csv)"></a>
+```
 
 ##### 4.2.1.1.2 Loading Tables from CSV files in VSCode {#loading-tables-from-csv}
 
@@ -127,10 +150,12 @@ event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: 
   
   - `url`{.pyret} is the identifier of the web address (URL) where the CSV data
     we want to load exists.
+
   - `source`{.pyret} tells Jayret where to load the data from. The
     `csv-table-url`{.pyret} operation takes the web address (here, `url`{.pyret}), as well
     as options (which indicate, for example, whether we expect there to be a header
     row).
+
   - The sequence of names following `load-table`{.pyret} is used for
     the column headers in the Jayret version of the table. These do NOT
     have to match the names used in the first row of the CSV file (which
@@ -153,6 +178,10 @@ numbers in the `"Num Tickets"`{.pyret} column. The inconsistency would
 resurface, however, if we try to use the column data assuming that
 they are all strings of numerals. If we notice this problem before
 loading our data, we should fix it before we proceed.
+
+```{=html}
+<a name="(part._cols-multiple-types-data)"></a>
+```
 
 ##### 4.2.1.1.3 Dealing with Columns with Multiple Types of Data {#cols-multiple-types-data}
 
@@ -184,9 +213,14 @@ use in the rest of this chapter.
   `three`{.pyret} has been replaced with a number. If we use `"Data"`{.pyret}
   instead of `"Orig Data"`{.pyret} in the above `load-spreadsheet`{.pyret}
   command, the event table loads into Jayret.
+
 - If you are using the CSV files in VSCode, modify the file path
   to end with `"events-f25.csv"`{.pyret} instead of
   `"events-orig-f25.csv"`{.pyret}.
+
+```{=html}
+<a name="(part._missing-data)"></a>
+```
 
 ##### 4.2.1.2 Dealing with Missing Entries {#missing-data}
 
@@ -325,6 +359,10 @@ well as the option to use (or not) sanitizers at all.
 Rule of thumb: when you load a table, use a sanitizer to guard against
 errors in case the original sheet is missing data in some cells.
 
+```{=html}
+<a name="(part._Normalizing-Data)"></a>
+```
+
 ##### 4.2.1.3 Normalizing Data {#Normalizing-Data}
 
 Next, let’s look at the `"Discount Code"`{.pyret} column. Our goal is to be
@@ -369,6 +407,7 @@ achieve this?
 
 - Get `"none"`{.pyret} to appear in every cell that currently
   lacks a value
+
 - Convert all the codes that aren’t `"none"`{.pyret} to upper case
 
 Fortunately, these tasks align with functions we’ve already seen how to
@@ -475,6 +514,10 @@ within a larger table), but there must have been a cell of the source
 data with a string of blanks, rather than missing
 content. How do we approach normalization to avoid missing cases like this?
 
+```{=html}
+<a name="(part._Normalization-Systematically)"></a>
+```
+
 ##### 4.2.1.4 Normalization, Systematically {#Normalization-Systematically}
 
 As the previous example showed, we need a way to think through potential
@@ -495,6 +538,7 @@ at the beginning), the data was likely entered in one of two ways:
 
 
 - via a drop-down menu
+
 - in a text-entry box
 
 A drop-down menu automatically normalizes the data, so that’s not a
@@ -549,6 +593,10 @@ containing only spaces were also converted to `"none"`{.pyret}? (Hint:
 look for `string-replace`{.pyret} in the strings library.)
 :::
 
+```{=html}
+<a name="(part._Using-Programs-to-Detect-Data-Errors)"></a>
+```
+
 ##### 4.2.1.5 Using Programs to Detect Data Errors {#Using-Programs-to-Detect-Data-Errors}
 
 Sometimes, we also look for errors by writing functions to check
@@ -558,6 +606,7 @@ a program to flag any rows with invalid email addresses. What makes
 for a valid email address? Let’s consider two rules:
 
 - Valid email addresses should contain an `@`{.pyret} sign
+
 - Valid email addresses should end in one of `".com"`{.pyret},
   `".edu"`{.pyret} or `".org"`{.pyret}
 
@@ -578,6 +627,10 @@ then produce a table identifying all rows that need to have their
 email addresses corrected. The point here is that programs are often
 helpful for finding data that need correcting, even if a program
 can’t be written to perform the fixing.
+
+```{=html}
+<a name="(part._task-plans)"></a>
+```
 
 #### 4.2.2 Task Plans {#task-plans}
 
@@ -604,9 +657,11 @@ help you manage the process.
   different features of your inputs, but small enough to work with
   manually during planning. For table problems, roughly 4-6 rows usually
   works well in practice).
+
 2. Mentally identify functions that you already know (or that you find in
   the documentation) that might be useful for transforming the input
   data to the output data.
+
 3. Develop a sequence of steps—whether as pictures, textual
   descriptions of computations, or a combination of the two—that could
   be used to solve the problem. If you are using pictures, draw out the
@@ -614,6 +669,7 @@ help you manage the process.
   what operations might be useful to get from one intermediate value to
   the next. The functions you identified in the previous step should
   show up here.
+
 4. Repeat the previous step, breaking down the subtasks until
   you believe you could write expressions or functions to perform each
   step or data transformation.
@@ -676,6 +732,10 @@ the core idea is the same: use concrete examples to help identify the
 intermediate computations that will need, then convert those
 intermediate computations to code after or as you figure them out.
 
+```{=html}
+<a name="(part._preparing-tables)"></a>
+```
+
 #### 4.2.3 Preparing Data Tables {#preparing-tables}
 
 Sometimes, the data we have is clean (in that we’ve normalized the
@@ -686,6 +746,10 @@ orders? In our current table, we have the number of tickets in an
 order, but not an explicit label on the scale of that order. If we
 wanted to produce some sort of chart showing our order scales, we will
 need to make those labels explicit.
+
+```{=html}
+<a name="(part._creating-bins)"></a>
+```
 
 ##### 4.2.3.1 Creating bins {#creating-bins}
 
@@ -711,6 +775,10 @@ String order-scale-label(Row r) {
     }
 }
 order-bin-data = build-column(cleaned-event-data, "order-scale", order-scale-label);
+```
+
+```{=html}
+<a name="(part._splitting-columns)"></a>
 ```
 
 ##### 4.2.3.2 Splitting Columns {#splitting-columns}
@@ -783,15 +851,23 @@ string-split(name-string, " ").get(1);
 ```
 :::
 
+```{=html}
+<a name="(part._naming-tables)"></a>
+```
+
 #### 4.2.4 Managing and Naming Data Tables {#naming-tables}
 
 At this point, we have worked with several versions of the events
 table:
 
 - The original dataset that we tried to load
+
 - The new sheet of the dataset with manual corrections
+
 - The version with the discount codes normalized
+
 - Another version that normalized the delivery mode
+
 - The version extended with the order-scale column
 
 Which of these versions should get explicit names within our code
@@ -832,6 +908,10 @@ multiple data-analyses, developing a consistent strategy for how you
 name your tables will likely help you better manage your code as you
 switch between projects.
 
+```{=html}
+<a name="(part._visualizing-tables)"></a>
+```
+
 #### 4.2.5 Visualizations and Plots {#visualizing-tables}
 
 Now that our data are cleaned and prepared, we are ready to analyze
@@ -850,6 +930,7 @@ different kinds, including:
 - quantitative: a variable whose values are numeric and can
   be ordered with a consistent interval between values. They are
   meaningful to use in computations.
+
 - categorical: a variable with a fixed set of values. The
   values may have an order, but there are no meaningful computational
   operations between the values other than ordering. Such variables
@@ -864,10 +945,13 @@ Common plots and the kinds of variables they require include:
 
 - Scatterplots show relationships between two quantitative
   variables, with one variable on each axis of a 2D chart.
+
 - Frequency Bar charts show the frequency of each
   categorical value within a column of a dataset.
+
 - Histograms segment quantitative data into equal-size
   intervals, showing the distribution of values across each interval.
+
 - Pie charts show the proportion of cells in a column
   across the categorical values in a dataset.
 
@@ -876,8 +960,10 @@ Map each of the following questions to a chart type, based
 on the kinds of variables involved in the question:
 
 - Which discount code has been used most often?
+
 - Is there a relationship between the number of tickets purchased
   in one order and the time of purchase?
+
 - How many orders have been made for each delivery option?
 :::
 
@@ -911,6 +997,10 @@ make sense. In larger datasets, manually inspecting all of the data is
 often infeasible. But creating some plots or other summaries of the
 data is also useful for identifying errors.
 
+```{=html}
+<a name="(part._Summary-Managing-a-Data-Analysis)"></a>
+```
+
 #### 4.2.6 Summary: Managing a Data Analysis {#Summary-Managing-a-Data-Analysis}
 
 This chapter has given you a high-level overview of how to use coding
@@ -920,18 +1010,22 @@ good data practitioner undergoes several steps:
 1. Think about the data in each column: what are plausible values
   in the column, and what kinds of errors might be in that column based
   on what you know about the data collection methods?
+
 2. Check the data for errors, using a combination of manual
   inspection of the table, plots, and `filter-with`{.pyret} expressions
   that check for unexpected values. Normalize or correct the data,
   either at the source (if you control that) or via small programs.
+
 3. Store the normalized/cleaned data table, either as a name in
   your program, or by saving it back out to a new file. Leave the raw
   data intact (in case you need to refer to the original later).
+
 4. Prepare the data based on the questions you want to ask about it:
   compute new columns, bin existing columns, or combine data from across
   tables. You can either finish all preparations and name the final
   table, or you can make separate preparations for each question,
   naming the per-question tables.
+
 5. At last, perform your analysis, using the statistical methods,
   visualizations, and interpretations that make sense for the question
   and kinds of variables involved. When you report out on the data,

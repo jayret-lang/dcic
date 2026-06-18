@@ -7,6 +7,10 @@ up: part_python-fileio.html
 next: booklet_programming-with-state.html
 ---
 
+```{=html}
+<a name="(part._python-fileio)"></a>
+```
+
 ### 11.1 File Input and Output in Python {#python-fileio}
 
 ```{=html}
@@ -18,6 +22,10 @@ In [Introduction to Pandas](python-tables-Pandas.html), we loaded data from CSV 
 In this chapter, we’ll learn to read and write files using Python’s basic file operations, using a simplified CSV processor as an example.
 
 While Pandas can certainly do all that we will do in this chapter (and more!), understanding how file operations work helps you become a more complete programmer, and to one day perhaps either create or work on libraries like Pandas.
+
+```{=html}
+<a name="(part._Basic-File-Operations)"></a>
+```
 
 #### 11.1.1 Basic File Operations {#Basic-File-Operations}
 
@@ -80,6 +88,10 @@ with open('data.csv', 'r') as file:
 In addition to not making us remember to close the files, it this approach also guarantees
 that the file will be closed even if an error occurs while processing it.
 
+```{=html}
+<a name="(part._Reading-C-S-V-Files-Step-by-Step)"></a>
+```
+
 #### 11.1.2 Reading CSV Files Step by Step {#Reading-C-S-V-Files-Step-by-Step}
 
 Let’s work through reading a CSV file manually, as a way to practice using files for a practical (if small) example.
@@ -115,9 +127,11 @@ print("First row:", rows[0])
 Let’s break down what each step does:
 
 1. `file.readlines()`{.python} reads all lines from the file into a list of strings
+
 2. We use a for loop to go through each line, using `line.strip()`{.python} to remove the newline character (`'\n'`{.python})
   from the end of each line and then turning the line into a list of strings by `.split(',')`{.python},
   which divides the string by the given string (which is not included).
+
 3. We separate the first row (header) from the data rows for easier processing –
   the notation `data[1:]`{.python} is a special way of indicating we want "from index 1 until as far as the
   list goes – i.e., the end of the list.
@@ -126,6 +140,10 @@ Let’s break down what each step does:
 What would our code do if one of the cells in your CSV contained a comma?
 For example, what if a dish name was "Mac and cheese, deluxe"? How could you handle this?
 :::
+
+```{=html}
+<a name="(part._Processing-and-Filtering-Data)"></a>
+```
 
 #### 11.1.3 Processing and Filtering Data {#Processing-and-Filtering-Data}
 
@@ -170,12 +188,18 @@ print("Total revenue: $" + str(total_revenue))
 What would happen if one of the quantity cells contained invalid data, like the string "three" instead of the number 3? How could you make your code more robust to handle such errors?
 :::
 
+```{=html}
+<a name="(part._Writing-C-S-V-Files)"></a>
+```
+
 #### 11.1.4 Writing CSV Files {#Writing-C-S-V-Files}
 
 Writing CSV files follows a similar pattern. We need to:
 
 1. Open a file in write mode
+
 2. Convert our data to the proper string format
+
 3. Write the strings to the file
 
 Here’s how to write our filtered takeout orders to a new file:
@@ -195,7 +219,9 @@ with open('takeout_orders.csv', 'w') as file:
 The key steps here are:
 
 - `','.join(row)`{.python} combines the list elements into a single string with commas between them
+
 - We add `'\n'`{.python} to create a new line after each row
+
 - `file.write()`{.python} writes the string to the file
 
 Note that we call `.write()`{.python} once for each line – we could have combined all the lines into a single

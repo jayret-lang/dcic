@@ -7,6 +7,10 @@ up: part_sets.html
 next: booklet_advanced.html
 ---
 
+```{=html}
+<a name="(part._sets-case-study)"></a>
+```
+
 ### 18.6 Sets as a Case Study {#sets-case-study}
 
 ```{=html}
@@ -20,6 +24,10 @@ tradeoffs that we can make in the design of data structures, based on
 our needs.
 
 There are several dimensions along which we can divide our designs.
+
+```{=html}
+<a name="(part._Nature-of-the-Data)"></a>
+```
 
 #### 18.6.1 Nature of the Data {#Nature-of-the-Data}
 
@@ -36,6 +44,10 @@ values [[Converting Values to Ordered Values](orderability.html##hashing-values)
 most expensive atomic operations, while hashtables give us
 constant-to-linear complexity.
 
+```{=html}
+<a name="(part._Nature-of-the-Operations)"></a>
+```
+
 #### 18.6.2 Nature of the Operations {#Nature-of-the-Operations}
 
 Another dimension of variation is the collection of operations we
@@ -47,6 +59,10 @@ most of these operations. [Bloom Filters](hash-set-kv.html##bloom-filters) provi
 another instance of this. There is a general computer science
 principle at work here: the fewer operations we need to support, the
 better we can (sometimes) make the complexity of the remaining ones.
+
+```{=html}
+<a name="(part._Nature-of-the-Guarantee)"></a>
+```
 
 #### 18.6.3 Nature of the Guarantee {#Nature-of-the-Guarantee}
 

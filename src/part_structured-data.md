@@ -7,6 +7,10 @@ up: booklet_intro-to-programming.html
 next: intro-struct-data.html
 ---
 
+```{=html}
+<a name="(part._part-structured-data)"></a>
+```
+
 ## 6 Structured Data {#part-structured-data}
 
 ```{=html}

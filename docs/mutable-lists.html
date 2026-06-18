@@ -119,6 +119,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="mutating-variables.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_python-state.html">up</a>&nbsp;&nbsp;<a href="booklet_algo-analysis.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._mutable-lists)"></a>
 <h3 id="mutable-lists">13.2 Mutable Lists</h3>
 <table cellpadding="0" cellspacing="0"><tr><td></td></tr></table>
 <p>Let’s expand our study of updates yet again, this time looking at
@@ -137,12 +138,12 @@ shaunae_list.append("eggs")</code></pre></div></div>
 <p>What is the difference between these two approaches? The difference
 lies in the impact on the heap.</p>
 <ul>
-<li>The first version creates a new list containing
+<li><p>The first version creates a new list containing
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">"eggs"</code></span>,
-then puts the elements of the two lists together in a new list.</li>
-<li>The second version inserts
+then puts the elements of the two lists together in a new list.</p></li>
+<li><p>The second version inserts
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">"eggs"</code></span>
-into the existing list in the heap.</li>
+into the existing list in the heap.</p></li>
 </ul>
 <p>Let’s look at the directories for each version. Here’s the final
 directory for the first version:</p>
@@ -209,6 +210,7 @@ would see the new item:</p>
 &gt;&gt;&gt; shaunae_list
 ["bread", "coffee", "eggs"]</code></pre></div></div>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Draw the memory diagram for the above program.</p></blockquote></blockquote>
+<a name="(part._Exercise-Creating-Lists-of-Accounts)"></a>
 <h4 id="Exercise-Creating-Lists-of-Accounts">Exercise: Creating Lists of
 Accounts</h4>
 <p>In <a

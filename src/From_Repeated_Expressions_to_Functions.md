@@ -7,10 +7,18 @@ up: part_foundations.html
 next: Conditionals_and_Booleans.html
 ---
 
+```{=html}
+<a name="(part._From-Repeated-Expressions-to-Functions)"></a>
+```
+
 ### 3.3 From Repeated Expressions to Functions {#From-Repeated-Expressions-to-Functions}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._similar-flags%29">3.3.1<span class="hspace"> </span>Example: Similar Flags</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._defining-functions%29">3.3.2<span class="hspace"> </span>Defining Functions</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._function-call-nm%29">3.3.2.1<span class="hspace"> </span>How Functions Evaluate</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._fun-annotations%29">3.3.2.2<span class="hspace"> </span>Type Annotations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._doc-strings%29">3.3.2.3<span class="hspace"> </span>Documentation</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._moon-weight-pyret%29">3.3.3<span class="hspace"> </span>Functions Practice: Moon Weight</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._writing-examples%29">3.3.4<span class="hspace"> </span>Documenting Functions with Examples</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._pen-cost-pyret%29">3.3.5<span class="hspace"> </span>Functions Practice: Cost of pens</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="From_Repeated_Expressions_to_Functions.html#%28part._.Recap__.Defining_.Functions%29">3.3.6<span class="hspace"> </span>Recap: Defining Functions</a></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._similar-flags)"></a>
 ```
 
 #### 3.3.1 Example: Similar Flags {#similar-flags}
@@ -51,6 +59,10 @@ our application of creating flag images. To make this program work, then,
 we need the ability to add our own operators (henceforth called
 functions) to Jayret.
 
+```{=html}
+<a name="(part._defining-functions)"></a>
+```
+
 #### 3.3.2 Defining Functions {#defining-functions}
 
 In programming, a function takes one or more (configuration)
@@ -63,19 +75,23 @@ code as follows:
 
 - Write down at least two expressions showing the desired computation (in this
   case, the expressions that produce the Armenian and Austrian flags).
+
 - Identify which parts are fixed (i.e., the creation of rectangles
   with dimensions `120`{.pyret} and `30`{.pyret}, the use of `above`{.pyret} to stack the
   rectangles) and which
   are changing (i.e., the stripe colors).
+
 - For each changing part, give it a name (say
   `top`{.pyret}, `middle`{.pyret}, and `bottom`{.pyret}), which will be the
   parameter that stands for that part.
+
 - Rewrite the examples to be in terms of these parameters. For example:
   
   ```jayret
 frame(above(rectangle(120, 30, "solid", top), above(rectangle(120, 30, "solid", middle), rectangle(120, 30, "solid", bottom))));
   ```
 - Name the function something suggestive: e.g., `three-stripe-flag`{.pyret}.
+
 - Write the function declaration syntax around the expression:
   
   ```jayret
@@ -134,15 +150,21 @@ your file already had definitions for the names `armenia`{.pyret} or
 use a different name (like `austria2`{.pyret}) or comment out the
 original definition using `//`{.pyret}.)
 
+```{=html}
+<a name="(part._function-call-nm)"></a>
+```
+
 ##### 3.3.2.1 How Functions Evaluate {#function-call-nm}
 
 So far, we have learned three rules for how Jayret processes your program:
 
 - If you write an expression, Jayret evaluates it to produce
   its value.
+
 - If you write a statement that defines a name, Jayret evaluates
   the expression (right side of `=`{.pyret}), then makes an entry in the
   directory to associate the name with the value.
+
 - If you write an expression that uses a name from the directory,
   Jayret substitutes the name with the corresponding value.
 
@@ -153,6 +175,7 @@ Jayret do when you call a function (with values for the parameters)?
 - When Jayret encounters a function definition in your file, it makes an
   entry in the directory to associate the name of the function with its
   code. The body of the function does not get evaluated at this time.
+
 - When Jayret encounters a function call while evaluating an expression,
   it replaces the call with the body of the function, but with the
   parameter values substituted for the parameter names in the
@@ -183,6 +206,10 @@ Note that the second expression (with the substituted values) is the
 same expression we started from for the Armenian flag. Substitution
 restores that expression, while still allowing the programmer to write
 the shorthand in terms of `three-stripe-flag`{.pyret}.
+
+```{=html}
+<a name="(part._fun-annotations)"></a>
+```
 
 ##### 3.3.2.2 Type Annotations {#fun-annotations}
 
@@ -255,6 +282,10 @@ We will think of types as playing two roles: giving Jayret information
 that it can use to focus error messages more accurately, and guiding
 human readers of programs as to the proper use of user-defined functions.
 
+```{=html}
+<a name="(part._doc-strings)"></a>
+```
+
 ##### 3.3.2.3 Documentation {#doc-strings}
 
 Imagine that you opened your program file from this chapter a couple
@@ -279,6 +310,10 @@ While docstrings are also optional from Jayret’s perspective, you
 should always provide one when you write a function. They are
 extremely helpful to anyone who has to read your program, whether that is
 a co-worker, grader…or yourself, a couple of weeks from now.
+
+```{=html}
+<a name="(part._moon-weight-pyret)"></a>
+```
 
 #### 3.3.3 Functions Practice: Moon Weight {#moon-weight-pyret}
 
@@ -311,10 +346,13 @@ Let’s remind ourselves of the steps for creating a function:
 
 - Write down some examples of the desired calculation. We did that
   above.
+
 - Identify which parts are fixed (above, `* 1/6`{.pyret}) and which
   are changing (above, `100`{.pyret}, `150`{.pyret}, `90`{.pyret}...).
+
 - For each changing part, give it a name (say
   `earth-weight`{.pyret}), which will be the parameter that stands for it.
+
 - Rewrite the examples to be in terms of this parameter:
   
   ```jayret
@@ -323,6 +361,7 @@ earth-weight * 1/6;
   This will be the body, i.e., the expression inside
   the function.
 - Come up with a suggestive name for the function: e.g., `moon-weight`{.pyret}.
+
 - Write the syntax for functions around the body expression:
   
   ```jayret
@@ -339,6 +378,10 @@ int moon-weight(int earth-weight) {
     return earth-weight * 1/6;
 }
   ```
+
+```{=html}
+<a name="(part._writing-examples)"></a>
+```
 
 #### 3.3.4 Documenting Functions with Examples {#writing-examples}
 
@@ -416,6 +459,10 @@ values first, then worry about turning it into a function. If you
 can’t write the examples, chances are you won’t be able to write the
 function either. Examples break down the programming process into
 smaller, manageable steps.
+
+```{=html}
+<a name="(part._pen-cost-pyret)"></a>
+```
 
 #### 3.3.5 Functions Practice: Cost of pens {#pen-cost-pyret}
 
@@ -534,6 +581,10 @@ assertEquals(pen-cost(0, ""), 0);
 Does doing this seem like a good idea? Why or why not?
 :::
 
+```{=html}
+<a name="(part._Recap-Defining-Functions)"></a>
+```
+
 #### 3.3.6 Recap: Defining Functions {#Recap-Defining-Functions}
 
 This chapter has introduced the idea of a function. Functions play a
@@ -552,9 +603,11 @@ We’ve covered several specific ideas about functions:
   one or more parameters (names for the values we want to configure), as
   well as a body, which is the computation that we want to
   perform once we have concrete values for the parameters.
+
 - We showed that we should include examples with our functions,
   to illustrate what the function computes on various specific
   values. Examples go in a `where { }`{.jayret} block after the function body.
+
 - We showed that we can use a function by providing concrete
   values to configure its parameters. To do this, we write the name of
   the function we want to use, followed by a pair of parenthesis around

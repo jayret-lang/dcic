@@ -7,6 +7,10 @@ up: booklet_algo-analysis.html
 next: booklet_data-with-analysis.html
 ---
 
+```{=html}
+<a name="(part._amortized-analysis)"></a>
+```
+
 ## 15 Halloween Analysis {#amortized-analysis}
 
 ```{=html}
@@ -19,6 +23,10 @@ in [Choosing Between Representations](sets-from-lists.html##choosing-set-reps), 
 a bound when the complexity is heavily dependent on the exact sequence
 of operations run. Now, we will consider a different style of
 complexity analysis that better accommodates operation sequences.
+
+```{=html}
+<a name="(part._A-First-Example)"></a>
+```
 
 ### 15.1 A First Example {#A-First-Example}
 
@@ -33,6 +41,10 @@ the worst case, because we’ve inserted up to \(k\)
 distinct elements into the set. The total time is then
 \begin{equation*}k^2 / 2 + k / 2 + k^2\end{equation*}for a total of \(2k\) operations, yielding an average of
 \begin{equation*}\frac{3}{4} k + \frac{1}{4}\end{equation*}steps per operation in the worst case.
+
+```{=html}
+<a name="(part._The-New-Form-of-Analysis)"></a>
+```
 
 ### 15.2 The New Form of Analysis {#The-New-Form-of-Analysis}
 
@@ -71,6 +83,10 @@ of death. Amortization comes from the Latin root mort-,
 which means death, because an amortized analysis is one conducted “at
 the death”, i.e., at the end of a fixed sequence of operations.]{.margin-note}
 
+```{=html}
+<a name="(part._queue-data-structure)"></a>
+```
+
 ### 15.3 An Example: Queues from Lists {#queue-data-structure}
 
 We have seen lists [[From Tables to Lists](tables-to-lists.html)] and sets [[Several Variations on Sets](part_sets.html)].
@@ -79,6 +95,10 @@ Here we focus on queues, which too can be represented as lists:
 reading at least the early portions now. In this section, we will ignore the
 various programming niceties discussed there, and focus on raw list
 representations to make an algorithmic point.
+
+```{=html}
+<a name="(part._List-Representations)"></a>
+```
 
 #### 15.3.1 List Representations {#List-Representations}
 
@@ -107,6 +127,10 @@ the most recent addition first. Now for the (first) crucial insight:
 when we need to dequeue, we reverse the list. Now, dequeuing
 also takes constant time.
 
+```{=html}
+<a name="(part._A-First-Analysis)"></a>
+```
+
 #### 15.3.2 A First Analysis {#A-First-Analysis}
 
 Of course, to fully analyze the complexity of this data structure, we
@@ -125,6 +149,10 @@ to the number of elements in the list, which at that point is
 \(k \cdot 1 + k + (k-1) \cdot 1 = 3k-1\) for a total of
 \(2k\) operations, giving an amortized complexity of
 effectively constant time per operation!
+
+```{=html}
+<a name="(part._More-Liberal-Sequences-of-Operations)"></a>
+```
 
 #### 15.3.3 More Liberal Sequences of Operations {#More-Liberal-Sequences-of-Operations}
 
@@ -180,6 +208,10 @@ Response<Object> dequeue(Queue<Object> q) {
 }
 ```
 
+```{=html}
+<a name="(part._A-Second-Analysis)"></a>
+```
+
 #### 15.3.4 A Second Analysis {#A-Second-Analysis}
 
 We can now reason about sequences of operations as we did before, by
@@ -199,6 +231,10 @@ element. From this (very informal) analysis, we can conclude that in
 the worst case, any permutation of enqueues and dequeues will still
 cost only a constant amount of amortized time.
 
+```{=html}
+<a name="(part._worst-case-ops-amort)"></a>
+```
+
 #### 15.3.5 Amortization Versus Individual Operations {#worst-case-ops-amort}
 
 Note, however, that the constant represents an average across the
@@ -210,6 +246,10 @@ not assume that every step in the sequence will is
 bounded. Nevertheless, an amortized analysis sometimes gives us a much
 more nuanced understanding of the real behavior of a data structure
 than a worst-case analysis does on its own.
+
+```{=html}
+<a name="(part._Reading-More)"></a>
+```
 
 ### 15.4 Reading More {#Reading-More}
 

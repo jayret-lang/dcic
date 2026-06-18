@@ -14,6 +14,10 @@ See [Deferred from Jayret](https://jayret-lang.github.io/docs/Deferred_from_Pyre
 for status.
 :::
 
+```{=html}
+<a name="(part._games-reactive)"></a>
+```
+
 ## 27 Interactive Games as Reactive Systems {#games-reactive}
 
 ```{=html}
@@ -37,7 +41,9 @@ land. We might also equip it with limited amounts of fuel to complete
 its task. Here are some animations of the game:
 
 - [The airplane comes in to land succcessfully.](https://drive.google.com/file/d/1RyDtWXnodN1rzUwwe79InaVUTfIW5GC8/view?usp=share_link)
+
 - [Uh oh—the airplane collides with a balloon!](https://drive.google.com/file/d/1N8H8T4ssaIlzGfL8XD99QruxLlrIAnAu/view?usp=sharing)
+
 - [Uh oh—the airplane lands in the water!](https://drive.google.com/file/d/1zdlxGY8InPkyYRWi3ROWDHLZPtuj2KZu/view?usp=share_link)
 
 By the end, you will have written all the relevant portions of this
@@ -45,15 +51,24 @@ program. Your program will:
 
 
 - animate the airplane to move autonomously;
+
 - detect keystrokes and adjust the airplane accordingly;
+
 - have multiple moving balloons;
+
 - detect collisions between the airplane and balloons;
+
 - check for landing on water and land; and
+
 - account for the use of fuel.
 
 Phew: that’s a lot going on! Therefore, we won’t write it all at
 once; instead, we’ll build it up bit-by-bit. But we’ll get there by
 the end.
+
+```{=html}
+<a name="(part._About-Reactive-Animations)"></a>
+```
 
 ### 27.1 About Reactive Animations {#About-Reactive-Animations}
 
@@ -79,6 +94,10 @@ a sequence of individual images, and we will ask Jayret to show these
 in rapid succession. We will then see how reactivity folds into the
 same process.
 
+```{=html}
+<a name="(part._Preliminaries)"></a>
+```
+
 ### 27.2 Preliminaries {#Preliminaries}
 
 To begin with, we should inform Jayret that we plan to make use of both
@@ -93,6 +112,10 @@ This tells Jayret to load these two libraries and bind the results
 to the corresponding names, `I`{.pyret} and `R`{.pyret}. Thus, all image
 operations are obtained from `I`{.pyret} and animation operations from
 `R`{.pyret}.
+
+```{=html}
+<a name="(part._Version-Airplane-Moving-Across-the-Screen)"></a>
+```
 
 ### 27.3 Version: Airplane Moving Across the Screen {#Version-Airplane-Moving-Across-the-Screen}
 
@@ -154,13 +177,19 @@ above animation, we still have to do several things:
 
 
 1. Ask to be notified of the passage of time.
+
 2. As time passes, correspondingly update the World State.
+
 3. Given an updated World State, produce the corresponding visual
   display.
 
 This sounds like a lot! Fortunately, Jayret makes this much easier than
 it sounds. We’ll do these in a slightly different order than listed
 above.
+
+```{=html}
+<a name="(part._Updating-the-World-State)"></a>
+```
 
 #### 27.3.1 Updating the World State {#Updating-the-World-State}
 
@@ -204,6 +233,10 @@ If you have prior experience programming animations and reactive
 programs, you will immediately notice an important difference: it’s
 easy to test parts of your program in Jayret!
 :::
+
+```{=html}
+<a name="(part._Displaying-the-World-State)"></a>
+```
 
 #### 27.3.2 Displaying the World State {#Displaying-the-World-State}
 
@@ -254,6 +287,10 @@ Object place-airplane-x(w) {
 }
 ```
 
+```{=html}
+<a name="(part._Observing-Time-and-Combining-the-Pieces)"></a>
+```
+
 #### 27.3.3 Observing Time (and Combining the Pieces) {#Observing-Time-and-Combining-the-Pieces}
 
 Finally, we’re ready to put these pieces together.
@@ -294,6 +331,10 @@ all the preliminaries out of the way, we can go about enhancing it.
 ::: {.exercise}
 If you want the airplane to appear to move faster, what can you change?
 :::
+
+```{=html}
+<a name="(part._Version-Wrapping-Around)"></a>
+```
 
 ### 27.4 Version: Wrapping Around {#Version-Wrapping-Around}
 
@@ -373,6 +414,10 @@ change in behavior?
 If you didn’t…did you remember to update your reactor to use the new
 airplane-moving function?
 
+```{=html}
+<a name="(part._Version-Descending)"></a>
+```
+
 ### 27.5 Version: Descending {#Version-Descending}
 
 Of course, we need our airplane to move in more than just one dimension:
@@ -405,6 +450,10 @@ The World State is a `posn`{.pyret}, representing the
 x-position and y-position of the airplane on
 the screen.
 :::
+
+```{=html}
+<a name="(part._Moving-the-Airplane)"></a>
+```
 
 #### 27.5.1 Moving the Airplane {#Moving-the-Airplane}
 
@@ -444,6 +493,7 @@ different advantages:
 - The former method has the benefit of being very concrete:
   there’s no question what you expect, and it demonstrates that you
   really can compute the desired answer from first principles.
+
 - The latter method has the advantage that, if you change the
   constants in your program (such as the rate of descent), seemingly
   correct tests do not suddenly fail. That is, this form of testing is
@@ -492,6 +542,10 @@ separation of concerns, and makes it possible for the complexity
 of movement in each dimension to evolve independently while keeping
 the code relatively readable.
 
+```{=html}
+<a name="(part._Drawing-the-Scene)"></a>
+```
+
 #### 27.5.2 Drawing the Scene {#Drawing-the-Scene}
 
 We have to also examine and update `place-airplane-x`{.pyret}. Our
@@ -506,6 +560,10 @@ Object place-airplane-xy(w) {
 ```
 Notice that we can’t really reuse the previous definition because it hard-coded
 the y-position, which we must now make a parameter.
+
+```{=html}
+<a name="(part._Finishing-Touches)"></a>
+```
 
 #### 27.5.3 Finishing Touches {#Finishing-Touches}
 
@@ -535,6 +593,10 @@ obtain the dimensions of an image, such as the airplane. Use these to
 ensure the airplane fits entirely within the screen for the initial scene,
 and similarly in `move-airplane-xy-on-tick`{.pyret}.
 :::
+
+```{=html}
+<a name="(part._Version-Responding-to-Keystrokes)"></a>
+```
 
 ### 27.6 Version: Responding to Keystrokes {#Version-Responding-to-Keystrokes}
 
@@ -611,6 +673,10 @@ end
 Now your airplane moves not only with the passage of time but also in
 response to your keystrokes. You can keep it up in the air forever!
 
+```{=html}
+<a name="(part._Version-Landing)"></a>
+```
+
 ### 27.7 Version: Landing {#Version-Landing}
 
 Remember that the objective of our game is to land the airplane, not to
@@ -664,6 +730,10 @@ landing, only the parts of the airplane that stick above ground level
 would be visible. Implement this. As a hint, consider modifying
 `place-airplane-xy`{.pyret}.
 :::
+
+```{=html}
+<a name="(part._Version-A-Fixed-Balloon)"></a>
+```
 
 ### 27.8 Version: A Fixed Balloon {#Version-A-Fixed-Balloon}
 
@@ -776,6 +846,10 @@ Object game-ends(w) {
 }
 ```
 
+```{=html}
+<a name="(part._Version-Keep-Your-Eye-on-the-Tank)"></a>
+```
+
 ### 27.9 Version: Keep Your Eye on the Tank {#Version-Keep-Your-Eye-on-the-Tank}
 
 Now we’ll introduce the idea of fuel. In our simplified world, fuel
@@ -874,6 +948,10 @@ fuel values to try?
 Extend your program to draw a fuel gauge.
 :::
 
+```{=html}
+<a name="(part._Version-The-Balloon-Moves-Too)"></a>
+```
+
 ### 27.10 Version: The Balloon Moves, Too {#Version-The-Balloon-Moves-Too}
 
 Until now we’ve left our balloon immobile. Let’s now make the game
@@ -913,17 +991,25 @@ We thus have to modify:
 
 
 - The background image (to remove the static balloon).
+
 - The drawing handler (to draw the balloon at its position).
+
 - The timer handler (to move the balloon as well as the
   airplane).
+
 - The key handler (to construct world data that leaves the balloon
   unchanged).
+
 - The termination condition (to account for the balloon’s dynamic
   location).
 
 ::: {.exercise}
 Modify each of the above functions, along with their test cases.
 :::
+
+```{=html}
+<a name="(part._Version-One-Two-Ninety-Nine-Luftballons)"></a>
+```
 
 ### 27.11 Version: One, Two, ..., Ninety-Nine Luftballons! {#Version-One-Two-Ninety-Nine-Luftballons}
 
@@ -955,6 +1041,7 @@ to move one balloon. What’s left?
 
 
 1. Apply the same function to each balloon in the list.
+
 2. Determine what to do if two balloons collide.
 
 For now, you can avoid the latter problem by placing each balloon

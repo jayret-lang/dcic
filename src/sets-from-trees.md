@@ -7,6 +7,10 @@ up: part_sets.html
 next: union-find.html
 ---
 
+```{=html}
+<a name="(part._sets-from-trees)"></a>
+```
+
 ### 18.2 Making Sets Grow on Trees {#sets-from-trees}
 
 ```{=html}
@@ -60,6 +64,10 @@ element to remove an entire set of elements. Because we are
 constructing sets of numbers, we don’t need to confront this issue
 here. Instead, we go into it in much more detail in
 [Converting Values to Ordered Values](orderability.html##hashing-values).
+
+```{=html}
+<a name="(part._Using-Binary-Trees)"></a>
+```
 
 #### 18.2.1 Using Binary Trees {#Using-Binary-Trees}
 
@@ -232,6 +240,10 @@ Update the data definition and all affected functions to keep track of
 this information correctly.
 :::
 
+```{=html}
+<a name="(part._Checking-the-Complexity)"></a>
+```
+
 #### 18.2.2 Checking the Complexity {#Checking-the-Complexity}
 
 But wait a minute. Are we actually done? Our recurrence takes the
@@ -273,6 +285,10 @@ Observe that we have not talked about computing the size of the set.
 Even if we could assume that the binary tree is balanced, how do we
 determine the size in logarithmic-or-better time?
 :::
+
+```{=html}
+<a name="(part._sets-from-balanced-trees)"></a>
+```
 
 #### 18.2.3 A Fine Balance: Tree Surgery {#sets-from-balanced-trees}
 
@@ -414,6 +430,10 @@ Why can they both not have height \(k+1\) after insertion?
 
 This gives us two cases to consider.
 
+```{=html}
+<a name="(part._Left-Left-Case)"></a>
+```
+
 ##### 18.2.3.1 Left-Left Case {#Left-Left-Case}
 
 Let’s say the imbalance is in \(A\), i.e., it has height \(k+1\).
@@ -428,16 +448,22 @@ to mean every value in \(T\) is less than \(a\).
 
 
 - \(A_1 < r\).
+
 - \(r < A_2 < q\).
+
 - \(q < B < p\).
+
 - \(p < C\).
 
 Let’s also remind ourselves of the sizes:
 
 
 - The height of \(A_1\) or of \(A_2\) is \(k\) (the cause of imbalance).
+
 - The height of the other \(A_i\) is \(k-1\) (see the exercise above).
+
 - The height of \(C\) is \(k\) (initial assumption; \(k\) is arbitrary).
+
 - The height of \(B\) must be \(k-1\) or \(k\) (argued above).
 
 Imagine this tree is a mobile, which has gotten a little skewed to the
@@ -454,6 +480,10 @@ root than earlier relative to \(B\) and \(C\). This restores the
 balance (as you can see if you work out the heights of each of
 \(A_i\), \(B\), and \(C\)). Thus, we have also restored balance.
 
+```{=html}
+<a name="(part._Left-Right-Case)"></a>
+```
+
 ##### 18.2.3.2 Left-Right Case {#Left-Right-Case}
 
 The imbalance might instead be in \(B\). Expanding:
@@ -465,15 +495,20 @@ Again, let’s record what we know about data order:
 
 
 - \(A < q\).
+
 - \(q < B_1 < r\).
+
 - \(r < B_2 < p\).
+
 - \(p < C\).
 
 and sizes:
 
 
 - Suppose the height of \(C\) is \(k\).
+
 - The height of \(A\) must be \(k-1\) or \(k\).
+
 - The height of \(B_1\) or \(B_2\) must be \(k\), but not both
   (see the exercise above). The other must be \(k-1\).
 
@@ -496,6 +531,10 @@ constraints. Furthermore, from the root, \(A\)’s lowest node is at
 height \(k+1\) or \(k+2\); so is \(B_1\)’s; so is \(B_2\)’s; and
 \(C\)’s is at \(k+2\).
 
+```{=html}
+<a name="(part._Any-Other-Cases)"></a>
+```
+
 ##### 18.2.3.3 Any Other Cases? {#Any-Other-Cases}
 
 Were we a little too glib before? In the left-right case we said that
@@ -507,7 +546,9 @@ can say for sure is that the other has to be at most height
 ::: {.exercise}
 - Can the height of the other tree actually be \(k-2\) instead of
   \(k-1\)?
+
 - If so, does the solution above hold? Is there not still an
   imbalance of two in the resulting tree?
+
 - Is there actually a bug in the above algorithm?
 :::

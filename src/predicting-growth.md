@@ -7,6 +7,10 @@ up: booklet_algo-analysis.html
 next: amortized-analysis.html
 ---
 
+```{=html}
+<a name="(part._predicting-growth)"></a>
+```
+
 ## 14 Predicting Growth {#predicting-growth}
 
 ```{=html}
@@ -15,6 +19,10 @@ next: amortized-analysis.html
 
 We will now commence the study of determining how long a computation
 takes. We’ll begin with a little (true) story.
+
+```{=html}
+<a name="(part._A-Little-True-Story)"></a>
+```
 
 ### 14.1 A Little (True) Story {#A-Little-True-Story}
 
@@ -36,6 +44,7 @@ tools would produce answers. This presented two problems:
 - The company was rightly reluctant to share the entire dataset
   with outsiders, and in turn we didn’t want to be responsible for
   carefully guarding all their data.
+
 - Even if we did get a sample of their data, as more users used
   their product, the amount of data they had was sure to grow.
 
@@ -104,6 +113,10 @@ about best practices in patient care, to evaluate the effectiveness of
 systems.
 :::
 
+```{=html}
+<a name="(part._The-Analytical-Idea)"></a>
+```
+
 ### 14.2 The Analytical Idea {#The-Analytical-Idea}
 
 With many physical processes, the best we can do is obtain as many
@@ -156,6 +169,10 @@ there isn’t just one. Given one upper-bound function, can you
 construct another one?
 :::
 
+```{=html}
+<a name="(part._cost-model)"></a>
+```
+
 ### 14.3 A Cost Model for Jayret Running Time {#cost-model}
 
 We begin by presenting a cost model for the running time of Jayret
@@ -187,6 +204,7 @@ As you can see, there are two big approximations here:
   memory you have, but even what other tasks are running on your
   computer at the same time. In contrast, abstract time units are more
   portable.
+
 - Second, not every operation takes the same number of machine
   cycles, whereas we have charged all of them the same number of
   abstract time units. As long as the actual number of cycles each one
@@ -208,6 +226,10 @@ one of its branches. But we are interested in the worst case time,
 i.e., what is the longest it could take? For a conditional, it’s the cost of
 the condition added to the cost of the maximum of the two
 branches.
+
+```{=html}
+<a name="(part._size-of-input)"></a>
+```
 
 ### 14.4 The Size of the Input {#size-of-input}
 
@@ -238,6 +260,10 @@ traverses all the way down to individual songs, and we have to account
 for all these data. In short, we care about the size of the
 data potentially accessed by the function.
 
+```{=html}
+<a name="(part._The-Tabular-Method-for-Singly-Structurally-Recursive-Functions)"></a>
+```
+
 ### 14.5 The Tabular Method for Singly-Structurally-Recursive Functions {#The-Tabular-Method-for-Singly-Structurally-Recursive-Functions}
 
 Given sizes for the arguments, we simply examine the body of the
@@ -258,13 +284,19 @@ For each row, fill in the columns as follows:
 
 
 1. |Q|: the number of operations in the question
+
 2. #Q: the number of times the question will execute
+
 3. TotQ: the total cost of the question (multiply the
   previous two)
+
 4. |A|: the number of operations in the answer
+
 5. #A: the number of times the answer will execute
+
 6. TotA: the total cost of the answer (multiply the previous
   two)
+
 7. Total: add the two totals to obtain an answer for the clause
 
 Finally, the total cost of the `cond`{.pyret} expression is obtained by
@@ -340,6 +372,10 @@ How accurate is this estimate? If you try applying
 `len`{.pyret} to different sizes of lists, do you obtain a consistent
 estimate for \(k\)?
 :::
+
+```{=html}
+<a name="(part._creating-recurrences)"></a>
+```
 
 ### 14.6 Creating Recurrences {#creating-recurrences}
 
@@ -417,6 +453,10 @@ What we haven’t seen, however, is a way to solve such relations
 in general. That’s where we’re going next
 [[Solving Recurrences](predicting-growth.html##solving-recurrences)].
 
+```{=html}
+<a name="(part._math-anon-functions)"></a>
+```
+
 ### 14.7 A Notation for Functions {#math-anon-functions}
 
 We have seen above that we can describe the running time of `len`{.pyret}
@@ -427,6 +467,10 @@ horrified if you wrote this on their exams. Therefore, we’ll
 introduce the following notation to mean precisely the same thing:
 \begin{equation*}[k \rightarrow 11k + 4]\end{equation*}The brackets denote anonymous functions, with the parameters before
 the arrow and the body after.
+
+```{=html}
+<a name="(part._big-oh-def)"></a>
+```
 
 ### 14.8 Comparing Functions {#big-oh-def}
 
@@ -549,6 +593,10 @@ needs to be (a) reflexive (i.e., every function is related to itself);
 implies \(f \leq h\)).
 :::
 
+```{=html}
+<a name="(part._big-oh-closure)"></a>
+```
+
 ### 14.9 Combining Big-Oh Without Woe {#big-oh-closure}
 
 Now that we’ve introduced this notation, we should inquire about its
@@ -567,11 +615,13 @@ cases:
   \(pc\). Conversely, then, \(O(pF)\) is equivalent to \(O(F)\). This is
   the heart of the intution that “multiplicative constants don’t
   matter”.
+
 - Suppose we have two functions, `f`{.pyret} in \(O(F)\) and `g`{.pyret}
   in \(O(G)\). If we run `f`{.pyret} followed by `g`{.pyret}, we would expect
   the running time of the combination to be the sum of their individual
   running times, i.e., \(O(F) + O(G)\). You should convince yourself
   that this is simply \(O(max(F, G))\).
+
 - Suppose we have two functions, `f`{.pyret} in \(O(F)\) and `g`{.pyret}
   in \(O(G)\). If `f`{.pyret} invokes `g`{.pyret} in each of its steps, we
   would expect the running time of the combination to be the product of
@@ -602,6 +652,10 @@ input (list) grows, the running time grows proportional to it, i.e.,
 if we add one more element to the input, we should expect to add a
 constant more of time to the running time.
 
+```{=html}
+<a name="(part._solving-recurrences)"></a>
+```
+
 ### 14.10 Solving Recurrences {#solving-recurrences}
 
 There is a great deal of literature on solving recurrence equations.
@@ -627,6 +681,7 @@ work done will also be a constant, which we can generally ignore
   Thus \(T \in O([k \rightarrow k])\). Intuitively, we do a constant
   amount of work (\(c\)) each time we throw away one element (\(k-1\)),
   so we do a linear amount of work overall.
+
 - ```{=html}
   <table cellpadding="0" cellspacing="0" style="display: inline-table; vertical-align: text-top; margin-top: 0;"><tr><td align="right"><p>\(T(k)\)</p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(k-1) + k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(k-2) + (k-1) + k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(k-3) + (k-2) + (k-1) + k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>...</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(0) + (k-(k-1)) + (k-(k-2)) + \cdots + (k-2) + (k-1) + k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(c_0 + 1 + 2 + \cdots + (k-2) + (k-1) + k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(c_0 + {\frac{k \cdot (k+1)}{2}}\)</p></td></tr></table>
   ```
@@ -664,6 +719,7 @@ work done will also be a constant, which we can generally ignore
   <table cellpadding="0" cellspacing="0" class="SVerbatim"><tr><td><p><span class="stt">xxxxxxxx</span></p></td></tr><tr><td><p><span class="stt">xxxxxxx.</span></p></td></tr><tr><td><p><span class="stt">xxxxxx..</span></p></td></tr><tr><td><p><span class="stt">xxxxx...</span></p></td></tr><tr><td><p><span class="stt">xxxx....</span></p></td></tr><tr><td><p><span class="stt">xxx.....</span></p></td></tr><tr><td><p><span class="stt">xx......</span></p></td></tr><tr><td><p><span class="stt">x.......</span></p></td></tr></table>
   ```
   Similar geometric arguments can be made for all these recurrences.
+
 - ```{=html}
   <table cellpadding="0" cellspacing="0" style="display: inline-table; vertical-align: text-top; margin-top: 0;"><tr><td align="right"><p>\(T(k)\)</p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(k/2) + c\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(k/4) + c + c\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(k/8) + c + c + c\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>...</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(k/2^{\log_2 k}) + c \cdot \log_2 k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(c_1 + c \cdot \log_2 k\)</p></td></tr></table>
   ```
@@ -672,6 +728,7 @@ work done will also be a constant, which we can generally ignore
   the input. In a logarithmic number of steps we will have exhausted
   the input, having done only constant work each time. Thus the overall
   complexity is logarithmic.
+
 - ```{=html}
   <table cellpadding="0" cellspacing="0" style="display: inline-table; vertical-align: text-top; margin-top: 0;"><tr><td align="right"><p>\(T(k)\)</p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(k/2) + k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(k/4) + k/2 + k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>...</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(1) + k/2^{\log_2 k} + \cdots + k/4 + k/2 + k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(c_1 + k(1/2^{\log_2 k} + \cdots + 1/4 + 1/2 + 1)\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(c_1 + 2k\)</p></td></tr></table>
   ```
@@ -680,6 +737,7 @@ work done will also be a constant, which we can generally ignore
   at half of them, the third time a quarter, and so on. This kind of
   successive halving is equivalent to scanning all the elements in the
   input a second time. Hence this results in a linear process.
+
 - ```{=html}
   <table cellpadding="0" cellspacing="0" style="display: inline-table; vertical-align: text-top; margin-top: 0;"><tr><td align="right"><p>\(T(k)\)</p></td><td align="center"><p> = </p></td><td align="left"><p>\(2T(k/2) + k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(2(2T(k/4) + k/2) + k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(4T(k/4) + k + k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(4(2T(k/8) + k/4) + k + k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(8T(k/8) + k + k + k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>...</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(2^{\log_2 k} T(1) + k \cdot \log_2 k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(k \cdot c_1 + k \cdot \log_2 k\)</p></td></tr></table>
   ```
@@ -688,6 +746,7 @@ work done will also be a constant, which we can generally ignore
   (the \(k\)) as well as decomposing into two half sub-problems. This
   decomposition gives us a recursion tree of logarithmic height, at each
   of which levels we’re doing linear work.
+
 - ```{=html}
   <table cellpadding="0" cellspacing="0" style="display: inline-table; vertical-align: text-top; margin-top: 0;"><tr><td align="right"><p>\(T(k)\)</p></td><td align="center"><p> = </p></td><td align="left"><p>\(2T(k-1) + c\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(2T(k-1) + (2-1)c\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(2(2T(k-2) + c) + (2-1)c\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(4T(k-2) + 3c\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(4T(k-2) + (4-1)c\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(4(2T(k-3) + c) + (4-1)c\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(8T(k-3) + 7c\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(8T(k-3) + (8-1)c\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>...</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(2^k T(0) + (2^k-1)c\)</p></td></tr></table>
   ```

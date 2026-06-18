@@ -7,6 +7,10 @@ up: part_structured-data.html
 next: Collections_of_Structured_Data.html
 ---
 
+```{=html}
+<a name="(part._intro-struct-data)"></a>
+```
+
 ### 6.1 Introduction to Structured Data {#intro-struct-data}
 
 ```{=html}
@@ -18,7 +22,15 @@ the types that Jayret provides us, which is an interesting but
 nevertheless quite limited set. Most programs we write will contain
 many more kinds of data.
 
+```{=html}
+<a name="(part._Understanding-the-Kinds-of-Compound-Data)"></a>
+```
+
 #### 6.1.1 Understanding the Kinds of Compound Data {#Understanding-the-Kinds-of-Compound-Data}
+
+```{=html}
+<a name="(part._A-First-Peek-at-Structured-Data)"></a>
+```
 
 ##### 6.1.1.1 A First Peek at Structured Data {#A-First-Peek-at-Structured-Data}
 
@@ -32,6 +44,7 @@ instance:
   and so on.
   
   ![](itunes-1.png){width="1112" height="60"}
+
 - Your GMail application contains a bunch of information about a
   single message: its sender, the subject line, the conversation it’s
   part of, the body, and quite a bit more.
@@ -47,6 +60,10 @@ in that one datum). Some might even be other structured data:
 for instance, a date usually has at least three parts, the day, month,
 and year. The parts of a structured datum are called its fields.
 
+```{=html}
+<a name="(part._A-First-Peek-at-Conditional-Data)"></a>
+```
+
 ##### 6.1.1.2 A First Peek at Conditional Data {#A-First-Peek-at-Conditional-Data}
 
 Then there are times when we want to represent different kinds of
@@ -57,14 +74,17 @@ data under a single, collective umbrella. Here are a few examples:
   green.[Yes, in some countries there are different or more
   colors and color-combinations.]{.margin-note} Collectively, they represent one
   thing: a new type called a traffic light state.
+
 - A zoo consists of many kinds of animals. Collectively, they
   represent one thing: a new type called an animal. Some condition
   determines which particular kind of animal a zookeeper might be dealing
   with.
+
 - A social network consists of different kinds of pages. Some
   pages represent individual humans, some places, some organizations,
   some might stand for activities, and so on. Collectively, they
   represent a new type: a social media page.
+
 - A notification application may report many kinds of events. Some
   are for email messages (which have many fields, as we’ve discussed),
   some are for reminders (which might have a timestamp and a note), some
@@ -87,6 +107,10 @@ of the collective, and other times when we do care about the
 conditional and do different things depending on the individual
 datum. We will make all this concrete as we start to write programs.
 
+```{=html}
+<a name="(part._Defining-and-Creating-Structured-and-Conditional-Data)"></a>
+```
+
 #### 6.1.2 Defining and Creating Structured and Conditional Data {#Defining-and-Creating-Structured-and-Conditional-Data}
 
 We have used the word “data” above, but that’s actually been a bit
@@ -97,6 +121,10 @@ represented. But to write programs, we must wrestle concretely with
 representations. That’s what we will do now, i.e., actually show
 data representations of all this information.
 
+```{=html}
+<a name="(part._struct-data-eg)"></a>
+```
+
 ##### 6.1.2.1 Defining and Creating Structured Data {#struct-data-eg}
 
 Let’s start with defining structured data, such as an iTunes song
@@ -105,7 +133,9 @@ might store:
 
 
 - The song’s name, which is a `String`{.pyret}.
+
 - The song’s singer, which is also a `String`{.pyret}.
+
 - The song’s year, which is a `Number`{.pyret}.
 
 Let’s now introduce the syntax by which we can teach this to Jayret:
@@ -145,6 +175,10 @@ the directory, as follows:
 
 ```{=html}
 <div class="HeapExpr EmptyHeap"><div class="EnvPart"><p>Directory</p><ul><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">lver</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">song("La Vie en Rose", "Édith Piaf", 1945)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">so</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">song("Stressed Out", "twenty one pilots", 2015)</code></pre></div></div></p></div></p></li><li><p><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">wnkkhs</code></pre></div></div></p></div><div class="SIntrapara"><span class="hspace"> </span>→<span class="hspace"> </span></div><div class="SIntrapara"><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">song("Waqt Ne Kiya Kya Haseen Sitam","Geeta Dutt", 1959)</code></pre></div></div></p></div></p></li></ul></div><p></p><div class="clear"></div></div>
+```
+
+```{=html}
+<a name="(part._Annotations-for-Structured-Data)"></a>
 ```
 
 ##### 6.1.2.2 Annotations for Structured Data {#Annotations-for-Structured-Data}
@@ -187,6 +221,10 @@ Number lver = song("La Vie en Rose", "Édith Piaf", 1945);
 Make sure you familiarize yourself with the error messages that you
 get.
 :::
+
+```{=html}
+<a name="(part._Defining-and-Creating-Conditional-Data)"></a>
+```
 
 ##### 6.1.2.3 Defining and Creating Conditional Data {#Defining-and-Creating-Conditional-Data}
 
@@ -265,6 +303,10 @@ data ITunesSong {
 i.e., a conditional type with just one condition, where that one
 condition is structured.
 
+```{=html}
+<a name="(part._Programming-with-Structured-and-Conditional-Data)"></a>
+```
+
 #### 6.1.3 Programming with Structured and Conditional Data {#Programming-with-Structured-and-Conditional-Data}
 
 So far we’ve learned how to create structured and conditional data,
@@ -273,10 +315,15 @@ involve them. As you might expect, we need to figure out how to
 
 
 - take apart the fields of a structured datum, and
+
 - tell apart the variants of a conditional datum.
 
 As we’ll see, Jayret also gives us a convenient way to do both
 together.
+
+```{=html}
+<a name="(part._Extracting-Fields-from-Structured-Data)"></a>
+```
 
 ##### 6.1.3.1 Extracting Fields from Structured Data {#Extracting-Fields-from-Structured-Data}
 
@@ -323,6 +370,10 @@ int song-age(ITunesSong s) {
 }
 ```
 
+```{=html}
+<a name="(part._telling-apart-variants)"></a>
+```
+
 ##### 6.1.3.2 Telling Apart Variants of Conditional Data {#telling-apart-variants}
 
 Now let’s see how we tell apart variants. For this, we again use
@@ -348,6 +399,10 @@ What happens if you leave out the `=>`{.pyret}?
 What if you leave out a variant? Leave out the `Red`{.pyret} variant,
 then try both `advice(Yellow)`{.pyret} and `advice(Red)`{.pyret}.
 :::
+
+```{=html}
+<a name="(part._process-fields-variants)"></a>
+```
 
 ##### 6.1.3.3 Processing Fields of Variants {#process-fields-variants}
 

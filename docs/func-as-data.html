@@ -124,6 +124,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="part_bonus-foundations.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_bonus-foundations.html">up</a>&nbsp;&nbsp;<a href="queues-from-lists.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._func-as-data)"></a>
 <h3 id="func-as-data">8.1 Functions as Data</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="func-as-data.html#%28part._fd-calculus%29">8.1.1<span class="hspace"> </span>A Little Calculus</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="func-as-data.html#%28part._lam-shorthand%29">8.1.2<span class="hspace"> </span>A Helpful Shorthand for Anonymous Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="func-as-data.html#%28part._streams-from-funs%29">8.1.3<span class="hspace"> </span>Streams From Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="func-as-data.html#%28part._d-dx-streams%29">8.1.4<span class="hspace"> </span>Combining Forces: Streams of Derivatives</a></p></td></tr></table>
 <p>It’s interesting to consider how expressive the little programming
@@ -131,6 +132,7 @@ we’ve learned so far can be. To illustrate this, we’ll work through a
 few exercises of interesting concepts we can express using just
 functions as values. We’ll write two quite different things, then show
 how they converge nicely.</p>
+<a name="(part._fd-calculus)"></a>
 <h4 id="fd-calculus">8.1.1 A Little Calculus</h4>
 <p>If you’ve studied the differential calculus, you’ve come across
 curious sytactic statements such as this: <span
@@ -254,6 +256,7 @@ Functions</a>, <span
 class="math display">\[\begin{equation*}{\frac{d}{dx}} [x \rightarrow
 x^2] = [x \rightarrow 2x]\end{equation*}\]</span>Pity math textbooks for
 not wanting to tell us the truth!</p>
+<a name="(part._lam-shorthand)"></a>
 <h4 id="lam-shorthand">8.1.2 A Helpful Shorthand for Anonymous
 Functions</h4>
 <p>Jayret offers a shorter syntax for writing anonymous functions.
@@ -287,6 +290,7 @@ makes clear that
 returns an (anonymous) function, whereas this syntax obscures it.
 Therefore, we will usually only use this shorthand syntax for
 “one-liners”.</p>
+<a name="(part._streams-from-funs)"></a>
 <h4 id="streams-from-funs">8.1.3 Streams From Functions</h4>
 <p>People typically think of a function as serving one purpose: to
 parameterize an expression. While that is both true and the most common
@@ -418,14 +422,14 @@ above?</p></blockquote></blockquote>
 is still a finite one; it simply represents the potential for an
 infinite number of values. Note that:</p>
 <ol type="1">
-<li>A similar reasoning doesn’t apply to lists because the rest of the
-list has already been constructed; in contrast, placing a function there
-creates the potential for a potentially unbounded amount of computation
-to still be forthcoming.</li>
-<li>That said, even with streams, in any given computation, we will
+<li><p>A similar reasoning doesn’t apply to lists because the rest of
+the list has already been constructed; in contrast, placing a function
+there creates the potential for a potentially unbounded amount of
+computation to still be forthcoming.</p></li>
+<li><p>That said, even with streams, in any given computation, we will
 create only a finite prefix of the stream. However, we don’t have to
 prematurely decide how many; each client and use is welcome to extract
-less or more, as needed.</li>
+less or more, as needed.</p></li>
 </ol>
 <p>Now we’ve created multiple streams, but we still don’t have an easy
 way to “see” one. First we’ll define the traditional list-like
@@ -525,6 +529,7 @@ implementing such a strategy.</p>
 default. In such a language, there is no need to use thunks. However,
 lazy evaluation places other burdens on the language, which you can
 learn about in a programming-languages class.</p>
+<a name="(part._d-dx-streams)"></a>
 <h4 id="d-dx-streams">8.1.4 Combining Forces: Streams of
 Derivatives</h4>
 <p>When we defined

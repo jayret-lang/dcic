@@ -124,6 +124,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="sets-from-lists.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_sets.html">up</a>&nbsp;&nbsp;<a href="union-find.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._sets-from-trees)"></a>
 <h3 id="sets-from-trees">18.2 Making Sets Grow on Trees</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Using_.Binary_.Trees%29">18.2.1<span class="hspace"> </span>Using Binary Trees</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Checking_the_.Complexity%29">18.2.2<span class="hspace"> </span>Checking the Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._sets-from-balanced-trees%29">18.2.3<span class="hspace"> </span>A Fine Balance: Tree Surgery</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Left-.Left_.Case%29">18.2.3.1<span class="hspace"> </span>Left-Left Case</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Left-.Right_.Case%29">18.2.3.2<span class="hspace"> </span>Left-Right Case</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="sets-from-trees.html#%28part._.Any_.Other_.Cases_%29">18.2.3.3<span class="hspace"> </span>Any Other Cases?</a></p></td></tr></table>
 <p>In <a href="sets-from-lists.html">Representing Sets as Lists</a> we
@@ -172,6 +173,7 @@ numbers, we don’t need to confront this issue here. Instead, we go into
 it in much more detail in <a
 href="orderability.html##hashing-values">Converting Values to Ordered
 Values</a>.</p>
+<a name="(part._Using-Binary-Trees)"></a>
 <h4 id="Using-Binary-Trees">18.2.1 Using Binary Trees</h4>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">Because logs come from trees.</span></span></span></p>
 <p>Clearly, a list representation does not let us eliminate half the
@@ -312,6 +314,7 @@ could complete in constant time (note that the size of the tree clearly
 fits the criterion of a cache, since it can always be reconstructed).
 Update the data definition and all affected functions to keep track of
 this information correctly.</p></blockquote></blockquote>
+<a name="(part._Checking-the-Complexity)"></a>
 <h4 id="Checking-the-Complexity">18.2.2 Checking the Complexity</h4>
 <p>But wait a minute. Are we actually done? Our recurrence takes the
 form <span class="math inline">\(T(k) = T(k/2) + c\)</span>, but what in
@@ -349,6 +352,7 @@ really does throw away half the elements.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Observe that we have not talked about computing the size of the set.
 Even if we could assume that the binary tree is balanced, how do we
 determine the size in logarithmic-or-better time?</p></blockquote></blockquote>
+<a name="(part._sets-from-balanced-trees)"></a>
 <h4 id="sets-from-balanced-trees">18.2.3 A Fine Balance: Tree
 Surgery</h4>
 <p>Let’s define a balanced binary search tree (BBST). It must obviously
@@ -490,6 +494,7 @@ class="math inline">\(k-1\)</span>).</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Why can they both not have height <span
 class="math inline"><em>k</em> + 1</span> after insertion?</p></blockquote></blockquote>
 <p>This gives us two cases to consider.</p>
+<a name="(part._Left-Left-Case)"></a>
 <h5 id="Left-Left-Case">18.2.3.1 Left-Left Case</h5>
 <p>Let’s say the imbalance is in <span class="math inline">\(A\)</span>,
 i.e., it has height <span class="math inline">\(k+1\)</span>. Let’s
@@ -502,24 +507,25 @@ class="math inline">\(a\)</span> is a single value to mean every value
 in <span class="math inline">\(T\)</span> is less than <span
 class="math inline">\(a\)</span>.</p>
 <ul>
-<li><span class="math inline">\(A_1 &lt; r\)</span>.</li>
-<li><span class="math inline">\(r &lt; A_2 &lt; q\)</span>.</li>
-<li><span class="math inline">\(q &lt; B &lt; p\)</span>.</li>
-<li><span class="math inline">\(p &lt; C\)</span>.</li>
+<li><p><span class="math inline">\(A_1 &lt; r\)</span>.</p></li>
+<li><p><span class="math inline">\(r &lt; A_2 &lt; q\)</span>.</p></li>
+<li><p><span class="math inline">\(q &lt; B &lt; p\)</span>.</p></li>
+<li><p><span class="math inline">\(p &lt; C\)</span>.</p></li>
 </ul>
 <p>Let’s also remind ourselves of the sizes:</p>
 <ul>
-<li>The height of <span class="math inline">\(A_1\)</span> or of <span
-class="math inline">\(A_2\)</span> is <span
-class="math inline">\(k\)</span> (the cause of imbalance).</li>
-<li>The height of the other <span class="math inline">\(A_i\)</span> is
-<span class="math inline">\(k-1\)</span> (see the exercise above).</li>
-<li>The height of <span class="math inline">\(C\)</span> is <span
+<li><p>The height of <span class="math inline">\(A_1\)</span> or of
+<span class="math inline">\(A_2\)</span> is <span
+class="math inline">\(k\)</span> (the cause of imbalance).</p></li>
+<li><p>The height of the other <span class="math inline">\(A_i\)</span>
+is <span class="math inline">\(k-1\)</span> (see the exercise
+above).</p></li>
+<li><p>The height of <span class="math inline">\(C\)</span> is <span
 class="math inline">\(k\)</span> (initial assumption; <span
-class="math inline">\(k\)</span> is arbitrary).</li>
-<li>The height of <span class="math inline">\(B\)</span> must be <span
-class="math inline">\(k-1\)</span> or <span
-class="math inline">\(k\)</span> (argued above).</li>
+class="math inline">\(k\)</span> is arbitrary).</p></li>
+<li><p>The height of <span class="math inline">\(B\)</span> must be
+<span class="math inline">\(k-1\)</span> or <span
+class="math inline">\(k\)</span> (argued above).</p></li>
 </ul>
 <p>Imagine this tree is a mobile, which has gotten a little skewed to
 the left. You would naturally think to suspend the mobile a little
@@ -536,28 +542,29 @@ class="math inline">\(A_i\)</span>, <span
 class="math inline">\(B\)</span>, and <span
 class="math inline">\(C\)</span>). Thus, we have also restored
 balance.</p>
+<a name="(part._Left-Right-Case)"></a>
 <h5 id="Left-Right-Case">18.2.3.2 Left-Right Case</h5>
 <p>The imbalance might instead be in <span
 class="math inline">\(B\)</span>. Expanding:</p>
 <table cellpadding="0" cellspacing="0" class="SVerbatim"><tr><td><p><span class="stt"></span><span class="hspace">    </span><span class="stt">p</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">   </span><span class="stt">/ \</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">  </span><span class="stt">q</span><span class="hspace">   </span><span class="stt">C</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace"> </span><span class="stt">/ \</span></p></td></tr><tr><td><p><span class="stt">A</span><span class="hspace">   </span><span class="stt">r</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">   </span><span class="stt">/ \</span></p></td></tr><tr><td><p><span class="stt"></span><span class="hspace">  </span><span class="stt">B1</span><span class="hspace">  </span><span class="stt">B2</span></p></td></tr></table>
 <p>Again, let’s record what we know about data order:</p>
 <ul>
-<li><span class="math inline">\(A &lt; q\)</span>.</li>
-<li><span class="math inline">\(q &lt; B_1 &lt; r\)</span>.</li>
-<li><span class="math inline">\(r &lt; B_2 &lt; p\)</span>.</li>
-<li><span class="math inline">\(p &lt; C\)</span>.</li>
+<li><p><span class="math inline">\(A &lt; q\)</span>.</p></li>
+<li><p><span class="math inline">\(q &lt; B_1 &lt; r\)</span>.</p></li>
+<li><p><span class="math inline">\(r &lt; B_2 &lt; p\)</span>.</p></li>
+<li><p><span class="math inline">\(p &lt; C\)</span>.</p></li>
 </ul>
 <p>and sizes:</p>
 <ul>
-<li>Suppose the height of <span class="math inline">\(C\)</span> is
-<span class="math inline">\(k\)</span>.</li>
-<li>The height of <span class="math inline">\(A\)</span> must be <span
-class="math inline">\(k-1\)</span> or <span
-class="math inline">\(k\)</span>.</li>
-<li>The height of <span class="math inline">\(B_1\)</span> or <span
+<li><p>Suppose the height of <span class="math inline">\(C\)</span> is
+<span class="math inline">\(k\)</span>.</p></li>
+<li><p>The height of <span class="math inline">\(A\)</span> must be
+<span class="math inline">\(k-1\)</span> or <span
+class="math inline">\(k\)</span>.</p></li>
+<li><p>The height of <span class="math inline">\(B_1\)</span> or <span
 class="math inline">\(B_2\)</span> must be <span
 class="math inline">\(k\)</span>, but not both (see the exercise above).
-The other must be <span class="math inline">\(k-1\)</span>.</li>
+The other must be <span class="math inline">\(k-1\)</span>.</p></li>
 </ul>
 <p>We therefore have to somehow bring <span
 class="math inline">\(B_1\)</span> and <span
@@ -579,6 +586,7 @@ class="math inline">\(B_1\)</span>’s; so is <span
 class="math inline">\(B_2\)</span>’s; and <span
 class="math inline">\(C\)</span>’s is at <span
 class="math inline">\(k+2\)</span>.</p>
+<a name="(part._Any-Other-Cases)"></a>
 <h5 id="Any-Other-Cases">18.2.3.3 Any Other Cases?</h5>
 <p>Were we a little too glib before? In the left-right case we said that
 only one of <span class="math inline">\(B_1\)</span> or <span
@@ -588,12 +596,12 @@ of height <span class="math inline">\(k-1\)</span>. Actually, all we can
 say for sure is that the other has to be at most height <span
 class="math inline">\(k-2\)</span>.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><ul>
-<li>Can the height of the other tree actually be <span
+<li><p>Can the height of the other tree actually be <span
 class="math inline"><em>k</em> − 2</span> instead of <span
-class="math inline"><em>k</em> − 1</span>?</li>
-<li>If so, does the solution above hold? Is there not still an imbalance
-of two in the resulting tree?</li>
-<li>Is there actually a bug in the above algorithm?</li>
+class="math inline"><em>k</em> − 1</span>?</p></li>
+<li><p>If so, does the solution above hold? Is there not still an
+imbalance of two in the resulting tree?</p></li>
+<li><p>Is there actually a bug in the above algorithm?</p></li>
 </ul></blockquote></blockquote>
 <div class="navsetbottom">
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>

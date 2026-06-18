@@ -7,6 +7,10 @@ up: part_lists.html
 next: part_structured-data.html
 ---
 
+```{=html}
+<a name="(part._recursive-data)"></a>
+```
+
 ### 5.3 Recursive Data {#recursive-data}
 
 ```{=html}
@@ -111,6 +115,10 @@ nl-link(1,
             nl-link(7,
               nl-link(8,
                 nl-empty))))))));
+```
+
+```{=html}
+<a name="(part._Functions-to-Process-Recursive-Data)"></a>
 ```
 
 #### 5.3.1 Functions to Process Recursive Data {#Functions-to-Process-Recursive-Data}
@@ -388,6 +396,10 @@ datum. This idea of doing recursion with the same function on self-recursive
 parts of the datatype lets us extend our template to handle recursive
 fields.
 
+```{=html}
+<a name="(part._A-Template-for-Processing-Recursive-Data)"></a>
+```
+
 #### 5.3.2 A Template for Processing Recursive Data {#A-Template-for-Processing-Recursive-Data}
 
 Stepping back, we have actually derived a new way to approach writing
@@ -429,10 +441,13 @@ the (reusable) template for that definition:
 
 1. Create a function header (using a general-purpose
   placeholder name if you aren’t yet writing a specific function).
+
 2. Use `switch`{.jayret} to break the recursive-data input into its
   variants.
+
 3. In each case, list each of its fields in the answer portion of
   the case.
+
 4. Call the function itself on any recursive fields.
 :::
 
@@ -456,6 +471,10 @@ data definitions (where writing examples by hand would prove
 tedious). We will see examples of this as our data get more complex in
 coming chapters.
 
+```{=html}
+<a name="(part._The-Design-Recipe)"></a>
+```
+
 #### 5.3.3 The Design Recipe {#The-Design-Recipe}
 
 We’ve showed you many techniques to use while designing programs,
@@ -472,21 +491,26 @@ Given a programming problem over recursive data:
 1. Create a function header, including the function name and
   contract. The name will be necessary to make recursive calls, while
   the contract guides the design of the body.
+
 2. Aided by the contract, which tells you what kind of data
   to consume and produce, write several illustrative examples of the
   function’s input and outputs, using concrete data. Include
   examples in which the input data of one extends the input data of
   another. This will later help you fill in the function.
+
 3. The function’s contract tells you what kind of data you are
   processing. From the definition of the data, write out the template
   for it.
+
 4. Adapt this template to the computation required by this specific
   problem. Use your examples to figure out how to fill in each case. You
   should have written an example for each case of data in the
   template. This is also where writing examples where input extended the
   other helps: the difference in output becomes the function
   body. See the several examples of this in [Processing Lists](processing-lists.html).
+
 5. Run your examples to make sure your function behaves as you expect.
+
 6. Now start writing more fine-grained tests to confirm that you
   should be confident in your function. In particular, while the
   examples (which were written before you wrote the body of the

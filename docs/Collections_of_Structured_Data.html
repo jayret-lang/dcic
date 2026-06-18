@@ -123,6 +123,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="intro-struct-data.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_structured-data.html">up</a>&nbsp;&nbsp;<a href="part_trees.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._Collections-of-Structured-Data)"></a>
 <h3 id="Collections-of-Structured-Data">6.2 Collections of Structured
 Data</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._.Lists_as_.Collective_.Data%29">6.2.1<span class="hspace"> </span>Lists as Collective Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._sets-as-collections%29">6.2.2<span class="hspace"> </span>Sets as Collective Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._coll-sd-pick%29">6.2.2.1<span class="hspace"> </span>Picking Elements from Sets</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._.Computing_with_.Sets%29">6.2.2.2<span class="hspace"> </span>Computing with Sets</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._.Combining_.Structured_and_.Collective_.Data%29">6.2.3<span class="hspace"> </span>Combining Structured and Collective Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Collections_of_Structured_Data.html#%28part._.Data_.Design_.Problem__.Representing_.Quizzes%29">6.2.4<span class="hspace"> </span>Data Design Problem: Representing Quizzes</a></p></td></tr></table>
@@ -146,9 +147,9 @@ representing the pieces without going to the effort of creating and
 taking apart a structure. In general, therefore, we want to talk about
 collections of structured data. Here are more examples:</p>
 <ul>
-<li>The set of messages matching a tag.</li>
-<li>The list of messages in a conversation.</li>
-<li>The set of friends of a user.</li>
+<li><p>The set of messages matching a tag.</p></li>
+<li><p>The list of messages in a conversation.</p></li>
+<li><p>The set of friends of a user.</p></li>
 </ul>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>How are collective data different from structured data?</p></blockquote></blockquote>
 <p>In structured data, we have a fixed number of possibly different
@@ -167,10 +168,10 @@ Collective Data</a>].</p>
 <p>Of course, sets and lists are not the only kinds of collective data
 we can have. Here are some more:</p>
 <ul>
-<li>A family tree of people.</li>
-<li>The filesystem on your computer.</li>
-<li>A seating chart at a party.</li>
-<li>A social network of pages.</li>
+<li><p>A family tree of people.</p></li>
+<li><p>The filesystem on your computer.</p></li>
+<li><p>A seating chart at a party.</p></li>
+<li><p>A social network of pages.</p></li>
 </ul>
 <p>and so on. For the most part these are just as easy to program and
 manipulate as the earlier collective data once we have some experience,
@@ -181,6 +182,7 @@ Equality</a>] can involve more subtlety.</p>
 href="intro-tabular-data.html">Introduction to Tabular Data</a>], which
 are a form of collective, structured data. Now we will look at a few
 more, and how to program them.</p>
+<a name="(part._Lists-as-Collective-Data)"></a>
 <h4 id="Lists-as-Collective-Data">6.2.1 Lists as Collective Data</h4>
 <p>We have already seen one example of a collection in some depth
 before: lists. A list is not limited to numbers or strings; it can
@@ -260,18 +262,19 @@ purposes—and instead build a new function to use it:</p>
 } where {
     
 }</code></pre></div></div>
+<a name="(part._sets-as-collections)"></a>
 <h4 id="sets-as-collections">6.2.2 Sets as Collective Data</h4>
 <p>As we’ve already seen, for some problems we don’t care about the
 order of inputs, nor about duplicates. Here are more examples where we
 don’t care about order or duplicates:</p>
 <ul>
-<li>Your Web browser records which Web pages you’ve visited, and some
+<li><p>Your Web browser records which Web pages you’ve visited, and some
 Web sites use this information to color visited links differently than
 ones you haven’t seen. This color is typically independent of how many
-times you have visited the page.</li>
-<li>During an election, a poll agent might record that you have voted,
-but does not need to record how many times you have voted, and does not
-care about the order in which people vote.</li>
+times you have visited the page.</p></li>
+<li><p>During an election, a poll agent might record that you have
+voted, but does not need to record how many times you have voted, and
+does not care about the order in which people vote.</p></li>
 </ul>
 <p>For such problems a list is a bad fit relative to a set. Here we will
 see how Jayret’s built-in sets work. In [<a
@@ -299,6 +302,7 @@ orderings of the elements as well, and see that Jayret doesn’t care.</p>
 }</code></pre></div></div>
 <p>We can again try several different kinds of duplication and confirm
 that sets ignore them.</p>
+<a name="(part._coll-sd-pick)"></a>
 <h5 id="coll-sd-pick">6.2.2.1 Picking Elements from Sets</h5>
 <p>This lack of an ordering, however, poses a problem. With lists, it
 was meaningful to talk about the “first” and corresponding “rest”. By
@@ -361,6 +365,7 @@ will produce, we do know it will produce an element of the set.
 Therefore, what we can write are tests that ensure the resulting element
 is a member of the set—though in this case, that would not be
 particularly surprising.</p>
+<a name="(part._Computing-with-Sets)"></a>
 <h5 id="Computing-with-Sets">6.2.2.2 Computing with Sets</h5>
 <p>Once we have picked an element from a set, it’s often useful to
 obtain the set consisting of the remaining elements. We have already
@@ -388,6 +393,7 @@ Exercises</a>]:</p>
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">my-len</code></span>,
 the random nature of picking elements makes it harder to write examples
 that the actual function’s behavior will match.</p>
+<a name="(part._Combining-Structured-and-Collective-Data)"></a>
 <h4 id="Combining-Structured-and-Collective-Data">6.2.3 Combining
 Structured and Collective Data</h4>
 <p>As the above examples illustrate, a program’s data organization will
@@ -395,9 +401,9 @@ often involve multiple kinds of compound data, often deeply intertwined.
 Let’s first think of these in pairs.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Come up with examples that combine:</p>
 <ul>
-<li>structured and conditional data,</li>
-<li>structured and collective data, and</li>
-<li>conditional and collective data.</li>
+<li><p>structured and conditional data,</p></li>
+<li><p>structured and collective data, and</p></li>
+<li><p>conditional and collective data.</p></li>
 </ul>
 <p>You’ve actually seen examples of each of these above. Identify
 them.</p></blockquote></blockquote>
@@ -412,6 +418,7 @@ that we deal with on a daily basis.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Take three of your favorite Web sites or apps. Identify the kinds of
 data they present. Classify these as structured, conditional, and
 collective. How do they combine these data?</p></blockquote></blockquote>
+<a name="(part._Data-Design-Problem-Representing-Quizzes)"></a>
 <h4 id="Data-Design-Problem-Representing-Quizzes">6.2.4 Data Design
 Problem: Representing Quizzes</h4>
 <p>Now that you can make collections of structured data, you can

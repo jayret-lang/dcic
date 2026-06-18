@@ -121,6 +121,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="intro-python.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_pyret-to-python.html">up</a>&nbsp;&nbsp;<a href="arrays.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._dictionaries)"></a>
 <h3 id="dictionaries">9.2 Dictionaries</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Creating_and_.Using_a_.Dictionary%29">9.2.1<span class="hspace"> </span>Creating and Using a Dictionary</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Searching_.Through_the_.Values_in_a_.Dictionary%29">9.2.2<span class="hspace"> </span>Searching Through the Values in a Dictionary</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Dictionaries_with_.More_.Complex_.Values%29">9.2.3<span class="hspace"> </span>Dictionaries with More Complex Values</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Dictionaries_versus_.Dataclasses%29">9.2.4<span class="hspace"> </span>Dictionaries versus Dataclasses</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="dictionaries.html#%28part._.Summary%29">Summary</a></p></td></tr></table>
 <p>So far, we have seen several ways to process sequential data such as
@@ -202,6 +203,7 @@ help with this task. In Python, this data structure is called a
 dictionary (hashmap, hashtable, and associative arrays are names for
 similar data structures in other languages, though there are key nuances
 that distinguish all these variations).</p>
+<a name="(part._Creating-and-Using-a-Dictionary)"></a>
 <h4 id="Creating-and-Using-a-Dictionary">9.2.1 Creating and Using a
 Dictionary</h4>
 <p>A dictionary maps unique values (called keys) to corresponding pieces
@@ -255,6 +257,7 @@ will evaluate to
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">'Zeynep'</code></span>
 instead of
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">'Marisol'</code></span>.</p>
+<a name="(part._Searching-Through-the-Values-in-a-Dictionary)"></a>
 <h4 id="Searching-Through-the-Values-in-a-Dictionary">9.2.2 Searching
 Through the Values in a Dictionary</h4>
 <p>What if we wanted to find all of the flights with more than 100
@@ -281,11 +284,12 @@ in our running list if it meets our criterion.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Create a dictionary that maps names of classrooms or meeting rooms to
 the numbers of seats that they have. Write expressions to:</p>
 <ol type="1">
-<li>Look up how many seats are in a specific room</li>
-<li>Change the capacity of a specific room to have 10 more seats than it
-did initially</li>
-<li>Find all rooms that can seat at least 50 students</li>
+<li><p>Look up how many seats are in a specific room</p></li>
+<li><p>Change the capacity of a specific room to have 10 more seats than
+it did initially</p></li>
+<li><p>Find all rooms that can seat at least 50 students</p></li>
 </ol></blockquote></blockquote>
+<a name="(part._Dictionaries-with-More-Complex-Values)"></a>
 <h4 id="Dictionaries-with-More-Complex-Values">9.2.3 Dictionaries with
 More Complex Values</h4>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>A track-and-field tournament needs to manage the names of the players
@@ -316,6 +320,7 @@ players["Team Blue"] = ["Mateo", "Sophia"]</code></pre></div></div>
 can be arbitrarily complex, including lists, tables, or even other
 dictionaries (and more!). There is still only one value per key, which
 is the requirement of a dictionary.</p>
+<a name="(part._Dictionaries-versus-Dataclasses)"></a>
 <h4 id="Dictionaries-versus-Dataclasses">9.2.4 Dictionaries versus
 Dataclasses</h4>
 <p>Previously, we learned about dataclasses as a way to create compound
@@ -379,22 +384,23 @@ situations.</p>
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">ToDoItem_D</code></span>
 that takes a description, due date, and list of tags and returns a
 dictionary with keys for each field of a to-do item.</p></blockquote></blockquote>
+<a name="(part._Summary)"></a>
 <h5 id="Summary">Summary</h5>
 <p>Python programmers tend to make substantial use of dictionaries. In
 this chapter, we’ve seen dictionaries used in two different
 settings:</p>
 <ul>
-<li>one in which the keys uniquely identify different entities or
+<li><p>one in which the keys uniquely identify different entities or
 individuals among a larger set; the values represent some consistent
 type of information about each individual. The dictionary overall
 captures information about a large population of individuals, each with
-their own key.</li>
-<li>one in which the keys name fields of compound data; the values
+their own key.</p></li>
+<li><p>one in which the keys name fields of compound data; the values
 associated with each field can have different types from the values for
 other fields. This setting corresponds to the use of dataclasses, in
 which a dictionary captures information about one individual; some other
 structure (such as a list or another dictionary) would be needed to hold
-the dictionaries for each individual.</li>
+the dictionaries for each individual.</p></li>
 </ul>
 <p>As a general rule, it is better to use dataclasses for the second
 setting when you have a fixed set of fields. The use of dictionaries for

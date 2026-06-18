@@ -7,6 +7,10 @@ up: booklet_advanced.html
 next: staging.html
 ---
 
+```{=html}
+<a name="(part._partial-domains)"></a>
+```
+
 ## 23 Partial Domains {#partial-domains}
 
 ```{=html}
@@ -38,6 +42,10 @@ perspective. We’ll specifically work through `average`{.pyret} because the fun
 simple enough that we can focus on the software structure without getting lost
 in the solution details. There are at least four solutions, and one
 non-solution.
+
+```{=html}
+<a name="(part._pd-sentinel)"></a>
+```
 
 ### 23.1 A Non-Solution {#pd-sentinel}
 
@@ -112,8 +120,11 @@ That’s why this is a non-solution. It has created several problems:
 
 
 - We can’t tell from the output whether the input was invalid.
+
 - That means every caller needs to check.
+
 - A caller that forgets to check may compute with nonsense.
+
 - Compositionality is ruined: any function passed `average`{.pyret} needs to
   know to check the output (and there is nothing in the contract to warn it!).
 
@@ -124,6 +135,10 @@ we should now regard this as a flawed approach to software construction, and
 never do it ourselves.
 
 Let’s instead look at four actual solutions.
+
+```{=html}
+<a name="(part._pd-exceptions)"></a>
+```
 
 ### 23.2 Exceptions {#pd-exceptions}
 
@@ -193,6 +208,7 @@ There are two main problems with exceptions:
   (e.g., it may have opened a file that it intends to close), but the exception
   causes the call to not finish cleanly, causing the remaining computation to not
   run, leaving the system in a messy state.
+
 2. Relatedly, what we presented as a feature should actually be treated as a
   problem: the contract lies! There’s no indication at all in the contract
   that an exception might occur. A programmer has to read the whole
@@ -215,9 +231,12 @@ Yes it does! For several reasons:
 
 
 1. First, you get to control where the exception occurs and what it says.
+
 2. You can document that the exception will occur.
+
 3. You are less dependent on the behavior of Jayret or whatever underlying
   programming language, which can change in subtle ways.
+
 4. You can create an exception that is unique to you, so it can’t be
   confused with other division-by-zero errors that may lurk in your program.
 
@@ -225,6 +244,10 @@ For these reasons, it’s better to check and raise an exception explicitly
 than letting it “fall through” to the programming language. Instead, the real
 problems with this solution are subtler: the lying contract, and the impact on
 program execution.
+
+```{=html}
+<a name="(part._pd-option)"></a>
+```
 
 ### 23.3 The Option Type {#pd-option}
 
@@ -282,6 +305,10 @@ legitimate. However, this is the same thing we expected in `avg0`{.pyret}—exce
 we lacked a discipline for making sure we didn’t abuse that value! So this is
 `avg0`{.pyret} done in a principled way.
 
+```{=html}
+<a name="(part._pd-total-dyn)"></a>
+```
+
 ### 23.4 Total Domains, Dynamically {#pd-total-dyn}
 
 All these problems arise because we said that `average`{.pyret} (like
@@ -334,8 +361,13 @@ There are two main weaknesses:
 1. Dynamic refinements aren’t found in most
   languages, so we’d have to do more manual work to obtain the same
   solution.
+
 2. We don’t get a static guarantee (i.e., before even running the program)
   that we’ll never get an exception.
+
+```{=html}
+<a name="(part._pd-total-static)"></a>
+```
 
 ### 23.5 Total Domains, Statically {#pd-total-static}
 
@@ -451,6 +483,10 @@ unrepresentable. It may require writing some procedures to convert to and from
 other convenient representations for code reuse. Somewhere in those procedures
 there must be checks that reflect the partiality.
 
+```{=html}
+<a name="(part._pd-summary)"></a>
+```
+
 ### 23.6 Summary {#pd-summary}
 
 In general, there is one non-solution:
@@ -465,24 +501,36 @@ and there are four solutions:
 - Use `raise`{.pyret}. This is not very good for software engineering in
   general because exceptions are clunky, semantically complicated, and not
   compositional.
+
 - Use a dynamic refinement. Dynamic refinements aren’t in most
   languages. Also, it’s less good than each of the other solutions, but it’s a
   decent compromise in many settings.
+
 - Define a datatype to make illegal states unrepresentable. A bit of
   work. Pretty sophisticated, invaluable in some places, but not always worth the
   effort.
+
 - Use `Option`{.pyret}. Often the ideal option, because:
   
   - The type tells us to expect funny business. (`raise`{.pyret} hides that.)
+
   - We can’t accidentally misuse the value. (Sentinels hide that.)
+
   - It’s compositional: we can create functions to help us handle it.
+
   - It’s much lower overhead than the static totality solution.
+
   - It’s more statically robust than the dynamic totality solution.
+
   - It generalizes: in practice, instead of just `none`{.pyret} and `some`{.pyret},
     a real program will have `some`{.pyret} for the “normal” case, and a bunch of
     variants describing the different kinds of errors that are possible, with extra
     information in each case. For concrete examples of this, see
     [Picking Elements from Sets](Collections_of_Structured_Data.html##coll-sd-pick) on sets [Combining Answers](queues-from-lists.html##qfl-comb-ans) on queues.
+
+```{=html}
+<a name="(part._pd-pyret-list-constr)"></a>
+```
 
 ### 23.7 A Note on Notation {#pd-pyret-list-constr}
 

@@ -7,6 +7,10 @@ up: index.html
 next: part_dags.html
 ---
 
+```{=html}
+<a name="(part._booklet-data-with-analysis)"></a>
+```
+
 ## VI Data Structures with Analysis {#booklet-data-with-analysis}
 
 ```{=html}

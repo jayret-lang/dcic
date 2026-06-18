@@ -7,10 +7,18 @@ up: part_state.html
 next: unified-lists-memory.html
 ---
 
+```{=html}
+<a name="(part._unified-equality)"></a>
+```
+
 ### 12.2 Understanding Equality {#unified-equality}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._equality-of-data%29">12.2.1<span class="hspace"> </span>Equality of Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._equality-operations%29">12.2.2<span class="hspace"> </span>Different Equality Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._.Equality_in_.Python%29">12.2.2.1<span class="hspace"> </span>Equality in Python</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._.Equality_in_.Jayret%29">12.2.2.2<span class="hspace"> </span>Equality in Jayret</a></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._equality-of-data)"></a>
 ```
 
 #### 12.2.1 Equality of Data {#equality-of-data}
@@ -86,6 +94,10 @@ with a balance of `800`{.python}.
 What do you think now? Are the first two accounts equal?
 :::
 
+```{=html}
+<a name="(part._equality-operations)"></a>
+```
+
 #### 12.2.2 Different Equality Operations {#equality-operations}
 
 This sequence of examples points out that we seem to be raising two
@@ -94,6 +106,7 @@ possible notions of equality:
 1. Whether two values have the same contents. This is formally called
   structural equality; you can think of it as a “print
   equality”, namely, when displayed, do the two values look the same.
+
 2. Whether two values live at the same address, i.e., there is
   actually only one value in memory. This is formally called
   reference equality. Usually, we would refer to the two values by
@@ -111,6 +124,10 @@ indicate which kind of equality they mean in their context.
 Unfortunately, the names of equality operations, and their exact
 meaning, vary across languages. Therefore, we will examine each of
 Jayret and Python separately.
+
+```{=html}
+<a name="(part._Equality-in-Python)"></a>
+```
 
 ##### 12.2.2.1 Equality in Python {#Equality-in-Python}
 
@@ -189,6 +206,10 @@ of equality. The `==`{.python} operator is more accepting, so it is
 usually the right default. If you actually need to know whether two
 expressions evaluate to the same address, you should instead use `is`{.python}.
 
+```{=html}
+<a name="(part._Equality-in-Pyret)"></a>
+```
+
 ##### 12.2.2.2 Equality in Jayret {#Equality-in-Pyret}
 
 Equality in Jayret is somewhat more detailed, because the language
@@ -215,6 +236,7 @@ there are two different questions we could be asking:
 
 
 1. Are these two values structurally equal right now?
+
 2. Will these two values be structurally equal always?
 
 Jayret makes a distinction between these two.

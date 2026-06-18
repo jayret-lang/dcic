@@ -125,8 +125,10 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="From_Repeated_Expressions_to_Functions.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_foundations.html">up</a>&nbsp;&nbsp;<a href="part_tabular-data.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._Conditionals-and-Booleans)"></a>
 <h3 id="Conditionals-and-Booleans">3.4 Conditionals and Booleans</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._add-shipping-setup%29">3.4.1<span class="hspace"> </span>Motivating Example: Shipping Costs</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._cond-boolean-intro%29">3.4.2<span class="hspace"> </span>Conditionals: Computations with Decisions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._booleans%29">3.4.3<span class="hspace"> </span>Booleans</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._bool-comparisons%29">3.4.3.1<span class="hspace"> </span>Other Boolean Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Combining_.Booleans%29">3.4.3.2<span class="hspace"> </span>Combining Booleans</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._else-if%29">3.4.4<span class="hspace"> </span>Asking Multiple Questions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._conditional-nm%29">3.4.5<span class="hspace"> </span>Evaluating by Reducing Expressions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Composing_.Functions%29">3.4.6<span class="hspace"> </span>Composing Functions</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.How_.Function_.Compositions_.Evaluate%29">3.4.6.1<span class="hspace"> </span>How Function Compositions Evaluate</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._func-comp-directory%29">3.4.6.2<span class="hspace"> </span>Function Composition and the Directory</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Nested_.Conditionals%29">3.4.7<span class="hspace"> </span>Nested Conditionals</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Recap__.Booleans_and_.Conditionals%29">3.4.8<span class="hspace"> </span>Recap: Booleans and Conditionals</a></p></td></tr></table>
+<a name="(part._add-shipping-setup)"></a>
 <h4 id="add-shipping-setup">3.4.1 Motivating Example: Shipping
 Costs</h4>
 <p>In <a
@@ -160,18 +162,18 @@ assertEquals(add-shipping(10.01), 10.01 + 8);</code></pre></div></div>
 across our choices?</p></blockquote></blockquote>
 <p>Our proposed examples feature several strategic decisions:</p>
 <ul>
-<li>Including
+<li><p>Including
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>,
-which is at the boundary of charges based on the text</li>
-<li>Including
+which is at the boundary of charges based on the text</p></li>
+<li><p>Including
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10.01</code></span>,
-which is just over the boundary</li>
-<li>Including both natural and real (decimal) numbers</li>
-<li>Including examples that should result in each shipping charge
+which is just over the boundary</p></li>
+<li><p>Including both natural and real (decimal) numbers</p></li>
+<li><p>Including examples that should result in each shipping charge
 mentioned in the problem
 (<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>)</li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>)</p></li>
 </ul>
 <p>So far, we have used a simple rule for creating a function body from
 examples: locate the parts that are changing, replace them with names,
@@ -182,18 +184,18 @@ examples? Do you notice anything different about these changes compared
 to the examples for our previous functions?</p></blockquote></blockquote>
 <p>Two things are new in this set of examples:</p>
 <ul>
-<li>The values of
+<li><p>The values of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
 and
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
 differ across the examples, but they each occur in multiple
-examples.</li>
-<li>The values of
+examples.</p></li>
+<li><p>The values of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">4</code></span>
 and
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
 appear only in the computed answers—not as an input. Which one we use
-seems to depend on the input value.</li>
+seems to depend on the input value.</p></li>
 </ul>
 <p>These two observations suggest that something new is going on with
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>.
@@ -204,6 +206,7 @@ than or equal to
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>).
 This calls for being able to ask questions about inputs within our
 programs.</p>
+<a name="(part._cond-boolean-intro)"></a>
 <h4 id="cond-boolean-intro">3.4.2 Conditionals: Computations with
 Decisions</h4>
 <p>To ask a question about our inputs, we use a new kind of expression
@@ -237,6 +240,7 @@ The
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">else</code></span>
 in the program marks the answer in the false case; we call this the else
 clause.</p>
+<a name="(part._booleans)"></a>
 <h4 id="booleans">3.4.3 Booleans</h4>
 <p>Every expression in Jayret evaluates in a value. So far, we have seen
 three types of values:
@@ -271,6 +275,7 @@ and
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt &lt;= 10</code></span>
 at the interactions prompt to explore booleans? Why does that
 happen?</p></blockquote></blockquote>
+<a name="(part._bool-comparisons)"></a>
 <h5 id="bool-comparisons">3.4.3.1 Other Boolean Operations</h5>
 <p>There are many other built-in operations that return
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>
@@ -351,6 +356,7 @@ which lets your program continue to compute a nonsensical value.</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">string-contains(wm, "Will");</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">false</code></pre></div></div></p></td></tr></table>
 <p>In fact, just about every kind of data will have some Boolean-valued
 operators to enable comparisons.</p>
+<a name="(part._Combining-Booleans)"></a>
 <h5 id="Combining-Booleans">3.4.3.2 Combining Booleans</h5>
 <p>Often, we want to base decisions on more than one Boolean value. For
 instance, you are allowed to vote if you’re a citizen of a country and
@@ -373,6 +379,7 @@ Here are some examples of their use:</p>
 <table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><table cellpadding="0" cellspacing="0" class="JayretReplInteraction"><tr><td><blockquote class="JayretRepl"><p class="JayretReplPrompt"></p><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">not(1 &lt; 2);</code></pre></div></div></p></blockquote></td></tr></table></td></tr><tr><td><p><div class="sourceCodeWrapper"><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">false</code></pre></div></div></p></td></tr></table>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Explain why numbers and strings are not good ways to express the
 answer to a true/false question.</p></blockquote></blockquote>
+<a name="(part._else-if)"></a>
 <h4 id="else-if">3.4.4 Asking Multiple Questions</h4>
 <p>Shipping costs are rising, so we want to modify the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
@@ -380,14 +387,14 @@ program to include a third shipping level: orders between $10 and $30
 ship for $8, but orders over $30 ship for $12. This calls for two
 modifications to our program:</p>
 <ul>
-<li>We have to be able to ask another question to distinguish situations
-in which the shipping charge is
+<li><p>We have to be able to ask another question to distinguish
+situations in which the shipping charge is
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
 from those in which the shipping charge is
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">12</code></span>.</li>
-<li>The question for when the shipping charge is
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">12</code></span>.</p></li>
+<li><p>The question for when the shipping charge is
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">8</code></span>
-will need to check whether the input is between two values.</li>
+will need to check whether the input is between two values.</p></li>
 </ul>
 <p>We’ll handle these in order.</p>
 <p>The current body of
@@ -499,13 +506,13 @@ part of the second question
 is redundant, it can be helpful to include such conditions for three
 reasons:</p>
 <ol type="1">
-<li>They signal to future readers (including ourselves!) the condition
-covering a case.</li>
-<li>They ensure that if we make a mistake in writing an earlier
-question, we won’t silently get surprising output.</li>
-<li>They guard against future modifications, where someone might modify
-an earlier question without realizing the impact it’s having on a later
-one.</li>
+<li><p>They signal to future readers (including ourselves!) the
+condition covering a case.</p></li>
+<li><p>They ensure that if we make a mistake in writing an earlier
+question, we won’t silently get surprising output.</p></li>
+<li><p>They guard against future modifications, where someone might
+modify an earlier question without realizing the impact it’s having on a
+later one.</p></li>
 </ol>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>An online-advertising firm needs to determine whether to show an ad
 for a skateboarding park to website users. Write a function
@@ -548,6 +555,7 @@ housing office, for examples, stores student ID numbers and which room a
 student is living in). But in other cases, data about individuals get
 interpreted in order to predict something about them. Decisions based on
 those predictions can be inaccurate and hence harmful.</p></blockquote></blockquote>
+<a name="(part._conditional-nm)"></a>
 <h4 id="conditional-nm">3.4.5 Evaluating by Reducing Expressions</h4>
 <p>In <a
 href="From_Repeated_Expressions_to_Functions.html##function-call-nm">How
@@ -611,14 +619,15 @@ of Jayret expressions. The whole expression takes steps that simplify
 it, proceeding by simple rules. You can use this style yourself if you
 want to try and work through the evaluation of a Jayret program by hand
 (or in your head).</p>
+<a name="(part._Composing-Functions)"></a>
 <h4 id="Composing-Functions">3.4.6 Composing Functions</h4>
 <p>We started this chapter wanting to account for shipping costs on an
 order of pens. So far, we have written two functions:</p>
 <ul>
-<li><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
-for computing the cost of the pens</li>
-<li><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
-for adding shipping costs to a total amount</li>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>
+for computing the cost of the pens</p></li>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
+for adding shipping costs to a total amount</p></li>
 </ul>
 <p>What if we now wanted to compute the price of an order of pens
 including shipping? We would have to use both of these functions
@@ -643,6 +652,7 @@ as an intermediate step:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">pens = pen-cost(10, "bravo");
 add-shipping(pens);</code></pre></div></div>
 <p>Both methods would produce the same answer.</p>
+<a name="(part._How-Function-Compositions-Evaluate)"></a>
 <h5 id="How-Function-Compositions-Evaluate">3.4.6.1 How Function
 Compositions Evaluate</h5>
 <p>Let’s review how these programs evaluate in the context of
@@ -652,7 +662,7 @@ which we explicitly name the result of calling
 <p>Evaluating the second version: At a high level, Jayret goes through
 the following steps:</p>
 <ul>
-<li>Substitute
+<li><p>Substitute
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">10</code></span>
 for
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">num-pens</code></span>
@@ -662,42 +672,42 @@ for
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">message</code></span>
 in the body of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost</code></span>,
-then evaluate the substituted body</li>
-<li>Store
+then evaluate the substituted body</p></li>
+<li><p>Store
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pens</code></span>
 in the directory, with a value of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3.5</code></span></li>
-<li>As a first step in evaluating
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3.5</code></span></p></li>
+<li><p>As a first step in evaluating
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping(pens)</code></span>,
 look up the value of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pens</code></span>
-in the directory</li>
-<li>Substitute
+in the directory</p></li>
+<li><p>Substitute
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3.5</code></span>
 for
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt</code></span>
 in the body of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
 then evaluate the resulting expression, which results in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">7.5</code></span></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">7.5</code></span></p></li>
 </ul>
 <p>Evaluating the first version: As a reminder, the first version
 consisted of a single expression:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">add-shipping(pen-cost(10, "bravo"));</code></pre></div></div>
 <ul>
-<li>Since arguments are evaluated before functions get called, start by
-evaluating
+<li><p>Since arguments are evaluated before functions get called, start
+by evaluating
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">pen-cost(10, "bravo")</code></span>
 (again using substitution), which reduces to
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3.5</code></span></li>
-<li>Substitute
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3.5</code></span></p></li>
+<li><p>Substitute
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">3.5</code></span>
 for
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">order-amt</code></span>
 in the body of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">add-shipping</code></span>
 then evaluate the resulting expression, which results in
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">7.5</code></span></li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">7.5</code></span></p></li>
 </ul>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Contrast these two summaries. Where do they differ? What aspects of
 the code led to those differences?</p></blockquote></blockquote>
@@ -719,6 +729,7 @@ opinions on this, and that’s fine). So which should we use?</p>
 be times when we prefer each of these styles. Furthermore, it will turn
 out (once we’ve learned more about nuances of how programs evaluate)
 that the two versions aren’t as different as they appear right now.</p>
+<a name="(part._func-comp-directory)"></a>
 <h5 id="func-comp-directory">3.4.6.2 Function Composition and the
 Directory</h5>
 <p>Let’s try one more variation on this problem. Perhaps seeing us name
@@ -790,6 +801,7 @@ But in no case can one function call peek inside the local directory for
 another function call. Once a function call completes, its local
 directory disappears (because nothing else would be able to use it
 anyway).</p>
+<a name="(part._Nested-Conditionals)"></a>
 <h4 id="Nested-Conditionals">3.4.7 Nested Conditionals</h4>
 <p>We showed that the results in
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>-expressions
@@ -840,14 +852,14 @@ In such cases, we will reduce the overall price by
 }</code></pre></div></div>
 <p>There are a couple of things to notice here:</p>
 <ul>
-<li>The function now has an additional parameter of type
+<li><p>The function now has an additional parameter of type
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Boolean</code></span>
-to indicate whether the purchaser is a senior citizen.</li>
-<li>We have added an
+to indicate whether the purchaser is a senior citizen.</p></li>
+<li><p>We have added an
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
-expression to check whether to apply the discount.</li>
-<li>We have more examples, because we have to vary both the number of
-tickets and whether a discount applies.</li>
+expression to check whether to apply the discount.</p></li>
+<li><p>We have more examples, because we have to vary both the number of
+tickets and whether a discount applies.</p></li>
 </ul>
 <p>Now, let’s extend the program once more, this time also offering the
 discount if the purchaser is not a senior but has bought more than 5
@@ -972,18 +984,19 @@ price, then applying the discount when appropriate:</p>
         return base;
     }
 }</code></pre></div></div>
+<a name="(part._Recap-Booleans-and-Conditionals)"></a>
 <h4 id="Recap-Booleans-and-Conditionals">3.4.8 Recap: Booleans and
 Conditionals</h4>
 <p>With this chapter, our computations can produce different results in
 different situations. We ask questions using if-expressions, in which
 each question or check uses an operator that produces a boolean.</p>
 <ul>
-<li>There are two Boolean values:
+<li><p>There are two Boolean values:
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
 and
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.</li>
-<li>A simple kind of check (that produces a boolean) compares values for
-equality
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>.</p></li>
+<li><p>A simple kind of check (that produces a boolean) compares values
+for equality
 (<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>)
 or
 inequality(<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;&gt;</code></span>).
@@ -991,18 +1004,18 @@ Other operations that you know from math, like
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&lt;</code></span>
 and
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&gt;=</code></span>,
-also produce booleans.</li>
-<li>We can build larger expressions that produce booleans from smaller
-ones using the operators
+also produce booleans.</p></li>
+<li><p>We can build larger expressions that produce booleans from
+smaller ones using the operators
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">&amp;&amp;</code></span>,
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">||</code></span>,
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">!</code></span>.</li>
-<li>We can use
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">!</code></span>.</p></li>
+<li><p>We can use
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">if</code></span>
 expressions to ask true/false questions within a computation, producing
-different results in each case.</li>
-<li>We can nest conditionals inside one another if needed.</li>
-<li>You never need to use
+different results in each case.</p></li>
+<li><p>We can nest conditionals inside one another if needed.</p></li>
+<li><p>You never need to use
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">==</code></span>
 to compare a value to
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">true</code></span>
@@ -1010,7 +1023,7 @@ or
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">false</code></span>:
 you can just write the value or expression on its own (perhaps with
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">!</code></span>
-to get the same computation).</li>
+to get the same computation).</p></li>
 </ul>
 <div class="navsetbottom">
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>

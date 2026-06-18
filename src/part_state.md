@@ -7,6 +7,10 @@ up: booklet_programming-with-state.html
 next: mutating-structures.html
 ---
 
+```{=html}
+<a name="(part._part-state)"></a>
+```
+
 ## 12 Programming with State (in Both Jayret and Python) {#part-state}
 
 ```{=html}

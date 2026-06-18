@@ -7,6 +7,10 @@ up: booklet_appendices.html
 next: Release_Notes.html
 ---
 
+```{=html}
+<a name="(part._htdp-vs-dcic)"></a>
+```
+
 ## 30 Comparing This Book to HtDP {#htdp-vs-dcic}
 
 This book (DCIC) is often compared to
@@ -20,6 +24,7 @@ At a high level they are very similar:
 - Both are built around the centrality of data structure. Both want to
   provide methods for designing programs. Both start with functional programming
   but transition to (and take very seriously) stateful imperative programming.
+
 - Both are built around languages carefully designed with education in
   mind. The languages provide special support for writing examples and tests; error
   reporting designed for beginners; built-in images and reactivity. The languages
@@ -40,6 +45,7 @@ from DCIC are going to HtDP, and over time more may intermingle.
   Racket student languages and other good ideas of our own, but package them in a
   familiar syntax. But as you can see, the two languages are not actually that
   far apart: [Jayret for Racketeers and Schemers](p4rs.html).
+
 - The next most obvious thing is that DCIC also includes Python. HtDP has a
   (not formally published) follow-up that
   [teaches program design in Java](https://felleisen.org/matthias/HtDC/htdc.pdf).
@@ -49,6 +55,7 @@ from DCIC are going to HtDP, and over time more may intermingle.
   pedagogic ideas for teaching state. Python was not, despite the ubiquity and
   difficulty of state! So there’s a lot to be gained, when introducing state, to
   contrast them.
+
 - Next, DCIC has a lot algorithmic content, whereas HtDP has almost
   none. DCIC covers, for instance, Big-O analysis
   [[Predicting Growth](predicting-growth.html)]. It even has a section on amortized analysis

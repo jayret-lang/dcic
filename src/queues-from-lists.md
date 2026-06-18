@@ -7,6 +7,10 @@ up: part_bonus-foundations.html
 next: testing.html
 ---
 
+```{=html}
+<a name="(part._queues-from-lists)"></a>
+```
+
 ### 8.2 Queues from Lists {#queues-from-lists}
 
 ```{=html}
@@ -34,6 +38,10 @@ With sets, we allowed the set type to be an alias for lists; that is, the two
 were the same. Another option we have when encoding is to create a completely
 new type that does nothing more than wrap a value of the encoding type. We’ll
 use that principle here to illustrate how that might work.
+
+```{=html}
+<a name="(part._Using-a-Wrapper-Datatype)"></a>
+```
 
 #### 8.2.1 Using a Wrapper Datatype {#Using-a-Wrapper-Datatype}
 
@@ -129,6 +137,10 @@ Object qrest(q) {
 }
 ```
 
+```{=html}
+<a name="(part._qfl-comb-ans)"></a>
+```
+
 #### 8.2.2 Combining Answers {#qfl-comb-ans}
 
 However, it would be nice if we could obtain both the oldest element and the
@@ -157,6 +169,10 @@ manifest in the return type: [The Option Type](partial-domains.html##pd-option),
 ::: {.exercise}
 Write out the function using this return type.
 :::
+
+```{=html}
+<a name="(part._Using-a-Picker)"></a>
+```
 
 #### 8.2.3 Using a Picker {#Using-a-Picker}
 
@@ -213,6 +229,10 @@ interface, rather than in place of one.
 
 At this point we’re done with the essential content, but here are two more
 parts that you may find interesting.
+
+```{=html}
+<a name="(part._qfl-tuples)"></a>
+```
 
 #### 8.2.4 Using Tuples {#qfl-tuples}
 
@@ -317,6 +337,10 @@ rules above for when tuples are applicable. In general, tuples can cause a
 reduction in readability, and increase the likelihood of errors (because tuples
 from one source aren’t distinguishable from those from another source). Use
 them with caution!
+
+```{=html}
+<a name="(part._A-Picker-Method)"></a>
+```
 
 #### 8.2.5 A Picker Method {#A-Picker-Method}
 

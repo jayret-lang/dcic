@@ -7,6 +7,10 @@ up: part_dags.html
 next: part_graphs.html
 ---
 
+```{=html}
+<a name="(part._size-of-dag)"></a>
+```
+
 ### 16.2 The Size of a DAG {#size-of-dag}
 
 ```{=html}
@@ -48,6 +52,10 @@ a “print size”: how much space will it occupy when printed. The current size
 function computes that well. But another is the “allocation” size: how many
 nodes did we allocate. How do we fare?
 
+```{=html}
+<a name="(part._Stage-1)"></a>
+```
+
 #### 16.2.1 Stage 1 {#Stage-1}
 
 ```jayret
@@ -67,6 +75,10 @@ aren’t doing anything to track the repetition. So we need a stronger contract:
 we’ll split the problem into two parts, a standard interface function that
 takes just the DAG and returns a number, and a richer helper function, which
 also takes a memory of the nodes already seen.
+
+```{=html}
+<a name="(part._Stage-2)"></a>
+```
 
 #### 16.2.2 Stage 2 {#Stage-2}
 
@@ -125,6 +137,10 @@ Unfortunately, this still doesn’t work!
 ::: {.do-now}
 Use Jayret’s `spy`{.pyret} construct in `size-2-h`{.pyret} to figure out why.
 :::
+
+```{=html}
+<a name="(part._Stage-3)"></a>
+```
 
 #### 16.2.3 Stage 3 {#Stage-3}
 
@@ -186,6 +202,10 @@ Object size-3(BT b) {
 Must `seen`{.pyret} be a list? What else can it be?
 :::
 
+```{=html}
+<a name="(part._Stage-4)"></a>
+```
+
 #### 16.2.4 Stage 4 {#Stage-4}
 
 Observe that the `Ret`{.pyret} data structure is only of local interest. It’s
@@ -223,6 +243,10 @@ Object size-4(BT b) {
 The notation `/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;seen}`{.pyret} makes an actual tuple; `/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {Number ;List < BT >}`{.pyret}
 declares the contract of a tuple. Also, `.{0}`{.pyret} extracts the
 `0`{.pyret}th element (the leftmost one) of a tuple.
+
+```{=html}
+<a name="(part._Stage-5)"></a>
+```
 
 #### 16.2.5 Stage 5 {#Stage-5}
 
@@ -272,6 +296,10 @@ n10 = nd(10, n11, n12);
 Sure enough, if either tuple now returns `empty`{.pyret}, this test
 fails. Otherwise it succeeds.
 
+```{=html}
+<a name="(part._What-We-e2-80-99ve-Learned)"></a>
+```
+
 #### 16.2.6 What We’ve Learned {#What-We-e2-80-99ve-Learned}
 
 We have learned three important principles here:
@@ -281,11 +309,13 @@ We have learned three important principles here:
   threading (not in the sense of “multi-threading”, which is a kind of
   parallel computation, but rather the pattern of how the seen list gets passed
   through the program).
+
 - A good example of the use of tuples: local, where the documentation
   benefit of datatypes isn’t necessary (and the extra datatype probably just
   clutters up the program), as opposed to distant, where it is. In general, it’s
   always okay to make a new datatype; it’s only sometimes okay to use tuples in
   their place.
+
 - An important software-engineering principle, called
   mutation testing. This is an odd name because it would seem to be the
   name of a technique to test programs. Actually, it’s a technique to test
@@ -301,6 +331,10 @@ We have learned three important principles here:
   suites actually caught. But we can’t and shouldn’t only rely on tools; we can
   also apply the principle of mutation testing by hand, as we have above. At the
   very least, it will help us understand our program better!
+
+```{=html}
+<a name="(part._More-on-Value-Printing-An-Aside-from-Racket)"></a>
+```
 
 #### 16.2.7 More on Value Printing: An Aside from Racket {#More-on-Value-Printing-An-Aside-from-Racket}
 

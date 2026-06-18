@@ -7,6 +7,10 @@ up: part_graphs.html
 next: basic-graph-trav.html
 ---
 
+```{=html}
+<a name="(part._intro-graphs)"></a>
+```
+
 ### 17.1 Introducing Graphs {#intro-graphs}
 
 ```{=html}
@@ -45,6 +49,10 @@ an infinite loop. Therefore, we need better structural recipes for our
 programs. In addition, graphs have a very rich structure, which lends
 itself to several interesting computations over them. We will study
 both these aspects of graphs below.
+
+```{=html}
+<a name="(part._Understanding-Graphs)"></a>
+```
 
 #### 17.1.1 Understanding Graphs {#Understanding-Graphs}
 
@@ -217,6 +225,10 @@ int size(BinT t) {
 
 Sure enough, this function satisfies the above tests.
 
+```{=html}
+<a name="(part._Representations)"></a>
+```
+
 #### 17.1.2 Representations {#Representations}
 
 The representation we’ve seen above for graphs is certainly a start
@@ -233,10 +245,12 @@ representation depends on several factors:
 1. The structure of the graph, and in particular, its
   density. We will discuss this further later
   [[Measuring Complexity for Graphs](intro-graphs.html##complexity-of-graphs)].
+
 2. The representation in which the data are provided by external
   sources. Sometimes it may be easier to simply adapt to their
   representation; in particular, in some cases there may not even be a
   choice.
+
 3. The features provided by the programming language, which make
   some representations much harder to use than others.
 
@@ -251,7 +265,9 @@ In terms of representations, there are three main things we need:
 
 
 1. A way to construct graphs.
+
 2. A way to identify (i.e., tell apart) nodes or vertices in a graph.
+
 3. Given a way to identify nodes, a way to get that node’s
   neighbors in the graph.
 
@@ -264,6 +280,10 @@ United States and edges are direct flight connections between
 them:
 
 ![](us-flight-map.png){width="640" height="412"}
+
+```{=html}
+<a name="(part._string-keys)"></a>
+```
 
 ##### 17.1.2.1 Links by Name {#string-keys}
 
@@ -334,6 +354,10 @@ examine just a part of the result:
     assertEquals(ns, ["was", "saf"]);
     assertEquals(map(_.content, map(find-kn(_, kn-cities), ns)), ["Washington", "San Francisco"]);
 }
+```
+
+```{=html}
+<a name="(part._Links-by-Indices)"></a>
 ```
 
 ##### 17.1.2.2 Links by Indices {#Links-by-Indices}
@@ -408,6 +432,10 @@ information. (In return, extrinsically keyed representations are
 easier to reassemble into new collections of data, because there is no
 danger of keys clashing: there are no intrinsic keys to clash.)
 
+```{=html}
+<a name="(part._A-List-of-Edges)"></a>
+```
+
 ##### 17.1.2.3 A List of Edges {#A-List-of-Edges}
 
 The representations we have seen until now have given priority
@@ -455,6 +483,10 @@ weaker, we often prefer node-centric representations. Of course, an
 alternative is to think of the node names as keys into some other data
 structure from which we can retrieve rich information about nodes.
 
+```{=html}
+<a name="(part._Abstracting-Representations)"></a>
+```
+
 ##### 17.1.2.4 Abstracting Representations {#Abstracting-Representations}
 
 We would like a general representation that lets us abstract over the
@@ -465,6 +497,10 @@ neighbors—a list of keys—given a key and a graph. This is
 sufficient for what follows. However, we still need to choose concrete
 keys to write examples and tests. For simplicity, we’ll use
 string keys [[Links by Name](intro-graphs.html##string-keys)].
+
+```{=html}
+<a name="(part._complexity-of-graphs)"></a>
+```
 
 #### 17.1.3 Measuring Complexity for Graphs {#complexity-of-graphs}
 
@@ -481,6 +517,7 @@ number of edges has a wide range, with these two extremes:
 
 
 - No two nodes are connected. Then there are no edges at all.
+
 - Every two nodes is connected. Then there are essentially as
   many edges as the number of pairs of nodes.
 

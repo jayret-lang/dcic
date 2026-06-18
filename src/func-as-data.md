@@ -7,6 +7,10 @@ up: part_bonus-foundations.html
 next: queues-from-lists.html
 ---
 
+```{=html}
+<a name="(part._func-as-data)"></a>
+```
+
 ### 8.1 Functions as Data {#func-as-data}
 
 ```{=html}
@@ -18,6 +22,10 @@ we’ve learned so far can be. To illustrate this, we’ll work through a
 few exercises of interesting concepts we can express using just
 functions as values. We’ll write two quite different things, then show
 how they converge nicely.
+
+```{=html}
+<a name="(part._fd-calculus)"></a>
+```
 
 #### 8.1.1 A Little Calculus {#fd-calculus}
 
@@ -157,6 +165,10 @@ d-dx(lam(x): x * x end) = lam(x): 2 * x end
 or, in the notation of [A Notation for Functions](predicting-growth.html##math-anon-functions),
 \begin{equation*}{\frac{d}{dx}} [x \rightarrow x^2] = [x \rightarrow 2x]\end{equation*}Pity math textbooks for not wanting to tell us the truth!
 
+```{=html}
+<a name="(part._lam-shorthand)"></a>
+```
+
 #### 8.1.2 A Helpful Shorthand for Anonymous Functions {#lam-shorthand}
 
 Jayret offers a shorter syntax for writing anonymous functions. Though,
@@ -187,6 +199,10 @@ but many readers would say this makes the function harder to read,
 because the prominent `lam`{.pyret} makes clear that `d-dx`{.pyret} returns
 an (anonymous) function, whereas this syntax obscures it. Therefore,
 we will usually only use this shorthand syntax for “one-liners”.
+
+```{=html}
+<a name="(part._streams-from-funs)"></a>
+```
 
 #### 8.1.3 Streams From Functions {#streams-from-funs}
 
@@ -339,6 +355,7 @@ that:
   the list has already been constructed; in contrast, placing a function
   there creates the potential for a potentially unbounded amount of
   computation to still be forthcoming.
+
 2. That said, even with streams, in any given computation, we will
   create only a finite prefix of the stream. However, we don’t have to
   prematurely decide how many; each client and use is welcome to extract
@@ -457,6 +474,10 @@ In some languages, such as Haskell, lazy evaluation is built in
 by default. In such a language, there is no need to use
 thunks. However, lazy evaluation places other burdens on the language,
 which you can learn about in a programming-languages class.
+
+```{=html}
+<a name="(part._d-dx-streams)"></a>
+```
 
 #### 8.1.4 Combining Forces: Streams of Derivatives {#d-dx-streams}
 

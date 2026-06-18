@@ -338,3 +338,12 @@ pre.HeapCode > div.sourceCodeWrapper > div.sourceCode > pre.sourceCode {
   clear: both;
 }
 
+/* Standalone code wrappers (outside REPL tables) breathe like paragraphs. */
+.main .sourceCodeWrapper {
+  margin: 1em 0;
+}
+/* But not inside REPL interaction tables — those control their own spacing. */
+.JayretReplInteraction .sourceCodeWrapper {
+  margin: 0;
+}
+

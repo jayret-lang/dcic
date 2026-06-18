@@ -7,10 +7,18 @@ up: part_foundations.html
 next: part_tabular-data.html
 ---
 
+```{=html}
+<a name="(part._Conditionals-and-Booleans)"></a>
+```
+
 ### 3.4 Conditionals and Booleans {#Conditionals-and-Booleans}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._add-shipping-setup%29">3.4.1<span class="hspace"> </span>Motivating Example: Shipping Costs</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._cond-boolean-intro%29">3.4.2<span class="hspace"> </span>Conditionals: Computations with Decisions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._booleans%29">3.4.3<span class="hspace"> </span>Booleans</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._bool-comparisons%29">3.4.3.1<span class="hspace"> </span>Other Boolean Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Combining_.Booleans%29">3.4.3.2<span class="hspace"> </span>Combining Booleans</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._else-if%29">3.4.4<span class="hspace"> </span>Asking Multiple Questions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._conditional-nm%29">3.4.5<span class="hspace"> </span>Evaluating by Reducing Expressions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Composing_.Functions%29">3.4.6<span class="hspace"> </span>Composing Functions</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.How_.Function_.Compositions_.Evaluate%29">3.4.6.1<span class="hspace"> </span>How Function Compositions Evaluate</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._func-comp-directory%29">3.4.6.2<span class="hspace"> </span>Function Composition and the Directory</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Nested_.Conditionals%29">3.4.7<span class="hspace"> </span>Nested Conditionals</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Conditionals_and_Booleans.html#%28part._.Recap__.Booleans_and_.Conditionals%29">3.4.8<span class="hspace"> </span>Recap: Booleans and Conditionals</a></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._add-shipping-setup)"></a>
 ```
 
 #### 3.4.1 Motivating Example: Shipping Costs {#add-shipping-setup}
@@ -51,8 +59,11 @@ Our proposed examples feature several strategic decisions:
 
 - Including `10`{.pyret}, which is at the boundary of charges based on
   the text
+
 - Including `10.01`{.pyret}, which is just over the boundary
+
 - Including both natural and real (decimal) numbers
+
 - Including examples that should result in each shipping charge
   mentioned in the problem (`4`{.pyret} and `8`{.pyret})
 
@@ -71,6 +82,7 @@ Two things are new in this set of examples:
 
 - The values of `4`{.pyret} and `8`{.pyret} differ across the
   examples, but they each occur in multiple examples.
+
 - The values of `4`{.pyret} and `8`{.pyret} appear only in the computed
   answers—not as an input. Which one we use seems to depend on the input value.
 
@@ -80,6 +92,10 @@ share a fixed value (the shipping charge), but different clusters (a) use
 different values and (b) have a pattern to their inputs (whether the
 input value is less than or equal to `10`{.pyret}). This calls for being able to
 ask questions about inputs within our programs.
+
+```{=html}
+<a name="(part._cond-boolean-intro)"></a>
+```
 
 #### 3.4.2 Conditionals: Computations with Decisions {#cond-boolean-intro}
 
@@ -111,6 +127,10 @@ another for when the result is false (`order-amt +
 8`{.pyret}). The `else`{.jayret} in the program marks the answer in the false case; we call
 this the else clause.
 
+```{=html}
+<a name="(part._booleans)"></a>
+```
+
 #### 3.4.3 Booleans {#booleans}
 
 Every expression in Jayret evaluates in a value. So far, we have seen
@@ -139,6 +159,10 @@ only two of type `Boolean`{.pyret}: `true`{.pyret} and `false`{.pyret}.
 What would happen if we entered `order-amt <= 10`{.pyret} at the interactions prompt
 to explore booleans? Why does that happen?
 :::
+
+```{=html}
+<a name="(part._bool-comparisons)"></a>
+```
 
 ##### 3.4.3.1 Other Boolean Operations {#bool-comparisons}
 
@@ -358,6 +382,10 @@ false
 In fact, just about every kind of data will have some Boolean-valued
 operators to enable comparisons.
 
+```{=html}
+<a name="(part._Combining-Booleans)"></a>
+```
+
 ##### 3.4.3.2 Combining Booleans {#Combining-Booleans}
 
 Often, we want to base decisions on more than one Boolean value. For
@@ -423,6 +451,10 @@ Explain why numbers and strings are not good ways to express the
 answer to a true/false question.
 :::
 
+```{=html}
+<a name="(part._else-if)"></a>
+```
+
 #### 3.4.4 Asking Multiple Questions {#else-if}
 
 Shipping costs are rising, so we want to modify the
@@ -434,6 +466,7 @@ calls for two modifications to our program:
 - We have to be able to ask another question to distinguish
   situations in which the shipping charge is `8`{.pyret} from those
   in which the shipping charge is `12`{.pyret}.
+
 - The question for when the shipping charge is `8`{.pyret} will need
   to check whether the input is between two values.
 
@@ -542,8 +575,10 @@ conditions for three reasons:
 
 1. They signal to future readers (including ourselves!) the condition
   covering a case.
+
 2. They ensure that if we make a mistake in writing an earlier question, we
   won’t silently get surprising output.
+
 3. They guard against future modifications, where someone might modify an
   earlier question without realizing the impact it’s having on a later one.
 
@@ -589,6 +624,10 @@ data about individuals get interpreted in order to predict something
 about them. Decisions based on those predictions can be inaccurate and
 hence harmful.
 :::
+
+```{=html}
+<a name="(part._conditional-nm)"></a>
+```
 
 #### 3.4.5 Evaluating by Reducing Expressions {#conditional-nm}
 
@@ -672,6 +711,10 @@ it, proceeding by simple rules. You can use this style yourself if you
 want to try and work through the evaluation of a Jayret program by hand
 (or in your head).
 
+```{=html}
+<a name="(part._Composing-Functions)"></a>
+```
+
 #### 3.4.6 Composing Functions {#Composing-Functions}
 
 We started this chapter wanting to account for shipping costs on an
@@ -679,6 +722,7 @@ order of pens. So far, we have written two functions:
 
 
 - `pen-cost`{.pyret} for computing the cost of the pens
+
 - `add-shipping`{.pyret} for adding shipping costs to a total amount
 
 What if we now wanted to compute the price of an order of pens
@@ -708,6 +752,10 @@ add-shipping(pens);
 
 Both methods would produce the same answer.
 
+```{=html}
+<a name="(part._How-Function-Compositions-Evaluate)"></a>
+```
+
 ##### 3.4.6.1 How Function Compositions Evaluate {#How-Function-Compositions-Evaluate}
 
 Let’s review how these programs evaluate in the context of
@@ -721,9 +769,12 @@ through the following steps:
 - Substitute `10`{.pyret} for `num-pens`{.pyret} and `"bravo"`{.pyret} for
   `message`{.pyret} in the body of `pen-cost`{.pyret}, then evaluate the
   substituted body
+
 - Store `pens`{.pyret} in the directory, with a value of `3.5`{.pyret}
+
 - As a first step in evaluating `add-shipping(pens)`{.pyret}, look up
   the value of `pens`{.pyret} in the directory
+
 - Substitute `3.5`{.pyret} for `order-amt`{.pyret} in the body of
   `add-shipping`{.pyret} then evaluate the resulting expression, which
   results in `7.5`{.pyret}
@@ -738,6 +789,7 @@ add-shipping(pen-cost(10, "bravo"));
 - Since arguments are evaluated before functions get called,
   start by evaluating `pen-cost(10, "bravo")`{.pyret} (again using
   substitution), which reduces to `3.5`{.pyret}
+
 - Substitute `3.5`{.pyret} for `order-amt`{.pyret} in the body of
   `add-shipping`{.pyret} then evaluate the resulting expression, which
   results in `7.5`{.pyret}
@@ -764,6 +816,10 @@ be times when we prefer each of these styles. Furthermore, it will
 turn out (once we’ve learned more about nuances of how programs
 evaluate) that the two versions aren’t as different as they appear
 right now.
+
+```{=html}
+<a name="(part._func-comp-directory)"></a>
+```
 
 ##### 3.4.6.2 Function Composition and the Directory {#func-comp-directory}
 
@@ -837,6 +893,10 @@ function call peek inside the local directory for another function
 call. Once a function call completes, its local directory disappears
 (because nothing else would be able to use it anyway).
 
+```{=html}
+<a name="(part._Nested-Conditionals)"></a>
+```
+
 #### 3.4.7 Nested Conditionals {#Nested-Conditionals}
 
 We showed that the results in `if`{.pyret}-expressions are themselves
@@ -896,8 +956,10 @@ There are a couple of things to notice here:
 
 - The function now has an additional parameter of type
   `Boolean`{.pyret} to indicate whether the purchaser is a senior citizen.
+
 - We have added an `if`{.pyret} expression to check whether to
   apply the discount.
+
 - We have more examples, because we have to vary both the number
   of tickets and whether a discount applies.
 
@@ -1033,6 +1095,10 @@ int buy-tickets6(int count, boolean is-senior) {
 }
 ```
 
+```{=html}
+<a name="(part._Recap-Booleans-and-Conditionals)"></a>
+```
+
 #### 3.4.8 Recap: Booleans and Conditionals {#Recap-Booleans-and-Conditionals}
 
 With this chapter, our computations can produce different results in
@@ -1041,14 +1107,19 @@ which each question or check uses an operator that produces a
 boolean.
 
 - There are two Boolean values: `true`{.pyret} and `false`{.pyret}.
+
 - A simple kind of check (that produces a boolean) compares values for equality (`==`{.pyret})
   or inequality(`<>`{.pyret}). Other operations that you know from math,
   like `<`{.pyret} and `>=`{.pyret}, also produce booleans.
+
 - We can build larger expressions that produce booleans from smaller ones using
   the operators `&&`{.pyret}, `||`{.pyret}, `!`{.pyret}.
+
 - We can use `if`{.pyret} expressions to ask true/false questions
   within a computation, producing different results in each case.
+
 - We can nest conditionals inside one another if needed.
+
 - You never need to use `==`{.pyret} to compare a value to
   `true`{.pyret} or `false`{.pyret}: you can just write the value or
   expression on its own (perhaps with `!`{.pyret} to get the same computation).

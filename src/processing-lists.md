@@ -7,6 +7,10 @@ up: part_lists.html
 next: recursive-data.html
 ---
 
+```{=html}
+<a name="(part._processing-lists)"></a>
+```
+
 ### 5.2 Processing Lists {#processing-lists}
 
 ```{=html}
@@ -26,9 +30,11 @@ categories regarding the types of the data in the list:
 - some list functions are generic and operate on any kind
   of list: e.g., the length of a list is the same irrespective of what
   kind of values it contains;
+
 - some are specific at least to the type of data: e.g., the sum
   assumes that all the values are numbers (though they may be ages or
   prices or other information represented by numbers); and
+
 - some are somewhere in-between: e.g., a maximum function applies
   to any list of comparable values, such as numbers or strings.
 
@@ -37,6 +43,10 @@ handle this many different kinds of functions. Fortunately, and
 perhaps surprisingly, there is one standard way in which we can think
 about writing all these functions! Understanding
 and internalizing this process is the goal of this chapter.
+
+```{=html}
+<a name="(part._Making-Lists-and-Taking-Them-Apart)"></a>
+```
 
 #### 5.2.1 Making Lists and Taking Them Apart {#Making-Lists-and-Taking-Them-Apart}
 
@@ -152,6 +162,7 @@ in common. Specifically, a list is either
 
 
 - empty (written `Empty`{.jayret} or `[]`{.pyret}), or
+
 - non-empty (written `link(…, …)`{.pyret} or `[]`{.pyret} with
   at least one value inside the brackets), where the rest is also
   a list (and hence may in turn be empty or non-empty, …).
@@ -161,10 +172,15 @@ which are important when writing programs over lists:
 
 
 1. Lists can be empty or non-empty
+
 2. Non-empty lists have a first element and a rest of the list
 
 Let’s leverage these two structural features to write some programs to
 process lists!
+
+```{=html}
+<a name="(part._my-len)"></a>
+```
 
 #### 5.2.2 Some Example Exercises {#my-len}
 
@@ -179,6 +195,10 @@ including inside the body of the function.]{.margin-note} As we will see, there 
 standard strategy that we can use to approach writing all of these
 functions: having you learn this strategy is the goal of this chapter.
 
+```{=html}
+<a name="(part._Structural-Problems-with-Scalar-Answers)"></a>
+```
+
 #### 5.2.3 Structural Problems with Scalar Answers {#Structural-Problems-with-Scalar-Answers}
 
 Let’s write out examples for a few of the functions described
@@ -189,6 +209,10 @@ that we’ve covered the two very broad kinds of lists. Then, we should
 have more examples specific to the kind of list stated in the
 problem. Finally, we should have even more examples to illustrate how
 we think about solving the problem.
+
+```{=html}
+<a name="(part._len-eg)"></a>
+```
 
 ##### 5.2.3.1 my-len : Examples {#len-eg}
 
@@ -303,6 +327,10 @@ we will turn into code) is equivalent to the first (which we wrote
 down when understanding the problem).
 :::
 
+```{=html}
+<a name="(part._sum-eg)"></a>
+```
+
 ##### 5.2.3.2 my-sum : Examples {#sum-eg}
 
 Let’s repeat this process of developing examples on a second function,
@@ -340,6 +368,10 @@ assertEquals(my-sum(empty), 0);
 
 Observe, again, how we can use the result of computing `my-sum`{.pyret}
 of the rest of the list to compute its result for the whole list.
+
+```{=html}
+<a name="(part._From-Examples-to-Code)"></a>
+```
 
 ##### 5.2.3.3 From Examples to Code {#From-Examples-to-Code}
 
@@ -398,6 +430,7 @@ where most parts are fixed, but a few you’re free to change:
 - `e`{.pyret} is an expression whose value needs to be a list; it
   could be a variable bound to a list, or some complex expression that
   evaluates to a list.
+
 - `f`{.pyret} and `r`{.pyret} are names given to the first and rest of
   the list. You can choose any names you like, though in Jayret, it’s
   conventional to use `f`{.pyret} and `r`{.pyret}.[Occasionally
@@ -463,11 +496,13 @@ develop list-processing functions.
 - Pick a concrete list with (at least) three elements. Write a
   sequence of examples for each of the entire list and each suffix of
   the list (including the empty list).
+
 - Rewrite each example to express its expected
   answer in terms of the `first`{.pyret} and `rest`{.pyret} data of its input
   list. You don’t have to use the `first`{.pyret} and `rest`{.pyret} operators
   in the new answers, but you should see the `first`{.pyret} and
   `rest`{.pyret} values represented explicitly in the answer.
+
 - Look for a pattern across the answers in the examples. Use these
   to develop the code: write a `switch`{.jayret} expression, filling in the
   `yield` expression of each case based on your examples.
@@ -477,11 +512,19 @@ components of each datum rather than specifically `first`{.pyret} and
 `rest`{.pyret} as presented so far.
 :::
 
+```{=html}
+<a name="(part._Structural-Problems-that-Transform-Lists)"></a>
+```
+
 #### 5.2.4 Structural Problems that Transform Lists {#Structural-Problems-that-Transform-Lists}
 
 Now that we have a systematic way to develop functions that take lists
 as input, let’s apply that same strategy to functions that
 produce a list as the answer.
+
+```{=html}
+<a name="(part._doubles-eg-code)"></a>
+```
 
 ##### 5.2.4.1 my-doubles : Examples and Code {#doubles-eg-code}
 
@@ -616,6 +659,10 @@ Object my-doubles(l) {
 }
 ```
 
+```{=html}
+<a name="(part._str-len-eg-code)"></a>
+```
+
 ##### 5.2.4.2 my-str-len : Examples and Code {#str-len-eg-code}
 
 In `my-doubles`{.pyret}, the input and output lists have the same type of
@@ -690,6 +737,10 @@ Object my-str-len(l) {
 }
 ```
 
+```{=html}
+<a name="(part._Structural-Problems-that-Select-from-Lists)"></a>
+```
+
 #### 5.2.5 Structural Problems that Select from Lists {#Structural-Problems-that-Select-from-Lists}
 
 In the previous section, we saw functions that transform list
@@ -700,6 +751,10 @@ elements: every element in the output list was in the input list, but
 some input-list elements might not appear in the output list. This
 section adapts our method of deriving functions from examples to
 accommodate selection of elements.
+
+```{=html}
+<a name="(part._pos-nums-eg-code)"></a>
+```
 
 ##### 5.2.5.1 my-pos-nums : Examples and Code {#pos-nums-eg-code}
 
@@ -783,6 +838,10 @@ as lists that end with positive numbers and lists with `0`{.pyret}.
 ::: {.exercise}
 Work through these examples and see how they affect the program!
 :::
+
+```{=html}
+<a name="(part._alternating-eg-code)"></a>
+```
 
 ##### 5.2.5.2 my-alternating : Examples and Code {#alternating-eg-code}
 
@@ -935,6 +994,7 @@ What’s the takeaway from this problem? There are two:
 
 - Don’t skip the small examples: the result of a list-processing
   function on the `Empty`{.jayret} case won’t always be `Empty`{.jayret}.
+
 - If a problem asks you to work with multiple elements from the
   front of a list, you can nest `switch`{.jayret} expressions to access later
   elements.
@@ -942,7 +1002,15 @@ What’s the takeaway from this problem? There are two:
 These takeaways will matter again in future examples: keep an eye out
 for them!
 
+```{=html}
+<a name="(part._struct-prob-sub-dom)"></a>
+```
+
 #### 5.2.6 Structural Problems Over Relaxed Domains {#struct-prob-sub-dom}
+
+```{=html}
+<a name="(part._my-max)"></a>
+```
 
 ##### 5.2.6.1 my-max : Examples {#my-max}
 
@@ -1065,6 +1133,10 @@ assertRaises(() -> { my-max(empty) }, "");
 (which is how, in Jayret, we say that it will generate an error; we
 don’t care about the details of the error, hence the empty string).
 
+```{=html}
+<a name="(part._struct-traverse-element-procedure-lib-render-cond-rkt-38-12-From-Examples-to-Code)"></a>
+```
+
 ##### 5.2.6.2 my-max : From Examples to Code {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-From-Examples-to-Code}
 
 Once again, we can codify the examples above, i.e., turn them into a
@@ -1145,7 +1217,15 @@ Object my-max(l) {
 ```
 And sure enough, this definition does the job!
 
+```{=html}
+<a name="(part._More-Structural-Problems-with-Scalar-Answers)"></a>
+```
+
 #### 5.2.7 More Structural Problems with Scalar Answers {#More-Structural-Problems-with-Scalar-Answers}
+
+```{=html}
+<a name="(part._avg-eg)"></a>
+```
 
 ##### 5.2.7.1 my-avg : Examples {#avg-eg}
 
@@ -1171,6 +1251,7 @@ following two bits of information:
 
 - The average of the remainder of the list is `9/3`{.pyret}, i.e.,
   `3`{.pyret}.
+
 - The first number in the list is `1`{.pyret}.
 
 How do we determine that the average of the whole list must be
@@ -1239,7 +1320,15 @@ sum of the numbers divided by the length. Thus, writing the answers in
 this form (as opposed, for instance, to writing the second of those as
 `3`{.pyret}) already reveals a structure for a solution.
 
+```{=html}
+<a name="(part._accumulators)"></a>
+```
+
 #### 5.2.8 Structural Problems with Accumulators {#accumulators}
+
+```{=html}
+<a name="(part._running-sum-1st-attempt)"></a>
+```
 
 ##### 5.2.8.1 my-running-sum : First Attempt {#running-sum-1st-attempt}
 
@@ -1275,6 +1364,10 @@ then adding the first element to each element in the answer, and
 `Link`{.jayret}ing the first element to the front. In principle, we can
 compute this solution directly, but for
 now that may be more work than finding a simpler way to answer it.)
+
+```{=html}
+<a name="(part._running-sum-eg-code)"></a>
+```
 
 ##### 5.2.8.2 my-running-sum : Examples and Code {#running-sum-eg-code}
 
@@ -1349,6 +1442,10 @@ value, which would distort the result. In addition, since the value is
 fixed, adding the parameter would amount to shifting additional (and
 needless) work onto others who use our code.
 
+```{=html}
+<a name="(part._alternating-accumulator)"></a>
+```
+
 ##### 5.2.8.3 my-alternating : Examples and Code {#alternating-accumulator}
 
 Recall our examples in [`my-alternating`{.pyret}:
@@ -1406,12 +1503,20 @@ Define `my-max`{.pyret} using an accumulator. What does the accumulator
 represent? Do you encounter any difficulty?
 :::
 
+```{=html}
+<a name="(part._Dealing-with-Multiple-Answers)"></a>
+```
+
 #### 5.2.9 Dealing with Multiple Answers {#Dealing-with-Multiple-Answers}
 
 Our discussion above has assumed there is only one answer for a given
 input. This is often true, but it also depends on how the problem is
 worded and how we choose to generate examples. We will study this in
 some detail now.
+
+```{=html}
+<a name="(part._uniq)"></a>
+```
 
 ##### 5.2.9.1 uniq : Problem Setup {#uniq}
 
@@ -1436,6 +1541,10 @@ moment and wrote something down”, you may or may not have gotten
 something you can turn into a program. Programs can only proceed
 systematically; they can’t “think”. So, hopefully you took a
 well-defined path to computing the answer.
+
+```{=html}
+<a name="(part._uniq-eg)"></a>
+```
 
 ##### 5.2.9.2 uniq : Examples {#uniq-eg}
 
@@ -1472,6 +1581,10 @@ or
 assertEquals(uniq([1, 2, 1, 3, 1, 2, 4, 1]), [4, 3, 2, 1]);
 ```
 and so on. Let’s work with the examples we’ve worked out above.
+
+```{=html}
+<a name="(part._struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Code)"></a>
+```
 
 ##### 5.2.9.3 uniq : Code {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Code}
 
@@ -1526,6 +1639,7 @@ person, we should remove duplicate names from the list.
   duplicate names. Can you identify cases in which two names
   might appear to be the same person, but not be? Cases in which two
   names might appear different but be referring to the same person?
+
 2. What might you need to change about our current `uniq-rec`{.pyret}
   function to handle a situation like removing duplicate voters?
 :::
@@ -1545,6 +1659,10 @@ that might not apply in practice. This is again a situation that can
 be helped by thinking about the concrete examples on which your code
 needs to work in context.
 :::
+
+```{=html}
+<a name="(part._struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Reducing-Computation)"></a>
+```
 
 ##### 5.2.9.4 uniq : Reducing Computation {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Reducing-Computation}
 
@@ -1624,6 +1742,10 @@ if we knew the list didn’t contain duplicates, we wouldn’t be
 using `uniq`{.pyret} in the first place! We will return to the issue of
 lists and duplicate elements in [Representing Sets as Lists](sets-from-lists.html).
 
+```{=html}
+<a name="(part._struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Example-and-Code-Variations)"></a>
+```
+
 ##### 5.2.9.5 uniq : Example and Code Variations {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Example-and-Code-Variations}
 
 As we mentioned earlier, there are other example sequences you might
@@ -1632,8 +1754,10 @@ have written down. Here’s a very different process:
 
 - Start with the entire given list and with the empty answer (so
   far).
+
 - For each list element, check whether it’s already in the answer
   so far. If it is, ignore it, otherwise extend the answer with it.
+
 - When there are no more elements in the list, the answer so far
   is the answer for the whole list.
 
@@ -1645,6 +1769,10 @@ from the structure of the data using the computation we are already
 defining, as we did above. If we cannot, then we have to resort to an
 accumulator. But because we can, the accumulator is unnecessary here
 and greatly complicates even writing down examples (give it a try!).
+
+```{=html}
+<a name="(part._struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Why-Produce-a-List)"></a>
+```
 
 ##### 5.2.9.6 uniq : Why Produce a List? {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Why-Produce-a-List}
 
@@ -1663,6 +1791,10 @@ structure to produce isn’t necessarily the same as the one we were
 given. Also, later [[Representing Sets as Lists](sets-from-lists.html)], we will see how to build sets
 for ourselves (at which point, `uniq`{.pyret} will look familiar, since
 it is at the heart of set-ness).
+
+```{=html}
+<a name="(part._polymorphic-data)"></a>
+```
 
 #### 5.2.10 Monomorphic Lists and Polymorphic Types {#polymorphic-data}
 

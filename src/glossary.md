@@ -6,6 +6,10 @@ prev: Release_Notes.html
 up: booklet_appendices.html
 ---
 
+```{=html}
+<a name="(part._glossary)"></a>
+```
+
 ## 32 Glossary {#glossary}
 
 ☞ bandwidth

@@ -7,6 +7,10 @@ up: booklet_advanced.html
 next: deconstructing-loops.html
 ---
 
+```{=html}
+<a name="(part._factoring-numbers)"></a>
+```
+
 ## 25 Factoring Numbers {#factoring-numbers}
 
 ```{=html}

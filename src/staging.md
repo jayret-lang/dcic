@@ -7,10 +7,18 @@ up: booklet_advanced.html
 next: factoring-numbers.html
 ---
 
+```{=html}
+<a name="(part._staging)"></a>
+```
+
 ## 24 Staging {#staging}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Problem_.Definition%29">24.1<span class="hspace"> </span>Problem Definition</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Initial_.Solution%29">24.2<span class="hspace"> </span>Initial Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Refactoring%29">24.3<span class="hspace"> </span>Refactoring</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Separating_.Parameters%29">24.4<span class="hspace"> </span>Separating Parameters</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="staging.html#%28part._.Context%29">24.5<span class="hspace"> </span>Context</a></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._Problem-Definition)"></a>
 ```
 
 ### 24.1 Problem Definition {#Problem-Definition}
@@ -59,6 +67,10 @@ It takes a tree in which to search, a name to search for, and returns a count.
 Define `how-many-named`{.pyret}.
 :::
 
+```{=html}
+<a name="(part._Initial-Solution)"></a>
+```
+
 ### 24.2 Initial Solution {#Initial-Solution}
 
 Presumably you ended up with something like this:
@@ -86,6 +98,10 @@ With that, we can write a test like
 @Check void test() {
     assertEquals(how-many-named(p, "A"), 3);
 }
+```
+
+```{=html}
+<a name="(part._Refactoring)"></a>
 ```
 
 ### 24.3 Refactoring {#Refactoring}
@@ -196,6 +212,10 @@ Object how-many-named(looking-for, p) {
 and the example reads `how-many-named("A", p)`{.pyret}
 instead.
 
+```{=html}
+<a name="(part._Separating-Parameters)"></a>
+```
+
 ### 24.4 Separating Parameters {#Separating-Parameters}
 
 This sets us up for the next stage. The parameters of functions are meant to
@@ -300,6 +320,10 @@ returns a function, and the way we apply a function to arguments is
 
 ```jayret
 assertEquals(how-many-named("A")(p), 3);
+```
+
+```{=html}
+<a name="(part._Context)"></a>
 ```
 
 ### 24.5 Context {#Context}

@@ -7,6 +7,10 @@ up: part_tabular-data.html
 next: processing-tables.html
 ---
 
+```{=html}
+<a name="(part._intro-tabular-data)"></a>
+```
+
 ### 4.1 Introduction to Tabular Data {#intro-tabular-data}
 
 ```{=html}
@@ -23,11 +27,13 @@ to identify what they have in common. Here are some of them:
   conversation it’s part of, the body, and quite a bit more.
   
   ![](gmail-1.png){width="1136" height="46"}
+
 - A music playlist. For each song, your music player maintains a
   bunch of information: its name, the singer, its length, its genre, and
   so on.
   
   ![](itunes-2.png){width="740" height="91"}
+
 - A filesystem folder or directory. For each file, your filesystem
   records a name, a modification date, size, and other information.
   
@@ -41,7 +47,9 @@ How about:
 
 
 - Responses to a party invitation.
+
 - A gradebook.
+
 - A calendar agenda.
 
 You can think of many more in your life!
@@ -61,13 +69,16 @@ What do all these have in common? The characteristics of tabular data are:
   Wickham calls
   [tidy
   data](https://vita.had.co.nz/papers/tidy-data.pdf).]{.margin-note}
+
 - Each row has the same columns as the other rows, in the same
   order.
+
 - A given column has the same type, but different columns can have
   different types. For instance, an email message has a sender’s name,
   which is a string; a subject line, which is a string; a sent date,
   which is a date; whether it’s been read, which is a Boolean; and so
   on.
+
 - The rows might be in some particular order. For instance, the
   emails are ordered by which was most recently sent.
 
@@ -97,6 +108,10 @@ the name of the context as in the following image:
 [Documentation on the
 function-based table operators](https://hackmd.io/@cs111/table) is available on a separate
 page outside of the Jayret documentation.
+
+```{=html}
+<a name="(part._Creating-Tabular-Data)"></a>
+```
 
 #### 4.1.1 Creating Tabular Data {#Creating-Tabular-Data}
 
@@ -150,8 +165,11 @@ might:
 
 
 - create the sheet on your own,
+
 - create a sheet collaboratively with friends,
+
 - find data on the Web that you can import into a sheet,
+
 - create a Google Form that you get others to fill out, and obtain
   a sheet out of their responses
 
@@ -164,6 +182,10 @@ Structured data organize their inner data in a structured
 way (here, rows and columns). As with images, when we wrote code that
 reflected the structure of the final image, we will see that code that
 works with tables also follows the structure of the data.
+
+```{=html}
+<a name="(part._Extracting-Rows-and-Cell-Values)"></a>
+```
 
 #### 4.1.2 Extracting Rows and Cell Values {#Extracting-Rows-and-Cell-Values}
 
@@ -262,6 +284,10 @@ shuttle.row-n(2)[riders];
 What would Jayret do and why?
 :::
 
+```{=html}
+<a name="(part._Functions-over-Rows)"></a>
+```
+
 #### 4.1.3 Functions over Rows {#Functions-over-Rows}
 
 Now that we have the ability to isolate Rows from tables, we can write
@@ -340,6 +366,10 @@ one of its `where`{.pyret} examples, and show how the program directory
 evolves as you evaluate the example.
 :::
 
+```{=html}
+<a name="(part._Processing-Rows)"></a>
+```
+
 #### 4.1.4 Processing Rows {#Processing-Rows}
 
 So far, we have looked at extracting individual rows by their position
@@ -358,6 +388,10 @@ include the file specified in the main narrative.]{.margin-note}
 
 The rest of this section assumes that you have loaded the functions
 notations for working with tables.
+
+```{=html}
+<a name="(part._subsec-finding-rows)"></a>
+```
 
 ##### 4.1.4.1 Finding Rows {#subsec-finding-rows}
 
@@ -450,6 +484,10 @@ computations, we can do so with our usual notation for naming values:
 winter = filter-with(shuttle, is-winter);
 ```
 
+```{=html}
+<a name="(part._Ordering-Rows)"></a>
+```
+
 ##### 4.1.4.2 Ordering Rows {#Ordering-Rows}
 
 Let’s ask a new question: which winter month had the fewest number
@@ -524,6 +562,10 @@ and a column name). This is typical of how we will operate on tables,
 combining multiple operations to compute a result (much as we did with
 programs that manipulate images).
 
+```{=html}
+<a name="(part._Adding-New-Columns)"></a>
+```
+
 ##### 4.1.4.3 Adding New Columns {#Adding-New-Columns}
 
 Sometimes, we want to create a new column whose value is based on
@@ -596,6 +638,10 @@ This creates a new column, `total-wage`{.pyret}, whose value in each row
 is the product of the two named columns in that row. Jayret will put
 the new column at the right end.
 
+```{=html}
+<a name="(part._Calculating-New-Column-Values)"></a>
+```
+
 ##### 4.1.4.4 Calculating New Column Values {#Calculating-New-Column-Values}
 
 Sometimes, we just want to calculate new values for an existing
@@ -640,6 +686,10 @@ producing new tables with any modifications, then creating a new name
 for the updated table once you have the one you want, is a less
 error-prone way of working with datasets.
 
+```{=html}
+<a name="(part._Examples-for-Table-Producing-Functions)"></a>
+```
+
 #### 4.1.5 Examples for Table-Producing Functions {#Examples-for-Table-Producing-Functions}
 
 How do we write examples for functions that produce tables? Conceptually,
@@ -681,6 +731,7 @@ wages-test = table: hourly-wage row: 15 row: 20 row: 18 row: 18;
   This example shows that you can write an output table directly in the
   `where { }`{.jayret} block – the table doesn’t need to be named outside the
   function.
+
 - Create a new table by taking rows from an existing table.
   If you were instead writing examples for a function that involves filtering out rows
   of a table, it helps to know how to create a new table using rows of
@@ -705,6 +756,10 @@ value. It is only when your code is combining table operations, or
 doing more complex processing than a single call to a built-in table
 operation that you really need to present your own examples to a
 reader of your code.
+
+```{=html}
+<a name="(part._sec-lambda-tables)"></a>
+```
 
 #### 4.1.6 Lambda: Anonymous Functions {#sec-lambda-tables}
 

@@ -7,6 +7,10 @@ up: part_state.html
 next: unified-equality.html
 ---
 
+```{=html}
+<a name="(part._mutating-structures)"></a>
+```
+
 ### 12.1 Mutating Structures {#mutating-structures}
 
 ```{=html}
@@ -19,6 +23,10 @@ responsibility. We will develop this idea in both Jayret and Python,
 both because the core concept arises in both (indeed in nearly all)
 languages and
 because their contrast is instructive.
+
+```{=html}
+<a name="(part._eg-bank-acc)"></a>
+```
 
 #### 12.1.1 Example: Bank Accounts {#eg-bank-acc}
 
@@ -186,6 +194,10 @@ instruction—i.e., the same piece of program text—may produce
 different answers. This makes programming much harder, and we will
 have to get used to the subtleties that come along with it.
 
+```{=html}
+<a name="(part._Testing-Functions-that-Mutate-Structures)"></a>
+```
+
 #### 12.1.2 Testing Functions that Mutate Structures {#Testing-Functions-that-Mutate-Structures}
 
 Our example of adding funds to an account corresponds to making a
@@ -214,8 +226,11 @@ three to four parts:
 
 
 1. Setup: set up the necessary values to provide the function.
+
 2. Call: call the function.
+
 3. Check: check that the function had the desired behavior.
+
 4. Teardown: restore data to their expected state.
 
 ```{=html}
@@ -265,6 +280,10 @@ Write tests for the following function that adds interest to an account balance:
 end</code></pre></div></div></p></td></tr></table>
 ```
 :::
+
+```{=html}
+<a name="(part._mult-bank-acct)"></a>
+```
 
 #### 12.1.3 Aliasing {#mult-bank-acct}
 
@@ -341,6 +360,7 @@ There are two very reasonable answers here:
 
 1. Going by our prose, Jorge’s account should also have `850`{.pyret},
   because that’s what it means to “share” an account.
+
 2. Going by the visible code, Jorge’s account should still have
   `700`{.pyret}, because the update was made through `elena.acct`{.pyret},
   not `jorge.acct`{.pyret}.
@@ -367,6 +387,10 @@ this. Because only `ref`{.pyret} fields are mutable in Jayret, you can be
 sure that fields accessed through `.`{.pyret} will never change in value
 over time or even if there are aliases, but those accessed through
 `!`{.pyret} might change over time (and via aliases).
+
+```{=html}
+<a name="(part._structure-mut-dir)"></a>
+```
 
 #### 12.1.4 Structure Mutation and the Directory {#structure-mut-dir}
 
@@ -450,6 +474,10 @@ without mutation. But once we have both mutation and aliasing, this
 simple idea of mapping names to values breaks down because it
 doesn’t capture the aliases. We need a refined representation of the
 connections between names and values that does capture aliasing.
+
+```{=html}
+<a name="(part._heap-intro)"></a>
+```
 
 ##### 12.1.4.1 Introducing the Heap {#heap-intro}
 
@@ -580,15 +608,21 @@ programs:
 
 1. If the code construct a new piece of structured data, put the
   new piece of structured data at the next address in the heap.
+
 2. If the code associates a name with a piece of structured data,
   the directory should map the name to the address of the datum in the
   heap.
+
 3. If the code modifies a field within structured data, modify the
   data in the heap.
 
 In the example above, we did not alter the heap in any way; only the
 directory should be modified to reflect that `acct3`{.python} and
 `acct1`{.python} are now aliases.
+
+```{=html}
+<a name="(part._basic-data-heap)"></a>
+```
 
 ##### 12.1.4.2 Basic Data and the Heap {#basic-data-heap}
 

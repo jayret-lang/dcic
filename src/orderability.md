@@ -7,10 +7,18 @@ up: part_sets.html
 next: sets-case-study.html
 ---
 
+```{=html}
+<a name="(part._orderability)"></a>
+```
+
 ### 18.5 Equality, Ordering, and Hashing {#orderability}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="orderability.html#%28part._hashing-values%29">18.5.1<span class="hspace"> </span>Converting Values to Ordered Values</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="orderability.html#%28part._hash-in-practice%29">18.5.2<span class="hspace"> </span>Hashing in Practice</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="orderability.html#%28part._eq-ord%29">18.5.3<span class="hspace"> </span>Equality and Ordering</a></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._hashing-values)"></a>
 ```
 
 #### 18.5.1 Converting Values to Ordered Values {#hashing-values}
@@ -111,6 +119,7 @@ function concludes that the hash of `4`{.pyret} is less than the hash of
 
 
 - non-trivial: not everything should be equal; and
+
 - deterministic: every time we ask for a hash, we should get
   the same answer.
 
@@ -118,6 +127,10 @@ function concludes that the hash of `4`{.pyret} is less than the hash of
 Why do we care about these two properties? Think about what would could go
 wrong if each one was violated.
 :::
+
+```{=html}
+<a name="(part._hash-in-practice)"></a>
+```
 
 #### 18.5.2 Hashing in Practice {#hash-in-practice}
 
@@ -156,6 +169,10 @@ sufficient to illustrate how hashing works. Second, in practice, when
 built-in hashing does not suffice, we do write (more complex versions
 of) functions like the above. And finally, because it’s all laid bare,
 it’s easy for us to experiment with.
+
+```{=html}
+<a name="(part._eq-ord)"></a>
+```
 
 #### 18.5.3 Equality and Ordering {#eq-ord}
 

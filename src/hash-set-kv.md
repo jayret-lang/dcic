@@ -7,6 +7,10 @@ up: part_sets.html
 next: orderability.html
 ---
 
+```{=html}
+<a name="(part._hash-set-kv)"></a>
+```
+
 ### 18.4 Hashes, Sets, and Key-Values {#hash-set-kv}
 
 ```{=html}
@@ -25,6 +29,10 @@ will use it to construct sets in a very different way.
 We will then generalize sets to another important data
 structure: key-value repositories. But first…
 
+```{=html}
+<a name="(part._hash-string)"></a>
+```
+
 #### 18.4.1 A Hash Function for Strings {#hash-string}
 
 As we have seen in [Converting Values to Ordered Values](orderability.html##hashing-values), we have multiple
@@ -40,6 +48,10 @@ illustrate some of the consequences of hashing. Second, in practice,
 when built-in hashing does not suffice, we do write (more complex
 versions of) functions like it. And finally, because it’s all laid
 bare, it’s easy for us to experiment with.
+
+```{=html}
+<a name="(part._Sets-from-Hashing)"></a>
+```
 
 #### 18.4.2 Sets from Hashing {#Sets-from-Hashing}
 
@@ -59,9 +71,11 @@ note:
 
 
 - inserting the element can now take as much as linear time; or,
+
 - we store the elements as a tree instead of a list, but then
   
   1. we have to make sure the tree is balanced, so
+
   2. we will have essentially reconstructed the BBST.
 
 In other words, we are recapitulating the discussion from
@@ -74,6 +88,10 @@ only a constant amount of work? For that, lists and trees don’t work:
 they both require at least some amount of (non-constant) traversal to
 get to an arbitrary element. Instead we need a different data
 structure…
+
+```{=html}
+<a name="(part._Arrays)"></a>
+```
 
 #### 18.4.3 Arrays {#Arrays}
 
@@ -99,6 +117,10 @@ The arrays in Jayret are
 While not necessary in principle, it is conventional to think of
 arrays as data structures that support mutation, and that is how we
 will use them here.
+
+```{=html}
+<a name="(part._hash-tables)"></a>
+```
 
 #### 18.4.4 Sets from Hashing and Arrays {#hash-tables}
 
@@ -126,6 +148,10 @@ Object is-in(String s) {
 Observe that if this were to work, we would have constant time
 insertion and membership checking. Unfortunately, two things make this
 plan untenable in general.
+
+```{=html}
+<a name="(part._Collisions)"></a>
+```
 
 #### 18.4.5 Collisions {#Collisions}
 
@@ -220,6 +246,7 @@ To handle arbitrarily large values, we:
 
 - use an array size that is reasonable given our memory
   constraints
+
 - use the remainder of the hash relative to the array’s
   size to find the bucket
 
@@ -248,6 +275,10 @@ Observe, however, we have simply created yet another source of
 collisions: the remainder computation. If we have 10 buckets, then the
 hashes 5, 15, 25, 35, … all refer to the same bucket. Thus, there are
 two sources of collision, and we have to deal with them both.
+
+```{=html}
+<a name="(part._Resolving-Collisions)"></a>
+```
 
 #### 18.4.6 Resolving Collisions {#Resolving-Collisions}
 
@@ -300,6 +331,10 @@ Now our tests pass as intended:
 }
 ```
 
+```{=html}
+<a name="(part._hash-comp)"></a>
+```
+
 #### 18.4.7 Complexity {#hash-comp}
 
 Now we have yet another working implementation for (some primitives
@@ -344,6 +379,10 @@ caveats about duplicates as the list-based representation. In many
 cases—depending on the nature of the data and parameters set for the
 array—they can be much closer to constant time. As a result, they
 tend to be very popular in practice.
+
+```{=html}
+<a name="(part._bloom-filters)"></a>
+```
 
 #### 18.4.8 Bloom Filters {#bloom-filters}
 
@@ -437,6 +476,10 @@ about the distribution of hash values, and we have some acceptable
 bound of error, we can design hash table sizes so that with high
 probability, the Bloom Filter will lie within the acceptable error
 bounds.
+
+```{=html}
+<a name="(part._Generalizing-from-Sets-to-Key-Values)"></a>
+```
 
 #### 18.4.9 Generalizing from Sets to Key-Values {#Generalizing-from-Sets-to-Key-Values}
 

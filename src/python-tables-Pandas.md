@@ -7,6 +7,10 @@ up: part_python-tables.html
 next: pandas-reshape-tables.html
 ---
 
+```{=html}
+<a name="(part._python-tables-Pandas)"></a>
+```
+
 ### 10.1 Introduction to Pandas {#python-tables-Pandas}
 
 ```{=html}
@@ -28,7 +32,15 @@ top of your file:
 import pandas as pd
 ```
 
+```{=html}
+<a name="(part._Pandas-Table-Basics)"></a>
+```
+
 #### 10.1.1 Pandas Table Basics {#Pandas-Table-Basics}
+
+```{=html}
+<a name="(part._Core-Datatypes-Data-Frame-and-Series)"></a>
+```
 
 ##### 10.1.1.1 Core Datatypes: DataFrame and Series {#Core-Datatypes-Data-Frame-and-Series}
 
@@ -45,12 +57,17 @@ columns. DataFrames are built out of two more basic types:
   position. Nearly every programming language offers both lists and
   arrays; a detailed contrast is beyond the scope of this book (this
   information would be covered in a data structures class).
+
 - A Series is an array in which the positions optionally have
   labels in addition to the position numbers.
 
 In Pandas, a row is a Series in which an array of the cell values
 is labeled with the column headers (this is similar to the ‘Row‘
 datatype in Jayret). A DataFrame is a series of these rows.
+
+```{=html}
+<a name="(part._Creating-and-Loading-Data-Frames)"></a>
+```
 
 ##### 10.1.1.2 Creating and Loading DataFrames {#Creating-and-Loading-Data-Frames}
 
@@ -109,6 +126,10 @@ the discount column will contain `NaN`{.python}, which is the standard
 Python value for “missing information”. We will deal with that
 information shortly.
 
+```{=html}
+<a name="(part._Using-Labels-and-Indices-to-Access-Cells)"></a>
+```
+
 ##### 10.1.1.3 Using Labels and Indices to Access Cells {#Using-Labels-and-Indices-to-Access-Cells}
 
 Rows, columns, and cells can be accessed using either their (numeric)
@@ -135,6 +156,10 @@ In a DataFrame, both rows and columns always have position indices and may
 have labels. The `.loc`{.python} notation works on either rows or
 columns, we just happened to illustrate the notation on the rows since
 we had already created labels on the columns when we loaded `events`{.python}.
+
+```{=html}
+<a name="(part._Filtering-Rows)"></a>
+```
 
 #### 10.1.2 Filtering Rows {#Filtering-Rows}
 
@@ -251,6 +276,10 @@ engineered to run more efficiently under the hood. As a general rule,
 only default to basic loops if there is no built-in operator to do the
 computation that you have in mind.]{.margin-note}
 
+```{=html}
+<a name="(part._Cleaning-and-Normalizing-Data)"></a>
+```
+
 #### 10.1.3 Cleaning and Normalizing Data {#Cleaning-and-Normalizing-Data}
 
 The same operator-lifting idea that we just saw when creating masks
@@ -302,6 +331,10 @@ destroying the original table. There are many nuances to having
 operations destroy and replace data; the chapter on
 [Mutating Structures](mutating-structures.html) studies them in detail.
 
+```{=html}
+<a name="(part._Clearing-out-unknown-values)"></a>
+```
+
 ##### 10.1.3.1 Clearing out unknown values {#Clearing-out-unknown-values}
 
 Now let’s try a different cleaning and normalization problem: we want
@@ -322,8 +355,11 @@ If you planned out the tasks, you might have a todo list like the
 following:
 
 1. create a mask of rows with known discount codes
+
 2. invert that mask (swap the false and true values)
+
 3. filter the DataFrame to rows without a known discount code
+
 4. replace all the discount column values in that DataFrame with an
   empty string
 
@@ -386,15 +422,22 @@ Summarizing, the code pattern for updating values for a column in some
 rows of a DataFrame is as follows:
 
 - make a boolean series mask for which rows to update
+
 - use the mask to select just the rows where the mask is true
+
 - use `.loc`{.python} with the mask and column name to select the
   series of cells to update
+
 - use `=`{.python} to give those cells their new value
 
 ::: {.exercise}
 Follow the above pattern to transform all delivery values of
 `'yes'`{.python} to `'pickup'`{.python}.
 :::
+
+```{=html}
+<a name="(part._Repairing-Values-and-Column-Types)"></a>
+```
 
 ##### 10.1.3.2 Repairing Values and Column Types {#Repairing-Values-and-Column-Types}
 
@@ -452,6 +495,10 @@ events['numtix'] = events['numtix'].astype('int')
 events['numtix'].sum()    # now this works
 ```
 
+```{=html}
+<a name="(part._Computing-New-Columns)"></a>
+```
+
 #### 10.1.4 Computing New Columns {#Computing-New-Columns}
 
 Let’s extend the events table with the total cost of tickets, while
@@ -483,6 +530,10 @@ operations `build-column`{.pyret} and `transform-column`{.pyret}). In
 Pandas, a new column is created if the given column name doesn’t
 already exist in the DataFrame; otherwise, the existing column with
 the given name gets updated.
+
+```{=html}
+<a name="(part._Aggregating-and-Grouping-Columns)"></a>
+```
 
 #### 10.1.5 Aggregating and Grouping Columns {#Aggregating-and-Grouping-Columns}
 
@@ -542,6 +593,10 @@ that can used on `GroupBy`{.python} data; these cover computations such
 as counting, mean, finding largest and smallest values, and performing
 various other statistical operations.
 
+```{=html}
+<a name="(part._Wide-Versus-Tall-Data)"></a>
+```
+
 #### 10.1.6 Wide Versus Tall Data {#Wide-Versus-Tall-Data}
 
 Let’s try grouping data on a different dataset. Here’s a table showing
@@ -567,8 +622,11 @@ answer with the operations you have, explain what’s difficult about
 answering that question.
 
 1. In which month did the northwest region have the lowest sales?
+
 2. What were the total sales per month across all regions?
+
 3. Which region had the highest sales in April?
+
 4. Which region had the highest sales for the entire year?
 :::
 
@@ -656,6 +714,10 @@ that value. Wide tables tend to be easier for people to read; as we
 have seen with our sales data, tall tables can be easier to process in
 code, depending on how our questions align with our variables.
 
+```{=html}
+<a name="(part._Converting-Between-Wide-and-Tall-Data)"></a>
+```
+
 ##### Converting Between Wide and Tall Data {#Converting-Between-Wide-and-Tall-Data}
 
 Table-processing packages generally provide built-in operators for
@@ -707,6 +769,10 @@ tot_sales_region.sort_values('sales',ascending=False).reset_index().iloc[0]['reg
 The solution to question 4 uses a new Pandas operator called
 `reset_index`{.python}, which is needed if you want to manipulate the
 output of a `group-by`{.python} as a regular DataFrame.
+
+```{=html}
+<a name="(part._Plotting-Data)"></a>
+```
 
 #### 10.1.7 Plotting Data {#Plotting-Data}
 
@@ -760,6 +826,10 @@ customizations to graph layouts. A more comprehensive look is beyond
 the scope of this book; see the [matplotlib website](https://matplotlib.org/stable/index.html) for
 tutorials and many examples of more sophisticated plots.
 
+```{=html}
+<a name="(part._Takeaways)"></a>
+```
+
 #### 10.1.8 Takeaways {#Takeaways}
 
 This chapter has been designed to give you an overview of Pandas while
@@ -777,6 +847,7 @@ this chapter:
   operations that extract rows from tables maintain labeled indices, but
   renumber the positional ones (so that every DataFrame has a sequence
   of consecutively-numbered rows).
+
 - Professional-grade programming languages sometimes “lift”
   operations from single values to collections of values (e.g., using
   `+`{.python} to add elements within similarly-sized series). Lifting can
@@ -784,6 +855,7 @@ this chapter:
   lead to type confusions for both novices and experienced
   programmers. You should be aware that this feature exists as you learn
   new languages and packages.
+
 - Different table organizations (for the same data) are better in
   different situations. Wide and tall tables are two general shapes,
   each with their own affordances. You should be aware that

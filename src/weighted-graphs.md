@@ -7,6 +7,10 @@ up: part_graphs.html
 next: lightest-paths.html
 ---
 
+```{=html}
+<a name="(part._weighted-graphs)"></a>
+```
+
 ### 17.3 Graphs With Weighted Edges {#weighted-graphs}
 
 ```{=html}

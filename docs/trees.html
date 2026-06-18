@@ -122,8 +122,10 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="part_trees.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_trees.html">up</a>&nbsp;&nbsp;<a href="part_bonus-foundations.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._trees)"></a>
 <h3 id="trees">7.1 Trees</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._ancestor-trees%29">7.1.1<span class="hspace"> </span>Data Design Problem – Ancestry Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._compute-parents-table%29">7.1.1.1<span class="hspace"> </span>Computing Genetic Parents from an Ancestry Table</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._.Computing_.Grandparents_from_an_.Ancestry_.Table%29">7.1.1.2<span class="hspace"> </span>Computing Grandparents from an Ancestry Table</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._ancestor-tree%29">7.1.1.3<span class="hspace"> </span>Creating a Datatype for Ancestor Trees</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._.Programs_to_.Process_.Ancestor_.Trees%29">7.1.2<span class="hspace"> </span>Programs to Process Ancestor Trees</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._.Summarizing_.How_to_.Approach_.Tree_.Problems%29">7.1.3<span class="hspace"> </span>Summarizing How to Approach Tree Problems</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._.Study_.Questions%29">7.1.4<span class="hspace"> </span>Study Questions</a></p></td></tr></table>
+<a name="(part._ancestor-trees)"></a>
 <h4 id="ancestor-trees">7.1.1 Data Design Problem – Ancestry Data</h4>
 <p>Imagine that we wanted to manage ancestry information for purposes of
 a medical research study. Specifically, we want to record people’s
@@ -133,12 +135,13 @@ such data, with one row for each person:</p>
 <p>For our research, we want to be able to answer questions such as the
 following:</p>
 <ul>
-<li>Who are the genetic grandparents of a specific person?</li>
-<li>How frequent is each eye color?</li>
-<li>Is one specific person an ancestor of another specific person?</li>
-<li>How many generations do we have information for?</li>
-<li>Does one’s eye color correlate with the ages of their genetic
-parents when they were born?</li>
+<li><p>Who are the genetic grandparents of a specific person?</p></li>
+<li><p>How frequent is each eye color?</p></li>
+<li><p>Is one specific person an ancestor of another specific
+person?</p></li>
+<li><p>How many generations do we have information for?</p></li>
+<li><p>Does one’s eye color correlate with the ages of their genetic
+parents when they were born?</p></li>
 </ul>
 <p>Let’s start with the first question:</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>How would you compute a list of the known grandparents for a given
@@ -156,15 +159,16 @@ it
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parents-of</code></span>).
 Since this sounds like a routine table program, we can use it for a bit
 of review:</p>
+<a name="(part._compute-parents-table)"></a>
 <h5 id="compute-parents-table">7.1.1.1 Computing Genetic Parents from an
 Ancestry Table</h5>
 <p>How do we compute a list of someone’s genetic parents? Let’s sketch a
 task plan for that:</p>
 <ul>
-<li>filter the table to find the person</li>
-<li>extract the name of the female parent</li>
-<li>extract the name of the male parent</li>
-<li>make a list of those names</li>
+<li><p>filter the table to find the person</p></li>
+<li><p>extract the name of the female parent</p></li>
+<li><p>extract the name of the male parent</p></li>
+<li><p>make a list of those names</p></li>
 </ul>
 <p>These are tasks we have seen before, so we can translate this plan
 directly into code:</p>
@@ -187,19 +191,19 @@ block? Write down any critiques you have.</p></blockquote></blockquote>
 <p>There are arguably some issues here. How many of these did you
 catch?</p>
 <ul>
-<li>The examples are weak: none of them consider people for whom we are
-missing information on at least one parent.</li>
-<li>The list of names returned in the case of an unknown parent includes
-the empty string, which isn’t actually a name. This could cause problems
-if we use this list of names in a subsequent computation (such as to
-compute the names of someone’s grandparents).</li>
-<li>If empty strings are not part of the output list, then we’d get the
-same result from asking for the parents of
+<li><p>The examples are weak: none of them consider people for whom we
+are missing information on at least one parent.</p></li>
+<li><p>The list of names returned in the case of an unknown parent
+includes the empty string, which isn’t actually a name. This could cause
+problems if we use this list of names in a subsequent computation (such
+as to compute the names of someone’s grandparents).</p></li>
+<li><p>If empty strings are not part of the output list, then we’d get
+the same result from asking for the parents of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Robert"</code></span>
 (who is in the table) as for
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">"Kathi"</code></span>
 (who is not). These are fundamentally different cases, which arguably
-demand different outputs so we can tell them apart.</li>
+demand different outputs so we can tell them apart.</p></li>
 </ul>
 <p>To fix these problems, we need to remove the empty strings from the
 produced list of parents and return something other than the
@@ -239,6 +243,7 @@ to check the equality of values, we use
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raises</code></span>
 to check whether the provided string is a sub-string of the actual error
 produced by the program.</p>
+<a name="(part._Computing-Grandparents-from-an-Ancestry-Table)"></a>
 <h5 id="Computing-Grandparents-from-an-Ancestry-Table">7.1.1.2 Computing
 Grandparents from an Ancestry Table</h5>
 <p>Once we have the
@@ -291,6 +296,7 @@ table in each use of
 filtering there – we just follow the line in the picture immediately
 from a person to their mother or father. Can we get that idea in code
 instead? Yes, through datatypes.</p>
+<a name="(part._ancestor-tree)"></a>
 <h5 id="ancestor-tree">7.1.1.3 Creating a Datatype for Ancestor
 Trees</h5>
 <p>For this approach, we want to create a datatype for Ancestor Trees
@@ -308,11 +314,11 @@ anna-row = person("Anna", 1997, "blue", ???, ???)</code></pre></div></div>
 <p>What type do we put in the blanks? A quick brainstorm yields several
 ideas:</p>
 <ul>
-<li><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">person</code></span></li>
-<li><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">List &lt; person &gt;</code></span></li>
-<li>some new datatype</li>
-<li><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span></li>
-<li><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span></li>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">person</code></span></p></li>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">List &lt; person &gt;</code></span></p></li>
+<li><p>some new datatype</p></li>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">AncTree</code></span></p></li>
+<li><p><span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">String</code></span></p></li>
 </ul>
 <p>Which should it be?</p>
 <p>If we use a
@@ -364,6 +370,7 @@ function written against
     }
 }
 // person bit more complicated if parent is missing</code></pre></div></div>
+<a name="(part._Programs-to-Process-Ancestor-Trees)"></a>
 <h4 id="Programs-to-Process-Ancestor-Trees">7.1.2 Programs to Process
 Ancestor Trees</h4>
 <p>How would we write a function to determine whether anyone in the tree
@@ -435,6 +442,7 @@ combine them with
 }
 // n is the same as at.name
 // m is the same as at.mother</code></pre></div></div>
+<a name="(part._Summarizing-How-to-Approach-Tree-Problems)"></a>
 <h4 id="Summarizing-How-to-Approach-Tree-Problems">7.1.3 Summarizing How
 to Approach Tree Problems</h4>
 <p>We design tree programs using the same design recipe that we covered
@@ -467,22 +475,25 @@ function called treeF:</p>
 problem</p></li>
 <li><p>Test your code using your examples</p></li>
 </ul></blockquote></blockquote>
+<a name="(part._Study-Questions)"></a>
 <h4 id="Study-Questions">7.1.4 Study Questions</h4>
 <ul>
-<li>Think of writing in-tree on a table (using filter-by) vs writing it
-on a tree. How many times might each approach compare the name being
-sought against a name in the table/tree?</li>
-<li>Why do we need to use a recursive function to process the tree?</li>
-<li>In what order will we check the names in the tree version?</li>
+<li><p>Think of writing in-tree on a table (using filter-by) vs writing
+it on a tree. How many times might each approach compare the name being
+sought against a name in the table/tree?</p></li>
+<li><p>Why do we need to use a recursive function to process the
+tree?</p></li>
+<li><p>In what order will we check the names in the tree
+version?</p></li>
 </ul>
 <p>For practice, try problems such as</p>
 <ul>
-<li>How many blue-eyed people are in the tree?</li>
-<li>How many people are in the tree?</li>
-<li>How many generations are in the tree?</li>
-<li>How many people have a given name in a tree?</li>
-<li>How many people have names starting with “A”?</li>
-<li>… and so on</li>
+<li><p>How many blue-eyed people are in the tree?</p></li>
+<li><p>How many people are in the tree?</p></li>
+<li><p>How many generations are in the tree?</p></li>
+<li><p>How many people have a given name in a tree?</p></li>
+<li><p>How many people have names starting with “A”?</p></li>
+<li><p>… and so on</p></li>
 </ul>
 <div class="navsetbottom">
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>

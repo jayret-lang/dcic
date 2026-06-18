@@ -7,11 +7,19 @@ up: part_foundations.html
 next: From_Repeated_Expressions_to_Functions.html
 ---
 
+```{=html}
+<a name="(part._Naming-Values)"></a>
+```
+
 ### 3.2 Naming Values {#Naming-Values}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-defns-pane%29">3.2.1<span class="hspace"> </span>The Definitions Pane</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-name-vals%29">3.2.2<span class="hspace"> </span>Naming Values</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-strings%29">3.2.2.1<span class="hspace"> </span>Names Versus Strings</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-expr-statements%29">3.2.2.2<span class="hspace"> </span>Expressions versus
 Statements</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._program-directory%29">3.2.3<span class="hspace"> </span>The Program Directory</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._.Understanding_the_.Run_.Button%29">3.2.3.1<span class="hspace"> </span>Understanding the Run Button</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="Naming_Values.html#%28part._naming-for-images%29">3.2.4<span class="hspace"> </span>Using Names to Streamline Building Images</a></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._naming-defns-pane)"></a>
 ```
 
 #### 3.2.1 The Definitions Pane {#naming-defns-pane}
@@ -25,6 +33,10 @@ The left pane is called the definitions pane. This is where
 you can put code that you want
 to save to a file. It has another use, too:
 it can help you organize your code as your expressions get larger.
+
+```{=html}
+<a name="(part._naming-name-vals)"></a>
+```
 
 #### 3.2.2 Naming Values {#naming-name-vals}
 
@@ -70,6 +82,10 @@ CPO (and indeed many programming tools) use the phrase “unbound identifier”
 when an expression contains a name that has not been associated with
 (or bound to) a value.
 
+```{=html}
+<a name="(part._naming-strings)"></a>
+```
+
 ##### 3.2.2.1 Names Versus Strings {#naming-strings}
 
 At this point, we have seen words being used in two ways in
@@ -80,6 +96,7 @@ uses, so it is worth reviewing them.
 - Syntactically (another way of saying “in terms of how we write it”), we
   distinguish strings and names by the presence of double quotation
   marks. Note the difference between `puppy`{.pyret} and `"puppy"`{.pyret}.
+
 - Strings can contain spaces, but names cannot. For example,
   `"hot pink"`{.pyret} is a valid piece of data, but `hot;
 pink`{.jayret} is not
@@ -96,6 +113,7 @@ pink`{.jayret} is not
   quotes) you are simply writing down a piece of data (akin to typing a
   number like `3`{.pyret}): Jayret returns the value you
   entered as the result of the computation.
+
 - If you enter a name that you have not previously associated with
   a value, Jayret will give you an “unbound identifier” error
   message. In contrast, since strings are just data, you won’t get an
@@ -108,6 +126,10 @@ now, remember that the names you associate with values using `=`{.pyret}
 cannot contain quotation marks, while word- or text-based data must
 be wrapped in double quotes.
 
+```{=html}
+<a name="(part._naming-expr-statements)"></a>
+```
+
 ##### 3.2.2.2 Expressions versus Statements {#naming-expr-statements}
 
 Definitions and expressions are two useful aspects of programs, each
@@ -119,8 +141,11 @@ the result.
 Enter each of the following at the interactions prompt:
 
 - `5 + 8`{.pyret}
+
 - `x = 14 + 16`{.pyret}
+
 - `triangle(20, "solid", "purple")`{.pyret}
+
 - `blue-circ = circle(x, "solid", "blue")`{.pyret}
 
 The first and third are expressions, while the second and fourth are
@@ -150,6 +175,10 @@ between making a definition and using a defined name. One produces a
 value while the other does not. But surely something must
 happen, somewhere, when you run a definition. Otherwise, how
 could you use that name later?
+
+```{=html}
+<a name="(part._program-directory)"></a>
+```
 
 #### 3.2.3 The Program Directory {#program-directory}
 
@@ -223,6 +252,10 @@ with an existing name with the `name = value`{.pyret} notation. While
 there is a notation that will let you reassign values, we won’t work
 with this concept until [Mutating Variables](mutating-variables.html).
 
+```{=html}
+<a name="(part._Understanding-the-Run-Button)"></a>
+```
+
 ##### 3.2.3.1 Understanding the Run Button {#Understanding-the-Run-Button}
 
 Now that we’ve learned about the program directory, let’s discuss what happens when you
@@ -279,6 +312,10 @@ Imagine that we now hit the Run button again, then typed
 `two-rects`{.pyret} at the interactions prompt. How would Jayret respond
 and why?
 :::
+
+```{=html}
+<a name="(part._naming-for-images)"></a>
+```
 
 #### 3.2.4 Using Names to Streamline Building Images {#naming-for-images}
 

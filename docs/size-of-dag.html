@@ -120,6 +120,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="Sharing_and_Equality.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_dags.html">up</a>&nbsp;&nbsp;<a href="part_graphs.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._size-of-dag)"></a>
 <h3 id="size-of-dag">16.2 The Size of a DAG</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_1%29">16.2.1<span class="hspace"> </span>Stage 1</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_2%29">16.2.2<span class="hspace"> </span>Stage 2</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_3%29">16.2.3<span class="hspace"> </span>Stage 3</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_4%29">16.2.4<span class="hspace"> </span>Stage 4</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.Stage_5%29">16.2.5<span class="hspace"> </span>Stage 5</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.What_.We~e2~80~99ve_.Learned%29">16.2.6<span class="hspace"> </span>What We’ve Learned</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="size-of-dag.html#%28part._.More_on_.Value_.Printing__.An_.Aside_from_.Racket%29">16.2.7<span class="hspace"> </span>More on Value Printing: An Aside from Racket</a></p></td></tr></table>
 <p>Let’s start by defining a function to compute the size of a tree:</p>
@@ -151,6 +152,7 @@ is the DAG. There are two notions of size here. One is like a “print
 size”: how much space will it occupy when printed. The current size
 function computes that well. But another is the “allocation” size: how
 many nodes did we allocate. How do we fare?</p>
+<a name="(part._Stage-1)"></a>
 <h4 id="Stage-1">16.2.1 Stage 1</h4>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
     assertEquals(size-1(n1), 1);
@@ -169,6 +171,7 @@ contract: we’ll split the problem into two parts, a standard interface
 function that takes just the DAG and returns a number, and a richer
 helper function, which also takes a memory of the nodes already
 seen.</p>
+<a name="(part._Stage-2)"></a>
 <h4 id="Stage-2">16.2.2 Stage 2</h4>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">int size-2-h(BT b, List&lt;Object&gt; seen) {
     return if (member-identical(seen, b)) {
@@ -223,6 +226,7 @@ write a wrapper for it:</p>
 construct in
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">size-2-h</code></span>
 to figure out why.</p></blockquote></blockquote>
+<a name="(part._Stage-3)"></a>
 <h4 id="Stage-3">16.2.3 Stage 3</h4>
 <p>Did you remember to use
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">spy</code></span>?
@@ -276,6 +280,7 @@ answer for the purpose of testing:</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Must
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">seen</code></span>
 be a list? What else can it be?</p></blockquote></blockquote>
+<a name="(part._Stage-4)"></a>
 <h4 id="Stage-4">16.2.4 Stage 4</h4>
 <p>Observe that the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Ret</code></span>
@@ -319,6 +324,7 @@ declares the contract of a tuple. Also,
 extracts the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">0</code></span>th
 element (the leftmost one) of a tuple.</p>
+<a name="(part._Stage-5)"></a>
 <h4 id="Stage-5">16.2.5 Stage 5</h4>
 <p>Notice that we have the two instances of the code
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">/* TODO(pyret2jayret): tuples deferred in Jayret v0.1 */ {0 ;seen}</code></span>.
@@ -370,6 +376,7 @@ n10 = nd(10, n11, n12);
 <p>Sure enough, if either tuple now returns
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">empty</code></span>,
 this test fails. Otherwise it succeeds.</p>
+<a name="(part._What-We-e2-80-99ve-Learned)"></a>
 <h4 id="What-We-e2-80-99ve-Learned">16.2.6 What We’ve Learned</h4>
 <p>We have learned three important principles here:</p>
 <ul>
@@ -402,6 +409,7 @@ tools; we can also apply the principle of mutation testing by hand, as
 we have above. At the very least, it will help us understand our program
 better!</p></li>
 </ul>
+<a name="(part._More-on-Value-Printing-An-Aside-from-Racket)"></a>
 <h4 id="More-on-Value-Printing-An-Aside-from-Racket">16.2.7 More on
 Value Printing: An Aside from Racket</h4>
 <p>Earlier, we talked about how the standard recursive size can still be

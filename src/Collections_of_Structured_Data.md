@@ -7,6 +7,10 @@ up: part_structured-data.html
 next: part_trees.html
 ---
 
+```{=html}
+<a name="(part._Collections-of-Structured-Data)"></a>
+```
+
 ### 6.2 Collections of Structured Data {#Collections-of-Structured-Data}
 
 ```{=html}
@@ -34,7 +38,9 @@ collections of structured data. Here are more examples:
 
 
 - The set of messages matching a tag.
+
 - The list of messages in a conversation.
+
 - The set of friends of a user.
 
 ::: {.do-now}
@@ -59,8 +65,11 @@ can have. Here are some more:
 
 
 - A family tree of people.
+
 - The filesystem on your computer.
+
 - A seating chart at a party.
+
 - A social network of pages.
 
 and so on. For the most part these are just as easy to program and
@@ -70,6 +79,10 @@ experience, though some of them [[Re-Examining Equality](Sharing_and_Equality.ht
 We have already seen tables [[Introduction to Tabular Data](intro-tabular-data.html)], which are
 a form of collective, structured data. Now we will look at a few more,
 and how to program them.
+
+```{=html}
+<a name="(part._Lists-as-Collective-Data)"></a>
+```
 
 #### 6.2.1 Lists as Collective Data {#Lists-as-Collective-Data}
 
@@ -166,6 +179,10 @@ int oldest-song-age(List<Object> sl) {
 }
 ```
 
+```{=html}
+<a name="(part._sets-as-collections)"></a>
+```
+
 #### 6.2.2 Sets as Collective Data {#sets-as-collections}
 
 As we’ve already seen, for some problems we don’t care about the order
@@ -177,6 +194,7 @@ care about order or duplicates:
   visited, and some Web sites use this information to color visited
   links differently than ones you haven’t seen. This color is typically
   independent of how many times you have visited the page.
+
 - During an election, a poll agent might record that you have
   voted, but does not need to record how many times you have voted, and
   does not care about the order in which people vote.
@@ -226,6 +244,10 @@ Similarly for duplicates:
 ```
 We can again try several different kinds of duplication and confirm
 that sets ignore them.
+
+```{=html}
+<a name="(part._coll-sd-pick)"></a>
+```
 
 ##### 6.2.2.1 Picking Elements from Sets {#coll-sd-pick}
 
@@ -291,6 +313,10 @@ what we can write are tests that ensure the resulting element is a
 member of the set—though in this case, that would not be
 particularly surprising.
 
+```{=html}
+<a name="(part._Computing-with-Sets)"></a>
+```
+
 ##### 6.2.2.2 Computing with Sets {#Computing-with-Sets}
 
 Once we have picked an element from a set, it’s often useful to obtain
@@ -318,6 +344,10 @@ Though the process of deriving this is similar to that we used for
 `my-len`{.pyret}, the random nature of picking elements makes it harder to
 write examples that the actual function’s behavior will match.
 
+```{=html}
+<a name="(part._Combining-Structured-and-Collective-Data)"></a>
+```
+
 #### 6.2.3 Combining Structured and Collective Data {#Combining-Structured-and-Collective-Data}
 
 As the above examples illustrate, a program’s data organization will
@@ -329,7 +359,9 @@ Come up with examples that combine:
 
 
 - structured and conditional data,
+
 - structured and collective data, and
+
 - conditional and collective data.
 
 You’ve actually seen examples of each of these above. Identify them.
@@ -350,6 +382,10 @@ Take three of your favorite Web sites or apps. Identify the kinds of
 data they present. Classify these as structured, conditional, and
 collective. How do they combine these data?
 :::
+
+```{=html}
+<a name="(part._Data-Design-Problem-Representing-Quizzes)"></a>
+```
 
 #### 6.2.4 Data Design Problem: Representing Quizzes {#Data-Design-Problem-Representing-Quizzes}
 

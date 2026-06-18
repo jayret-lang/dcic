@@ -115,6 +115,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="predicting-growth.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_algo-analysis.html">up</a>&nbsp;&nbsp;<a href="booklet_data-with-analysis.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._amortized-analysis)"></a>
 <h2 id="amortized-analysis">15 Halloween Analysis</h2>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.A_.First_.Example%29">15.1<span class="hspace"> </span>A First Example</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.The_.New_.Form_of_.Analysis%29">15.2<span class="hspace"> </span>The New Form of Analysis</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._queue-data-structure%29">15.3<span class="hspace"> </span>An Example: Queues from Lists</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.List_.Representations%29">15.3.1<span class="hspace"> </span>List Representations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.A_.First_.Analysis%29">15.3.2<span class="hspace"> </span>A First Analysis</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.More_.Liberal_.Sequences_of_.Operations%29">15.3.3<span class="hspace"> </span>More Liberal Sequences of Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.A_.Second_.Analysis%29">15.3.4<span class="hspace"> </span>A Second Analysis</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._worst-case-ops-amort%29">15.3.5<span class="hspace"> </span>Amortization Versus Individual Operations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="amortized-analysis.html#%28part._.Reading_.More%29">15.4<span class="hspace"> </span>Reading More</a></p></td></tr></table>
 <p>In <a href="predicting-growth.html">Predicting Growth</a>, we
@@ -125,6 +126,7 @@ Representations</a>, however, this is sometimes too coarse a bound when
 the complexity is heavily dependent on the exact sequence of operations
 run. Now, we will consider a different style of complexity analysis that
 better accommodates operation sequences.</p>
+<a name="(part._A-First-Example)"></a>
 <h3 id="A-First-Example">15.1 A First Example</h3>
 <p>Consider, for instance, a set that starts out empty, followed by a
 sequence of <span class="math inline">\(k\)</span> insertions and then
@@ -145,6 +147,7 @@ class="math inline">\(2k\)</span> operations, yielding an average of
 <span class="math display">\[\begin{equation*}\frac{3}{4} k +
 \frac{1}{4}\end{equation*}\]</span>steps per operation in the worst
 case.</p>
+<a name="(part._The-New-Form-of-Analysis)"></a>
 <h3 id="The-New-Form-of-Analysis">15.2 The New Form of Analysis</h3>
 <p>What have we computed? We are still computing a worst case cost,
 because we have taken the cost of each operation in the sequence in the
@@ -179,6 +182,7 @@ American) holiday devoted to ghosts, ghouls, and other symbols of death.
 Amortization comes from the Latin root mort-, which means death, because
 an amortized analysis is one conducted “at the death”, i.e., at the end
 of a fixed sequence of operations.</span></span></span></p>
+<a name="(part._queue-data-structure)"></a>
 <h3 id="queue-data-structure">15.3 An Example: Queues from Lists</h3>
 <p>We have seen lists [<a href="tables-to-lists.html">From Tables to
 Lists</a>] and sets [<a href="part_sets.html">Several Variations on
@@ -188,6 +192,7 @@ have not read that material, it’s worth reading at least the early
 portions now. In this section, we will ignore the various programming
 niceties discussed there, and focus on raw list representations to make
 an algorithmic point.</p>
+<a name="(part._List-Representations)"></a>
 <h4 id="List-Representations">15.3.1 List Representations</h4>
 <p>Consider two natural ways of defining queues using lists. One is that
 every enqueue is implemented with
@@ -213,6 +218,7 @@ is, we pick…both.</p>
 the most recent addition first. Now for the (first) crucial insight:
 when we need to dequeue, we reverse the list. Now, dequeuing also takes
 constant time.</p>
+<a name="(part._A-First-Analysis)"></a>
 <h4 id="A-First-Analysis">15.3.2 A First Analysis</h4>
 <p>Of course, to fully analyze the complexity of this data structure, we
 must also account for the reversal. In the worst case, we might argue
@@ -232,6 +238,7 @@ this sequence is <span class="math inline">\(k \cdot 1 + k + (k-1) \cdot
 1 = 3k-1\)</span> for a total of <span class="math inline">\(2k\)</span>
 operations, giving an amortized complexity of effectively constant time
 per operation!</p>
+<a name="(part._More-Liberal-Sequences-of-Operations)"></a>
 <h4 id="More-Liberal-Sequences-of-Operations">15.3.3 More Liberal
 Sequences of Operations</h4>
 <p>In the process of this, however, we’ve quietly glossed over something
@@ -272,6 +279,7 @@ represent the response from dequeuing:</p>
         case Link(f, r): yield elt-and-q(f, queue(q.tail, r));
     }
 }</code></pre></div></div>
+<a name="(part._A-Second-Analysis)"></a>
 <h4 id="A-Second-Analysis">15.3.4 A Second Analysis</h4>
 <p>We can now reason about sequences of operations as we did before, by
 adding up costs and averaging. However, another way to think of it is
@@ -287,6 +295,7 @@ had enough. These credits reflect the cost of operations on that
 element. From this (very informal) analysis, we can conclude that in the
 worst case, any permutation of enqueues and dequeues will still cost
 only a constant amount of amortized time.</p>
+<a name="(part._worst-case-ops-amort)"></a>
 <h4 id="worst-case-ops-amort">15.3.5 Amortization Versus Individual
 Operations</h4>
 <p>Note, however, that the constant represents an average across the
@@ -298,6 +307,7 @@ assume that every step in the sequence will is bounded. Nevertheless, an
 amortized analysis sometimes gives us a much more nuanced understanding
 of the real behavior of a data structure than a worst-case analysis does
 on its own.</p>
+<a name="(part._Reading-More)"></a>
 <h3 id="Reading-More">15.4 Reading More</h3>
 <p>At this point we have only briefly touched on the subject of
 amortized analysis. A very nice <a

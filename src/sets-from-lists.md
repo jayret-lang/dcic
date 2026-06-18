@@ -7,6 +7,10 @@ up: part_sets.html
 next: sets-from-trees.html
 ---
 
+```{=html}
+<a name="(part._sets-from-lists)"></a>
+```
+
 ### 18.1 Representing Sets as Lists {#sets-from-lists}
 
 ```{=html}
@@ -63,6 +67,10 @@ be done with all values (such as functions). We discuss the nuances of
 this elsewhere [[Equality and Ordering](orderability.html##eq-ord)]. For now, we can ignore these
 issues by focusing on sets of (non-rough)numbers.
 
+```{=html}
+<a name="(part._Representation-Choices)"></a>
+```
+
 #### 18.1.1 Representation Choices {#Representation-Choices}
 
 The empty list can stand in for the empty set—
@@ -101,6 +109,7 @@ dangerous:
   elements are retrieved from the set due to the ordering guaranteed
   provided by the underlying list representation. This might hide bugs
   that we don’t discover until we change the representation.
+
 3. We might have chosen a set representation because we didn’t need
   to care about order, and expected lots of duplicate items. A list
   representation might store all the duplicates, resulting in
@@ -120,6 +129,10 @@ insert = link;
 ```
 —and have some other procedure perform the filtering of duplicates.
 
+```{=html}
+<a name="(part._Time-Complexity)"></a>
+```
+
 #### 18.1.2 Time Complexity {#Time-Complexity}
 
 What is the complexity of this representation of sets? Let’s consider
@@ -137,6 +150,7 @@ duplicates:
   \(k\). But `insert`{.pyret} needs to check whether an element is
   already present, which takes time linear in \(k\), followed by
   at most a constant-time operation (`link`{.pyret}).
+
 - If we do store duplicates, then `insert`{.pyret} is constant
   time: it simply `link`{.pyret}s on the new element without regard to
   whether it already is in the set representation. `is-in`{.pyret}
@@ -183,6 +197,10 @@ Note that this is quadratic in the number of elements in the
 list, which may be much bigger than the size of the
 set.
 
+```{=html}
+<a name="(part._choosing-set-reps)"></a>
+```
+
 #### 18.1.3 Choosing Between Representations {#choosing-set-reps}
 
 Now that we have two representations with different complexities, it’s
@@ -211,6 +229,7 @@ Based on this, we can draw several lessons:
   duplication we expect. If there won’t be many duplicates, then the
   version that stores duplicates pays a small extra price in return for
   some faster operations.
+
 2. Which representation we choose is also a matter of how
   often we expect each operation to be performed. The representation
   without duplication is “in the middle”: everything is roughly equally
@@ -223,6 +242,7 @@ Based on this, we can draw several lessons:
   represents a backup data structure; then we add lots of data but very
   rarely—indeed, only in case of some catastrophe—ever need to look
   for things in it.)
+
 3. Another way to cast these insights is that our form of analysis
   is too weak. In situations where the complexity depends so heavily on
   a particular sequence of operations, big-Oh is too loose and we should
@@ -246,6 +266,10 @@ elements in the list). Thus, a program can make an initial guess about
 its workload and pick a representation accordingly, but maintain
 statistics as it runs and, when it finds its assumption is wrong,
 switch representations—and can do so as many times as needed.
+
+```{=html}
+<a name="(part._Other-Operations)"></a>
+```
 
 #### 18.1.4 Other Operations {#Other-Operations}
 

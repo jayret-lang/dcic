@@ -124,6 +124,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="queues-from-lists.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_bonus-foundations.html">up</a>&nbsp;&nbsp;<a href="booklet_pyret-to-python.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._testing)"></a>
 <h3 id="testing">8.3 Examples, Testing, and Program Checking</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._from-examples-to-tests%29">8.3.1<span class="hspace"> </span>From Examples to Tests</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._s~3arefined%29">8.3.2<span class="hspace"> </span>More Refined Comparisons</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._.When_.Tests_.Fail%29">8.3.3<span class="hspace"> </span>When Tests Fail</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._test-oracle%29">8.3.4<span class="hspace"> </span>Oracles for Testing</a></p></td></tr></table>
 <p>Back in <a
@@ -139,16 +140,17 @@ often, the best way to begin working on a problem. However, if we can
 write our examples in a precise form that a computer can understand, we
 achieve two things:</p>
 <ul>
-<li>When we’re done writing our purported solution, we can have the
-computer check whether we got it right.</li>
-<li>In the process of writing down our expectation, we often find it
+<li><p>When we’re done writing our purported solution, we can have the
+computer check whether we got it right.</p></li>
+<li><p>In the process of writing down our expectation, we often find it
 hard to express with the precision that a computer expects. Sometimes
 this is because we’re still formulating the details and haven’t yet
 pinned them down, but at other times it’s because we don’t yet
 understand the problem. In such situations, the force of precision
 actually does us good, because it helps us understand the weakness of
-our understanding.</li>
+our understanding.</p></li>
 </ul>
+<a name="(part._from-examples-to-tests)"></a>
 <h4 id="from-examples-to-tests">8.3.1 From Examples to Tests</h4>
 <p>Until now, we have written examples in
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">where { }</code></span>
@@ -168,15 +170,16 @@ could be used to tally votes, to compute the frequency of using a
 discount code, and so on). What input scenarios might we need to check
 before using our function to run an actual election or a business?</p>
 <ul>
-<li>The result for a string that is in the list once</li>
-<li>The result for a string that is in the list multiple times</li>
-<li>The result for a string that is at the end of a longer list (to make
-sure we are checking all of the elements)</li>
-<li>The result for a string that isn’t in the list</li>
-<li>The result for a string that is in the list but with different
-capitalization</li>
-<li>The result for a string that is a typo-away from a word in the
-list</li>
+<li><p>The result for a string that is in the list once</p></li>
+<li><p>The result for a string that is in the list multiple
+times</p></li>
+<li><p>The result for a string that is at the end of a longer list (to
+make sure we are checking all of the elements)</p></li>
+<li><p>The result for a string that isn’t in the list</p></li>
+<li><p>The result for a string that is in the list but with different
+capitalization</p></li>
+<li><p>The result for a string that is a typo-away from a word in the
+list</p></li>
 </ul>
 <p>Notice that here we are considering many more situations, including
 fairly nuanced ones that affect how robust our code would be under
@@ -250,6 +253,7 @@ folders and files (offering no support for examples). In this book, we
 emphasize the difference between these two uses of input-output pairs in
 programming because we find them extremely useful both professionally
 and pedagogically.</p>
+<a name="(part._s-refined)"></a>
 <h4 id="s-refined">8.3.2 More Refined Comparisons</h4>
 <p>Sometimes, a direct comparison via
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">assertEquals</code></span>
@@ -340,6 +344,7 @@ that takes a
 and returns the expected weekly salary: the expected weekly salary for
 an hourly employee assumes they work 40 hours, and the expected weekly
 salary for a salaried employee is 1/52 of their salary.</p></blockquote></blockquote>
+<a name="(part._When-Tests-Fail)"></a>
 <h4 id="When-Tests-Fail">8.3.3 When Tests Fail</h4>
 <p>Suppose we’ve written the function
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">sqrt</code></span>,
@@ -390,6 +395,7 @@ particular set of test values we specified is inherently wrong; it’s
 just that the function happens to be a relation, i.e., it maps one input
 to multiple outputs (that is, <span class="math inline">\(\sqrt{4} = \pm
 2\)</span>). The question now is how to write the test properly.</p>
+<a name="(part._test-oracle)"></a>
 <h4 id="test-oracle">8.3.4 Oracles for Testing</h4>
 <p>In other words, sometimes what we want to express is not a concrete
 input-output pair, but rather check that the output has the right

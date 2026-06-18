@@ -121,6 +121,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="avoid-recomp.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_advanced.html">up</a>&nbsp;&nbsp;<a href="staging.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._partial-domains)"></a>
 <h2 id="partial-domains">23 Partial Domains</h2>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-sentinel%29">23.1<span class="hspace"> </span>A Non-Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-exceptions%29">23.2<span class="hspace"> </span>Exceptions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-option%29">23.3<span class="hspace"> </span>The Option Type</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-total-dyn%29">23.4<span class="hspace"> </span>Total Domains, Dynamically</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-total-static%29">23.5<span class="hspace"> </span>Total Domains, Statically</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-summary%29">23.6<span class="hspace"> </span>Summary</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="partial-domains.html#%28part._pd-pyret-list-constr%29">23.7<span class="hspace"> </span>A Note on Notation</a></p></td></tr></table>
 <p>Sometimes, we cannot precisely capture the domain of a function with
@@ -145,6 +146,7 @@ perspective. We’ll specifically work through
 because the function is simple enough that we can focus on the software
 structure without getting lost in the solution details. There are at
 least four solutions, and one non-solution.</p>
+<a name="(part._pd-sentinel)"></a>
 <h3 id="pd-sentinel">23.1 A Non-Solution</h3>
 <p>We will start with a strategy that has often been used by programmers
 in the past, but that we reject as a non-solution. This strategy is to
@@ -213,13 +215,15 @@ be sure of this?) Well, of course not.</p>
 <p>That’s why this is a non-solution. It has created several
 problems:</p>
 <ul>
-<li>We can’t tell from the output whether the input was invalid.</li>
-<li>That means every caller needs to check.</li>
-<li>A caller that forgets to check may compute with nonsense.</li>
-<li>Compositionality is ruined: any function passed
+<li><p>We can’t tell from the output whether the input was
+invalid.</p></li>
+<li><p>That means every caller needs to check.</p></li>
+<li><p>A caller that forgets to check may compute with
+nonsense.</p></li>
+<li><p>Compositionality is ruined: any function passed
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">average</code></span>
 needs to know to check the output (and there is nothing in the contract
-to warn it!).</li>
+to warn it!).</p></li>
 </ul>
 <p>Indeed, decades of experience tells us that some of the world’s most
 sophisticated programmers have not been able to handle this issue even
@@ -227,6 +231,7 @@ when it matters most, resulting in numerous, pernicious security
 problems. Therefore, we should now regard this as a flawed approach to
 software construction, and never do it ourselves.</p>
 <p>Let’s instead look at four actual solutions.</p>
+<a name="(part._pd-exceptions)"></a>
 <h3 id="pd-exceptions">23.2 Exceptions</h3>
 <p>One technique that many languages, including Jayret, provide is
 called the exception. An exception is a special programming construct
@@ -283,20 +288,20 @@ from earlier; the contract looks clean; and we only needed to use
 at the spot where we didn’t know what to do. What’s not to like?</p>
 <p>There are two main problems with exceptions:</p>
 <ol type="1">
-<li>In real systems, exceptions halt a program’s execution in
+<li><p>In real systems, exceptions halt a program’s execution in
 unpredictable ways. A caller to
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg1</code></span>
 may be half-way through doing something else (e.g., it may have opened a
 file that it intends to close), but the exception causes the call to not
 finish cleanly, causing the remaining computation to not run, leaving
-the system in a messy state.</li>
-<li>Relatedly, what we presented as a feature should actually be treated
-as a problem: the contract lies! There’s no indication at all in the
-contract that an exception might occur. A programmer has to read the
+the system in a messy state.</p></li>
+<li><p>Relatedly, what we presented as a feature should actually be
+treated as a problem: the contract lies! There’s no indication at all in
+the contract that an exception might occur. A programmer has to read the
 whole implementation—which could change at any time—instead of being
 able to rely on its published contract, when the whole point of
 contracts was that they saved us from having to read the whole
-implementation!</li>
+implementation!</p></li>
 </ol>
 <p>Indeed, some modern programming languages designed for large-scale
 programming (such as Go and Rust) no longer have exception constructs.
@@ -310,19 +315,21 @@ raise an exception anyway, does it make sense for us to go through the
 trouble of doing it ourselves?</p>
 <p>Yes it does! For several reasons:</p>
 <ol type="1">
-<li>First, you get to control where the exception occurs and what it
-says.</li>
-<li>You can document that the exception will occur.</li>
-<li>You are less dependent on the behavior of Jayret or whatever
-underlying programming language, which can change in subtle ways.</li>
-<li>You can create an exception that is unique to you, so it can’t be
+<li><p>First, you get to control where the exception occurs and what it
+says.</p></li>
+<li><p>You can document that the exception will occur.</p></li>
+<li><p>You are less dependent on the behavior of Jayret or whatever
+underlying programming language, which can change in subtle
+ways.</p></li>
+<li><p>You can create an exception that is unique to you, so it can’t be
 confused with other division-by-zero errors that may lurk in your
-program.</li>
+program.</p></li>
 </ol>
 <p>For these reasons, it’s better to check and raise an exception
 explicitly than letting it “fall through” to the programming language.
 Instead, the real problems with this solution are subtler: the lying
 contract, and the impact on program execution.</p>
+<a name="(part._pd-option)"></a>
 <h3 id="pd-option">23.3 The Option Type</h3>
 <p>Let’s revisit
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>.
@@ -376,6 +383,7 @@ we lacked a discipline for making sure we didn’t abuse that value! So
 this is
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">avg0</code></span>
 done in a principled way.</p>
+<a name="(part._pd-total-dyn)"></a>
 <h3 id="pd-total-dyn">23.4 Total Domains, Dynamically</h3>
 <p>All these problems arise because we said that
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">average</code></span>
@@ -419,11 +427,12 @@ exception lurking underneath the domain.) And it lets us reuse existing
 code.</p>
 <p>There are two main weaknesses:</p>
 <ol type="1">
-<li>Dynamic refinements aren’t found in most languages, so we’d have to
-do more manual work to obtain the same solution.</li>
-<li>We don’t get a static guarantee (i.e., before even running the
-program) that we’ll never get an exception.</li>
+<li><p>Dynamic refinements aren’t found in most languages, so we’d have
+to do more manual work to obtain the same solution.</p></li>
+<li><p>We don’t get a static guarantee (i.e., before even running the
+program) that we’ll never get an exception.</p></li>
 </ol>
+<a name="(part._pd-total-static)"></a>
 <h3 id="pd-total-static">23.5 Total Domains, Statically</h3>
 <p>How do we make the function total with a static guarantee? That would
 require that we ensure that we can never construct an empty list!
@@ -529,6 +538,7 @@ into a total one. Programmers call this principle making illegal states
 unrepresentable. It may require writing some procedures to convert to
 and from other convenient representations for code reuse. Somewhere in
 those procedures there must be checks that reflect the partiality.</p>
+<a name="(part._pd-summary)"></a>
 <h3 id="pd-summary">23.6 Summary</h3>
 <p>In general, there is one non-solution:</p>
 <ul>
@@ -553,15 +563,18 @@ worth the effort.</p></li>
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">Option</code></span>.
 Often the ideal option, because:</p>
 <ul>
-<li>The type tells us to expect funny business.
+<li><p>The type tells us to expect funny business.
 (<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">raise</code></span>
-hides that.)</li>
-<li>We can’t accidentally misuse the value. (Sentinels hide that.)</li>
-<li>It’s compositional: we can create functions to help us handle
-it.</li>
-<li>It’s much lower overhead than the static totality solution.</li>
-<li>It’s more statically robust than the dynamic totality solution.</li>
-<li>It generalizes: in practice, instead of just
+hides that.)</p></li>
+<li><p>We can’t accidentally misuse the value. (Sentinels hide
+that.)</p></li>
+<li><p>It’s compositional: we can create functions to help us handle
+it.</p></li>
+<li><p>It’s much lower overhead than the static totality
+solution.</p></li>
+<li><p>It’s more statically robust than the dynamic totality
+solution.</p></li>
+<li><p>It generalizes: in practice, instead of just
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">none</code></span>
 and
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">some</code></span>,
@@ -573,9 +586,10 @@ For concrete examples of this, see <a
 href="Collections_of_Structured_Data.html##coll-sd-pick">Picking
 Elements from Sets</a> on sets <a
 href="queues-from-lists.html##qfl-comb-ans">Combining Answers</a> on
-queues.</li>
+queues.</p></li>
 </ul></li>
 </ul>
+<a name="(part._pd-pyret-list-constr)"></a>
 <h3 id="pd-pyret-list-constr">23.7 A Note on Notation</h3>
 <p>When we wrote above that we can’t get the convenience of writing,
 say,

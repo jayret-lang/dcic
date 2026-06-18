@@ -7,6 +7,10 @@ up: booklet_advanced.html
 next: cycle-detection.html
 ---
 
+```{=html}
+<a name="(part._rec-from-mut)"></a>
+```
+
 ## 20 Recursion and Cycles from Mutation {#rec-from-mut}
 
 Earlier [[From Acyclicity to Cycles](Sharing_and_Equality.html##acyc-to-cyc)], we saw the difficulty of
@@ -32,6 +36,7 @@ difficulty. Why are they different? For two reasons:
   function. A function’s body is not evaluated right away—only
   when we apply it—so the language can wait for the body to finish
   being defined. (We’ll see what this might mean in a moment.)
+
 - The second reason isn’t actually a reason: function definitions
   actually are special. But we are about to expose what’s so special
   about them—it’s the use of a box! [[Boxes: A Canonical Mutable Structure](state-in-pyret.html##boxes)]—so that any
@@ -63,6 +68,10 @@ grey list. What follows grey? A white list. It is clear we can’t write
 down these two definitions because one of them must precede the other,
 but each one depends on the other. (This is the same problem as trying
 to write a single definition above.)
+
+```{=html}
+<a name="(part._Partial-Definitions)"></a>
+```
 
 ### 20.1 Partial Definitions {#Partial-Definitions}
 
@@ -125,6 +134,10 @@ such that:
 }
 ```
 
+```{=html}
+<a name="(part._rec-for-recursive)"></a>
+```
+
 ### 20.2 Recursive Functions {#rec-for-recursive}
 
 Based on this, we can now understand recursive functions. Consider a
@@ -164,6 +177,10 @@ an environment where the name is bound, unboxing the use of the name;
 and finally, it replaces the box’s content with the defined function,
 following the same pattern we saw earlier for `web-colors`{.pyret}.
 
+```{=html}
+<a name="(part._premature-eval)"></a>
+```
+
 ### 20.3 Premature Evaluation {#premature-eval}
 
 Observe that the above description reveals that there is a time
@@ -178,6 +195,7 @@ There are generally three solutions to this problem:
   especially bad, and indeed most common datatypes should be
   shunned. Indeed, there is no value already in use that can be used
   here that might not be confusing in some context.
+
 2. The language might create a new type of value just for use
   here. For instance, imagine this definition of `CList`{.pyret}:
   
@@ -203,6 +221,10 @@ data CList {
   binding functions, and then make sure that the right-hand side of the
   binding is syntactically a function. This solution precludes some
   reasonable programs, but is certainly safe.
+
+```{=html}
+<a name="(part._Cyclic-Lists-Versus-Streams)"></a>
+```
 
 ### 20.4 Cyclic Lists Versus Streams {#Cyclic-Lists-Versus-Streams}
 

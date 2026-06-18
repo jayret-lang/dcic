@@ -7,6 +7,10 @@ up: booklet_advanced.html
 next: rec-from-mut.html
 ---
 
+```{=html}
+<a name="(part._state-in-pyret)"></a>
+```
+
 ## 19 State and Equality {#state-in-pyret}
 
 ```{=html}
@@ -20,6 +24,10 @@ some notion of equality: when we write a test in Jayret using
 the two sides. Here we will examine equality in the presence of state
 in more detail.
 
+```{=html}
+<a name="(part._boxes)"></a>
+```
+
 ### 19.1 Boxes: A Canonical Mutable Structure {#boxes}
 
 In [Mutating Structures](mutating-structures.html) we saw a motivating example using bank
@@ -31,8 +39,10 @@ field—the value being boxed—and supports just three operations:
 
 1. box consumes a value and creates a mutable box
   containing that value.
+
 2. unbox-now consumes a box and returns the value contained in
   the box.
+
 3. set-box-now consumes a box, a new value, and changes
   the box to contain the value. All subsequent unbox-nows of that
   box will now return the new value—unless it is mutated again.
@@ -53,6 +63,10 @@ Box<Object> set-box-now(Box<Object> b, T new-v) {
 Observe that we use `b!v`{.pyret} to extract the current value, and use
 the naming convention of `-now`{.pyret} to make clear these are stateful
 operations, so the value now may not be the same as the value later.
+
+```{=html}
+<a name="(part._Mutation-and-Types)"></a>
+```
 
 ### 19.2 Mutation and Types {#Mutation-and-Types}
 
@@ -96,6 +110,10 @@ that we can always perform numeric operations against the value
 extracted from `n1`{.pyret}—there is no danger that it will suddenly
 produce a string. This discipline can either be enforced by a system
 of annotations, or has to be manually maintained by the programmer.
+
+```{=html}
+<a name="(part._Mutation-and-Equality)"></a>
+```
 
 ### 19.3 Mutation and Equality {#Mutation-and-Equality}
 
@@ -167,6 +185,10 @@ Sure enough, the values in the boxes are not the same, but because
 }
 ```
 
+```{=html}
+<a name="(part._Another-Equality-Predicate)"></a>
+```
+
 ### 19.4 Another Equality Predicate {#Another-Equality-Predicate}
 
 Suppose we return to the state where we have defined the three boxes
@@ -214,6 +236,10 @@ rewrite the above tests as:
 Whether they pass, of course, depends on the state of the program:
 whether `b1`{.pyret}, `b2`{.pyret}, or `b3`{.pyret} has had its content modified.
 
+```{=html}
+<a name="(part._equality-hierarchy)"></a>
+```
+
 ### 19.5 A Hierarchy of Equality {#equality-hierarchy}
 
 As you might guess, the equality operators have a hierarchy of
@@ -258,6 +284,10 @@ assumptions). This is why `is`{.pyret} in testing uses
 `equal-always`{.pyret} by default, and forces users to explicitly pick a
 different primitive if they want it.
 
+```{=html}
+<a name="(part._Space-and-Time-Complexity)"></a>
+```
+
 ### 19.6 Space and Time Complexity {#Space-and-Time-Complexity}
 
 `identical`{.pyret} always takes constant time. Indeed, some programs use
@@ -273,6 +303,10 @@ must not be equal anyway, so there is no need to visit the extra
 data). The difference is that `equal-always`{.pyret} reduces to
 `identical`{.pyret} at references, thereby performing less computation
 than `equal-now`{.pyret} would.
+
+```{=html}
+<a name="(part._sem-identical)"></a>
+```
 
 ### 19.7 What it Means to be Identical {#sem-identical}
 
@@ -313,6 +347,10 @@ same. Nevertheless, it does demonstrate the basic idea behind
 you make changes to one, you see the changes manifest on the “other”
 (i.e., there is really only one value, but with potentially multiple
 names for it).
+
+```{=html}
+<a name="(part._comp-func)"></a>
+```
 
 ### 19.8 Comparing Functions {#comp-func}
 

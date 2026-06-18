@@ -7,6 +7,10 @@ up: part_pyret-to-python.html
 next: part_python-tables.html
 ---
 
+```{=html}
+<a name="(part._arrays)"></a>
+```
+
 ### 9.3 Arrays {#arrays}
 
 ```{=html}
@@ -26,6 +30,10 @@ How long does it take to locate the Runner in 10th place (remember,
 indices start at 0)?
 
 It depends on how the list is laid out in memory.
+
+```{=html}
+<a name="(part._Two-Memory-Layouts-for-Ordered-Items)"></a>
+```
 
 #### 9.3.1 Two Memory Layouts for Ordered Items {#Two-Memory-Layouts-for-Ordered-Items}
 
@@ -118,6 +126,10 @@ the results that we do have.
 Couldn’t we have just looked at the length of the list, rather than
 maintain the `in_range`{.python} variable? Yes, we could have, though
 this version sets up a contrast to our next example.
+
+```{=html}
+<a name="(part._Iterating-Partly-through-an-Ordered-Datum)"></a>
+```
 
 #### 9.3.2 Iterating Partly through an Ordered Datum {#Iterating-Partly-through-an-Ordered-Datum}
 

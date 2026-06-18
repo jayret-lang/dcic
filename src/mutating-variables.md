@@ -7,10 +7,18 @@ up: part_python-state.html
 next: mutable-lists.html
 ---
 
+```{=html}
+<a name="(part._mutating-variables)"></a>
+```
+
 ### 13.1 Mutating Variables {#mutating-variables}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._mutating-vars-memory%29">13.1.1<span class="hspace"> </span>Mutating Variables in Memory</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._var-mut-aliasing%29">13.1.2<span class="hspace"> </span>Variable Mutation and Aliasing</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._.Mutating_.Variables_versus_.Mutating_.Data_.Fields%29">13.1.3<span class="hspace"> </span>Mutating Variables versus Mutating Data Fields</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._.Mutating_.Parameters_in_.Function_.Calls%29">13.1.4<span class="hspace"> </span>Mutating Parameters in Function Calls</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._mut-top-level-vars-in-func%29">13.1.5<span class="hspace"> </span>Mutating Top-Level Variables within Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-variables.html#%28part._.The_.Many_.Roles_of_.Variables%29">13.1.6<span class="hspace"> </span>The Many Roles of Variables</a></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._mutating-vars-memory)"></a>
 ```
 
 #### 13.1.1 Mutating Variables in Memory {#mutating-vars-memory}
@@ -83,6 +91,7 @@ There are two takeaways from this example:
 - When we use `=`{.python} to update the value associated with a
   variable, the variable’s entry in the directory changes to reflect the
   new value.
+
 - `For`{.python} loops
   introduce a name into the directory (the one the programmer chose to
   refer to the individual list elements). As the loop progresses, Python
@@ -109,6 +118,10 @@ for word in ["here", "are", "some", "words"]:
     count_long = count_long + 1
 ```
 :::
+
+```{=html}
+<a name="(part._var-mut-aliasing)"></a>
+```
 
 #### 13.1.2 Variable Mutation and Aliasing {#var-mut-aliasing}
 
@@ -196,6 +209,10 @@ Since the value of `savings`{.python} is stored in `ac3.balance`{.python},
 and not the name `savings`{.python} itself, updating the value of
 `savings`{.python} on the third line does not affect `ac3.balance`{.python}.
 
+```{=html}
+<a name="(part._Mutating-Variables-versus-Mutating-Data-Fields)"></a>
+```
+
 #### 13.1.3 Mutating Variables versus Mutating Data Fields {#Mutating-Variables-versus-Mutating-Data-Fields}
 
 We’ve now seen two different forms of updates in programs: updates to
@@ -223,9 +240,12 @@ impacts each of the directory and the heap.
 Summarizing, the rules for how the directory and memory update are as follows:
 
 - We add to the heap when a data constructor is used
+
 - We update the heap when a field of existing data is reassigned
+
 - We add to the directory when a name is used for the first time (this
   includes parameters and internal variables when a function is called)
+
 - We update the directory when a name that is already in the
   directory is subsequently assigned a new value)
 :::
@@ -264,6 +284,10 @@ side of the `=`{.python} is a variable name or a field reference, and on
 whether the right side is basic data or data with components. We will
 continue to work with these various combinations to build your
 understanding of when and how to use each one.
+
+```{=html}
+<a name="(part._Mutating-Parameters-in-Function-Calls)"></a>
+```
 
 #### 13.1.4 Mutating Parameters in Function Calls {#Mutating-Parameters-in-Function-Calls}
 
@@ -368,6 +392,10 @@ after the function completes, you must put that value inside a piece
 of data. You cannot have it be basic data associated with a variable
 name.
 :::
+
+```{=html}
+<a name="(part._mut-top-level-vars-in-func)"></a>
+```
 
 #### 13.1.5 Mutating Top-Level Variables within Functions {#mut-top-level-vars-in-func}
 
@@ -510,6 +538,10 @@ pattern we have shown you is fine. If you were building a real system,
 however, you’d want to make that computation a bit more sophisticated.
 :::
 
+```{=html}
+<a name="(part._The-Many-Roles-of-Variables)"></a>
+```
+
 #### 13.1.6 The Many Roles of Variables {#The-Many-Roles-of-Variables}
 
 At this point, we have used the single coding construct of a variable
@@ -519,8 +551,10 @@ following purposes:
 
 1. Tracking progress of a computation (e.g., the running value of a
   result in a `for`{.python}-loop)
+
 2. Maintaining information across multiple calls to a single
   function (e.g., the `next-id`{.python} variable)
+
 3. Naming a local or intermediate value in a computation
 
 Each of these uses involves a different programming pattern. The first

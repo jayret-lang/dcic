@@ -7,10 +7,18 @@ up: booklet_advanced.html
 next: avoid-recomp.html
 ---
 
+```{=html}
+<a name="(part._cycle-detection)"></a>
+```
+
 ## 21 Detecting Cycles {#cycle-detection}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.A_.Running_.Example%29">21.1<span class="hspace"> </span>A Running Example</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.Types%29">21.2<span class="hspace"> </span>Types</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.A_.First_.Checker%29">21.3<span class="hspace"> </span>A First Checker</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._cyc-det-comp%29">21.4<span class="hspace"> </span>Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.A_.Fabulous_.Improvement%29">21.5<span class="hspace"> </span>A Fabulous Improvement</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="cycle-detection.html#%28part._.Testing%29">21.6<span class="hspace"> </span>Testing</a></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._A-Running-Example)"></a>
 ```
 
 ### 21.1 A Running Example {#A-Running-Example}
@@ -42,6 +50,10 @@ So we have two that participate in no cyclic behavior (`p0`{.pyret} and
 (`p6`{.pyret}) that is a self-cycle, and two (`p4`{.pyret} and `p5`{.pyret})
 that lead to a cycle.
 
+```{=html}
+<a name="(part._Types)"></a>
+```
+
 ### 21.2 Types {#Types}
 
 As an aside, imagine we try to type-check this program. We have to
@@ -72,6 +84,10 @@ p6 ! {tl some(p6) }
 This works, but we have to deal with the `Option`{.pyret}
 everywhere. Since our goal is to focus on cycles, and this would
 become unwieldy, we ignore the typed version from now on.
+
+```{=html}
+<a name="(part._A-First-Checker)"></a>
+```
 
 ### 21.3 A First Checker {#A-First-Checker}
 
@@ -136,6 +152,10 @@ a “good” instance and `p0`{.pyret} is a “bad” one. However, `cc`{.pyret}
 is not a judgment of quality—its two responses have equal
 weight—so this would be confusing to a later reader.
 
+```{=html}
+<a name="(part._cyc-det-comp)"></a>
+```
+
 ### 21.4 Complexity {#cyc-det-comp}
 
 Now that we have determined that it terminates, we can ask for its
@@ -180,6 +200,10 @@ because the whole point is we don’t even know we have a cycle, much
 less which parts are prefix and which parts cycle)—and the time
 complexity would hopefully reduce from quadratic to
 linear-times-something-sublinear.
+
+```{=html}
+<a name="(part._A-Fabulous-Improvement)"></a>
+```
 
 ### 21.5 A Fabulous Improvement {#A-Fabulous-Improvement}
 
@@ -246,6 +270,10 @@ Object th(e) {
     }
     return loop(e, e ! tl);
 }
+```
+
+```{=html}
+<a name="(part._Testing)"></a>
 ```
 
 ### 21.6 Testing {#Testing}

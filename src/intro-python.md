@@ -7,6 +7,10 @@ up: part_pyret-to-python.html
 next: dictionaries.html
 ---
 
+```{=html}
+<a name="(part._intro-python)"></a>
+```
+
 ### 9.1 From Jayret to Python {#intro-python}
 
 ```{=html}
@@ -44,6 +48,10 @@ Python that you haven’t seen in Jayret. [A future release will contain materia
 We highlight the basic notational differences between Jayret and Python
 by redoing some of our earlier code examples in Python.
 
+```{=html}
+<a name="(part._Expressions-Functions-and-Types)"></a>
+```
+
 #### 9.1.1 Expressions, Functions, and Types {#Expressions-Functions-and-Types}
 
 Back in [Functions Practice: Cost of pens](From_Repeated_Expressions_to_Functions.html##pen-cost-pyret), we introduced the notation for functions and types
@@ -77,21 +85,27 @@ What notational differences do you see between the two versions?
 Here’s a summary of the differences:
 
 - Python uses `def`{.python} instead of `fun`{.pyret}.
+
 - Python uses underscores in names (like `pen_cost`{.python})
   instead of hyphens as in Jayret.
+
 - The type names are written differently: Python uses `str`{.python}
   and `int`{.python} instead of `String`{.pyret} and `Number`{.pyret}. In
   addition, Python uses only a single colon before the type whereas
   Jayret uses a double colon.
+
 - Python has different types for different kinds of numbers:
   `int`{.python} is for integers, while `float`{.python} is for decimals.
   Jayret just used a single type (`Number`{.pyret})
   for all numbers.
+
 - Python doesn’t label the documentation string (as Jayret does with
   `doc:`{.pyret}).
+
 - There is no `end`{.pyret} annotation in Python. Instead, Python
   uses indentation to locate the end of an if/else statement, function, or
   other multi-line construct.
+
 - Python labels the outputs of functions with `return`{.python}.
 
 These are minor differences in notation, which you will get used to as
@@ -115,6 +129,10 @@ int moon-weight(int earth-weight) {
 }
 ```
 :::
+
+```{=html}
+<a name="(part._Returning-Values-from-Functions)"></a>
+```
 
 #### 9.1.2 Returning Values from Functions {#Returning-Values-from-Functions}
 
@@ -169,6 +187,10 @@ without it, no value is returned, which means you can’t use the result
 of a function within another expression. So what use is
 `add1v2`{.python} then? Hold that question; we’ll return to it in [Mutating Variables](mutating-variables.html).
 
+```{=html}
+<a name="(part._testing-python)"></a>
+```
+
 #### 9.1.3 Examples and Test Cases {#testing-python}
 
 In Jayret, we included examples with every function using `where:`{.pyret}
@@ -216,10 +238,12 @@ Things to note about this code:
 
 - We’ve imported `pytest`{.python}, the lightweight Python testing
   library.
+
 - The examples have moved into a function (here
   `test_pens`{.python}) that takes no inputs. Note that the names of
   functions that contain test cases must have names that start with
   `test_`{.python} in order for `pytest`{.python} to find them.
+
 - In Python, individual tests have the form
   
   ```python
@@ -243,6 +267,10 @@ Did you actually try to run the test?
 Whoa! Something weird happened: the test failed. Stop and think
 about that: the same test that worked in Jayret failed in
 Python. How can that be?
+
+```{=html}
+<a name="(part._An-Aside-on-Numbers)"></a>
+```
 
 #### 9.1.4 An Aside on Numbers {#An-Aside-on-Numbers}
 
@@ -310,6 +338,7 @@ can either:
 - approximate the number (by chopping off the infinite sequence
   of digits at some point), then work only with the approximated value
   going forward, or
+
 - store additional information about the number that may enable doing
   more precise computation with it later (though there are always some
   numbers that cannot be represented exactly in finite space).
@@ -331,6 +360,10 @@ We wrapped the exact answer we wanted in `pytest.approx`{.python}, to
 indicate that we’ll accept any answer that is nearly the value we
 specified. You can control the number of decimal points of precision
 if you want to, but the default of `± 2.3e-06`{.pyret} often suffices.
+
+```{=html}
+<a name="(part._conditionals-python)"></a>
+```
 
 #### 9.1.5 Conditionals {#conditionals-python}
 
@@ -369,6 +402,10 @@ text. The same principle holds for ending conditionals.
 We’ll return to this point about indentation, and see more examples,
 as we work more with Python.
 
+```{=html}
+<a name="(part._python-create-process-lists)"></a>
+```
+
 #### 9.1.6 Creating and Processing Lists {#python-create-process-lists}
 
 As an example of lists, let’s assume we’ve been playing a game that
@@ -387,6 +424,10 @@ words = ["banana", "bean", "falafel", "leaf"]
 
 The only difference here is that Python does not use the `list:`{.pyret}
 label that is needed in Jayret.
+
+```{=html}
+<a name="(part._Filters-Maps-and-Friends)"></a>
+```
 
 ##### 9.1.6.1 Filters, Maps, and Friends {#Filters-Maps-and-Friends}
 
@@ -435,7 +476,9 @@ Practice Python’s list functions by writing expressions for the following
 problems. Use only the list functions we have shown you so far.
 
 - Given a list of numbers, convert it to a list of strings `"pos"`{.python}, `"neg"`{.python}, `"zero"`{.python}, based on the sign of each number.
+
 - Given a list of strings, is the length of any string equal to 5?
+
 - Given a list of numbers, produce a list of the even numbers between 10 and 20 from that list.
 :::
 
@@ -445,6 +488,10 @@ you own (as we did with recursion in Jayret). While you can write
 recursive functions to process lists in Jayret, a different style of
 program is more conventional for that purpose. We’ll look at that in
 the chapter on [Mutating Variables](mutating-variables.html).
+
+```{=html}
+<a name="(part._python-data-with-components)"></a>
+```
 
 #### 9.1.7 Data with Components {#python-data-with-components}
 
@@ -493,16 +540,24 @@ Things to note:
 
 - There is a single name for the type and the constructor, rather
   than separate names as we had in Jayret.
+
 - There are no commas between field names (but each has to be on
   its own line in Python)
+
 - There is no way to specify the type of the contents of the list
   in Python (at least, not without using more advance packages for
   writing types)
+
 - The `@dataclass`{.python} annotation is needed before
   `class`{.python}.
+
 - Dataclasses don’t support creating datatypes with multiple
   variants, like we did frequently in Jayret. Doing that needs more
   advanced concepts than we will cover in this book.
+
+```{=html}
+<a name="(part._Accessing-Fields-within-Dataclasses)"></a>
+```
 
 ##### 9.1.7.1 Accessing Fields within Dataclasses {#Accessing-Fields-within-Dataclasses}
 
@@ -526,7 +581,15 @@ travel.descr;
 ```
 :::
 
+```{=html}
+<a name="(part._python-traverse-lists)"></a>
+```
+
 #### 9.1.8 Traversing Lists {#python-traverse-lists}
+
+```{=html}
+<a name="(part._python-for-loops)"></a>
+```
 
 ##### 9.1.8.1 Introducing For Loops {#python-for-loops}
 
@@ -649,13 +712,20 @@ Here are some things to notice about the two pieces of code:
 - The Python version needs a variable (here `run_total`{.python}) to
   hold the result of the computation as we build it up while traversing
   (working through) the list.
+
 - The initial value of that variable is the answer we returned in
   the `empty`{.pyret} case in Jayret.
+
 - The computation in the `link`{.pyret} case of the Jayret function is
   used to update that variable in the body of the `for`{.python}.
+
 - After the `for`{.python} has finished processing all items in the
   list, the Python version returns the value in the variable as the
   result of the function.
+
+```{=html}
+<a name="(part._An-Aside-on-Order-of-Processing-List-Elements)"></a>
+```
 
 ##### 9.1.8.2 An Aside on Order of Processing List Elements {#An-Aside-on-Order-of-Processing-List-Elements}
 
@@ -696,6 +766,10 @@ In the case of summing a list, we don’t notice the difference between
 the two versions because the sum is the same whether we compute it
 left-to-right or right-to-left. In other functions we write, this
 difference may start to matter.
+
+```{=html}
+<a name="(part._python-funcs-produce-lists)"></a>
+```
 
 ##### 9.1.8.3 Using For Loops in Functions that Produce Lists {#python-funcs-produce-lists}
 
@@ -740,6 +814,10 @@ Contrast these two versions and the corresponding tests. Did you
 notice anything interesting?
 :::
 
+```{=html}
+<a name="(part._Summary-The-List-Processing-Template-for-Python)"></a>
+```
+
 ##### 9.1.8.4 Summary: The List-Processing Template for Python {#Summary-The-List-Processing-Template-for-Python}
 
 Just as we had a template for writing list-processing functions in
@@ -757,6 +835,10 @@ def func(lst: list):
 
 Keep this template in mind as you learn to write functions over lists
 in Python.
+
+```{=html}
+<a name="(part._struct-traverse-element-procedure-lib-render-cond-rkt-38-12-loops-in-Pyret)"></a>
+```
 
 ##### 9.1.8.5 for each loops in Jayret {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-loops-in-Pyret}
 
@@ -786,6 +868,10 @@ Object func(List lst) {
 
 There are a few new language features used in this example, introduced in the
 following several sections.
+
+```{=html}
+<a name="(part._Variables-that-can-change)"></a>
+```
 
 ##### 9.1.8.5.1 Variables that can change {#Variables-that-can-change}
 
@@ -818,6 +904,10 @@ x = 20;
 Note that trying to use `=`{.pyret} on a variable that was not declared using
 `var`{.pyret} will produce an error, and variables can still only ever be declared
 once (whether with `var x = ...`{.pyret} or `x = ...`{.pyret}).
+
+```{=html}
+<a name="(part._block-notation)"></a>
+```
 
 ##### 9.1.8.5.2 block notation {#block-notation}
 
@@ -862,6 +952,10 @@ Object my-function() {
 }
 ```
 
+```{=html}
+<a name="(part._How-struct-traverse-element-procedure-lib-render-cond-rkt-38-12-works)"></a>
+```
+
 ##### 9.1.8.5.3 How for each works {#How-struct-traverse-element-procedure-lib-render-cond-rkt-38-12-works}
 
 A `for each`{.pyret} expression runs its body once for each element in the input
@@ -900,6 +994,10 @@ run_total = run_total + 5
 run_total = run_total + 1
 run_total = run_total + 7
 run_total = run_total + 3
+```
+
+```{=html}
+<a name="(part._Testing-and-variables-that-can-change)"></a>
 ```
 
 ##### 9.1.8.5.4 Testing and variables that can change {#Testing-and-variables-that-can-change}

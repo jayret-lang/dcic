@@ -7,6 +7,10 @@ up: part_pyret-to-python.html
 next: arrays.html
 ---
 
+```{=html}
+<a name="(part._dictionaries)"></a>
+```
+
 ### 9.2 Dictionaries {#dictionaries}
 
 ```{=html}
@@ -93,6 +97,10 @@ dictionary (hashmap, hashtable, and
 associative arrays are names for similar data structures in other
 languages, though there are key nuances that distinguish all these variations).
 
+```{=html}
+<a name="(part._Creating-and-Using-a-Dictionary)"></a>
+```
+
 #### 9.2.1 Creating and Using a Dictionary {#Creating-and-Using-a-Dictionary}
 
 A dictionary maps unique values (called keys) to corresponding pieces
@@ -167,6 +175,10 @@ office_dict[412] = 'Zeynep'
 Now, any use of `office_dict[412]`{.python} will evaluate to
 `'Zeynep'`{.python} instead of `'Marisol'`{.python}.
 
+```{=html}
+<a name="(part._Searching-Through-the-Values-in-a-Dictionary)"></a>
+```
+
 #### 9.2.2 Searching Through the Values in a Dictionary {#Searching-Through-the-Values-in-a-Dictionary}
 
 What if we wanted to find all of the flights with more than 100 seats?
@@ -197,10 +209,16 @@ Create a dictionary that maps names of classrooms or meeting rooms to
 the numbers of seats that they have. Write expressions to:
 
 1. Look up how many seats are in a specific room
+
 2. Change the capacity of a specific room to have 10 more seats
   than it did initially
+
 3. Find all rooms that can seat at least 50 students
 :::
+
+```{=html}
+<a name="(part._Dictionaries-with-More-Complex-Values)"></a>
+```
 
 #### 9.2.3 Dictionaries with More Complex Values {#Dictionaries-with-More-Complex-Values}
 
@@ -247,6 +265,10 @@ The values in a dictionary aren’t limited to being basic values. They
 can be arbitrarily complex, including lists, tables, or even other
 dictionaries (and more!). There is still only one value
 per key, which is the requirement of a dictionary.
+
+```{=html}
+<a name="(part._Dictionaries-versus-Dataclasses)"></a>
+```
 
 #### 9.2.4 Dictionaries versus Dataclasses {#Dictionaries-versus-Dataclasses}
 
@@ -334,6 +356,10 @@ date, and list of tags and returns a dictionary with keys for each
 field of a to-do item.
 :::
 
+```{=html}
+<a name="(part._Summary)"></a>
+```
+
 ##### Summary {#Summary}
 
 Python programmers tend to make substantial use of dictionaries. In
@@ -344,6 +370,7 @@ this chapter, we’ve seen dictionaries used in two different settings:
   consistent type of information about each individual. The dictionary
   overall captures information about a large population of individuals,
   each with their own key.
+
 - one in which the keys name fields of compound data; the values
   associated with each field can have different types from the values
   for other fields. This setting corresponds to the use of dataclasses,

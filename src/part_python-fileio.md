@@ -7,6 +7,10 @@ up: booklet_pyret-to-python.html
 next: python-fileio.html
 ---
 
+```{=html}
+<a name="(part._part-python-fileio)"></a>
+```
+
 ## 11 File Input and Output in Python {#part-python-fileio}
 
 ```{=html}

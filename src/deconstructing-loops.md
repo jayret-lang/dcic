@@ -7,10 +7,18 @@ up: booklet_advanced.html
 next: booklet_interaction.html
 ---
 
+```{=html}
+<a name="(part._deconstructing-loops)"></a>
+```
+
 ## 26 Deconstructing Loops {#deconstructing-loops}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Setup__.Two_.Functions%29">26.1<span class="hspace"> </span>Setup: Two Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Abstracting_a_.Loop%29">26.2<span class="hspace"> </span>Abstracting a Loop</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Is_.It_.Really_a_.Loop_%29">26.3<span class="hspace"> </span>Is It Really a Loop?</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Re-.Examining___struct_traverse-element___procedure____lib_render-cond_rkt_38_12__%29">26.4<span class="hspace"> </span>Re-Examining <span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">for</code></span></a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Rewriting_.Pollard-.Rho%29">26.5<span class="hspace"> </span>Rewriting Pollard-Rho</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Nested_.Loops%29">26.6<span class="hspace"> </span>Nested Loops</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="deconstructing-loops.html#%28part._.Loops__.Values__and_.Customization%29">26.7<span class="hspace"> </span>Loops, Values, and Customization</a></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._Setup-Two-Functions)"></a>
 ```
 
 ### 26.1 Setup: Two Functions {#Setup-Two-Functions}
@@ -62,6 +70,10 @@ for `gcd`{.pyret}:
     assertEquals(gcd(12, 24), 12);
     assertEquals(gcd(12, 9), 3);
 }
+```
+
+```{=html}
+<a name="(part._Abstracting-a-Loop)"></a>
 ```
 
 ### 26.2 Abstracting a Loop {#Abstracting-a-Loop}
@@ -168,6 +180,10 @@ Object gcd(p, q) {
 ```
 and now closely resembles a traditional “loop” program.
 
+```{=html}
+<a name="(part._Is-It-Really-a-Loop)"></a>
+```
+
 ### 26.3 Is It Really a Loop? {#Is-It-Really-a-Loop}
 
 This whole section should be considered an aside for people with more
@@ -190,6 +206,10 @@ Jayret—like some other languages—causes tail calls to not
 take any extra stack space. In principle, Jayret can also turn some
 tail calls into jumps. Therefore, this version has close to the same
 performance as a traditional loop.
+
+```{=html}
+<a name="(part._Re-Examining-struct-traverse-element-procedure-lib-render-cond-rkt-38-12)"></a>
+```
 
 ### 26.4 Re-Examining for {#Re-Examining-struct-traverse-element-procedure-lib-render-cond-rkt-38-12}
 
@@ -240,6 +260,10 @@ Since `d-dx-at`{.pyret} has no iterative behavior, no iteration
 occurs. The looping behavior is given entirely by the function
 specified after `for`{.pyret}, such as `map`{.pyret}, `filter`{.pyret}, or
 `loop-2`{.pyret} above.
+
+```{=html}
+<a name="(part._Rewriting-Pollard-Rho)"></a>
+```
 
 ### 26.5 Rewriting Pollard-Rho {#Rewriting-Pollard-Rho}
 
@@ -293,6 +317,10 @@ Indeed, we can test that the two behave in exactly the same way:
     l2 = map(pr, ns);
     assertEquals(l1, l2);
 }
+```
+
+```{=html}
+<a name="(part._Nested-Loops)"></a>
 ```
 
 ### 26.6 Nested Loops {#Nested-Loops}
@@ -381,6 +409,10 @@ Arguably this makes even clearer what each element contributes. In
 `sum-a-lon`{.pyret} each element is a number, so it contributes just that
 number. In `sum-a-lolon`{.pyret}, each element is a list of numbers, so
 it must contribute `sum-a-lon`{.pyret} of that list.
+
+```{=html}
+<a name="(part._Loops-Values-and-Customization)"></a>
+```
 
 ### 26.7 Loops, Values, and Customization {#Loops-Values-and-Customization}
 

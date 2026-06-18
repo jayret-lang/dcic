@@ -7,6 +7,10 @@ up: booklet_advanced.html
 next: partial-domains.html
 ---
 
+```{=html}
+<a name="(part._avoid-recomp)"></a>
+```
+
 ## 22 Avoiding Recomputation by Remembering Answers {#avoid-recomp}
 
 ```{=html}
@@ -20,6 +24,10 @@ recomputing them, looks them up and returns the answers. This is an
 instance of the tradeoff because it uses space (to remember prior
 answers) in place of time (recomputing the answer). Let’s see how we
 can write such computations.
+
+```{=html}
+<a name="(part._An-Interesting-Numeric-Sequence)"></a>
+```
 
 ### 22.1 An Interesting Numeric Sequence {#An-Interesting-Numeric-Sequence}
 
@@ -104,6 +112,10 @@ Catalan function does for input `3`{.pyret}:
 
 Observe the very symmetric computation, reflecting the formula.
 
+```{=html}
+<a name="(part._Using-State-to-Remember-Past-Answers)"></a>
+```
+
 #### 22.1.1 Using State to Remember Past Answers {#Using-State-to-Remember-Past-Answers}
 
 Therefore, this is clearly a case where trading space for time is
@@ -174,6 +186,10 @@ computations, while the latter calls simply look up the results.
 This process, of converting a function into a version that remembers
 its past answers, is called memoization.
 
+```{=html}
+<a name="(part._From-a-Tree-of-Computation-to-a-D-A-G)"></a>
+```
+
 #### 22.1.2 From a Tree of Computation to a DAG {#From-a-Tree-of-Computation-to-a-D-A-G}
 
 What we have subtly done is to convert a tree of computation into a
@@ -198,6 +214,10 @@ dramatic reduction in overall complexity. In contrast, other uses of
 memoization may result in much less dramatic improvements, turning the
 use of this technique into a true engineering trade-off.
 
+```{=html}
+<a name="(part._numbers-not-constant)"></a>
+```
+
 #### 22.1.3 The Complexity of Numbers {#numbers-not-constant}
 
 As we start to run larger computations, however, we may start to
@@ -212,6 +232,10 @@ problems, the fact that operations on numbers do not take constant
 time are absolutely critical to fundamental complexity results (and,
 for instance, the presumed unbreakability of contemporary cryptography).
 (See also [Factoring Numbers](factoring-numbers.html).)
+
+```{=html}
+<a name="(part._Abstracting-Memoization)"></a>
+```
 
 #### 22.1.4 Abstracting Memoization {#Abstracting-Memoization}
 
@@ -272,13 +296,16 @@ Note several things about this definition:
 
 1. We don’t write `fun catalan(...): ...;`{.pyret} because the
   procedure bound to `catalan`{.pyret} is produced by `memoize-1`{.pyret}.
+
 2. Note carefully that the recursive calls to `catalan`{.pyret} have
   to be to the function bound to the result of memoization, thereby
   behaving like an object. Failing to
   refer to this same shared procedure means the recursive calls will
   not be memoized, thereby losing the benefit of this process.
+
 3. We need to use `rec`{.pyret} for reasons we saw earlier
   [[Streams From Functions](func-as-data.html##streams-from-funs)].
+
 4. Each invocation of `memoize-1`{.pyret} creates a new table of
   stored results. Therefore the memoization of different functions
   will each get their own tables rather than sharing tables, which is
@@ -287,6 +314,10 @@ Note several things about this definition:
 ::: {.exercise}
 Why is sharing memoization tables a bad idea? Be concrete.
 :::
+
+```{=html}
+<a name="(part._levenshtein)"></a>
+```
 
 ### 22.2 Edit-Distance for Spelling Correction {#levenshtein}
 
@@ -328,10 +359,12 @@ Given such an intended use, we would like at least the following to hold:
 
 
 - That the distance from a word to itself be zero.
+
 - That the distance from a word to any word other than
   itself be strictly positive. (Otherwise, given a word that is
   already in the dictionary, the “correction” might be a different
   dictionary word.)
+
 - That the distance between two words be symmetric, i.e., it
   shouldn’t matter in which order we pass arguments.
 
@@ -349,7 +382,9 @@ be fat-fingered:
 
 
 1. we left out a character;
+
 2. we typed a character twice; or,
+
 3. we typed one character when we meant another.
 
 In particular, we are interested in the fewest edits of these
@@ -541,6 +576,10 @@ Modify the above algorithm to produce an actual (optimal) sequence of
 edit operations. This is sometimes known as the traceback.
 :::
 
+```{=html}
+<a name="(part._smith-waterman)"></a>
+```
+
 ### 22.3 Nature as a Fat-Fingered Typist {#smith-waterman}
 
 We have talked about how to address mistakes made by humans. However,
@@ -579,6 +618,10 @@ peculiar to biology; we could just as well use a “gap score” to
 reflect the likelihood of a substitution based on keyboard
 characteristics.
 
+```{=html}
+<a name="(part._Dynamic-Programming)"></a>
+```
+
 ### 22.4 Dynamic Programming {#Dynamic-Programming}
 
 We have used memoization as our canonical means of saving the values
@@ -597,6 +640,10 @@ largest computation and recurring to smaller ones, it starts with the
 smallest computations and builds outward to larger ones.
 
 We will revisit our previous examples in light of this approach.
+
+```{=html}
+<a name="(part._Catalan-Numbers-with-Dynamic-Programming)"></a>
+```
 
 #### 22.4.1 Catalan Numbers with Dynamic Programming {#Catalan-Numbers-with-Dynamic-Programming}
 
@@ -650,6 +697,10 @@ error. Note that this requires careful reasoning about our program,
 which we did not need to perform when using memoization because
 there we made precisely the recursive call we needed, which either
 looked up the value or computed it afresh.
+
+```{=html}
+<a name="(part._Levenshtein-Distance-and-Dynamic-Programming)"></a>
+```
 
 #### 22.4.2 Levenshtein Distance and Dynamic Programming {#Levenshtein-Distance-and-Dynamic-Programming}
 
@@ -850,6 +901,10 @@ canonical dynamic programming problems, see
 [this page](http://people.csail.mit.edu/bdean/6.046/dp/)
 and think about how each can be expressed as a direct recursion.]{.margin-note}
 
+```{=html}
+<a name="(part._memo-vs-dp)"></a>
+```
+
 ### 22.5 Contrasting Memoization and Dynamic Programming {#memo-vs-dp}
 
 Now that we’ve seen two very different techniques for avoiding recomputation,
@@ -931,6 +986,7 @@ raise the question, what about:
 
 
 - top-down, breadth-first
+
 - bottom-up, depth-first
 
 orders of computation. Do they also have special names that we just

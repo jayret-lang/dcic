@@ -7,6 +7,10 @@ up: booklet_intro-to-programming.html
 next: trees.html
 ---
 
+```{=html}
+<a name="(part._part-trees)"></a>
+```
+
 ## 7 Trees {#part-trees}
 
 ```{=html}

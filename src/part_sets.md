@@ -7,6 +7,10 @@ up: booklet_data-with-analysis.html
 next: sets-from-lists.html
 ---
 
+```{=html}
+<a name="(part._part-sets)"></a>
+```
+
 ## 18 Several Variations on Sets {#part-sets}
 
 ```{=html}

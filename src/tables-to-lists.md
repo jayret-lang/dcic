@@ -7,6 +7,10 @@ up: part_lists.html
 next: processing-lists.html
 ---
 
+```{=html}
+<a name="(part._tables-to-lists)"></a>
+```
+
 ### 5.1 From Tables to Lists {#tables-to-lists}
 
 ```{=html}
@@ -25,6 +29,10 @@ of data, and sometimes we will want to compute one of them. We will
 now see how to achieve both of these things, introducing an important
 new type of data in the process.
 
+```{=html}
+<a name="(part._table-stat-qs)"></a>
+```
+
 #### 5.1.1 Basic Statistical Questions {#table-stat-qs}
 
 There are many more questions we might want to ask of our events data. For
@@ -32,14 +40,20 @@ instance:
 
 
 - The most-frequently used discount code.
+
 - The average number of tickets per order.
+
 - The largest ticket order.
+
 - The most common number of tickets in an order.
+
 - The collection of unique discount codes that were used (many
   might have been available).
+
 - The collection of distinct email addresses associated with
   orders, so we can contact customers (some customers may have placed
   multiple orders).
+
 - Which school lead to the largest number of orders with a
   `"STUDENT"`{.pyret} discount.
 
@@ -74,6 +88,10 @@ import gdrive-sheets
 import data-source
 ssid = "1Ks4ll5_8wyYK1zyXMm_21KORhagSMZ59dcr7i3qY6T4";
 cleaned-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: load-spreadsheet(ssid).sheet-by-name("Cleaned", true) sanitize name using string-sanitizer sanitize email using string-sanitizer sanitize tickcount using num-sanitizer sanitize discount using string-sanitizer sanitize delivery using string-sanitizer sanitize zip using string-sanitizer;
+```
+
+```{=html}
+<a name="(part._Extracting-a-Column-from-a-Table)"></a>
 ```
 
 #### 5.1.2 Extracting a Column from a Table {#Extracting-a-Column-from-a-Table}
@@ -124,6 +142,10 @@ Now, we seem to have only the values that were in the cells in the
 column, without the enclosing table. Yet the numbers are still bundled
 up, this time in the `[...]`{.pyret} notation. What is that?
 
+```{=html}
+<a name="(part._Understanding-Lists)"></a>
+```
+
 #### 5.1.3 Understanding Lists {#Understanding-Lists}
 
 A list has much in common with a single-column table:
@@ -131,11 +153,16 @@ A list has much in common with a single-column table:
 
 - The elements have an order, so it makes sense to talk about the
   “first”, “second”, “last”—and so on—element of a list.
+
 - All elements of a list are expected to have the same type.
 
 The crucial difference is that a list does not have a “column name”;
 it is anonymous. That is, by itself a list does not describe
 what it represents; this interpretation is done by our program.
+
+```{=html}
+<a name="(part._lists-generic-data)"></a>
+```
 
 ##### 5.1.3.1 Lists as Anonymous Data {#lists-generic-data}
 
@@ -167,6 +194,10 @@ are specific to numbers (like average) while some (like maximum) can
 be asked of any type on which we can perform a comparison (like
 strings).
 
+```{=html}
+<a name="(part._Creating-Literal-Lists)"></a>
+```
+
 ##### 5.1.3.2 Creating Literal Lists {#Creating-Literal-Lists}
 
 We have already seen how we can create lists from a table, using
@@ -194,7 +225,15 @@ list?
 As you might have guessed, it’s `[]`{.pyret} (the space isn’t
 necessary, but it’s a useful visual reminder of the void).
 
+```{=html}
+<a name="(part._Operating-on-Lists)"></a>
+```
+
 #### 5.1.4 Operating on Lists {#Operating-on-Lists}
+
+```{=html}
+<a name="(part._Built-In-Operations-on-Lists-of-Numbers)"></a>
+```
 
 ##### 5.1.4.1 Built-In Operations on Lists of Numbers {#Built-In-Operations-on-Lists-of-Numbers}
 
@@ -228,6 +267,10 @@ S.median(tickcounts);
 The `M.`{.pyret} notation means "the function inside the library
 `M`{.pyret}. The `import`{.pyret} statement in the above code gave the name
 `M`{.pyret} to the `math`{.pyret} library.
+
+```{=html}
+<a name="(part._Built-In-Operations-on-Lists-in-General)"></a>
+```
 
 ##### 5.1.4.2 Built-In Operations on Lists in General {#Built-In-Operations-on-Lists-in-General}
 
@@ -304,6 +347,10 @@ which all letters are in lowercase. (Hint: combine
 `string-to-lower`{.pyret} and `==`{.pyret}).
 :::
 
+```{=html}
+<a name="(part._An-Aside-on-Naming-Conventions)"></a>
+```
+
 ##### 5.1.4.3 An Aside on Naming Conventions {#An-Aside-on-Naming-Conventions}
 
 Our use of the plural `codes`{.pyret} for the list of values in the
@@ -313,6 +360,10 @@ we think of a column header as naming a single value that appears in
 a specific row. Often, we speak of looking up a value in a specific
 row and column: the singular name for the column supports thinking
 about lookup in an individual row.
+
+```{=html}
+<a name="(part._Getting-Elements-By-Position)"></a>
+```
 
 ##### 5.1.4.4 Getting Elements By Position {#Getting-Elements-By-Position}
 
@@ -328,7 +379,9 @@ Propose a task plan ([Task Plans](processing-tables.html##task-plans)) for this 
 Here’s a proposed plan, annotated with how we might implement each part:
 
 1. Get the list of email addresses (use `get-column`{.pyret})
+
 2. Extract those that came from `web.com`{.pyret} (use `L.filter`{.pyret})
+
 3. Count how many email addresses remain (using `L.length`{.pyret},
   which we hadn’t discussed yet, but it is in the documentation)
 
@@ -404,6 +457,10 @@ contain the `@`{.pyret} string? What would happen? What could you do
 about that?
 :::
 
+```{=html}
+<a name="(part._Transforming-Lists)"></a>
+```
+
 ##### 5.1.4.5 Transforming Lists {#Transforming-Lists}
 
 Imagine now that we had a list of email addresses, but instead just
@@ -450,6 +507,10 @@ String extract-username(String email) {
 L.map(extract-username, ["parrot@web.com", "bonnie@jayret-lang.github.io"]);
 ```
 
+```{=html}
+<a name="(part._lists-recap)"></a>
+```
+
 ##### 5.1.4.6 Recap: Summary of List Operations {#lists-recap}
 
 At this point, we have seen several useful built-in functions for
@@ -458,11 +519,14 @@ working with lists:
 - `/* contract: filter :: Object */`{.pyret}, which
   produces a list of elements from the input list on which the given
   function returns `true`{.pyret}.
+
 - `/* contract: map :: Object */`{.pyret}, which
   produces a list of the results of calling the given function on each
   element of the input list.
+
 - `/* contract: distinct :: Object */`{.pyret}, which
   produces a list of the unique elements that appear in the input list.
+
 - `/* contract: length :: Object */`{.pyret}, which
   produces the number of elements in the input list.
 
@@ -499,9 +563,11 @@ Write the following functions on ingredient lists:
 
 - `recipes-uses`{.pyret}, which takes an ingredient list and an
   ingredient and determines whether the recipe uses the ingredient.
+
 - `make-vegetarian`{.pyret}, which takes an ingredient list and replaces
   all meat ingredients with `"tofu"`{.pyret}. Meat ingredients are
   `"pork"`{.pyret}, `"chicken"`{.pyret}, and `"beef"`{.pyret}.
+
 - `protein-veg-count`{.pyret}, which takes an ingredient list and
   determines how many ingredients are in the list that aren’t
   `"rice"`{.pyret} or `"noodles"`{.pyret}.
@@ -523,6 +589,10 @@ issue(s) or limitations do you run into?
 
 Come back to this problem after you finish the next section.
 :::
+
+```{=html}
+<a name="(part._Lambda-Anonymous-Functions)"></a>
+```
 
 #### 5.1.5 Lambda: Anonymous Functions {#Lambda-Anonymous-Functions}
 
@@ -620,6 +690,10 @@ previous section: write a function that takes two ingredient lists and
 returns all of the ingredients that are common to both lists.
 :::
 
+```{=html}
+<a name="(part._Combining-Lists-and-Tables)"></a>
+```
+
 #### 5.1.6 Combining Lists and Tables {#Combining-Lists-and-Tables}
 
 The table functions we studied previously were primarily for
@@ -655,10 +729,12 @@ There are several options here:
   tickets (using `filter-with`{.pyret}), get those rows that have
   `".org"`{.pyret} addresses (another `filter-with`{.pyret}), then ask for how
   many rows are in the table (using `<table>.length()`{.pyret}).
+
 2. Get the `event-data`{.pyret} rows with no more than 8
   tickets and `".org"`{.pyret} address (using `filter-with`{.pyret} with a
   function that checks both conditions at once), then ask for how
   many rows are in the table (using `<table>.length()`{.pyret}).
+
 3. Get the `event-data`{.pyret} rows with no more than 8
   tickets (using `filter-with`{.pyret}), extract the email addresses (using
   `get-column`{.pyret}), limit those to `".org"`{.pyret} (using `L.filter`{.pyret}),
@@ -679,9 +755,11 @@ considerations:
   computations to perform on larger ticket orders. Similarly, the
   company may want the list of email addresses on large orders for
   other purposes (the third option)
+
 - Do you want to follow a discipline of doing operations on
   individuals within the table, extracting lists only when needed to
   perform aggregating computations that aren’t available on tables?
+
 - Does one approach seem less resource-intensive than the other?
   This is actually a subtle point: you might be tempted to think that
   filtering over a table uses more resources than filtering over a list

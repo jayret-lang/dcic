@@ -7,6 +7,10 @@ up: booklet_data-with-analysis.html
 next: Sharing_and_Equality.html
 ---
 
+```{=html}
+<a name="(part._part-dags)"></a>
+```
+
 ## 16 Directed Acyclic Graphs {#part-dags}
 
 ```{=html}

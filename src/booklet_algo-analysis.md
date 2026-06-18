@@ -7,6 +7,10 @@ up: index.html
 next: predicting-growth.html
 ---
 
+```{=html}
+<a name="(part._booklet-algo-analysis)"></a>
+```
+
 ## V Algorithm Analysis {#booklet-algo-analysis}
 
 ```{=html}

@@ -7,6 +7,10 @@ up: booklet_intro-to-programming.html
 next: getting-started.html
 ---
 
+```{=html}
+<a name="(part._part-foundations)"></a>
+```
+
 ## 3 Basic Data {#part-foundations}
 
 ```{=html}

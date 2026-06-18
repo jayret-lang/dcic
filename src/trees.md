@@ -7,10 +7,18 @@ up: part_trees.html
 next: part_bonus-foundations.html
 ---
 
+```{=html}
+<a name="(part._trees)"></a>
+```
+
 ### 7.1 Trees {#trees}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._ancestor-trees%29">7.1.1<span class="hspace"> </span>Data Design Problem – Ancestry Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._compute-parents-table%29">7.1.1.1<span class="hspace"> </span>Computing Genetic Parents from an Ancestry Table</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._.Computing_.Grandparents_from_an_.Ancestry_.Table%29">7.1.1.2<span class="hspace"> </span>Computing Grandparents from an Ancestry Table</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._ancestor-tree%29">7.1.1.3<span class="hspace"> </span>Creating a Datatype for Ancestor Trees</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._.Programs_to_.Process_.Ancestor_.Trees%29">7.1.2<span class="hspace"> </span>Programs to Process Ancestor Trees</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._.Summarizing_.How_to_.Approach_.Tree_.Problems%29">7.1.3<span class="hspace"> </span>Summarizing How to Approach Tree Problems</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="trees.html#%28part._.Study_.Questions%29">7.1.4<span class="hspace"> </span>Study Questions</a></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._ancestor-trees)"></a>
 ```
 
 #### 7.1.1 Data Design Problem – Ancestry Data {#ancestor-trees}
@@ -27,9 +35,13 @@ ancestors = table: name ,birthyear ,eyecolor ,female-parent ,male-parent row: "A
 For our research, we want to be able to answer questions such as the following:
 
 - Who are the genetic grandparents of a specific person?
+
 - How frequent is each eye color?
+
 - Is one specific person an ancestor of another specific person?
+
 - How many generations do we have information for?
+
 - Does one’s eye color correlate with the ages of their genetic
   parents when they were born?
 
@@ -52,14 +64,21 @@ parents from a name, so we should create a helper function for that
 (we’ll call it `parents-of`{.pyret}). Since this sounds like a routine
 table program, we can use it for a bit of review:
 
+```{=html}
+<a name="(part._compute-parents-table)"></a>
+```
+
 ##### 7.1.1.1 Computing Genetic Parents from an Ancestry Table {#compute-parents-table}
 
 How do we compute a list of someone’s genetic parents? Let’s sketch a
 task plan for that:
 
 - filter the table to find the person
+
 - extract the name of the female parent
+
 - extract the name of the male parent
+
 - make a list of those names
 
 These are tasks we have seen before, so we can translate this
@@ -89,10 +108,12 @@ There are arguably some issues here. How many of these did you catch?
 
 - The examples are weak: none of them consider people for
   whom we are missing information on at least one parent.
+
 - The list of names returned in the case of an unknown parent
   includes the empty string, which isn’t actually a name. This could
   cause problems if we use this list of names in a subsequent
   computation (such as to compute the names of someone’s grandparents).
+
 - If empty strings are not part of the output list, then we’d get
   the same result from asking for the parents of `"Robert"`{.pyret} (who is
   in the table) as for `"Kathi"`{.pyret} (who is not). These are
@@ -135,6 +156,10 @@ expression will yield an error: instead of using `is`{.pyret} to check
 the equality of values, we use `raises`{.pyret} to check whether the
 provided string is a sub-string of the actual error produced by the
 program.
+
+```{=html}
+<a name="(part._Computing-Grandparents-from-an-Ancestry-Table)"></a>
+```
 
 ##### 7.1.1.2 Computing Grandparents from an Ancestry Table {#Computing-Grandparents-from-an-Ancestry-Table}
 
@@ -196,6 +221,10 @@ filtering there – we just follow the line in the picture immediately
 from a person to their mother or father. Can we get that idea in code
 instead? Yes, through datatypes.
 
+```{=html}
+<a name="(part._ancestor-tree)"></a>
+```
+
 ##### 7.1.1.3 Creating a Datatype for Ancestor Trees {#ancestor-tree}
 
 For this approach, we want to create a datatype for Ancestor Trees
@@ -223,9 +252,13 @@ several ideas:
 
 
 - `person`{.pyret}
+
 - `List < person >`{.pyret}
+
 - some new datatype
+
 - `AncTree`{.pyret}
+
 - `String`{.pyret}
 
 Which should it be?
@@ -292,6 +325,10 @@ List<Object> parents-of-tree(AncTree tr) {
 // person bit more complicated if parent is missing
 ```
 
+```{=html}
+<a name="(part._Programs-to-Process-Ancestor-Trees)"></a>
+```
+
 #### 7.1.2 Programs to Process Ancestor Trees {#Programs-to-Process-Ancestor-Trees}
 
 How would we write a function to determine whether anyone in the tree
@@ -346,6 +383,7 @@ ellipses.
 
 - When the tree is `noInfo`{.pyret}, it has no more people, so the answer
   should be false (as worked out in the examples).
+
 - When the tree is a person, there are three possibilities: we
   could be at a person with the name we’re looking for, or the name
   could be in the mother’s tree, or the name could be in the father’s
@@ -374,6 +412,10 @@ boolean in-tree(AncTree at, String name) {
 // m is the same as at.mother
 ```
 
+```{=html}
+<a name="(part._Summarizing-How-to-Approach-Tree-Problems)"></a>
+```
+
 #### 7.1.3 Summarizing How to Approach Tree Problems {#Summarizing-How-to-Approach-Tree-Problems}
 
 We design tree programs using the same design recipe that we covered
@@ -381,10 +423,14 @@ on lists:
 
 ::: {.strategy}
 - Write the datatype for your tree, including a base/leaf case
+
 - Write examples of your trees for use in testing
+
 - Write the function name, parameters, and types (the `fun`{.pyret}
   line)
+
 - Write `where`{.pyret} checks for your code
+
 - Write the template, including the cases and recursive
   calls. Here’s the template again for an ancestor tree, for an
   arbitrary function called treeF:
@@ -403,22 +449,34 @@ boolean treeF(String name, AncTree t) {
 }
   ```
 - Fill in the template with details specific to the problem
+
 - Test your code using your examples
 :::
+
+```{=html}
+<a name="(part._Study-Questions)"></a>
+```
 
 #### 7.1.4 Study Questions {#Study-Questions}
 
 - Think of writing in-tree on a table (using filter-by) vs writing
   it on a tree. How many times might each approach compare the name
   being sought against a name in the table/tree?
+
 - Why do we need to use a recursive function to process the tree?
+
 - In what order will we check the names in the tree version?
 
 For practice, try problems such as
 
 - How many blue-eyed people are in the tree?
+
 - How many people are in the tree?
+
 - How many generations are in the tree?
+
 - How many people have a given name in a tree?
+
 - How many people have names starting with "A"?
+
 - ... and so on

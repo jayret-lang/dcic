@@ -7,6 +7,10 @@ up: index.html
 next: p4rs.html
 ---
 
+```{=html}
+<a name="(part._booklet-appendices)"></a>
+```
+
 ## IX Appendices {#booklet-appendices}
 
 ```{=html}

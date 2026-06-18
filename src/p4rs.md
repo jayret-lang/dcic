@@ -7,6 +7,10 @@ up: booklet_appendices.html
 next: pyret-vs-python.html
 ---
 
+```{=html}
+<a name="(part._p4rs)"></a>
+```
+
 ## 28 Jayret for Racketeers and Schemers {#p4rs}
 
 ```{=html}
@@ -24,6 +28,10 @@ applies to all these languages, though in some cases we will refer
 specifically to Racket (and WeScheme) features not found in Scheme.
 
 In every example below, the two programs will produce the same results.
+
+```{=html}
+<a name="(part._Numbers-Strings-and-Booleans)"></a>
+```
 
 ### 28.1 Numbers, Strings, and Booleans {#Numbers-Strings-and-Booleans}
 
@@ -69,6 +77,10 @@ Booleans have the same names:
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><span class="RktSym">false</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">false</code></span></p></td></tr></table>
 ```
 
+```{=html}
+<a name="(part._Infix-Expressions)"></a>
+```
+
 ### 28.2 Infix Expressions {#Infix-Expressions}
 
 Jayret uses an infix syntax, reminiscent of many other textual
@@ -93,6 +105,10 @@ left in both languages:
 ```
 These both evaluate to 1/24.
 
+```{=html}
+<a name="(part._Function-Definition-and-Application)"></a>
+```
+
 ### 28.3 Function Definition and Application {#Function-Definition-and-Application}
 
 Function definition and application in Jayret have an infix syntax,
@@ -112,6 +128,10 @@ and infix in the body:
   num-sqrt((x * x) +
            (y * y))
 end</code></pre></div></div></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._Tests)"></a>
 ```
 
 ### 28.4 Tests {#Tests}
@@ -173,6 +193,10 @@ addition to `is`{.pyret}). See
 [the
 documentation](https://jayret-lang.github.io/docs/latest/testing.html).
 
+```{=html}
+<a name="(part._Variable-Names)"></a>
+```
+
 ### 28.5 Variable Names {#Variable-Names}
 
 Both languages have a fairly permissive system for naming
@@ -197,6 +221,10 @@ more exotic names permitted by Scheme. For instance, one can write
 <blockquote class="SCodeFlow"><table cellpadding="0" cellspacing="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym">define</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">e^i*pi</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktVal">-1</span><span class="RktPn">)</span><span class="RktMeta"></span></td></tr></table></blockquote>
 ```
 in Scheme but that is not a valid variable name in Jayret.
+
+```{=html}
+<a name="(part._Data-Definitions)"></a>
+```
 
 ### 28.6 Data Definitions {#Data-Definitions}
 
@@ -277,6 +305,10 @@ constructed. Thus, we can use `.x`{.pyret} on a value whether it was
 constructed by `pt`{.pyret} or `pt3d`{.pyret} (or indeed anything else with
 that field). In contrast, `cases`{.pyret} does pay attention to this
 distinction.
+
+```{=html}
+<a name="(part._Conditionals)"></a>
+```
 
 ### 28.7 Conditionals {#Conditionals}
 
@@ -360,6 +392,10 @@ variants of data but a function processes only very few of them. In
 such situations, it makes more sense to explicitly use predicates and
 selectors.
 
+```{=html}
+<a name="(part._Lists)"></a>
+```
+
 ### 28.8 Lists {#Lists}
 
 In Racket, depending on the language level, lists are created using
@@ -404,12 +440,20 @@ there are other things by the same name; in particular, when writing a
 nested destructuring of a list, we conventionally write `fr`{.pyret} and
 `rr`{.pyret} (for “first of the rest” and “rest of the rest”).
 
+```{=html}
+<a name="(part._First-Class-Functions)"></a>
+```
+
 ### 28.9 First-Class Functions {#First-Class-Functions}
 
 The equivalent of Racket’s lambda is Jayret’s `lam`{.pyret}:
 
 ```{=html}
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">RSW</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><span class="RktPn">(</span><span class="RktSym">lambda</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">y</span><span class="RktPn">)</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktPn">(</span><span class="RktSym">+</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">x</span><span class="RktMeta"></span><span class="hspace"> </span><span class="RktMeta"></span><span class="RktSym">y</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktMeta"></span></p></td><td><p><span class="sourceCode" title="Jayret"><code class="sourceCode" data-lang="jayret">lam(x, y): x + y end</code></span></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._Annotations)"></a>
 ```
 
 ### 28.10 Annotations {#Annotations}
@@ -431,6 +475,10 @@ fun square(n :: Number) -> Number: ...
 fun sort-nums(l :: List<Number>) -> List<Number>: ...
 
 fun sort<T>(l :: List<T>, cmp :: (T, T -> Boolean)) -> List<T>: ...
+```
+
+```{=html}
+<a name="(part._What-Else)"></a>
 ```
 
 ### 28.11 What Else? {#What-Else}

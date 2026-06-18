@@ -7,6 +7,10 @@ up: booklet_appendices.html
 next: htdp-vs-dcic.html
 ---
 
+```{=html}
+<a name="(part._pyret-vs-python)"></a>
+```
+
 ## 29 Jayret vs. Python {#pyret-vs-python}
 
 For the curious, we offer a few examples here to justify our frustration with

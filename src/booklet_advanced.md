@@ -7,6 +7,10 @@ up: index.html
 next: state-in-pyret.html
 ---
 
+```{=html}
+<a name="(part._booklet-advanced)"></a>
+```
+
 ## VII Advanced Topics {#booklet-advanced}
 
 ```{=html}

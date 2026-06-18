@@ -121,8 +121,10 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="mutating-structures.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_state.html">up</a>&nbsp;&nbsp;<a href="unified-lists-memory.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._unified-equality)"></a>
 <h3 id="unified-equality">12.2 Understanding Equality</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._equality-of-data%29">12.2.1<span class="hspace"> </span>Equality of Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._equality-operations%29">12.2.2<span class="hspace"> </span>Different Equality Operations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._.Equality_in_.Python%29">12.2.2.1<span class="hspace"> </span>Equality in Python</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="unified-equality.html#%28part._.Equality_in_.Jayret%29">12.2.2.2<span class="hspace"> </span>Equality in Jayret</a></p></td></tr></table>
+<a name="(part._equality-of-data)"></a>
 <h4 id="equality-of-data">12.2.1 Equality of Data</h4>
 <p>Now that we have the ability to mutate data, it’s worth asking what
 it means for two pieces of data to be equal. We’ll motivate this through
@@ -185,20 +187,21 @@ Therefore, their values change in lockstep: asking to display the value
 of either one would now show an account with a balance of
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">800</code></span>.</p>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>What do you think now? Are the first two accounts equal?</p></blockquote></blockquote>
+<a name="(part._equality-operations)"></a>
 <h4 id="equality-operations">12.2.2 Different Equality Operations</h4>
 <p>This sequence of examples points out that we seem to be raising two
 possible notions of equality:</p>
 <ol type="1">
-<li>Whether two values have the same contents. This is formally called
-structural equality; you can think of it as a “print equality”, namely,
-when displayed, do the two values look the same.</li>
-<li>Whether two values live at the same address, i.e., there is actually
-only one value in memory. This is formally called reference equality.
-Usually, we would refer to the two values by different names (so there
-is the possibility that they are different), and reference equality
-checks whether the names are aliases. Observe that a given value always
-prints the same way, so any two names that have reference equality also
-have structural equality, but not vice versa.</li>
+<li><p>Whether two values have the same contents. This is formally
+called structural equality; you can think of it as a “print equality”,
+namely, when displayed, do the two values look the same.</p></li>
+<li><p>Whether two values live at the same address, i.e., there is
+actually only one value in memory. This is formally called reference
+equality. Usually, we would refer to the two values by different names
+(so there is the possibility that they are different), and reference
+equality checks whether the names are aliases. Observe that a given
+value always prints the same way, so any two names that have reference
+equality also have structural equality, but not vice versa.</p></li>
 </ol>
 <p>Which notion of equality is “correct”? It turns out that they are
 valuable in different contexts. For this reason, programming languages
@@ -207,6 +210,7 @@ indicate which kind of equality they mean in their context.</p>
 <p>Unfortunately, the names of equality operations, and their exact
 meaning, vary across languages. Therefore, we will examine each of
 Jayret and Python separately.</p>
+<a name="(part._Equality-in-Python)"></a>
 <h5 id="Equality-in-Python">12.2.2.1 Equality in Python</h5>
 <p>The
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">==</code></span>
@@ -239,6 +243,7 @@ operator is more accepting, so it is usually the right default. If you
 actually need to know whether two expressions evaluate to the same
 address, you should instead use
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">is</code></span>.</p>
+<a name="(part._Equality-in-Pyret)"></a>
 <h5 id="Equality-in-Pyret">12.2.2.2 Equality in Jayret</h5>
 <p>Equality in Jayret is somewhat more detailed, because the language
 wants you to think harder about what is happening in your programs.</p>
@@ -260,8 +265,8 @@ Why?</p>
 <p>The reason is because structural equality is actually complicated;
 there are two different questions we could be asking:</p>
 <ol type="1">
-<li>Are these two values structurally equal right now?</li>
-<li>Will these two values be structurally equal always?</li>
+<li><p>Are these two values structurally equal right now?</p></li>
+<li><p>Will these two values be structurally equal always?</p></li>
 </ol>
 <p>Jayret makes a distinction between these two.</p>
 <p>By default, Jayret tends towards safer programming practices.

@@ -7,6 +7,10 @@ up: part_python-state.html
 next: booklet_algo-analysis.html
 ---
 
+```{=html}
+<a name="(part._mutable-lists)"></a>
+```
+
 ### 13.2 Mutable Lists {#mutable-lists}
 
 ```{=html}
@@ -44,6 +48,7 @@ lies in the impact on the heap.
 
 - The first version creates a new list containing `"eggs"`{.python},
   then puts the elements of the two lists together in a new list.
+
 - The second version inserts `"eggs"`{.python} into the existing
   list in the heap.
 
@@ -139,6 +144,10 @@ would see the new item:
 ::: {.do-now}
 Draw the memory diagram for the above program.
 :::
+
+```{=html}
+<a name="(part._Exercise-Creating-Lists-of-Accounts)"></a>
+```
 
 #### Exercise: Creating Lists of Accounts {#Exercise-Creating-Lists-of-Accounts}
 

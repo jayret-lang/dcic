@@ -7,10 +7,18 @@ up: part_state.html
 next: part_python-state.html
 ---
 
+```{=html}
+<a name="(part._unified-cyclic-data)"></a>
+```
+
 ### 12.4 Cyclic Data {#unified-cyclic-data}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._.Creating_.Cyclic_.Data%29">12.4.1<span class="hspace"> </span>Creating Cyclic Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._.Testing_.Cyclic_.Data%29">12.4.2<span class="hspace"> </span>Testing Cyclic Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._.Cycles_in_.Practice%29">12.4.3<span class="hspace"> </span>Cycles in Practice</a></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._Creating-Cyclic-Data)"></a>
 ```
 
 #### 12.4.1 Creating Cyclic Data {#Creating-Cyclic-Data}
@@ -184,6 +192,10 @@ list of owners is empty).
 Write a function that takes care of adding a customer to an account.
 :::
 
+```{=html}
+<a name="(part._Testing-Cyclic-Data)"></a>
+```
+
 #### 12.4.2 Testing Cyclic Data {#Testing-Cyclic-Data}
 
 When you want to write a test involving circular data, you can’t write
@@ -216,6 +228,10 @@ Here, rather than write out the `Customer`{.python} explicitly, we use the name
 of the existing item in the directory. This doesn’t require you to write
 ellipses. We also focused on just the `owner`{.python} component, as a part of
 the `Account`{.python} value that we expected to change.
+
+```{=html}
+<a name="(part._Cycles-in-Practice)"></a>
+```
 
 #### 12.4.3 Cycles in Practice {#Cycles-in-Practice}
 

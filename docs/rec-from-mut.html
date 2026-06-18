@@ -121,6 +121,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="state-in-pyret.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_advanced.html">up</a>&nbsp;&nbsp;<a href="cycle-detection.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._rec-from-mut)"></a>
 <h2 id="rec-from-mut">20 Recursion and Cycles from Mutation</h2>
 <p>Earlier [<a href="Sharing_and_Equality.html##acyc-to-cyc">From
 Acyclicity to Cycles</a>], we saw the difficulty of constructing cyclic
@@ -140,15 +141,15 @@ on the right, we would end up in an infinite regress.)</p>
 been able to write recursive functions all the time, without difficulty.
 Why are they different? For two reasons:</p>
 <ul>
-<li>The first reason is the fact that we’re defining a function. A
+<li><p>The first reason is the fact that we’re defining a function. A
 function’s body is not evaluated right away—only when we apply it—so the
 language can wait for the body to finish being defined. (We’ll see what
-this might mean in a moment.)</li>
-<li>The second reason isn’t actually a reason: function definitions
+this might mean in a moment.)</p></li>
+<li><p>The second reason isn’t actually a reason: function definitions
 actually are special. But we are about to expose what’s so special about
 them—it’s the use of a box! [<a href="state-in-pyret.html##boxes">Boxes:
 A Canonical Mutable Structure</a>]—so that any definition can avail of
-it.</li>
+it.</p></li>
 </ul>
 <p>Returning to our example above, recall that we can’t make up our list
 using
@@ -172,6 +173,7 @@ A grey list. What follows grey? A white list. It is clear we can’t write
 down these two definitions because one of them must precede the other,
 but each one depends on the other. (This is the same problem as trying
 to write a single definition above.)</p>
+<a name="(part._Partial-Definitions)"></a>
 <h3 id="Partial-Definitions">20.1 Partial Definitions</h3>
 <p>What we need to instead do is to partially define each list, and then
 complete the definition using the other one. However, that is impossible
@@ -216,6 +218,7 @@ to inspect a finite prefix of an infinite list:</p>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">@Check void test() {
     assertEquals(ctake(4, web-colors), ["white", "grey", "white", "grey"]);
 }</code></pre></div></div>
+<a name="(part._rec-for-recursive)"></a>
 <h3 id="rec-for-recursive">20.2 Recursive Functions</h3>
 <p>Based on this, we can now understand recursive functions. Consider a
 very simple example, such as this:</p>
@@ -249,20 +252,21 @@ function in an environment where the name is bound, unboxing the use of
 the name; and finally, it replaces the box’s content with the defined
 function, following the same pattern we saw earlier for
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">web-colors</code></span>.</p>
+<a name="(part._premature-eval)"></a>
 <h3 id="premature-eval">20.3 Premature Evaluation</h3>
 <p>Observe that the above description reveals that there is a time
 between the creation of the name and the assignment of a value to it.
 Can this intermediate state be observed? It sure can!</p>
 <p>There are generally three solutions to this problem:</p>
 <ol type="1">
-<li>Make sure the value is sufficiently obscure so that it can never be
-used in a meaningful context. This means values like 0 are especially
+<li><p>Make sure the value is sufficiently obscure so that it can never
+be used in a meaningful context. This means values like 0 are especially
 bad, and indeed most common datatypes should be shunned. Indeed, there
 is no value already in use that can be used here that might not be
-confusing in some context.</li>
-<li>The language might create a new type of value just for use here. For
-instance, imagine this definition of
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">CList</code></span>:</li>
+confusing in some context.</p></li>
+<li><p>The language might create a new type of value just for use here.
+For instance, imagine this definition of
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">CList</code></span>:</p></li>
 </ol>
 <div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">data CList {
   Undef;
@@ -291,6 +295,7 @@ be able to manage the consequences of such premature use by themselves.
 binding functions, and then make sure that the right-hand side of the
 binding is syntactically a function. This solution precludes some
 reasonable programs, but is certainly safe.</p>
+<a name="(part._Cyclic-Lists-Versus-Streams)"></a>
 <h3 id="Cyclic-Lists-Versus-Streams">20.4 Cyclic Lists Versus
 Streams</h3>
 <p>The color list example above is, as we have noted, very reminiscent

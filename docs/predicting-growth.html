@@ -115,10 +115,12 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="booklet_algo-analysis.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_algo-analysis.html">up</a>&nbsp;&nbsp;<a href="amortized-analysis.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._predicting-growth)"></a>
 <h2 id="predicting-growth">14 Predicting Growth</h2>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.A_.Little__.True__.Story%29">14.1<span class="hspace"> </span>A Little (True) Story</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.The_.Analytical_.Idea%29">14.2<span class="hspace"> </span>The Analytical Idea</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._cost-model%29">14.3<span class="hspace"> </span>A Cost Model for Jayret Running Time</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._size-of-input%29">14.4<span class="hspace"> </span>The Size of the Input</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._.The_.Tabular_.Method_for_.Singly-.Structurally-.Recursive_.Functions%29">14.5<span class="hspace"> </span>The Tabular Method for Singly-Structurally-Recursive Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._creating-recurrences%29">14.6<span class="hspace"> </span>Creating Recurrences</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._math-anon-functions%29">14.7<span class="hspace"> </span>A Notation for Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._big-oh-def%29">14.8<span class="hspace"> </span>Comparing Functions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._big-oh-closure%29">14.9<span class="hspace"> </span>Combining Big-Oh Without Woe</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="predicting-growth.html#%28part._solving-recurrences%29">14.10<span class="hspace"> </span>Solving Recurrences</a></p></td></tr></table>
 <p>We will now commence the study of determining how long a computation
 takes. We’ll begin with a little (true) story.</p>
+<a name="(part._A-Little-True-Story)"></a>
 <h3 id="A-Little-True-Story">14.1 A Little (True) Story</h3>
 <p>My student Debbie recently wrote tools to analyze data for a startup.
 The company collects information about product scans made on mobile
@@ -133,11 +135,11 @@ this she was ready to declare the programs ready.</p>
 correctness. There was still a question of how quickly her analytical
 tools would produce answers. This presented two problems:</p>
 <ul>
-<li>The company was rightly reluctant to share the entire dataset with
-outsiders, and in turn we didn’t want to be responsible for carefully
-guarding all their data.</li>
-<li>Even if we did get a sample of their data, as more users used their
-product, the amount of data they had was sure to grow.</li>
+<li><p>The company was rightly reluctant to share the entire dataset
+with outsiders, and in turn we didn’t want to be responsible for
+carefully guarding all their data.</p></li>
+<li><p>Even if we did get a sample of their data, as more users used
+their product, the amount of data they had was sure to grow.</p></li>
 </ul>
 <p>We therefore got only a sampling of their full data, and from this
 had to make some prediction on how long it would take to run the
@@ -200,6 +202,7 @@ support managing patients) and data on the effectiveness of using that
 process. Responsible computing tells us to analyze both the process and
 its behavioral data, against knowledge about best practices in patient
 care, to evaluate the effectiveness of systems.</p></blockquote></blockquote>
+<a name="(part._The-Analytical-Idea)"></a>
 <h3 id="The-Analytical-Idea">14.2 The Analytical Idea</h3>
 <p>With many physical processes, the best we can do is obtain as many
 data points as possible, extrapolate, and apply statistics to reason
@@ -244,6 +247,7 @@ all these other analyses are also extremely valuable.</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>It is incorrect to speak of “the” upper-bound function, because there
 isn’t just one. Given one upper-bound function, can you construct
 another one?</p></blockquote></blockquote>
+<a name="(part._cost-model)"></a>
 <h3 id="cost-model">14.3 A Cost Model for Jayret Running Time</h3>
 <p>We begin by presenting a cost model for the running time of Jayret
 programs. We are interested in the cost of running a program, which is
@@ -275,18 +279,19 @@ the expression
 costs 7.</p>
 <p>As you can see, there are two big approximations here:</p>
 <ul>
-<li>First, we are using an abstract rather than concrete notion of time.
-This is unhelpful in terms of estimating the so-called “wall clock”
-running time of a program, but then again, that number depends on
+<li><p>First, we are using an abstract rather than concrete notion of
+time. This is unhelpful in terms of estimating the so-called “wall
+clock” running time of a program, but then again, that number depends on
 numerous factors—not just what kind of processor and how much memory you
 have, but even what other tasks are running on your computer at the same
-time. In contrast, abstract time units are more portable.</li>
-<li>Second, not every operation takes the same number of machine cycles,
-whereas we have charged all of them the same number of abstract time
-units. As long as the actual number of cycles each one takes is bounded
-by a constant factor of the number taken by another, this will not pose
-any mathematical problems for reasons we will soon understand [<a
-href="predicting-growth.html##big-oh-def">Comparing Functions</a>].</li>
+time. In contrast, abstract time units are more portable.</p></li>
+<li><p>Second, not every operation takes the same number of machine
+cycles, whereas we have charged all of them the same number of abstract
+time units. As long as the actual number of cycles each one takes is
+bounded by a constant factor of the number taken by another, this will
+not pose any mathematical problems for reasons we will soon understand
+[<a href="predicting-growth.html##big-oh-def">Comparing
+Functions</a>].</p></li>
 </ul>
 <p>Of course, it is instructive—after carefully settting up the
 experimental conditions—to make an analytical prediction of a program’s
@@ -306,6 +311,7 @@ It always evaluates the condition. After that, it evaluates only one of
 its branches. But we are interested in the worst case time, i.e., what
 is the longest it could take? For a conditional, it’s the cost of the
 condition added to the cost of the maximum of the two branches.</p>
+<a name="(part._size-of-input)"></a>
 <h3 id="size-of-input">14.4 The Size of the Input</h3>
 <p><span class="refelem"><span class="refcolumn"><span class="refcontent">We gloss over the size of a number, treating it as constant. Observe
 that the value of a number is exponentially larger than its size: <span
@@ -337,6 +343,7 @@ matters. If, however, the function returns a list of all the singers on
 every album, then it traverses all the way down to individual songs, and
 we have to account for all these data. In short, we care about the size
 of the data potentially accessed by the function.</p>
+<a name="(part._The-Tabular-Method-for-Singly-Structurally-Recursive-Functions)"></a>
 <h3
 id="The-Tabular-Method-for-Singly-Structurally-Recursive-Functions">14.5
 The Tabular Method for Singly-Structurally-Recursive Functions</h3>
@@ -356,14 +363,16 @@ columns, it has seven! This sounds daunting, but you’ll soon see where
 they come from and why they’re there.</p>
 <p>For each row, fill in the columns as follows:</p>
 <ol type="1">
-<li>|Q|: the number of operations in the question</li>
-<li>#Q: the number of times the question will execute</li>
-<li>TotQ: the total cost of the question (multiply the previous
-two)</li>
-<li>|A|: the number of operations in the answer</li>
-<li>#A: the number of times the answer will execute</li>
-<li>TotA: the total cost of the answer (multiply the previous two)</li>
-<li>Total: add the two totals to obtain an answer for the clause</li>
+<li><p>|Q|: the number of operations in the question</p></li>
+<li><p>#Q: the number of times the question will execute</p></li>
+<li><p>TotQ: the total cost of the question (multiply the previous
+two)</p></li>
+<li><p>|A|: the number of operations in the answer</p></li>
+<li><p>#A: the number of times the answer will execute</p></li>
+<li><p>TotA: the total cost of the answer (multiply the previous
+two)</p></li>
+<li><p>Total: add the two totals to obtain an answer for the
+clause</p></li>
 </ol>
 <p>Finally, the total cost of the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">cond</code></span>
@@ -444,6 +453,7 @@ class="math inline">\(11k+4\)</span> units of time.</p>
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">len</code></span>
 to different sizes of lists, do you obtain a consistent estimate for
 <span class="math inline"><em>k</em></span>?</p></blockquote></blockquote>
+<a name="(part._creating-recurrences)"></a>
 <h3 id="creating-recurrences">14.6 Creating Recurrences</h3>
 <p>We will now see a systematic way of analytically computing the time
 of a program. Suppose we have only one function
@@ -535,6 +545,7 @@ we haven’t seen, however, is a way to solve such relations in general.
 That’s where we’re going next [<a
 href="predicting-growth.html##solving-recurrences">Solving
 Recurrences</a>].</p>
+<a name="(part._math-anon-functions)"></a>
 <h3 id="math-anon-functions">14.7 A Notation for Functions</h3>
 <p>We have seen above that we can describe the running time of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">len</code></span>
@@ -546,6 +557,7 @@ Therefore, we’ll introduce the following notation to mean precisely the
 same thing: <span class="math display">\[\begin{equation*}[k \rightarrow
 11k + 4]\end{equation*}\]</span>The brackets denote anonymous functions,
 with the parameters before the arrow and the body after.</p>
+<a name="(part._big-oh-def)"></a>
 <h3 id="big-oh-def">14.8 Comparing Functions</h3>
 <p>Let’s return to the running time of
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">len</code></span>.
@@ -679,13 +691,14 @@ class="math inline"><em>g</em></span> are equal); and (c) transitive
 (<span class="math inline"><em>f</em> ≤ <em>g</em></span> and <span
 class="math inline"><em>g</em> ≤ <em>h</em></span> implies <span
 class="math inline"><em>f</em> ≤ <em>h</em></span>).</p></blockquote></blockquote>
+<a name="(part._big-oh-closure)"></a>
 <h3 id="big-oh-closure">14.9 Combining Big-Oh Without Woe</h3>
 <p>Now that we’ve introduced this notation, we should inquire about its
 closure properties: namely, how do these families of functions combine?
 To nudge your intuitions, assume that in all cases we’re discussing the
 running time of functions. We’ll consider three cases:</p>
 <ul>
-<li>Suppose we have a function
+<li><p>Suppose we have a function
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
 (whose running time is) in <span class="math inline">\(O(F)\)</span>.
 Let’s say we run it <span class="math inline">\(p\)</span> times, for
@@ -698,8 +711,8 @@ class="math inline">\(O(\cdot)\)</span>—in particular, we can just use
 <span class="math inline">\(pc\)</span>. Conversely, then, <span
 class="math inline">\(O(pF)\)</span> is equivalent to <span
 class="math inline">\(O(F)\)</span>. This is the heart of the intution
-that “multiplicative constants don’t matter”.</li>
-<li>Suppose we have two functions,
+that “multiplicative constants don’t matter”.</p></li>
+<li><p>Suppose we have two functions,
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
 in <span class="math inline">\(O(F)\)</span> and
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">g</code></span>
@@ -710,8 +723,8 @@ followed by
 we would expect the running time of the combination to be the sum of
 their individual running times, i.e., <span class="math inline">\(O(F) +
 O(G)\)</span>. You should convince yourself that this is simply <span
-class="math inline">\(O(max(F, G))\)</span>.</li>
-<li>Suppose we have two functions,
+class="math inline">\(O(max(F, G))\)</span>.</p></li>
+<li><p>Suppose we have two functions,
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">f</code></span>
 in <span class="math inline">\(O(F)\)</span> and
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">g</code></span>
@@ -723,7 +736,7 @@ in each of its steps, we would expect the running time of the
 combination to be the product of their individual running times, i.e.,
 <span class="math inline">\(O(F) \times O(G)\)</span>. You should
 convince yourself that this is simply <span class="math inline">\(O(F
-\times G)\)</span>.</li>
+\times G)\)</span>.</p></li>
 </ul>
 <p>These three operations—addition, multiplication by a constant, and
 multiplication by a function—cover just about all the
@@ -751,6 +764,7 @@ particular, it provides us with the essential information and nothing
 else: as the input (list) grows, the running time grows proportional to
 it, i.e., if we add one more element to the input, we should expect to
 add a constant more of time to the running time.</p>
+<a name="(part._solving-recurrences)"></a>
 <h3 id="solving-recurrences">14.10 Solving Recurrences</h3>
 <p>There is a great deal of literature on solving recurrence equations.
 In this section we won’t go into general techniques, nor will we even

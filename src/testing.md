@@ -7,6 +7,10 @@ up: part_bonus-foundations.html
 next: booklet_pyret-to-python.html
 ---
 
+```{=html}
+<a name="(part._testing)"></a>
+```
+
 ### 8.3 Examples, Testing, and Program Checking {#testing}
 
 ```{=html}
@@ -26,6 +30,7 @@ that a computer can understand, we achieve two things:
 
 - When we’re done writing our purported solution, we can have the
   computer check whether we got it right.
+
 - In the process of writing down our expectation, we often find it
   hard to express with the precision that a computer expects. Sometimes
   this is because we’re still formulating the details and haven’t yet
@@ -33,6 +38,10 @@ that a computer can understand, we achieve two things:
   understand the problem. In such situations, the force of precision
   actually does us good, because it helps us understand the weakness of
   our understanding.
+
+```{=html}
+<a name="(part._from-examples-to-tests)"></a>
+```
 
 #### 8.3.1 From Examples to Tests {#from-examples-to-tests}
 
@@ -52,11 +61,16 @@ on). What input scenarios might we need to check before using our
 function to run an actual election or a business?
 
 - The result for a string that is in the list once
+
 - The result for a string that is in the list multiple times
+
 - The result for a string that is at the end of a longer list (to make
   sure we are checking all of the elements)
+
 - The result for a string that isn’t in the list
+
 - The result for a string that is in the list but with different capitalization
+
 - The result for a string that is a typo-away from a word in the list
 
 Notice that here we are considering many more situations, including
@@ -129,6 +143,10 @@ separate folders and files (offering no support for examples). In this
 book, we emphasize the difference between these two uses of
 input-output pairs in programming because we find them extremely
 useful both professionally and pedagogically.
+
+```{=html}
+<a name="(part._s-refined)"></a>
+```
 
 #### 8.3.2 More Refined Comparisons {#s-refined}
 
@@ -216,6 +234,10 @@ for an hourly employee assumes they work 40 hours, and the expected weekly
 salary for a salaried employee is 1/52 of their salary.
 :::
 
+```{=html}
+<a name="(part._When-Tests-Fail)"></a>
+```
+
 #### 8.3.3 When Tests Fail {#When-Tests-Fail}
 
 Suppose we’ve written the function `sqrt`{.pyret}, which computes the
@@ -274,6 +296,10 @@ test values we specified is inherently wrong; it’s just that the
 function happens to be a relation, i.e., it maps one input to
 multiple outputs (that is, \(\sqrt{4} = \pm 2\)). The question now is
 how to write the test properly.
+
+```{=html}
+<a name="(part._test-oracle)"></a>
+```
 
 #### 8.3.4 Oracles for Testing {#test-oracle}
 

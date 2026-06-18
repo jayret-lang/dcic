@@ -7,6 +7,10 @@ up: part_graphs.html
 next: part_sets.html
 ---
 
+```{=html}
+<a name="(part._mst)"></a>
+```
+
 ### 17.5 Moravian Spanning Trees {#mst}
 
 ```{=html}
@@ -20,6 +24,10 @@ suspects: electronics, computers, the Internet, and so on. But a
 perhaps surprising idea topped the list: (rural)
 electrification.[Read more about it
 [on their site](http://www.greatachievements.org/).]{.margin-note}
+
+```{=html}
+<a name="(part._The-Problem)"></a>
+```
 
 #### 17.5.1 The Problem {#The-Problem}
 
@@ -39,6 +47,7 @@ of creating a network must have the following characteristics:
 - The electrical network must reach all the towns intended to be
   covered by it. In graph terms, the solution must be spanning,
   meaning it must visit every node in the graph.
+
 - Redundancy is a valuable property in any network: that way, if
   one set of links goes down, there might be another way to get a
   payload to its destination. When starting out, however, redundancy
@@ -46,11 +55,16 @@ of creating a network must have the following characteristics:
   giving someone a payload at all. Thus, the initial solution was best
   set up without loops or even redundant paths. In graph terms, the
   solution had to be a tree.
+
 - Finally, the goal was to solve this problem for the least cost
   possible. In graph terms, the graph would be weighted, and the
   solution had to be a minimum.
 
 Thus Borůvka defined the Moravian Spanning Tree (MST) problem.
+
+```{=html}
+<a name="(part._A-Greedy-Solution)"></a>
+```
 
 #### 17.5.2 A Greedy Solution {#A-Greedy-Solution}
 
@@ -63,11 +77,13 @@ familiar:
 - Begin with a solution consisting of a single node, chosen
   arbitrarily. For the graph consisting of this one node, this
   solution is clearly a minimum, spanning, and a tree.
+
 - Of all the edges incident on nodes in the solution that
   connect to a node not already in the solution, pick the edge with
   the least weight.[Note that we consider only the
   incident edges, not their weight added to the weight of the node to
   which they are incident.]{.margin-note}
+
 - Add this edge to the solution. The claim is that for the new
   solution will be a tree (by construction), spanning (also by
   construction), and a minimum. The minimality follows by an argument
@@ -91,6 +107,10 @@ iterate. Even given an efficient solution for checking cyclicity, this
 would seem to require an operation linear in the number of edges for
 each node. With better representations we can improve on this
 complexity, but let’s look at other ideas first.
+
+```{=html}
+<a name="(part._Another-Greedy-Solution)"></a>
+```
 
 #### 17.5.3 Another Greedy Solution {#Another-Greedy-Solution}
 
@@ -137,6 +157,10 @@ because we sort all the edges once, then keep checking them off in
 order, crossing out the ones that create cycles—with no dynamic
 updating of the list needed.
 
+```{=html}
+<a name="(part._A-Third-Solution)"></a>
+```
+
 #### 17.5.4 A Third Solution {#A-Third-Solution}
 
 Both the Jarník and Kruskal solutions have one flaw: they require a
@@ -182,8 +206,10 @@ problem, he had:
 - pinpointed the real problem lying underneath the
   electrification problem so it could be viewed in a
   context-independent way,
+
 - created a descriptive language of graph theory to define it
   precisely, and
+
 - even solved the problem in addition to defining it.
 
 He’d just come up with a solution so complex to implement by hand that
@@ -199,6 +225,10 @@ As you might have guessed by now, this problem is indeed called the
 MST in other textbooks, but “M” stands not for Moravia but for
 “Minimum”. But given Borůvka’s forgotten place in history, we prefer
 the more whimsical name.
+
+```{=html}
+<a name="(part._union-find-functional)"></a>
+```
 
 #### 17.5.5 Checking Component Connectedness {#union-find-functional}
 
@@ -369,6 +399,7 @@ Unfortunately, this implementation suffers from two major problems:
   from different stages of unioning has different parent references,
   even though it is arguably the same element throughout. This is a
   place where functional programming hurts.
+
 - Relatedly, the performance of this implementation is quite
   bad. `fynd`{.pyret} recursively traverses parents to find the set’s
   name, but the elements traversed are not updated to record this new

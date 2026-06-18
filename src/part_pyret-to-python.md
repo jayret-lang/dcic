@@ -7,6 +7,10 @@ up: booklet_pyret-to-python.html
 next: intro-python.html
 ---
 
+```{=html}
+<a name="(part._part-pyret-to-python)"></a>
+```
+
 ## 9 From Jayret to Python {#part-pyret-to-python}
 
 ```{=html}

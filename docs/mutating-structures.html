@@ -121,6 +121,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="part_state.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_state.html">up</a>&nbsp;&nbsp;<a href="unified-equality.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._mutating-structures)"></a>
 <h3 id="mutating-structures">12.1 Mutating Structures</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-structures.html#%28part._eg-bank-acc%29">12.1.1<span class="hspace"> </span>Example: Bank Accounts</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-structures.html#%28part._.Testing_.Functions_that_.Mutate_.Structures%29">12.1.2<span class="hspace"> </span>Testing Functions that Mutate Structures</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-structures.html#%28part._mult-bank-acct%29">12.1.3<span class="hspace"> </span>Aliasing</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mutating-structures.html#%28part._structure-mut-dir%29">12.1.4<span class="hspace"> </span>Structure Mutation and the Directory</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="mutating-structures.html#%28part._heap-intro%29">12.1.4.1<span class="hspace"> </span>Introducing the Heap</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="mutating-structures.html#%28part._basic-data-heap%29">12.1.4.2<span class="hspace"> </span>Basic Data and the Heap</a></p></td></tr></table>
 <p>We will now study a new kind of data and the programming style that
@@ -128,6 +129,7 @@ accompanies it. This will give us both great power and great
 responsibility. We will develop this idea in both Jayret and Python,
 both because the core concept arises in both (indeed in nearly all)
 languages and because their contrast is instructive.</p>
+<a name="(part._eg-bank-acc)"></a>
 <h4 id="eg-bank-acc">12.1.1 Example: Bank Accounts</h4>
 <p>Imagine that we want to represent bank accounts, where each account
 has a (unique) id number and a balance:</p>
@@ -259,6 +261,7 @@ depend on the other values in that state. If those values change, the
 same instruction—i.e., the same piece of program text—may produce
 different answers. This makes programming much harder, and we will have
 to get used to the subtleties that come along with it.</p>
+<a name="(part._Testing-Functions-that-Mutate-Structures)"></a>
 <h4 id="Testing-Functions-that-Mutate-Structures">12.1.2 Testing
 Functions that Mutate Structures</h4>
 <p>Our example of adding funds to an account corresponds to making a
@@ -281,10 +284,11 @@ Therefore, we have to set up our test to assume otherwise.</p>
 <p>In general, tests for functions that contain mutation need to have
 three to four parts:</p>
 <ol type="1">
-<li>Setup: set up the necessary values to provide the function.</li>
-<li>Call: call the function.</li>
-<li>Check: check that the function had the desired behavior.</li>
-<li>Teardown: restore data to their expected state.</li>
+<li><p>Setup: set up the necessary values to provide the
+function.</p></li>
+<li><p>Call: call the function.</p></li>
+<li><p>Check: check that the function had the desired behavior.</p></li>
+<li><p>Teardown: restore data to their expected state.</p></li>
 </ol>
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">def test_deposit():
     # Setup
@@ -324,6 +328,7 @@ account balance:</p>
   doc: "increases the account value by 2 percent"
   ac!{balance: ac!balance * 1.02}
 end</code></pre></div></div></p></td></tr></table></blockquote></blockquote>
+<a name="(part._mult-bank-acct)"></a>
 <h4 id="mult-bank-acct">12.1.3 Aliasing</h4>
 <p>Now let’s suppose our bank allows accounts to be shared by multiple
 customers. We should thus separate information about customers from that
@@ -386,15 +391,15 @@ end</code></pre></div></div></p></td></tr></table>
 <table cellpadding="0" cellspacing="0" class="TwoColumn"><tr><td><p><span style="font-weight: bold">Python</span></p></td><td><p><span style="font-weight: bold">Jayret</span></p></td></tr><tr><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Python"></span><div class="sourceCode"><pre class="sourceCode" data-lang="text/x-python"><code class="sourceCode" data-lang="text/x-python">jorge.acct.balance</code></pre></div></div></p></td><td><p><div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">jorge.acct!balance</code></pre></div></div></p></td></tr></table>
 <p>There are two very reasonable answers here:</p>
 <ol type="1">
-<li>Going by our prose, Jorge’s account should also have
+<li><p>Going by our prose, Jorge’s account should also have
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">850</code></span>,
-because that’s what it means to “share” an account.</li>
-<li>Going by the visible code, Jorge’s account should still have
+because that’s what it means to “share” an account.</p></li>
+<li><p>Going by the visible code, Jorge’s account should still have
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">700</code></span>,
 because the update was made through
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">elena.acct</code></span>,
 not
-<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">jorge.acct</code></span>.</li>
+<span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">jorge.acct</code></span>.</p></li>
 </ol>
 <blockquote class="Incercise"><p class="IncerciseHeader">Do Now!</p><blockquote class="IncerciseBody"><p>Run the above code and see what you get.</p></blockquote></blockquote>
 <p>What you find is that the above test passes: Jorge’s account also has
@@ -424,6 +429,7 @@ will never change in value over time or even if there are aliases, but
 those accessed through
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">!</code></span>
 might change over time (and via aliases).</p>
+<a name="(part._structure-mut-dir)"></a>
 <h4 id="structure-mut-dir">12.1.4 Structure Mutation and the
 Directory</h4>
 <p>Now that we have the ability to mutate the contents of data, we will
@@ -489,6 +495,7 @@ without mutation. But once we have both mutation and aliasing, this
 simple idea of mapping names to values breaks down because it doesn’t
 capture the aliases. We need a refined representation of the connections
 between names and values that does capture aliasing.</p>
+<a name="(part._heap-intro)"></a>
 <h5 id="heap-intro">12.1.4.1 Introducing the Heap</h5>
 <p>Our original presentation of the directory reflected the aliases that
 referred to a single
@@ -592,13 +599,13 @@ have?</p></blockquote></blockquote>
 <p>Three rules guide how the directory and heap are affected by running
 programs:</p>
 <ol type="1">
-<li>If the code construct a new piece of structured data, put the new
-piece of structured data at the next address in the heap.</li>
-<li>If the code associates a name with a piece of structured data, the
-directory should map the name to the address of the datum in the
-heap.</li>
-<li>If the code modifies a field within structured data, modify the data
-in the heap.</li>
+<li><p>If the code construct a new piece of structured data, put the new
+piece of structured data at the next address in the heap.</p></li>
+<li><p>If the code associates a name with a piece of structured data,
+the directory should map the name to the address of the datum in the
+heap.</p></li>
+<li><p>If the code modifies a field within structured data, modify the
+data in the heap.</p></li>
 </ol>
 <p>In the example above, we did not alter the heap in any way; only the
 directory should be modified to reflect that
@@ -606,6 +613,7 @@ directory should be modified to reflect that
 and
 <span title="Python" class="sourceCode"><code class="sourceCode" data-lang="python">acct1</code></span>
 are now aliases.</p>
+<a name="(part._basic-data-heap)"></a>
 <h5 id="basic-data-heap">12.1.4.2 Basic Data and the Heap</h5>
 <p>The above rules don’t indicate what happens when we have basic data,
 such as numbers or strings, associated with names in the directory. Do

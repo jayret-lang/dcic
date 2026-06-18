@@ -7,6 +7,10 @@ up: index.html
 next: games-reactive.html
 ---
 
+```{=html}
+<a name="(part._booklet-interaction)"></a>
+```
+
 ## VIII Interactive Programs {#booklet-interaction}
 
 ```{=html}

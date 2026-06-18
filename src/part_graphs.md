@@ -7,6 +7,10 @@ up: booklet_data-with-analysis.html
 next: intro-graphs.html
 ---
 
+```{=html}
+<a name="(part._part-graphs)"></a>
+```
+
 ## 17 Graphs {#part-graphs}
 
 ```{=html}

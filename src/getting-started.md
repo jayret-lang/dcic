@@ -7,11 +7,19 @@ up: part_foundations.html
 next: Naming_Values.html
 ---
 
+```{=html}
+<a name="(part._getting-started)"></a>
+```
+
 ### 3.1 Getting Started {#getting-started}
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._flags-notice-wonder%29">3.1.1<span class="hspace"> </span>Motivating Example: Flags</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-numbers%29">3.1.2<span class="hspace"> </span>Numbers</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions%29">3.1.3<span class="hspace"> </span>Expressions</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-terminology%29">3.1.4<span class="hspace"> </span>Terminology</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-strings%29">3.1.5<span class="hspace"> </span>Strings</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-images%29">3.1.6<span class="hspace"> </span>Images</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-combine-images%29">3.1.6.1<span class="hspace"> </span>Combining Images</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-first-flag%29">3.1.6.2<span class="hspace"> </span>Making a Flag</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._types-and-errors%29">3.1.7<span class="hspace"> </span>Stepping Back: Types, Errors, and Documentation</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-types%29">3.1.7.1<span class="hspace"> </span>Types and Contracts</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-errors%29">3.1.7.2<span class="hspace"> </span>Format and Notation Errors</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="getting-started.html#%28part._expressions-documentation%29">3.1.7.3<span class="hspace"> </span>Finding Other
 Functions: Documentation</a></p></td></tr></table>
+```
+
+```{=html}
+<a name="(part._flags-notice-wonder)"></a>
 ```
 
 #### 3.1.1 Motivating Example: Flags {#flags-notice-wonder}
@@ -30,6 +38,7 @@ do. To help with this, we’re going to answer a pair of specific
 questions to help us make sense of the images:
 
 - What do you notice about the flags?
+
 - What do you wonder about the flags or a program that might
   produce them?
 
@@ -41,8 +50,11 @@ information is an essential skill in computing.
 Some things you might have noticed:
 
 - Some flags have similar structure, just with different colors
+
 - Some flags come in different sizes
+
 - Some flags have poles
+
 - Most of these look pretty simple, but some real flags have
   complicated figures on them
 
@@ -51,8 +63,10 @@ Some things you might have noticed:
 Some things you might have wondered:
 
 - Do I need to be able to draw these images by hand?
+
 - Will we be able to generate different sized flags from the same
   code?
+
 - What if we have a non-rectangular flag?
 
 …and so on.
@@ -62,11 +76,17 @@ to do to write programs to generate flags:
 
 - We might want to compute the heights of the stripes from the
   overall flag dimensions (we’ll write programs using numbers)
+
 - We need a way to describe colors to our program (we’ll learn strings)
+
 - We need a way to create images based on simple shapes of
   different colors (we’ll create and combine expressions)
 
 Let’s get started!
+
+```{=html}
+<a name="(part._expressions-numbers)"></a>
+```
 
 #### 3.1.2 Numbers {#expressions-numbers}
 
@@ -192,6 +212,10 @@ num-min(2, 8);
 on data other than numbers; Jayret calls the min operator `num-min`{.pyret} to
 avoid ambiguity.]{.margin-note}
 
+```{=html}
+<a name="(part._expressions)"></a>
+```
+
 #### 3.1.3 Expressions {#expressions}
 
 Note that when we run `num-min`{.pyret}, we get a number in return (as we did
@@ -227,9 +251,13 @@ In CPO, try to write the expressions for each of the
 following computations:
 
 - subtract 3 from 7, then multiply the result by 4
+
 - subtract 3 from the multiplication of 7 and 4
+
 - the sum of 3 and 5, divided by 2
+
 - the max of 10 subtracted from 5 and -20
+
 - 2 divided by the sum of 3 and 5
 :::
 
@@ -243,6 +271,10 @@ one in directly (e.g., `1/3`{.pyret}).
 Either way, you can click on the result
 in the interactions pane to change how the number is presented. Try it!
 :::
+
+```{=html}
+<a name="(part._expressions-terminology)"></a>
+```
 
 #### 3.1.4 Terminology {#expressions-terminology}
 
@@ -264,11 +296,17 @@ and we should give them names:
   of a programming language
   
   Examples here include `4`{.pyret}, `5 + 1`{.pyret}, and `(3 + 4) * (5 + 1)`{.pyret}
+
 - Value: an expression that can’t be computed further (it is
   its own result)
   
   So far, the only values we’ve seen are numbers.
+
 - Program: a sequence of expressions that you want to run
+
+```{=html}
+<a name="(part._expressions-strings)"></a>
+```
 
 #### 3.1.5 Strings {#expressions-strings}
 
@@ -289,6 +327,10 @@ example, we’ll use strings to name colors: `"red"`{.pyret}, `"blue"`{.pyret}, 
 
 Note that strings are case-sensitive, meaning that
 capitalization matters (we’ll see where it matters shortly).
+
+```{=html}
+<a name="(part._expressions-images)"></a>
+```
 
 #### 3.1.6 Images {#expressions-images}
 
@@ -311,7 +353,9 @@ what they produce:
 
 
 - `circle(30, "solid", "red")`{.pyret}
+
 - `circle(30, "outline", "blue")`{.pyret}
+
 - `rectangle(20, 10, "solid", "purple")`{.pyret}
 :::
 
@@ -326,6 +370,10 @@ Which shapes and colors does Jayret know about? Hold this
 question for just a moment. We’ll show you how to look up information
 like this in the documentation shortly.
 
+```{=html}
+<a name="(part._expressions-combine-images)"></a>
+```
+
 ##### 3.1.6.1 Combining Images {#expressions-combine-images}
 
 Earlier, we saw that we could use operations like `+`{.pyret} and
@@ -335,10 +383,15 @@ language gives you for working with that data. In the case of images
 in Jayret, the collection includes the ability to:
 
 - rotate them
+
 - scale them
+
 - flip them
+
 - put two of them side by side
+
 - place one on top of the other
+
 - and more ...
 
 Let’s see how to use some of these.
@@ -398,10 +451,14 @@ Try to create the following images:
 - a blue triangle (you pick the size). As with `circle`{.pyret},
   there is a `triangle`{.pyret} function that takes a side length, fill
   style, and color and produces an image of an equilateral triangle.
+
 - a blue triangle inside a yellow rectangle
+
 - a triangle oriented at an angle
+
 - a bullseye with 3 nested circles aligned in their centers (e.g.,
   the [Target](https://www.target.com/) logo)
+
 - whatever you want—play around and have fun!
 
 The bullseye might be a bit challenging. The
@@ -411,6 +468,10 @@ The bullseye might be a bit challenging. The
 function only takes two images, so you’ll need to think about how to
 use composition to layer three circles.
 :::
+
+```{=html}
+<a name="(part._expressions-first-flag)"></a>
+```
 
 ##### 3.1.6.2 Making a Flag {#expressions-first-flag}
 
@@ -426,11 +487,19 @@ Armenian flag. You pick the dimensions (we recommend a width between
 Make a list of the questions and ideas that occur to you along the way.
 :::
 
+```{=html}
+<a name="(part._types-and-errors)"></a>
+```
+
 #### 3.1.7 Stepping Back: Types, Errors, and Documentation {#types-and-errors}
 
 Now that you have an idea of how to create a flag image, let’s go back
 and look a bit more carefully at two concepts that you’ve already
 encountered: types and error messages.
+
+```{=html}
+<a name="(part._expressions-types)"></a>
+```
 
 ##### 3.1.7.1 Types and Contracts {#expressions-types}
 
@@ -501,9 +570,13 @@ Let’s look closely at the `overlay`{.pyret} contract to make sure you
 understand how to read it. It gives us several pieces of information:
 
 - There is a function called `overlay`{.pyret}
+
 - It takes two inputs (the parts within the parentheses), both of which have the type `Image`{.pyret}
+
 - The first input is the image that will appear on top
+
 - The second input is the image that will appear on the bottom
+
 - The output from calling the function (which follows `->`{.pyret}) will have type `Image`{.pyret}
 
 In general, we read the double-colon (`:`{.pyret}) as “has the type”. We
@@ -542,6 +615,10 @@ Take note
 of these so you can recognize them if they arise while you are programming.
 :::
 
+```{=html}
+<a name="(part._expressions-errors)"></a>
+```
+
 ##### 3.1.7.2 Format and Notation Errors {#expressions-errors}
 
 We’ve just seen two different kinds of mistakes that we might make
@@ -552,9 +629,13 @@ make a mistake with the punctuation of programming. For example, you
 might have typed an example such as these:
 
 - `3+7`{.pyret}
+
 - `circle(50 "solid" "red")`{.pyret}
+
 - `circle(50, "solid,  "red")`{.pyret}
+
 - `circle(50, "solid," "red")`{.pyret}
+
 - `circle 50, "solid," "red")`{.pyret}
 
 ::: {.do-now}
@@ -576,9 +657,12 @@ you’ve encountered so far.
 Here’s our list:
 
 - Spaces are required around arithmetic operators.
+
 - Parentheses are required to indicate order of operations.
+
 - When we use a function, we put a pair of parentheses
   around the inputs, and we separate the inputs with commas.
+
 - If we use a double-quotation mark to start a string, we need
   another double-quotation mark to close that string.
 
@@ -589,6 +673,10 @@ punctuation, but that’s a fair place to start). Making mistakes in
 your syntax is common at first. In time, you’ll internalize the
 rules. For now, don’t get discouraged if you get errors about syntax
 from Jayret. It’s all part of the learning process.
+
+```{=html}
+<a name="(part._expressions-documentation)"></a>
+```
 
 ##### 3.1.7.3 Finding Other Functions: Documentation {#expressions-documentation}
 

@@ -118,6 +118,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="pyret-vs-python.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="booklet_appendices.html">up</a>&nbsp;&nbsp;<a href="Release_Notes.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._htdp-vs-dcic)"></a>
 <h2 id="htdp-vs-dcic">30 Comparing This Book to HtDP</h2>
 <p>This book (DCIC) is often compared to <a
 href="https://www.htdp.org/">How to Design Programs</a> (HtDP), from
@@ -125,18 +126,18 @@ which it draws enormous inspiration. Here we briefly describe how the
 two books compare.</p>
 <p>At a high level they are very similar:</p>
 <ul>
-<li>Both are built around the centrality of data structure. Both want to
-provide methods for designing programs. Both start with functional
+<li><p>Both are built around the centrality of data structure. Both want
+to provide methods for designing programs. Both start with functional
 programming but transition to (and take very seriously) stateful
-imperative programming.</li>
-<li>Both are built around languages carefully designed with education in
-mind. The languages provide special support for writing examples and
+imperative programming.</p></li>
+<li><p>Both are built around languages carefully designed with education
+in mind. The languages provide special support for writing examples and
 tests; error reporting designed for beginners; built-in images and
 reactivity. The languages eschew weird gotchas (in a way that Python
 does not: see <a href="pyret-vs-python.html">Jayret vs. Python</a> or,
 if you want to read much more, <a
 href="https://cs.brown.edu/~sk/Publications/Papers/Published/pmmwplck-python-full-monty/">this
-paper</a>).</li>
+paper</a>).</p></li>
 </ul>
 <p>and so on. To call these “similarities” is, however, a disservice.
 DCIC copied these ideas from HtDP; in some cases, HtDP even pioneered
@@ -145,29 +146,29 @@ them.</p>
 ideas from DCIC are going to HtDP, and over time more may
 intermingle.</p>
 <ul>
-<li>The most obvious is that DCIC is in Jayret. HtDP has tons of good
+<li><p>The most obvious is that DCIC is in Jayret. HtDP has tons of good
 ideas, all ignored because it uses Racket, whose syntax some people
 (especially some educators) dislike. We built Jayret to embody good
 ideas we’d learned from the Racket student languages and other good
 ideas of our own, but package them in a familiar syntax. But as you can
 see, the two languages are not actually that far apart: <a
-href="p4rs.html">Jayret for Racketeers and Schemers</a>.</li>
-<li>The next most obvious thing is that DCIC also includes Python. HtDP
-has a (not formally published) follow-up that <a
+href="p4rs.html">Jayret for Racketeers and Schemers</a>.</p></li>
+<li><p>The next most obvious thing is that DCIC also includes Python.
+HtDP has a (not formally published) follow-up that <a
 href="https://felleisen.org/matthias/HtDC/htdc.pdf">teaches program
 design in Java</a>. In contrast, we wanted to integrate the transition
 to Python into DCIC itself. There’s much to be learned from the
 contrast! In particular, Jayret and its environment were carefully
 designed around pedagogic ideas for teaching state. Python was not,
 despite the ubiquity and difficulty of state! So there’s a lot to be
-gained, when introducing state, to contrast them.</li>
-<li>Next, DCIC has a lot algorithmic content, whereas HtDP has almost
+gained, when introducing state, to contrast them.</p></li>
+<li><p>Next, DCIC has a lot algorithmic content, whereas HtDP has almost
 none. DCIC covers, for instance, Big-O analysis [<a
 href="predicting-growth.html">Predicting Growth</a>]. It even has a
 section on amortized analysis [<a
 href="amortized-analysis.html">Halloween Analysis</a>]. It goes up
 through some graph algorithms. This is far more advanced material than
-HtDP covers.</li>
+HtDP covers.</p></li>
 </ul>
 <p>Those are most of the differences. They’re visible (some even
 evident) from glancing through the table of contents. However, there is

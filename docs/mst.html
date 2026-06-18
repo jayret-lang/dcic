@@ -123,6 +123,7 @@ MathJax.Hub.Config({
 <span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;<span class="tocsettoggle">&nbsp;&nbsp;<a href="javascript:void(0);" title="show/hide table of contents" onclick="TocsetToggle();">contents</a></span></span>
 <span class="navright">&nbsp;&nbsp;<a href="lightest-paths.html" rel="prev">&larr; prev</a>&nbsp;&nbsp;<a href="part_graphs.html">up</a>&nbsp;&nbsp;<a href="part_sets.html" rel="next">next &rarr;</a></span>&nbsp;
 </div>
+<a name="(part._mst)"></a>
 <h3 id="mst">17.5 Moravian Spanning Trees</h3>
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.The_.Problem%29">17.5.1<span class="hspace"> </span>The Problem</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.A_.Greedy_.Solution%29">17.5.2<span class="hspace"> </span>A Greedy Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.Another_.Greedy_.Solution%29">17.5.3<span class="hspace"> </span>Another Greedy Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._.A_.Third_.Solution%29">17.5.4<span class="hspace"> </span>A Third Solution</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="mst.html#%28part._union-find-functional%29">17.5.5<span class="hspace"> </span>Checking Component Connectedness</a></p></td></tr></table>
 <p>At the turn of the milennium, the US National Academy of Engineering
@@ -132,6 +133,7 @@ electronics, computers, the Internet, and so on. But a perhaps
 surprising idea topped the list: (rural)
 electrification.<span class="refelem"><span class="refcolumn"><span class="refcontent">Read more about it <a href="http://www.greatachievements.org/">on their
 site</a>.</span></span></span></p>
+<a name="(part._The-Problem)"></a>
 <h4 id="The-Problem">17.5.1 The Problem</h4>
 <p>To understand the history of national electrical grids, it helps to
 go back to <a href="http://en.wikipedia.org/wiki/Moravia">Moravia</a> in
@@ -144,38 +146,39 @@ modeled it as a problem about graphs.</p>
 <p>Borůvka observed that at least initially, any solution to the problem
 of creating a network must have the following characteristics:</p>
 <ul>
-<li>The electrical network must reach all the towns intended to be
+<li><p>The electrical network must reach all the towns intended to be
 covered by it. In graph terms, the solution must be spanning, meaning it
-must visit every node in the graph.</li>
-<li>Redundancy is a valuable property in any network: that way, if one
-set of links goes down, there might be another way to get a payload to
-its destination. When starting out, however, redundancy may be too
+must visit every node in the graph.</p></li>
+<li><p>Redundancy is a valuable property in any network: that way, if
+one set of links goes down, there might be another way to get a payload
+to its destination. When starting out, however, redundancy may be too
 expensive, especially if it comes at the cost of not giving someone a
 payload at all. Thus, the initial solution was best set up without loops
 or even redundant paths. In graph terms, the solution had to be a
-tree.</li>
-<li>Finally, the goal was to solve this problem for the least cost
+tree.</p></li>
+<li><p>Finally, the goal was to solve this problem for the least cost
 possible. In graph terms, the graph would be weighted, and the solution
-had to be a minimum.</li>
+had to be a minimum.</p></li>
 </ul>
 <p>Thus Borůvka defined the Moravian Spanning Tree (MST) problem.</p>
+<a name="(part._A-Greedy-Solution)"></a>
 <h4 id="A-Greedy-Solution">17.5.2 A Greedy Solution</h4>
 <p>Borůvka had published his problem, and another Czech mathematician,
 <a href="http://en.wikipedia.org/wiki/Vojt%C4%9Bch_Jarn%C3%ADk">Vojtěch
 Jarník</a>, came across it. Jarník came up with a solution that should
 sound familiar:</p>
 <ul>
-<li>Begin with a solution consisting of a single node, chosen
+<li><p>Begin with a solution consisting of a single node, chosen
 arbitrarily. For the graph consisting of this one node, this solution is
-clearly a minimum, spanning, and a tree.</li>
-<li>Of all the edges incident on nodes in the solution that connect to a
-node not already in the solution, pick the edge with the least
+clearly a minimum, spanning, and a tree.</p></li>
+<li><p>Of all the edges incident on nodes in the solution that connect
+to a node not already in the solution, pick the edge with the least
 weight.<span class="refelem"><span class="refcolumn"><span class="refcontent">Note that we consider only the incident edges, not their weight added to
-the weight of the node to which they are incident.</span></span></span></li>
-<li>Add this edge to the solution. The claim is that for the new
+the weight of the node to which they are incident.</span></span></span></p></li>
+<li><p>Add this edge to the solution. The claim is that for the new
 solution will be a tree (by construction), spanning (also by
 construction), and a minimum. The minimality follows by an argument
-similar to that used for Dijkstra’s Algorithm.</li>
+similar to that used for Dijkstra’s Algorithm.</p></li>
 </ul>
 <p>Jarník had the misfortune of publishing this work in Czech in 1930,
 and it went largely ignored. It was rediscovered by others, most notably
@@ -194,6 +197,7 @@ add the lightest edge and iterate. Even given an efficient solution for
 checking cyclicity, this would seem to require an operation linear in
 the number of edges for each node. With better representations we can
 improve on this complexity, but let’s look at other ideas first.</p>
+<a name="(part._Another-Greedy-Solution)"></a>
 <h4 id="Another-Greedy-Solution">17.5.3 Another Greedy Solution</h4>
 <p>Recall that Jarník presented his algorithm in 1930, when computers
 didn’t exist, and Prim his in 1957, when they were very much in their
@@ -234,6 +238,7 @@ that set—modulo the time to check for cycles. This algorithm is also
 easy to implement on paper, because we sort all the edges once, then
 keep checking them off in order, crossing out the ones that create
 cycles—with no dynamic updating of the list needed.</p>
+<a name="(part._A-Third-Solution)"></a>
 <h4 id="A-Third-Solution">17.5.4 A Third Solution</h4>
 <p>Both the Jarník and Kruskal solutions have one flaw: they require a
 centralized data structure (the priority heap, or the sorted list) to
@@ -270,11 +275,11 @@ Borůvka</a> himself.</p>
 <p>Borůvka, you see, had figured it all out. He’d not only understood
 the problem, he had:</p>
 <ul>
-<li>pinpointed the real problem lying underneath the electrification
-problem so it could be viewed in a context-independent way,</li>
-<li>created a descriptive language of graph theory to define it
-precisely, and</li>
-<li>even solved the problem in addition to defining it.</li>
+<li><p>pinpointed the real problem lying underneath the electrification
+problem so it could be viewed in a context-independent way,</p></li>
+<li><p>created a descriptive language of graph theory to define it
+precisely, and</p></li>
+<li><p>even solved the problem in addition to defining it.</p></li>
 </ul>
 <p>He’d just come up with a solution so complex to implement by hand
 that Jarník had in essence de-parallelized it so it could be done
@@ -288,6 +293,7 @@ which is only fitting.</p>
 MST in other textbooks, but “M” stands not for Moravia but for
 “Minimum”. But given Borůvka’s forgotten place in history, we prefer the
 more whimsical name.</p>
+<a name="(part._union-find-functional)"></a>
 <h4 id="union-find-functional">17.5.5 Checking Component
 Connectedness</h4>
 <p>As we’ve seen, we need to be able to efficiently tell whether two
@@ -433,21 +439,21 @@ set’s name element to be this one:</p>
 <p>Unfortunately, this implementation suffers from two major
 problems:</p>
 <ul>
-<li>First, because we are performing functional updates, the value of
+<li><p>First, because we are performing functional updates, the value of
 the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">parent</code></span>
 reference keeps “changing”, but these changes are not visible to older
 copies of the “same” value. An element from different stages of unioning
 has different parent references, even though it is arguably the same
 element throughout. This is a place where functional programming
-hurts.</li>
-<li>Relatedly, the performance of this implementation is quite bad.
+hurts.</p></li>
+<li><p>Relatedly, the performance of this implementation is quite bad.
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="pyret">fynd</code></span>
 recursively traverses parents to find the set’s name, but the elements
 traversed are not updated to record this new name. We certainly could
 update them by reconstructing the set afresh each time, but that
 complicates the implementation and, as we will soon see, we can do much
-better.</li>
+better.</p></li>
 </ul>
 <p>Even worse, it may not even be correct!</p>
 <blockquote class="Exercise"><p class="ExerciseHeader">Exercise</p><blockquote class="ExerciseBody"><p>Is it? Consider constructing
