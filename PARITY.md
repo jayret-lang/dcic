@@ -27,6 +27,31 @@ REPL traces; a separate authenticity decision).
 blocks in a file as one sequential program); or manually verify the 31
 remaining blocks against an interactive Jayret REPL.
 
+### TOC and cross-reference anchors use mismatched encodings
+
+The `.github/workflows/links.yml` lychee run with `--include-fragments`
+surfaced ~1020 broken in-page anchor references inherited from upstream
+DCIC. The TOC and `Section X.Y` cross-references emit hrefs in
+Scribble's dotted form, e.g. `#%28part._.A_.First_.Example%29` →
+`(part._.A_.First_.Example)`, but the actual `<a name="...">` anchors
+in the target HTML use the hyphenated form
+`(part._A-First-Example)`. Browsers fail silently — clicking just
+doesn't scroll — so the issue is invisible until a link checker is run
+with fragment validation.
+
+Affected: every chapter's per-section TOC links + many inter-section
+references. Modern `<h2 id="...">` IDs (e.g. `#A-First-Example`)
+exist and work; only the `(part._...)` Scribble-encoded form is broken.
+
+**Fix options**: (a) post-build rewrite of href fragments to drop the
+`.` before capitals (cheap, local to `build.py` or a small post-build
+script); (b) emit hyphen-form fragments from the source/template; (c)
+add an `<a name="dotted-form">` alias next to each existing
+hyphen-form anchor in the template. Option (a) is the most surgical.
+
+Lychee's `--include-fragments` flag is OFF until this is resolved
+(see comment in `.github/workflows/links.yml`).
+
 ### Untranslated code blocks (chapters 1–6 now cleared; others remain)
 
 All `# TODO(pyret2jayret)` markers in chapters 1–6 and testing.md have been
