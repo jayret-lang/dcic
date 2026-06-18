@@ -38,6 +38,16 @@ on every push. The Pages source must be set to **GitHub Actions** in
 repository Settings → Pages (legacy `main:/docs` mode is no longer used;
 `docs/` is gitignored).
 
+## Link checking
+
+`.github/workflows/links.yml` runs [lychee][lychee] against the built
+HTML on every push, every PR, and weekly on Mondays at 06:00 UTC. It
+validates both URLs and `#fragment` anchors (the latter is the main
+reason — heading-ID drift during the migration is the most likely
+breakage). Run manually with the **Run workflow** button.
+
+[lychee]: https://github.com/lycheeverse/lychee
+
 ## Repo layout
 
 | Path | What it is |
