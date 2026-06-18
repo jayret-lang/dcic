@@ -898,7 +898,7 @@ Object levenshtein(List<Object> s1, List<Object> s2) {
 which is worth contrasting with the memoized version
 ([<levenshtein-memo>](avoid-recomp.html#%28elem._levenshtein-memo%29)).[For more examples of
 canonical dynamic programming problems, see
-[this page](http://people.csail.mit.edu/bdean/6.046/dp/)
+[this page](https://people.computing.clemson.edu/~bcdean/dp_practice/)
 and think about how each can be expressed as a direct recursion.]{.margin-note}
 
 ```{=html}
