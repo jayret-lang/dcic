@@ -183,7 +183,7 @@ the directory, as follows:
 
 ##### 6.1.2.2 Annotations for Structured Data {#Annotations-for-Structured-Data}
 
-Recall that in [[Type Annotations](From_Repeated_Expressions_to_Functions.html##fun-annotations)] we discussed annotating our functions. Well, we
+Recall that in [[Type Annotations](From_Repeated_Expressions_to_Functions.html#fun-annotations)] we discussed annotating our functions. Well, we
 can annotate our data, too! In particular, we can annotate both the
 definition of data and their creation. For the former,
 consider this data definition, which makes the annotation information

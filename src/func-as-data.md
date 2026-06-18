@@ -77,7 +77,7 @@ the value of the derivative at that point. We have a handy formula for
 it: the derivative of \(f\) at \(x\) is
 \begin{equation*}\frac{f(x + \epsilon) - f(x)}{\epsilon}\end{equation*}as \(\epsilon\) goes to zero in the limit. For now we’ll give the
 infinitesimal a small but fixed value, and later
-[[Combining Forces: Streams of Derivatives](func-as-data.html##d-dx-streams)] see how we can improve on this.
+[[Combining Forces: Streams of Derivatives](func-as-data.html#d-dx-streams)] see how we can improve on this.
 
 ```jayret
 epsilon = 0.00001;
@@ -162,7 +162,7 @@ really trying to say is,
 # TODO(pyret2jayret): parse failed (no shifts)
 d-dx(lam(x): x * x end) = lam(x): 2 * x end
 ```
-or, in the notation of [A Notation for Functions](predicting-growth.html##math-anon-functions),
+or, in the notation of [A Notation for Functions](predicting-growth.html#math-anon-functions),
 \begin{equation*}{\frac{d}{dx}} [x \rightarrow x^2] = [x \rightarrow 2x]\end{equation*}Pity math textbooks for not wanting to tell us the truth!
 
 ```{=html}
@@ -312,7 +312,7 @@ to? If it doesn’t work, does it fail to work for the same reason as
 the definition without the `rec`{.jayret}?
 :::
 
-Henceforth, we will use the shorthand [[A Helpful Shorthand for Anonymous Functions](func-as-data.html##lam-shorthand)]
+Henceforth, we will use the shorthand [[A Helpful Shorthand for Anonymous Functions](func-as-data.html#lam-shorthand)]
 instead. Therefore, we can rewrite the above definition as:
 
 ```jayret

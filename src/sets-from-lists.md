@@ -17,10 +17,10 @@ next: sets-from-trees.html
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._Representation-Choices%29">18.1.1<span class="hspace"> </span>Representation Choices</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._Time-Complexity%29">18.1.2<span class="hspace"> </span>Time Complexity</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._choosing-set-reps%29">18.1.3<span class="hspace"> </span>Choosing Between Representations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="sets-from-lists.html#%28part._Other-Operations%29">18.1.4<span class="hspace"> </span>Other Operations</a></p></td></tr></table>
 ```
 
-Earlier [[Sets as Collective Data](Collections_of_Structured_Data.html##sets-as-collections)] we introduced sets. Recall
+Earlier [[Sets as Collective Data](Collections_of_Structured_Data.html#sets-as-collections)] we introduced sets. Recall
 that the elements of a set have no specific order, and ignore
 duplicates.[If these ideas are not familiar, please read
-[Sets as Collective Data](Collections_of_Structured_Data.html##sets-as-collections), since they will be important when
+[Sets as Collective Data](Collections_of_Structured_Data.html#sets-as-collections), since they will be important when
 discussing the representation of sets.]{.margin-note} At that time we relied on
 Jayret’s built-in representation of sets. Now we will discuss how to
 build sets for ourselves. In what follows, we will focus only on sets
@@ -64,7 +64,7 @@ Sets can contain many kinds of values, but not necessarily any kind:
 we need to be able to check for two values being equal (which is a
 requirement for a set, but not for a list!), which can’t
 be done with all values (such as functions). We discuss the nuances of
-this elsewhere [[Equality and Ordering](orderability.html##eq-ord)]. For now, we can ignore these
+this elsewhere [[Equality and Ordering](orderability.html#eq-ord)]. For now, we can ignore these
 issues by focusing on sets of (non-rough)numbers.
 
 ```{=html}
@@ -117,7 +117,7 @@ dangerous:
 
 To avoid these perils, we have to be precise about how we’re going to
 use lists to represent sets. One key question (but not the only one,
-as we’ll soon see [[Choosing Between Representations](sets-from-lists.html##choosing-set-reps)]) is what to do about duplicates. One
+as we’ll soon see [[Choosing Between Representations](sets-from-lists.html#choosing-set-reps)]) is what to do about duplicates. One
 possibility is for `insert`{.jayret} to check whether an element is
 already in the set and, if so, leave the representation unchanged;
 this incurs a cost during insertion but avoids unnecessary duplication

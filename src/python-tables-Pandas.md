@@ -42,7 +42,11 @@ import pandas as pd
 <a name="(part._Core-Datatypes-Data-Frame-and-Series)"></a>
 ```
 
-##### 10.1.1.1 Core Datatypes: DataFrame and Series {#Core-Datatypes-Data-Frame-and-Series}
+```{=html}
+<a name="(part._Core-Datatypes--DataFrame-and-Series)"></a>
+```
+
+##### 10.1.1.1 Core Datatypes: DataFrame and Series {#Core-Datatypes--DataFrame-and-Series}
 
 Pandas uses the term DataFrame for a table with rows and
 columns. DataFrames are built out of two more basic types:
@@ -69,7 +73,11 @@ datatype in Jayret). A DataFrame is a series of these rows.
 <a name="(part._Creating-and-Loading-Data-Frames)"></a>
 ```
 
-##### 10.1.1.2 Creating and Loading DataFrames {#Creating-and-Loading-Data-Frames}
+```{=html}
+<a name="(part._Creating-and-Loading-DataFrames)"></a>
+```
+
+##### 10.1.1.2 Creating and Loading DataFrames {#Creating-and-Loading-DataFrames}
 
 DataFrames can be created manually or loaded in from a file, as we did
 in Jayret. Here’s a simple example of creating one by hand:

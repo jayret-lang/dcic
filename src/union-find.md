@@ -17,7 +17,7 @@ next: hash-set-kv.html
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="union-find.html#%28part._Implementing-with-State%29">18.3.1<span class="hspace"> </span>Implementing with State</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="union-find.html#%28part._Optimizations%29">18.3.2<span class="hspace"> </span>Optimizations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="union-find.html#%28part._Analysis%29">18.3.3<span class="hspace"> </span>Analysis</a></p></td></tr></table>
 ```
 
-We have previously [[Checking Component Connectedness](mst.html##union-find-functional)] seen how to
+We have previously [[Checking Component Connectedness](mst.html#union-find-functional)] seen how to
 check connectedness of components, but found that solution
 unsatisfactory. Recall that it comes down to two set operations: we
 want to construct the unions of sets, and then determine whether two

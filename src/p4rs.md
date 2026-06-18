@@ -33,7 +33,11 @@ In every example below, the two programs will produce the same results.
 <a name="(part._Numbers-Strings-and-Booleans)"></a>
 ```
 
-### 28.1 Numbers, Strings, and Booleans {#Numbers-Strings-and-Booleans}
+```{=html}
+<a name="(part._Numbers--Strings--and-Booleans)"></a>
+```
+
+### 28.1 Numbers, Strings, and Booleans {#Numbers--Strings--and-Booleans}
 
 Numbers are very similar between the two. Like Scheme, Jayret
 implements arbitrary-precision numbers and rationals. Some of the more
@@ -417,7 +421,7 @@ languages, is not legal in Jayret: lists are not privileged with
 their own syntax. Rather, we must use an explicit constructor:
 just as `[1, 2, 3]`{.jayret} constructs a list, `[set: 1, 2,
 3]`{.jayret} constructs a set instead of a list.[In fact, we can
-[create our own constructors](https://jayret-lang.github.io/docs/Expressions.html#s-construct-expr)
+[create our own constructors](https://jayret-lang.github.io/docs/Expressions.html)
 and use them with this syntax.]{.margin-note}
 
 ::: {.exercise}
@@ -481,7 +485,11 @@ fun sort<T>(l :: List<T>, cmp :: (T, T -> Boolean)) -> List<T>: ...
 <a name="(part._What-Else)"></a>
 ```
 
-### 28.11 What Else? {#What-Else}
+```{=html}
+<a name="(part._What-Else-)"></a>
+```
+
+### 28.11 What Else? {#What-Else-}
 
 If there are other parts of Scheme or Racket syntax that you would
 like to see translated, please

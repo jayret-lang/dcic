@@ -474,7 +474,7 @@ Remember, there’s no way to send an empty list to `avg4`{.jayret}! Nevertheles
 this suggests a trade-off: we can either use `NeLoN`{.jayret} explicitly but with
 more notational pain, or we can use `list`{.jayret} but run the risk of some
 confusion about exceptions. This is a trade-off in general, but there are
-better options in some languages ([A Note on Notation](partial-domains.html##pd-pyret-list-constr)).
+better options in some languages ([A Note on Notation](partial-domains.html#pd-pyret-list-constr)).
 
 So this is actually a very powerful technique: building a datatype that
 reflects exactly what we want, thereby turning a partial function into a total
@@ -526,7 +526,7 @@ and there are four solutions:
     a real program will have `some`{.jayret} for the “normal” case, and a bunch of
     variants describing the different kinds of errors that are possible, with extra
     information in each case. For concrete examples of this, see
-    [Picking Elements from Sets](Collections_of_Structured_Data.html##coll-sd-pick) on sets [Combining Answers](queues-from-lists.html##qfl-comb-ans) on queues.
+    [Picking Elements from Sets](Collections_of_Structured_Data.html#coll-sd-pick) on sets [Combining Answers](queues-from-lists.html#qfl-comb-ans) on queues.
 
 ```{=html}
 <a name="(part._pd-pyret-list-constr)"></a>
@@ -573,7 +573,7 @@ These tests show that this constructor works very much like the built-in `list`{
     assertEquals([nelon: 1, 2, 3, 4, 5, 6, 7], more(1, more(2, more(3, more(4, more(5, more(6, one(7))))))));
 }
 ```
-With this, we can rewrite the tests from [Total Domains, Statically](partial-domains.html##pd-total-static) very
+With this, we can rewrite the tests from [Total Domains, Statically](partial-domains.html#pd-total-static) very
 conveniently:
 
 ```jayret

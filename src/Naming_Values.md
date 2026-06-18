@@ -362,7 +362,7 @@ Why or why not?
 
 ::: {.exercise}
 Re-write your expression of the Armenian flag (from
-[Making a Flag](getting-started.html##expressions-first-flag)), this
+[Making a Flag](getting-started.html#expressions-first-flag)), this
 time giving intermediate names to each of the stripes.
 :::
 

@@ -357,7 +357,11 @@ Object check-for-no-copy(another-l) {
 <a name="(part._On-the-Internet-Nobody-Knows-You-re-a-D-A-G)"></a>
 ```
 
-#### 16.1.4 On the Internet, Nobody Knows You’re a DAG {#On-the-Internet-Nobody-Knows-You-re-a-D-A-G}
+```{=html}
+<a name="(part._On-the-Internet--Nobody-Knows-You-re-a-DAG)"></a>
+```
+
+#### 16.1.4 On the Internet, Nobody Knows You’re a DAG {#On-the-Internet--Nobody-Knows-You-re-a-DAG}
 
 Despite the name we’ve given it, `b-tree`{.jayret} is not actually a
 tree. In a tree, by definition, there are no shared nodes,
@@ -432,7 +436,11 @@ one Web page current; for instance:
 <a name="(part._It-s-Always-Been-a-D-A-G)"></a>
 ```
 
-#### 16.1.5 It’s Always Been a DAG {#It-s-Always-Been-a-D-A-G}
+```{=html}
+<a name="(part._It-s-Always-Been-a-DAG)"></a>
+```
+
+#### 16.1.5 It’s Always Been a DAG {#It-s-Always-Been-a-DAG}
 
 What we may not realize is that we’ve actually been creating a DAG for longer
 than we think. To see this, consider `a-tree`{.jayret}, which very clearly seems to
@@ -521,7 +529,7 @@ Here are some problems in turn:
   not bound on the right of the `=`{.jayret}.
 
 - Earlier, we saw a solution to such a problem: use `rec`{.jayret}
-  [[Streams From Functions](func-as-data.html##streams-from-funs)]. What happens if we write
+  [[Streams From Functions](func-as-data.html#streams-from-funs)]. What happens if we write
   
   ```jayret
 rec web-colors = link("white", link("grey", web-colors));

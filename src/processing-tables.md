@@ -126,7 +126,7 @@ having a type, based on the value in the first row of data. Jayret thus
 reports an error that `three`{.jayret} (in the `"Num Tickets"`{.jayret}
 column) is not a number. We’ll discuss how to handle this in
 [Dealing with Columns
-with Multiple Types of Data](processing-tables.html##cols-multiple-types-data).
+with Multiple Types of Data](processing-tables.html#cols-multiple-types-data).
 
 ```{=html}
 <a name="(part._loading-tables-from-csv)"></a>
@@ -334,7 +334,7 @@ should make sense on them. What sense would it make to multiply a zip
 code by 3, for example? None. Similarly, we don’t write numbers with
 leading zeros, but zip codes can meaningfully start with 0. Treating
 zip codes as strings treats them as identifiers more than
-numbers. We’ll return to this point later in this chapter ([Visualizations and Plots](processing-tables.html##visualizing-tables)).
+numbers. We’ll return to this point later in this chapter ([Visualizations and Plots](processing-tables.html#visualizing-tables)).
 
 A note on default values:
 Unlike `string-sanitizer`{.jayret}, `num-sanitizer`{.jayret} does
@@ -518,7 +518,11 @@ content. How do we approach normalization to avoid missing cases like this?
 <a name="(part._Normalization-Systematically)"></a>
 ```
 
-##### 4.2.1.4 Normalization, Systematically {#Normalization-Systematically}
+```{=html}
+<a name="(part._Normalization--Systematically)"></a>
+```
+
+##### 4.2.1.4 Normalization, Systematically {#Normalization--Systematically}
 
 As the previous example showed, we need a way to think through potential
 normalizations systematically. Our initial discussion of writing
@@ -751,7 +755,11 @@ need to make those labels explicit.
 <a name="(part._creating-bins)"></a>
 ```
 
-##### 4.2.3.1 Creating bins {#creating-bins}
+```{=html}
+<a name="(part._creating._bins)"></a>
+```
+
+##### 4.2.3.1 Creating bins {#creating._bins}
 
 The act of reducing one set of values (such as the `tickcounts`{.jayret} values) into a
 smaller set of categories (such as small/medium/large for orders, or
@@ -998,7 +1006,11 @@ data is also useful for identifying errors.
 <a name="(part._Summary-Managing-a-Data-Analysis)"></a>
 ```
 
-#### 4.2.6 Summary: Managing a Data Analysis {#Summary-Managing-a-Data-Analysis}
+```{=html}
+<a name="(part._Summary--Managing-a-Data-Analysis)"></a>
+```
+
+#### 4.2.6 Summary: Managing a Data Analysis {#Summary--Managing-a-Data-Analysis}
 
 This chapter has given you a high-level overview of how to use coding
 for managing and processing data. When doing any data analysis, a

@@ -117,7 +117,11 @@ operations are obtained from `I`{.jayret} and animation operations from
 <a name="(part._Version-Airplane-Moving-Across-the-Screen)"></a>
 ```
 
-### 27.3 Version: Airplane Moving Across the Screen {#Version-Airplane-Moving-Across-the-Screen}
+```{=html}
+<a name="(part._Version--Airplane-Moving-Across-the-Screen)"></a>
+```
+
+### 27.3 Version: Airplane Moving Across the Screen {#Version--Airplane-Moving-Across-the-Screen}
 
 We will start with the simplest version: one in which the airplane
 moves horizontally across the screen. Watch
@@ -291,7 +295,11 @@ Object place-airplane-x(w) {
 <a name="(part._Observing-Time-and-Combining-the-Pieces)"></a>
 ```
 
-#### 27.3.3 Observing Time (and Combining the Pieces) {#Observing-Time-and-Combining-the-Pieces}
+```{=html}
+<a name="(part._Observing-Time--and-Combining-the-Pieces-)"></a>
+```
+
+#### 27.3.3 Observing Time (and Combining the Pieces) {#Observing-Time--and-Combining-the-Pieces-}
 
 Finally, we’re ready to put these pieces together.
 
@@ -336,7 +344,11 @@ If you want the airplane to appear to move faster, what can you change?
 <a name="(part._Version-Wrapping-Around)"></a>
 ```
 
-### 27.4 Version: Wrapping Around {#Version-Wrapping-Around}
+```{=html}
+<a name="(part._Version--Wrapping-Around)"></a>
+```
+
+### 27.4 Version: Wrapping Around {#Version--Wrapping-Around}
 
 When you run the preceding program, you’ll notice that after a while,
 the airplane just disappears. This is because it has gone past the right
@@ -418,7 +430,11 @@ airplane-moving function?
 <a name="(part._Version-Descending)"></a>
 ```
 
-### 27.5 Version: Descending {#Version-Descending}
+```{=html}
+<a name="(part._Version--Descending)"></a>
+```
+
+### 27.5 Version: Descending {#Version--Descending}
 
 Of course, we need our airplane to move in more than just one dimension:
 to get to the final game, it must both ascend and descend as well. For
@@ -598,7 +614,11 @@ and similarly in `move-airplane-xy-on-tick`{.jayret}.
 <a name="(part._Version-Responding-to-Keystrokes)"></a>
 ```
 
-### 27.6 Version: Responding to Keystrokes {#Version-Responding-to-Keystrokes}
+```{=html}
+<a name="(part._Version--Responding-to-Keystrokes)"></a>
+```
+
+### 27.6 Version: Responding to Keystrokes {#Version--Responding-to-Keystrokes}
 
 Now that we have the airplane descending, there’s no reason it can’t
 ascend as well.
@@ -677,7 +697,11 @@ response to your keystrokes. You can keep it up in the air forever!
 <a name="(part._Version-Landing)"></a>
 ```
 
-### 27.7 Version: Landing {#Version-Landing}
+```{=html}
+<a name="(part._Version--Landing)"></a>
+```
+
+### 27.7 Version: Landing {#Version--Landing}
 
 Remember that the objective of our game is to land the airplane, not to
 keep it airborne indefinitely. That means we need to detect when the
@@ -735,7 +759,11 @@ would be visible. Implement this. As a hint, consider modifying
 <a name="(part._Version-A-Fixed-Balloon)"></a>
 ```
 
-### 27.8 Version: A Fixed Balloon {#Version-A-Fixed-Balloon}
+```{=html}
+<a name="(part._Version--A-Fixed-Balloon)"></a>
+```
+
+### 27.8 Version: A Fixed Balloon {#Version--A-Fixed-Balloon}
 
 Now let’s add a balloon to the scene.
 [Here’s a video of the action.](https://drive.google.com/file/d/1QLt9tdt2sSPWR90-mmMLCDW4ZklgR_lN/view?usp=share_link)
@@ -850,7 +878,11 @@ Object game-ends(w) {
 <a name="(part._Version-Keep-Your-Eye-on-the-Tank)"></a>
 ```
 
-### 27.9 Version: Keep Your Eye on the Tank {#Version-Keep-Your-Eye-on-the-Tank}
+```{=html}
+<a name="(part._Version--Keep-Your-Eye-on-the-Tank)"></a>
+```
+
+### 27.9 Version: Keep Your Eye on the Tank {#Version--Keep-Your-Eye-on-the-Tank}
 
 Now we’ll introduce the idea of fuel. In our simplified world, fuel
 isn’t necessary to descend—gravity does that automatically—but it
@@ -952,7 +984,11 @@ Extend your program to draw a fuel gauge.
 <a name="(part._Version-The-Balloon-Moves-Too)"></a>
 ```
 
-### 27.10 Version: The Balloon Moves, Too {#Version-The-Balloon-Moves-Too}
+```{=html}
+<a name="(part._Version--The-Balloon-Moves--Too)"></a>
+```
+
+### 27.10 Version: The Balloon Moves, Too {#Version--The-Balloon-Moves--Too}
 
 Until now we’ve left our balloon immobile. Let’s now make the game
 more interesting by letting the balloon move, as
@@ -1011,7 +1047,11 @@ Modify each of the above functions, along with their test cases.
 <a name="(part._Version-One-Two-Ninety-Nine-Luftballons)"></a>
 ```
 
-### 27.11 Version: One, Two, ..., Ninety-Nine Luftballons! {#Version-One-Two-Ninety-Nine-Luftballons}
+```{=html}
+<a name="(part._Version--One--Two-------Ninety-Nine-Luftballons-)"></a>
+```
+
+### 27.11 Version: One, Two, ..., Ninety-Nine Luftballons! {#Version--One--Two-------Ninety-Nine-Luftballons-}
 
 Finally, there’s no need to limit ourselves to only one balloon. How
 many is right? Two? Three? Ten? ... Why fix any one number? It could be

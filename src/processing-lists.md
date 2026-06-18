@@ -1054,7 +1054,7 @@ assertEquals(num-max(-1, -2), -1);
 
 ::: {.exercise}
 Suppose `num-max`{.jayret} were not already built in. Can you define it?
-You will find what you learned about [Booleans](Conditionals_and_Booleans.html##booleans)
+You will find what you learned about [Booleans](Conditionals_and_Booleans.html#booleans)
 handy. Remember to write some tests!
 :::
 
@@ -1296,7 +1296,7 @@ produce what you would expect?
 :::
 
 Just as we argued earlier about the maximum
-[[Structural Problems Over Relaxed Domains](processing-lists.html##struct-prob-sub-dom)], the average of the empty list isn’t
+[[Structural Problems Over Relaxed Domains](processing-lists.html#struct-prob-sub-dom)], the average of the empty list isn’t
 a well-defined concept. Therefore, it would be appropriate to signal
 an error. The implementation above does this, but poorly: it reports
 an error on division. A better programming practice would be to
@@ -1371,7 +1371,7 @@ now that may be more work than finding a simpler way to answer it.)
 
 ##### 5.2.8.2 my-running-sum : Examples and Code {#running-sum-eg-code}
 
-Recall how we began in [`my-running-sum`{.jayret}: First Attempt](processing-lists.html##running-sum-1st-attempt). Our
+Recall how we began in [`my-running-sum`{.jayret}: First Attempt](processing-lists.html#running-sum-1st-attempt). Our
 examples [[<running-sum-egs-1>](processing-lists.html#%28elem._running-sum-egs-1%29)] showed the following
 problem. When we process the rest of the list, we have forgotten
 everything about what preceded it. That is, when processing the list
@@ -1449,7 +1449,7 @@ needless) work onto others who use our code.
 ##### 5.2.8.3 my-alternating : Examples and Code {#alternating-accumulator}
 
 Recall our examples in [`my-alternating`{.jayret}:
-Examples and Code](processing-lists.html##alternating-eg-code). There, we
+Examples and Code](processing-lists.html#alternating-eg-code). There, we
 noticed that the code built on every-other example. We might have
 chosen our examples differently, so that from one example to the next
 we skipped two elements rather than one.
@@ -1777,7 +1777,7 @@ and greatly complicates even writing down examples (give it a try!).
 ##### 5.2.9.6 uniq : Why Produce a List? {#struct-traverse-element-procedure-lib-render-cond-rkt-38-12-Why-Produce-a-List}
 
 If you go back to the original statement of the `uniq`{.jayret} problem
-[[`uniq`{.jayret}: Problem Setup](processing-lists.html##uniq)], you’ll notice it said nothing about what order the
+[[`uniq`{.jayret}: Problem Setup](processing-lists.html#uniq)], you’ll notice it said nothing about what order the
 output should have; in fact, it didn’t even say the output needs to be
 a list (and hence have an order). In that case, we should think about
 whether a list even makes sense for this problem. In fact, if we don’t

@@ -36,7 +36,7 @@ strictly necessarily), a number. A hash function must naturally be
 deterministic: a fixed value should always yield the same hash
 (otherwise, we might conclude that an element in the set is not
 actually in it, etc.). Particular uses may need additional properties,
-as we discuss in [Equality and Ordering](orderability.html##eq-ord).
+as we discuss in [Equality and Ordering](orderability.html#eq-ord).
 
 Let us now consider how one can compute hashes. If the input datatype
 is a number, it can serve as its own hash. Comparison simply uses
@@ -142,7 +142,7 @@ hashes often or both.
 
 Instead, many programming languages do something very pragmatic. They
 need a value that can be compared for equality and ordering
-[[Equality and Ordering](orderability.html##eq-ord)]. Integers, we’ve already seen, already fit this
+[[Equality and Ordering](orderability.html#eq-ord)]. Integers, we’ve already seen, already fit this
 bill very nicely. But how to obtain an integer out of arbitrary
 values, even datatype instances, quickly?
 
@@ -176,7 +176,7 @@ it’s easy for us to experiment with.
 
 #### 18.5.3 Equality and Ordering {#eq-ord}
 
-What we’ve seen [[A Fine Balance: Tree Surgery](sets-from-trees.html##sets-from-balanced-trees)] for the construction of
+What we’ve seen [[A Fine Balance: Tree Surgery](sets-from-trees.html#sets-from-balanced-trees)] for the construction of
 balanced binary search trees is that we need some way of putting elements in
 order. In the examples we used numbers because they’re a very friendly
 datatype: they have several properties that we take for granted. However, not

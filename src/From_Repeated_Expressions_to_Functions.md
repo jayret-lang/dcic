@@ -582,7 +582,11 @@ Does doing this seem like a good idea? Why or why not?
 <a name="(part._Recap-Defining-Functions)"></a>
 ```
 
-#### 3.3.6 Recap: Defining Functions {#Recap-Defining-Functions}
+```{=html}
+<a name="(part._Recap--Defining-Functions)"></a>
+```
+
+#### 3.3.6 Recap: Defining Functions {#Recap--Defining-Functions}
 
 This chapter has introduced the idea of a function. Functions play a
 key role in programming: they let us configure computations with

@@ -151,7 +151,7 @@ Draw the memory diagram for the above program.
 
 #### Exercise: Creating Lists of Accounts {#Exercise-Creating-Lists-of-Accounts}
 
-In [Mutating Top-Level Variables within Functions](mutating-variables.html##mut-top-level-vars-in-func), we wrote a function to create new accounts for the
+In [Mutating Top-Level Variables within Functions](mutating-variables.html#mut-top-level-vars-in-func), we wrote a function to create new accounts for the
 bank. That function returned each new account as it was created. That
 meant that every newly-created account had to be associated with a
 name in the directory (otherwise we would not be able to access it

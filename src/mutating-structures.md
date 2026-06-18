@@ -486,7 +486,7 @@ Our original presentation of the directory reflected the aliases that referred t
 lost that sharing when we replaced `acct1`{.jayret} with it’s value while
 setting up the data for Elena and Jorge. The rule that names can’t
 appear in the values is still important, especially in the presence of
-mutation (we’ll return to this later in [Mutating Variables in Memory](mutating-variables.html##mutating-vars-memory)). But the idea
+mutation (we’ll return to this later in [Mutating Variables in Memory](mutating-variables.html#mutating-vars-memory)). But the idea
 of having a single term that can be reused to reflect sharing is a
 good one. Indeed, it reflects what happens inside your computer.
 

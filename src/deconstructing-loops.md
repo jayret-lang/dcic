@@ -21,7 +21,11 @@ next: booklet_interaction.html
 <a name="(part._Setup-Two-Functions)"></a>
 ```
 
-### 26.1 Setup: Two Functions {#Setup-Two-Functions}
+```{=html}
+<a name="(part._Setup--Two-Functions)"></a>
+```
+
+### 26.1 Setup: Two Functions {#Setup--Two-Functions}
 
 Let’s look at two functions we wrote earlier in [Factoring Numbers](factoring-numbers.html):
 
@@ -184,7 +188,11 @@ and now closely resembles a traditional “loop” program.
 <a name="(part._Is-It-Really-a-Loop)"></a>
 ```
 
-### 26.3 Is It Really a Loop? {#Is-It-Really-a-Loop}
+```{=html}
+<a name="(part._Is-It-Really-a-Loop-)"></a>
+```
+
+### 26.3 Is It Really a Loop? {#Is-It-Really-a-Loop-}
 
 This whole section should be considered an aside for people with more
 advanced computing knowledge.
@@ -414,7 +422,11 @@ it must contribute `sum-a-lon`{.jayret} of that list.
 <a name="(part._Loops-Values-and-Customization)"></a>
 ```
 
-### 26.7 Loops, Values, and Customization {#Loops-Values-and-Customization}
+```{=html}
+<a name="(part._Loops--Values--and-Customization)"></a>
+```
+
+### 26.7 Loops, Values, and Customization {#Loops--Values--and-Customization}
 
 Observe two important ways in which the loops above differ from
 traditional loops:

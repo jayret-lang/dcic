@@ -24,7 +24,7 @@ next: factoring-numbers.html
 ### 24.1 Problem Definition {#Problem-Definition}
 
 Earlier, we saw a detailed development of binary trees representing ancestry
-[[Creating a Datatype for Ancestor Trees](trees.html##ancestor-tree)]. In what follows we don’t need a lot of detail, so
+[[Creating a Datatype for Ancestor Trees](trees.html#ancestor-tree)]. In what follows we don’t need a lot of detail, so
 we will give ourselves a simplified version of essentially the same data definition:
 
 ```jayret
@@ -368,7 +368,7 @@ parameters changing, therefore accommodating a much broader range of behaviors
 (e.g., checking for parent-child or grandparent-child name reuse).
 
 There’s another very nice example of staging here:
-[A Little Calculus](func-as-data.html##fd-calculus).
+[A Little Calculus](func-as-data.html#fd-calculus).
 
 Finally, it’s worth knowing that some languages, like Haskell and
 OCaml, do this transformation automatically. In fact, they don’t even

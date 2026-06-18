@@ -38,7 +38,7 @@ contention which in the worst case requires a linear amount of work to
 examine the whole set. Instead, we need to eliminate many more
 elements with each comparison—more than just a constant.
 
-In our handy set of recurrences [[Solving Recurrences](predicting-growth.html##solving-recurrences)], one
+In our handy set of recurrences [[Solving Recurrences](predicting-growth.html#solving-recurrences)], one
 stands out: \(T(k) = T(k/2) + c\). It says that if, with a
 constant amount of work we can eliminate half the input,
 we can perform membership checking in logarithmic time. This will be
@@ -63,7 +63,7 @@ obtain this logarithmic complexity, we need comparing against one
 element to remove an entire set of elements. Because we are
 constructing sets of numbers, we don’t need to confront this issue
 here. Instead, we go into it in much more detail in
-[Converting Values to Ordered Values](orderability.html##hashing-values).
+[Converting Values to Ordered Values](orderability.html#hashing-values).
 
 ```{=html}
 <a name="(part._Using-Binary-Trees)"></a>
@@ -349,7 +349,7 @@ tree and a symmetric argument handles insertions into the other half.
 Thus, suppose we have a tree that is currently balanced into which we
 are inserting the element \(e\). Let’s say \(e\) is going into the
 left sub-tree and, by virtue of being inserted, will cause the entire
-tree to become imbalanced.[Some trees, like family trees ([Data Design Problem – Ancestry Data](trees.html##ancestor-trees))
+tree to become imbalanced.[Some trees, like family trees ([Data Design Problem – Ancestry Data](trees.html#ancestor-trees))
 represent real-world data. It makes no sense to “balance” a family
 tree: it must accurately model whatever reality it represents. These
 set-representing trees, in contrast, are chosen by us, not dictated by
@@ -529,7 +529,11 @@ height \(k+1\) or \(k+2\); so is \(B_1\)’s; so is \(B_2\)’s; and
 <a name="(part._Any-Other-Cases)"></a>
 ```
 
-##### 18.2.3.3 Any Other Cases? {#Any-Other-Cases}
+```{=html}
+<a name="(part._Any-Other-Cases-)"></a>
+```
+
+##### 18.2.3.3 Any Other Cases? {#Any-Other-Cases-}
 
 Were we a little too glib before? In the left-right case we said that
 only one of \(B_1\) or \(B_2\) could be of height \(k\) (after

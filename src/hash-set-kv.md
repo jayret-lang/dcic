@@ -23,7 +23,7 @@ We have seen several solutions to set membership
 insection and membership.
 Now we will see one more implementation of sets, with different
 complexity. To set this up, we assume you are familiar with the
-concept of hashing [[Converting Values to Ordered Values](orderability.html##hashing-values)], which we saw
+concept of hashing [[Converting Values to Ordered Values](orderability.html#hashing-values)], which we saw
 was useful for constructing search trees. Here, we
 will use it to construct sets in a very different way.
 We will then generalize sets to another important data
@@ -35,7 +35,7 @@ structure: key-value repositories. But first…
 
 #### 18.4.1 A Hash Function for Strings {#hash-string}
 
-As we have seen in [Converting Values to Ordered Values](orderability.html##hashing-values), we have multiple
+As we have seen in [Converting Values to Ordered Values](orderability.html#hashing-values), we have multiple
 strategies for converting arbitrary values into numbers, which we will
 rely on here. Therefore, we could write this material around numbers
 alone. To make the examples more interesting, and to better illustrate

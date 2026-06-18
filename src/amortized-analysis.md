@@ -19,7 +19,7 @@ next: booklet_data-with-analysis.html
 
 In [Predicting Growth](predicting-growth.html), we introduced the idea of big-Oh
 complexity to measure the worst-case time of a computation. As we see
-in [Choosing Between Representations](sets-from-lists.html##choosing-set-reps), however, this is sometimes too coarse
+in [Choosing Between Representations](sets-from-lists.html#choosing-set-reps), however, this is sometimes too coarse
 a bound when the complexity is heavily dependent on the exact sequence
 of operations run. Now, we will consider a different style of
 complexity analysis that better accommodates operation sequences.
@@ -57,7 +57,7 @@ as average-case analysis, which uses probability theory to
 compute the estimated cost of the computation. We have not used any
 probability here.]{.margin-note} Note that because this is an average per operation,
 it does not say anything about how bad any one operation can be
-(which, as we will see [[Amortization Versus Individual Operations](amortized-analysis.html##worst-case-ops-amort)], can be quite
+(which, as we will see [[Amortization Versus Individual Operations](amortized-analysis.html#worst-case-ops-amort)], can be quite
 a bit worse); it only says what their average is.
 
 In the above case, this new analysis did not yield any big

@@ -92,7 +92,11 @@ that the file will be closed even if an error occurs while processing it.
 <a name="(part._Reading-C-S-V-Files-Step-by-Step)"></a>
 ```
 
-#### 11.1.2 Reading CSV Files Step by Step {#Reading-C-S-V-Files-Step-by-Step}
+```{=html}
+<a name="(part._Reading-CSV-Files-Step-by-Step)"></a>
+```
+
+#### 11.1.2 Reading CSV Files Step by Step {#Reading-CSV-Files-Step-by-Step}
 
 Let’s work through reading a CSV file manually, as a way to practice using files for a practical (if small) example.
 
@@ -192,7 +196,11 @@ What would happen if one of the quantity cells contained invalid data, like the 
 <a name="(part._Writing-C-S-V-Files)"></a>
 ```
 
-#### 11.1.4 Writing CSV Files {#Writing-C-S-V-Files}
+```{=html}
+<a name="(part._Writing-CSV-Files)"></a>
+```
+
+#### 11.1.4 Writing CSV Files {#Writing-CSV-Files}
 
 Writing CSV files follows a similar pattern. We need to:
 

@@ -58,7 +58,7 @@ ultimately everything in the collection is still a page.)
 Observe that we’ve mentioned both sets and lists
 above. The difference between a set and a list is that a set has no
 order, but a list has an order. This distinction is not vital now but
-we will return to it later [[Sets as Collective Data](Collections_of_Structured_Data.html##sets-as-collections)].
+we will return to it later [[Sets as Collective Data](Collections_of_Structured_Data.html#sets-as-collections)].
 
 Of course, sets and lists are not the only kinds of collective data we
 can have. Here are some more:
@@ -74,7 +74,7 @@ can have. Here are some more:
 
 and so on. For the most part these are just as easy to program and
 manipulate as the earlier collective data once we have some
-experience, though some of them [[Re-Examining Equality](Sharing_and_Equality.html##identical-eq)] can involve more subtlety.
+experience, though some of them [[Re-Examining Equality](Sharing_and_Equality.html#identical-eq)] can involve more subtlety.
 
 We have already seen tables [[Introduction to Tabular Data](intro-tabular-data.html)], which are
 a form of collective, structured data. Now we will look at a few more,
@@ -89,7 +89,7 @@ and how to program them.
 We have already seen one example of a collection in
 some depth before: lists. A list is not limited to numbers or strings;
 it can contain any kind of value, including structured ones. For
-instance, using our examples from earlier [[Defining and Creating Structured Data](intro-struct-data.html##struct-data-eg)],
+instance, using our examples from earlier [[Defining and Creating Structured Data](intro-struct-data.html#struct-data-eg)],
 we can make a list of songs:
 
 ```jayret
@@ -126,7 +126,7 @@ assertEquals(oldest-song([]), ???);
 ```
 
 What do we write in the last case? Recall that we saw this problem
-earlier [[`my-max`{.jayret}: Examples](processing-lists.html##my-max)]: there is no answer in the empty case. In
+earlier [[`my-max`{.jayret}: Examples](processing-lists.html#my-max)]: there is no answer in the empty case. In
 fact, the computation here is remarkably similar to that of
 `my-max`{.jayret}, because it is essentially the same computation, just
 asking for the minimum year (which would make the song the
@@ -330,7 +330,7 @@ field of a `Pick-some`{.jayret} is: what’s left of the set.
 Given this, we can write functions over sets that look roughly
 analogous to functions over lists. For instance, suppose we want to
 compute the size of a set. The function looks similar to
-`my-len`{.jayret} [[Some Example Exercises](processing-lists.html##my-len)]:
+`my-len`{.jayret} [[Some Example Exercises](processing-lists.html#my-len)]:
 
 ```jayret
 int my-set-size(Object s) {
@@ -387,7 +387,11 @@ collective. How do they combine these data?
 <a name="(part._Data-Design-Problem-Representing-Quizzes)"></a>
 ```
 
-#### 6.2.4 Data Design Problem: Representing Quizzes {#Data-Design-Problem-Representing-Quizzes}
+```{=html}
+<a name="(part._Data-Design-Problem--Representing-Quizzes)"></a>
+```
+
+#### 6.2.4 Data Design Problem: Representing Quizzes {#Data-Design-Problem--Representing-Quizzes}
 
 Now that you can make collections of structured data, you can approach
 creating the data and programs for fairly sophisticated

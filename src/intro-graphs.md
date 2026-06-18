@@ -17,7 +17,7 @@ next: basic-graph-trav.html
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._Understanding-Graphs%29">17.1.1<span class="hspace"> </span>Understanding Graphs</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._Representations%29">17.1.2<span class="hspace"> </span>Representations</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._string-keys%29">17.1.2.1<span class="hspace"> </span>Links by Name</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._Links-by-Indices%29">17.1.2.2<span class="hspace"> </span>Links by Indices</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._A-List-of-Edges%29">17.1.2.3<span class="hspace"> </span>A List of Edges</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._Abstracting-Representations%29">17.1.2.4<span class="hspace"> </span>Abstracting Representations</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="intro-graphs.html#%28part._complexity-of-graphs%29">17.1.3<span class="hspace"> </span>Measuring Complexity for Graphs</a></p></td></tr></table>
 ```
 
-In [From Acyclicity to Cycles](Sharing_and_Equality.html##acyc-to-cyc) we introduced a special kind of sharing:
+In [From Acyclicity to Cycles](Sharing_and_Equality.html#acyc-to-cyc) we introduced a special kind of sharing:
 when the data become cyclic, i.e., there exist values such that
 traversing other reachable values from them eventually gets you back
 to the value at which you began. Data that have this characteristic
@@ -57,12 +57,12 @@ both these aspects of graphs below.
 #### 17.1.1 Understanding Graphs {#Understanding-Graphs}
 
 Consider again the binary trees we saw earlier
-[[Re-Examining Equality](Sharing_and_Equality.html##identical-eq)]. Let’s now try to distort the definition of
+[[Re-Examining Equality](Sharing_and_Equality.html#identical-eq)]. Let’s now try to distort the definition of
 a “tree” by creating ones with cycles, i.e., trees with nodes
 that point back to themselves (in the sense of `identical`{.jayret}). As
-we saw earlier [[From Acyclicity to Cycles](Sharing_and_Equality.html##acyc-to-cyc)], it is not completely
+we saw earlier [[From Acyclicity to Cycles](Sharing_and_Equality.html#acyc-to-cyc)], it is not completely
 straightforward to create such a structure, but what we saw earlier
-[[Streams From Functions](func-as-data.html##streams-from-funs)] can help us here, by letting us
+[[Streams From Functions](func-as-data.html#streams-from-funs)] can help us here, by letting us
 suspend the evaluation of the cyclic link. That is, we have to
 not only use `rec`{.jayret}, we must also use a function to delay
 evaluation. In turn, we have to update the annotations on the
@@ -244,7 +244,7 @@ representation depends on several factors:
 
 1. The structure of the graph, and in particular, its
   density. We will discuss this further later
-  [[Measuring Complexity for Graphs](intro-graphs.html##complexity-of-graphs)].
+  [[Measuring Complexity for Graphs](intro-graphs.html#complexity-of-graphs)].
 
 2. The representation in which the data are provided by external
   sources. Sometimes it may be easier to simply adapt to their
@@ -496,7 +496,7 @@ available a notion of `Node`{.jayret} that has `content`{.jayret}, a notion of
 neighbors—a list of keys—given a key and a graph. This is
 sufficient for what follows. However, we still need to choose concrete
 keys to write examples and tests. For simplicity, we’ll use
-string keys [[Links by Name](intro-graphs.html##string-keys)].
+string keys [[Links by Name](intro-graphs.html#string-keys)].
 
 ```{=html}
 <a name="(part._complexity-of-graphs)"></a>

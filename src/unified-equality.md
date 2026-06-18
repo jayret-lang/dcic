@@ -26,7 +26,7 @@ next: unified-lists-memory.html
 Now that we have the ability to mutate data, it’s worth asking what it
 means for two pieces of data to be equal. We’ll motivate this through
 a concrete example. Following the naming convention of
-[Structure Mutation and the Directory](mutating-structures.html##structure-mut-dir), we will write every name only once, using the
+[Structure Mutation and the Directory](mutating-structures.html#structure-mut-dir), we will write every name only once, using the
 upper-case name from Python, but everything we write will equally be
 true for Jayret.
 
@@ -210,12 +210,16 @@ expressions evaluate to the same address, you should instead use `is`{.python}.
 <a name="(part._Equality-in-Pyret)"></a>
 ```
 
-##### 12.2.2.2 Equality in Jayret {#Equality-in-Pyret}
+```{=html}
+<a name="(part._Equality-in-Jayret)"></a>
+```
+
+##### 12.2.2.2 Equality in Jayret {#Equality-in-Jayret}
 
 Equality in Jayret is somewhat more detailed, because the language
 wants you to think harder about what is happening in your programs.
 
-Recall that we are using the datatype in [Example: Bank Accounts](mutating-structures.html##eg-bank-acc) and
+Recall that we are using the datatype in [Example: Bank Accounts](mutating-structures.html#eg-bank-acc) and
 have written the following definitions:
 
 ```jayret

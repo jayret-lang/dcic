@@ -25,7 +25,7 @@ next: mutable-lists.html
 
 Now that we have introduced the idea of the heap, let’s revisit our
 use of a variable to compute the sum of elements in a list. Here again
-is the code we wrote for this earlier (in [Introducing `For`{.python} Loops](intro-python.html##python-for-loops)):
+is the code we wrote for this earlier (in [Introducing `For`{.python} Loops](intro-python.html#python-for-loops)):
 
 ```python
 run_total = 0
@@ -34,7 +34,7 @@ for num in [5, 1, 7, 3]:
 ```
 
 Let’s see how the directory and heap update as we run this code. In
-[Basic Data and the Heap](mutating-structures.html##basic-data-heap), we pointed out that basic data (such as
+[Basic Data and the Heap](mutating-structures.html#basic-data-heap), we pointed out that basic data (such as
 numbers, strings, and booleans) don’t get put in the heap because they
 have no internal structure. Those values are stored in the directory
 itself. Therefore, the initial value for `run_total`{.python} is stored
@@ -291,7 +291,7 @@ understanding of when and how to use each one.
 
 #### 13.1.4 Mutating Parameters in Function Calls {#Mutating-Parameters-in-Function-Calls}
 
-In [Function Composition and the Directory](Conditionals_and_Booleans.html##func-comp-directory), we showed how
+In [Function Composition and the Directory](Conditionals_and_Booleans.html#func-comp-directory), we showed how
 function calls create their own local directory segments to store any
 names that get introduced while running the function. Now that we have
 the ability to update the values associated with variables, we should
@@ -348,7 +348,7 @@ at all times.
 
 The body of `add10`{.python} now updates the value of `num`{.python} in
 the directory to 25. This does not affect the value of `x`{.python} in
-the top-level directory, for the same reasons we explained in [Variable Mutation and Aliasing](mutating-variables.html##var-mut-aliasing)
+the top-level directory, for the same reasons we explained in [Variable Mutation and Aliasing](mutating-variables.html#var-mut-aliasing)
 regarding the lack of aliasing between variables that refer to basic
 data. Thus, once the function finishes and the local directory is
 deleted, the value associated with `x`{.python} is unchanged.

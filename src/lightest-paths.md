@@ -34,7 +34,7 @@ shortest path from one to the other is not the lightest one, and vice
 versa.
 :::
 
-We have already seen [[Depth- and Breadth-First Traversals](basic-graph-trav.html##dfs-bfs)] that breadth-first search
+We have already seen [[Depth- and Breadth-First Traversals](basic-graph-trav.html#dfs-bfs)] that breadth-first search
 constructs shortest paths in unweighted graphs. These correspond to
 lightest paths when there are no weights (or, equivalently, all
 weights are identical and positive). Now we have to generalize this to

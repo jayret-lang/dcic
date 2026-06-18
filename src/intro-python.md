@@ -52,9 +52,13 @@ by redoing some of our earlier code examples in Python.
 <a name="(part._Expressions-Functions-and-Types)"></a>
 ```
 
-#### 9.1.1 Expressions, Functions, and Types {#Expressions-Functions-and-Types}
+```{=html}
+<a name="(part._Expressions--Functions--and-Types)"></a>
+```
 
-Back in [Functions Practice: Cost of pens](From_Repeated_Expressions_to_Functions.html##pen-cost-pyret), we introduced the notation for functions and types
+#### 9.1.1 Expressions, Functions, and Types {#Expressions--Functions--and-Types}
+
+Back in [Functions Practice: Cost of pens](From_Repeated_Expressions_to_Functions.html#pen-cost-pyret), we introduced the notation for functions and types
 using an example of computing the cost of an order of pens. An order
 consisted of a number of pens and a message to be printed on the
 pens. Each pen cost 25 cents, plus 2 cents per character for the
@@ -120,7 +124,7 @@ checking types). Python types are like notes for programmers, but they
 aren’t enforced when programs run.
 
 ::: {.exercise}
-Convert the following `moon-weight`{.jayret} function from [Functions Practice: Moon Weight](From_Repeated_Expressions_to_Functions.html##moon-weight-pyret) into Python:
+Convert the following `moon-weight`{.jayret} function from [Functions Practice: Moon Weight](From_Repeated_Expressions_to_Functions.html#moon-weight-pyret) into Python:
 
 ```jayret
 int moon-weight(int earth-weight) {
@@ -429,7 +433,11 @@ label that is needed in Jayret.
 <a name="(part._Filters-Maps-and-Friends)"></a>
 ```
 
-##### 9.1.6.1 Filters, Maps, and Friends {#Filters-Maps-and-Friends}
+```{=html}
+<a name="(part._Filters--Maps--and-Friends)"></a>
+```
+
+##### 9.1.6.1 Filters, Maps, and Friends {#Filters--Maps--and-Friends}
 
 When we first learned about lists in Jayret, we started with common
 built-in functions such as `filter`{.jayret}, `map`{.jayret}, `member`{.jayret}
@@ -649,7 +657,7 @@ so we need to rephrase this. Here’s an alternative:
 ```
 Note that this framing refers not to the “rest of the computation”,
 but rather to the computation that has happened so far (the “running
-total”). If you happened to work through the chapter on [`my-running-sum`{.jayret}: Examples and Code](processing-lists.html##running-sum-eg-code), this framing might be familiar.
+total”). If you happened to work through the chapter on [`my-running-sum`{.jayret}: Examples and Code](processing-lists.html#running-sum-eg-code), this framing might be familiar.
 
 Let’s convert this prose sketch to code by replacing each line of the
 sketch with concrete code. We do this by setting up a variable named
@@ -664,7 +672,7 @@ run_total = run_total + 3
 ```
 This idea that you can give a new value to an existing variable name
 is something we haven’t seen before. In fact, when we first saw how to
-name values (in [The Program Directory](Naming_Values.html##program-directory)), we explicitly said that
+name values (in [The Program Directory](Naming_Values.html#program-directory)), we explicitly said that
 Jayret doesn’t let
 you do this (at least, not with the constructs that we showed you). Python does. We’ll explore the consequences of this ability in
 more depth shortly (in [Mutating Variables](mutating-variables.html)). For now, let’s just use that ability so we can
@@ -817,7 +825,11 @@ notice anything interesting?
 <a name="(part._Summary-The-List-Processing-Template-for-Python)"></a>
 ```
 
-##### 9.1.8.4 Summary: The List-Processing Template for Python {#Summary-The-List-Processing-Template-for-Python}
+```{=html}
+<a name="(part._Summary--The-List-Processing-Template-for-Python)"></a>
+```
+
+##### 9.1.8.4 Summary: The List-Processing Template for Python {#Summary--The-List-Processing-Template-for-Python}
 
 Just as we had a template for writing list-processing functions in
 Jayret, there is a corresponding template in Python based on
@@ -908,7 +920,11 @@ once (whether with `var x = ...`{.jayret} or `x = ...`{.jayret}).
 <a name="(part._block-notation)"></a>
 ```
 
-##### 9.1.8.5.2 block notation {#block-notation}
+```{=html}
+<a name="(part._block_notation)"></a>
+```
+
+##### 9.1.8.5.2 block notation {#block_notation}
 
 Another new language feature shown in these examples is that since Jayret
 functions by default expect only a single (non-definition) expression, we have

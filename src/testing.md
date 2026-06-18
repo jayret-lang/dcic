@@ -14,11 +14,11 @@ next: booklet_pyret-to-python.html
 ### 8.3 Examples, Testing, and Program Checking {#testing}
 
 ```{=html}
-<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._from-examples-to-tests%29">8.3.1<span class="hspace"> </span>From Examples to Tests</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._s~3arefined%29">8.3.2<span class="hspace"> </span>More Refined Comparisons</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._When-Tests-Fail%29">8.3.3<span class="hspace"> </span>When Tests Fail</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._test-oracle%29">8.3.4<span class="hspace"> </span>Oracles for Testing</a></p></td></tr></table>
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._from-examples-to-tests%29">8.3.1<span class="hspace"> </span>From Examples to Tests</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._s-refined%29">8.3.2<span class="hspace"> </span>More Refined Comparisons</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._When-Tests-Fail%29">8.3.3<span class="hspace"> </span>When Tests Fail</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="testing.html#%28part._test-oracle%29">8.3.4<span class="hspace"> </span>Oracles for Testing</a></p></td></tr></table>
 ```
 
-Back in [Documenting Functions with Examples](From_Repeated_Expressions_to_Functions.html##writing-examples), we began to develop your habit of
-writing concrete examples of functions. In [Task Plans](processing-tables.html##task-plans), we
+Back in [Documenting Functions with Examples](From_Repeated_Expressions_to_Functions.html#writing-examples), we began to develop your habit of
+writing concrete examples of functions. In [Task Plans](processing-tables.html#task-plans), we
 showed you how to develop examples of intermediate values to help you
 plan the code for you to write. As these examples show, there are many
 ways to write down examples. We could write them on a board, on paper,
@@ -152,7 +152,7 @@ useful both professionally and pedagogically.
 
 Sometimes, a direct comparison via `assertEquals`{.jayret} isn’t enough for
 testing. We have already seen this in the case of `assertRaises`{.jayret}
-tests ([Computing Genetic Parents from an Ancestry Table](trees.html##compute-parents-table)). As another example, when doing
+tests ([Computing Genetic Parents from an Ancestry Table](trees.html#compute-parents-table)). As another example, when doing
 some computations, especially involving math with approximations, the
 exact match of `assertEquals`{.jayret} isn’t feasible. For example, consider these tests for `distance-to-origin`{.jayret}:
 

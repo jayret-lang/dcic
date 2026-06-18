@@ -32,7 +32,7 @@ divided by 2, which is in the same big-O class, i.e., exponential in
 the value. In general we don’t really know how to improve the
 worst-case performance of factorization, which is why contemporary
 cryptography works. (We discuss numbers elsewhere too
-[[The Complexity of Numbers](avoid-recomp.html##numbers-not-constant)].)
+[[The Complexity of Numbers](avoid-recomp.html#numbers-not-constant)].)
 
 In practice, it is useful to have factorization algorithms that
 terminate quickly. They obviously cannot be perfect; we have to

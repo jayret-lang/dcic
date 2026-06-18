@@ -90,17 +90,17 @@ chapter that introduces tables.
 Error corrections:
 
 
-- In [The Program Directory](Naming_Values.html##program-directory), corrected the description of what Jayret reports when a program
+- In [The Program Directory](Naming_Values.html#program-directory), corrected the description of what Jayret reports when a program
   tries to redefine/give a new value to an existing identifier. The
   previous text had referred to shadowing, rather than a conflicting value.
 
-- In [Dealing with Missing Entries](processing-tables.html##missing-data), corrected an erroneous description
+- In [Dealing with Missing Entries](processing-tables.html#missing-data), corrected an erroneous description
   of `num-sanitizer`{.jayret} that previously claimed that it defaulted
   missing values to 0. Added a discussion of why having a default like
   this would be a bad idea.
 
 In addition, the challenge problem on computing the intersection of
-two lists that is posed at the end of [Recap: Summary of List Operations](tables-to-lists.html##lists-recap) has been
+two lists that is posed at the end of [Recap: Summary of List Operations](tables-to-lists.html#lists-recap) has been
 refined, then revisited after introducing `lam`{.jayret} in the next section.
 
 ```{=html}
@@ -124,7 +124,7 @@ This version has a sweeping set of changes:
 
 
 - The book has been broken down into a collection of booklets, to
-  give it a clearer structure and organization. See [Organization of the Material](booklet_intro.html##book-org)
+  give it a clearer structure and organization. See [Organization of the Material](booklet_intro.html#book-org)
   for details.
 
 - Several huge chapters in the earlier version have been broken

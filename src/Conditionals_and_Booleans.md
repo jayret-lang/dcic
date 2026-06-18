@@ -23,7 +23,7 @@ next: part_tabular-data.html
 
 #### 3.4.1 Motivating Example: Shipping Costs {#add-shipping-setup}
 
-In [Functions Practice: Cost of pens](From_Repeated_Expressions_to_Functions.html##pen-cost-pyret), we wrote a program (`pen-cost`{.jayret}) to
+In [Functions Practice: Cost of pens](From_Repeated_Expressions_to_Functions.html#pen-cost-pyret), we wrote a program (`pen-cost`{.jayret}) to
 compute the cost of ordering pens. Continuing the example, we now want
 to account for shipping costs. We’ll determine shipping charges based
 on the cost of the order.
@@ -121,7 +121,7 @@ int add-shipping(int order-amt) {
 In an `if`{.jayret} expression, we ask a question that can produce an answer that
 is true or false
 (here `order-amt <= 10`{.jayret}, which we’ll explain below in
-[Booleans](Conditionals_and_Booleans.html##booleans)), provide one expression for
+[Booleans](Conditionals_and_Booleans.html#booleans)), provide one expression for
 when the answer to the question is true (`order-amt + 4`{.jayret}), and
 another for when the result is false (`order-amt +
 8`{.jayret}). The `else`{.jayret} in the program marks the answer in the false case; we call
@@ -169,7 +169,7 @@ to explore booleans? Why does that happen?
 There are many other built-in operations that return `Boolean`{.jayret}
 values. Comparing values for equality is a common one: [There is
 much more we can and should say about equality, which we will do later
-[[Re-Examining Equality](Sharing_and_Equality.html##identical-eq)].]{.margin-note}
+[[Re-Examining Equality](Sharing_and_Equality.html#identical-eq)].]{.margin-note}
 
 ::: {.pyret-repl}
 ```jayret
@@ -633,7 +633,7 @@ hence harmful.
 
 #### 3.4.5 Evaluating by Reducing Expressions {#conditional-nm}
 
-In [How Functions Evaluate](From_Repeated_Expressions_to_Functions.html##function-call-nm), we talked about how Jayret reduces expressions and
+In [How Functions Evaluate](From_Repeated_Expressions_to_Functions.html#function-call-nm), we talked about how Jayret reduces expressions and
 function calls to values. Let’s revisit this process, this time
 expanding to consider if-expressions. Suppose we want
 to compute the wages of a worker. The worker is paid $10 for every
@@ -1101,7 +1101,11 @@ int buy-tickets6(int count, boolean is-senior) {
 <a name="(part._Recap-Booleans-and-Conditionals)"></a>
 ```
 
-#### 3.4.8 Recap: Booleans and Conditionals {#Recap-Booleans-and-Conditionals}
+```{=html}
+<a name="(part._Recap--Booleans-and-Conditionals)"></a>
+```
+
+#### 3.4.8 Recap: Booleans and Conditionals {#Recap--Booleans-and-Conditionals}
 
 With this chapter, our computations can produce different results in
 different situations. We ask questions using if-expressions, in

@@ -38,9 +38,9 @@ definition of a set.
 If the data can be compared for equality but not for ordering, then we
 can only construct list-sets [[Representing Sets as Lists](sets-from-lists.html)], with their
 linear-time complexity. However, if we can hash the
-values [[Converting Values to Ordered Values](orderability.html##hashing-values)], then we can construct trees
+values [[Converting Values to Ordered Values](orderability.html#hashing-values)], then we can construct trees
 [[Making Sets Grow on Trees](sets-from-trees.html)] and hashtables
-[[Sets from Hashing and Arrays](hash-set-kv.html##hash-tables)]. Trees give us logarithmic complexity for the
+[[Sets from Hashing and Arrays](hash-set-kv.html#hash-tables)]. Trees give us logarithmic complexity for the
 most expensive atomic operations, while hashtables give us
 constant-to-linear complexity.
 
@@ -55,7 +55,7 @@ need. We began with a fairly ambitious, but standard, collection of
 operations [[<set-operations>](sets-from-lists.html#%28elem._set-operations%29)], but gradually ignored many of
 them. In particular, some interpretations of sets, like
 [Union-Find](union-find.html), achieve excellent complexity at the cost of
-most of these operations. [Bloom Filters](hash-set-kv.html##bloom-filters) provide
+most of these operations. [Bloom Filters](hash-set-kv.html#bloom-filters) provide
 another instance of this. There is a general computer science
 principle at work here: the fewer operations we need to support, the
 better we can (sometimes) make the complexity of the remaining ones.
@@ -69,7 +69,7 @@ better we can (sometimes) make the complexity of the remaining ones.
 Most subtly, there was another distinction: whether or not we needed
 reliable results. Most of our set representations are
 reliable. However, we also saw one situation
-[[Bloom Filters](hash-set-kv.html##bloom-filters)] where we intentionally abandoned complete
+[[Bloom Filters](hash-set-kv.html#bloom-filters)] where we intentionally abandoned complete
 reliability, replacing it with a statistical guarantee. In return,
 this gave us (potentially) much higher performance.
 

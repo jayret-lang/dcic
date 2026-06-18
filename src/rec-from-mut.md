@@ -13,7 +13,7 @@ next: cycle-detection.html
 
 ## 20 Recursion and Cycles from Mutation {#rec-from-mut}
 
-Earlier [[From Acyclicity to Cycles](Sharing_and_Equality.html##acyc-to-cyc)], we saw the difficulty of
+Earlier [[From Acyclicity to Cycles](Sharing_and_Equality.html#acyc-to-cyc)], we saw the difficulty of
 constructing cyclic data, and saw how we could address this problem
 using state [[Cyclic Data](unified-cyclic-data.html)]. Let us now return to the
 earlier example of creating a cyclic list of alternating colors. We
@@ -39,7 +39,7 @@ difficulty. Why are they different? For two reasons:
 
 - The second reason isn’t actually a reason: function definitions
   actually are special. But we are about to expose what’s so special
-  about them—it’s the use of a box! [[Boxes: A Canonical Mutable Structure](state-in-pyret.html##boxes)]—so that any
+  about them—it’s the use of a box! [[Boxes: A Canonical Mutable Structure](state-in-pyret.html#boxes)]—so that any
   definition can avail of it.
 
 Returning to our example above, recall that we can’t make up our list
@@ -85,7 +85,7 @@ data Pair {
 }
 ```
 Note that this datatype lacks a base case, which should remind you of
-definitions we saw in [Streams From Functions](func-as-data.html##streams-from-funs).
+definitions we saw in [Streams From Functions](func-as-data.html#streams-from-funs).
 
 Using this, we can define:
 
@@ -114,7 +114,7 @@ objects. You can learn more about how that works separately
 [[Detecting Cycles](cycle-detection.html)].
 
 We can define a helper function, `take`{.jayret}, a variation of
-which we saw for streams [[Streams From Functions](func-as-data.html##streams-from-funs)], to inspect a
+which we saw for streams [[Streams From Functions](func-as-data.html#streams-from-funs)], to inspect a
 finite prefix of an infinite list:
 
 ```jayret

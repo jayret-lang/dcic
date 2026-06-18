@@ -117,7 +117,7 @@ of annotations, or has to be manually maintained by the programmer.
 
 ### 19.3 Mutation and Equality {#Mutation-and-Equality}
 
-We’ve already seen [[Re-Examining Equality](Sharing_and_Equality.html##identical-eq)] that equality is
+We’ve already seen [[Re-Examining Equality](Sharing_and_Equality.html#identical-eq)] that equality is
 subtle. It’s about to become much subtler with the introduction of
 mutation!
 
@@ -150,7 +150,7 @@ tests that the third test must also pass (and thankfully, Jayret
 confirms this for us!).
 
 Now, you might wonder why we have used `identical`{.jayret} and not
-`equal-always`{.jayret} [[Notations for Equality](Sharing_and_Equality.html##equal-always)], i.e., plain old
+`equal-always`{.jayret} [[Notations for Equality](Sharing_and_Equality.html#equal-always)], i.e., plain old
 `is`{.jayret}.
 
 ::: {.do-now}
@@ -379,7 +379,7 @@ language’s comparison operators are never trusted falsely.
 Jayret did have the choice of allowing reference equality for
 functions inside `identical`{.jayret} and erroring only in the other two
 cases. Had it done so, however, it would have violated the chain of
-implication above [[A Hierarchy of Equality](state-in-pyret.html##equality-hierarchy)]. The present design
+implication above [[A Hierarchy of Equality](state-in-pyret.html#equality-hierarchy)]. The present design
 is arguably more elegant. Programmers who do want to use reference
 equality on functions can simply embed the functions inside a mutable
 structure like boxes.

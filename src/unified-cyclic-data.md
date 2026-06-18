@@ -23,7 +23,7 @@ next: part_python-state.html
 
 #### 12.4.1 Creating Cyclic Data {#Creating-Cyclic-Data}
 
-Earlier [[Aliasing](mutating-structures.html##mult-bank-acct)], we introduced the idea of aliased
+Earlier [[Aliasing](mutating-structures.html#mult-bank-acct)], we introduced the idea of aliased
 bank accounts, where multiple customers can operate the same
 account. Sometimes, a bank wants to keep track of all the customers
 who have access to a given account. For instance, when the account

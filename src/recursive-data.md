@@ -17,7 +17,7 @@ next: part_structured-data.html
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._Functions-to-Process-Recursive-Data%29">5.3.1<span class="hspace"> </span>Functions to Process Recursive Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._A-Template-for-Processing-Recursive-Data%29">5.3.2<span class="hspace"> </span>A Template for Processing Recursive Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="recursive-data.html#%28part._The-Design-Recipe%29">5.3.3<span class="hspace"> </span>The Design Recipe</a></p></td></tr></table>
 ```
 
-In [Telling Apart Variants of Conditional Data](intro-struct-data.html##telling-apart-variants), we used `switch`{.jayret} to distinguish
+In [Telling Apart Variants of Conditional Data](intro-struct-data.html#telling-apart-variants), we used `switch`{.jayret} to distinguish
 between different forms of conditional data. We had used `switch`{.jayret}
 earlier, specifically to distinguish between empty and non-empty lists
 in [Processing Lists](processing-lists.html). This suggests that lists are also a
@@ -144,7 +144,7 @@ boolean contains-3(NumList nl) {
 }
 ```
 
-As we did in [Processing Fields of Variants](intro-struct-data.html##process-fields-variants), we will use `switch`{.jayret} to
+As we did in [Processing Fields of Variants](intro-struct-data.html#process-fields-variants), we will use `switch`{.jayret} to
 distinguish the variants. In addition, since we are going to have to
 use the fields of `nl-link`{.jayret} to compute a result in that case, we
 will list those in the initial code outline:

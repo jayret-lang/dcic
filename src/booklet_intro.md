@@ -430,7 +430,11 @@ use pytest and load external data files should work fine.
 <a name="(part._Sending-Us-Feedback-Errors-and-Comments)"></a>
 ```
 
-### 1.10 Sending Us Feedback, Errors, and Comments {#Sending-Us-Feedback-Errors-and-Comments}
+```{=html}
+<a name="(part._Sending-Us-Feedback--Errors--and-Comments)"></a>
+```
+
+### 1.10 Sending Us Feedback, Errors, and Comments {#Sending-Us-Feedback--Errors--and-Comments}
 
 As you work through the book, you may spot typos, notice points
 where we could have been clearer, or have a suggestion for a future

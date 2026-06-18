@@ -190,7 +190,11 @@ its past answers, is called memoization.
 <a name="(part._From-a-Tree-of-Computation-to-a-D-A-G)"></a>
 ```
 
-#### 22.1.2 From a Tree of Computation to a DAG {#From-a-Tree-of-Computation-to-a-D-A-G}
+```{=html}
+<a name="(part._From-a-Tree-of-Computation-to-a-DAG)"></a>
+```
+
+#### 22.1.2 From a Tree of Computation to a DAG {#From-a-Tree-of-Computation-to-a-DAG}
 
 What we have subtly done is to convert a tree of computation into a
 DAG over the same computation, with equivalent calls being
@@ -227,7 +231,7 @@ large—for instance, `catalan(100)`{.jayret} is
 `896519947090131496687170070074100632420837521538745909320`{.jayret}—and
 computations on numbers can no longer be constant time, contrary to
 what we said earlier
-[[The Size of the Input](predicting-growth.html##size-of-input)]. Indeed, when working on cryptographic
+[[The Size of the Input](predicting-growth.html#size-of-input)]. Indeed, when working on cryptographic
 problems, the fact that operations on numbers do not take constant
 time are absolutely critical to fundamental complexity results (and,
 for instance, the presumed unbreakability of contemporary cryptography).
@@ -304,7 +308,7 @@ Note several things about this definition:
   not be memoized, thereby losing the benefit of this process.
 
 3. We need to use `rec`{.jayret} for reasons we saw earlier
-  [[Streams From Functions](func-as-data.html##streams-from-funs)].
+  [[Streams From Functions](func-as-data.html#streams-from-funs)].
 
 4. Each invocation of `memoize-1`{.jayret} creates a new table of
   stored results. Therefore the memoization of different functions
@@ -401,7 +405,7 @@ assign different costs to these mistakes; we might also assign
 different costs depending on what wrong character was typed (two
 characters adjacent on a keyboard are much more likely to be a
 legitimate error than two that are far apart). We will return briefly
-to some of these considerations later [[Nature as a Fat-Fingered Typist](avoid-recomp.html##smith-waterman)].
+to some of these considerations later [[Nature as a Fat-Fingered Typist](avoid-recomp.html#smith-waterman)].
 
 Under this metric, the distance between “kitten” and “sitting”
 is 3 because we have to replace “k” with “s”, replace “e” with
@@ -569,7 +573,7 @@ in the second word. Fortunately, for each of these suffixes we perform
 a constant computation relative to the recursion. Therefore, the
 overall time complexity of computing the distance between strings of
 length \(m\) and \(n\) is \(O([m, n \rightarrow m \cdot n])\). (We will return to space
-consumption later [[Contrasting Memoization and Dynamic Programming](avoid-recomp.html##memo-vs-dp)].)
+consumption later [[Contrasting Memoization and Dynamic Programming](avoid-recomp.html#memo-vs-dp)].)
 
 ::: {.exercise}
 Modify the above algorithm to produce an actual (optimal) sequence of
@@ -964,7 +968,7 @@ the memoized version is useless?
 What do you think? Do we still have use for the memoized version?
 :::
 
-Yes, of course we do! It can serve as an oracle [[Oracles for Testing](testing.html##test-oracle)] for the dynamic
+Yes, of course we do! It can serve as an oracle [[Oracles for Testing](testing.html#test-oracle)] for the dynamic
 programming version, since the two are supposed to produce identical
 answers anyway—and the memoized version would be a much more
 efficient oracle than the purely recursive implemenation, and can

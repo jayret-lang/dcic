@@ -24,7 +24,11 @@ takes. We’ll begin with a little (true) story.
 <a name="(part._A-Little-True-Story)"></a>
 ```
 
-### 14.1 A Little (True) Story {#A-Little-True-Story}
+```{=html}
+<a name="(part._A-Little--True--Story)"></a>
+```
+
+### 14.1 A Little (True) Story {#A-Little--True--Story}
 
 My student Debbie recently wrote tools to analyze data for a startup.
 The company collects information about product scans made on mobile
@@ -210,7 +214,7 @@ As you can see, there are two big approximations here:
   abstract time units. As long as the actual number of cycles each one
   takes is bounded by a constant factor of the number taken by another,
   this will not pose any mathematical problems for reasons we will soon
-  understand [[Comparing Functions](predicting-growth.html##big-oh-def)].
+  understand [[Comparing Functions](predicting-growth.html#big-oh-def)].
 
 Of course, it is instructive—after carefully settting up the
 experimental conditions—to make an analytical prediction of a program’s
@@ -240,20 +244,20 @@ size: \(n\) digits in base \(b\) can represent \(b^n\) numbers.
 Though irrelevant here,
 when numbers are central—e.g., when testing
 primality—the difference becomes critical! We will return to
-this briefly later [[The Complexity of Numbers](avoid-recomp.html##numbers-not-constant)].]{.margin-note}
+this briefly later [[The Complexity of Numbers](avoid-recomp.html#numbers-not-constant)].]{.margin-note}
 
 It can be subtle to define the size of the argument. Suppose a
 function consumes a list of numbers; it would be natural to define the
 size of its argument to be the length of the list, i.e., the number of
 `link`{.jayret}s in the list. We could also define it to be twice as
 large, to account for both the `link`{.jayret}s and the individual
-numbers (but as we’ll see [[Comparing Functions](predicting-growth.html##big-oh-def)], constants usually don’t matter).
+numbers (but as we’ll see [[Comparing Functions](predicting-growth.html#big-oh-def)], constants usually don’t matter).
 But suppose a function consumes a list of music albums, and each music
 album is itself a list of songs, each of which has information about
 singers and so on. Then how we measure the size depends on what part
 of the input the function being analyzed actually examines. If, say,
 it only returns the length of the list of albums, then it is
-indifferent to what each list element contains [[Monomorphic Lists and Polymorphic Types](processing-lists.html##polymorphic-data)],
+indifferent to what each list element contains [[Monomorphic Lists and Polymorphic Types](processing-lists.html#polymorphic-data)],
 and only the length of the list of albums matters. If, however, the
 function returns a list of all the singers on every album, then it
 traverses all the way down to individual songs, and we have to account
@@ -270,7 +274,7 @@ Given sizes for the arguments, we simply examine the body of the
 function and add up the costs of the individual operations. Most
 interesting functions are, however, conditionally defined, and may
 even recur. Here we will assume there is only one structural
-recursive call. We will get to more general cases in a bit [[Creating Recurrences](predicting-growth.html##creating-recurrences)].
+recursive call. We will get to more general cases in a bit [[Creating Recurrences](predicting-growth.html#creating-recurrences)].
 
 When we have a function with only one recursive call, and it’s
 structural, there’s a handy technique we can use to handle
@@ -307,7 +311,7 @@ calls in an answer expression. So long as there is only one recursive
 call in the entire answer, ignore it.
 
 ::: {.exercise}
-Once you’ve read the material on [Creating Recurrences](predicting-growth.html##creating-recurrences), come
+Once you’ve read the material on [Creating Recurrences](predicting-growth.html#creating-recurrences), come
 back to this and justify why it is okay to just skip the recursive
 call. Explain in the context of the overall tabular method.
 :::
@@ -393,7 +397,7 @@ to `f`{.jayret}. Eventually we will want to arrive at a closed form
 solution to \(T\), i.e., one that does not refer to \(T\) itself. But
 the easiest way to get there is to write a solution that is permitted
 to refer to \(T\), called a recurrence relation, and then see
-how to eliminate the self-reference [[Solving Recurrences](predicting-growth.html##solving-recurrences)].
+how to eliminate the self-reference [[Solving Recurrences](predicting-growth.html#solving-recurrences)].
 
 We repeat this procedure for each function in the program in turn. If
 there are many functions, first solve for the one with no dependencies
@@ -451,7 +455,7 @@ recurrence works even when there is more than one recursive call, and
 when the argument to that call is one element structurally smaller.
 What we haven’t seen, however, is a way to solve such relations
 in general. That’s where we’re going next
-[[Solving Recurrences](predicting-growth.html##solving-recurrences)].
+[[Solving Recurrences](predicting-growth.html#solving-recurrences)].
 
 ```{=html}
 <a name="(part._math-anon-functions)"></a>
@@ -552,7 +556,7 @@ Obviously, the “bigger” function is likely to be a less useful bound
 than a “tighter” one. That said, it is conventional to write a
 “minimal” bound for functions, which means avoiding unnecessary
 constants, sum terms, and so on. The justification for this is given
-below [[Combining Big-Oh Without Woe](predicting-growth.html##big-oh-closure)].
+below [[Combining Big-Oh Without Woe](predicting-growth.html#big-oh-closure)].
 
 Pay especially close attention to our
 notation. We write \(\in\)
@@ -673,7 +677,7 @@ one, i.e., roughly one per `cases`{.jayret} clause. In what follows, we
 will ignore the base cases so long as the size of the input is
 constant (such as zero or one), because in such cases the amount of
 work done will also be a constant, which we can generally ignore
-[[Comparing Functions](predicting-growth.html##big-oh-def)].
+[[Comparing Functions](predicting-growth.html#big-oh-def)].
 
 - ```{=html}
   <table cellpadding="0" cellspacing="0" style="display: inline-table; vertical-align: text-top; margin-top: 0;"><tr><td align="right"><p>\(T(k)\)</p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(k-1) + c\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(k-2) + c + c\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(k-3) + c + c + c\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>...</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(T(0) + c \times k\)</p></td></tr><tr><td align="right"><p></p></td><td align="center"><p> = </p></td><td align="left"><p>\(c_0 + c \times k\)</p></td></tr></table>

@@ -99,7 +99,7 @@ know the lightest edge incident on the current solution tree. Finding
 the lightest edge takes time linear in the number of these edges, but
 the very lightest one may create a cycle. We therefore need to
 efficiently check for whether adding an edge would create a cycle, a
-problem we will return to multiple times [[Checking Component Connectedness](mst.html##union-find-functional)].
+problem we will return to multiple times [[Checking Component Connectedness](mst.html#union-find-functional)].
 Assuming we can do
 that effectively, we then want to add the lightest edge and
 iterate. Even given an efficient solution for checking cyclicity, this

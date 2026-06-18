@@ -264,7 +264,7 @@ alternative would be to have a data structure into which we insert all
 the neighbors, then pull out an element at a time such that we first
 visit all the neighbors before their neighbors, and so on. This
 naturally corresponds to a queue
-[[An Example: Queues from Lists](amortized-analysis.html##queue-data-structure)].
+[[An Example: Queues from Lists](amortized-analysis.html#queue-data-structure)].
 
 ::: {.exercise}
 Using a queue, implement breadth-first traversal.

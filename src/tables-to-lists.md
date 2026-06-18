@@ -374,7 +374,7 @@ whether it paid off. To do this, they need to determine how many sales
 were made to people with `web.com`{.jayret} email addresses.
 
 ::: {.do-now}
-Propose a task plan ([Task Plans](processing-tables.html##task-plans)) for this computation.
+Propose a task plan ([Task Plans](processing-tables.html#task-plans)) for this computation.
 :::
 
 Here’s a proposed plan, annotated with how we might implement each part:
@@ -595,10 +595,14 @@ Come back to this problem after you finish the next section.
 <a name="(part._Lambda-Anonymous-Functions)"></a>
 ```
 
-#### 5.1.5 Lambda: Anonymous Functions {#Lambda-Anonymous-Functions}
+```{=html}
+<a name="(part._Lambda--Anonymous-Functions)"></a>
+```
+
+#### 5.1.5 Lambda: Anonymous Functions {#Lambda--Anonymous-Functions}
 
 NOTE: if you already saw lambda (arrow-function) syntax in
-[Lambda: Anonymous Functions](intro-tabular-data.html##sec-lambda-tables),
+[Lambda: Anonymous Functions](intro-tabular-data.html#sec-lambda-tables),
 feel free to skip this section, or just do the exercises at the end. Here we
 present the same concept using lists and `filter`{.jayret}, rather than tables
 and `filter-with`{.jayret}.

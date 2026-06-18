@@ -211,7 +211,7 @@ Must `seen`{.jayret} be a list? What else can it be?
 Observe that the `Ret`{.jayret} data structure is only of local interest. It’s
 purely internal to the `size-3-h`{.jayret} function; even `size-3`{.jayret} ignores one
 half, and it will never be seen by the rest of the program. That is a good use
-of tuples, as we have seen before: [Using Tuples](queues-from-lists.html##qfl-tuples)!
+of tuples, as we have seen before: [Using Tuples](queues-from-lists.html#qfl-tuples)!
 
 ```jayret
 /* tuple-ann (deferred) */ Object size-4-h(BT b, List<Object> seen) {
@@ -300,7 +300,11 @@ fails. Otherwise it succeeds.
 <a name="(part._What-We-e2-80-99ve-Learned)"></a>
 ```
 
-#### 16.2.6 What We’ve Learned {#What-We-e2-80-99ve-Learned}
+```{=html}
+<a name="(part._What-We~e2~80~99ve-Learned)"></a>
+```
+
+#### 16.2.6 What We’ve Learned {#What-We~e2~80~99ve-Learned}
 
 We have learned three important principles here:
 
@@ -336,7 +340,11 @@ We have learned three important principles here:
 <a name="(part._More-on-Value-Printing-An-Aside-from-Racket)"></a>
 ```
 
-#### 16.2.7 More on Value Printing: An Aside from Racket {#More-on-Value-Printing-An-Aside-from-Racket}
+```{=html}
+<a name="(part._More-on-Value-Printing--An-Aside-from-Racket)"></a>
+```
+
+#### 16.2.7 More on Value Printing: An Aside from Racket {#More-on-Value-Printing--An-Aside-from-Racket}
 
 Earlier, we talked about how the standard recursive size can still be thought
 of as a “size of printed value” computation. However, that actually depends on

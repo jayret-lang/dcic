@@ -45,6 +45,13 @@ jobs:
           # --insecure skips TLS cert verification.  Several legitimate
           # citations (Brown CS hosts) currently serve expired certs; we
           # are checking link availability, not security.
+          #
+          # --exclude patterns for anchors that exist in Scribble's output
+          # but have no equivalent in our plain-HTML build:
+          #   %28elem._   — cross-refs to named code figures (Scribble `elem`)
+          #   struct.traverse.element — deep Scribble template subsection IDs
+          #     generated from code-template walk-through sections; those
+          #     subsections don't map to standalone headings in our build.
           args: >-
             --cache
             --max-cache-age 1d
@@ -52,5 +59,7 @@ jobs:
             --max-concurrency 4
             --insecure
             --include-fragments
+            --exclude '%28elem\._'
+            --exclude 'struct.traverse.element'
             'docs/**/*.html'
           fail: true

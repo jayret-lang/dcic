@@ -163,8 +163,8 @@ Write out the function to use this return type.
 :::
 
 Observe that this also follows our principle of making exceptional behavior
-manifest in the return type: [The Option Type](partial-domains.html##pd-option), and especially in
-[Summary](partial-domains.html##pd-summary).
+manifest in the return type: [The Option Type](partial-domains.html#pd-option), and especially in
+[Summary](partial-domains.html#pd-summary).
 
 ::: {.exercise}
 Write out the function using this return type.
@@ -177,7 +177,7 @@ Write out the function using this return type.
 #### 8.2.3 Using a Picker {#Using-a-Picker}
 
 Does `Dequeued`{.jayret} look familiar? Of course it should! It’s basically the
-same as the pickers used for sets in Jayret: [Picking Elements from Sets](Collections_of_Structured_Data.html##coll-sd-pick). If we make
+same as the pickers used for sets in Jayret: [Picking Elements from Sets](Collections_of_Structured_Data.html#coll-sd-pick). If we make
 queues provide the same operations, we can reuse the `Pick`{.jayret} library
 already built into the language, and reuse any code that is written expecting
 the picker interface.
@@ -217,7 +217,7 @@ Object dequeue(q) {
 In terms of big-O complexity, this is a dreadfully inefficient implementation,
 causing two reversals on every `qrest`{.jayret} or `dequeue`{.jayret}. To see how to do
 better, and to conduct a more sophisticated analysis, see
-[An Example: Queues from Lists](amortized-analysis.html##queue-data-structure).
+[An Example: Queues from Lists](amortized-analysis.html#queue-data-structure).
 
 One thing to note is that by providing only a picker interface, we’re slightly
 changing the meaning of queues. The picker interface in Jayret is designed for
