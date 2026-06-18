@@ -14,7 +14,7 @@ next: part_python-state.html
 ### 12.4 Cyclic Data {#unified-cyclic-data}
 
 ```{=html}
-<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._.Creating_.Cyclic_.Data%29">12.4.1<span class="hspace"> </span>Creating Cyclic Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._.Testing_.Cyclic_.Data%29">12.4.2<span class="hspace"> </span>Testing Cyclic Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._.Cycles_in_.Practice%29">12.4.3<span class="hspace"> </span>Cycles in Practice</a></p></td></tr></table>
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._Creating-Cyclic-Data%29">12.4.1<span class="hspace"> </span>Creating Cyclic Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._Testing-Cyclic-Data%29">12.4.2<span class="hspace"> </span>Testing Cyclic Data</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="unified-cyclic-data.html#%28part._Cycles-in-Practice%29">12.4.3<span class="hspace"> </span>Cycles in Practice</a></p></td></tr></table>
 ```
 
 ```{=html}

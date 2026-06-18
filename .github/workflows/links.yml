@@ -42,25 +42,15 @@ jobs:
       - name: Check links
         uses: lycheeverse/lychee-action@v2
         with:
-          # NOTE: --include-fragments is intentionally OFF.  Enabling it
-          # surfaces ~1020 pre-existing broken anchors in TOC/cross-refs
-          # caused by a Scribble-encoding mismatch carried over from the
-          # upstream DCIC: hrefs use the dotted form
-          # `#(part._.A_.First_.Example)` but the `<a name=...>` anchors
-          # in the target HTML use the hyphenated form
-          # `(part._A-First-Example)`.  Tracked in PARITY.md.
-          # Re-enable once that mismatch is fixed in the templates / Lua
-          # filter or via a post-build rewrite.
-          # `--exclude` skips a few external hosts that currently serve
-          # expired TLS certs (Brown CS).  Drop these once the certs are
-          # renewed upstream.
+          # --insecure skips TLS cert verification.  Several legitimate
+          # citations (Brown CS hosts) currently serve expired certs; we
+          # are checking link availability, not security.
           args: >-
             --cache
             --max-cache-age 1d
             --no-progress
             --max-concurrency 4
-            --exclude 'papl\.cs\.brown\.edu'
-            --exclude 'world\.cs\.brown\.edu'
-            --exclude 'greatachievements\.org'
+            --insecure
+            --include-fragments
             'docs/**/*.html'
           fail: true

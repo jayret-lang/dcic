@@ -14,7 +14,7 @@ next: part_python-fileio.html
 ### 10.2 Reshaping Tables {#pandas-reshape-tables}
 
 ```{=html}
-<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="pandas-reshape-tables.html#%28part._.Binning_.Rows%29">10.2.1<span class="hspace"> </span>Binning Rows</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="pandas-reshape-tables.html#%28part._.Wide_versus_.Tall_.Datasets%29">10.2.2<span class="hspace"> </span>Wide versus Tall Datasets</a></p></td></tr></table>
+<table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="pandas-reshape-tables.html#%28part._Binning-Rows%29">10.2.1<span class="hspace"> </span>Binning Rows</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="pandas-reshape-tables.html#%28part._Wide-versus-Tall-Datasets%29">10.2.2<span class="hspace"> </span>Wide versus Tall Datasets</a></p></td></tr></table>
 ```
 
 ```{=html}
