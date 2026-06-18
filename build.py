@@ -25,7 +25,7 @@ TMPL_DIR  = os.path.join(ROOT, 'templates')
 FILT_DIR  = os.path.join(ROOT, 'filters')
 BOOK_YAML = os.path.join(ROOT, 'book.yaml')
 
-PANDOC    = ['nix', 'run', 'nixpkgs#pandoc', '--']
+PANDOC    = os.environ.get('PANDOC', 'nix run nixpkgs#pandoc --').split()
 
 # ---------------------------------------------------------------------------
 # Book structure helpers
