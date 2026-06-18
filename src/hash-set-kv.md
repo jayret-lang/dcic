@@ -167,6 +167,7 @@ definition of `hash-of`{.jayret}, it’s easy to see that any rearrangement of t
 letters produces the same hash:
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `hash-of` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. There wer -->
 ```jayret
 hash-of("Hello");
 ```
@@ -176,6 +177,7 @@ hash-of("Hello");
 :::
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `hash-of` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. There wer -->
 ```jayret
 hash-of("olleH");
 ```

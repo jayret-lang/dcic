@@ -364,7 +364,8 @@ to confirm or refine your hypothesis.</p>
 <p>Can you describe in prose what
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">overlay</code></span>
 does?</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">above(circle(25, "solid", "red"), rectangle(30, 50, "solid", "blue"));</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">above(circle(25, "solid", "red"),
+  rectangle(30, 50, "solid", "blue"));</code></pre></div></div>
 <p>What kind of value do you get from using the
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">rotate</code></span>
 or
@@ -386,7 +387,9 @@ functions.</p>
 <span title="Jayret" class="sourceCode"><code class="sourceCode" data-lang="jayret">above</code></span>
 to create an image out of two smaller images. We could take that image
 and rotate it using the following expression.</p>
-<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">rotate(45, above(circle(25, "solid", "red"), rectangle(30, 50, "solid", "blue")));</code></pre></div></div>
+<div class="sourceCodeWrapper"><span class="sourceLangLabel" data-label="Jayret"></span><div class="sourceCode"><pre class="sourceCode" data-lang="jayret"><code class="sourceCode" data-lang="jayret">rotate(45,
+  above(circle(25, "solid", "red"),
+    rectangle(30, 50, "solid", "blue")));</code></pre></div></div>
 <p>This idea of using the output of one function as input to another is
 known as composition. Most interesting programs arise from composing
 results from one computation with another. Getting comfortable with

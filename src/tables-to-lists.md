@@ -313,6 +313,7 @@ we find a function called `remove`{.jayret}, which removes a specific
 element from a list:
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `L` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `L` is -->
 ```jayret
 L.remove(L.distinct(codes), "none");
 ```

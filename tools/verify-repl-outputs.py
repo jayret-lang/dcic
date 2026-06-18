@@ -6,6 +6,12 @@ translated) Jayret code through the CLI and replace the paired ```output
 block with the actual output.  If invocation fails, leave the original
 output block and insert a HTML comment marking the failure.
 
+Caveat: the script will rewrite ANY block tagged ```jayret, even ones
+that are demonstrating another language's REPL (e.g. a `python` block
+that was mistakenly tagged `jayret` in the source).  Review the diff
+before committing.  See intro-python.md §"Python console" for the kind
+of section that needs `python` lang tags instead of `jayret`.
+
 Usage:
   python3 tools/verify-repl-outputs.py --all [--dry-run] [--in-place]
   python3 tools/verify-repl-outputs.py --file <path.md> [--dry-run] [--in-place]
@@ -57,11 +63,16 @@ def run_jayret(src_code: str) -> tuple[bool, str]:
 
     lines = src_code.strip().splitlines()
 
+    def strip_semi(s: str) -> str:
+        # Strip trailing `;` (Jayret statement terminator) so the expression
+        # can be wrapped in to-repr(...) without a parse error.
+        return s.rstrip().rstrip(';').rstrip()
+
     # Build a small Jayret program that prints the result of the final
     # expression (if there is one).  Everything before the last line is
     # emitted verbatim; the last line is wrapped.
     if len(lines) == 1:
-        body = f'print(to-repr({lines[0]}) + "\\n")\n'
+        body = f'print(to-repr({strip_semi(lines[0])}) + "\\n")\n'
     else:
         # Check if the last line looks like an expression (not a decl/stmt
         # ending in a block) — heuristic: doesn't start with a keyword that
@@ -75,7 +86,7 @@ def run_jayret(src_code: str) -> tuple[bool, str]:
             body = '\n'.join(lines) + '\n'
         else:
             body = '\n'.join(lines[:-1]) + '\n'
-            body += f'print(to-repr({last}) + "\\n")\n'
+            body += f'print(to-repr({strip_semi(last)}) + "\\n")\n'
 
     with tempfile.NamedTemporaryFile(suffix='.jrt', mode='w',
                                      delete=False, encoding='utf-8') as f:
@@ -100,7 +111,11 @@ def run_jayret(src_code: str) -> tuple[bool, str]:
 
     if result.returncode != 0:
         err = (result.stderr or result.stdout or '').strip()
-        return False, f'exit {result.returncode}: {err[:200]}'
+        # Strip tmp-file paths and column markers (noise in TODO comments).
+        err = re.sub(r'\s*at java-file:///tmp/[^\s]+\s*', ' ', err)
+        # Collapse internal whitespace, take a one-line summary.
+        err = re.sub(r'\s+', ' ', err).strip()
+        return False, f'exit {result.returncode}: {err[:160]}'
 
     # Strip the "The program didn't define any tests." trailer that appears on
     # the same line as output when no newline follows print().

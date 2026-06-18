@@ -74,6 +74,7 @@ If we now ask the language for the list as a whole, we see the change:
 in Python,
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `sl` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. There were com -->
 ```jayret
 sl;
 ```
@@ -85,6 +86,7 @@ sl;
 and in Jayret,
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `sl` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. There were com -->
 ```jayret
 sl;
 ```
@@ -119,6 +121,7 @@ means the memory looks like
 Thus, if we ask for the value of `sl`{.jayret}, we will see in Python:
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `sl` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. There were com -->
 ```jayret
 sl;
 ```
@@ -130,6 +133,7 @@ sl;
 and in Jayret:
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `sl` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. There were com -->
 ```jayret
 sl;
 ```

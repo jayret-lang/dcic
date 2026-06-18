@@ -135,6 +135,7 @@ The `==`{.python} operator that you learned in Jayret and we carried into
 Python checks for structural equality, independent of addresses:
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `a1` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a2`  -->
 ```jayret
 a1 == a2;
 ```
@@ -144,6 +145,7 @@ True
 :::
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `a2` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a4`  -->
 ```jayret
 a2 == a4;
 ```
@@ -156,6 +158,7 @@ However, note that this will no longer be true at checkpoint
 2:
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `a1` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a2`  -->
 ```jayret
 a1 == a2;
 ```
@@ -165,6 +168,7 @@ False
 :::
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `a2` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a4`  -->
 ```jayret
 a2 == a4;
 ```
@@ -178,6 +182,7 @@ called `is`{.python} (not to be confused with Jayret’s `is`{.jayret}, which
 is used for writing tests):
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: Evaluating an expression failed. It was expected to evaluate to a Pyret Value. It evaluated to the non-Pyret Value value: non-Pyret value; see the console for m -->
 ```jayret
 assertEquals(a1, a2);
 ```
@@ -187,6 +192,7 @@ False
 :::
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: Evaluating an expression failed. It was expected to evaluate to a Pyret Value. It evaluated to the non-Pyret Value value: non-Pyret value; see the console for m -->
 ```jayret
 assertEquals(a2, a4);
 ```
@@ -247,6 +253,7 @@ practices. Therefore, the standard (structural) equality predicate,
 always be equal. Thus:
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `a2` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a4`  -->
 ```jayret
 a2 == a4;
 ```
@@ -261,6 +268,7 @@ they will always “print the same”. We can confirm that they are
 aliases by using Jayret’s reference equality operator, `<=>`{.jayret}:
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: Evaluating an expression failed. It was expected to evaluate to a Pyret Value. It evaluated to the non-Pyret Value value: non-Pyret value; see the console for m -->
 ```jayret
 a1 <=> a2;
 ```
@@ -270,6 +278,7 @@ false
 :::
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: Evaluating an expression failed. It was expected to evaluate to a Pyret Value. It evaluated to the non-Pyret Value value: non-Pyret value; see the console for m -->
 ```jayret
 a2 <=> a4;
 ```
@@ -283,6 +292,7 @@ In contrast, that guarantee does not apply to `a1`{.jayret} and
 longer equal. Hence
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `a1` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a2`  -->
 ```jayret
 a1 == a2;
 ```
@@ -298,6 +308,7 @@ at the moment, `=~`{.jayret}. If we ask this before checkpoint 1,
 we get:
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: Evaluating an expression failed. It was expected to evaluate to a Pyret Value. It evaluated to the non-Pyret Value value: non-Pyret value; see the console for m -->
 ```jayret
 a1 =~ a2;
 ```
@@ -309,6 +320,7 @@ true
 But if we ask the same question at checkpoint 2, we get:
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: Evaluating an expression failed. It was expected to evaluate to a Pyret Value. It evaluated to the non-Pyret Value value: non-Pyret value; see the console for m -->
 ```jayret
 a1 =~ a2;
 ```
@@ -330,6 +342,7 @@ but that may change after future mutations.</p></td></tr><tr><td><p><span class=
 Thus, before checkpoint 1:
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `a1` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a2`  -->
 ```jayret
 equal-now(a1, a2);
 ```
@@ -339,6 +352,7 @@ true
 :::
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `a2` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a4`  -->
 ```jayret
 equal-now(a2, a4);
 ```
@@ -348,6 +362,7 @@ true
 :::
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `a1` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a2`  -->
 ```jayret
 equal-always(a1, a2);
 ```
@@ -357,6 +372,7 @@ false
 :::
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `a2` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a4`  -->
 ```jayret
 equal-always(a2, a4);
 ```
@@ -366,6 +382,7 @@ true
 :::
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `a1` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a2`  -->
 ```jayret
 identical(a1, a2);
 ```
@@ -375,6 +392,7 @@ false
 :::
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `a2` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a4`  -->
 ```jayret
 identical(a2, a4);
 ```
@@ -389,6 +407,7 @@ by definition they cannot change. But we should check `equal-now`{.jayret}
 again. Sure enough:
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `a1` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a2`  -->
 ```jayret
 equal-now(a1, a2);
 ```
@@ -398,6 +417,7 @@ false
 :::
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `a2` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a4`  -->
 ```jayret
 equal-now(a2, a4);
 ```

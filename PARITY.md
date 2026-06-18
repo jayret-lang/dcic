@@ -5,15 +5,27 @@ and this Jayret-flavored fork. Items are grouped by severity and effort.
 
 ## Active gaps (require follow-up work)
 
-### REPL outputs not yet reverified
+### REPL outputs — 31 blocks need context-aware verification
 
-The 70 `:::{.pyret-repl}` output blocks were not regenerated in this
-migration pass (Phase C of the plan).  Their content still reflects Pyret
-outputs, which are numerically identical for arithmetic but may differ in
-`to-repr` formatting for data types.
+`tools/verify-repl-outputs.py --all --in-place` was run against all 70
+`:::{.pyret-repl}` divs.  Result: **34 verified clean** (Jayret output
+matches the source), **5 input-only** (declarations, no output to check),
+**31 failed** because the script runs each block in isolation and many
+blocks reference values bound by an earlier block in the same chapter
+(e.g. `a1 == a2;` where `a1` was defined in a previous REPL block).
 
-**Fix**: Run `python3 tools/verify-repl-outputs.py --all --in-place`
-once the Jayret CLI is confirmed stable on this machine.
+The 31 failed blocks are marked with `<!-- TODO(verify-repl): … -->`
+HTML comments in the source (invisible in rendered HTML).  Locate with
+`grep -rn 'TODO(verify-repl)' src/`.
+
+**Breakdown of failures** (`src/unified-equality.md` accounts for 20 of
+the 31 — most of those are in the "Equality in Python" subsection where
+the code is tagged `jayret` but the displayed outputs are actually Python
+REPL traces; a separate authenticity decision).
+
+**Fix**: Teach the script to maintain per-chapter REPL state (feed all
+blocks in a file as one sequential program); or manually verify the 31
+remaining blocks against an interactive Jayret REPL.
 
 ### Untranslated code blocks (chapters 1–6 now cleared; others remain)
 
@@ -42,6 +54,12 @@ at `jayret-lang.github.io/docs/Deferred_from_Pyret.html`.
 
 ## Already fixed
 
+- **REPL output reverification (34/65)**: ran
+  `tools/verify-repl-outputs.py --all --in-place`; 34 self-contained
+  blocks confirmed matching Jayret reality (no diffs), 5 declaration-only
+  blocks skipped, 31 context-dependent blocks marked with TODO comments
+  for follow-up.  Script fixes: strip trailing `;` before wrapping
+  expressions in `to-repr()`; cleaner error-message formatting.
 - **Jayret CodeMirror syntax highlighting**: new `static/jayret.js` mode
   (`switch`, `void`, `Object`, `@Check`, `assertEquals`, `->`, `//`, `/* */`, etc.);
   loaded alongside `pyret.js` in template; `pyret-repl` default lang updated to `"jayret"`

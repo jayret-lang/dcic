@@ -362,6 +362,7 @@ wm = "will.i.am";
 :::
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `wm` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. There were com -->
 ```jayret
 string-contains(wm, "will");
 ```
@@ -372,6 +373,7 @@ true
 [Note the capital `W`{.jayret}.]{.margin-note}
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `wm` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. There were com -->
 ```jayret
 string-contains(wm, "Will");
 ```

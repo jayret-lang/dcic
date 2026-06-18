@@ -287,7 +287,7 @@ Jayret prompt:
 1/2;
 ```
 ``` output
-0.5
+1/2
 ```
 :::
 
@@ -296,15 +296,15 @@ Jayret prompt:
 1/3;
 ```
 ``` output
-0.3
+1/3
 ```
 :::
 
 If we type these same two numbers in a Python console, we instead get:
 
 ::: {.pyret-repl}
-```jayret
-1/2;
+```python
+1/2
 ```
 ``` output
 0.5
@@ -312,8 +312,8 @@ If we type these same two numbers in a Python console, we instead get:
 :::
 
 ::: {.pyret-repl}
-```jayret
-1/3;
+```python
+1/3
 ```
 ``` output
 0.3333333333333333
@@ -458,6 +458,7 @@ the result of a `map`{.python} without first converting to a
 `list`{.python}, we’d get an error:
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `len` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `len -->
 ```jayret
 len(map(len, b));
 ```
@@ -573,6 +574,7 @@ travel = ToDoItem("buy tickets", date(2020, 7, 30), ["vacation"])
 :::
 
 ::: {.pyret-repl}
+<!-- TODO(verify-repl): jayret failed: exit 1: The name `travel` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. There were -->
 ```jayret
 travel.descr;
 ```
