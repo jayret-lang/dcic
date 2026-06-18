@@ -135,9 +135,8 @@ The `==`{.python} operator that you learned in Jayret and we carried into
 Python checks for structural equality, independent of addresses:
 
 ::: {.pyret-repl}
-<!-- TODO(verify-repl): jayret failed: exit 1: The name `a1` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a2`  -->
-```jayret
-a1 == a2;
+```python
+a1 == a2
 ```
 ``` output
 True
@@ -145,9 +144,8 @@ True
 :::
 
 ::: {.pyret-repl}
-<!-- TODO(verify-repl): jayret failed: exit 1: The name `a2` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a4`  -->
-```jayret
-a2 == a4;
+```python
+a2 == a4
 ```
 ``` output
 True
@@ -158,9 +156,8 @@ However, note that this will no longer be true at checkpoint
 2:
 
 ::: {.pyret-repl}
-<!-- TODO(verify-repl): jayret failed: exit 1: The name `a1` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a2`  -->
-```jayret
-a1 == a2;
+```python
+a1 == a2
 ```
 ``` output
 False
@@ -168,9 +165,8 @@ False
 :::
 
 ::: {.pyret-repl}
-<!-- TODO(verify-repl): jayret failed: exit 1: The name `a2` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `a4`  -->
-```jayret
-a2 == a4;
+```python
+a2 == a4
 ```
 ``` output
 True
@@ -182,9 +178,8 @@ called `is`{.python} (not to be confused with Jayret’s `is`{.jayret}, which
 is used for writing tests):
 
 ::: {.pyret-repl}
-<!-- TODO(verify-repl): jayret failed: exit 1: Evaluating an expression failed. It was expected to evaluate to a Pyret Value. It evaluated to the non-Pyret Value value: non-Pyret value; see the console for m -->
-```jayret
-assertEquals(a1, a2);
+```python
+a1 is a2
 ```
 ``` output
 False
@@ -192,9 +187,8 @@ False
 :::
 
 ::: {.pyret-repl}
-<!-- TODO(verify-repl): jayret failed: exit 1: Evaluating an expression failed. It was expected to evaluate to a Pyret Value. It evaluated to the non-Pyret Value value: non-Pyret value; see the console for m -->
-```jayret
-assertEquals(a2, a4);
+```python
+a2 is a4
 ```
 ``` output
 True

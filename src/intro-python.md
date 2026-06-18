@@ -458,9 +458,8 @@ the result of a `map`{.python} without first converting to a
 `list`{.python}, we’d get an error:
 
 ::: {.pyret-repl}
-<!-- TODO(verify-repl): jayret failed: exit 1: The name `len` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. The name `len -->
-```jayret
-len(map(len, b));
+```python
+len(map(len, b))
 ```
 ``` output
 TypeError: object of type 'map' has no len()
@@ -567,16 +566,14 @@ In Jayret, we extracted a field from structured data by using a dot
 notation works in Python:
 
 ::: {.pyret-repl}
-```jayret
-# TODO(pyret2jayret): parse failed (no shifts)
+```python
 travel = ToDoItem("buy tickets", date(2020, 7, 30), ["vacation"])
 ```
 :::
 
 ::: {.pyret-repl}
-<!-- TODO(verify-repl): jayret failed: exit 1: The name `travel` is unbound. It is used but not previously defined. You may need to run the program, or check dashes and capitalization in the name. There were -->
-```jayret
-travel.descr;
+```python
+travel.descr
 ```
 ``` output
 "buy tickets"
