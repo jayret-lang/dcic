@@ -66,15 +66,6 @@ for them.
 
 ##### 4.2.1.1 Loading Data Tables {#loading-tables}
 
-::: {.note}
-**Jayret note:** Loading tables from external sources (CSV files or Google
-Sheets via `load-table`) is not yet supported in the Jayret playground.
-Examples in this section that use `load-table` won't run; use a
-literal `table { ... }` value as a workaround. See
-[Deferred from Pyret](https://jayret-lang.github.io/docs/Deferred_from_Pyret.html)
-for status.
-:::
-
 The first step to working with an outside data source is to load it
 into your programming and analysis environment. Which source you use
 depends on the programming environment that you are using for Jayret:
@@ -84,7 +75,7 @@ depends on the programming environment that you are using for Jayret:
 
 - If you are using VSCode, you can load tables directly from CSV files
 
-Both use the same Jayret operation (`load-table`{.jayret}), but in slightly
+Both use the same Jayret operation (`loadTable`{.jayret}), but in slightly
 different ways.
 
 Google Sheets and CSV files treat the types of data in cells
@@ -101,20 +92,22 @@ kind of source file.
 ##### 4.2.1.1.1 Loading Tables from Google Sheets in JLC {#loading-tables-from-google-sheets}
 
 ```jayret
-import gdrive-sheets
+import gdrive-sheets;
 ssid = "1Ks4ll5_8wyYK1zyXMm_21KORhagSMZ59dcr7i3qY6T4";
-event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: load-spreadsheet(ssid).sheet-by-name("Orig Data", true);
+event-data = loadTable(["name", "email", "tickcount", "discount", "delivery", "zip"])
+  .source(load-spreadsheet(ssid).sheet-by-name("Orig Data", true))
+  .load();
 ```
 
 - `ssid`{.jayret} is the identifier of the Google Sheet we want to
   load (the identifier is the long sequence of letters and numbers in
   the Google Sheet URL).
 
-- The sequence of names following `load-table`{.jayret} is used for
+- The list of column name strings passed to `loadTable`{.jayret} is used for
   the column headers in the Jayret version of the table. These do NOT
   have to match the names used in the original Sheet.
 
-- `source`{.jayret} tells Jayret which sheet to load. The
+- `.source(...)`{.jayret} tells Jayret which sheet to load. The
   `load-spreadsheet`{.jayret} operation takes the Google Sheet identifier
   (here, `ssid`{.jayret}), as well as the name of the individual worksheet
   (or tab) as named within the Google Sheet (here, `"Orig Data"`{.jayret}).
@@ -134,29 +127,31 @@ with Multiple Types of Data](processing-tables.html#cols-multiple-types-data).
 
 ##### 4.2.1.1.2 Loading Tables from CSV files in VSCode {#loading-tables-from-csv}
 
-We configure the `load-table`{.jayret} operation differently depending on
+We configure the `loadTable`{.jayret} builder differently depending on
 whether the CSV file is on your computer or available through a URL.
 
 - Load from a CSV file via URL:
   
   ::: {.vscode-note}
   ```jayret
-import csv
+import csv;
 // the url for the file
 url = "https://raw.githubusercontent.com/data-centric-computing/dcic-public/main/materials/datasets/events-orig-f25.csv";
-event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: csv-table-url(url, default-options);
+event-data = loadTable(["name", "email", "tickcount", "discount", "delivery", "zip"])
+  .source(csv-table-url(url, default-options))
+  .load();
   ```
   :::
   
   - `url`{.jayret} is the identifier of the web address (URL) where the CSV data
     we want to load exists.
 
-  - `source`{.jayret} tells Jayret where to load the data from. The
+  - `.source(...)`{.jayret} tells Jayret where to load the data from. The
     `csv-table-url`{.jayret} operation takes the web address (here, `url`{.jayret}), as well
     as options (which indicate, for example, whether we expect there to be a header
     row).
 
-  - The sequence of names following `load-table`{.jayret} is used for
+  - The list of column name strings passed to `loadTable`{.jayret} is used for
     the column headers in the Jayret version of the table. These do NOT
     have to match the names used in the first row of the CSV file (which
     is usually a header row).
@@ -164,10 +159,12 @@ event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: 
   
   ::: {.vscode-note}
   ```jayret
-import csv
+import csv;
 // the filesystem path to your CSV file on your computer
 path = "datasets/events-orig-f25.csv";
-event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: csv-table-file(path, default-options);
+event-data = loadTable(["name", "email", "tickcount", "discount", "delivery", "zip"])
+  .source(csv-table-file(path, default-options))
+  .load();
   ```
   :::
 
@@ -239,7 +236,9 @@ whether you’re reading from Google Sheets or CSV files).
 - If you are using Google Sheets and [JLC](https://jayret-lang.github.io/code), load the table as follows:
   
   ```jayret
-event-data = load-table name ,email ,tickcount ,discount ,delivery source: load-spreadsheet(ssid).sheet-by-name("Data", true);
+event-data = loadTable(["name", "email", "tickcount", "discount", "delivery"])
+  .source(load-spreadsheet(ssid).sheet-by-name("Data", true))
+  .load();
   ```
   
   `event-data`{.jayret} will be the following table:
@@ -274,7 +273,9 @@ event-data = load-table name ,email ,tickcount ,discount ,delivery source: load-
   ::: {.vscode-note}
   ```jayret
 url = "https://raw.githubusercontent.com/data-centric-computing/dcic-public/main/materials/datasets/events-f25.csv";
-event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: csv-table-url(url, default-options);
+event-data = loadTable(["name", "email", "tickcount", "discount", "delivery", "zip"])
+  .source(csv-table-url(url, default-options))
+  .load();
   ```
   :::
   
@@ -294,17 +295,24 @@ Whether you are using Google Sheets or CSV files, the right way to
 address missing data (and conversion in
 general) is to indicate how to handle
 each column. This guarantees that the data will be as you expect
-after you read them in. We do this with an additional aspect of
-`load-table`{.jayret} called sanitizers. Here’s how we modify the
-code:
+after you read them in. We do this with `.withSanitizer`{.jayret} calls on the
+`loadTable`{.jayret} builder. Here’s how we modify the code:
 
 ```jayret
-import data-source
+import data-source;
 // to get the sanitizers
-event-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: load-spreadsheet(ssid).sheet-by-name("Data", true) sanitize name using string-sanitizer sanitize email using string-sanitizer sanitize tickcount using num-sanitizer sanitize discount using string-sanitizer sanitize delivery using string-sanitizer sanitize zip using string-sanitizer;
+event-data = loadTable(["name", "email", "tickcount", "discount", "delivery", "zip"])
+  .source(load-spreadsheet(ssid).sheet-by-name("Data", true))
+  .withSanitizer("name", string-sanitizer)
+  .withSanitizer("email", string-sanitizer)
+  .withSanitizer("tickcount", num-sanitizer)
+  .withSanitizer("discount", string-sanitizer)
+  .withSanitizer("delivery", string-sanitizer)
+  .withSanitizer("zip", string-sanitizer)
+  .load();
 ```
 
-Each of the `sanitize`{.jayret} lines tells Jayret what to do in the case
+Each `.withSanitizer`{.jayret} call tells Jayret what to do in the case
 of missing data in the respective column. `string-sanitizer`{.jayret} says
 to load missing data as an empty string (`""`{.jayret}).
 Sanitizers also handle simple data conversions. If the

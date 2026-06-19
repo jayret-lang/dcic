@@ -84,10 +84,18 @@ a different tab of the same Google Sheet as the other versions of the
 event data.
 
 ```jayret
-import gdrive-sheets
-import data-source
+import gdrive-sheets;
+import data-source;
 ssid = "1Ks4ll5_8wyYK1zyXMm_21KORhagSMZ59dcr7i3qY6T4";
-cleaned-data = load-table name ,email ,tickcount ,discount ,delivery ,zip source: load-spreadsheet(ssid).sheet-by-name("Cleaned", true) sanitize name using string-sanitizer sanitize email using string-sanitizer sanitize tickcount using num-sanitizer sanitize discount using string-sanitizer sanitize delivery using string-sanitizer sanitize zip using string-sanitizer;
+cleaned-data = loadTable(["name", "email", "tickcount", "discount", "delivery", "zip"])
+  .source(load-spreadsheet(ssid).sheet-by-name("Cleaned", true))
+  .withSanitizer("name", string-sanitizer)
+  .withSanitizer("email", string-sanitizer)
+  .withSanitizer("tickcount", num-sanitizer)
+  .withSanitizer("discount", string-sanitizer)
+  .withSanitizer("delivery", string-sanitizer)
+  .withSanitizer("zip", string-sanitizer)
+  .load();
 ```
 
 ```{=html}

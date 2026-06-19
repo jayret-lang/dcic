@@ -98,7 +98,7 @@ at `jayret-lang.github.io/docs/Deferred_from_Pyret.html`.
 - **Authenticity pass (chapters 1–6 + testing.md)**:
   - `fun`/`end`/`::`/`where:` prose → Jayret equivalents (ch3.3, 3.4)
   - `lam(r)...end` prose → arrow function `(r) -> ...` (ch4.1, 5.1)
-  - `load-table:` deferred callout added to ch4.2
+  - `load-table:` — **Implemented** as the `loadTable` builder API (`pyret-lang/src/arr/trove/load-table-builder.arr`). DCIC §4.2.1.1 and §5.1.1 rewritten to use the new form. Deferred callout removed.
   - All TODO(pyret2jayret) blocks in ch1–6 resolved
   - `is`/`satisfies`/`raises` prose → `assertEquals`/`assertSatisfies`/`assertRaises`
   - `where:`/`check:` prose → `where { }`/`@Check void` in testing.md
