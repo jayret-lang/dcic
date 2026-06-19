@@ -5,52 +5,40 @@ and this Jayret-flavored fork. Items are grouped by severity and effort.
 
 ## Active gaps (require follow-up work)
 
-### REPL outputs — 31 blocks need context-aware verification
+### REPL outputs — 23 blocks remain unverifiable (irreducible)
 
-`tools/verify-repl-outputs.py --all --in-place` was run against all 70
-`:::{.pyret-repl}` divs.  Result: **34 verified clean** (Jayret output
-matches the source), **5 input-only** (declarations, no output to check),
-**31 failed** because the script runs each block in isolation and many
-blocks reference values bound by an earlier block in the same chapter
-(e.g. `a1 == a2;` where `a1` was defined in a previous REPL block).
+`tools/verify-repl-outputs.py --all --in-place` processes all 70
+`:::{.pyret-repl}` divs (59 with jayret/pyret inner blocks; 11 have
+`python`-tagged inner blocks and are skipped).  Current status:
 
-The 31 failed blocks are marked with `<!-- TODO(verify-repl): … -->`
-HTML comments in the source (invisible in rendered HTML).  Locate with
-`grep -rn 'TODO(verify-repl)' src/`.
+- **32 verified clean** — Jayret output matches the source.
+- **4 input-only** — declaration-only divs, no output to verify.
+- **23 unverifiable** — marked `<!-- TODO(verify-repl): … -->` in source
+  (invisible in rendered HTML; locate with `grep -rn 'TODO(verify-repl)' src/`).
 
-**Breakdown of failures** (`src/unified-equality.md` accounts for 20 of
-the 31 — most of those are in the "Equality in Python" subsection where
-the code is tagged `jayret` but the displayed outputs are actually Python
-REPL traces; a separate authenticity decision).
+The 23 failures are irreducible with the current script design.  All fall
+into one of two categories:
 
-**Fix**: Teach the script to maintain per-chapter REPL state (feed all
-blocks in a file as one sequential program); or manually verify the 31
-remaining blocks against an interactive Jayret REPL.
+1. **Binding lives in prose** — `a1`, `a2`, `sl`, `L`, `hash-of`, etc. are
+   defined in an HTML table or a prose fenced block outside any
+   `:::{.pyret-repl}` div, so no prelude threading can reach them.
+   Files: `unified-equality.md` (14), `unified-lists-memory.md` (4),
+   `tables-to-lists.md` (1), `hash-set-kv.md` (2).
 
-### TOC and cross-reference anchors use mismatched encodings
+2. **Mutation checkpoint** — the same code appears multiple times with
+   different expected outputs because the prose narrates a mutation between
+   blocks (e.g. `a1 =~ a2;` before and after `a2 ! {balance 800}`).
+   File: `unified-equality.md` (contributes to the 14 above).
 
-The `.github/workflows/links.yml` lychee run with `--include-fragments`
-surfaced ~1020 broken in-page anchor references inherited from upstream
-DCIC. The TOC and `Section X.Y` cross-references emit hrefs in
-Scribble's dotted form, e.g. `#%28part._.A_.First_.Example%29` →
-`(part._.A_.First_.Example)`, but the actual `<a name="...">` anchors
-in the target HTML use the hyphenated form
-`(part._A-First-Example)`. Browsers fail silently — clicking just
-doesn't scroll — so the issue is invisible until a link checker is run
-with fragment validation.
+The script now threads cumulative state: each verified block that succeeds
+is prepended as a prelude for subsequent blocks in the same file.  Only
+successful blocks are accumulated (failed blocks and input-only blocks are
+not accumulated, to avoid corrupting the prelude with untranslated Pyret
+syntax).
 
-Affected: every chapter's per-section TOC links + many inter-section
-references. Modern `<h2 id="...">` IDs (e.g. `#A-First-Example`)
-exist and work; only the `(part._...)` Scribble-encoded form is broken.
-
-**Fix options**: (a) post-build rewrite of href fragments to drop the
-`.` before capitals (cheap, local to `build.py` or a small post-build
-script); (b) emit hyphen-form fragments from the source/template; (c)
-add an `<a name="dotted-form">` alias next to each existing
-hyphen-form anchor in the template. Option (a) is the most surgical.
-
-Lychee's `--include-fragments` flag is OFF until this is resolved
-(see comment in `.github/workflows/links.yml`).
+**To verify further**: these blocks can only be confirmed by running an
+interactive Jayret session that includes the narrative setup code from
+the prose.
 
 ### Untranslated code blocks (chapters 1–6 now cleared; others remain)
 
@@ -78,6 +66,15 @@ at `jayret-lang.github.io/docs/Deferred_from_Pyret.html`.
 - `{#anchor-id-in-Pyret}` heading anchors — kept for URL stability
 
 ## Already fixed
+
+- **TOC + cross-reference anchor encoding mismatch (resolved 703ef52)**:
+  `--include-fragments` is now ON in lychee. 110 prose `##slug` → `#slug`
+  fixes; 37 heading-slug normalizations covering Scribble's `: ` → `--` and
+  abbreviation encoding (`D-A-G` ↔ `DAG`, `C-S-V` ↔ `CSV`,
+  `Data-Frame` ↔ `DataFrame`); 6 TOC href rewrites for tilde-encoded
+  Scribble IDs (`~3a`, `~e2~80~99`); 2 lychee `--exclude` patterns
+  (`%28elem._`, `struct.traverse.element`) for Scribble-only anchor forms
+  with no plain-HTML equivalent.  Local lychee run clean over 5467 links.
 
 - **REPL output reverification (34/65)**: ran
   `tools/verify-repl-outputs.py --all --in-place`; 34 self-contained

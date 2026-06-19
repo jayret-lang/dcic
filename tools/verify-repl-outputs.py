@@ -45,8 +45,12 @@ TIMEOUT = 30  # seconds per invocation
 _server_started = False
 
 
-def run_jayret(src_code: str) -> tuple[bool, str]:
+def run_jayret(src_code: str, prelude_blocks: tuple[str, ...] = ()) -> tuple[bool, str]:
     """Run src_code through the Jayret CLI, return (ok, output).
+
+    prelude_blocks are earlier REPL block bodies concatenated verbatim before
+    src_code.  They must not print (bare expressions are silent in Jayret script
+    mode — verified by Step 0 sanity check).
 
     Wraps the code so that the last expression's value is printed.
     If the code contains a newline it's treated as a multi-statement block;
@@ -54,8 +58,6 @@ def run_jayret(src_code: str) -> tuple[bool, str]:
     The last expression is wrapped in print(to-repr(EXPR) + "\n").
 
     Limitations:
-    - Multi-line REPL sessions that depend on earlier bindings are run as
-      a single file (sequentially), so they work if the code is self-contained.
     - Code that defines functions/data but has no expression to display is
       run as-is (no output expected).
     """
@@ -88,9 +90,10 @@ def run_jayret(src_code: str) -> tuple[bool, str]:
             body = '\n'.join(lines[:-1]) + '\n'
             body += f'print(to-repr({strip_semi(last)}) + "\\n")\n'
 
+    prelude_body = "\n".join(prelude_blocks) + "\n" if prelude_blocks else ""
     with tempfile.NamedTemporaryFile(suffix='.jrt', mode='w',
                                      delete=False, encoding='utf-8') as f:
-        f.write(body)
+        f.write(prelude_body + body)
         tmp = f.name
 
     env = dict(os.environ)
@@ -147,6 +150,7 @@ def process_file(path: str, dry_run: bool, in_place: bool) -> dict:
     lines = src.split('\n')
     out = []
     stats = {'total': 0, 'ok': 0, 'failed': 0, 'skipped': 0}
+    prelude_blocks: list[str] = []
 
     i = 0
     while i < len(lines):
@@ -165,6 +169,11 @@ def process_file(path: str, dry_run: bool, in_place: bool) -> dict:
                 i += 1
             div_close = lines[i] if i < len(lines) else ':::'
             i += 1
+
+            # Strip stale TODO comment left by a previous run so it doesn't
+            # end up duplicated on re-runs.
+            if div_lines and re.match(r'\s*<!--\s*TODO\(verify-repl\)', div_lines[0]):
+                div_lines.pop(0)
 
             # Parse div contents: look for ```pyret block and ```output block
             j = 0
@@ -203,8 +212,9 @@ def process_file(path: str, dry_run: bool, in_place: bool) -> dict:
             # Reconstruct div with possibly-replaced output block
             if pyret_block is not None and output_block is not None:
                 stats['total'] += 1
-                ok, actual = run_jayret(pyret_block)
+                ok, actual = run_jayret(pyret_block, tuple(prelude_blocks))
                 if ok:
+                    prelude_blocks.append(pyret_block)
                     stats['ok'] += 1
                     if actual != output_block.strip():
                         # Rebuild div_lines replacing output block content
@@ -220,7 +230,9 @@ def process_file(path: str, dry_run: bool, in_place: bool) -> dict:
                     new_div.insert(0, f'<!-- TODO(verify-repl): jayret failed: {actual} -->')
                     out.extend(new_div)
             elif pyret_block is not None:
-                # Input-only div (no output block yet)
+                # Input-only div — don't accumulate: the block may contain
+                # untranslated Pyret syntax that would corrupt the prelude for
+                # subsequent blocks.
                 stats['skipped'] += 1
                 out.extend(div_lines)
             else:
