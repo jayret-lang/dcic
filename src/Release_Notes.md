@@ -37,12 +37,12 @@ This version has several small but potentially significant changes:
   column.
 
 - The preface includes information on using Jayret within VSCode (as
-  an alternative to CPO). The only difference between these two tools
-  lies in how tables are imported from external sources. CPO imports
+  an alternative to [JLC](https://jayret-lang.github.io/code)). The only difference between these two tools
+  lies in how tables are imported from external sources. [JLC](https://jayret-lang.github.io/code) imports
   tables from Google Sheets, whereas VSCode imports tables from CSV
   files (either via URLs or file paths).
   
-  The book uses CPO as the default presentation. When code examples can
+  The book uses [JLC](https://jayret-lang.github.io/code) as the default presentation. When code examples can
   run only in VSCode (specifically, if they import CSV files), a border
   and VSCode logo will surround the code.
 

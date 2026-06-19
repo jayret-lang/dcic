@@ -427,7 +427,7 @@ function with
 ```jayret
 earth-weight * 1/3;
 ```
-—and see what happens. Pay attention to the output from CPO: you
+—and see what happens. Pay attention to the output from [JLC](https://jayret-lang.github.io/code): you
 should get used to recognizing this kind of output.
 :::
 

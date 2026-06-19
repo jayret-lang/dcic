@@ -99,11 +99,11 @@ web-application in which you write and run programs is called a
 programming environment. In the first part of this course, we
 will use a language called Jayret.
 
-Go to [the on-line editor](https://jayret-lang.github.io/code/editor) (which we’ll henceforth refer to as “CPO”).
+Go to [JLC](https://jayret-lang.github.io/code) (the on-line editor, which we’ll henceforth refer to as JLC).
 For now, we will work only in the right-hand side (the
 interactions pane).
 
-The ››› is called the “prompt”—that’s where we tell CPO to run a
+The ››› is called the “prompt”—that’s where we tell [JLC](https://jayret-lang.github.io/code) to run a
 program. Let’s tell it to add `3`{.jayret} and `5`{.jayret}. Here’s what we write:
 
 ::: {.pyret-repl}
@@ -247,7 +247,7 @@ expression to refer a computation written in a format
 that Jayret can understand and evaluate to an answer.
 
 ::: {.exercise}
-In CPO, try to write the expressions for each of the
+In [JLC](https://jayret-lang.github.io/code), try to write the expressions for each of the
 following computations:
 
 - subtract 3 from 7, then multiply the result by 4

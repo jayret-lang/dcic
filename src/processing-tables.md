@@ -15,7 +15,7 @@ next: part_lists.html
 
 ```{=html}
 <table cellpadding="0" cellspacing="0"><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._cleaning-tables%29">4.2.1<span class="hspace"> </span>Cleaning Data Tables</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._loading-tables%29">4.2.1.1<span class="hspace"> </span>Loading Data Tables</a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._loading-tables-from-google-sheets%29">4.2.1.1.1<span class="hspace"> </span>Loading Tables from
-Google Sheets in <span class="Smaller">CPO</span></a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._loading-tables-from-csv%29">4.2.1.1.2<span class="hspace"> </span>Loading Tables from
+Google Sheets in <span class="Smaller">JLC</span></a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._loading-tables-from-csv%29">4.2.1.1.2<span class="hspace"> </span>Loading Tables from
 <span class="Smaller">CSV</span> files in VSCode</a></p></td></tr><tr><td><p><span class="hspace">        </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._cols-multiple-types-data%29">4.2.1.1.3<span class="hspace"> </span>Dealing with Columns
 with Multiple Types of Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._missing-data%29">4.2.1.2<span class="hspace"> </span>Dealing with Missing Entries</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._Normalizing-Data%29">4.2.1.3<span class="hspace"> </span>Normalizing Data</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._Normalization--Systematically%29">4.2.1.4<span class="hspace"> </span>Normalization, Systematically</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._Using-Programs-to-Detect-Data-Errors%29">4.2.1.5<span class="hspace"> </span>Using Programs to Detect Data Errors</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._task-plans%29">4.2.2<span class="hspace"> </span>Task Plans</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._preparing-tables%29">4.2.3<span class="hspace"> </span>Preparing Data Tables</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._creating._bins%29">4.2.3.1<span class="hspace"> </span>Creating bins</a></p></td></tr><tr><td><p><span class="hspace">      </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._splitting-columns%29">4.2.3.2<span class="hspace"> </span>Splitting Columns</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._naming-tables%29">4.2.4<span class="hspace"> </span>Managing and Naming Data Tables</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._visualizing-tables%29">4.2.5<span class="hspace"> </span>Visualizations and Plots</a></p></td></tr><tr><td><p><span class="hspace">    </span><a class="toclink" data-pltdoc="x" href="processing-tables.html#%28part._Summary--Managing-a-Data-Analysis%29">4.2.6<span class="hspace"> </span>Summary: Managing a Data Analysis</a></p></td></tr></table>
 ```
@@ -79,7 +79,7 @@ The first step to working with an outside data source is to load it
 into your programming and analysis environment. Which source you use
 depends on the programming environment that you are using for Jayret:
 
-- If you are using CPO, you can load tables from Google Sheets
+- If you are using [JLC](https://jayret-lang.github.io/code), you can load tables from Google Sheets
   (if you want to load a CSV, you first need to import it into Google Sheets)
 
 - If you are using VSCode, you can load tables directly from CSV files
@@ -98,7 +98,7 @@ kind of source file.
 <a name="(part._loading-tables-from-google-sheets)"></a>
 ```
 
-##### 4.2.1.1.1 Loading Tables from Google Sheets in CPO {#loading-tables-from-google-sheets}
+##### 4.2.1.1.1 Loading Tables from Google Sheets in JLC {#loading-tables-from-google-sheets}
 
 ```jayret
 import gdrive-sheets
@@ -236,7 +236,7 @@ column. After we load it into Jayret, we see something
 interesting in that column (though what it is will differ depending on
 whether you’re reading from Google Sheets or CSV files).
 
-- If you are using Google Sheets and CPO, load the table as follows:
+- If you are using Google Sheets and [JLC](https://jayret-lang.github.io/code), load the table as follows:
   
   ```jayret
 event-data = load-table name ,email ,tickcount ,discount ,delivery source: load-spreadsheet(ssid).sheet-by-name("Data", true);

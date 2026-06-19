@@ -25,8 +25,8 @@ Statements</a></p></td></tr><tr><td><p><span class="hspace">    </span><a cl
 #### 3.2.1 The Definitions Pane {#naming-defns-pane}
 
 So far, we have only used the interactions pane on the right half of
-the CPO screen. As we have seen, this pane acts like a calculator:
-you type an expression at the prompt and CPO produces the result of
+the [JLC](https://jayret-lang.github.io/code) screen. As we have seen, this pane acts like a calculator:
+you type an expression at the prompt and [JLC](https://jayret-lang.github.io/code) produces the result of
 evaluating that expression.
 
 The left pane is called the definitions pane. This is where
@@ -44,7 +44,7 @@ The expressions that create images involve a bit of typing. It would
 be nice to have shorthands so we can “name” images and refer to them
 by their names. This is what the definitions pane is for: you can
 put expressions and programs in the definitions pane, then use the
-“Run” button in CPO to make the definitions available in the
+“Run” button in [JLC](https://jayret-lang.github.io/code) to make the definitions available in the
 interactions pane.
 
 ::: {.do-now}
@@ -67,7 +67,7 @@ NAME = EXPRESSION;
 Jayret will associate the value of `EXPRESSION`{.jayret} with `NAME`{.jayret}. Anytime you
 write the (shorthand) `NAME`{.jayret}, Jayret will automatically (behind the
 scenes) replace it with the value of `EXPRESSION`{.jayret}. For example,
-if you write `x = 5 + 4`{.jayret} at the prompt, then write `x`{.jayret}, CPO will give
+if you write `x = 5 + 4`{.jayret} at the prompt, then write `x`{.jayret}, [JLC](https://jayret-lang.github.io/code) will give
 you the value `9`{.jayret} (not the original `5 + 4`{.jayret} expression).
 
 What if you enter a name at the prompt that you haven’t associated
@@ -78,7 +78,7 @@ Try typing `puppy`{.jayret} at the interactions pane prompt (›››). Are the
 error message that are unfamiliar to you?
 :::
 
-CPO (and indeed many programming tools) use the phrase “unbound identifier”
+[JLC](https://jayret-lang.github.io/code) (and indeed many programming tools) use the phrase “unbound identifier”
 when an expression contains a name that has not been associated with
 (or bound to) a value.
 

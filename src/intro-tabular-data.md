@@ -94,7 +94,7 @@ definitions window) to dcic2024. [Earlier editions of the
 book had you use `shared-gdrive`{.jayret} to load a file to access these
 functions. This is no longer necessary when using the dcic2024
 context.]{.margin-note} In
-CPO, click on the down arrow at the top left of the screen (left of
+[JLC](https://jayret-lang.github.io/code), click on the down arrow at the top left of the screen (left of
 the Jayret logo), select ”Choose Context“, then enter dcic2024
 in the box, as shown in this screenshot:
 

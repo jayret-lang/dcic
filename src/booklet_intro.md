@@ -396,7 +396,7 @@ exposed to other ones.
 
 ### 1.9 Programming Tools {#Programming-Tools}
 
-[CPO](https://jayret-lang.github.io/code/) (an abbreviation of
+[JLC](https://jayret-lang.github.io/code) (an abbreviation of
 jayret-lang.github.io/code) is our default programming environment for Jayret.
 It runs entirely in the browser and uses Google Drive
 for authentication and file storage.
@@ -406,8 +406,8 @@ Jayret support is also available for VSCode. To install it, visit
 Once you have installed it, click the Extensions tab on the left and
 search for Jayret. You should install the "Jayret Interactive Editor for VSCode".
 
-CPO and VSCode differ only in their support for loading spreadsheet
-data. CPO is designed to work with Google Sheets, while VSCode does
+[JLC](https://jayret-lang.github.io/code) and VSCode differ only in their support for loading spreadsheet
+data. [JLC](https://jayret-lang.github.io/code) is designed to work with Google Sheets, while VSCode does
 not support Google Sheets, and instead expects students to load data from
 local CSV files. Unless the book says otherwise, all code can be run in
 either tool, and the interface for editing and interacting with programs
