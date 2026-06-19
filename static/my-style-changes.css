@@ -244,6 +244,11 @@ table.JayretReplInteraction + p {
   margin-top: 0;
 }
 
+/* The input prompt is a nested JayretReplInteraction — don't add bottom margin there. */
+.JayretReplInteraction .JayretReplInteraction {
+  margin-bottom: 0;
+}
+
 .JayretReplInteraction .JayretRepl,
 .JayretReplInteraction tr:nth-child(2) > td > div.sourceCodeWrapper > div.sourceCode > pre.sourceCode {
   margin: 0;
