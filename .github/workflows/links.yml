@@ -61,5 +61,8 @@ jobs:
             --include-fragments
             --exclude '%28elem\._'
             --exclude 'struct.traverse.element'
+            --exclude 'tumblr\.com'
+            --exclude 'infiniteundo\.com'
+            --exclude 'word\.bitly\.com'
             'docs/**/*.html'
           fail: true
