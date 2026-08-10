@@ -64,5 +64,6 @@ jobs:
             --exclude 'tumblr\.com'
             --exclude 'infiniteundo\.com'
             --exclude 'word\.bitly\.com'
+            --exclude 'james-iry\.blogspot\.com'
             'docs/**/*.html'
           fail: true
